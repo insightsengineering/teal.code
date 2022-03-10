@@ -1,20 +1,38 @@
-Package: nesttemplate
-Title: `pkgdown` template for NEST packages
+Type: Package
+Package: teal.code
+Title: Code storage and execution class for teal applications
 Version: 0.0.0.9001
-Authors@R: 
-    person("NEST", , , "basel.nestcicd@roche.com", role = c("aut", "cre"))
-Description: This is a private template for use by core NEST packages.
-    Please don't use for your own code.
-License: MIT + file LICENSE
-URL: https://github.com/insightsengineering/nesttemplate,
-    https://insightsengineering.github.io/nesttemplate/
-BugReports: https://github.com/insightsengineering/nesttemplate/issues
-Suggests: 
+Date: 2022-03-04
+Authors@R: c(
+    person("NEST", , , "basel.nestcicd@roche.com", role = c("aut", "cre")),
+    person("Nikolas", "Burkoff", , "nikolas.burkoff@roche.com", role = "aut"),
+    person("Mahmoud", "Hallal", , "mahmoud.hallal@roche.com", role = "aut"),
+    person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = "aut"),
+    person("Maciej", "Nasinski", , "maciej.nasinski@contractors.roche.com", role = "aut"),
+    person("Konrad", "Pagacz", , "konrad.pagacz@contractors.roche.com", role = "aut"),
+    person("Pawel", "Rucki", , "pawel.rucki@contractors.roche.com", role = "aut"),
+    person("Junlue", "Zhao", , "zhaoj88@gene.com", role = "aut"),
+    person("Tadeusz", "Lewandowski", , "tadeusz.lewandowski@roche.com", role = "ctb"),
+    person("Roche", role = c("cph", "fnd"))
+  )
+Description: Code storage and execution class for teal applications.
+License: Apache License 2.0 | file LICENSE
+Depends:
+    R (>= 4.0)
+Imports:
+    checkmate,
+    lifecycle,
+    R6,
+    shiny,
+    styler
+Suggests:
     knitr,
-    rmarkdown
-VignetteBuilder: 
+    rmarkdown,
+    testthat (>= 2.0)
+VignetteBuilder:
     knitr
+RdMacros:
+    lifecycle
 Encoding: UTF-8
-LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2

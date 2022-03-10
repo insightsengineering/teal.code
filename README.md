@@ -1,25 +1,30 @@
-# nesttemplate
+# teal.code
 
 ## Overview
 
-`nesttemplate` provides a custom [`pkgdown`](https://pkgdown.r-lib.org) template for NEST packages.
-Please don’t use it for your own package.
+`teal.code` is an R library providing tools to store code and an execution environment associated with it. The features
+include:
+* storing character literals as code,
+* storing an execution environment,
+* swapping the execution environment of the stored code,
+* evaluating only parts of the stored code,
+* means to execute code with a no-throw guarantee (errors demoted to warnings and messages stored for retrieval).
 
-In order to take full advantage of that template you would need to use `pkgdown` >= 2.0.0.
+`teal.code` also ships a [`shiny`](https://shiny.rstudio.com/) module that helps inspect the stored code as well as messages, warnings and error
+messages resulting from evaluation via `shiny` web application.
 
-## Templates
 
-Please ensure that the `_pkgdown.yml` file contains:
+## Installation
 
-    template:
-        package: nesttemplate
+This repository requires a personal access token to install see here [creating and using PAT](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token). Once this is set up, to install the latest released version of the package run:
 
-## Example sites
+```r
+Sys.setenv(GITHUB_PAT = "your_access_token_here")
+if (!require("devtools")) install.packages("devtools")
+devtools::install_github("insightsengineering/teal.code@*release", dependencies = FALSE)
+```
 
-- [`tern`](https://insightsengineering.github.io/tern/)
+You might need to manually install all of the package dependencies before installing this package as without
+the `dependencies = FALSE` argument to `install_github` it may produce an error.
 
-- [`teal`](https://insightsengineering.github.io/teal/)
-
-- [`teal.modules.general`](https://insightsengineering.github.io/teal.modules.general/)
-
-- [`teal.modules.clinical`](https://insightsengineering.github.io/teal.modules.clinical/)
+See package vignettes `browseVignettes(package = "teal.code")` for usage of this package.

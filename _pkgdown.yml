@@ -1,5 +1,18 @@
 ---
-url: https://insightsengineering.github.io/nesttemplate/
+url: https://insightsengineering.github.io/teal.code
 
 template:
-  package: nesttemplate
+  params:
+    bootswatch: cerulean
+
+
+navbar:
+  right:
+    - icon: fa-github
+      href: https://github.com/insightsengineering/teal.code
+
+reference:
+  - title: "Reproducible Modules"
+    desc: Functions to create a code chunk stack
+    contents:
+      - contains("chunk")
