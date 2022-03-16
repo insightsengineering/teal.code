@@ -13,6 +13,6 @@ If not provided then automatic \code{chunks} object detection is run via \link{g
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 
-You can evaluate all remaining chunks of chunks being setup in a teal.devel environment. The
-value of the last chunk being evaluated will be returned.
+You can evaluate all remaining chunks of chunks being setup in  the shiny session (see \code{\link[=get_chunks_object]{get_chunks_object()}}).
+The value of the last chunk being evaluated will be returned.
 }

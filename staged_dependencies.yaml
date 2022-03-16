@@ -2,13 +2,28 @@ current_repo:
   repo: insightsengineering/teal.code
   host: https://github.com
 upstream_repos:
+  insightsengineering/teal.widgets:
+    repo: insightsengineering/teal.widgets
+    host: https://github.com
 downstream_repos:
+  insightsengineering/teal.transform:
+    repo: insightsengineering/teal.transform
+    host: https://github.com
   insightsengineering/teal:
     repo: insightsengineering/teal
     host: https://github.com
-  insightsengineering/teal.devel:
-    repo: insightsengineering/teal.devel
+  insightsengineering/teal.modules.general:
+    repo: insightsengineering/teal.modules.general
     host: https://github.com
-  insightsengineering/teal.transform:
-    repo: insightsengineering/teal.transform
+  insightsengineering/teal.modules.clinical:
+    repo: insightsengineering/teal.modules.clinical
+    host: https://github.com
+  insightsengineering/teal.goshawk:
+    repo: insightsengineering/teal.goshawk
+    host: https://github.com
+  insightsengineering/teal.osprey:
+    repo: insightsengineering/teal.osprey
+    host: https://github.com
+  insightsengineering/teal.modules.hermes:
+    repo: insightsengineering/teal.modules.hermes
     host: https://github.com

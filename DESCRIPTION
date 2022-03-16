@@ -21,10 +21,12 @@ Depends:
     R (>= 4.0)
 Imports:
     checkmate,
+    crayon,
     lifecycle,
     R6,
     shiny,
-    styler
+    styler,
+    teal.widgets
 Suggests:
     knitr,
     rmarkdown,

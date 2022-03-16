@@ -16,3 +16,9 @@ reference:
     desc: Functions to create a code chunk stack
     contents:
       - contains("chunk")
+  - title: "Debugging chunks evaluation"
+    desc: "shiny modules to examine chunks evaluation results"
+    contents:
+      - get_eval_details_srv
+      - get_eval_details_ui
+      - show_eval_details_modal

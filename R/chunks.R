@@ -848,8 +848,8 @@ chunks_push_new_line <- function(chunks = get_chunks_object()) {
 #'
 #' @description `r lifecycle::badge("stable")`
 #'
-#' You can evaluate all remaining chunks of chunks being setup in a teal.devel environment. The
-#' value of the last chunk being evaluated will be returned.
+#' You can evaluate all remaining chunks of chunks being setup in the shiny session (see [get_chunks_object()]).
+#' The value of the last chunk being evaluated will be returned.
 #'
 #' This method should not be evaluated multiple times, else it throws a warning. This is due to the
 #' fact that multiple evaluations of the following second code snippet is dangerous:
@@ -893,8 +893,8 @@ chunks_uneval <- function(chunks = get_chunks_object(), overwrite = FALSE, envir
 #'
 #' @description `r lifecycle::badge("stable")`
 #'
-#' You can evaluate all remaining chunks of chunks being setup in a teal.devel environment. The
-#' value of the last chunk being evaluated will be returned.
+#' You can evaluate all remaining chunks of chunks being setup in  the shiny session (see [get_chunks_object()]).
+#' The value of the last chunk being evaluated will be returned.
 #'
 #' @inheritParams chunks_push
 #'
