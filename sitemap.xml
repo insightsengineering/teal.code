@@ -91,6 +91,18 @@
     <loc>https://insightsengineering.github.io/teal.code/reference/get_chunks_object.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/teal.code/reference/get_eval_details_srv.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.code/reference/get_eval_details_ui.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.code/reference/get_number_in_box.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.code/reference/include_css_files.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/teal.code/reference/index.html</loc>
   </url>
   <url>
@@ -101,6 +113,9 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.code/reference/remove_enclosing_curly_braces.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.code/reference/show_eval_details_modal.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.code/reference/teal.code-package.html</loc>
