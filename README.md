@@ -10,9 +10,7 @@ include:
 * evaluating only parts of the stored code,
 * means to execute code with a no-throw guarantee (errors demoted to warnings and messages stored for retrieval).
 
-`teal.code` also ships a [`shiny`](https://shiny.rstudio.com/) module that helps inspect the stored code as well as messages, warnings and error
-messages resulting from evaluation via `shiny` web application.
-
+`teal.code` also ships a [`shiny`](https://shiny.rstudio.com/) module that helps inspect the stored code as well as messages, warnings and error messages resulting from evaluation via `shiny` web application.
 
 ## Installation
 
@@ -26,5 +24,3 @@ devtools::install_github("insightsengineering/teal.code@*release", dependencies 
 
 You might need to manually install all of the package dependencies before installing this package as without
 the `dependencies = FALSE` argument to `install_github` it may produce an error.
-
-See package vignettes `browseVignettes(package = "teal.code")` for usage of this package.
