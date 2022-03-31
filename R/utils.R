@@ -8,8 +8,7 @@
 #' @keywords internal
 #'
 remove_enclosing_curly_braces <- function(x) {
-  if (!is.character(x)) stop("x needs to be a character")
-
+  checkmate::assert_character(x)
   if (length(x) == 0) {
     x
   } else {
