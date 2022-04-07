@@ -16,7 +16,7 @@
 #' @section Methods:
 #' \describe{
 #'   \item{\code{initialize(envir = new.env())}}{
-#'     Object initializer.
+#'     Initializes the object.
 #'
 #'     \code{envir}: (optional) environment to get objects from to chunks environment
 #'
@@ -713,7 +713,7 @@ clone_env <- function(envir_from, envir_to) {
   invisible(NULL)
 }
 
-# Accessor and Modification funtion in a reactive environment ----
+# Accessor and Modification function in a reactive environment ----
 
 #' Pushes a code chunk for global chunks
 #'
@@ -893,7 +893,7 @@ chunks_uneval <- function(chunks = get_chunks_object(), overwrite = FALSE, envir
 #'
 #' @description `r lifecycle::badge("stable")`
 #'
-#' You can evaluate all remaining chunks of chunks being setup in  the shiny session (see [get_chunks_object()]).
+#' You can evaluate all remaining chunks of chunks being setup in the shiny session (see [get_chunks_object()]).
 #' The value of the last chunk being evaluated will be returned.
 #'
 #' @inheritParams chunks_push

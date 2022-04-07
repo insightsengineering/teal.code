@@ -24,7 +24,7 @@ pipe_chunk <- function() {
     }
 
     stopifnot(is.call(right_hand_side))
-    stopifnot(length_check(chunk_name))
+    stopifnot(length(chunk_name) > 0)
 
     if (!shiny::isRunning()) {
       session <- parent.frame()$session
@@ -92,7 +92,3 @@ pipe_chunk <- function() {
 #' @export
 #' @usage NULL
 `%<chunk%` <- pipe_chunk() # nolint
-
-length_check <- function(x) {
-  length(x) > 0
-}

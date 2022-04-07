@@ -17,7 +17,7 @@ a sequence of analysis steps.
 
 \describe{
 \item{\code{initialize(envir = new.env())}}{
-Object initializer.\preformatted{\code{envir}: (optional) environment to get objects from to chunks environment
+Initializes the object.\preformatted{\code{envir}: (optional) environment to get objects from to chunks environment
 }
 
 }
