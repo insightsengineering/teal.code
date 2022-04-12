@@ -2,9 +2,7 @@
 url: https://insightsengineering.github.io/teal.code
 
 template:
-  params:
-    bootswatch: cerulean
-
+  package: nesttemplate
 
 navbar:
   right:

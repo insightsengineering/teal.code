@@ -1,6 +1,7 @@
 # teal.code 0.1.0.9001
 
-* No updates since last release
+### Miscellaneous
+* Added a template to the `pkgdown` site.
 
 # teal.code 0.1.0
 
