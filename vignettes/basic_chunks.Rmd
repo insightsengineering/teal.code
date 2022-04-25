@@ -166,7 +166,7 @@ chunks_get_rcode()
 ```
 <img src="images/get_rcode.PNG" alt="get_rcode" style="width: 100%;"/>
 
-## Feature 4: Eval - evaluating the code
+## Feature 4: eval - evaluating the code
 
 The `eval` function is responsible to run the code inside the chunks container. The eval function of a chunks container is called `teal.code::chunks_eval`. It evaluates all chunks inside the container in the order they were pushed. It is not possible to change the order or run just pieces of the code. The chunks will always be evaluated without any error, even if an error appears. You will learn more about errors in following parts.
 

@@ -1,10 +1,10 @@
 ---
-title: "Reproduciblity"
+title: "Reproducibility"
 author: "NEST coreDev"
 date: "2022-04-22"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Reproduciblity}
+  %\VignetteIndexEntry{Reproducibility}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -17,7 +17,7 @@ Reproducibility is an important feature when it comes to data analysis for the f
 
 This is where the `chunks` concept of `teal.code` package comes into play to provide methods to develop reproducible shiny/teal modules. The `teal` package complements the chunks concept by providing a server and an interface to retrieve the reproducible code via `Show R code` button.
 
-Note that there is a public [shinymeta](https://github.com/rstudio/shinymeta) R package from RStudio that offers similar functionality. However, `shinymeta` is currently not easily integratable into `teal` modules and hence we recommend using `chunks` for `teal` based apps.
+Note that there is a public [`shinymeta`](https://github.com/rstudio/shinymeta) R package from `RStudio` that offers similar functionality. However, currently, `shinymeta` can not be easily integrated into `teal` modules and hence we recommend using `chunks` for `teal` based apps.
 
 # Reproducibility in teal
 
@@ -33,7 +33,7 @@ The reproducible code displayed for outputs in `teal` is always made from three 
   - `libPaths()`
   - packages' versions.
 
-2. Pre-processing Code: refers to the code which precedes the teal app initialization, this includes:
+2. Preprocessing Code: refers to the code which precedes the teal app initialization, this includes:
   - Data imports
   - Data transformation
   - Checking data reproducibility
@@ -45,7 +45,7 @@ The reproducible code displayed for outputs in `teal` is always made from three 
 
 <img src="images/show_r_code.gif" alt="SRC" style="width: 100%;"/>
 
-The header is created by `teal`, the pre-processing code must be supplied by the app developer and the analysis code is provided by the teal modules.
+The header is created by `teal`, the preprocessing code must be supplied by the app developer and the analysis code is provided by the teal modules.
 
 # Chunks
 
