@@ -49,8 +49,8 @@ The code chunks were introduced to allow the development of reproducible `shiny`
 
 1. The code loading the necessary libraries - by `teal::get_code`
 2. The code used for loading and filtering data sets  - by `teal::FilteredData`
-3. The code used for merging multiple data sets - by `teal.transform::data_extract_srv`
+3. The code used for merging multiple data sets - by `teal.transform::data_merge_srv`
 4. The code generating the outputs - by **code chunks**
 
 
-The code chunks were especially designed for the code leading from an input data set to the outputs. To get more information about the concept of chunks, please refer to article [basic chunks]{https://insightsengineering.github.io/teal.code/articles/basic_chunks.html} .
+The code chunks were especially designed for the code leading from an input data set to the outputs. To get more information about the concept of chunks, please refer to article [`basic chunks`](https://insightsengineering.github.io/teal.code/articles/basic_chunks.html).
