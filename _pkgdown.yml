@@ -1,9 +1,6 @@
 ---
 url: https://insightsengineering.github.io/teal.code
 
-template:
-  package: nesttemplate
-
 navbar:
   right:
     - icon: fa-github

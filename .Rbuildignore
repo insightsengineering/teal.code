@@ -35,3 +35,5 @@
 ^templates$
 ^test_full_example$
 coverage.*
+^_pkgdown\.yml$
+^pkgdown$
