@@ -88,7 +88,7 @@ As a simulation of the teal environment the `init_session` function is provided:
 library(teal)
 
 # pseudo code simulating a shiny session ----------------------------
-init_session <- function(){
+init_session <- function() {
   session <- new.env()
   session$userData <- new.env() # nolint
   session$ns <- function(x) paste0("x-", x)
@@ -112,7 +112,7 @@ You can use this code snippet:
 library(teal)
 
 # pseudo code simulating a shiny session ----------------------------
-init_session <- function(){
+init_session <- function() {
   sessionint <- new.env()
   sessionint$userData <- new.env() # nolint
   sessionint$ns <- function(x) paste0("x-", x)
@@ -125,7 +125,7 @@ teal.code::init_chunks(session = session)
 
 # Adding variables to the chunks -------------------------------------
 
-ANL <- data.frame(left = c(1, 2, 3), right = c(4, 5, 6))
+ANL <- data.frame(left = c(1, 2, 3), right = c(4, 5, 6)) # nolint
 x <- "abc"
 y <- 5
 
