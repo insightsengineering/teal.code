@@ -3,6 +3,10 @@ title: "Reproduciblity"
 author: "NEST coreDev"
 date: "2022-04-22"
 output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Reproduciblity}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 
@@ -13,11 +17,11 @@ Reproducibility is an important feature when it comes to data analysis for the f
 
 This is where the `chunks` concept of `teal.code` package comes into play to provide methods to develop reproducible shiny/teal modules. The `teal` package complements the chunks concept by providing a server and an interface to retrieve the reproducible code via `Show R code` button.
 
-Note that there is a public [shinymeta](https://github.com/rstudio/shinymeta) R package from RStudio that offers similar functionality. However, `shinymeta` is currently not easily integratable into `teal` modules and hence we recommend using `chunks` for `teal` based apps
+Note that there is a public [shinymeta](https://github.com/rstudio/shinymeta) R package from RStudio that offers similar functionality. However, `shinymeta` is currently not easily integratable into `teal` modules and hence we recommend using `chunks` for `teal` based apps.
 
 # Reproducibility in teal
 
-Well-designed teal applications should be set up such that for every output displayed, the associated R code can be requested via the **Show R code button**. In order to develop a teal application with reproducible outputs the app developer needs to take this into account when implementing the app..
+Well-designed teal applications should be set up such that for every output displayed, the associated R code can be requested via the **Show R code button**. In order to develop a teal application with reproducible outputs the app developer needs to take this into account when implementing the app.
 
 The reproducible code displayed for outputs in `teal` is always made from three parts:
 
@@ -26,7 +30,7 @@ The reproducible code displayed for outputs in `teal` is always made from three 
   - server name
   - R version
   - date
-  - `libPaths()` 
+  - `libPaths()`
   - packages' versions.
 
 2. Pre-processing Code: refers to the code which precedes the teal app initialization, this includes:

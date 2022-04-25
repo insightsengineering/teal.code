@@ -3,6 +3,10 @@ title: "Basic chunks"
 author: "NEST coreDev"
 date: "2022-04-22"
 output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Basic chunks}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 # What is a chunk?
@@ -166,7 +170,7 @@ chunks_get_rcode()
 
 The `eval` function is responsible to run the code inside the chunks container. The eval function of a chunks container is called `teal.code::chunks_eval`. It evaluates all chunks inside the container in the order they were pushed. It is not possible to change the order or run just pieces of the code. The chunks will always be evaluated without any error, even if an error appears. You will learn more about errors in following parts.
 
-The `teal.code::chunks_eval` will always return the value of the last evaluation. By link_doc_fun `teal.code::chunks_get_var` it is possible to retrieve specific variables after evaluation.
+The `teal.code::chunks_eval` will always return the value of the last evaluation. By `teal.code::chunks_get_var` it is possible to retrieve specific variables after evaluation.
 
 ```r
 # Code needs modification before it can be run:
@@ -253,7 +257,7 @@ Please see the following example of how to derive the same chunk stack in an imp
 
 | Explicit - using R6                                  | Implicit - use teal.code functions         |
 |------------------------------------------------------|---------------------------------------------|
-| session_chunks <- chunks\$new()                       | teal.code::init_chunks()        *# in shiny reactive*  |
+| session_chunks <- chunks\$new()                       | teal.code::init_chunks()                   |
 |                                                      |                                             |
 | a <- 1                                               | a <- 1                                      |
 | b <- 2                                               | b <- 2                                      |
