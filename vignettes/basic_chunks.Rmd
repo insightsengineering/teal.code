@@ -25,53 +25,41 @@ The next sections will explain what is a chunk and how it is evaluated.
 # What is a chunk?
 
 A quoted R expression is a **chunk**. Quoted R expressions can be created in three different ways:
-```{r, eval=FALSE}
+```{r}
 a <- 3
 
 # Creating a chunk by quote ------------------------------
-
 expr_a <- quote(sum(a, a))
 print(expr_a)
-#> sum(a, a)
 print(class(expr_a))
-#> [1] "call"
+
 
 # Creating a chunk by bquote ------------------------------
-
 expr_b <- bquote(b <- sum(a, a))
 print(expr_b)
-#> b <- sum(a, a)
 print(class(expr_b))
-#> [1] "<-"
 
 # Creating a chunk by call -------------------------------
-
 expr_c <- call("sum", a, a)
 print(expr_c)
-#> sum(3, 3)
 print(class(expr_c))
-#> [1] "call"
 ```
 
 As seen above, a chunk is of class `call` or an assignment given by class `<-`. To evaluate such expressions, R uses the `eval` function. This function evaluates each single `call` inside the current environment, in case no other environment is given. In the example code you can see what happens upon evaluating the chunks:
 
-```{r, eval=FALSE}
+```{r}
 a <- 3
 expr_a <- quote(sum(a, a))
 expr_b <- bquote(b <- a + a)
 expr_c <- call("sum", a, a)
 
 eval(expr_a)
-#> 6
 eval(expr_b)
-#>
 print(b)
-#> 6
 eval(expr_c)
-#> 6
 ```
 
-The next sections will tell in a step by step guide which features are provided by the chunks.
+The next sections will tell in a step by step guide which features are provided by the `chunks` object.
 
 # Step by step to understand chunks
 
@@ -81,7 +69,7 @@ Normally as a module developer the chunks will be used within the `server` funct
 
 As a simulation of the teal environment the `init_session` function is provided:
 
-```{r, eval=FALSE}
+```{r}
 # pseudo code simulating a shiny session ----------------------------
 init_session <- function() {
   session <- new.env()
@@ -103,7 +91,7 @@ To check that it worked as expected the function `teal.code::chunks_get_var` wil
 
 You can use this code snippet:
 
-```{r, eval=FALSE}
+```{r}
 # Adding variables to the chunks -------------------------------------
 
 ANL <- data.frame(left = c(1, 2, 3), right = c(4, 5, 6)) # nolint
@@ -123,11 +111,11 @@ all.equal(x, teal.code::chunks_get_var("x"))
 
 To populate chunks, a chunk can be added using the `teal.code::chunks_push` function. Here two code snippets will be added:
 
-```{r, eval=FALSE}
+```{r}
 # Code needs modification before it can be run:
 #    - chunks need to exist inside the environment
-chunks_push(bquote(y <- y + 1))
-chunks_push(bquote(x <- paste0(x, y)))
+teal.code::chunks_push(bquote(y <- y + 1))
+teal.code::chunks_push(bquote(x <- paste0(x, y)))
 ```
 
 <img src="images/push.png" alt="push" style="width: 100%;"/>
@@ -136,33 +124,27 @@ chunks_push(bquote(x <- paste0(x, y)))
 
 To reproduce what was done inside the chunks, it is necessary to render the R code inside them. Therefore the chunks container can display all its code by calling `teal.code::chunks_get_rcode`. You can run this example to see the code:
 
-```{r, eval=FALSE}
+```{r}
 # Code needs modification before it can be run:
 #   - chunks need to exist inside the environment
 #   - chunks needed to be pushed to the container
-chunks_get_rcode()
-
-#>            chunk_1               chunk_2
-#>       "y <- y + 1"   "x <- paste0(x, y)"
+teal.code::chunks_get_rcode()
 ```
 <img src="images/get_rcode.png" alt="get_rcode" style="width: 100%;"/>
 
-## Feature 4: eval - evaluating the code
+## Feature 4: `eval` - evaluating the code
 
-The `eval` function is responsible to run the code inside the chunks container. The eval function of a chunks container is called `teal.code::chunks_safe_eval`. It evaluates all chunks inside the container in the order they were pushed. It is not possible to change the order or run just pieces of the code. The chunks will always be evaluated without any error, even if an error appears. You will learn more about errors in following parts.
+The `eval` function is responsible to run the code inside the chunks container. The `eval` function of a chunks container is called `teal.code::chunks_safe_eval`. It evaluates all chunks inside the container in the order they were pushed. It is not possible to change the order or run just pieces of the code. The chunks will always be evaluated without any error, even if an error appears. You will learn more about errors in following parts.
 
 The `teal.code::chunks_safe_eval` will always return the value of the last evaluation. By `teal.code::chunks_get_var` it is possible to retrieve specific variables after evaluation.
 
-```{r, eval=FALSE}
+```{r}
 # Code needs modification before it can be run:
 #   - chunks need to exist inside the environment
 #   - chunks needed to be pushed to the container
-chunks_safe_eval()
-#> "abc6"
-chunks_get_var("x")
-#> "abc6"
-chunks_get_var("y")
-#> 6
+teal.code::chunks_safe_eval()
+teal.code::chunks_get_var("x")
+teal.code::chunks_get_var("y")
 ```
 
 <img src="images/eval.png" alt="eval" style="width: 100%;"/>
@@ -175,28 +157,20 @@ As already said the chunks will never throw an error upon execution. Errors are 
 
 Additionally, the function `teal.code::chunks_safe_eval` can be used inside shiny, which will evaluate the chunks container and check if everything went right.
 
-```{r, eval=FALSE}
+```{r, error=TRUE}
 # Code needs modification before it can be run:
 #   - chunks need to exist inside the environment
 #   - chunks needed to be pushed to the container
-chunks_is_ok()
-#> TRUE
-chunks_validate_is_ok()
-#>
+teal.code::chunks_is_ok()
+teal.code::chunks_validate_is_ok()
 
 # Trying an error inside a chunk ------------------------
-chunks_push(quote(stop("ERROR")))
-chunks_safe_eval()
+teal.code::chunks_push(quote(stop("ERROR")))
+teal.code::chunks_safe_eval()
 
-chunks_is_ok()
-#> FALSE
+teal.code::chunks_is_ok()
 
-chunks_validate_is_ok()
-#> Error: The following errors(s) occurred:
-#> ERROR
-#>
-#> when evaluating the following code:
-#> stop("ERROR")
+teal.code::chunks_validate_is_ok()
 ```
 
 <img src="images/is_ok.png" alt="is_ok" style="width: 100%;"/>
@@ -225,50 +199,44 @@ Please find below the implicit vs. explicit usage of code chunks.
 
 ---
 
-## Implicit and Explicit implementation of code chunks
+## Implementation of code chunks
 
-There are two ways to use the code chunks inside shiny modules. First you can generate
-a chunk stack using R6. As we noticed that chunk stacks have to be reactive, we
-coupled the R6 stack in a reactive way to the shiny session and provided module
-developers with an implicit implementation. The implicit implementation lets you
-ignore the location of the chunk stack. Moreover you have wrappers around many
-of the explicit functions.
+There are two ways to initialize the code chunks inside shiny modules:
 
-Please see the following example of how to derive the same chunk stack in an implicit and explicit way:
+-Using R6 implementation: `session_chunks <- chunks$new()`.
+
+-Using `teal.code` wrappers: `teal.code::init_chunks()`.
+
+For any manipulation of the downstream chunks, the `teal.code` wrappers below can be used:
 
 
-| Explicit - using R6                                  | Implicit - use teal.code functions         |
-|------------------------------------------------------|---------------------------------------------|
-| session_chunks <- chunks\$new()                       | teal.code::init_chunks()                   |
-|                                                      |                                             |
-| a <- 1                                               | a <- 1                                      |
-| b <- 2                                               | b <- 2                                      |
-|                                                      |                                             |
-| session_chunks\$reset() # sets a & b in env           | teal.code::chunks_reset()                              |
-|                                                      |                                             |
-| # sets a & b in env, use all variables from datasets | # sets a & b in env, use all variables from datasets |
-| session_chunks\$reset(datasets = datasets)           | teal.code::chunks_reset(datasets = datasets)           |
-|                                                      |                                             |
-| session_chunks\$push(x = bquote(a <- a + 1))          | teal.code::chunks_push(expression = bquote(a <- a + 1))|
-|                                                      |                                             |
-| session_chunks\$pop() *# remove last chunk*           | *#not possible*                             |
-|                                                      |                                             |
-| session_chunks\$eval()                                | teal.code::chunks_eval()                               |
-| stopifnot(session_chunks\$get("a") == 2)              | stopifnot(chunks_get_var("a") == 2)         |
-|                                                      |                                             |
-| session_chunks\$push(x = bquote(c <- a + b))          | teal.code::chunks_push(expression = bquote(c <- a + b))|
-| session_chunks\$eval()                                | teal.code::chunks_eval()                               |
-|                                                      |                                             |
-| stopifnot(session_chunks\$get("c") == 4)              | stopifnot(chunks_get_var("c") == 4)         |
-|                                                      |                                             |
-| session_chunks\$push(x = quote(a + b + c))            | teal.code::chunks_push(expression = quote(a + b + c))  |
-| stopifnot(session_chunks\$eval() == 8)                | stopifnot(chunks_eval() == 8)               |
-| *# eval gives return value*                          |                                             |
-| session_chunks\$get("a")                              | chunks_get_var("a")                         |
-|                                                      |                                             |
-| # merging two chunks objects                         |                                             |
-| session_chunks2 <- chunks\$new()                      | session_chunks2 <- chunks\$new()             |
-| session_chunks2\$push(bquote(d <- 1))                 | session_chunks2\$push(bquote(d <- 1))        |
-| session_chunks\$push_chunks(session_chunks2)          | chunks_push_chunks(session_chunks2)         |
-| session_chunks\$eval()                                | teal.code::chunks_eval()                               |
-| session_chunks\$get("d")                              | chunks_get_var("d")                         |
+```{r}
+session <<- init_session()
+teal.code::init_chunks()
+a <- 1
+b <- 2
+
+# set a & b in env
+teal.code::chunks_reset()  
+# push to chunks
+teal.code::chunks_push(expression = bquote(a <- a + 1))
+# eval gives return value	
+teal.code::chunks_eval()
+stopifnot(teal.code::chunks_get_var("a") == 2)
+
+teal.code::chunks_push(expression = bquote(c <- a + b))
+teal.code::chunks_eval()
+stopifnot(teal.code::chunks_get_var("c") == 4)
+
+teal.code::chunks_push(expression = quote(a + b + c))
+stopifnot(teal.code::chunks_eval() == 8)
+
+# merging two chunks objects	
+session_chunks2 <- teal.code::chunks$new()
+teal.code::chunks_push(bquote(d <- 1), chunks = session_chunks2)
+teal.code::chunks_push_chunks(session_chunks2)
+teal.code::chunks_eval()
+teal.code::chunks_get_var("d")  
+```
+
+In these wrappers, the R6 stack is coupled in a reactive way to the shiny session to provide module developers with a reactive chunk stacks. For more information about the explicit R6 methods, please refer to the implementation of the wrappers above.
