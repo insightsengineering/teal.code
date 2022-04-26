@@ -217,26 +217,24 @@ a <- 1
 b <- 2
 
 # set a & b in env
-teal.code::chunks_reset()  
+teal.code::chunks_reset()
 # push to chunks
 teal.code::chunks_push(expression = bquote(a <- a + 1))
-# eval gives return value	
+# eval gives return value
 teal.code::chunks_eval()
 stopifnot(teal.code::chunks_get_var("a") == 2)
 
 teal.code::chunks_push(expression = bquote(c <- a + b))
 teal.code::chunks_eval()
 stopifnot(teal.code::chunks_get_var("c") == 4)
-
 teal.code::chunks_push(expression = quote(a + b + c))
 stopifnot(teal.code::chunks_eval() == 8)
-
-# merging two chunks objects	
+# merging two chunks objects
 session_chunks2 <- teal.code::chunks$new()
 teal.code::chunks_push(bquote(d <- 1), chunks = session_chunks2)
 teal.code::chunks_push_chunks(session_chunks2)
 teal.code::chunks_eval()
-teal.code::chunks_get_var("d")  
+teal.code::chunks_get_var("d")
 ```
 
 In these wrappers, the R6 stack is coupled in a reactive way to the shiny session to provide module developers with a reactive chunk stacks. For more information about the explicit R6 methods, please refer to the implementation of the wrappers above.
