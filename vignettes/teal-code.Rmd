@@ -15,7 +15,7 @@ Reproducibility is an important feature when it comes to data analysis for the f
 - Ability of users to reproduce the outputs at any moment in a simple R console outside of a reactive shiny app.
 - Provides transparency where it helps users and others understand what happened during the analysis.
 
-This is where the `chunks` concept of `teal.code` package comes into play to provide methods to develop reproducible shiny/teal modules. The `teal` package complements the chunks concept by providing a server and an interface to retrieve the reproducible code via `Show R code` button.
+This is where the `chunks` concept of  the`teal.code` package comes into play. It provides a mechanism to develop reproducible shiny/teal modules. The `teal` package complements the chunks concept by providing a server and an interface to retrieve the reproducible code via `Show R code` button.
 
 Note that there is a public [`shinymeta`](https://github.com/rstudio/shinymeta) R package from `RStudio` that offers similar functionality. However, currently, `shinymeta` can not be easily integrated into `teal` modules and hence we recommend using `chunks` for `teal` based apps.
 
