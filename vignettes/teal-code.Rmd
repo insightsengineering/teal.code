@@ -21,7 +21,7 @@ Note that there is a public [`shinymeta`](https://github.com/rstudio/shinymeta) 
 
 # Reproducibility in teal
 
-Well-designed teal applications should be set up such that for every output displayed, the associated R code can be requested via the **Show R code button**. In order to develop a teal application with reproducible outputs the app developer needs to take this into account when implementing the app.
+Teal applications can be designed and set up such that for every output displayed, the associated R code can be requested via the **Show R code button**. In order to develop a teal application with reproducible outputs the app developer needs to take this into account when implementing the app.
 
 The reproducible code displayed for outputs in `teal` is always made from three parts:
 
@@ -39,7 +39,7 @@ The reproducible code displayed for outputs in `teal` is always made from three 
   - Checking data reproducibility
 
 3. Teal Module Analysis Code which includes:
-  - [Data merging](https://insightsengineering.github.io/teal.transform/articles/transforming-teal-data)
+  - [Data merging](https://insightsengineering.github.io/teal.transform/articles/transforming-teal-data) (optional)
   - Filtering and encodings
   - Data analysis/visualization
 
