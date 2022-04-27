@@ -24,7 +24,7 @@ The next sections will explain what a chunk is and how it is evaluated.
 
 # What is a chunk?
 
-A quoted R expression is a **chunk**. Quoted R expressions can be created in three different ways:
+A quoted R expression is a necessary step to create a **chunk** object. Quoted R expressions can be created in three different ways:
 ```{r}
 a <- 3
 
@@ -45,7 +45,7 @@ print(expr_c)
 print(class(expr_c))
 ```
 
-As seen above, a chunk is of class `call` or an assignment given by class `<-`. To evaluate such expressions, R uses the `eval` function. This function evaluates each single `call` inside the current environment, in case no other environment is given. In the example code you can see what happens upon evaluating the chunks:
+To evaluate the expressions of class `call` or an assignment given by class `<-` above, R uses the `eval` function. This function evaluates each single `call` inside the current environment, in case no other environment is given. In the example code you can see what happens upon evaluating the expressions:
 
 ```{r}
 a <- 3
@@ -59,13 +59,30 @@ print(b)
 eval(expr_c)
 ```
 
-The next sections will tell in a step by step guide which features are provided by the `chunks` object.
+A `chunk` object is an R6 object of class `chunk_call` which can be created and evaluated using the expressions above  as follows:
+```{r}
+a <- 3
+expr_a <- quote(sum(a, a))
+expr_b <- bquote(b <- a + a)
+expr_c <- call("sum", a, a)
 
-# Step by step to understand chunks
+chunk_1 <- teal.code::chunk$new(expression = expr_a)
+chunk_1$eval()
+
+chunk_2 <- teal.code::chunk$new(expression = expr_b)
+chunk_2$eval()
+print(b)
+
+chunk_3 <- teal.code::chunk$new(expression = expr_c)
+chunk_3$eval()
+```
+The next sections will tell in a step by step guide which features are provided by the `chunks` container object.
+
+# Step by step to understand chunks container
 
 ## General information
 
-Normally as a module developer the chunks will be used within the `server` function of a shiny/teal module. This enables storing the chunks container inside the shiny session. For simplicity reasons this feature will be used in the tutorial. To store a container inside the shiny session simply use the call `init_chunks()` and the `chunks` R6 object will be stored in `session$userData$<MODULENAME>$chunks`. After using `init_chunks()`, the functions dealing with chunks can be used. Those are recommended. If for any reasons you want to use your own chunks container, it is possible. Please see the the table in the last section of this article to see the similarities and differences between these two approaches. So for now, we just call `teal.code::init_chunks()`.
+Normally as a module developer the chunks container will be used within the `server` function of a shiny/teal module. This enables storing the chunks container inside the shiny session. For simplicity reasons this feature will be used in the tutorial. To store a container inside the shiny session simply use the call `init_chunks()` and the `chunks` R6 object will be stored in `session$userData$<MODULENAME>$chunks`. After using `init_chunks()`, the functions dealing with chunks container can be used. Those are recommended. If for any reasons you want to use your own chunks container, it is possible. Please see the last section of this article for more information. So for now, we just call `teal.code::init_chunks()`.
 
 As a simulation of the teal environment the `init_session` function is provided:
 
@@ -79,22 +96,22 @@ init_session <- function() {
 }
 
 # initializing code chunks -------------------------------------------
-session <<- init_session()
+session <- init_session()
 teal.code::init_chunks(session = session)
 ```
 
 ## Feature 1: Reset (initialize the environment)
 
-Normally reproducible code will be used inside a `renderPlot` or `renderTable` call of a shiny module. For simplicity reasons we just use the *pseudo* shiny session defined above in this tutorial. As a first step the chunks container should be handed over an analysis dataset (`ANL`) and two variables `x = "abc"`, `y = 5`. Therefore you need to use the `teal.code::chunks_reset` function. It not only empties all current chunks inside the container, but also hands over all variables from the current environment to the container environment.
+Normally reproducible code will be used inside a `renderPlot` or `renderTable` call of a shiny module. For simplicity reasons we just use the *pseudo* shiny session defined above in this tutorial. As a first step the chunks container should be handed over an analysis dataset (`anl`) and two variables `x = "abc"`, `y = 5`. Therefore you need to use the `teal.code::chunks_reset` function. It not only empties all current chunks inside the container, but also hands over all variables from the current environment to the container environment.
 
 To check that it worked as expected the function `teal.code::chunks_get_var` will be used and check that the values inside the chunks container are equal to the values from the environment.
 
 You can use this code snippet:
 
 ```{r}
-# Adding variables to the chunks -------------------------------------
+# Adding variables to the chunks container -------------------------------------
 
-ANL <- data.frame(left = c(1, 2, 3), right = c(4, 5, 6)) # nolint
+anl <- data.frame(left = c(1, 2, 3), right = c(4, 5, 6)) 
 x <- "abc"
 y <- 5
 
@@ -109,25 +126,20 @@ all.equal(x, teal.code::chunks_get_var("x"))
 
 ## Feature 2: Push - adding code snippets
 
-To populate chunks, a chunk can be added using the `teal.code::chunks_push` function. Here two code snippets will be added:
+To populate the chunks container, a chunk can be added using the `teal.code::chunks_push` function. Here two code snippets will be added:
 
 ```{r}
-# Code needs modification before it can be run:
-#    - chunks need to exist inside the environment
 teal.code::chunks_push(bquote(y <- y + 1))
 teal.code::chunks_push(bquote(x <- paste0(x, y)))
 ```
 
 <img src="images/push.png" alt="push" style="width: 100%;"/>
 
-## Feature 3: Get R code - showing the chunks code
+## Feature 3: Get R code - showing the chunks container code
 
-To reproduce what was done inside the chunks, it is necessary to render the R code inside them. Therefore the chunks container can display all its code by calling `teal.code::chunks_get_rcode`. You can run this example to see the code:
+To reproduce what was done inside the chunks container, it is necessary to render the R code inside them. Therefore the chunks container can display all its code by calling `teal.code::chunks_get_rcode`. You can run this example to see the code:
 
 ```{r}
-# Code needs modification before it can be run:
-#   - chunks need to exist inside the environment
-#   - chunks needed to be pushed to the container
 teal.code::chunks_get_rcode()
 ```
 <img src="images/get_rcode.png" alt="get_rcode" style="width: 100%;"/>
@@ -139,9 +151,6 @@ The `eval` function is responsible to run the code inside the chunks container. 
 The `teal.code::chunks_safe_eval` will always return the value of the last evaluation. By `teal.code::chunks_get_var` it is possible to retrieve specific variables after evaluation.
 
 ```{r}
-# Code needs modification before it can be run:
-#   - chunks need to exist inside the environment
-#   - chunks needed to be pushed to the container
 teal.code::chunks_safe_eval()
 teal.code::chunks_get_var("x")
 teal.code::chunks_get_var("y")
@@ -151,14 +160,11 @@ teal.code::chunks_get_var("y")
 
 ## Feature 5: Is ok - check for errors and warnings
 
-As already said the chunks will never throw an error upon execution. Errors are caught and stored in the `chunks` object. The most important function to check if everything went fine is `teal.code::chunks_is_ok`. It will return `TRUE` in the case where everything was fine.
+As already said the chunks in the container will never throw an error upon execution. Errors are caught and stored in the `chunks` object. The most important function to check if everything went fine is `teal.code::chunks_is_ok`. It will return `TRUE` in the case where everything was fine.
 
 `teal.code::chunks_validate_is_ok` returns a useful `validate(need(...))` message inside the shiny app in case something went wrong.
 
 ```{r, error=TRUE}
-# Code needs modification before it can be run:
-#   - chunks need to exist inside the environment
-#   - chunks needed to be pushed to the container
 teal.code::chunks_is_ok()
 teal.code::chunks_validate_is_ok()
 
@@ -177,10 +183,10 @@ teal.code::chunks_validate_is_ok()
 
 In summary:
 
-1. chunks host code snippets
-2. chunks host their own environment
-3. chunks are initialized inside shiny/teal using `teal.code::init_chunks`
-4. chunks can be accessed to retrieve variables from the environment using `teal.code::chunks_get_var`
+1. chunks containers host code snippets
+2. chunks containers host their own environment
+3. chunks containers are initialized inside shiny/teal using `teal.code::init_chunks`
+4. chunks container can be accessed to retrieve variables from the environment using `teal.code::chunks_get_var`
 5. chunks can be added to the chunks container by `teal.code::chunks_push`
 6. All chunks inside a container can be executed by `teal.code::chunks_safe_eval`
 7. `teal.code::chunks_validate_is_ok` and `teal.code::chunks_is_ok` allow checking for execution errors
@@ -192,23 +198,23 @@ The whole implementation of this tutorial is given in the *gif* below:
 
 For more information about the implementation of chunks inside of shiny/teal module, please visit the Advanced chunks article.
 
-Please find below the implicit vs. explicit usage of code chunks.
+Please find below the implicit vs. explicit usage of code chunks containers.
 
 ---
 
-## Implementation of code chunks
+## Implementation of code chunks containers
 
 There are two ways to initialize the code chunks inside shiny modules:
 
--Using R6 implementation: `session_chunks <- chunks$new()`.
+- Using R6 implementation: `session_chunks <- chunks$new()`.
 
--Using `teal.code` wrappers: `teal.code::init_chunks()`.
+- Using `teal.code` wrappers: `teal.code::init_chunks()`.
 
 The `teal.code` functions can be used in both cases:
 
 
 ```{r}
-session <<- init_session()
+session <- init_session()
 teal.code::init_chunks()
 a <- 1
 b <- 2
@@ -218,23 +224,23 @@ teal.code::chunks_reset()
 # push to chunks
 teal.code::chunks_push(expression = bquote(a <- a + 1))
 # eval gives return value
-teal.code::chunks_eval()
+teal.code::chunks_safe_eval()
 stopifnot(teal.code::chunks_get_var("a") == 2)
 
 teal.code::chunks_push(expression = bquote(c <- a + b))
-teal.code::chunks_eval()
+teal.code::chunks_safe_eval()
 stopifnot(teal.code::chunks_get_var("c") == 4)
 teal.code::chunks_push(expression = quote(a + b + c))
-stopifnot(teal.code::chunks_eval() == 8)
+stopifnot(teal.code::chunks_safe_eval() == 8)
 # create a new chunks objet explicitly
 chunks2 <- teal.code::chunks$new()
 # push into this object
 teal.code::chunks_push(bquote(d <- 1), chunks = chunks2)
 # push the whole of chunks2 into our main chunks object
-teal.code::chunks_push_chunks(session_chunks2)
+teal.code::chunks_push_chunks(chunks2)
 # evaluate and get results
 teal.code::chunks_safe_eval()
 teal.code::chunks_get_var("d")
 ```
 
-The _default_ `chunks` object in many `teal.code` functions is the chunks` object coupled to the shiny session. But as shown above it is possible to use other `chunk` objects with these functions using their `chunks` argument. The `chunks` object is an R6 object and consult the function documentation for details of its explicit methods.
+The _default_ `chunks` object in many `teal.code` functions is the `chunks` object coupled to the shiny session. But as shown above it is possible to use other `chunk` objects with these functions using their `chunks` argument. The `chunks` object is an R6 object and consult the function documentation for details of its explicit methods.
