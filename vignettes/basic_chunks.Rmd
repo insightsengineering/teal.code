@@ -110,8 +110,7 @@ You can use this code snippet:
 
 ```{r}
 # Adding variables to the chunks container -------------------------------------
-
-anl <- data.frame(left = c(1, 2, 3), right = c(4, 5, 6)) 
+anl <- data.frame(left = c(1, 2, 3), right = c(4, 5, 6))
 x <- "abc"
 y <- 5
 
