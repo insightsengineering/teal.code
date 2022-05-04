@@ -21,3 +21,10 @@ testthat::test_that("chunks id - push_chunks", {
     c("test_1", "test_1_PZVEL", "chunk_2", "test_3", "test_12")
   )
 })
+
+testthat::test_that("chunks id - push_chunks empty", {
+  x <- chunks$new()
+  y <- chunks$new()
+  y$push_chunks(x)
+  testthat::expect_identical(names(y$get_rcode()), character(0))
+})
