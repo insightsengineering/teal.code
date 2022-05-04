@@ -26,5 +26,5 @@ testthat::test_that("chunks id - push_chunks empty", {
   x <- chunks$new()
   y <- chunks$new()
   y$push_chunks(x)
-  testthat::expect_identical(names(y$get_rcode()), character(0))
+  testthat::expect_identical(y$get_rcode(), character(0))
 })
