@@ -22,9 +22,11 @@ testthat::test_that("chunks id - push_chunks", {
   )
 })
 
-testthat::test_that("chunks id - push_chunks empty", {
+testthat::test_that("chunks id - push_chunks empty to empty", {
   x <- chunks$new()
   y <- chunks$new()
   y$push_chunks(x)
   testthat::expect_identical(y$get_rcode(), character(0))
+  y$push(id = "test_1", x = call("print", 1))
+  testthat::expect_identical(y$get_rcode(), c(test_1 = "print(1)"))
 })
