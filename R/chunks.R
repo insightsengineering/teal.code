@@ -242,13 +242,17 @@ chunks <- R6::R6Class(
         ))
       } else {
         private$code_chunks <- append(private$code_chunks, x_private$code_chunks)
-        private$id <- c(
-          private$id,
-          paste0(
-            paste0(sample(LETTERS, 5, replace = TRUE), collapse = ""),
-            x_private$id
-          )
-        )
+        id_suffix <- paste0(sample(LETTERS, 5, replace = TRUE), collapse = "")
+        for (xid in x_private$id) {
+          if (xid %in% private$id) {
+            private$id <- c(
+              private$id,
+              paste0(xid, "_", id_suffix)
+            )
+          } else {
+            private$id <- c(private$id, xid)
+          }
+        }
         private$is_remaining <- c(private$is_remaining, x_private$is_remaining)
         private$is_evaluated <- c(private$is_evaluated, x_private$is_evaluated)
         private$set_is_error(c(private$is_error, x_private$is_error), idx = NULL)
