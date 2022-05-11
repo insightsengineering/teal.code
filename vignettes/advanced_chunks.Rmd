@@ -1,0 +1,310 @@
+---
+title: "Advanced chunks"
+author: "NEST coreDev"
+date: "2022-05-09"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Advanced chunks}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Decoupling chunks containers
+
+In a shiny app there is often a need to have multiple chunks containers that may be used independently by certain parts of the application and may be used together by other parts of the application. Much of the functionality to use a chunks container object independently has already been covered in the [Basic chunks](./basic_chunks.Rmd) vignette, which you should read first before going any further.
+
+## Creating a chunks container and assigning it to a variable
+
+Previously, the `teal.code::init_chunks` function was discussed. It created a chunks container in a given shiny session. This chunks container is the one and only chunks container that is subsequently manipulated and used after its creation.
+
+In order to have multiple chunks containers, each must be accessible and distinguishable via a variable.
+
+```{r}
+ch_0 <- teal.code::chunks$new()
+ch_1 <- teal.code::chunks$new()
+ch_2 <- teal.code::chunks$new()
+
+ch_0$push(quote(df <- data.frame(a = runif(5, -10, 10), b = runif(5, -10, 10))))
+ch_1$push(quote(foo_plot <- function(df_arg) plot(df)))
+ch_2$push(quote(foo_print <- function(df_arg) df_arg))
+```
+
+The `teal.code::chunks_push_chunks` function is called to combine chunks containers together. Note that the base chunks container to start combining from in the following examples are all empty. However, that does not have to be the case. Starting with a clean slate is easier to comprehend.
+
+Perhaps a part of your shiny application needs to output a plot
+
+```{r}
+ch_plot <- teal.code::chunks$new()
+teal.code::chunks_push_chunks(ch_0, chunks = ch_plot)
+teal.code::chunks_push_chunks(ch_1, chunks = ch_plot)
+teal.code::chunks_push(quote(foo_plot(df)), chunks = ch_plot)
+teal.code::chunks_safe_eval(chunks = ch_plot)
+```
+
+Perhaps a part of your shiny application needs to output a table
+
+```{r}
+ch_table <- teal.code::chunks$new()
+teal.code::chunks_push_chunks(ch_0, chunks = ch_table)
+teal.code::chunks_push_chunks(ch_2, chunks = ch_table)
+teal.code::chunks_push(quote(foo_print(df)), chunks = ch_table)
+teal.code::chunks_safe_eval(chunks = ch_table)
+```
+
+Perhaps the main part of your shiny application needs to output a plot, a table, and the code to generate both
+
+```{r}
+ch_ouput <- teal.code::chunks$new()
+teal.code::chunks_push_chunks(ch_0, chunks = ch_ouput)
+teal.code::chunks_push_chunks(ch_1, chunks = ch_ouput)
+teal.code::chunks_push_chunks(ch_2, chunks = ch_ouput)
+teal.code::chunks_push(quote(foo_plot(df)), chunks = ch_ouput)
+teal.code::chunks_push(quote(foo_print(df)), chunks = ch_ouput)
+teal.code::chunks_safe_eval(chunks = ch_ouput)
+
+code <- teal.code::chunks_get_rcode(chunks = ch_ouput)
+cat(
+  paste(code, collapse = "\n")
+)
+```
+
+## Cloning a chunks container
+
+In some instances the need to get a deep copy of a chunks container object is needed. The `$clone` method is used for that purpose.
+
+```{r}
+ch_clone <- ch_0$clone()
+teal.code::chunks_get_rcode(ch_clone)
+```
+
+## Extracting values of variables in a chunks container
+
+In order to extract values of variables inside a chunks container, the code that generates that variable must have been evaluated
+
+```{r}
+teal.code::chunks_safe_eval(ch_0)
+env <- new.env()
+env$df <- teal.code::chunks_get_var(var = "df", chunks = ch_0)
+```
+
+Once extracted, the value can be passed into other chunks containers if needed
+
+```{r}
+ch_print_df <- teal.code::chunks$new()
+teal.code::chunks_reset(envir = env, chunks = ch_print_df)
+teal.code::chunks_push(quote(df), chunks = ch_print_df)
+teal.code::chunks_safe_eval(chunks = ch_print_df)
+```
+
+
+# Example
+
+In the following shiny application, all of the above functionalities will be used
+
+```{r, eval = FALSE}
+library(shiny)
+library(teal.code)
+library(dplyr)
+library(rlang)
+
+ui <- ui <- fluidPage(
+  sidebarLayout(
+    sidebarPanel(
+      # Input of Response can be chosen from Event Table
+      selectInput(
+        inputId = "filter_paramcd",
+        label = "Filter Paramcd",
+        choices = c("OS", "EFS", "PFS"),
+        selected = "OS",
+        multiple = TRUE
+      ),
+      selectInput(
+        inputId = "filter_sex",
+        label = "Filter sex",
+        choices = c("F", "M", "U"),
+        selected = c("F", "M", "U"),
+        multiple = TRUE
+      ),
+      selectInput(
+        inputId = "anl_columns",
+        label = "ANL columns",
+        choices = NULL,
+        multiple = TRUE
+      )
+    ),
+    mainPanel(
+      verbatimTextOutput("code"),
+      plotOutput("plot"),
+      DT::DTOutput("anl_table")
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  # chunks container to hold the datasets used in this app.
+  # The purpose of storing the code to generate the datasets is reproducibility.
+  data_def_chunk <- chunks$new()
+  chunks_push(
+    expression = quote({
+      library(shiny)
+      library(teal.code)
+      library(dplyr)
+      library(rlang)
+    }),
+    chunks = data_def_chunk
+  )
+  chunks_push(
+    expression = quote(adsl <- list(
+      SUBJID = 1:100,
+      STUDYID = c(rep(1, 20), rep(2, 50), rep(3, 30)),
+      AGE = sample(20:88, 100, replace = T) %>% as.numeric(),
+      SEX = sample(c("M", "F", "U"), 100, replace = T) %>% as.factor()
+    ) %>% as_tibble()),
+    chunks = data_def_chunk
+  )
+  chunks_push(
+    expression = quote(events <- list(
+      SUBJID = rep(1:100, 3),
+      STUDYID = rep(c(rep(1, 20), rep(2, 50), rep(3, 30)), 3),
+      PARAMCD = c(rep("OS", 100), rep("EFS", 100), rep("PFS", 100)),
+      AVAL = c(rexp(100, 1 / 100), rexp(100, 1 / 80), rexp(100, 1 / 60)) %>% as.numeric(),
+      AVALU = rep("DAYS", 300) %>% as.factor()
+    ) %>% as_tibble()),
+    chunks = data_def_chunk
+  )
+  # evaluating the code so that the datasets become available
+  chunks_safe_eval(data_def_chunk)
+
+  adsl_filtered_reactive <- reactive({
+    ch <- chunks$new()
+    chunks_push(
+      chunks = ch,
+      expr(adsl_filtered <- adsl %>% dplyr::filter(SEX %in% !!input$filter_sex))
+    )
+    ch
+  })
+
+  events_filtered_reactive <- reactive({
+    ch <- chunks$new()
+    chunks_push(
+      chunks = ch,
+      expr(events_filtered <- events %>% dplyr::filter(PARAMCD %in% !!input$filter_paramcd))
+    )
+    ch
+  })
+
+  # part of the app that only needs some of the chunks containers
+  merge_data <- reactive({
+    env <- new.env()
+    env$adsl <- chunks_get_var(var = "adsl", chunks = data_def_chunk)
+    env$events <- chunks_get_var(var = "events", chunks = data_def_chunk)
+    ch <- chunks$new()
+    chunks_reset(chunks = ch, env = env)
+
+    chunks_push_chunks(chunks = ch, adsl_filtered_reactive())
+    chunks_push_chunks(chunks = ch, events_filtered_reactive())
+
+    chunks_push(
+      chunks = ch,
+      expr(anl <- left_join(adsl_filtered, events_filtered, by = c("STUDYID", "SUBJID")))
+    )
+    chunks_safe_eval(ch)
+    ch
+  })
+
+  observeEvent(merge_data(), {
+    anl <- chunks_get_var("anl", merge_data())
+    updateSelectInput(
+      session,
+      "anl_columns",
+      choices = colnames(anl),
+      selected = colnames(anl)
+    )
+  })
+
+  subset_anl <- reactive({
+    ch <- merge_data()$clone() # need to clone as chunks are R6 object - this would change ch in merge_data()
+    chunks_push(
+      rlang::expr(anl_subset <- anl[!!input$anl_columns]),
+      chunks = ch
+    )
+    chunks_safe_eval(ch)
+    ch
+  })
+
+  # a chunks container that needs to extract a value from another chunks container
+  table_call <- reactive({
+    env <- new.env()
+    env$anl_subset <- chunks_get_var(chunks = subset_anl(), var = "anl_subset")
+    ch <- chunks$new()
+    chunks_reset(chunks = ch, env = env)
+    chunks_push(
+      rlang::expr({
+        table <- DT::datatable(anl_subset)
+        table
+      }),
+      chunks = ch
+    )
+    chunks_safe_eval(ch)
+    ch
+  })
+
+  # a chunks container that needs to extract a value from another chunks container
+  plot_call <- reactive({
+    env <- new.env()
+    env$anl_subset <- chunks_get_var(chunks = subset_anl(), var = "anl_subset")
+    ch <- chunks$new()
+    chunks_reset(chunks = ch, env = env)
+    chunks_push(
+      rlang::expr({
+        plot_output <- plot(anl_subset$AGE, anl_subset$AVAL)
+        plot_output
+      }),
+      chunks = ch
+    )
+    chunks_safe_eval(ch)
+    ch
+  })
+
+  # really long running process that should not be recomputed if can be avoided
+  sleep_5_seconds <- reactive({
+    ch <- chunks$new()
+    chunks_push(
+      quote(Sys.sleep(5)),
+      chunks = ch
+    )
+    chunks_safe_eval(ch)
+    ch
+  })
+
+  # part of the app that needs to combine all chunks containers
+  outputs_call <- reactive({
+    ch <- chunks$new()
+    chunks_push_chunks(chunks = ch, data_def_chunk)
+    chunks_push_chunks(chunks = ch, sleep_5_seconds())
+    chunks_push_chunks(chunks = ch, subset_anl())
+    chunks_push_chunks(chunks = ch, plot_call())
+    chunks_push_chunks(chunks = ch, table_call())
+    ch
+  })
+
+  # part of the app that only needs a single chunks container
+  output$anl_table <- DT::renderDT(chunks_get_var("table", table_call()))
+  output$plot <- renderPlot(chunks_get_var("plot_output", plot_call()))
+
+  output$code <- renderPrint({
+    cat(
+      paste(
+        chunks_get_rcode(chunks = outputs_call()),
+        collapse = "\n"
+      )
+    )
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Conclusion
+
+The ability to have multiple chunks containers combined into one allows for greater flexibility of the code, which allows the developer to apply the `DRY` principle and optimize performance.

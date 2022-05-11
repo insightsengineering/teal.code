@@ -269,7 +269,7 @@ teal.code::chunks_safe_eval()
 stopifnot(teal.code::chunks_get_var("c") == 4)
 teal.code::chunks_push(expression = quote(a + b + c))
 stopifnot(teal.code::chunks_safe_eval() == 8)
-# create a new chunks objet explicitly
+# create a new chunks object explicitly
 chunks2 <- teal.code::chunks$new()
 # push into this object
 teal.code::chunks_push(bquote(d <- 1), chunks = chunks2)
