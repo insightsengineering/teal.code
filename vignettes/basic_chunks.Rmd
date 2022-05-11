@@ -24,7 +24,7 @@ The next sections will explain what a chunk is and how it is evaluated.
 
 # What is a chunk?
 
-A quoted R expression is a necessary step to create a **chunk** object. Quoted R expressions can be created in three different ways:
+A quoted R expression is a necessary step to create a **chunk** object, which is an R6 object of class `chunk_call`. Quoted R expressions can be created in three different ways:
 ```{r}
 a <- 3
 
@@ -59,7 +59,7 @@ print(b)
 eval(expr_c)
 ```
 
-A `chunk` object is an R6 object of class `chunk_call` which can be created and evaluated using the expressions above  as follows:
+Now `chunk` objects can be created and evaluated using the expressions above as follows:
 ```{r}
 a <- 3
 expr_a <- quote(sum(a, a))
@@ -76,6 +76,40 @@ print(b)
 chunk_3 <- teal.code::chunk$new(expression = expr_c)
 chunk_3$eval()
 ```
+Note that `teal.code::chunk` is merely an alias for `teal.code::chunk_call`. And so the following code is the same as the above code:
+```{r}
+chunk_1 <- teal.code::chunk_call$new(expression = expr_a)
+chunk_1$eval()
+
+chunk_2 <- teal.code::chunk_call$new(expression = expr_b)
+chunk_2$eval()
+print(b)
+
+chunk_3 <- teal.code::chunk_call$new(expression = expr_c)
+chunk_3$eval()
+```
+
+## Motivation for the chunk (chunk_call) object
+
+A quoted R expression can simply be evaluated with the `base::eval` function as demonstrated above. But additional functionalities are needed for the `chunks` container to work. Here are some additional methods, besides `eval`, that the `chunk` object contains:
+
+```{r}
+# answers the question of whether the code executed without error
+chunk_1$is_ok()
+
+# answers the question of whether the code has been executed
+chunk_1$is_evaluated()
+
+# returns error messages, if any, in the form of a string
+chunk_err <- teal.code::chunk_call$new(expression = quote(stop("error in chunk")))
+chunk_err$get_errors() # no error before evaluation
+chunk_err$eval()
+chunk_err$get_errors()
+```
+
+Internally, the `chunks` container will convert quoted R expressions into `chunk` objects as they are pushed in.
+
+
 The next sections will tell in a step by step guide which features are provided by the `chunks` container object.
 
 # Step by step to understand chunks container
@@ -145,7 +179,7 @@ teal.code::chunks_get_rcode()
 
 ## Feature 4: `eval` - evaluating the code
 
-The `eval` function is responsible to run the code inside the chunks container. The `eval` function of a chunks container is called `teal.code::chunks_safe_eval`. It evaluates all chunks inside the container in the order they were pushed. It is not possible to change the order or run just pieces of the code. The chunks will not throw an error when being evaluated. See below for further details.
+The `eval` function is responsible to run the code inside the chunks container. The `eval` function of a chunks container is called `teal.code::chunks_safe_eval`. It evaluates all chunks inside the container in the order they were pushed. It is not possible to change the order or run just pieces of the code.
 
 The `teal.code::chunks_safe_eval` will always return the value of the last evaluation. By `teal.code::chunks_get_var` it is possible to retrieve specific variables after evaluation.
 
@@ -159,7 +193,9 @@ teal.code::chunks_get_var("y")
 
 ## Feature 5: Is ok - check for errors and warnings
 
-As already said the chunks in the container will never throw an error upon execution. Errors are caught and stored in the `chunks` object. The most important function to check if everything went fine is `teal.code::chunks_is_ok`. It will return `TRUE` in the case where everything was fine.
+A chunks container object also has its own `eval` method. The function `teal.code::chunks_safe_eval` is merely a wrapper of this method. It is named "safe_eval" because it performs an additional step to handle errors by calling another method of the chunks container object, `validate_is_ok`. If any error occurs during the evaluation of expressions pushed into the chunks container, the error is handled and stored in the `chunk` object that contains the expression, and thus no error is thrown to the calling environment.
+
+The most important function to check if everything went fine is `teal.code::chunks_is_ok`. It will return `TRUE` in the case where everything was fine.
 
 `teal.code::chunks_validate_is_ok` returns a useful `validate(need(...))` message inside the shiny app in case something went wrong.
 
@@ -177,6 +213,8 @@ teal.code::chunks_validate_is_ok()
 ```
 
 <img src="images/is_ok.png" alt="is_ok" style="width: 100%;"/>
+
+The use of the `teal.code::chunks_safe_eval` is extremely important in a reactive context, such as inside the server function of a shiny app. Since errors are not thrown to the environment calling the chunks container, it will not crash the shiny app, which is a good thing. However, the shiny app will also not know that an error has occurred. Calling `teal.code::chunks_safe_eval` instead of the `eval` method of the chunks container ensures that a validation step occurs.
 
 ## Tutorial Summary
 
