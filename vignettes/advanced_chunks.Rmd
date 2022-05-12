@@ -25,7 +25,7 @@ ch_1 <- teal.code::chunks$new()
 ch_2 <- teal.code::chunks$new()
 
 ch_0$push(quote(df <- data.frame(a = runif(5, -10, 10), b = runif(5, -10, 10))))
-ch_1$push(quote(foo_plot <- function(df_arg) plot(df)))
+ch_1$push(quote(foo_plot <- function(df_arg) plot(df_arg)))
 ch_2$push(quote(foo_print <- function(df_arg) df_arg))
 ```
 
