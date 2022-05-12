@@ -173,7 +173,7 @@ server <- function(input, output, session) {
         PARAMCD = c(rep("OS", 100), rep("EFS", 100), rep("PFS", 100)),
         AVAL = c(rexp(100, 1 / 100), rexp(100, 1 / 80), rexp(100, 1 / 60)) %>% as.numeric(),
         AVALU = rep("DAYS", 300) %>% as.factor()
-      ) %>% 
+      ) %>%
         as_tibble()
     ),
     chunks = data_def_chunk
