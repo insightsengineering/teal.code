@@ -68,11 +68,15 @@ cat(
 
 ## Cloning a chunks container
 
-In some instances the need to get a deep copy of a chunks container object is needed. The `$clone` method is used for that purpose.
+A chunks container is an R6 reference class, so a special method is implemented to produce a deep copy of it, `$clone`. A deep copy is needed if some part of your app needs to start from the state of an already existing chunks container and modify or add on to it, but some other part of your app still needs the original chunks container unaltered.
+
+The example code below is another way to print the plot above, which starts combining chunks from a non-empty chunks container derived from cloning another chunks container
 
 ```{r}
-ch_clone <- ch_0$clone()
-teal.code::chunks_get_rcode(ch_clone)
+ch_plot_clone <- ch_0$clone()
+teal.code::chunks_push_chunks(ch_1, chunks = ch_plot_clone)
+teal.code::chunks_push(quote(foo_plot(df)), chunks = ch_plot_clone)
+teal.code::chunks_safe_eval(chunks = ch_plot_clone)
 ```
 
 ## Extracting values of variables in a chunks container
