@@ -107,7 +107,7 @@ library(teal.code)
 library(dplyr)
 library(rlang)
 
-ui <- ui <- fluidPage(
+ui <- fluidPage(
   sidebarLayout(
     sidebarPanel(
       # Input of Response can be chosen from Event Table
