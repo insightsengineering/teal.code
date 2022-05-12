@@ -11,7 +11,7 @@ vignette: >
 
 ## Decoupling chunks containers
 
-In a shiny app there is often a need to have multiple chunks containers that may be used independently by certain parts of the application and may be used together by other parts of the application. Much of the functionality to use a chunks container object independently has already been covered in the [Basic chunks](./basic_chunks.Rmd) vignette, which you should read first before going any further.
+In a shiny app there is often a need to have multiple chunks containers that may be used independently by certain parts of the application and may be used together by other parts of the application. The ability to have multiple chunks containers combined into one allows for greater flexibility of the code, which allows the developer to apply the `DRY` principle and optimize performance. Much of the functionality to use a chunks container object independently has already been covered in the [Basic chunks](./basic_chunks.Rmd) vignette, which you should read first before going any further.
 
 ## Creating a chunks container and assigning it to a variable
 
