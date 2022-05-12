@@ -101,7 +101,7 @@ teal.code::chunks_safe_eval(chunks = ch_print_df)
 
 # Example
 
-In the following shiny application, all of the above functionalities will be used
+The following is a shiny app that uses the chunks container object in ways that mirror how a sophistical `teal` app would use it. This app constructs several chunks containers, allowing each to be used and combined by different parts of the app, which enables the app to apply the `DRY` principle and optimize performance.
 
 ```{r, eval = FALSE}
 library(shiny)
@@ -274,7 +274,9 @@ server <- function(input, output, session) {
     ch
   })
 
-  # really long running process that should not be recomputed if can be avoided
+  # Really long running process that should not be recomputed if can be avoided.
+  # The ability to put this process in its own chunks container, independent of the rest, allows the app to avoid re-computation
+  # and yet be able to capture its code to ensure reproducibility.
   sleep_5_seconds <- reactive({
     ch <- chunks$new()
     chunks_push(
