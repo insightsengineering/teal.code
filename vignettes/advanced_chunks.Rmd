@@ -15,8 +15,6 @@ In a shiny app there is often a need to have multiple chunks containers that may
 
 ## Creating a chunks container and assigning it to a variable
 
-Previously, the `teal.code::init_chunks` function was discussed. It created a chunks container in a given shiny session. This chunks container is the one and only chunks container that is subsequently manipulated and used after its creation.
-
 In order to have multiple chunks containers, each must be accessible and distinguishable via a variable.
 
 ```{r}
