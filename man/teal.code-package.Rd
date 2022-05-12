@@ -16,6 +16,11 @@ module which returns code to reproduce application outputs.
 Authors:
 \itemize{
   \item Pawel Rucki \email{pawel.rucki@roche.com}
+  \item Nikolas Burkoff \email{nikolas.burkoff@roche.com}
+  \item Mahmoud Hallal \email{mahmoud.hallal@roche.com}
+  \item Maciej Nasinski \email{maciej.nasinski@contractors.roche.com}
+  \item Konrad Pagacz \email{konrad.pagacz@contractors.roche.com}
+  \item Junlue Zhao \email{zhaoj88@gene.com}
 }
 
 Other contributors:
