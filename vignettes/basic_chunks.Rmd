@@ -193,7 +193,7 @@ teal.code::chunks_get_var("y")
 
 ## Feature 5: Is ok - check for errors and warnings
 
-A chunks container object also has its own `eval` method. The function `teal.code::chunks_safe_eval` is merely a wrapper of this method. It is named "safe_eval" because it performs an additional step to handle errors by calling another method of the chunks container object, `validate_is_ok`. If any error occurs during the evaluation of expressions pushed into the chunks container, the error is handled and stored in the `chunk` object that contains the expression, and thus no error is thrown to the calling environment.
+A chunks container object also has its own `eval` method. The function `teal.code::chunks_safe_eval` is merely a wrapper of this method. It is named `"safe_eval"` because it performs an additional step to handle errors by calling another method of the chunks container object, `validate_is_ok`. If any error occurs during the evaluation of expressions pushed into the chunks container, the error is handled and stored in the `chunk` object that contains the expression, and thus no error is thrown to the calling environment.
 
 The most important function to check if everything went fine is `teal.code::chunks_is_ok`. It will return `TRUE` in the case where everything was fine.
 
