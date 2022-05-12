@@ -91,7 +91,7 @@ chunk_3$eval()
 
 ## Motivation for the chunk (chunk_call) object
 
-A quoted R expression can simply be evaluated with the `base::eval` function as demonstrated above. But additional functionalities are needed for the `chunks` container to work. Here are some additional methods, besides `eval`, that the `chunk` object contains:
+A quoted R expression can simply be evaluated with the base function, `eval`, as demonstrated above. But additional functionalities are needed for the `chunks` container to work. Here are some additional methods, besides `eval`, that the `chunk` object contains:
 
 ```{r}
 # answers the question of whether the code executed without error
