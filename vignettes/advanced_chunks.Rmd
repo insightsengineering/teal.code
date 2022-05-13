@@ -145,7 +145,7 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   # chunks container to hold the datasets used in this app.
   # The purpose of storing the code to generate the datasets is reproducibility.
-  data_def_chunk <- chunks$new()
+  data_def_chunks <- chunks$new()
   chunks_push(
     expression = quote({
       library(shiny)
@@ -153,7 +153,7 @@ server <- function(input, output, session) {
       library(dplyr)
       library(rlang)
     }),
-    chunks = data_def_chunk
+    chunks = data_def_chunks
   )
   chunks_push(
     expression = quote(
@@ -165,7 +165,7 @@ server <- function(input, output, session) {
       ) %>%
         as_tibble()
     ),
-    chunks = data_def_chunk
+    chunks = data_def_chunks
   )
   chunks_push(
     expression = quote(
@@ -178,34 +178,36 @@ server <- function(input, output, session) {
       ) %>%
         as_tibble()
     ),
-    chunks = data_def_chunk
+    chunks = data_def_chunks
   )
   # evaluating the code so that the datasets become available
-  chunks_safe_eval(data_def_chunk)
+  chunks_safe_eval(data_def_chunks)
 
   adsl_filtered_reactive <- reactive({
-    ch <- chunks$new()
+    ch <- data_def_chunks$clone(deep = TRUE)
     chunks_push(
       chunks = ch,
       expr(adsl_filtered <- adsl %>% dplyr::filter(SEX %in% !!input$filter_sex))
     )
+    chunks_safe_eval(ch)
     ch
   })
 
   events_filtered_reactive <- reactive({
-    ch <- chunks$new()
+    ch <- data_def_chunks$clone(deep = TRUE)
     chunks_push(
       chunks = ch,
       expr(events_filtered <- events %>% dplyr::filter(PARAMCD %in% !!input$filter_paramcd))
     )
+    chunks_safe_eval(ch)
     ch
   })
 
   # part of the app that only needs some of the chunks containers and needs to extract values from other containers
   merge_data <- reactive({
     env <- new.env()
-    env$adsl <- chunks_get_var(var = "adsl", chunks = data_def_chunk)
-    env$events <- chunks_get_var(var = "events", chunks = data_def_chunk)
+    env$adsl <- chunks_get_var(var = "adsl", chunks = data_def_chunks)
+    env$events <- chunks_get_var(var = "events", chunks = data_def_chunks)
     ch <- chunks$new()
     chunks_reset(chunks = ch, env = env)
 
@@ -292,7 +294,7 @@ server <- function(input, output, session) {
   # part of the app that needs to combine all chunks containers
   outputs_call <- reactive({
     ch <- chunks$new()
-    chunks_push_chunks(chunks = ch, data_def_chunk)
+    chunks_push_chunks(chunks = ch, data_def_chunks)
     chunks_push_chunks(chunks = ch, sleep_5_seconds())
     chunks_push_chunks(chunks = ch, subset_anl())
     chunks_push_chunks(chunks = ch, plot_call())
