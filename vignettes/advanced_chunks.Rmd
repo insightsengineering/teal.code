@@ -81,6 +81,33 @@ cat(
 )
 ```
 
+When chunks containers are merged together, their code expressions are combined in the order that the containers were merged and their environments are combined into a single environment. 
+
+Even in the event that the expressions that are combined will lead to errors being thrown when evaluated, there is no way for the chunks object to know that before evaluation. Hence code expressions will not interrupt the merging of chunks containers together.
+
+However, the potential conflict of when two chunks containers have the same variables which holds different values in their respective environments will throw an error when merging chunks containers.
+
+```{r}
+ch_0 <- teal.code::chunks$new()
+ch_1 <- teal.code::chunks$new()
+
+ch_0$push(quote(a_var <- 0))
+ch_1$push(quote(a_var <- 0))
+
+teal.code::chunks_safe_eval(chunks = ch_0)
+teal.code::chunks_safe_eval(chunks = ch_1)
+
+# OK - operation is successful as the variable a_var holds the same value in both chunks
+teal.code::chunks_push_chunks(ch_1, chunks = ch_0)
+
+ch_2 <- teal.code::chunks$new()
+ch_2$push(quote(a_var <- 1))
+teal.code::chunks_safe_eval(chunks = ch_2)
+
+# ERROR - operation is rejected as the variable a_var holds different values
+teal.code::chunks_push_chunks(ch_2, chunks = ch_0)
+```
+
 ## Cloning a chunks container
 
 A chunks container is an R6 reference class, so by default contains a `clone` method. A deep copy is needed if some part of your app needs to start from the state of an already existing chunks container and modify or add on to it, but some other part of your app still needs the original chunks container unaltered.
