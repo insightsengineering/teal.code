@@ -242,7 +242,7 @@ In summary:
 4. expressions can be added to the chunks container by `teal.code::chunks_push`
 5. code inside a container is executed by its `eval` method.
 6. `teal.code::chunks_is_ok` allows checking for execution errors
-7. `teal.code::chunks_validate_is_ok` allows a shiny app to display a validate message of the errors in the ui
+7. `teal.code::chunks_validate_is_ok` allows a shiny app to display a validate message of the errors in the UI
 8. `teal.code::chunks_safe_eval` will evaluate all snippets of the chunks container and then call `validate(need(...))` to let a shiny app silently handle any errors that occurred so that error messages can be outputted in the UI.
 
 For more information about the implementation of chunks inside of shiny/teal module, please go on to the Advanced chunks article.
