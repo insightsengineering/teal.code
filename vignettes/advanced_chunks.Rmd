@@ -37,6 +37,7 @@ ch_2$push(quote({
 )
 
 # chunks containers should be evaluated before being merged
+# the reason for this will be explain later
 teal.code::chunks_safe_eval(chunks = ch_0)
 teal.code::chunks_safe_eval(chunks = ch_1)
 teal.code::chunks_safe_eval(chunks = ch_2)
@@ -110,6 +111,29 @@ tryCatch(
  error = function(e) e
 )
 ```
+
+### Why should you evaluate before merging?
+
+With the exception of code that is meant to return something at the end of a function, code usually modifies the environment and / or the variables inside the environment.
+
+When chunks containers have un-evaluated code, these un-evaluated code will not block any merging operations as explained above. But if they are evaluated, then their environment will be updated and will reflect the intended state of the chunks container as described by the code expressions.
+
+And as described above, it is the environment that will block the operation to merge chunks containers together when there are conflicts. So evaluating before merging will prevent some bugs in your app.
+
+```{r}
+ch_0 <- teal.code::chunks$new()
+ch_0$push(quote(a_var <- 0))
+teal.code::chunks_safe_eval(chunks = ch_0)
+
+ch_2 <- teal.code::chunks$new()
+ch_2$push(quote(a_var <- 1))
+
+# note that ch_2 is not evaluated
+
+# OK - operation is successful
+teal.code::chunks_push_chunks(ch_2, chunks = ch_0)
+```
+
 
 ## Cloning a chunks container
 
