@@ -99,8 +99,6 @@ chunk_err$get_errors()
 
 Internally, the `chunks` container will convert quoted base R expressions into `chunk` objects as they are pushed in.
 
-# Step by step to understand chunks container
-
 ## Creation of a chunks container object
 
 A chunks container may be initialized as an empty container.
@@ -172,7 +170,7 @@ teal.code::chunks_get_rcode(chunks_container)
 
 ## Executing the code stored in the stack
 
-The chunks container also has an `eval` method which runs all code inside the chunks container. This method is wrapped inside the function `teal.code::chunks_safe_eval`. It evaluates all chunks inside the container in the order they were pushed and return the value of the last evaluated expression. It is not possible to change the order or run just some of the expressions.
+The chunks container also has an `eval` method which runs all code inside the chunks container. This method is wrapped inside the function `teal.code::chunks_safe_eval`. It evaluates all chunks inside the container in the order they were pushed and returns the value of the last evaluated expression. It is not possible to change the order or run just some of the expressions.
 
 ```{r}
 teal.code::chunks_safe_eval(chunks_container)
@@ -242,8 +240,9 @@ In summary:
 2. chunks containers host their own environment
 3. chunks container can be accessed to retrieve variables from the environment using `teal.code::chunks_get_var`
 4. expressions can be added to the chunks container by `teal.code::chunks_push`
-5. code inside a container can be executed by `teal.code::chunks_safe_eval`
+5. code inside a container is executed by its `eval` method.
 6. `teal.code::chunks_is_ok` allows checking for execution errors
 7. `teal.code::chunks_validate_is_ok` allows a shiny app to display a validate message of the errors in the ui
+8. `teal.code::chunks_safe_eval` will evaluate all snippets of the chunks container and then call `validate(need(...))` to let a shiny app silently handle any errors that occurred so that error messages can be outputted in the UI.
 
 For more information about the implementation of chunks inside of shiny/teal module, please go on to the Advanced chunks article.
