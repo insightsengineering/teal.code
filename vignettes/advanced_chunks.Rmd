@@ -11,7 +11,7 @@ vignette: >
 
 ## Decoupling chunks containers
 
-In a shiny app there is often a need to have multiple chunks containers that may be used independently by certain parts of the application and may be used together by other parts of the application. The ability to have multiple chunks containers combined into one allows for greater flexibility of the code, which allows the developer to apply the `DRY` principle and optimize performance. Much of the functionality to use a chunks container object independently has already been covered in the [Basic chunks](./basic_chunks.Rmd) vignette, which you should read first before going any further.
+In a shiny app there is often a need to have multiple chunks containers that may be used independently by certain parts of the application and may be used together by other parts of the application. The ability to have multiple chunks containers combined into one allows for greater flexibility of the code, which allows the developer to apply the `DRY` principle (stands for `Do not repeat` which means code that are used in multiple places should only be written and defined once) and optimize performance. Much of the functionality to use a single chunks container object independently has already been covered in the [Basic chunks](./basic_chunks.Rmd) vignette, which you should read first before going any further.
 
 ## Creating a chunks container and assigning it to a variable
 
@@ -22,9 +22,24 @@ ch_0 <- teal.code::chunks$new()
 ch_1 <- teal.code::chunks$new()
 ch_2 <- teal.code::chunks$new()
 
+# if data used is static, then it should be computed once
+# isolating it into its own chunks container accomplishes this goal
 ch_0$push(quote(df <- data.frame(a = runif(5, -10, 10), b = runif(5, -10, 10))))
-ch_1$push(quote(foo_plot <- function(df_arg) plot(df_arg)))
-ch_2$push(quote(foo_print <- function(df_arg) df_arg))
+ch_1$push(quote({
+  Sys.sleep(1) # some really long running process
+  foo_plot <- function(df_arg) plot(df_arg)
+  })
+)
+ch_2$push(quote({
+  Sys.sleep(1) # some really long running process
+  foo_print <- function(df_arg) df_arg
+  })
+)
+
+# chunks containers should be evaluated before being merged
+teal.code::chunks_safe_eval(chunks = ch_0)
+teal.code::chunks_safe_eval(chunks = ch_1)
+teal.code::chunks_safe_eval(chunks = ch_2)
 ```
 
 The `teal.code::chunks_push_chunks` function is called to combine chunks containers together. Note that the base chunks container to start combining from in the following examples are all empty. However, that does not have to be the case. Starting with a clean slate is easier to comprehend.
@@ -73,8 +88,15 @@ A chunks container is an R6 reference class, so by default contains a `clone` me
 The example code below is another way to print the plot above, which starts combining chunks from a non-empty chunks container derived from cloning another chunks container
 
 ```{r}
+ch_0 <- teal.code::chunks$new()
+ch_0$push(quote({
+  df <- data.frame(a = runif(5, -10, 10), b = runif(5, -10, 10))
+  foo_plot <- function(df_arg) plot(df_arg)
+  })
+)
+teal.code::chunks_safe_eval(chunks = ch_0)
+
 ch_plot_clone <- ch_0$clone(deep = TRUE)
-teal.code::chunks_push_chunks(ch_1, chunks = ch_plot_clone)
 teal.code::chunks_push(quote(foo_plot(df)), chunks = ch_plot_clone)
 teal.code::chunks_safe_eval(chunks = ch_plot_clone)
 ```
@@ -84,14 +106,15 @@ teal.code::chunks_safe_eval(chunks = ch_plot_clone)
 In order to extract values of variables inside a chunks container, the code that generates that variable must have been evaluated
 
 ```{r}
-teal.code::chunks_safe_eval(ch_0)
+ch_0 <- teal.code::chunks$new()
+ch_0$push(quote(df <- data.frame(a = runif(5, -10, 10), b = runif(5, -10, 10))))
+teal.code::chunks_safe_eval(chunks = ch_0)
+
 env <- new.env()
 env$df <- teal.code::chunks_get_var(var = "df", chunks = ch_0)
-```
 
-Once extracted, the value can be passed into other chunks containers if needed
+# Once extracted, the value can be passed into other chunks containers if needed
 
-```{r}
 ch_print_df <- teal.code::chunks$new()
 teal.code::chunks_reset(envir = env, chunks = ch_print_df)
 teal.code::chunks_push(quote(df), chunks = ch_print_df)
