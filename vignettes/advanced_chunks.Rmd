@@ -183,8 +183,12 @@ server <- function(input, output, session) {
   # evaluating the code so that the datasets become available
   chunks_safe_eval(data_def_chunks)
 
+  # reactive that needs to extract a value from another chunks container
   adsl_filtered_reactive <- reactive({
-    ch <- data_def_chunks$clone(deep = TRUE)
+    env <- new.env()
+    env$adsl <- chunks_get_var(var = "adsl", chunks = data_def_chunks)
+    ch <- chunks$new()
+    chunks_reset(chunks = ch, env = env)
     chunks_push(
       chunks = ch,
       expr(adsl_filtered <- adsl %>% dplyr::filter(SEX %in% !!input$filter_sex))
@@ -193,8 +197,12 @@ server <- function(input, output, session) {
     ch
   })
 
+  # reactive that needs to extract a value from another chunks container
   events_filtered_reactive <- reactive({
-    ch <- data_def_chunks$clone(deep = TRUE)
+    env <- new.env()
+    env$events <- chunks_get_var(var = "events", chunks = data_def_chunks)
+    ch <- chunks$new()
+    chunks_reset(chunks = ch, env = env)
     chunks_push(
       chunks = ch,
       expr(events_filtered <- events %>% dplyr::filter(PARAMCD %in% !!input$filter_paramcd))
@@ -203,13 +211,9 @@ server <- function(input, output, session) {
     ch
   })
 
-  # part of the app that only needs some of the chunks containers and needs to extract values from other containers
+  # part of the app that merges two other chunks containers
   merge_data <- reactive({
-    env <- new.env()
-    env$adsl <- chunks_get_var(var = "adsl", chunks = data_def_chunks)
-    env$events <- chunks_get_var(var = "events", chunks = data_def_chunks)
     ch <- chunks$new()
-    chunks_reset(chunks = ch, env = env)
 
     chunks_push_chunks(chunks = ch, adsl_filtered_reactive())
     chunks_push_chunks(chunks = ch, events_filtered_reactive())
