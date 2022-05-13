@@ -28,13 +28,11 @@ ch_0$push(quote(df <- data.frame(a = runif(5, -10, 10), b = runif(5, -10, 10))))
 ch_1$push(quote({
   Sys.sleep(1) # some really long running process
   foo_plot <- function(df_arg) plot(df_arg)
-  })
-)
+}))
 ch_2$push(quote({
   Sys.sleep(1) # some really long running process
   foo_print <- function(df_arg) df_arg
-  })
-)
+}))
 
 # chunks containers should be evaluated before being merged
 # the reason for this will be explain later
@@ -107,8 +105,8 @@ teal.code::chunks_safe_eval(chunks = ch_2)
 
 # ERROR - operation is rejected as the variable a_var holds different values
 tryCatch(
- teal.code::chunks_push_chunks(ch_2, chunks = ch_0),
- error = function(e) e
+  teal.code::chunks_push_chunks(ch_2, chunks = ch_0),
+  error = function(e) e
 )
 ```
 
@@ -146,8 +144,7 @@ ch_0 <- teal.code::chunks$new()
 ch_0$push(quote({
   df <- data.frame(a = runif(5, -10, 10), b = runif(5, -10, 10))
   foo_plot <- function(df_arg) plot(df_arg)
-  })
-)
+}))
 teal.code::chunks_safe_eval(chunks = ch_0)
 
 ch_plot_clone <- ch_0$clone(deep = TRUE)
