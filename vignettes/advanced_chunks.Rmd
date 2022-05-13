@@ -105,7 +105,10 @@ ch_2$push(quote(a_var <- 1))
 teal.code::chunks_safe_eval(chunks = ch_2)
 
 # ERROR - operation is rejected as the variable a_var holds different values
-teal.code::chunks_push_chunks(ch_2, chunks = ch_0)
+tryCatch(
+ teal.code::chunks_push_chunks(ch_2, chunks = ch_0),
+ error = function(e) e
+)
 ```
 
 ## Cloning a chunks container
