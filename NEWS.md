@@ -2,6 +2,7 @@
 
 ### Miscellaneous
 * Added a template to the `pkgdown` site.
+* Added a vignette to explain the advanced features of the `chunks` object.
 
 # teal.code 0.1.0
 
