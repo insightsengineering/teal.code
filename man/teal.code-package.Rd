@@ -11,23 +11,21 @@ to store and execute R calls. \code{\link{chunks}} class allows to create a \cod
 module which returns code to reproduce application outputs.
 }
 \author{
-\strong{Maintainer}: NEST \email{basel.nestcicd@roche.com}
+\strong{Maintainer}: Dawid Kaledkowski \email{dawid.kaledkowski@roche.com}
 
 Authors:
 \itemize{
+  \item Pawel Rucki \email{pawel.rucki@roche.com}
   \item Nikolas Burkoff \email{nikolas.burkoff@roche.com}
   \item Mahmoud Hallal \email{mahmoud.hallal@roche.com}
-  \item Dawid Kaledkowski \email{dawid.kaledkowski@roche.com}
   \item Maciej Nasinski \email{maciej.nasinski@contractors.roche.com}
   \item Konrad Pagacz \email{konrad.pagacz@contractors.roche.com}
-  \item Pawel Rucki \email{pawel.rucki@contractors.roche.com}
   \item Junlue Zhao \email{zhaoj88@gene.com}
 }
 
 Other contributors:
 \itemize{
-  \item Tadeusz Lewandowski \email{tadeusz.lewandowski@roche.com} [contributor]
-  \item Roche [copyright holder, funder]
+  \item F. Hoffmann-La Roche AG [copyright holder, funder]
 }
 
 }
