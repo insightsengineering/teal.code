@@ -1,4 +1,4 @@
-# teal.code 0.1.0.9005
+# teal.code 0.1.0.9006
 
 ### Miscellaneous
 * Added a template to the `pkgdown` site.
