@@ -26,7 +26,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">teal.code</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9003</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9005</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 30px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,15 +51,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start_releases -->
-<li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-Other releases
-<span class="caret"></span></a><ul class="dropdown-menu" role="menu">
-   <li><a href="../index.html">latest</a></li>
-   <li><a href="..//index.html"></a></li>
-</ul></li>
-<!-- end_releases -->
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
@@ -137,19 +128,19 @@ and distinguishable via a variable.</p>
 <span class="co"># the reason for this will be explain later</span>
 <span class="fu">teal.code</span><span class="fu">::</span><span class="fu"><a href="../reference/chunks_safe_eval.html">chunks_safe_eval</a></span><span class="op">(</span>chunks <span class="op">=</span> <span class="va">ch_0</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##           a         b</span>
-<span class="co">## 1 -1.650908 -4.162232</span>
-<span class="co">## 2  1.029175 -4.440147</span>
-<span class="co">## 3  1.765107  3.782671</span>
-<span class="co">## 4  8.724059  5.284428</span>
-<span class="co">## 5  3.019842 -8.082078</span></code></pre>
+<span class="co">## 1 -2.583105 -2.158399</span>
+<span class="co">## 2  6.269774 -8.923653</span>
+<span class="co">## 3  9.281443  9.335008</span>
+<span class="co">## 4 -7.765372  4.387678</span>
+<span class="co">## 5 -9.364095  3.959450</span></code></pre>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">teal.code</span><span class="fu">::</span><span class="fu"><a href="../reference/chunks_safe_eval.html">chunks_safe_eval</a></span><span class="op">(</span>chunks <span class="op">=</span> <span class="va">ch_1</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">## function(df_arg) plot(df_arg)</span>
-<span class="co">## &lt;environment: 0x560cc3151f70&gt;</span></code></pre>
+<span class="co">## &lt;environment: 0x563ebc75a5e0&gt;</span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">teal.code</span><span class="fu">::</span><span class="fu"><a href="../reference/chunks_safe_eval.html">chunks_safe_eval</a></span><span class="op">(</span>chunks <span class="op">=</span> <span class="va">ch_2</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">## function(df_arg) df_arg</span>
-<span class="co">## &lt;environment: 0x560cc3268690&gt;</span></code></pre>
+<span class="co">## &lt;environment: 0x563ebc84dcc0&gt;</span></code></pre>
 <p>The <code><a href="../reference/chunks_push_chunks.html">teal.code::chunks_push_chunks</a></code> function is called to
 combine chunks containers together. Note that the base chunks container
 to start combining from in the following examples are all empty.
@@ -172,11 +163,11 @@ is easier to comprehend.</p>
 <span class="fu">teal.code</span><span class="fu">::</span><span class="fu"><a href="../reference/chunks_push.html">chunks_push</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">quote</a></span><span class="op">(</span><span class="fu">foo_print</span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span>, chunks <span class="op">=</span> <span class="va">ch_table</span><span class="op">)</span>
 <span class="fu">teal.code</span><span class="fu">::</span><span class="fu"><a href="../reference/chunks_safe_eval.html">chunks_safe_eval</a></span><span class="op">(</span>chunks <span class="op">=</span> <span class="va">ch_table</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">##           a         b</span>
-<span class="co">## 1 -1.650908 -4.162232</span>
-<span class="co">## 2  1.029175 -4.440147</span>
-<span class="co">## 3  1.765107  3.782671</span>
-<span class="co">## 4  8.724059  5.284428</span>
-<span class="co">## 5  3.019842 -8.082078</span></code></pre>
+<span class="co">## 1 -2.583105 -2.158399</span>
+<span class="co">## 2  6.269774 -8.923653</span>
+<span class="co">## 3  9.281443  9.335008</span>
+<span class="co">## 4 -7.765372  4.387678</span>
+<span class="co">## 5 -9.364095  3.959450</span></code></pre>
 <p>Perhaps the main part of your shiny application needs to output a
 plot, a table, and the code to generate both</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
@@ -189,11 +180,11 @@ plot, a table, and the code to generate both</p>
 <span class="fu">teal.code</span><span class="fu">::</span><span class="fu"><a href="../reference/chunks_safe_eval.html">chunks_safe_eval</a></span><span class="op">(</span>chunks <span class="op">=</span> <span class="va">ch_ouput</span><span class="op">)</span></code></pre></div>
 <p><img src="advanced_chunks_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <pre><code><span class="co">##           a         b</span>
-<span class="co">## 1 -1.650908 -4.162232</span>
-<span class="co">## 2  1.029175 -4.440147</span>
-<span class="co">## 3  1.765107  3.782671</span>
-<span class="co">## 4  8.724059  5.284428</span>
-<span class="co">## 5  3.019842 -8.082078</span></code></pre>
+<span class="co">## 1 -2.583105 -2.158399</span>
+<span class="co">## 2  6.269774 -8.923653</span>
+<span class="co">## 3  9.281443  9.335008</span>
+<span class="co">## 4 -7.765372  4.387678</span>
+<span class="co">## 5 -9.364095  3.959450</span></code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">code</span> <span class="op">&lt;-</span> <span class="fu">teal.code</span><span class="fu">::</span><span class="fu"><a href="../reference/chunks_get_rcode.html">chunks_get_rcode</a></span><span class="op">(</span>chunks <span class="op">=</span> <span class="va">ch_ouput</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span>
@@ -293,7 +284,7 @@ cloning another chunks container</p>
 <span class="op">}</span><span class="op">)</span><span class="op">)</span>
 <span class="fu">teal.code</span><span class="fu">::</span><span class="fu"><a href="../reference/chunks_safe_eval.html">chunks_safe_eval</a></span><span class="op">(</span>chunks <span class="op">=</span> <span class="va">ch_0</span><span class="op">)</span></code></pre></div>
 <pre><code><span class="co">## function(df_arg) plot(df_arg)</span>
-<span class="co">## &lt;environment: 0x560cc436ee08&gt;</span></code></pre>
+<span class="co">## &lt;environment: 0x563ebd7674b0&gt;</span></code></pre>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ch_plot_clone</span> <span class="op">&lt;-</span> <span class="va">ch_0</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu">teal.code</span><span class="fu">::</span><span class="fu"><a href="../reference/chunks_push.html">chunks_push</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">quote</a></span><span class="op">(</span><span class="fu">foo_plot</span><span class="op">(</span><span class="va">df</span><span class="op">)</span><span class="op">)</span>, chunks <span class="op">=</span> <span class="va">ch_plot_clone</span><span class="op">)</span>
@@ -310,12 +301,12 @@ the code that generates that variable must have been evaluated</p>
 <code class="sourceCode R"><span class="va">ch_0</span> <span class="op">&lt;-</span> <span class="fu">teal.code</span><span class="fu">::</span><span class="va"><a href="../reference/chunks.html">chunks</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span>
 <span class="va">ch_0</span><span class="op">$</span><span class="fu">push</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">quote</a></span><span class="op">(</span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">5</span>, <span class="op">-</span><span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span>, b <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">5</span>, <span class="op">-</span><span class="fl">10</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="fu">teal.code</span><span class="fu">::</span><span class="fu"><a href="../reference/chunks_safe_eval.html">chunks_safe_eval</a></span><span class="op">(</span>chunks <span class="op">=</span> <span class="va">ch_0</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##            a          b</span>
-<span class="co">## 1 -0.6472731 -0.8593109</span>
-<span class="co">## 2 -6.5922725 -5.1502638</span>
-<span class="co">## 3  3.1647241  7.5711741</span>
-<span class="co">## 4  2.8205783  0.4350304</span>
-<span class="co">## 5 -2.8034191 -5.5022899</span></code></pre>
+<pre><code><span class="co">##           a          b</span>
+<span class="co">## 1 -1.536044 -0.7407727</span>
+<span class="co">## 2  8.658270 -6.4820085</span>
+<span class="co">## 3 -6.453613 -2.8822452</span>
+<span class="co">## 4  3.226814 -1.7374244</span>
+<span class="co">## 5  7.771565  9.1367228</span></code></pre>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">env</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/environment.html" class="external-link">new.env</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">env</span><span class="op">$</span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">teal.code</span><span class="fu">::</span><span class="fu"><a href="../reference/chunks_get_var.html">chunks_get_var</a></span><span class="op">(</span>var <span class="op">=</span> <span class="st">"df"</span>, chunks <span class="op">=</span> <span class="va">ch_0</span><span class="op">)</span>
@@ -326,12 +317,12 @@ the code that generates that variable must have been evaluated</p>
 <span class="fu">teal.code</span><span class="fu">::</span><span class="fu"><a href="../reference/chunks_reset.html">chunks_reset</a></span><span class="op">(</span>envir <span class="op">=</span> <span class="va">env</span>, chunks <span class="op">=</span> <span class="va">ch_print_df</span><span class="op">)</span>
 <span class="fu">teal.code</span><span class="fu">::</span><span class="fu"><a href="../reference/chunks_push.html">chunks_push</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">quote</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>, chunks <span class="op">=</span> <span class="va">ch_print_df</span><span class="op">)</span>
 <span class="fu">teal.code</span><span class="fu">::</span><span class="fu"><a href="../reference/chunks_safe_eval.html">chunks_safe_eval</a></span><span class="op">(</span>chunks <span class="op">=</span> <span class="va">ch_print_df</span><span class="op">)</span></code></pre></div>
-<pre><code><span class="co">##            a          b</span>
-<span class="co">## 1 -0.6472731 -0.8593109</span>
-<span class="co">## 2 -6.5922725 -5.1502638</span>
-<span class="co">## 3  3.1647241  7.5711741</span>
-<span class="co">## 4  2.8205783  0.4350304</span>
-<span class="co">## 5 -2.8034191 -5.5022899</span></code></pre>
+<pre><code><span class="co">##           a          b</span>
+<span class="co">## 1 -1.536044 -0.7407727</span>
+<span class="co">## 2  8.658270 -6.4820085</span>
+<span class="co">## 3 -6.453613 -2.8822452</span>
+<span class="co">## 4  3.226814 -1.7374244</span>
+<span class="co">## 5  7.771565  9.1367228</span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
