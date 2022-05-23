@@ -1,5 +1,5 @@
 set.seed(1234)
-x <- chunks_new()
+x <- chunks$new()
 testthat::test_that("chunks id - push", {
   x$push(id = "test_1", x = call("print", 1))
   x$push(x = call("print", 2))
@@ -7,7 +7,7 @@ testthat::test_that("chunks id - push", {
   testthat::expect_identical(names(x$get_rcode()), c("test_1", "chunk_2", "test_3"))
 })
 
-y <- chunks_new()
+y <- chunks$new()
 testthat::test_that("chunks id - push_chunks", {
   y$push(id = "test_1", x = call("print", 1))
   y$push_chunks(x)
@@ -23,8 +23,8 @@ testthat::test_that("chunks id - push_chunks", {
 })
 
 testthat::test_that("chunks id - push_chunks empty to empty", {
-  x <- chunks_new()
-  y <- chunks_new()
+  x <- chunks$new()
+  y <- chunks$new()
   y$push_chunks(x)
   testthat::expect_identical(y$get_rcode(), character(0))
   y$push(id = "test_1", x = call("print", 1))

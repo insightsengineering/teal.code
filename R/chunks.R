@@ -976,7 +976,7 @@ chunks_messages <- function(chunks = get_chunks_object()) {
 #'
 #'
 #' @references chunks
-init_chunks <- function(new_chunks = chunks$new(), session = get_session_object()) {
+init_chunks <- function(new_chunks = chunks_new(), session = get_session_object()) {
   session$userData[[session$ns(character(0))]]$chunks <- "A"
   suppressWarnings(rm(envir = session$userData, list = session$ns(character(0))))
   session$userData[[session$ns(character(0))]]$chunks <- new_chunks # nolint
@@ -1220,7 +1220,7 @@ chunks_validate_custom <- function(x,
 #' @return a deep copy of `chunks`
 #' @export
 #' @examples
-#' x_chunk <- chunks$new()
+#' x_chunk <- chunks_new()
 #' chunks_push(chunks = x_chunk, expression = expression(y <- 1))
 #'
 #' # A copy of x_chunk which does not share the same environment

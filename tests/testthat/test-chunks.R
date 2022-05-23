@@ -385,7 +385,7 @@ testthat::test_that("chunks eval with random ID", {
     rm(list = ls())
     data <- data.frame(x = c(1, 2, 3, 4, 5, 6), y = c(1, 1, 1, 1, 1, 1))
     y <- 5
-    chunks1 <- chunks_new()
+    chunks1 <- chunks$new()
   })
   testthat::expect_silent(
     chunks1$reset(envir = environment())
@@ -412,7 +412,6 @@ testthat::test_that("chunks eval with random ID", {
     "attempt"
   )
 
-
   y <- 4
   data <- data
 
@@ -436,7 +435,7 @@ testthat::test_that("chunks eval with random ID", {
     rm(list = ls())
     td <- data.frame(x = c(1, 2, 3, 4, 5, 6), y = c(1, 1, 1, 1, 1, 1))
     y <- 4
-    chunks1 <- chunks_new()
+    chunks1 <- chunks$new()
     chunks1$reset()
   })
   testthat::expect_silent(
@@ -462,7 +461,7 @@ testthat::test_that("chunks eval with random ID", {
 testthat::test_that("chunks eval with given ID", {
   testthat::expect_silent({
     rm(list = ls())
-    chunks1 <- chunks_new()
+    chunks1 <- chunks$new()
   })
 
   testthat::expect_silent({
@@ -506,7 +505,6 @@ testthat::test_that("chunks eval with given ID", {
     chunks1$push(id = "tbl1", x = quote(apply(dataset, 2, function(x) x * y)))
   )
 
-
   testthat::expect_silent(
     chunks1$push(id = "y3", x = bquote(y <- 3))
   )
@@ -532,7 +530,7 @@ testthat::test_that("chunks eval with given ID", {
 testthat::test_that("chunks get_rcode", {
   testthat::expect_silent({
     rm(list = ls())
-    chunks1 <- chunks_new()
+    chunks1 <- chunks$new()
   })
   testthat::expect_silent({
     dataset <- data.frame(x = c(1, 2, 3, 4, 5, 6), y = c(1, 1, 1, 1, 1, 1))
@@ -757,7 +755,7 @@ testthat::test_that("deep clone method", {
 
   var3$var3$var3$var <- "test"
 
-  chunks1 <- chunks_new(envir = environment())
+  chunks1 <- chunks$new(envir = environment())
 
   testthat::expect_silent({
     chunks2 <- chunks1$clone(deep = TRUE)
@@ -818,8 +816,6 @@ testthat::test_that("lhs and rhs", {
   )
 })
 
-
-
 testthat::test_that("chunk pipe", {
   rm(list = ls())
   session <- new.env()
@@ -854,12 +850,12 @@ testthat::test_that("chunk pipe", {
 # * push_chunks ====
 testthat::test_that("chunks push_chunks", {
   testthat::expect_silent({
-    chunks_object <- chunks_new()
+    chunks_object <- chunks$new()
     chunks_object$push(bquote(x <- 1))
   })
 
   testthat::expect_silent({
-    chunks_object2 <- chunks_new()
+    chunks_object2 <- chunks$new()
     chunks_object2$push(bquote(y <- 1))
   })
 
@@ -891,7 +887,7 @@ testthat::test_that("chunks push_chunks", {
   )
 
   # comments always flagged as evaluated
-  stack <- chunks_new()
+  stack <- chunks$new()
   stack$push("This is a comment")
   testthat::expect_warning(
     stack$eval(),
@@ -936,7 +932,7 @@ testthat::test_that("chunks push_chunks", {
   })
 
   testthat::expect_warning({
-    stack <- chunks_new()
+    stack <- chunks$new()
     stack$push(bquote(stop("Error")))
     stack$eval()
     stack$push(bquote(a <- "Will the pandemic ever end?"))
@@ -944,7 +940,7 @@ testthat::test_that("chunks push_chunks", {
   })
 
   testthat::expect_silent({
-    chunks_object2 <- chunks_new()
+    chunks_object2 <- chunks$new()
     chunks_object2$push(bquote(y <- 1))
   })
 
@@ -973,7 +969,7 @@ testthat::test_that("chunks push_chunks", {
 
   # * chunks2 evaluated, run uneval ====
   testthat::expect_silent({
-    chunks_object <- chunks_new()
+    chunks_object <- chunks$new()
     chunks_object$push(bquote(x <- 1))
   })
 
@@ -1017,13 +1013,13 @@ testthat::test_that("chunks push_chunks", {
 
   # * environment conflict ====
   testthat::expect_silent({
-    chunks_object <- chunks_new()
+    chunks_object <- chunks$new()
     chunks_object$push(bquote(x <- 1))
     chunks_object$eval()
   })
 
   testthat::expect_silent({
-    chunks_object2 <- chunks_new()
+    chunks_object2 <- chunks$new()
     chunks_object2$push(bquote(x <- 2))
     chunks_object2$eval()
   })
@@ -1038,13 +1034,13 @@ testthat::test_that("chunks push_chunks", {
 
   # * environment conflict overwrite ====
   testthat::expect_silent({
-    chunks_object <- chunks_new()
+    chunks_object <- chunks$new()
     chunks_object$push(bquote(x <- 1))
     chunks_object$eval()
   })
 
   testthat::expect_silent({
-    chunks_object2 <- chunks_new()
+    chunks_object2 <- chunks$new()
     chunks_object2$push(bquote(x <- 2))
     chunks_object2$eval()
   })
@@ -1062,7 +1058,7 @@ testthat::test_that("chunks push_chunks", {
 # * chunks_uneval ====
 testthat::test_that("chunks uneval", {
   testthat::expect_silent({
-    chunks_object <- chunks_new()
+    chunks_object <- chunks$new()
     chunks_object$push(bquote(x <- 1))
     chunks_object$push(bquote(a <- 2))
     chunks_object$push(bquote(res <- a + x))
@@ -1087,7 +1083,7 @@ testthat::test_that("chunks uneval", {
   # * uneval from env ====
   testthat::expect_silent({
     a <- 2
-    chunks_object <- chunks_new()
+    chunks_object <- chunks$new()
     chunks_object$reset()
     chunks_object$push(bquote(res <- a + 1))
     chunks_object$eval()
@@ -1126,7 +1122,7 @@ testthat::test_that("chunks uneval", {
   # * uneval from overwrite env ====
   testthat::expect_silent({
     a <- 2
-    chunks_object <- chunks_new()
+    chunks_object <- chunks$new()
     chunks_object$reset()
     chunks_object$push(bquote(res <- a + 1))
     chunks_object$eval()
@@ -1153,7 +1149,7 @@ testthat::test_that("chunks uneval", {
 # * chunks_push_merge_data ====
 testthat::test_that("chunks chunks_push_merge_data", {
   testthat::expect_silent({
-    chunks_object <- chunks_new()
+    chunks_object <- chunks$new()
     chunks_object$push(bquote(x <- 1))
     chunks_object$push(bquote(a <- 2))
     chunks_object$push(bquote(res <- a + x))
@@ -1161,7 +1157,7 @@ testthat::test_that("chunks chunks_push_merge_data", {
   })
 
   testthat::expect_silent({
-    chunks_object2 <- chunks_new()
+    chunks_object2 <- chunks$new()
     chunks_object2$push(bquote(y <- 1))
   })
 
@@ -1180,7 +1176,7 @@ testthat::test_that("chunks chunks_push_merge_data", {
 
 # * get_warnings, get_errors, get_messages ====
 testthat::test_that("chunks warning messages", {
-  stack <- chunks_new()
+  stack <- chunks$new()
 
   # Empty chunks
   testthat::expect_equal(
@@ -1233,7 +1229,7 @@ testthat::test_that("chunks warning messages", {
   )
 
   # Messages
-  stack <- chunks_new()
+  stack <- chunks$new()
   testthat::expect_equal(stack$get_messages(), character(0))
   stack$push(bquote({
     message("First message")
@@ -1273,7 +1269,7 @@ testthat::test_that("chunks warning messages", {
 
 # * eval_info() ====
 testthat::test_that("chunks$eval_info() testing", {
-  stacks <- chunks_new()
+  stacks <- chunks$new()
   stacks$push("This is a comment")
   testthat::expect_warning(stacks$eval(), "All chunks were already evaluated")
 
@@ -1289,7 +1285,7 @@ testthat::test_that("chunks$eval_info() testing", {
 
 # * validate_ methods ====
 testthat::test_that("chunks$validate_is", {
-  stacks <- chunks_new()
+  stacks <- chunks$new()
   testthat::expect_error(stacks$validate_is(8))
   testthat::expect_error(stacks$validate_is(c("test1", "test2")))
   testthat::expect_error(stacks$validate_is(var = "test", class = 9))
@@ -1320,7 +1316,7 @@ testthat::test_that("chunks$validate_is", {
 })
 
 testthat::test_that("chunks$validate_all", {
-  stacks <- chunks_new()
+  stacks <- chunks$new()
   testthat::expect_warning(testthat::expect_error(stacks$validate_all(var = "test", class = "character")))
 
   stacks$push(x = bquote({
@@ -1343,7 +1339,7 @@ testthat::test_that("chunks$validate_all", {
 
 # * reactive_summary ====
 testthat::test_that("chunks$get_reactive_summary", {
-  stacks <- chunks_new()
+  stacks <- chunks$new()
 
   stacks$push(quote(message("message")))
   stacks$eval()
