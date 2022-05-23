@@ -47,9 +47,9 @@ Perhaps a part of your shiny application needs to output a plot
 
 ```{r}
 ch_plot <- teal.code::chunks_new()
-teal.code::chunks_push_chunks(ch_0, chunks = ch_plot)
-teal.code::chunks_push_chunks(ch_1, chunks = ch_plot)
-teal.code::chunks_push(quote(foo_plot(df)), chunks = ch_plot)
+teal.code::chunks_push_chunks(chunks = ch_plot, x = ch_0)
+teal.code::chunks_push_chunks(chunks = ch_plot, x = ch_1)
+teal.code::chunks_push(chunks = ch_plot, x = quote(foo_plot(df)))
 teal.code::chunks_safe_eval(chunks = ch_plot)
 ```
 
@@ -57,9 +57,9 @@ Perhaps a part of your shiny application needs to output a table
 
 ```{r}
 ch_table <- teal.code::chunks_new()
-teal.code::chunks_push_chunks(ch_0, chunks = ch_table)
-teal.code::chunks_push_chunks(ch_2, chunks = ch_table)
-teal.code::chunks_push(quote(foo_print(df)), chunks = ch_table)
+teal.code::chunks_push_chunks(chunks = ch_table, x = ch_0)
+teal.code::chunks_push_chunks(chunks = ch_table, x = ch_2)
+teal.code::chunks_push(chunks = ch_table, x = quote(foo_print(df)))
 teal.code::chunks_safe_eval(chunks = ch_table)
 ```
 
@@ -67,11 +67,11 @@ Perhaps the main part of your shiny application needs to output a plot, a table,
 
 ```{r}
 ch_ouput <- teal.code::chunks_new()
-teal.code::chunks_push_chunks(ch_0, chunks = ch_ouput)
-teal.code::chunks_push_chunks(ch_1, chunks = ch_ouput)
-teal.code::chunks_push_chunks(ch_2, chunks = ch_ouput)
-teal.code::chunks_push(quote(foo_plot(df)), chunks = ch_ouput)
-teal.code::chunks_push(quote(foo_print(df)), chunks = ch_ouput)
+teal.code::chunks_push_chunks(chunks = ch_ouput, x = ch_0)
+teal.code::chunks_push_chunks(chunks = ch_ouput, x = ch_1)
+teal.code::chunks_push_chunks(chunks = ch_ouput, x = ch_2)
+teal.code::chunks_push(chunks = ch_ouput, x = quote(foo_plot(df)))
+teal.code::chunks_push(chunks = ch_ouput, x = quote(foo_print(df)))
 teal.code::chunks_safe_eval(chunks = ch_ouput)
 
 code <- teal.code::chunks_get_rcode(chunks = ch_ouput)
@@ -97,7 +97,7 @@ teal.code::chunks_safe_eval(chunks = ch_0)
 teal.code::chunks_safe_eval(chunks = ch_1)
 
 # OK - operation is successful as the variable a_var holds the same value in both chunks
-teal.code::chunks_push_chunks(ch_1, chunks = ch_0)
+teal.code::chunks_push_chunks(chunks = ch_0, x = ch_1)
 
 ch_2 <- teal.code::chunks_new()
 ch_2$push(quote(a_var <- 1))
@@ -105,7 +105,7 @@ teal.code::chunks_safe_eval(chunks = ch_2)
 
 # ERROR - operation is rejected as the variable a_var holds different values
 tryCatch(
-  teal.code::chunks_push_chunks(ch_2, chunks = ch_0),
+  teal.code::chunks_push_chunks(chunks = ch_0, x = ch_2),
   error = function(e) e
 )
 ```
@@ -129,7 +129,7 @@ ch_2$push(quote(a_var <- 1))
 # note that ch_2 is not evaluated
 
 # OK - operation is successful
-teal.code::chunks_push_chunks(ch_2, chunks = ch_0)
+teal.code::chunks_push_chunks(chunks = ch_0, x = ch_2)
 ```
 
 
@@ -148,7 +148,7 @@ ch_0$push(quote({
 teal.code::chunks_safe_eval(chunks = ch_0)
 
 ch_plot_clone <- ch_0$clone(deep = TRUE)
-teal.code::chunks_push(quote(foo_plot(df)), chunks = ch_plot_clone)
+teal.code::chunks_push(chunks = ch_plot_clone, expression = quote(foo_plot(df)))
 teal.code::chunks_safe_eval(chunks = ch_plot_clone)
 ```
 
@@ -168,7 +168,7 @@ env$df <- teal.code::chunks_get_var(var = "df", chunks = ch_0)
 
 ch_print_df <- teal.code::chunks_new()
 teal.code::chunks_reset(envir = env, chunks = ch_print_df)
-teal.code::chunks_push(quote(df), chunks = ch_print_df)
+teal.code::chunks_push(chunks = ch_print_df, expression = quote(df))
 teal.code::chunks_safe_eval(chunks = ch_print_df)
 ```
 
@@ -221,15 +221,16 @@ server <- function(input, output, session) {
   # The purpose of storing the code to generate the datasets is reproducibility.
   data_def_chunks <- chunks_new()
   chunks_push(
+    chunks = data_def_chunks,
     expression = quote({
       library(shiny)
       library(teal.code)
       library(dplyr)
       library(rlang)
-    }),
-    chunks = data_def_chunks
+    })
   )
   chunks_push(
+    chunks = data_def_chunks,
     expression = quote(
       adsl <- list(
         SUBJID = 1:100,
@@ -238,10 +239,10 @@ server <- function(input, output, session) {
         SEX = sample(c("M", "F", "U"), 100, replace = T) %>% as.factor()
       ) %>%
         as_tibble()
-    ),
-    chunks = data_def_chunks
+    )
   )
   chunks_push(
+    chunks = data_def_chunks,
     expression = quote(
       events <- list(
         SUBJID = rep(1:100, 3),
@@ -251,8 +252,7 @@ server <- function(input, output, session) {
         AVALU = rep("DAYS", 300) %>% as.factor()
       ) %>%
         as_tibble()
-    ),
-    chunks = data_def_chunks
+    )
   )
   # evaluating the code so that the datasets become available
   chunks_safe_eval(data_def_chunks)
@@ -265,7 +265,7 @@ server <- function(input, output, session) {
     chunks_reset(chunks = ch, env = env)
     chunks_push(
       chunks = ch,
-      expr(adsl_filtered <- adsl %>% dplyr::filter(SEX %in% !!input$filter_sex))
+      expression = expr(adsl_filtered <- adsl %>% dplyr::filter(SEX %in% !!input$filter_sex))
     )
     chunks_safe_eval(ch)
     ch
@@ -279,7 +279,7 @@ server <- function(input, output, session) {
     chunks_reset(chunks = ch, env = env)
     chunks_push(
       chunks = ch,
-      expr(events_filtered <- events %>% dplyr::filter(PARAMCD %in% !!input$filter_paramcd))
+      expression = expr(events_filtered <- events %>% dplyr::filter(PARAMCD %in% !!input$filter_paramcd))
     )
     chunks_safe_eval(ch)
     ch
@@ -289,12 +289,12 @@ server <- function(input, output, session) {
   merge_data <- reactive({
     ch <- chunks_new()
 
-    chunks_push_chunks(chunks = ch, adsl_filtered_reactive())
-    chunks_push_chunks(chunks = ch, events_filtered_reactive())
+    chunks_push_chunks(chunks = ch, x = adsl_filtered_reactive())
+    chunks_push_chunks(chunks = ch, x = events_filtered_reactive())
 
     chunks_push(
       chunks = ch,
-      expr(anl <- left_join(adsl_filtered, events_filtered, by = c("STUDYID", "SUBJID")))
+      expression = expr(anl <- left_join(adsl_filtered, events_filtered, by = c("STUDYID", "SUBJID")))
     )
     chunks_safe_eval(ch)
     ch
@@ -314,8 +314,8 @@ server <- function(input, output, session) {
   subset_anl <- reactive({
     ch <- merge_data()$clone(deep = TRUE)
     chunks_push(
-      rlang::expr(anl_subset <- anl[!!input$anl_columns]),
-      chunks = ch
+      chunks = ch,
+      expression = rlang::expr(anl_subset <- anl[!!input$anl_columns])
     )
     chunks_safe_eval(ch)
     ch
@@ -328,11 +328,11 @@ server <- function(input, output, session) {
     ch <- chunks_new()
     chunks_reset(chunks = ch, env = env)
     chunks_push(
-      rlang::expr({
+      chunks = ch,
+      expression = rlang::expr({
         table <- DT::datatable(anl_subset)
         table
-      }),
-      chunks = ch
+      })
     )
     chunks_safe_eval(ch)
     ch
@@ -345,11 +345,11 @@ server <- function(input, output, session) {
     ch <- chunks_new()
     chunks_reset(chunks = ch, env = env)
     chunks_push(
-      rlang::expr({
+      chunks = ch,
+      expression = rlang::expr({
         plot_output <- plot(anl_subset$AGE, anl_subset$AVAL)
         plot_output
-      }),
-      chunks = ch
+      })
     )
     chunks_safe_eval(ch)
     ch
@@ -362,8 +362,8 @@ server <- function(input, output, session) {
   sleep_5_seconds <- reactive({
     ch <- chunks_new()
     chunks_push(
-      quote(Sys.sleep(5)),
-      chunks = ch
+      chunks = ch,
+      expression = quote(Sys.sleep(5))
     )
     chunks_safe_eval(ch)
     ch
@@ -372,11 +372,11 @@ server <- function(input, output, session) {
   # part of the app that needs to combine all chunks containers
   outputs_call <- reactive({
     ch <- chunks_new()
-    chunks_push_chunks(chunks = ch, data_def_chunks)
-    chunks_push_chunks(chunks = ch, sleep_5_seconds())
-    chunks_push_chunks(chunks = ch, subset_anl())
-    chunks_push_chunks(chunks = ch, plot_call())
-    chunks_push_chunks(chunks = ch, table_call())
+    chunks_push_chunks(chunks = ch, x = data_def_chunks)
+    chunks_push_chunks(chunks = ch, x = sleep_5_seconds())
+    chunks_push_chunks(chunks = ch, x = subset_anl())
+    chunks_push_chunks(chunks = ch, x = plot_call())
+    chunks_push_chunks(chunks = ch, x = table_call())
     ch
   })
 

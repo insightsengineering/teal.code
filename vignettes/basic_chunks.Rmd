@@ -121,7 +121,7 @@ chunks_container <- teal.code::chunks_new(envir = env)
 chunks_container$ls()
 
 # function to add a chunk to a chunks container object
-teal.code::chunks_push(quote(print(x)), chunks = chunks_container)
+teal.code::chunks_push(chunks = chunks_container, expression = quote(print(x)))
 
 # function to get all expressions from a chunks container code stack
 teal.code::chunks_get_rcode(chunks_container)
@@ -155,8 +155,8 @@ teal.code::chunks_get_rcode(chunks_container)
 As mentioned above, the `teal.code::chunks_push` function is used to push expressions into the chunks container.
 
 ```{r}
-teal.code::chunks_push(substitute(y <- y + 1), chunks = chunks_container)
-teal.code::chunks_push(substitute(x <- paste0(x, y)), chunks = chunks_container)
+teal.code::chunks_push(chunks = chunks_container, expression = substitute(y <- y + 1))
+teal.code::chunks_push( chunks = chunks_container, expression = substitute(x <- paste0(x, y)))
 ```
 
 <img src="images/push.png" alt="push" style="width: 100%;"/>
@@ -183,7 +183,7 @@ teal.code::chunks_get_var("y", chunks = chunks_container)
 It is still possible to push more code expressions into a chunks container that has already been evaluated. These newly added expressions may also modify the environment.
 
 ```{r}
-teal.code::chunks_push(quote(z <- 10), chunks = chunks_container)
+teal.code::chunks_push(chunks = chunks_container, expression = quote(z <- 10))
 teal.code::chunks_get_rcode(chunks_container)
 
 teal.code::chunks_safe_eval(chunks_container)
@@ -194,10 +194,13 @@ teal.code::chunks_get_var("z", chunks = chunks_container)
 Note that code that have already been evaluated will not be re-evaluated when newly added code is evaluated.
 
 ```{r}
-teal.code::chunks_push(quote(print("I will only be evaluated once")), chunks = chunks_container)
+teal.code::chunks_push(
+  chunks = chunks_container,
+  expression = quote(print("I will only be evaluated once"))
+)
 teal.code::chunks_safe_eval(chunks_container)
 
-teal.code::chunks_push(quote(rm(z)), chunks = chunks_container)
+teal.code::chunks_push(chunks = chunks_container, expression = quote(rm(z)))
 
 # note that the string "I will only be evaluated once" is not printed again
 teal.code::chunks_safe_eval(chunks_container)
@@ -219,7 +222,7 @@ teal.code::chunks_is_ok(chunks_container)
 teal.code::chunks_validate_is_ok(chunks = chunks_container)
 
 # Trying an error inside a chunk ------------------------
-teal.code::chunks_push(quote(stop("ERROR")), chunks = chunks_container)
+teal.code::chunks_push(chunks = chunks_container, expression = quote(stop("ERROR")))
 teal.code::chunks_safe_eval(chunks_container)
 
 teal.code::chunks_is_ok(chunks_container)
