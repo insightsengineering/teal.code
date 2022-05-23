@@ -28,10 +28,10 @@ chunks_push(expression(y <- 1), chunks = x_chunk)
 # A copy of x_chunk which does not share the same environment
 x_chunk_copy <- chunks_deep_clone(x_chunk)
 
-#Add expression only into x_chunk
+# Add expression only into x_chunk
 chunks_push(expression(y <- 2 * y), chunks = x_chunk)
 
-#Get R code from both chunks, note it is different
+# Get R code from both chunks, note it is different
 chunks_get_rcode(x_chunk)
 chunks_get_rcode(x_chunk_copy)
 
