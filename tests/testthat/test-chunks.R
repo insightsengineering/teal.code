@@ -1694,7 +1694,7 @@ testthat::test_that("chunks_deep_clone", {
   # note chunk not chunks here
   testthat::expect_error(chunks_deep_clone(chunk$new(expression(y <- 1))), "Assertion on 'chunks' failed")
 
-  x_chunk <- chunks$new()
+  x_chunk <- chunks_new()
   chunks_push(chunks = x_chunk, expression = expression(y <- 1))
 
   # A copy of x_chunk which does not share the same environment
