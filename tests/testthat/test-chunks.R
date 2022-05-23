@@ -616,7 +616,7 @@ testthat::test_that("get_code_chunk", {
     chunks_push(
       chunks = chunks1,
       id = "tbl",
-      expression = quote(apply(dataset, 2, function(x) x * y)),
+      expression = quote(apply(dataset, 2, function(x) x * y))
     )
   )
   testthat::expect_error(
