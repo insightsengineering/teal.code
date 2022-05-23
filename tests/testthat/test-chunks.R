@@ -1686,7 +1686,7 @@ testthat::test_that("chunks_deep_clone", {
   x_chunk_copy <- chunks_deep_clone(x_chunk)
 
   # Add expression only into x_chunk
-  chunks_push(expression(y <- 2 * y), chunks = x_chunk)
+  chunks_push(chunks = x_chunk, expression = expression(y <- 2 * y))
 
   # Evaluate x_chunk
   testthat::expect_equal(chunks_safe_eval(x_chunk), 2)
