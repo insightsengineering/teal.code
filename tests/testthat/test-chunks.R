@@ -1676,7 +1676,7 @@ testthat::test_that("chunks_deep_clone", {
 
   # check validation
   testthat::expect_error(chunks_deep_clone(list()), "Assertion on 'chunks' failed")
-  #note chunk not chunks here
+  # note chunk not chunks here
   testthat::expect_error(chunks_deep_clone(chunk$new(expression(y <- 1))), "Assertion on 'chunks' failed")
 
   x_chunk <- chunks$new()

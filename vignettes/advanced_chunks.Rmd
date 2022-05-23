@@ -147,7 +147,7 @@ ch_0$push(quote({
 }))
 teal.code::chunks_safe_eval(chunks = ch_0)
 
-ch_plot_clone <- chunks_deep_clone(ch_0)
+ch_plot_clone <- teal.code::chunks_deep_clone(ch_0)
 teal.code::chunks_push(quote(foo_plot(df)), chunks = ch_plot_clone)
 teal.code::chunks_safe_eval(chunks = ch_plot_clone)
 ```
