@@ -2,9 +2,7 @@
 
 ### Enhancements
 * New wrapper function `chunks_deep_clone` to make a deep (i.e. completely independent) copy of a `chunks` objects.
-
-### Enhancements
-* Added a new wrapper `chunks_new()` for `chunks$new()` initialization.
+* Added a new wrapper `chunks_new` for `chunks` initialization.
 
 ### Miscellaneous
 * Added a template to the `pkgdown` site.
