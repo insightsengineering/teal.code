@@ -1190,3 +1190,35 @@ chunks_validate_custom <- function(x,
   if (is.null(msg)) msg <- paste(deparse(x), "is not all TRUE")
   validate(need(all(res), msg))
 }
+
+
+#' Deep clones a chunk object
+#' @description `r lifecycle::badge("stable")`
+#' @inheritParams chunks_push
+#'
+#' @details use this function if you need to copy a `chunks` object as this
+#'   function makes sure all associated `environments` a deep copied (i.e. are independent
+#'  of the original object)
+#' @return a deep copy of `chunks`
+#' @export
+#' @examples
+#' x_chunk <- chunks$new()
+#' chunks_push(expression(y <- 1), chunks = x_chunk)
+#'
+#' # A copy of x_chunk which does not share the same environment
+#' x_chunk_copy <- chunks_deep_clone(x_chunk)
+#'
+#' #Add expression only into x_chunk
+#' chunks_push(expression(y <- 2 * y), chunks = x_chunk)
+#'
+#' #Get R code from both chunks, note it is different
+#' chunks_get_rcode(x_chunk)
+#' chunks_get_rcode(x_chunk_copy)
+#'
+#' # Evaluate both chunks, not result is different
+#' chunks_safe_eval(x_chunk)
+#' chunks_safe_eval(x_chunk_copy)
+chunks_deep_clone <- function(chunks = get_chunks_object()) {
+  checkmate::assert_class(chunks, "chunks")
+  return(chunks$clone(deep = TRUE))
+}
