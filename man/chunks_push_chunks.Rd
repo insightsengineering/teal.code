@@ -22,10 +22,10 @@ Nothing, just add the chunk to the \code{chunks} argument
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-chunks_object <- chunks$new()
+chunks_object <- chunks_new()
 chunks_push(chunks = chunks_object, expression = bquote(x <- 1))
 
-chunks_object2 <- chunks$new()
+chunks_object2 <- chunks_new()
 chunks_push(chunks = chunks_object2, expression = bquote(y <- 1))
 
 chunks_push_chunks(chunks = chunks_object, x = chunks_object2)

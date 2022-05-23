@@ -1,6 +1,6 @@
 # teal.code 0.1.0.9006
 
-### New features
+### Enhancements
 * Added a new wrapper `chunks_new()` for `chunks$new()` initialization.
 
 ### Miscellaneous

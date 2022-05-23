@@ -68,7 +68,7 @@ pipe_chunk <- function() {
 #'     paste0("id", x, sep = "-")
 #'   }
 #' }
-#' session$userData[[session$ns(character(0))]]$chunks <- chunks$new()
+#' session$userData[[session$ns(character(0))]]$chunks <- chunks_new()
 #'
 #' x <- 5
 #' session$userData[[session$ns(character(0))]]$chunks$reset()

@@ -166,7 +166,7 @@ chunks <- R6::R6Class(
   # * public ----
   public = list(
     initialize = function(envir = new.env()) {
-      checkmate::assert_environment(envir, null.ok = TRUE)
+      checkmate::assert_environment(envir)
       private$reset_env(envir = envir)
       private$reactive_summary <- reactiveValues(msgs = logical(0), warnings = logical(0), errors = logical(0))
 
@@ -733,7 +733,7 @@ clone_env <- function(envir_from, envir_to) {
 #' @export
 #'
 #' @examples
-#' all_chunks <- chunks$new()
+#' all_chunks <- chunks_new()
 #' chunks_push(chunks = all_chunks, expression = call("as.character", x = 3), id = "tbl")
 #'
 #' x <- 3
@@ -763,10 +763,10 @@ chunks_push <- function(expression,
 #' @export
 #'
 #' @examples
-#' chunks_object <- chunks$new()
+#' chunks_object <- chunks_new()
 #' chunks_push(chunks = chunks_object, expression = bquote(x <- 1))
 #'
-#' chunks_object2 <- chunks$new()
+#' chunks_object2 <- chunks_new()
 #' chunks_push(chunks = chunks_object2, expression = bquote(y <- 1))
 #'
 #' chunks_push_chunks(chunks = chunks_object, x = chunks_object2)
@@ -811,7 +811,7 @@ chunks_push_data_merge <- function(x, chunks = get_chunks_object()) {
 #' @export
 #'
 #' @examples
-#' all_chunks <- chunks$new()
+#' all_chunks <- chunks_new()
 #' chunks_push_comment("this is a comment", chunks = all_chunks)
 #'
 #' chunks_get_rcode(chunks = all_chunks) == "# this is a comment"
@@ -836,7 +836,7 @@ chunks_push_comment <- function(comment,
 #' @export
 #'
 #' @examples
-#' all_chunks <- chunks$new()
+#' all_chunks <- chunks_new()
 #' chunks_push_new_line(chunks = all_chunks)
 #'
 #' chunks_get_rcode(chunks = all_chunks) == " "
@@ -987,7 +987,7 @@ init_chunks <- function(new_chunks = chunks$new(), session = get_session_object(
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
-#' @param envir optional, environment to get objects from to chunks environment
+#' @param envir (`environment` or `NULL`) optional, environment to get objects from to chunks environment
 #'
 #' @return R6 chunks object
 #'
@@ -997,6 +997,7 @@ init_chunks <- function(new_chunks = chunks$new(), session = get_session_object(
 #' @examples
 #' new_chunks <- chunks_new()
 chunks_new <- function(envir = new.env()) {
+  checkmate::assert_environment(envir)
   return(chunks$new(envir = envir))
 }
 
@@ -1012,7 +1013,7 @@ chunks_new <- function(envir = new.env()) {
 #' @return nothing, it modifies shiny session object
 #'
 #' @export
-overwrite_chunks <- function(x = chunks$new(envir = parent.frame()), session = get_session_object()) {
+overwrite_chunks <- function(x = chunks_new(envir = parent.frame()), session = get_session_object()) {
   if (!inherits(x, "chunks")) {
     stop("No chunks object provided for 'overwrite_chunks' in argument 'x'.")
   }

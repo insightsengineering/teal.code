@@ -1,5 +1,5 @@
 testthat::test_that("chunks_validate_custom", {
-  x <- chunks$new()
+  x <- chunks_new()
   x$push(quote(a <- 1))
   chunks_safe_eval(x)
   testthat::expect_null(chunks_validate_custom(quote(a == 1), chunks = x))

@@ -14,7 +14,7 @@ If not provided then automatic \code{chunks} object detection is run via \link{g
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-all_chunks <- chunks$new()
+all_chunks <- chunks_new()
 chunks_push_new_line(chunks = all_chunks)
 
 chunks_get_rcode(chunks = all_chunks) == " "

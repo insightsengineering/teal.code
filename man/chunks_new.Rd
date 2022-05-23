@@ -7,7 +7,7 @@
 chunks_new(envir = new.env())
 }
 \arguments{
-\item{envir}{optional, environment to get objects from to chunks environment}
+\item{envir}{(\code{environment} or \code{NULL}) optional, environment to get objects from to chunks environment}
 }
 \value{
 R6 chunks object
