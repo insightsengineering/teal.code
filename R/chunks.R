@@ -987,6 +987,8 @@ init_chunks <- function(new_chunks = chunks$new(), session = get_session_object(
 #'
 #' @description `r lifecycle::badge("experimental")`
 #'
+#' @param envir optional, environment to get objects from to chunks environment
+#'
 #' @return R6 chunks object
 #'
 #' @export
@@ -994,8 +996,8 @@ init_chunks <- function(new_chunks = chunks$new(), session = get_session_object(
 #'
 #' @examples
 #' new_chunks <- chunks_new()
-chunks_new <- function() {
-  new_chunks <- chunks$new()
+chunks_new <- function(envir = new.env()) {
+  new_chunks <- chunks$new(envir = envir)
   return(new_chunks)
 }
 

@@ -4,7 +4,10 @@
 \alias{chunks_new}
 \title{Creates and returns a R6 chunks object to be used in a shiny/teal app}
 \usage{
-chunks_new()
+chunks_new(envir = new.env())
+}
+\arguments{
+\item{envir}{optional, environment to get objects from to chunks environment}
 }
 \value{
 R6 chunks object

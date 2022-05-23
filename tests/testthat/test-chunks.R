@@ -672,9 +672,18 @@ testthat::test_that("chunks_new returns R6 chunks object", {
   testthat::expect_identical(class(chunks_1), c("chunks", "R6"))
 })
 
-testthat::test_that("chunks_new throws error when an input is passed", {
-  testthat::expect_error(chunks_new("AA"), "unused argument")
-  testthat::expect_error(chunks_new(123), "unused argument")
+testthat::test_that("chunks_new accepts environment object as input", {
+  testthat::expect_error(chunks_new(envir = new.env()), NA)
+})
+
+testthat::test_that("chunks_new accepts NULL or empty as input", {
+  testthat::expect_error(chunks_new(), NA)
+  testthat::expect_error(chunks_new(envir = NULL), "")
+})
+
+testthat::test_that("chunks_new throws error when an input is not environment", {
+  testthat::expect_error(chunks_new(envir = "AA"), "Must be an environment")
+  testthat::expect_error(chunks_new(envir = 123), "Must be an environment")
 })
 
 testthat::test_that("set chunk environment", {
