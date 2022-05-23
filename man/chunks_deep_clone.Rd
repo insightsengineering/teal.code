@@ -2,7 +2,7 @@
 % Please edit documentation in R/chunks.R
 \name{chunks_deep_clone}
 \alias{chunks_deep_clone}
-\title{Deep clones a chunk object}
+\title{Deep clones a chunks object}
 \usage{
 chunks_deep_clone(chunks = get_chunks_object())
 }
