@@ -1203,7 +1203,7 @@ chunks_validate_custom <- function(x,
 #' @export
 #' @examples
 #' x_chunk <- chunks$new()
-#' chunks_push(expression(y <- 1), chunks = x_chunk)
+#' chunks_push(chunks = x_chunk, expression = expression(y <- 1))
 #'
 #' # A copy of x_chunk which does not share the same environment
 #' x_chunk_copy <- chunks_deep_clone(x_chunk)
