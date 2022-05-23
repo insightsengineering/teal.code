@@ -1215,7 +1215,7 @@ chunks_validate_custom <- function(x,
 #' chunks_get_rcode(x_chunk)
 #' chunks_get_rcode(x_chunk_copy)
 #'
-#' # Evaluate both chunks, not result is different
+#' # Evaluate both chunks, note the result is different
 #' chunks_safe_eval(x_chunk)
 #' chunks_safe_eval(x_chunk_copy)
 chunks_deep_clone <- function(chunks = get_chunks_object()) {
