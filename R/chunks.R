@@ -995,7 +995,7 @@ init_chunks <- function(new_chunks = chunks$new(), session = get_session_object(
 #' @examples
 #' new_chunks <- chunks_new()
 chunks_new <- function() {
-  new_chunks = chunks$new()
+  new_chunks <- chunks$new()
   return(new_chunks)
 }
 

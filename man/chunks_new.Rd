@@ -2,7 +2,7 @@
 % Please edit documentation in R/chunks.R
 \name{chunks_new}
 \alias{chunks_new}
-\title{Creates and returns a R6 chunks object to be used in a teal app}
+\title{Creates and returns a R6 chunks object to be used in a shiny/teal app}
 \usage{
 chunks_new()
 }
