@@ -667,6 +667,16 @@ testthat::test_that("init_chunks", {
   )
 })
 
+testthat::test_that("chunks_new returns R6 chunks object", {
+  chunks_1 <- chunks_new()
+  testthat::expect_identical(class(chunks_1), c("chunks", "R6"))
+})
+
+testthat::test_that("chunks_new throws error when an input is passed", {
+  testthat::expect_error(chunks_new("AA"), "unused argument")
+  testthat::expect_error(chunks_new(123), "unused argument")
+})
+
 testthat::test_that("set chunk environment", {
   rm(list = ls())
   my_chunks <- chunks$new(envir = environment())

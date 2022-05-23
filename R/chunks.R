@@ -983,6 +983,22 @@ init_chunks <- function(new_chunks = chunks$new(), session = get_session_object(
   return(invisible(NULL))
 }
 
+#' Creates and returns a R6 chunks object to be used in a shiny/teal app
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' @return R6 chunks object
+#'
+#' @export
+#' @references chunks
+#'
+#' @examples
+#' new_chunks <- chunks_new()
+chunks_new <- function() {
+  new_chunks = chunks$new()
+  return(new_chunks)
+}
+
 #' Overwrites chunks object in session
 #'
 #' @description `r lifecycle::badge("stable")`
