@@ -1685,3 +1685,26 @@ testthat::test_that("chunks_validate_all", {
   stacks$eval()
   testthat::expect_error(chunks_validate_all(var = "test", class = "character", chunks = stacks))
 })
+
+
+testthat::test_that("chunks_deep_clone", {
+
+  # check validation
+  testthat::expect_error(chunks_deep_clone(list()), "Assertion on 'chunks' failed")
+  # note chunk not chunks here
+  testthat::expect_error(chunks_deep_clone(chunk$new(expression(y <- 1))), "Assertion on 'chunks' failed")
+
+  x_chunk <- chunks$new()
+  chunks_push(chunks = x_chunk, expression = expression(y <- 1))
+
+  # A copy of x_chunk which does not share the same environment
+  x_chunk_copy <- chunks_deep_clone(x_chunk)
+
+  # Add expression only into x_chunk
+  chunks_push(chunks = x_chunk, expression = expression(y <- 2 * y))
+
+  # Evaluate x_chunk
+  testthat::expect_equal(chunks_safe_eval(x_chunk), 2)
+  # Evaluate x_chunk_copy
+  testthat::expect_equal(chunks_safe_eval(x_chunk_copy), 1)
+})
