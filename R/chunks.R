@@ -734,10 +734,10 @@ clone_env <- function(envir_from, envir_to) {
 #'
 #' @examples
 #' all_chunks <- chunks$new()
-#' chunks_push(call("as.character", x = 3), "tbl", chunks = all_chunks)
+#' chunks_push(chunks = all_chunks, expression = call("as.character", x = 3), id = "tbl")
 #'
 #' x <- 3
-#' chunks_push(quote(as.character(x)), "tbl2", chunks = all_chunks)
+#' chunks_push(chunks = all_chunks, expression = quote(as.character(x)), id = "tbl2")
 chunks_push <- function(expression,
                         id = NULL,
                         chunks = get_chunks_object()) {
@@ -764,12 +764,12 @@ chunks_push <- function(expression,
 #'
 #' @examples
 #' chunks_object <- chunks$new()
-#' chunks_push(bquote(x <- 1), chunks = chunks_object)
+#' chunks_push(chunks = chunks_object, expression = bquote(x <- 1))
 #'
 #' chunks_object2 <- chunks$new()
-#' chunks_push(bquote(y <- 1), chunks = chunks_object2)
+#' chunks_push(chunks = chunks_object2, expression = bquote(y <- 1))
 #'
-#' chunks_push_chunks(chunks_object2, chunks = chunks_object)
+#' chunks_push_chunks(chunks = chunks_object, x = chunks_object2)
 #'
 #' chunks_get_rcode(chunks_object)
 chunks_push_chunks <- function(x,
@@ -796,7 +796,7 @@ chunks_push_data_merge <- function(x, chunks = get_chunks_object()) {
   }
   checkmate::assert_names(names(x), must.include = "chunks")
 
-  chunks_push_chunks(x = x$chunks, chunks = chunks, overwrite = FALSE)
+  chunks_push_chunks(chunks = chunks, x = x$chunks, overwrite = FALSE)
 }
 
 #' Pushes a code comment chunk for global chunks

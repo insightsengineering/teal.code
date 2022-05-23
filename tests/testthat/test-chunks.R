@@ -592,9 +592,9 @@ testthat::test_that("chunks_eval", {
   })
   testthat::expect_silent(
     chunks_push(
+      chunks = chunks1,
       id = "tbl",
-      expression = quote(apply(dataset, 2, function(x) x * y)),
-      chunks = chunks1
+      expression = quote(apply(dataset, 2, function(x) x * y))
     )
   )
   testthat::expect_error(
@@ -614,9 +614,9 @@ testthat::test_that("get_code_chunk", {
   })
   testthat::expect_silent(
     chunks_push(
+      chunks = chunks1,
       id = "tbl",
       expression = quote(apply(dataset, 2, function(x) x * y)),
-      chunks = chunks1
     )
   )
   testthat::expect_error(
@@ -637,12 +637,12 @@ testthat::test_that("get_code_chunk curly braces", {
   })
   testthat::expect_silent(
     chunks_push(
+      chunks = chunks1,
       id = "tbl",
       expression = bquote({
         a <- 2
         apply(dataset, 2, function(x) x * y)
-      }),
-      chunks = chunks1
+      })
     )
   )
   testthat::expect_equal(
@@ -808,16 +808,16 @@ testthat::test_that("lhs and rhs", {
   })
   testthat::expect_silent(
     chunks_push(
+      chunks = chunks1,
       id = "one",
-      expression = bquote(x <- y),
-      chunks = chunks1
+      expression = bquote(x <- y)
     )
   )
   testthat::expect_silent(
     chunks_push(
+      chunks = chunks1,
       id = "two",
-      expression = bquote(x * y),
-      chunks = chunks1
+      expression = bquote(x * y)
     )
   )
 })
@@ -917,7 +917,7 @@ testthat::test_that("chunks push_chunks", {
   })
 
   testthat::expect_silent({
-    chunks_push_chunks(x = chunks_object2, chunks = chunks_object)
+    chunks_push_chunks(chunks = chunks_object, x = chunks_object2)
     chunks_eval(chunks = chunks_object)
   })
 
@@ -1431,41 +1431,41 @@ testthat::test_that("chunks_push", {
 
   testthat::expect_silent(
     chunks_push(
+      chunks = chunks1,
       id = "tbl",
-      expression = quote(apply(dataset, 2, function(x) x * y)),
-      chunks = chunks1
+      expression = quote(apply(dataset, 2, function(x) x * y))
     )
   )
 
   # name
   testthat::expect_silent(
     chunks_push(
-      expression = as.name("y"),
-      chunks = chunks1
+      chunks = chunks1,
+      expression = as.name("y")
     )
   )
 
   # expression
   testthat::expect_silent(
     chunks_push(
-      expression = substitute(x <- 2),
-      chunks = chunks1
+      chunks = chunks1,
+      expression = substitute(x <- 2)
     )
   )
 
   testthat::expect_silent(
     chunks_push(
+      chunks = chunks1,
       expression = substitute({
         x1 <- 2
         x2 <- 2
-      }), # nolint
-      chunks = chunks1
+      }) # nolint
     )
   )
 
   testthat::expect_error(chunks_push(
-    expression = quote(x <- 2),
-    chunks = "test_class"
+    chunks = "test_class",
+    expression = quote(x <- 2)
   ), regexp = "Provided chunks are not of class chunks.")
 })
 
@@ -1473,7 +1473,7 @@ testthat::test_that("chunks_push", {
 testthat::test_that("chunks_push_chunks", {
   stacks <- chunks$new()
   testthat::expect_error(
-    chunks_push_chunks(x = stacks, chunks = "test_class"),
+    chunks_push_chunks(chunks = "test_class", x = stacks),
     regexp = "Provided chunks are not of class chunks."
   )
 })

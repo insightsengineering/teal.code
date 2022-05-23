@@ -23,12 +23,12 @@ Nothing, just add the chunk to the \code{chunks} argument
 }
 \examples{
 chunks_object <- chunks$new()
-chunks_push(bquote(x <- 1), chunks = chunks_object)
+chunks_push(chunks = chunks_object, expression = bquote(x <- 1))
 
 chunks_object2 <- chunks$new()
-chunks_push(bquote(y <- 1), chunks = chunks_object2)
+chunks_push(chunks = chunks_object2, expression = bquote(y <- 1))
 
-chunks_push_chunks(chunks_object2, chunks = chunks_object)
+chunks_push_chunks(chunks = chunks_object, x = chunks_object2)
 
 chunks_get_rcode(chunks_object)
 }

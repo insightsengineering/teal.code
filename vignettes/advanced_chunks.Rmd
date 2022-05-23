@@ -49,7 +49,7 @@ Perhaps a part of your shiny application needs to output a plot
 ch_plot <- teal.code::chunks_new()
 teal.code::chunks_push_chunks(chunks = ch_plot, x = ch_0)
 teal.code::chunks_push_chunks(chunks = ch_plot, x = ch_1)
-teal.code::chunks_push(chunks = ch_plot, x = quote(foo_plot(df)))
+teal.code::chunks_push(chunks = ch_plot, expression = quote(foo_plot(df)))
 teal.code::chunks_safe_eval(chunks = ch_plot)
 ```
 

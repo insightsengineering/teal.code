@@ -156,7 +156,7 @@ As mentioned above, the `teal.code::chunks_push` function is used to push expres
 
 ```{r}
 teal.code::chunks_push(chunks = chunks_container, expression = substitute(y <- y + 1))
-teal.code::chunks_push( chunks = chunks_container, expression = substitute(x <- paste0(x, y)))
+teal.code::chunks_push(chunks = chunks_container, expression = substitute(x <- paste0(x, y)))
 ```
 
 <img src="images/push.png" alt="push" style="width: 100%;"/>

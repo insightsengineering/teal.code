@@ -22,8 +22,8 @@ Nothing, just add the chunk to the \code{chunks} argument
 }
 \examples{
 all_chunks <- chunks$new()
-chunks_push(call("as.character", x = 3), "tbl", chunks = all_chunks)
+chunks_push(chunks = all_chunks, expression = call("as.character", x = 3), id = "tbl")
 
 x <- 3
-chunks_push(quote(as.character(x)), "tbl2", chunks = all_chunks)
+chunks_push(chunks = all_chunks, expression = quote(as.character(x)), id = "tbl2")
 }
