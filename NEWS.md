@@ -1,5 +1,8 @@
 # teal.code 0.1.0.9006
 
+### Enhancements
+* New wrapper function `chunks_deep_clone` to make a deep (i.e. completely independent) copy of a `chunks` objects.
+
 ### Miscellaneous
 * Added a template to the `pkgdown` site.
 * Added a vignette to explain the advanced features of the `chunks` object.

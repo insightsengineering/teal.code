@@ -147,7 +147,7 @@ ch_0$push(quote({
 }))
 teal.code::chunks_safe_eval(chunks = ch_0)
 
-ch_plot_clone <- ch_0$clone(deep = TRUE)
+ch_plot_clone <- teal.code::chunks_deep_clone(ch_0)
 teal.code::chunks_push(quote(foo_plot(df)), chunks = ch_plot_clone)
 teal.code::chunks_safe_eval(chunks = ch_plot_clone)
 ```
@@ -312,7 +312,7 @@ server <- function(input, output, session) {
 
   # need to clone as chunks are R6 object - this would change ch in merge_data()
   subset_anl <- reactive({
-    ch <- merge_data()$clone(deep = TRUE)
+    ch <- chunks_deep_clone(merge_data())
     chunks_push(
       rlang::expr(anl_subset <- anl[!!input$anl_columns]),
       chunks = ch
