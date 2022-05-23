@@ -70,7 +70,7 @@ show_eval_details_modal <- function(chunks) {
 #'
 get_eval_details_srv <- function(id, chunks) {
   if (!inherits(chunks, "chunks")) {
-    stop("Provided chunks are not of class chunks. Make sure to use init_chunks() in the module's server function.")
+    stop("Provided chunks are not of class chunks. Make sure to use chunks_new() in the module's server function.")
   }
 
   moduleServer(id, function(input, output, session) {

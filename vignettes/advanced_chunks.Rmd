@@ -18,9 +18,9 @@ In a shiny app there is often a need to have multiple chunks containers that may
 In order to have multiple chunks containers, each must be accessible and distinguishable via a variable.
 
 ```{r}
-ch_0 <- teal.code::chunks$new()
-ch_1 <- teal.code::chunks$new()
-ch_2 <- teal.code::chunks$new()
+ch_0 <- teal.code::chunks_new()
+ch_1 <- teal.code::chunks_new()
+ch_2 <- teal.code::chunks_new()
 
 # if data used is static, then it should be computed once
 # isolating it into its own chunks container accomplishes this goal
@@ -46,7 +46,7 @@ The `teal.code::chunks_push_chunks` function is called to combine chunks contain
 Perhaps a part of your shiny application needs to output a plot
 
 ```{r}
-ch_plot <- teal.code::chunks$new()
+ch_plot <- teal.code::chunks_new()
 teal.code::chunks_push_chunks(ch_0, chunks = ch_plot)
 teal.code::chunks_push_chunks(ch_1, chunks = ch_plot)
 teal.code::chunks_push(quote(foo_plot(df)), chunks = ch_plot)
@@ -56,7 +56,7 @@ teal.code::chunks_safe_eval(chunks = ch_plot)
 Perhaps a part of your shiny application needs to output a table
 
 ```{r}
-ch_table <- teal.code::chunks$new()
+ch_table <- teal.code::chunks_new()
 teal.code::chunks_push_chunks(ch_0, chunks = ch_table)
 teal.code::chunks_push_chunks(ch_2, chunks = ch_table)
 teal.code::chunks_push(quote(foo_print(df)), chunks = ch_table)
@@ -66,7 +66,7 @@ teal.code::chunks_safe_eval(chunks = ch_table)
 Perhaps the main part of your shiny application needs to output a plot, a table, and the code to generate both
 
 ```{r}
-ch_ouput <- teal.code::chunks$new()
+ch_ouput <- teal.code::chunks_new()
 teal.code::chunks_push_chunks(ch_0, chunks = ch_ouput)
 teal.code::chunks_push_chunks(ch_1, chunks = ch_ouput)
 teal.code::chunks_push_chunks(ch_2, chunks = ch_ouput)
@@ -87,8 +87,8 @@ Even in the event that the expressions that are combined will lead to errors bei
 However, the potential conflict of when two chunks containers have the same variables which holds different values in their respective environments will throw an error when merging chunks containers.
 
 ```{r}
-ch_0 <- teal.code::chunks$new()
-ch_1 <- teal.code::chunks$new()
+ch_0 <- teal.code::chunks_new()
+ch_1 <- teal.code::chunks_new()
 
 ch_0$push(quote(a_var <- 0))
 ch_1$push(quote(a_var <- 0))
@@ -99,7 +99,7 @@ teal.code::chunks_safe_eval(chunks = ch_1)
 # OK - operation is successful as the variable a_var holds the same value in both chunks
 teal.code::chunks_push_chunks(ch_1, chunks = ch_0)
 
-ch_2 <- teal.code::chunks$new()
+ch_2 <- teal.code::chunks_new()
 ch_2$push(quote(a_var <- 1))
 teal.code::chunks_safe_eval(chunks = ch_2)
 
@@ -119,11 +119,11 @@ When chunks containers have code that have not been evaluated, these code will n
 And as described above, it is the environment that will block the operation to merge chunks containers together when there are conflicts. So evaluating before merging will prevent some bugs in your app.
 
 ```{r}
-ch_0 <- teal.code::chunks$new()
+ch_0 <- teal.code::chunks_new()
 ch_0$push(quote(a_var <- 0))
 teal.code::chunks_safe_eval(chunks = ch_0)
 
-ch_2 <- teal.code::chunks$new()
+ch_2 <- teal.code::chunks_new()
 ch_2$push(quote(a_var <- 1))
 
 # note that ch_2 is not evaluated
@@ -140,7 +140,7 @@ A chunks container is an R6 reference class, so by default contains a `clone` me
 The example code below is another way to print the plot above, which starts combining chunks from a non-empty chunks container derived from cloning another chunks container
 
 ```{r}
-ch_0 <- teal.code::chunks$new()
+ch_0 <- teal.code::chunks_new()
 ch_0$push(quote({
   df <- data.frame(a = runif(5, -10, 10), b = runif(5, -10, 10))
   foo_plot <- function(df_arg) plot(df_arg)
@@ -157,7 +157,7 @@ teal.code::chunks_safe_eval(chunks = ch_plot_clone)
 In order to extract values of variables inside a chunks container, the code that generates that variable must have been evaluated
 
 ```{r}
-ch_0 <- teal.code::chunks$new()
+ch_0 <- teal.code::chunks_new()
 ch_0$push(quote(df <- data.frame(a = runif(5, -10, 10), b = runif(5, -10, 10))))
 teal.code::chunks_safe_eval(chunks = ch_0)
 
@@ -166,7 +166,7 @@ env$df <- teal.code::chunks_get_var(var = "df", chunks = ch_0)
 
 # Once extracted, the value can be passed into other chunks containers if needed
 
-ch_print_df <- teal.code::chunks$new()
+ch_print_df <- teal.code::chunks_new()
 teal.code::chunks_reset(envir = env, chunks = ch_print_df)
 teal.code::chunks_push(quote(df), chunks = ch_print_df)
 teal.code::chunks_safe_eval(chunks = ch_print_df)
@@ -219,7 +219,7 @@ ui <- fluidPage(
 server <- function(input, output, session) {
   # chunks container to hold the datasets used in this app.
   # The purpose of storing the code to generate the datasets is reproducibility.
-  data_def_chunks <- chunks$new()
+  data_def_chunks <- chunks_new()
   chunks_push(
     expression = quote({
       library(shiny)
@@ -261,7 +261,7 @@ server <- function(input, output, session) {
   adsl_filtered_reactive <- reactive({
     env <- new.env()
     env$adsl <- chunks_get_var(var = "adsl", chunks = data_def_chunks)
-    ch <- chunks$new()
+    ch <- chunks_new()
     chunks_reset(chunks = ch, env = env)
     chunks_push(
       chunks = ch,
@@ -275,7 +275,7 @@ server <- function(input, output, session) {
   events_filtered_reactive <- reactive({
     env <- new.env()
     env$events <- chunks_get_var(var = "events", chunks = data_def_chunks)
-    ch <- chunks$new()
+    ch <- chunks_new()
     chunks_reset(chunks = ch, env = env)
     chunks_push(
       chunks = ch,
@@ -287,7 +287,7 @@ server <- function(input, output, session) {
 
   # part of the app that merges two other chunks containers
   merge_data <- reactive({
-    ch <- chunks$new()
+    ch <- chunks_new()
 
     chunks_push_chunks(chunks = ch, adsl_filtered_reactive())
     chunks_push_chunks(chunks = ch, events_filtered_reactive())
@@ -325,7 +325,7 @@ server <- function(input, output, session) {
   table_call <- reactive({
     env <- new.env()
     env$anl_subset <- chunks_get_var(chunks = subset_anl(), var = "anl_subset")
-    ch <- chunks$new()
+    ch <- chunks_new()
     chunks_reset(chunks = ch, env = env)
     chunks_push(
       rlang::expr({
@@ -342,7 +342,7 @@ server <- function(input, output, session) {
   plot_call <- reactive({
     env <- new.env()
     env$anl_subset <- chunks_get_var(chunks = subset_anl(), var = "anl_subset")
-    ch <- chunks$new()
+    ch <- chunks_new()
     chunks_reset(chunks = ch, env = env)
     chunks_push(
       rlang::expr({
@@ -360,7 +360,7 @@ server <- function(input, output, session) {
   # The ability to put this process in its own chunks container, independent of the rest,
   # allows the app to avoid re-computation and yet be able to capture its code to ensure reproducibility.
   sleep_5_seconds <- reactive({
-    ch <- chunks$new()
+    ch <- chunks_new()
     chunks_push(
       quote(Sys.sleep(5)),
       chunks = ch
@@ -371,7 +371,7 @@ server <- function(input, output, session) {
 
   # part of the app that needs to combine all chunks containers
   outputs_call <- reactive({
-    ch <- chunks$new()
+    ch <- chunks_new()
     chunks_push_chunks(chunks = ch, data_def_chunks)
     chunks_push_chunks(chunks = ch, sleep_5_seconds())
     chunks_push_chunks(chunks = ch, subset_anl())

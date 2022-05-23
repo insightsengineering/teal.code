@@ -743,7 +743,7 @@ chunks_push <- function(expression,
                         chunks = get_chunks_object()) {
   checkmate::assert_string(id, null.ok = TRUE)
   if (!inherits(chunks, "chunks")) {
-    stop("Provided chunks are not of class chunks. Make sure to use init_chunks() in the module's server function.")
+    stop("Provided chunks are not of class chunks. Make sure to use chunks_new() in the module's server function.")
   }
 
   chunks$push(x = expression, id = id)
@@ -776,7 +776,7 @@ chunks_push_chunks <- function(x,
                                overwrite = FALSE,
                                chunks = get_chunks_object()) {
   if (!inherits(chunks, "chunks")) {
-    stop("Provided chunks are not of class chunks. Make sure to use init_chunks() in the module's server function.")
+    stop("Provided chunks are not of class chunks. Make sure to use chunks_new() in the module's server function.")
   }
 
   return(chunks$push_chunks(x = x, overwrite = overwrite))
@@ -792,7 +792,7 @@ chunks_push_chunks <- function(x,
 #' @export
 chunks_push_data_merge <- function(x, chunks = get_chunks_object()) {
   if (!inherits(chunks, "chunks")) {
-    stop("Provided chunks are not of class chunks. Make sure to use init_chunks() in the module's server function.")
+    stop("Provided chunks are not of class chunks. Make sure to use chunks_new() in the module's server function.")
   }
   checkmate::assert_names(names(x), must.include = "chunks")
 
@@ -819,7 +819,7 @@ chunks_push_comment <- function(comment,
                                 chunks = get_chunks_object()) {
   checkmate::assert_string(comment)
   if (!inherits(chunks, "chunks")) {
-    stop("Provided chunks are not of class chunks. Make sure to use init_chunks() in the module's server function.")
+    stop("Provided chunks are not of class chunks. Make sure to use chunks_new() in the module's server function.")
   }
 
   return(chunks$push(x = comment))
@@ -842,7 +842,7 @@ chunks_push_comment <- function(comment,
 #' chunks_get_rcode(chunks = all_chunks) == " "
 chunks_push_new_line <- function(chunks = get_chunks_object()) {
   if (!inherits(chunks, "chunks")) {
-    stop("Provided chunks are not of class chunks. Make sure to use init_chunks() in the module's server function.")
+    stop("Provided chunks are not of class chunks. Make sure to use chunks_new() in the module's server function.")
   }
 
   return(chunks$push(x = ""))
@@ -868,7 +868,7 @@ chunks_push_new_line <- function(chunks = get_chunks_object()) {
 #' @export
 chunks_eval <- function(chunks = get_chunks_object()) {
   if (!inherits(chunks, "chunks")) {
-    stop("Provided chunks are not of class chunks. Make sure to use init_chunks() in the module's server function.")
+    stop("Provided chunks are not of class chunks. Make sure to use chunks_new() in the module's server function.")
   }
   return(chunks$eval())
 }
@@ -888,7 +888,7 @@ chunks_eval <- function(chunks = get_chunks_object()) {
 #' @export
 chunks_uneval <- function(chunks = get_chunks_object(), overwrite = FALSE, envir = parent.frame()) {
   if (!inherits(chunks, "chunks")) {
-    stop("Provided chunks are not of class chunks. Make sure to use init_chunks() in the module's server function.")
+    stop("Provided chunks are not of class chunks. Make sure to use chunks_new() in the module's server function.")
   }
   return(chunks$uneval(overwrite = overwrite))
 }
@@ -925,7 +925,7 @@ chunks_safe_eval <- function(chunks = get_chunks_object()) {
 #' @export
 chunks_get_rcode <- function(chunks = get_chunks_object()) {
   if (!inherits(chunks, "chunks")) {
-    stop("Provided chunks are not of class chunks. Make sure to use init_chunks() in the module's server function.")
+    stop("Provided chunks are not of class chunks. Make sure to use chunks_new() in the module's server function.")
   }
   return(chunks$get_rcode())
 }
@@ -941,7 +941,7 @@ chunks_get_rcode <- function(chunks = get_chunks_object()) {
 #' @export
 chunks_warnings <- function(chunks = get_chunks_object()) {
   if (!inherits(chunks, "chunks")) {
-    stop("Provided chunks are not of class chunks. Make sure to use init_chunks() in the module's server function.")
+    stop("Provided chunks are not of class chunks. Make sure to use chunks_new() in the module's server function.")
   }
   return(chunks$get_warnings())
 }
@@ -958,7 +958,7 @@ chunks_warnings <- function(chunks = get_chunks_object()) {
 #' @export
 chunks_messages <- function(chunks = get_chunks_object()) {
   if (!inherits(chunks, "chunks")) {
-    stop("Provided chunks are not of class chunks. Make sure to use init_chunks() in the module's server function.")
+    stop("Provided chunks are not of class chunks. Make sure to use chunks_new() in the module's server function.")
   }
   return(chunks$get_messages())
 }
@@ -1042,7 +1042,7 @@ overwrite_chunks <- function(x = chunks$new(envir = parent.frame()), session = g
 chunks_reset <- function(envir = parent.frame(),
                          chunks = get_chunks_object()) {
   if (!inherits(chunks, "chunks")) {
-    stop("Provided chunks are not of class chunks. Make sure to use init_chunks() in the module's server function.")
+    stop("Provided chunks are not of class chunks. Make sure to use chunks_new() in the module's server function.")
   }
   chunks$reset(envir = envir)
 
@@ -1063,7 +1063,7 @@ chunks_get_var <- function(var,
                            chunks = get_chunks_object()) {
   checkmate::assert_string(var)
   if (!inherits(chunks, "chunks")) {
-    stop("Provided chunks are not of class chunks. Make sure to use init_chunks() in the module's server function.")
+    stop("Provided chunks are not of class chunks. Make sure to use chunks_new() in the module's server function.")
   }
 
   return(chunks$get(var = var))
@@ -1080,7 +1080,7 @@ chunks_get_var <- function(var,
 #' @export
 chunks_is_ok <- function(chunks = get_chunks_object()) {
   if (!inherits(chunks, "chunks")) {
-    stop("Provided chunks are not of class chunks. Make sure to use init_chunks() in the module's server function.")
+    stop("Provided chunks are not of class chunks. Make sure to use chunks_new() in the module's server function.")
   }
   return(chunks$is_ok())
 }
@@ -1096,7 +1096,7 @@ chunks_is_ok <- function(chunks = get_chunks_object()) {
 #' @export
 chunks_get_eval_msg <- function(chunks = get_chunks_object()) {
   if (!inherits(chunks, "chunks")) {
-    stop("Provided chunks are not of class chunks. Make sure to use init_chunks() in the module's server function.")
+    stop("Provided chunks are not of class chunks. Make sure to use chunks_new() in the module's server function.")
   }
   return(chunks$get_eval_msg())
 }
@@ -1117,7 +1117,7 @@ chunks_validate_is_ok <- function(msg = NULL,
                                   chunks = get_chunks_object()) {
   checkmate::assert_string(msg, null.ok = TRUE)
   if (!inherits(chunks, "chunks")) {
-    stop("Provided chunks are not of class chunks. Make sure to use init_chunks() in the module's server function.")
+    stop("Provided chunks are not of class chunks. Make sure to use chunks_new() in the module's server function.")
   }
 
   chunks$validate_is_ok(msg)
@@ -1141,7 +1141,7 @@ chunks_validate_is <- function(var,
                                msg = NULL,
                                chunks = get_chunks_object()) {
   if (!inherits(chunks, "chunks")) {
-    stop("Provided chunks are not of class chunks. Make sure to use init_chunks() in the module's server function.")
+    stop("Provided chunks are not of class chunks. Make sure to use chunks_new() in the module's server function.")
   }
 
   chunks$validate_is(var, class, msg)
@@ -1168,7 +1168,7 @@ chunks_validate_all <- function(var,
   checkmate::assert_string(class)
   checkmate::assert_string(msg, null.ok = TRUE)
   if (!inherits(chunks, "chunks")) {
-    stop("Provided chunks are not of class chunks. Make sure to use init_chunks() in the module's server function.")
+    stop("Provided chunks are not of class chunks. Make sure to use chunks_new() in the module's server function.")
   }
 
   chunks$validate_all(var, class, msg)

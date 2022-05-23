@@ -105,7 +105,7 @@ A chunks container may be initialized as an empty container.
 
 ```{r}
 # initializing code chunks -------------------------------------------
-chunks_container_empty <- teal.code::chunks$new()
+chunks_container_empty <- teal.code::chunks_new()
 ```
 
 However, it can also be initialized with a specific environment.
@@ -115,7 +115,7 @@ However, it can also be initialized with a specific environment.
 env <- new.env()
 env$var_to_be_erased <- "some_value"
 env$x <- 0
-chunks_container <- teal.code::chunks$new(envir = env)
+chunks_container <- teal.code::chunks_new(envir = env)
 
 # method to list all variables in the chunks environment
 chunks_container$ls()
