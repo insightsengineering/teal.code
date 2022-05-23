@@ -1192,7 +1192,7 @@ chunks_validate_custom <- function(x,
 }
 
 
-#' Deep clones a chunk object
+#' Deep clones a chunks object
 #' @description `r lifecycle::badge("stable")`
 #' @inheritParams chunks_push
 #'
