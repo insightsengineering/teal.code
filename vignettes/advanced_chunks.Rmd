@@ -59,7 +59,7 @@ Perhaps a part of your shiny application needs to output a table
 ch_table <- teal.code::chunks_new()
 teal.code::chunks_push_chunks(chunks = ch_table, x = ch_0)
 teal.code::chunks_push_chunks(chunks = ch_table, x = ch_2)
-teal.code::chunks_push(chunks = ch_table, x = quote(foo_print(df)))
+teal.code::chunks_push(chunks = ch_table, expression = quote(foo_print(df)))
 teal.code::chunks_safe_eval(chunks = ch_table)
 ```
 
@@ -70,8 +70,8 @@ ch_ouput <- teal.code::chunks_new()
 teal.code::chunks_push_chunks(chunks = ch_ouput, x = ch_0)
 teal.code::chunks_push_chunks(chunks = ch_ouput, x = ch_1)
 teal.code::chunks_push_chunks(chunks = ch_ouput, x = ch_2)
-teal.code::chunks_push(chunks = ch_ouput, x = quote(foo_plot(df)))
-teal.code::chunks_push(chunks = ch_ouput, x = quote(foo_print(df)))
+teal.code::chunks_push(chunks = ch_ouput, expression = quote(foo_plot(df)))
+teal.code::chunks_push(chunks = ch_ouput, expression = quote(foo_print(df)))
 teal.code::chunks_safe_eval(chunks = ch_ouput)
 
 code <- teal.code::chunks_get_rcode(chunks = ch_ouput)
