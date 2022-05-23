@@ -1209,7 +1209,7 @@ chunks_validate_custom <- function(x,
 #' x_chunk_copy <- chunks_deep_clone(x_chunk)
 #'
 #' # Add expression only into x_chunk
-#' chunks_push(expression(y <- 2 * y), chunks = x_chunk)
+#' chunks_push(chunks = x_chunk, expression = expression(y <- 2 * y))
 #'
 #' # Get R code from both chunks, note it is different
 #' chunks_get_rcode(x_chunk)
