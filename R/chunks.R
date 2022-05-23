@@ -1197,7 +1197,7 @@ chunks_validate_custom <- function(x,
 #' @inheritParams chunks_push
 #'
 #' @details use this function if you need to copy a `chunks` object as this
-#'   function makes sure all associated `environments` a deep copied (i.e. are independent
+#'   function makes sure all associated `environments` are deep copied (i.e. are independent
 #'  of the original object)
 #' @return a deep copy of `chunks`
 #' @export
