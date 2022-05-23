@@ -18,24 +18,24 @@ a deep copy of \code{chunks}
 }
 \details{
 use this function if you need to copy a \code{chunks} object as this
-function makes sure all associated \code{environments} a deep copied (i.e. are independent
+function makes sure all associated \code{environments} are deep copied (i.e. are independent
 of the original object)
 }
 \examples{
 x_chunk <- chunks$new()
-chunks_push(expression(y <- 1), chunks = x_chunk)
+chunks_push(chunks = x_chunk, expression = expression(y <- 1))
 
 # A copy of x_chunk which does not share the same environment
 x_chunk_copy <- chunks_deep_clone(x_chunk)
 
 # Add expression only into x_chunk
-chunks_push(expression(y <- 2 * y), chunks = x_chunk)
+chunks_push(chunks = x_chunk, expression = expression(y <- 2 * y))
 
 # Get R code from both chunks, note it is different
 chunks_get_rcode(x_chunk)
 chunks_get_rcode(x_chunk_copy)
 
-# Evaluate both chunks, not result is different
+# Evaluate both chunks, note the result is different
 chunks_safe_eval(x_chunk)
 chunks_safe_eval(x_chunk_copy)
 }
