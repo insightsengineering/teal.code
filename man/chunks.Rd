@@ -17,32 +17,26 @@ a sequence of analysis steps.
 
 \describe{
 \item{\code{initialize(envir = new.env())}}{
-Initializes the object.
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{\code{envir}: (optional) environment to get objects from to chunks environment
-}\if{html}{\out{</div>}}
+Initializes the object.\preformatted{\code{envir}: (optional) environment to get objects from to chunks environment
+}
 
 }
 \item{\code{push(x, id)}}{
 This method adds an expression code chunk or comment code chunk to this object.
-If no \code{id} is given a random id is generated.
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{  The method needs the parameter \code{x}. In case this is of type \code{call} and the code will
+If no \code{id} is given a random id is generated.\preformatted{  The method needs the parameter \code{x}. In case this is of type \code{call} and the code will
   be evaluated via \code{eval}. Additionally, the code can be given as a string and a comment will be inserted.
-}\if{html}{\out{</div>}}
+}
 
 }
 \item{\code{eval()}}{
-This method applies the \code{eval_id} method to each code chunk stored inside this object.
-
-\if{html}{\out{<div class="sourceCode">}}\preformatted{   This method should not be evaluated multiple times, else it throws a warning. This is due to the
+This method applies the \code{eval_id} method to each code chunk stored inside this object.\preformatted{   This method should not be evaluated multiple times, else it throws a warning. This is due to the
    fact that multiple evaluations of the following second code snippet is dangerous:
    \\itemize\{
      \\item\{1 \}\{a <- 2\}
      \\item\{2 \}\{a <- a + 1\}
    \}
    \code{eval} evaluates code just once and warn user if one tries to evaluate multiple times.
-}\if{html}{\out{</div>}}
+}
 
 }
 \item{\code{get_rcode()}}{
