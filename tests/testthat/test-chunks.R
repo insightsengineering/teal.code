@@ -412,7 +412,6 @@ testthat::test_that("chunks eval with random ID", {
     "attempt"
   )
 
-
   y <- 4
   data <- data
 
@@ -506,7 +505,6 @@ testthat::test_that("chunks eval with given ID", {
     chunks1$push(id = "tbl1", x = quote(apply(dataset, 2, function(x) x * y)))
   )
 
-
   testthat::expect_silent(
     chunks1$push(id = "y3", x = bquote(y <- 3))
   )
@@ -588,13 +586,13 @@ testthat::test_that("chunks_eval", {
     rm(list = ls())
     dataset <- data.frame(x = c(1, 2, 3, 4, 5, 6), y = c(1, 1, 1, 1, 1, 1))
     y <- 5
-    chunks1 <- chunks$new(envir = environment())
+    chunks1 <- chunks_new(envir = environment())
   })
   testthat::expect_silent(
     chunks_push(
+      chunks = chunks1,
       id = "tbl",
-      expression = quote(apply(dataset, 2, function(x) x * y)),
-      chunks = chunks1
+      expression = quote(apply(dataset, 2, function(x) x * y))
     )
   )
   testthat::expect_error(
@@ -610,13 +608,13 @@ testthat::test_that("get_code_chunk", {
     rm(list = ls())
     dataset <- data.frame(x = c(1, 2, 3, 4, 5, 6), y = c(1, 1, 1, 1, 1, 1))
     y <- 5
-    chunks1 <- chunks$new(envir = environment())
+    chunks1 <- chunks_new(envir = environment())
   })
   testthat::expect_silent(
     chunks_push(
+      chunks = chunks1,
       id = "tbl",
-      expression = quote(apply(dataset, 2, function(x) x * y)),
-      chunks = chunks1
+      expression = quote(apply(dataset, 2, function(x) x * y))
     )
   )
   testthat::expect_error(
@@ -633,16 +631,16 @@ testthat::test_that("get_code_chunk curly braces", {
     rm(list = ls())
     dataset <- data.frame(x = c(1, 2, 3, 4, 5, 6), y = c(1, 1, 1, 1, 1, 1))
     y <- 5
-    chunks1 <- chunks$new(envir = environment())
+    chunks1 <- chunks_new(envir = environment())
   })
   testthat::expect_silent(
     chunks_push(
+      chunks = chunks1,
       id = "tbl",
       expression = bquote({
         a <- 2
         apply(dataset, 2, function(x) x * y)
-      }),
-      chunks = chunks1
+      })
     )
   )
   testthat::expect_equal(
@@ -667,9 +665,24 @@ testthat::test_that("init_chunks", {
   )
 })
 
+testthat::test_that("chunks_new returns R6 chunks object", {
+  chunks_1 <- chunks_new()
+  testthat::expect_identical(class(chunks_1), c("chunks", "R6"))
+})
+
+testthat::test_that("chunks_new accepts environment object or empty as input", {
+  testthat::expect_error(chunks_new(envir = new.env()), NA)
+  testthat::expect_error(chunks_new(), NA)
+})
+
+testthat::test_that("chunks_new throws error when an input is not environment", {
+  testthat::expect_error(chunks_new(envir = "AA"), "Must be an environment")
+  testthat::expect_error(chunks_new(envir = 123), "Must be an environment")
+})
+
 testthat::test_that("set chunk environment", {
   rm(list = ls())
-  my_chunks <- chunks$new(envir = environment())
+  my_chunks <- chunks_new(envir = environment())
   testthat::expect_equal(
     ls(my_chunks$info()$envir),
     character(0)
@@ -677,7 +690,7 @@ testthat::test_that("set chunk environment", {
 
   rm(list = ls())
   a <- 3
-  my_chunks <- chunks$new(envir = environment())
+  my_chunks <- chunks_new(envir = environment())
   testthat::expect_equal(
     ls(my_chunks$info()$envir),
     "a"
@@ -686,7 +699,7 @@ testthat::test_that("set chunk environment", {
   # chunk env in my_chunks
   rm(list = ls())
   a <- 3
-  my_chunks <- chunks$new()
+  my_chunks <- chunks_new()
   testthat::expect_silent(
     chunks_reset(chunks = my_chunks)
   )
@@ -785,25 +798,23 @@ testthat::test_that("lhs and rhs", {
     rm(list = ls())
     dataset <- data.frame(x = c(1, 2, 3, 4, 5, 6), y = c(1, 1, 1, 1, 1, 1))
     y <- 5
-    chunks1 <- chunks$new(envir = environment())
+    chunks1 <- chunks_new(envir = environment())
   })
   testthat::expect_silent(
     chunks_push(
+      chunks = chunks1,
       id = "one",
-      expression = bquote(x <- y),
-      chunks = chunks1
+      expression = bquote(x <- y)
     )
   )
   testthat::expect_silent(
     chunks_push(
+      chunks = chunks1,
       id = "two",
-      expression = bquote(x * y),
-      chunks = chunks1
+      expression = bquote(x * y)
     )
   )
 })
-
-
 
 testthat::test_that("chunk pipe", {
   rm(list = ls())
@@ -888,17 +899,17 @@ testthat::test_that("chunks push_chunks", {
   )
 
   testthat::expect_silent({
-    chunks_object <- chunks$new()
+    chunks_object <- chunks_new()
     chunks_object$push(bquote(x <- 1))
   })
 
   testthat::expect_silent({
-    chunks_object2 <- chunks$new()
+    chunks_object2 <- chunks_new()
     chunks_object2$push(bquote(y <- 1))
   })
 
   testthat::expect_silent({
-    chunks_push_chunks(x = chunks_object2, chunks = chunks_object)
+    chunks_push_chunks(chunks = chunks_object, x = chunks_object2)
     chunks_eval(chunks = chunks_object)
   })
 
@@ -910,13 +921,13 @@ testthat::test_that("chunks push_chunks", {
 
   # * chunks1 evaluated ====
   testthat::expect_silent({
-    chunks_object <- chunks$new()
+    chunks_object <- chunks_new()
     chunks_object$push(bquote(x <- 1))
     chunks_object$eval()
   })
 
   testthat::expect_warning({
-    stack <- chunks$new()
+    stack <- chunks_new()
     stack$eval()
   })
 
@@ -963,7 +974,7 @@ testthat::test_that("chunks push_chunks", {
   })
 
   testthat::expect_silent({
-    chunks_object2 <- chunks$new()
+    chunks_object2 <- chunks_new()
     chunks_object2$push(bquote(y <- 1))
     chunks_object2$eval()
   })
@@ -1396,7 +1407,7 @@ testthat::test_that("chunks_push", {
   testthat::expect_warning({
     rm(list = "session")
     rm(list = ls())
-    chunks1 <- chunks$new()
+    chunks1 <- chunks_new()
   })
   testthat::expect_silent({
     dataset <- data.frame(x = c(1, 2, 3, 4, 5, 6), y = c(1, 1, 1, 1, 1, 1))
@@ -1412,49 +1423,49 @@ testthat::test_that("chunks_push", {
 
   testthat::expect_silent(
     chunks_push(
+      chunks = chunks1,
       id = "tbl",
-      expression = quote(apply(dataset, 2, function(x) x * y)),
-      chunks = chunks1
+      expression = quote(apply(dataset, 2, function(x) x * y))
     )
   )
 
   # name
   testthat::expect_silent(
     chunks_push(
-      expression = as.name("y"),
-      chunks = chunks1
+      chunks = chunks1,
+      expression = as.name("y")
     )
   )
 
   # expression
   testthat::expect_silent(
     chunks_push(
-      expression = substitute(x <- 2),
-      chunks = chunks1
+      chunks = chunks1,
+      expression = substitute(x <- 2)
     )
   )
 
   testthat::expect_silent(
     chunks_push(
+      chunks = chunks1,
       expression = substitute({
         x1 <- 2
         x2 <- 2
-      }), # nolint
-      chunks = chunks1
+      }) # nolint
     )
   )
 
   testthat::expect_error(chunks_push(
-    expression = quote(x <- 2),
-    chunks = "test_class"
+    chunks = "test_class",
+    expression = quote(x <- 2)
   ), regexp = "Provided chunks are not of class chunks.")
 })
 
 # * chunks_push_chunks ====
 testthat::test_that("chunks_push_chunks", {
-  stacks <- chunks$new()
+  stacks <- chunks_new()
   testthat::expect_error(
-    chunks_push_chunks(x = stacks, chunks = "test_class"),
+    chunks_push_chunks(chunks = "test_class", x = stacks),
     regexp = "Provided chunks are not of class chunks."
   )
 })
@@ -1474,7 +1485,7 @@ testthat::test_that("chunks_push_data_merge", {
 
 # * chunks_push_comment ====
 testthat::test_that("chunks_push_comment", {
-  stacks <- chunks$new()
+  stacks <- chunks_new()
   testthat::expect_error(chunks_push_comment(comment = c("test1", "test2"), chunks = stacks))
   testthat::expect_error(
     chunks_push_comment(comment = "Test", chunks = "test_class"),
@@ -1493,7 +1504,7 @@ testthat::test_that("chunks_push_comment", {
 
 # * chunks_push_new_line ====
 testthat::test_that("chunks_push_new_line", {
-  stacks <- chunks$new()
+  stacks <- chunks_new()
   testthat::expect_error(
     chunks_push_new_line(chunks = "test_class"),
     regexp = "Provided chunks are not of class chunks."
@@ -1550,7 +1561,7 @@ testthat::test_that("overwrite_chunks", {
   } # nolint
 
   a <- 2
-  test_chunks <- chunks$new()
+  test_chunks <- chunks_new()
 
   testthat::expect_error(overwrite_chunks(x = test_chunks))
 
@@ -1579,7 +1590,7 @@ testthat::test_that("overwrite_chunks", {
 # * chunks_is_ok ====
 testthat::test_that("chunks_is_ok", {
   testthat::expect_silent({
-    stacks <- chunks$new()
+    stacks <- chunks_new()
     stacks$push(bquote({
       x <- "test"
     }))
@@ -1594,7 +1605,7 @@ testthat::test_that("chunks_is_ok", {
 
 # * chunks_get_eval_msg ====
 testthat::test_that("chunks_get_eval_msg", {
-  stacks <- chunks$new()
+  stacks <- chunks_new()
   stacks$push(bquote({
     stop("Test error")
   }))
@@ -1608,7 +1619,7 @@ testthat::test_that("chunks_get_eval_msg", {
 
 # * chunks_validate_ methods ====
 testthat::test_that("chunks_validate_ methods", {
-  stacks <- chunks$new()
+  stacks <- chunks_new()
 
   stacks$push(x = bquote({
     test <- "this is a test character"
@@ -1635,7 +1646,7 @@ testthat::test_that("chunks_validate_ methods", {
 })
 
 testthat::test_that("chunks_validate_is", {
-  stacks <- chunks$new()
+  stacks <- chunks_new()
   stacks$push(x = bquote({
     test <- "this is a test character"
   }))
@@ -1647,7 +1658,7 @@ testthat::test_that("chunks_validate_is", {
 })
 
 testthat::test_that("chunks_validate_all", {
-  stacks <- chunks$new()
+  stacks <- chunks_new()
   testthat::expect_error(chunks_validate_all(var = "test", class = "character"))
   testthat::expect_warning(
     testthat::expect_error(chunks_validate_all(var = "test", class = "character", chunks = stacks))
@@ -1679,7 +1690,7 @@ testthat::test_that("chunks_deep_clone", {
   # note chunk not chunks here
   testthat::expect_error(chunks_deep_clone(chunk$new(expression(y <- 1))), "Assertion on 'chunks' failed")
 
-  x_chunk <- chunks$new()
+  x_chunk <- chunks_new()
   chunks_push(chunks = x_chunk, expression = expression(y <- 1))
 
   # A copy of x_chunk which does not share the same environment

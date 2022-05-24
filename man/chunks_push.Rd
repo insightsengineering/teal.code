@@ -21,9 +21,9 @@ Nothing, just add the chunk to the \code{chunks} argument
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 }
 \examples{
-all_chunks <- chunks$new()
-chunks_push(call("as.character", x = 3), "tbl", chunks = all_chunks)
+all_chunks <- chunks_new()
+chunks_push(chunks = all_chunks, expression = call("as.character", x = 3), id = "tbl")
 
 x <- 3
-chunks_push(quote(as.character(x)), "tbl2", chunks = all_chunks)
+chunks_push(chunks = all_chunks, expression = quote(as.character(x)), id = "tbl2")
 }

@@ -166,7 +166,7 @@ chunks <- R6::R6Class(
   # * public ----
   public = list(
     initialize = function(envir = new.env()) {
-      checkmate::assert_environment(envir, null.ok = TRUE)
+      checkmate::assert_environment(envir)
       private$reset_env(envir = envir)
       private$reactive_summary <- reactiveValues(msgs = logical(0), warnings = logical(0), errors = logical(0))
 
@@ -733,11 +733,11 @@ clone_env <- function(envir_from, envir_to) {
 #' @export
 #'
 #' @examples
-#' all_chunks <- chunks$new()
-#' chunks_push(call("as.character", x = 3), "tbl", chunks = all_chunks)
+#' all_chunks <- chunks_new()
+#' chunks_push(chunks = all_chunks, expression = call("as.character", x = 3), id = "tbl")
 #'
 #' x <- 3
-#' chunks_push(quote(as.character(x)), "tbl2", chunks = all_chunks)
+#' chunks_push(chunks = all_chunks, expression = quote(as.character(x)), id = "tbl2")
 chunks_push <- function(expression,
                         id = NULL,
                         chunks = get_chunks_object()) {
@@ -763,13 +763,13 @@ chunks_push <- function(expression,
 #' @export
 #'
 #' @examples
-#' chunks_object <- chunks$new()
-#' chunks_push(bquote(x <- 1), chunks = chunks_object)
+#' chunks_object <- chunks_new()
+#' chunks_push(chunks = chunks_object, expression = bquote(x <- 1))
 #'
-#' chunks_object2 <- chunks$new()
-#' chunks_push(bquote(y <- 1), chunks = chunks_object2)
+#' chunks_object2 <- chunks_new()
+#' chunks_push(chunks = chunks_object2, expression = bquote(y <- 1))
 #'
-#' chunks_push_chunks(chunks_object2, chunks = chunks_object)
+#' chunks_push_chunks(chunks = chunks_object, x = chunks_object2)
 #'
 #' chunks_get_rcode(chunks_object)
 chunks_push_chunks <- function(x,
@@ -796,7 +796,7 @@ chunks_push_data_merge <- function(x, chunks = get_chunks_object()) {
   }
   checkmate::assert_names(names(x), must.include = "chunks")
 
-  chunks_push_chunks(x = x$chunks, chunks = chunks, overwrite = FALSE)
+  chunks_push_chunks(chunks = chunks, x = x$chunks, overwrite = FALSE)
 }
 
 #' Pushes a code comment chunk for global chunks
@@ -811,7 +811,7 @@ chunks_push_data_merge <- function(x, chunks = get_chunks_object()) {
 #' @export
 #'
 #' @examples
-#' all_chunks <- chunks$new()
+#' all_chunks <- chunks_new()
 #' chunks_push_comment("this is a comment", chunks = all_chunks)
 #'
 #' chunks_get_rcode(chunks = all_chunks) == "# this is a comment"
@@ -836,7 +836,7 @@ chunks_push_comment <- function(comment,
 #' @export
 #'
 #' @examples
-#' all_chunks <- chunks$new()
+#' all_chunks <- chunks_new()
 #' chunks_push_new_line(chunks = all_chunks)
 #'
 #' chunks_get_rcode(chunks = all_chunks) == " "
@@ -976,11 +976,29 @@ chunks_messages <- function(chunks = get_chunks_object()) {
 #'
 #'
 #' @references chunks
-init_chunks <- function(new_chunks = chunks$new(), session = get_session_object()) {
+init_chunks <- function(new_chunks = chunks_new(), session = get_session_object()) {
   session$userData[[session$ns(character(0))]]$chunks <- "A"
   suppressWarnings(rm(envir = session$userData, list = session$ns(character(0))))
   session$userData[[session$ns(character(0))]]$chunks <- new_chunks # nolint
   return(invisible(NULL))
+}
+
+#' Creates and returns a R6 chunks object to be used in a shiny/teal app
+#'
+#' @description `r lifecycle::badge("experimental")`
+#'
+#' @param envir (`environment` or `NULL`) optional, environment to get objects from to chunks environment
+#'
+#' @return R6 chunks object
+#'
+#' @export
+#' @references chunks
+#'
+#' @examples
+#' new_chunks <- chunks_new()
+chunks_new <- function(envir = new.env()) {
+  checkmate::assert_environment(envir)
+  return(chunks$new(envir = envir))
 }
 
 #' Overwrites chunks object in session
@@ -995,7 +1013,7 @@ init_chunks <- function(new_chunks = chunks$new(), session = get_session_object(
 #' @return nothing, it modifies shiny session object
 #'
 #' @export
-overwrite_chunks <- function(x = chunks$new(envir = parent.frame()), session = get_session_object()) {
+overwrite_chunks <- function(x = chunks_new(envir = parent.frame()), session = get_session_object()) {
   if (!inherits(x, "chunks")) {
     stop("No chunks object provided for 'overwrite_chunks' in argument 'x'.")
   }
@@ -1202,7 +1220,7 @@ chunks_validate_custom <- function(x,
 #' @return a deep copy of `chunks`
 #' @export
 #' @examples
-#' x_chunk <- chunks$new()
+#' x_chunk <- chunks_new()
 #' chunks_push(chunks = x_chunk, expression = expression(y <- 1))
 #'
 #' # A copy of x_chunk which does not share the same environment

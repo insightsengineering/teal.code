@@ -22,7 +22,7 @@ function makes sure all associated \code{environments} are deep copied (i.e. are
 of the original object)
 }
 \examples{
-x_chunk <- chunks$new()
+x_chunk <- chunks_new()
 chunks_push(chunks = x_chunk, expression = expression(y <- 1))
 
 # A copy of x_chunk which does not share the same environment
