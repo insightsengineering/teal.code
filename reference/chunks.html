@@ -14,7 +14,7 @@ a sequence of analysis steps."><!-- mathjax --><script src="https://cdnjs.cloudf
     
     <a class="navbar-brand me-2" href="../index.html">teal.code</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9006</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9007</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 30px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,15 +38,6 @@ a sequence of analysis steps."><!-- mathjax --><script src="https://cdnjs.cloudf
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start_releases -->
-<li class="dropdown">
-	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-Other releases
-<span class="caret"></span></a><ul class="dropdown-menu" role="menu">
-   <li><a href="../index.html">latest</a></li>
-   <li><a href="..//index.html"></a></li>
-</ul></li>
-<!-- end_releases -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -84,30 +75,17 @@ a sequence of analysis steps.</p>
     
 
 <dl><dt><code>initialize(envir = new.env())</code></dt>
-<dd><p>Initializes the object.</p><div class="sourceCode"><pre><code>\code{envir}: (optional) environment to get objects from to chunks environment
-</code></pre></div>
-
-</dd>
+<dd><p>Initializes the object.</p>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div></dd>
 
 <dt><code>push(x, id)</code></dt>
 <dd><p>This method adds an expression code chunk or comment code chunk to this object.
-If no <code>id</code> is given a random id is generated.</p><div class="sourceCode"><pre><code>  The method needs the parameter \code{x}. In case this is of type \code{call} and the code will
-  be evaluated via \code{eval}. Additionally, the code can be given as a string and a comment will be inserted.
-</code></pre></div>
-
-</dd>
+If no <code>id</code> is given a random id is generated.</p>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div></dd>
 
 <dt><code><a href="https://rdrr.io/r/base/eval.html" class="external-link">eval()</a></code></dt>
-<dd><p>This method applies the <code>eval_id</code> method to each code chunk stored inside this object.</p><div class="sourceCode"><pre><code>   This method should not be evaluated multiple times, else it throws a warning. This is due to the
-   fact that multiple evaluations of the following second code snippet is dangerous:
-   \itemize{
-     \item{1 }{a &lt;- 2}
-     \item{2 }{a &lt;- a + 1}
-   }
-   \code{eval} evaluates code just once and warn user if one tries to evaluate multiple times.
-</code></pre></div>
-
-</dd>
+<dd><p>This method applies the <code>eval_id</code> method to each code chunk stored inside this object.</p>
+<p></p><div class="sourceCode"><pre><code></code></pre><p></p></div></dd>
 
 <dt><code>get_rcode()</code></dt>
 <dd><p>Run <code>get_rcode_id</code> for all code chunks inside this object.</p></dd>
@@ -214,7 +192,7 @@ Each element is a logical vector with values corresponding to <code>chunk</code>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">x</span><span class="op">$</span><span class="fu">info</span><span class="op">(</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $envir</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x56417cb51250&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x563168e08dc8&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $id</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "test_1"     "test_2"     "test_3"     "test_4"     "test_error"</span>
