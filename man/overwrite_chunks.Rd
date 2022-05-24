@@ -5,7 +5,7 @@
 \title{Overwrites chunks object in session}
 \usage{
 overwrite_chunks(
-  x = chunks$new(envir = parent.frame()),
+  x = chunks_new(envir = parent.frame()),
   session = get_session_object()
 )
 }
