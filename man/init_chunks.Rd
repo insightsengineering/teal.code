@@ -4,7 +4,7 @@
 \alias{init_chunks}
 \title{Allows using chunks in the global environment of a teal app}
 \usage{
-init_chunks(new_chunks = chunks$new(), session = get_session_object())
+init_chunks(new_chunks = chunks_new(), session = get_session_object())
 }
 \arguments{
 \item{new_chunks}{optional, (\code{chunks_stack}) new object to initialize with}
