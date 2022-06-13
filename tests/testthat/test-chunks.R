@@ -816,37 +816,6 @@ testthat::test_that("lhs and rhs", {
   )
 })
 
-testthat::test_that("chunk pipe", {
-  rm(list = ls())
-  session <- new.env()
-  session$userData <- new.env() # nolint
-  session$ns <- function(x) {
-    if (length(x) == 0) {
-      "id"
-    } else {
-      paste0("id", x, sep = "-")
-    }
-  } # nolint
-  init_chunks(session = session)
-  form <- "from"
-  testthat::expect_equal(
-    ls(session$userData[[session$ns(character(0))]]$chunks$info()$envir),
-    character(0)
-  )
-  chunks_reset(chunks = session$userData[[session$ns(character(0))]]$chunks)
-  testthat::expect_silent({
-    form_two %<chunk% paste(form, "to")
-  })
-  testthat::expect_equal(
-    form_two$eval(chunks = session$userData[[session$ns(character(0))]]$chunks),
-    c("from to")
-  )
-  testthat::expect_equal(
-    unname(chunks_get_rcode(chunks = session$userData[[session$ns(character(0))]]$chunks)),
-    "paste(form, \"to\")"
-  )
-})
-
 # * push_chunks ====
 testthat::test_that("chunks push_chunks", {
   testthat::expect_silent({

@@ -22,6 +22,7 @@ Imports:
     crayon,
     lifecycle,
     R6,
+    rlang,
     shiny,
     styler,
     teal.widgets (>= 0.1.1)
