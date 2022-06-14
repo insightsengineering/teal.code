@@ -36,5 +36,6 @@ RdMacros:
     lifecycle
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
+Language: en-US
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.0
