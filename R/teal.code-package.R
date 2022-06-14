@@ -9,7 +9,6 @@
 
 #' @import shiny
 #' @importFrom R6 R6Class
-#' @importFrom rlang expr
 #' @importFrom lifecycle badge
 #' @importFrom styler style_text
 NULL
