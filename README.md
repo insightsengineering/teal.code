@@ -4,6 +4,7 @@
 
 `teal.code` is an R library providing tools to store code and an execution environment associated with it. The features
 include:
+
 * storing character literals as code,
 * storing an execution environment,
 * swapping the execution environment of the stored code,
