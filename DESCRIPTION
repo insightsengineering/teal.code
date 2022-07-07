@@ -32,6 +32,8 @@ Suggests:
     testthat (>= 2.0)
 VignetteBuilder:
     knitr
+Remotes:
+    insightsengineering/teal.widgets@*release
 RdMacros:
     lifecycle
 Config/Needs/website: insightsengineering/nesttemplate
