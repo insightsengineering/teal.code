@@ -19,7 +19,7 @@ For releases from August 2022 it is recommended that you [create and use a Githu
 ```r
 Sys.setenv(GITHUB_PAT = "your_access_token_here")
 if (!require("remotes")) install.packages("remotes")
-remotes::install_github("insightsengineering/teal.code@*release", dependencies = FALSE)
+remotes::install_github("insightsengineering/teal.code@*release")
 ```
 
 A stable release of all `NEST` packages from June 2022 is also available [here](https://github.com/insightsengineering/depository#readme).
