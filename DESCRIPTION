@@ -1,7 +1,7 @@
 Type: Package
 Package: teal.code
 Title: Code storage and execution class for teal applications
-Version: 0.1.1.9002
+Version: 0.1.1.9003
 Date: 2022-06-09
 Authors@R: c(
     person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = c("aut", "cre")),
@@ -32,10 +32,10 @@ Suggests:
     testthat (>= 2.0)
 VignetteBuilder:
     knitr
-Remotes:
-    insightsengineering/teal.widgets@*release
 RdMacros:
     lifecycle
+Remotes:
+    insightsengineering/teal.widgets@*release
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
 Language: en-US
