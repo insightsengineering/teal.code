@@ -36,7 +36,7 @@ setMethod(
 #' @rdname new_quosure
 #' @export
 setMethod(
-  "new_quosure", signature(code = "character"),
+  "new_quosure", signature(code = "character", env = "environment"),
   function(code = character(0), env = parent.env(.GlobalEnv)) {
     checkmate::check_class(env, "environment")
     checkmate::check_string(code)
@@ -49,6 +49,27 @@ setMethod(
     methods::new("Quosure", code = code, env = env)
   }
 )
+
+
+#' @rdname new_quosure
+#' @export
+setMethod(
+  "new_quosure", signature(code = "character", env = "list"),
+  function(code, env) {
+    env <- if (checkmate::check_list(env, "reactive")) {
+      lapply(env, function(x) {
+        if (inherits(x, "reactive")) {
+          x()
+        } else {
+          x
+        }
+      })
+    }
+
+    new_quosure(code = code, env = list2env(env))
+  }
+)
+
 
 setGeneric("get_code", function(object, deparse = FALSE) {
   standardGeneric("get_code")
@@ -98,7 +119,7 @@ setMethod(
 setMethod(
   "eval_code", signature("Quosure", "language"),
   function(object, code, name = "code") {
-    code_char <- deparse1(code)
+    code_char <- as.expression(code)
     eval_code(object, code_char, name = name)
   }
 )
@@ -149,7 +170,6 @@ setMethod("get_code", signature("Quosure"), function(object) {
   object@code
 })
 
-
 #' Join two `Quosure` objects
 #'
 #' Combine two `Quosure` object by merging their environments and the code.
@@ -164,9 +184,12 @@ setMethod("get_code", signature("Quosure"), function(object) {
 #' @param overwrite (`logical(1)`) whether modified objects in the environment of the `object2`
 #'  should overwrite their equivalents in the environment of the `object`.
 #' @export
+setGeneric("join", function(object, object2, overwrite = FALSE) {
+  standardGeneric("join")
+})
+
 setMethod("join", signature("Quosure", "Quosure"), function(object, object2, overwrite = FALSE) {
   # todo: revise chunks_merge_chunks and make robust join method
-
 
   # object2 can't have modified object of the same name! See chunks_push_chunks
   common_names <- intersect(ls(object@env), ls(object2@env))
