@@ -127,6 +127,17 @@ setMethod(
 #' @rdname eval_code
 #' @export
 setMethod(
+  "eval_code", signature("Quosure", "ANY"),
+  function(object, code, name = "code") {
+    code_expr <- substitute(code)
+    eval_code(object, code_expr, name = name)
+  }
+)
+
+
+#' @rdname eval_code
+#' @export
+setMethod(
   "eval_code", signature("Quosure", "expression"),
   function(object, code, name = "code") {
     code_char <- as.character(code)
@@ -181,27 +192,53 @@ setMethod("get_code", signature("Quosure"), function(object) {
 #' - more cases todo
 #' @param object (`Quosure`)
 #' @param object2 (`Quosure`)
-#' @param overwrite (`logical(1)`) whether modified objects in the environment of the `object2`
-#'  should overwrite their equivalents in the environment of the `object`.
 #' @export
 setGeneric("join", function(object, object2, overwrite = FALSE) {
   standardGeneric("join")
 })
 
-setMethod("join", signature("Quosure", "Quosure"), function(object, object2, overwrite = FALSE) {
+setMethod("join", signature("Quosure", "Quosure"), function(object, object2) {
   # todo: revise chunks_merge_chunks and make robust join method
 
   # object2 can't have modified object of the same name! See chunks_push_chunks
   common_names <- intersect(ls(object@env), ls(object2@env))
-  is_identical_obj <- vapply(common_names, function(x) {
-    identical(get(x, object@env), get(x, object2@env))
+  is_overwritten <- vapply(common_names, function(x) {
+    !identical(get(x, object@env), get(x, object2@env))
   }, logical(1))
-  if (any(isFALSE(is_identical_obj)) && !overwrite) {
+
+  # code
+  a_is_shared_code <- object@code %in% object2@code
+  b_is_shared_code <- object2@code %in% object@code
+
+
+  if (
+    any(a_is_shared_code) &&
+    (isFALSE(a_is_shared_code[1]) || isFALSE(b_is_shared_code[1]))
+  ) {
+    # X X O O Y Y
+    # Y Y O O O O
+    # X X O O O O
+    # Y Y O O X X
     stop(
-      "join does not allow overwriting already calculated values.",
-      " Following variables would have been overwritten:",
-      paste("    -", names(is_identical_obj), collapse = "\n"),
-      sep = "\n"
+      "`object` and `object2` can't be joined if one of the objects contains extra code before ",
+      "code shared by both."
+    )
+  } else if (any(a_is_shared_code) && any(b_is_shared_code) && any(is_overwritten)) {
+    # O O X X Y Y
+    # X X X X Y Y
+    # Y Y Y Y X X
+    stop(
+      "`object` and `object2` have an extra code and environments contains modified object(s) of the same name ",
+      "Following object(s) have been modified:\n - ",
+      paste(common_names[is_overwritten], collapse = "\n - ")
+    )
+  } else if (any(a_is_shared_code) && any(b_is_shared_code) && length(common_names) > 0) {
+    # O O O O Y Y
+    # O O O O X X
+    stop(
+      "`object2` and `object` contain no shared code which produces object(s) of the same names. ",
+      "Following object names are shared between both environments:\n - ",
+      paste(common_names, collapse = "\n - ")
     )
   }
 
