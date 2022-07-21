@@ -21,6 +21,7 @@ Imports:
     checkmate,
     crayon,
     lifecycle,
+    methods,
     R6,
     shiny,
     styler,
