@@ -27,15 +27,6 @@ setGeneric("new_quosure", function(code = character(0), env = parent.env(.Global
 #' @rdname new_quosure
 #' @export
 setMethod(
-  "new_quosure", signature(code = "missing", env = "missing"),
-  function(code, env) {
-    methods::new("Quosure")
-  }
-)
-
-#' @rdname new_quosure
-#' @export
-setMethod(
   "new_quosure", signature(code = "character", env = "environment"),
   function(code = character(0), env = parent.env(.GlobalEnv)) {
     checkmate::check_class(env, "environment")
@@ -44,7 +35,7 @@ setMethod(
     lockEnvironment(env)
 
     if (is.null(names(code))) {
-      names(code) <- "code"
+      names(code) <- make.unique(rep("code", length(code)))
     }
     methods::new("Quosure", code = code, env = env)
   }
@@ -54,10 +45,40 @@ setMethod(
 #' @rdname new_quosure
 #' @export
 setMethod(
-  "new_quosure", signature(code = "character", env = "list"),
+  "new_quosure", signature(code = "language", env = "environment"),
+  function(code = character(0), env = parent.env(.GlobalEnv)) {
+    code_expr <- as.expression(code)
+    new_quosure(code = code_expr, env = env)
+  }
+)
+
+#' @rdname new_quosure
+#' @export
+setMethod(
+  "new_quosure", signature(code = "expression", env = "environment"),
+  function(code = character(0), env = parent.env(.GlobalEnv)) {
+    code_char <- as.character(code)
+    new_quosure(code = code_char, env = env)
+  }
+)
+
+#' @rdname new_quosure
+#' @export
+setMethod(
+  "new_quosure", signature(code = "ANY", env = "environment"),
+  function(code = character(0), env = parent.env(.GlobalEnv)) {
+    quoted_expr <- substitute(code)
+    new_quosure(code = quoted_expr, env = env)
+  }
+)
+
+#' @rdname new_quosure
+#' @export
+setMethod(
+  "new_quosure", signature(code = "ANY", env = "list"),
   function(code, env) {
-    env <- if (checkmate::check_list(env, "reactive")) {
-      lapply(env, function(x) {
+    if (checkmate::test_list(env, "reactive")) {
+      env <- sapply(env, function(x) {
         if (inherits(x, "reactive")) {
           x()
         } else {
@@ -65,18 +86,21 @@ setMethod(
         }
       })
     }
-
-    new_quosure(code = code, env = list2env(env))
+    new_quosure(code = substitute(code), env = list2env(env))
   }
 )
 
+#' @rdname new_quosure
+#' @export
+setMethod(
+  "new_quosure", signature(code = "missing", env = "missing"),
+  function(code, env) {
+    methods::new("Quosure")
+  }
+)
 
 setGeneric("get_code", function(object, deparse = FALSE) {
   standardGeneric("get_code")
-})
-
-setGeneric("join", function(object, object2, overwrite = FALSE) {
-  standardGeneric("join")
 })
 
 #' Evaluate the code in the `Quosure` environment
@@ -100,13 +124,13 @@ setGeneric("eval_code", function(object, code, name = "code") {
 #' @export
 setMethod(
   "eval_code", signature("Quosure", "character"),
-  function(object, code, name = "code") {
-    # combine code vector (and make names unique)
-    nm <- make.unique(c(names(object@code), name))
-    object@code <- setNames(c(object@code, code), nm)
+  function(object, code, name = rep("code", length(code))) {
+    checkmate::assert_character(name, len = length(code))
+    names(code) <- name
+    object@code <- .keep_code_name_unique(object@code, code) # combine code vector (and make names unique)
 
     # need to copy the objects from old env to new env
-    # to avoid "chunks" sharing the same environment
+    # to avoid updating environments in the separate objects
     object@env <- .copy_env(object@env)
     eval(parse(text = code), envir = object@env)
     lockEnvironment(object@env)
@@ -193,7 +217,7 @@ setMethod("get_code", signature("Quosure"), function(object) {
 #' @param object (`Quosure`)
 #' @param object2 (`Quosure`)
 #' @export
-setGeneric("join", function(object, object2, overwrite = FALSE) {
+setGeneric("join", function(object, object2) {
   standardGeneric("join")
 })
 
@@ -210,50 +234,34 @@ setMethod("join", signature("Quosure", "Quosure"), function(object, object2) {
   a_is_shared_code <- object@code %in% object2@code
   b_is_shared_code <- object2@code %in% object@code
 
-
   if (
     any(a_is_shared_code) &&
     (isFALSE(a_is_shared_code[1]) || isFALSE(b_is_shared_code[1]))
   ) {
-    # X X O O Y Y
-    # Y Y O O O O
-    # X X O O O O
-    # Y Y O O X X
     stop(
       "`object` and `object2` can't be joined if one of the objects contains extra code before ",
       "code shared by both."
     )
-  } else if (any(a_is_shared_code) && any(b_is_shared_code) && any(is_overwritten)) {
-    # O O X X Y Y
-    # X X X X Y Y
-    # Y Y Y Y X X
+  } else if (
+    any(a_is_shared_code) && any(b_is_shared_code) &&
+    any(!a_is_shared_code) && any(!b_is_shared_code) &&
+    any(is_overwritten)) {
     stop(
       "`object` and `object2` have an extra code and environments contains modified object(s) of the same name ",
       "Following object(s) have been modified:\n - ",
       paste(common_names[is_overwritten], collapse = "\n - ")
     )
-  } else if (any(a_is_shared_code) && any(b_is_shared_code) && length(common_names) > 0) {
-    # O O O O Y Y
-    # O O O O X X
-    stop(
-      "`object2` and `object` contain no shared code which produces object(s) of the same names. ",
-      "Following object names are shared between both environments:\n - ",
-      paste(common_names, collapse = "\n - ")
-    )
   }
 
   # join expressions
-  # > join should be an inteligent union
-  unique_expr <- !(object2@code %in% object@code & names(object2@code) %in% names(object@code))
-    # duplicated expr will probably have the same name also
-    # unique_expr should have TRUE only at the end of the vector.
-  object@code <- c(object@code, object2@code[unique_expr])
+  # - remove duplicated code from object2 and append to the object1
+  unique_expr <- object2@code[!(object2@code %in% object@code & names(object2@code) %in% names(object@code))]
+  # - in case object@code and object2@code contains extra code with the same name - code2 needs to be renamed
+  object@code <- .keep_code_name_unique(object@code, unique_expr)
 
-  # insert new objects to env
-  new_names <- setdiff(ls(object2@env), ls(object@env))
-
+  # insert (and overwrite) objects from env2 to env
   object@env <- .copy_env(object@env)
-  lapply(new_names, function(x) assign(x, get(x, object2@env), object@env))
+  lapply(ls(object2@env), function(x) assign(x, get(x, object2@env), object@env))
 
   object
 })
@@ -271,37 +279,7 @@ setMethod("join", signature("Quosure", "Quosure"), function(object, object2) {
   env_new
 }
 
-#' Needed to determine if the `Quosure`'s code can be joined
-#'
-#' @keywords internal
-.resolve_code_vector <- function(code, code2) {
-  # only possible pattern for extra code: both are completelly different
-  # then A <- B (but there should be no common variable names!)? what about rm method?
-
-  # if  B has extra code which is not  at the end
-  # only one object can have extra code at the
-
-  # if B has extra code at the end and no object conflict
-  # if A has extra code at the end and no object conflict
-  #
-
-  code_only_in_a <- which(!code %in% code2)
-  code_only_in_b <- which(!code2 %in% code)
-
-  if (!identical(
-    code_only_in_a,
-    utils::tail(seq_along(code), length(code_only_in_a))
-  )) {
-    # a can only have extra code at the end of the queue
-    stop("only last index")
-  }
-
-  if (!identical(
-    code_only_in_b,
-    utils::tail(seq_along(code2), length(code_only_in_b))
-  )) {
-    # b can only have extra code at the end of the queue
-    stop("only last index")
-  }
-
+.keep_code_name_unique <- function(x, y) {
+  nm <- make.unique(c(names(x), names(y)))
+  setNames(c(x, y), nm)
 }
