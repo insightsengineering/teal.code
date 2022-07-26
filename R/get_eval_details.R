@@ -28,8 +28,8 @@ show_eval_details_modal <- function(chunks) {
                 x$id,
                 `if`(x$eval_info$flag, span(class = "text-success", icon("check")), NULL),
                 `if`(x$message_info$flag, span(class = "text-info", icon("comment")), NULL),
-                `if`(x$warning_info$flag, span(class = "text-warning", icon("exclamation-triangle")), NULL),
-                `if`(x$error_info$flag, span(class = "text-danger", icon("exclamation-circle")), NULL)
+                `if`(x$warning_info$flag, span(class = "text-warning", icon("triangle-exclamation")), NULL),
+                `if`(x$error_info$flag, span(class = "text-danger", icon("circle-exclamation")), NULL)
               ),
               tagList(
                 tags$label("Code:"),
