@@ -4,15 +4,12 @@
 \alias{join}
 \title{Join two \code{Quosure} objects}
 \usage{
-join(object, object2, overwrite = FALSE)
+join(object, object2)
 }
 \arguments{
 \item{object}{(\code{Quosure})}
 
 \item{object2}{(\code{Quosure})}
-
-\item{overwrite}{(\code{logical(1)}) whether modified objects in the environment of the \code{object2}
-should overwrite their equivalents in the environment of the \code{object}.}
 }
 \description{
 Combine two \code{Quosure} object by merging their environments and the code.

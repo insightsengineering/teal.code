@@ -16,11 +16,11 @@ setClass(
 #' can create an empty `Quosure` and evaluate the expressions in this object.
 #' @name new_quosure
 #'
-#' @param code (`character(1)` or `language`) code to evaluate. Also acceptps and stores comments
-#' @param env (`environment`) name of the code element.
+#' @param code (`character(1)` or `language`) code to evaluate. Accepts and stores comments also.
+#' @param env (`environment`) Environment being a result of the `code` evaluation.
 #'
 #' @export
-setGeneric("new_quosure", function(code = character(0), env = parent.env(.GlobalEnv)) {
+setGeneric("new_quosure", function(code = character(0), env = new.env(parent = parent.env(.GlobalEnv))) {
   standardGeneric("new_quosure")
 })
 
@@ -28,25 +28,21 @@ setGeneric("new_quosure", function(code = character(0), env = parent.env(.Global
 #' @export
 setMethod(
   "new_quosure", signature(code = "character", env = "environment"),
-  function(code = character(0), env = parent.env(.GlobalEnv)) {
-    checkmate::check_class(env, "environment")
-    checkmate::check_string(code)
-
+  function(code, env) {
     lockEnvironment(env)
 
-    if (is.null(names(code))) {
+    if (is.null(names(code)) && length(code)) {
       names(code) <- make.unique(rep("code", length(code)))
     }
     methods::new("Quosure", code = code, env = env)
   }
 )
 
-
 #' @rdname new_quosure
 #' @export
 setMethod(
   "new_quosure", signature(code = "language", env = "environment"),
-  function(code = character(0), env = parent.env(.GlobalEnv)) {
+  function(code, env) {
     code_expr <- as.expression(code)
     new_quosure(code = code_expr, env = env)
   }
@@ -56,7 +52,7 @@ setMethod(
 #' @export
 setMethod(
   "new_quosure", signature(code = "expression", env = "environment"),
-  function(code = character(0), env = parent.env(.GlobalEnv)) {
+  function(code, env) {
     code_char <- as.character(code)
     new_quosure(code = code_char, env = env)
   }
@@ -66,7 +62,7 @@ setMethod(
 #' @export
 setMethod(
   "new_quosure", signature(code = "ANY", env = "environment"),
-  function(code = character(0), env = parent.env(.GlobalEnv)) {
+  function(code, env) {
     quoted_expr <- substitute(code)
     new_quosure(code = quoted_expr, env = env)
   }
@@ -75,7 +71,7 @@ setMethod(
 #' @rdname new_quosure
 #' @export
 setMethod(
-  "new_quosure", signature(code = "ANY", env = "list"),
+  "new_quosure", signature(env = "list"),
   function(code, env) {
     if (checkmate::test_list(env, "reactive")) {
       env <- sapply(env, function(x) {
@@ -86,7 +82,10 @@ setMethod(
         }
       })
     }
-    new_quosure(code = substitute(code), env = list2env(env))
+    if (missing(code)) {
+      code <- attr(env, "code")
+    }
+    new_quosure(code = code, env = list2env(env, parent = new.env(parent = parent.env(.GlobalEnv))))
   }
 )
 
@@ -95,13 +94,9 @@ setMethod(
 setMethod(
   "new_quosure", signature(code = "missing", env = "missing"),
   function(code, env) {
-    methods::new("Quosure")
+    new_quosure(code = code, env = env)
   }
 )
-
-setGeneric("get_code", function(object, deparse = FALSE) {
-  standardGeneric("get_code")
-})
 
 #' Evaluate the code in the `Quosure` environment
 #'
@@ -112,8 +107,8 @@ setGeneric("get_code", function(object, deparse = FALSE) {
 #' @name eval_code
 #'
 #' @param object (`Quosure`)
-#' @param code (`character(1)` or `language`) code to evaluate. Also acceptps and stores comments
-#' @param name (`character(1)`) name of the code element.
+#' @param code (`character` or `language`) code to evaluate. Also accepts and stores comments
+#' @param name (`character(1)`) name of the code block.
 #'
 #' @export
 setGeneric("eval_code", function(object, code, name = "code") {
@@ -124,8 +119,9 @@ setGeneric("eval_code", function(object, code, name = "code") {
 #' @export
 setMethod(
   "eval_code", signature("Quosure", "character"),
-  function(object, code, name = rep("code", length(code))) {
-    checkmate::assert_character(name, len = length(code))
+  function(object, code, name = "code") {
+    checkmate::assert_character(name, len = 1L)
+    code <- paste(code, collapse = "\n")
     names(code) <- name
     object@code <- .keep_code_name_unique(object@code, code) # combine code vector (and make names unique)
 
@@ -197,6 +193,15 @@ setMethod("[[", c("Quosure", "ANY", "missing"), function(x, i, j, ...) {
   get_var(x, i)
 })
 
+
+#' Get code from `Quosure`
+#'
+#' @param object (`Quosure`)
+#' @return named `character` with the reproducible code.
+#' @export
+setGeneric("get_code", function(object) {
+  standardGeneric("get_code")
+})
 
 #' Get the code from the `Quosure`
 #'

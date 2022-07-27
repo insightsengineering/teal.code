@@ -2,20 +2,53 @@
 % Please edit documentation in R/Quosure.R
 \name{new_quosure}
 \alias{new_quosure}
+\alias{new_quosure,character,environment-method}
+\alias{new_quosure,language,environment-method}
+\alias{new_quosure,expression,environment-method}
+\alias{new_quosure,ANY,environment-method}
+\alias{new_quosure,ANY,list-method}
 \alias{new_quosure,missing,missing-method}
-\alias{new_quosure,character,ANY-method}
 \title{Initialize \code{Quosure} object}
 \usage{
-new_quosure(code = character(0), env = parent.env(.GlobalEnv))
+new_quosure(
+  code = character(0),
+  env = new.env(parent = parent.env(.GlobalEnv))
+)
 
-\S4method{new_quosure}{missing,missing}(code = character(0), env = parent.env(.GlobalEnv))
+\S4method{new_quosure}{character,environment}(
+  code = character(0),
+  env = new.env(parent = parent.env(.GlobalEnv))
+)
 
-\S4method{new_quosure}{character,ANY}(code = character(0), env = parent.env(.GlobalEnv))
+\S4method{new_quosure}{language,environment}(
+  code = character(0),
+  env = new.env(parent = parent.env(.GlobalEnv))
+)
+
+\S4method{new_quosure}{expression,environment}(
+  code = character(0),
+  env = new.env(parent = parent.env(.GlobalEnv))
+)
+
+\S4method{new_quosure}{ANY,environment}(
+  code = character(0),
+  env = new.env(parent = parent.env(.GlobalEnv))
+)
+
+\S4method{new_quosure}{ANY,list}(
+  code = character(0),
+  env = new.env(parent = parent.env(.GlobalEnv))
+)
+
+\S4method{new_quosure}{missing,missing}(
+  code = character(0),
+  env = new.env(parent = parent.env(.GlobalEnv))
+)
 }
 \arguments{
-\item{code}{(\code{character(1)} or \code{language}) code to evaluate. Also acceptps and stores comments}
+\item{code}{(\code{character(1)} or \code{language}) code to evaluate. Accepts and stores comments also.}
 
-\item{env}{(\code{environment}) name of the code element.}
+\item{env}{(\code{environment}) Environment being a result of the \code{code} evaluation.}
 }
 \description{
 Initialize \code{Quosure} object with \code{code} and \code{env}. In order to have \code{Quosure} reproducible

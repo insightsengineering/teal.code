@@ -4,6 +4,7 @@
 \alias{eval_code}
 \alias{eval_code,Quosure,character-method}
 \alias{eval_code,Quosure,language-method}
+\alias{eval_code,Quosure,ANY-method}
 \alias{eval_code,Quosure,expression-method}
 \title{Evaluate the code in the \code{Quosure} environment}
 \usage{
@@ -13,14 +14,16 @@ eval_code(object, code, name = "code")
 
 \S4method{eval_code}{Quosure,language}(object, code, name = "code")
 
+\S4method{eval_code}{Quosure,ANY}(object, code, name = "code")
+
 \S4method{eval_code}{Quosure,expression}(object, code, name = "code")
 }
 \arguments{
 \item{object}{(\code{Quosure})}
 
-\item{code}{(\code{character(1)} or \code{language}) code to evaluate. Also acceptps and stores comments}
+\item{code}{(\code{character} or \code{language}) code to evaluate. Also accepts and stores comments}
 
-\item{name}{(\code{character(1)}) name of the code element.}
+\item{name}{(\code{character(1)}) name of the code block.}
 }
 \description{
 Given code is evaluated in the \code{Quosure} environment and appended to the \code{code} slot. This means
