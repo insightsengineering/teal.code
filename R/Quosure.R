@@ -5,8 +5,8 @@
 #' of the `code` slot.
 setClass(
   "Quosure",
-  representation(code = "character", env = "environment"),
-  prototype(code = character(0), env = new.env(parent = parent.env(.GlobalEnv)))
+  representation(env = "environment", code = "character"),
+  prototype(env = new.env(parent = parent.env(.GlobalEnv)), code = character(0))
 )
 
 #' Initialize `Quosure` object
@@ -20,51 +20,51 @@ setClass(
 #' @param env (`environment`) Environment being a result of the `code` evaluation.
 #'
 #' @export
-setGeneric("new_quosure", function(code = character(0), env = new.env(parent = parent.env(.GlobalEnv))) {
+setGeneric("new_quosure", function(env = new.env(parent = parent.env(.GlobalEnv)), code = character(0)) {
   standardGeneric("new_quosure")
 })
 
 #' @rdname new_quosure
 #' @export
 setMethod(
-  "new_quosure", signature(code = "character", env = "environment"),
-  function(code, env) {
+  "new_quosure", signature(env = "environment", code = "character"),
+  function(env, code) {
     lockEnvironment(env)
 
     if (is.null(names(code)) && length(code)) {
       names(code) <- make.unique(rep("code", length(code)))
     }
-    methods::new("Quosure", code = code, env = env)
+    methods::new("Quosure", env = env, code = code)
   }
 )
 
 #' @rdname new_quosure
 #' @export
 setMethod(
-  "new_quosure", signature(code = "language", env = "environment"),
-  function(code, env) {
+  "new_quosure", signature(env = "environment", code = "language"),
+  function(env, code) {
     code_expr <- as.expression(code)
-    new_quosure(code = code_expr, env = env)
+    new_quosure(env = env, code = code_expr)
   }
 )
 
 #' @rdname new_quosure
 #' @export
 setMethod(
-  "new_quosure", signature(code = "expression", env = "environment"),
-  function(code, env) {
+  "new_quosure", signature(env = "environment", code = "expression"),
+  function(env, code) {
     code_char <- as.character(code)
-    new_quosure(code = code_char, env = env)
+    new_quosure(env = env, code = code_char)
   }
 )
 
 #' @rdname new_quosure
 #' @export
 setMethod(
-  "new_quosure", signature(code = "ANY", env = "environment"),
-  function(code, env) {
+  "new_quosure", signature(env = "environment", code = "ANY"),
+  function(env, code) {
     quoted_expr <- substitute(code)
-    new_quosure(code = quoted_expr, env = env)
+    new_quosure(env = env, code = quoted_expr)
   }
 )
 
@@ -72,7 +72,10 @@ setMethod(
 #' @export
 setMethod(
   "new_quosure", signature(env = "list"),
-  function(code, env) {
+  function(env, code = attr(env, "code")) {
+    if (missing(code)) {
+      code <- attr(env, "code")
+    }
     if (checkmate::test_list(env, "reactive")) {
       env <- sapply(env, function(x) {
         if (inherits(x, "reactive")) {
@@ -82,10 +85,11 @@ setMethod(
         }
       })
     }
-    if (missing(code)) {
-      code <- attr(env, "code")
-    }
-    new_quosure(code = code, env = list2env(env, parent = new.env(parent = parent.env(.GlobalEnv))))
+    eval(substitute(
+      new_quosure(env = list2env(env), code = code),
+      list(code = substitute(code))
+
+    ))
   }
 )
 
@@ -93,8 +97,8 @@ setMethod(
 #' @export
 setMethod(
   "new_quosure", signature(code = "missing", env = "missing"),
-  function(code, env) {
-    new_quosure(code = code, env = env)
+  function(env, code) {
+    new_quosure(env = env, code = code)
   }
 )
 
@@ -287,4 +291,20 @@ setMethod("join", signature("Quosure", "Quosure"), function(object, object2) {
 .keep_code_name_unique <- function(x, y) {
   nm <- make.unique(c(names(x), names(y)))
   setNames(c(x, y), nm)
+}
+
+
+reactive_quosure <- function(depends, expr) {
+  reactive(expr, env = depends()@env)
+}
+
+
+#' @export
+as_quosure <- function(x) {
+  UseMethod("as_quosure")
+}
+
+#' @export
+as_quosure.list <- function(x) {
+  new_quosure(list2env(x), code = as.expression(attr(x, "code")))
 }

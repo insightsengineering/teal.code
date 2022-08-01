@@ -79,7 +79,6 @@ testthat::test_that("join does not duplicate code but adds only extra code", {
   )
 })
 
-# todo: test when shared code and both has extra code and variable overwritten
 testthat::test_that("Not possible to join quosures which shares some code and modify one of the shared object", {
   env <- new.env()
   env$iris1 <- iris
@@ -89,6 +88,13 @@ testthat::test_that("Not possible to join quosures which shares some code and mo
   q2 <- q1
   q1 <- eval_code(q1, "iris2 <- iris")
   q2 <- eval_code(q2, "mtcars1 <- head(mtcars)")
+
+  testthat::expect_error(join(q1, q2))
+})
+
+testthat::test_that("Not possible to join quosures which shares some code and have empty environments", {
+  q1 <- new_quosure(code = c("a = 1", "b = 2", "d = 4"), env = new.env())
+  q2 <- new_quosure(code = c("a = 1", "c = 3"), env = new.env())
 
   testthat::expect_error(join(q1, q2))
 })

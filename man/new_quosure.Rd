@@ -2,53 +2,53 @@
 % Please edit documentation in R/Quosure.R
 \name{new_quosure}
 \alias{new_quosure}
-\alias{new_quosure,character,environment-method}
-\alias{new_quosure,language,environment-method}
-\alias{new_quosure,expression,environment-method}
-\alias{new_quosure,ANY,environment-method}
-\alias{new_quosure,ANY,list-method}
+\alias{new_quosure,environment,character-method}
+\alias{new_quosure,environment,language-method}
+\alias{new_quosure,environment,expression-method}
+\alias{new_quosure,environment,ANY-method}
+\alias{new_quosure,list,ANY-method}
 \alias{new_quosure,missing,missing-method}
 \title{Initialize \code{Quosure} object}
 \usage{
 new_quosure(
-  code = character(0),
-  env = new.env(parent = parent.env(.GlobalEnv))
+  env = new.env(parent = parent.env(.GlobalEnv)),
+  code = character(0)
 )
 
-\S4method{new_quosure}{character,environment}(
-  code = character(0),
-  env = new.env(parent = parent.env(.GlobalEnv))
+\S4method{new_quosure}{environment,character}(
+  env = new.env(parent = parent.env(.GlobalEnv)),
+  code = character(0)
 )
 
-\S4method{new_quosure}{language,environment}(
-  code = character(0),
-  env = new.env(parent = parent.env(.GlobalEnv))
+\S4method{new_quosure}{environment,language}(
+  env = new.env(parent = parent.env(.GlobalEnv)),
+  code = character(0)
 )
 
-\S4method{new_quosure}{expression,environment}(
-  code = character(0),
-  env = new.env(parent = parent.env(.GlobalEnv))
+\S4method{new_quosure}{environment,expression}(
+  env = new.env(parent = parent.env(.GlobalEnv)),
+  code = character(0)
 )
 
-\S4method{new_quosure}{ANY,environment}(
-  code = character(0),
-  env = new.env(parent = parent.env(.GlobalEnv))
+\S4method{new_quosure}{environment,ANY}(
+  env = new.env(parent = parent.env(.GlobalEnv)),
+  code = character(0)
 )
 
-\S4method{new_quosure}{ANY,list}(
-  code = character(0),
-  env = new.env(parent = parent.env(.GlobalEnv))
+\S4method{new_quosure}{list,ANY}(
+  env = new.env(parent = parent.env(.GlobalEnv)),
+  code = attr(env, "code")
 )
 
 \S4method{new_quosure}{missing,missing}(
-  code = character(0),
-  env = new.env(parent = parent.env(.GlobalEnv))
+  env = new.env(parent = parent.env(.GlobalEnv)),
+  code = character(0)
 )
 }
 \arguments{
-\item{code}{(\code{character(1)} or \code{language}) code to evaluate. Accepts and stores comments also.}
-
 \item{env}{(\code{environment}) Environment being a result of the \code{code} evaluation.}
+
+\item{code}{(\code{character(1)} or \code{language}) code to evaluate. Accepts and stores comments also.}
 }
 \description{
 Initialize \code{Quosure} object with \code{code} and \code{env}. In order to have \code{Quosure} reproducible
