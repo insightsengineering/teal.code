@@ -1,13 +1,11 @@
 testthat::test_that("Joining two identical quosures outputs the same object", {
   env <- new.env()
   env$iris1 <- iris
-
   q1 <- new_quosure("iris1 <- iris", env = env)
   q2 <- q1
-
   q <- join(q1, q2)
 
-  testthat::expect_identical(q@code, c(code = "iris1 <- iris"))
+  testthat::expect_identical(get_code(q), c(`initial code` = "iris1 <- iris"))
   testthat::expect_equal(q@env, env)
 })
 
@@ -22,7 +20,10 @@ testthat::test_that("Joining two independent quosures results in object having c
   q2 <- new_quosure(mtcars1 <- mtcars, env = env2)
   q <- join(q1, q2)
 
-  testthat::expect_identical(q@code, c(code = "iris1 <- iris", code.1 = "mtcars1 <- mtcars"))
+  testthat::expect_identical(
+    get_code(q),
+    c(`initial code` = "iris1 <- iris", `initial code.1` = "mtcars1 <- mtcars")
+  )
   testthat::expect_equal(q@env, list2env(list(iris1 = iris, mtcars1 = mtcars)))
 })
 
@@ -37,12 +38,12 @@ testthat::test_that("Joined quosure does not duplicate common code", {
   q <- join(q1, q2)
 
   testthat::expect_identical(
-    q@code,
+    get_code(q),
     c(iris1 = "iris1 <- iris", mtcars1 = "mtcars1 <- mtcars", code = "mtcars2 <- mtcars")
   )
 })
 
-testthat::test_that("Joined quosure overwrites env in x by elements of the y's environment", {
+testthat::test_that("Not able to join two Quosures if any of the shared objects changed", {
   env1 <- new.env()
   env1$iris1 <- iris
   env1$iris2 <- iris
@@ -51,9 +52,8 @@ testthat::test_that("Joined quosure overwrites env in x by elements of the y's e
 
   q1 <- new_quosure(iris1 <- iris, env = env1)
   q2 <- new_quosure(iris1 <- head(iris), env = env2)
-  q <- join(q1, q2)
+  testthat::expect_error(join(q1, q2), "Not possible to join Quosure objects")
 
-  testthat::expect_equal(q@env, list2env(list(iris1 = head(iris), iris2 = iris)))
 })
 
 testthat::test_that("join does not duplicate code but adds only extra code", {
@@ -69,7 +69,7 @@ testthat::test_that("join does not duplicate code but adds only extra code", {
   q <- join(q1, q2)
 
   testthat::expect_identical(
-    q@code,
+    get_code(q),
     c(iris1 = "iris1 <- iris", mtcars1 = "mtcars1 <- mtcars", code = "iris2 <- iris", code.1 = "mtcars2 <- mtcars")
   )
 
@@ -88,13 +88,6 @@ testthat::test_that("Not possible to join quosures which shares some code and mo
   q2 <- q1
   q1 <- eval_code(q1, "iris2 <- iris")
   q2 <- eval_code(q2, "mtcars1 <- head(mtcars)")
-
-  testthat::expect_error(join(q1, q2))
-})
-
-testthat::test_that("Not possible to join quosures which shares some code and have empty environments", {
-  q1 <- new_quosure(code = c("a = 1", "b = 2", "d = 4"), env = new.env())
-  q2 <- new_quosure(code = c("a = 1", "c = 3"), env = new.env())
 
   testthat::expect_error(join(q1, q2))
 })

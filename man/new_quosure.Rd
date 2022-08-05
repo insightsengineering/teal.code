@@ -3,8 +3,8 @@
 \name{new_quosure}
 \alias{new_quosure}
 \alias{new_quosure,environment,character-method}
-\alias{new_quosure,environment,language-method}
 \alias{new_quosure,environment,expression-method}
+\alias{new_quosure,environment,language-method}
 \alias{new_quosure,environment,ANY-method}
 \alias{new_quosure,list,ANY-method}
 \alias{new_quosure,missing,missing-method}
@@ -20,12 +20,12 @@ new_quosure(
   code = character(0)
 )
 
-\S4method{new_quosure}{environment,language}(
+\S4method{new_quosure}{environment,expression}(
   env = new.env(parent = parent.env(.GlobalEnv)),
   code = character(0)
 )
 
-\S4method{new_quosure}{environment,expression}(
+\S4method{new_quosure}{environment,language}(
   env = new.env(parent = parent.env(.GlobalEnv)),
   code = character(0)
 )
@@ -37,7 +37,7 @@ new_quosure(
 
 \S4method{new_quosure}{list,ANY}(
   env = new.env(parent = parent.env(.GlobalEnv)),
-  code = attr(env, "code")
+  code = character(0)
 )
 
 \S4method{new_quosure}{missing,missing}(

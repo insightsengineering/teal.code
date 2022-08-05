@@ -5,8 +5,8 @@
 #' of the `code` slot.
 setClass(
   "Quosure",
-  representation(env = "environment", code = "character"),
-  prototype(env = new.env(parent = parent.env(.GlobalEnv)), code = character(0))
+  representation(env = "environment", code = "QCode"),
+  prototype(env = new.env(parent = parent.env(.GlobalEnv)), code = new_qcode())
 )
 
 #' Initialize `Quosure` object
@@ -32,19 +32,11 @@ setMethod(
     lockEnvironment(env)
 
     if (is.null(names(code)) && length(code)) {
-      names(code) <- make.unique(rep("code", length(code)))
+      names(code) <- make.unique(rep("initial code", length(code)))
     }
-    methods::new("Quosure", env = env, code = code)
-  }
-)
 
-#' @rdname new_quosure
-#' @export
-setMethod(
-  "new_quosure", signature(env = "environment", code = "language"),
-  function(env, code) {
-    code_expr <- as.expression(code)
-    new_quosure(env = env, code = code_expr)
+    qcode <- new_qcode(code)
+    methods::new("Quosure", env = env, code = qcode)
   }
 )
 
@@ -55,6 +47,16 @@ setMethod(
   function(env, code) {
     code_char <- as.character(code)
     new_quosure(env = env, code = code_char)
+  }
+)
+
+#' @rdname new_quosure
+#' @export
+setMethod(
+  "new_quosure", signature(env = "environment", code = "language"),
+  function(env, code) {
+    code_expr <- as.expression(code)
+    new_quosure(env = env, code = code_expr)
   }
 )
 
@@ -72,10 +74,19 @@ setMethod(
 #' @export
 setMethod(
   "new_quosure", signature(env = "list"),
-  function(env, code = attr(env, "code")) {
-    if (missing(code)) {
-      code <- attr(env, "code")
+  function(env, code) {
+    if (!missing(code)) {
+      warning(
+        "`code` argument is ignored when creating Quosure from the list.",
+        "\nPlease pass the code througn attr(<list>, 'code')"
+      )
     }
+
+    code <- attr(env, "code") # named
+    if (length(code) == 0) {
+      stop("To create the Quosure from the list it must contain 'code' attribute.")
+    }
+
     if (checkmate::test_list(env, "reactive")) {
       env <- lapply(env, function(x) {
         if (inherits(x, "reactive")) {
@@ -85,11 +96,7 @@ setMethod(
         }
       })
     }
-    eval(substitute(
-      new_quosure(env = list2env(env), code = code),
-      list(code = substitute(code))
-
-    ))
+    new_quosure(env = list2env(env), code = code)
   }
 )
 
@@ -123,11 +130,14 @@ setGeneric("eval_code", function(object, code, name = "code") {
 #' @export
 setMethod(
   "eval_code", signature("Quosure", "character"),
-  function(object, code, name = "code") {
+  function(object, code, name) {
     checkmate::assert_character(name, len = 1L)
-    code <- paste(code, collapse = "\n")
-    names(code) <- name
-    object@code <- .keep_code_name_unique(object@code, code) # combine code vector (and make names unique)
+    if (is.null(names(code))) {
+      code <- paste(code, collapse = "\n")
+      names(code) <- name
+    }
+
+    object@code <- join(object@code, new_qcode(code))
 
     # need to copy the objects from old env to new env
     # to avoid updating environments in the separate objects
@@ -141,8 +151,18 @@ setMethod(
 #' @rdname eval_code
 #' @export
 setMethod(
+  "eval_code", signature("Quosure", "expression"),
+  function(object, code, name) {
+    code_char <- as.character(code)
+    eval_code(object, code_char, name = name)
+  }
+)
+
+#' @rdname eval_code
+#' @export
+setMethod(
   "eval_code", signature("Quosure", "language"),
-  function(object, code, name = "code") {
+  function(object, code, name) {
     code_char <- as.expression(code)
     eval_code(object, code_char, name = name)
   }
@@ -152,20 +172,9 @@ setMethod(
 #' @export
 setMethod(
   "eval_code", signature("Quosure", "ANY"),
-  function(object, code, name = "code") {
+  function(object, code, name) {
     code_expr <- substitute(code)
     eval_code(object, code_expr, name = name)
-  }
-)
-
-
-#' @rdname eval_code
-#' @export
-setMethod(
-  "eval_code", signature("Quosure", "expression"),
-  function(object, code, name = "code") {
-    code_char <- as.character(code)
-    eval_code(object, code_char, name = name)
   }
 )
 
@@ -197,7 +206,6 @@ setMethod("[[", c("Quosure", "ANY", "missing"), function(x, i, j, ...) {
   get_var(x, i)
 })
 
-
 #' Get code from `Quosure`
 #'
 #' @param object (`Quosure`)
@@ -211,68 +219,30 @@ setGeneric("get_code", function(object) {
 #'
 #' @param object (`Quosure`)
 setMethod("get_code", signature("Quosure"), function(object) {
-  object@code
+  object@code@code
 })
 
-#' Join two `Quosure` objects
-#'
-#' Combine two `Quosure` object by merging their environments and the code.
-#' Not every `Quosure` objects can be combined:
-#' - if their environments contains objects of the same name but not identical
-#' - if `object2` has unique code element placed before common element. This means that `object2`
-#' in the environment of the `object2` was evaluated some extra code before which can influence
-#' reproducibility
-#' - more cases todo
-#' @param object (`Quosure`)
-#' @param object2 (`Quosure`)
-#' @export
-setGeneric("join", function(object, object2) {
-  standardGeneric("join")
-})
-
-setMethod("join", signature("Quosure", "Quosure"), function(object, object2) {
-  # todo: revise chunks_merge_chunks and make robust join method
-
-  # object2 can't have modified object of the same name! See chunks_push_chunks
-  common_names <- intersect(ls(object@env), ls(object2@env))
-  is_overwritten <- vapply(common_names, function(x) {
-    !identical(get(x, object@env), get(x, object2@env))
+setMethod("join", signature("Quosure", "Quosure"), function(x, y) {
+  common_names <- intersect(ls(x@env), ls(y@env))
+  is_overwritten <- vapply(common_names, function(xx) {
+    !identical(get(xx, x@env), get(xx, y@env))
   }, logical(1))
-
-  # code
-  a_is_shared_code <- object@code %in% object2@code
-  b_is_shared_code <- object2@code %in% object@code
-
-  if (
-    any(a_is_shared_code) &&
-    (isFALSE(a_is_shared_code[1]) || isFALSE(b_is_shared_code[1]))
-  ) {
+  if (any(is_overwritten)) {
     stop(
-      "`object` and `object2` can't be joined if one of the objects contains extra code before ",
-      "code shared by both."
-    )
-  } else if (
-    any(a_is_shared_code) && any(b_is_shared_code) &&
-    any(!a_is_shared_code) && any(!b_is_shared_code) &&
-    any(is_overwritten)) {
-    stop(
-      "`object` and `object2` have an extra code and environments contains modified object(s) of the same name ",
+      "Not possible to join Quosure objects if anything in their environment has been modified.\n",
       "Following object(s) have been modified:\n - ",
       paste(common_names[is_overwritten], collapse = "\n - ")
     )
   }
 
   # join expressions
-  # - remove duplicated code from object2 and append to the object1
-  unique_expr <- object2@code[!(object2@code %in% object@code & names(object2@code) %in% names(object@code))]
-  # - in case object@code and object2@code contains extra code with the same name - code2 needs to be renamed
-  object@code <- .keep_code_name_unique(object@code, unique_expr)
+  x@code <- join(x@code, y@code)
 
   # insert (and overwrite) objects from env2 to env
-  object@env <- .copy_env(object@env)
-  lapply(ls(object2@env), function(x) assign(x, get(x, object2@env), object@env))
+  x@env <- .copy_env(x@env)
+  lapply(ls(y@env), function(xx) assign(xx, get(xx, y@env), x@env))
 
-  object
+  x
 })
 
 #' Copy environment content to the other environment
@@ -286,25 +256,4 @@ setMethod("join", signature("Quosure", "Quosure"), function(object, object2) {
     env_new[[i]] <- env[[i]]
   }
   env_new
-}
-
-.keep_code_name_unique <- function(x, y) {
-  nm <- make.unique(c(names(x), names(y)))
-  setNames(c(x, y), nm)
-}
-
-
-reactive_quosure <- function(depends, expr) {
-  reactive(expr, env = depends()@env)
-}
-
-
-#' @export
-as_quosure <- function(x) {
-  UseMethod("as_quosure")
-}
-
-#' @export
-as_quosure.list <- function(x) {
-  new_quosure(list2env(x), code = as.expression(attr(x, "code")))
 }
