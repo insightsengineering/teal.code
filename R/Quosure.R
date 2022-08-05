@@ -77,7 +77,7 @@ setMethod(
       code <- attr(env, "code")
     }
     if (checkmate::test_list(env, "reactive")) {
-      env <- sapply(env, function(x) {
+      env <- lapply(env, function(x) {
         if (inherits(x, "reactive")) {
           x()
         } else {
