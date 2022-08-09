@@ -5,19 +5,21 @@
 #' of the `code` slot.
 setClass(
   "Quosure",
-  representation(env = "environment", code = "character", id = "integer"),
-  prototype(env = new.env(parent = parent.env(.GlobalEnv)), code = character(0), id = integer(0)),
-  validity = function(object) {
-    if (length(object@code) != length(object@id)) {
-      return("@code and @id slots must have the same length.")
-    }
-    if (any(duplicated(object@id))) {
-      return("@id contains duplicated values.")
-    }
+  slots = c(env = "environment", code = "character", id = "integer"),
+  prototype = list(env = new.env(parent = parent.env(.GlobalEnv)), code = character(0), id = integer(0))
+)
 
+#' It takes a `Quosure` class and returns TRUE if the input is valid
+#' @keywords internal
+setValidity("Quosure", function(object) {
+  if (length(object@code) != length(object@id)) {
+    "@code and @id slots must have the same length."
+  } else if (any(duplicated(object@id))) {
+    "@id contains duplicated values."
+  } else {
     TRUE
   }
-)
+})
 
 #' Initialize `Quosure` object
 #'
@@ -37,7 +39,7 @@ setGeneric("new_quosure", function(env = new.env(parent = parent.env(.GlobalEnv)
 #' @rdname new_quosure
 #' @export
 setMethod(
-  "new_quosure", signature(env = "environment", code = "character"),
+  "new_quosure", signature = c(env = "environment", code = "character"),
   function(env, code) {
     lockEnvironment(env)
 
@@ -55,7 +57,7 @@ setMethod(
 #' @rdname new_quosure
 #' @export
 setMethod(
-  "new_quosure", signature(env = "environment", code = "expression"),
+  "new_quosure", signature = c(env = "environment", code = "expression"),
   function(env, code) {
     code_char <- as.character(code)
     new_quosure(env = env, code = code_char)
@@ -65,7 +67,7 @@ setMethod(
 #' @rdname new_quosure
 #' @export
 setMethod(
-  "new_quosure", signature(env = "environment", code = "language"),
+  "new_quosure", signature = c(env = "environment", code = "language"),
   function(env, code) {
     code_expr <- as.expression(code)
     new_quosure(env = env, code = code_expr)
@@ -75,7 +77,7 @@ setMethod(
 #' @rdname new_quosure
 #' @export
 setMethod(
-  "new_quosure", signature(env = "environment", code = "ANY"),
+  "new_quosure", signature = c(env = "environment", code = "ANY"),
   function(env, code) {
     quoted_expr <- substitute(code)
     new_quosure(env = env, code = quoted_expr)
@@ -85,7 +87,7 @@ setMethod(
 #' @rdname new_quosure
 #' @export
 setMethod(
-  "new_quosure", signature(env = "list"),
+  "new_quosure", signature = c(env = "list"),
   function(env, code) {
     if (!missing(code)) {
       warning(
@@ -115,7 +117,7 @@ setMethod(
 #' @rdname new_quosure
 #' @export
 setMethod(
-  "new_quosure", signature(code = "missing", env = "missing"),
+  "new_quosure", signature = c(code = "missing", env = "missing"),
   function(env, code) {
     new_quosure(env = env, code = code)
   }
@@ -141,7 +143,7 @@ setGeneric("eval_code", function(object, code, name = "code") {
 #' @rdname eval_code
 #' @export
 setMethod(
-  "eval_code", signature("Quosure", "character"),
+  "eval_code", signature = c("Quosure", "character"),
   function(object, code, name) {
     checkmate::assert_character(name, len = 1L)
     if (is.null(names(code))) {
@@ -164,7 +166,7 @@ setMethod(
 #' @rdname eval_code
 #' @export
 setMethod(
-  "eval_code", signature("Quosure", "expression"),
+  "eval_code", signature = c("Quosure", "expression"),
   function(object, code, name) {
     code_char <- as.character(code)
     eval_code(object, code_char, name = name)
@@ -174,7 +176,7 @@ setMethod(
 #' @rdname eval_code
 #' @export
 setMethod(
-  "eval_code", signature("Quosure", "language"),
+  "eval_code", signature = c("Quosure", "language"),
   function(object, code, name) {
     code_char <- as.expression(code)
     eval_code(object, code_char, name = name)
@@ -184,7 +186,7 @@ setMethod(
 #' @rdname eval_code
 #' @export
 setMethod(
-  "eval_code", signature("Quosure", "ANY"),
+  "eval_code", signature = c("Quosure", "ANY"),
   function(object, code, name) {
     code_expr <- substitute(code)
     eval_code(object, code_expr, name = name)
@@ -205,7 +207,7 @@ setGeneric("get_var", function(object, var) {
 
 #' @rdname get_var
 #' @export
-setMethod("get_var", signature("Quosure", "character"), function(object, var) {
+setMethod("get_var", signature = c("Quosure", "character"), function(object, var) {
   get(var, envir = object@env)
 })
 
@@ -231,7 +233,7 @@ setGeneric("get_code", function(object) {
 #' Get the code from the `Quosure`
 #'
 #' @param object (`Quosure`)
-setMethod("get_code", signature("Quosure"), function(object) {
+setMethod("get_code", signature = "Quosure", function(object) {
   object@code
 })
 
@@ -251,7 +253,7 @@ setGeneric("join", function(x, y) {
   standardGeneric("join")
 })
 
-setMethod("join", signature("Quosure", "Quosure"), function(x, y) {
+setMethod("join", signature = c("Quosure", "Quosure"), function(x, y) {
   join_validation <- check_joinable(x, y)
 
   # join expressions
@@ -270,9 +272,9 @@ setMethod("join", signature("Quosure", "Quosure"), function(x, y) {
   x
 })
 
-#' If two `QCode` can be joined
+#' If two `Quosure` can be joined
 #'
-#' Checks if two `QCode` objects can be combined.
+#' Checks if two `Quosure` objects can be combined.
 #' They can't be combined if (and):
 #' - both share the same code (identified by `id`)
 #' - indices of the shared code are not consecutive or don't start from 1
@@ -284,11 +286,11 @@ setGeneric("check_joinable", function(x, y) {
 })
 
 setMethod(
-  "check_joinable", signature(x = "Quosure", y = "Quosure"),
+  "check_joinable", signature = c(x = "Quosure", y = "Quosure"),
   function(x, y) {
     common_names <- intersect(ls(x@env), ls(y@env))
-    is_overwritten <- vapply(common_names, function(xx) {
-      !identical(get(xx, x@env), get(xx, y@env))
+    is_overwritten <- vapply(common_names, function(el) {
+      !identical(get(el, x@env), get(el, y@env))
     }, logical(1))
     if (any(is_overwritten)) {
       return(
@@ -311,14 +313,14 @@ setMethod(
       TRUE
     } else if (!identical(shared_in_x, shared_in_y)) {
       paste(
-        "Common code of joined objects doesn't have the same indices. Thismeans that `x` and `y` have ",
-        "can't be joined together as it's not possible to determine order of the evaluation.",
+        "The common code of joined objects doesn't have the same indices. It means that `x` and `y`",
+        "can't be joined together as it's impossible to determine the evaluation's order.",
         collapse = ""
       )
     } else {
       paste(
-        "Common code of joined object doesn't start from index = 1. This means that joined object(x) have ",
-        "some extra code elements before.",
+        "The common code of joined object does not start from index = 1.",
+        "It means that joined object(x) has some extra code elements before.",
         collapse = ""
       )
     }
