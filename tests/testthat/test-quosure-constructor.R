@@ -28,7 +28,7 @@ testthat::test_that("new_quosure works with code being expression", {
   testthat::expect_true(checkmate::test_int(q@id))
 })
 
-testthat::test_that("new_quosure works with code a quoted expression", {
+testthat::test_that("new_quosure works with code being quoted expression", {
   env <- new.env()
   env$iris1 <- iris
   q <- new_quosure(quote("iris1 <- iris"), env = env)
