@@ -144,10 +144,9 @@ testthat::test_that("Quosure objects are not mergable if they have multiple comm
   q_common2 <- new_quosure(code = c("c2 <- 2"), env = list2env(list(c2 = 2)))
 
   q1 <- eval_code(q_common1, "a1 <- 3")
-  q1 <- join(q1, q_common2)        # c1, a1, c2
+  q1 <- join(q1, q_common2) # c1, a1, c2
   q2 <- join(q_common1, q_common2) # c1, c2
 
   testthat::expect_match(check_joinable(q1, q2), "doesn't have the same indices")
   testthat::expect_error(join(q1, q2), "doesn't have the same indices")
 })
-
