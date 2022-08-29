@@ -2,9 +2,12 @@
 % Please edit documentation in R/Quosure.R
 \name{join}
 \alias{join}
+\alias{join,Quosure,Quosure-method}
 \title{Join two \code{Quosure} objects}
 \usage{
 join(x, y)
+
+\S4method{join}{Quosure,Quosure}(x, y)
 }
 \arguments{
 \item{x}{(\code{Quosure})}
@@ -19,6 +22,6 @@ Not every \code{Quosure} objects can be combined:
 \item if \code{y} has unique code element placed before common element. This means that \code{y}
 in the environment of the \code{y} was evaluated some extra code before which can influence
 reproducibility
-\item more cases todo
+\item more cases to be done
 }
 }

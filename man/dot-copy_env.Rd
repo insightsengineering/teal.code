@@ -3,12 +3,12 @@
 \name{.copy_env}
 \alias{.copy_env}
 \title{Copy environment content to the other environment
-To avoid sharing the same environment by multiplequo object (in reactives)}
+To avoid sharing the same environment by multiple \code{Quosure} objects}
 \usage{
 .copy_env(env)
 }
 \description{
 Copy environment content to the other environment
-To avoid sharing the same environment by multiplequo object (in reactives)
+To avoid sharing the same environment by multiple \code{Quosure} objects
 }
 \keyword{internal}

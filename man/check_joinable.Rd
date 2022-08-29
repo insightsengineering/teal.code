@@ -12,7 +12,7 @@ check_joinable(x, y)
 \item{y}{(\code{Quosure})}
 }
 \value{
-logical(1)
+\code{TRUE} if able to join or \code{character} used to print error message.
 }
 \description{
 Checks if two \code{Quosure} objects can be combined.
@@ -22,3 +22,4 @@ They can't be combined if (and):
 \item indices of the shared code are not consecutive or don't start from 1
 }
 }
+\keyword{internal}
