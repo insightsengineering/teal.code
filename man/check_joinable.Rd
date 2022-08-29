@@ -2,7 +2,7 @@
 % Please edit documentation in R/Quosure.R
 \name{check_joinable}
 \alias{check_joinable}
-\title{If two \code{QCode} can be joined}
+\title{If two \code{Quosure} can be joined}
 \usage{
 check_joinable(x, y)
 }
@@ -15,7 +15,7 @@ check_joinable(x, y)
 logical(1)
 }
 \description{
-Checks if two \code{QCode} objects can be combined.
+Checks if two \code{Quosure} objects can be combined.
 They can't be combined if (and):
 \itemize{
 \item both share the same code (identified by \code{id})
