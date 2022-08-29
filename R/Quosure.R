@@ -239,6 +239,7 @@ setMethod("[[", c("Quosure", "ANY", "missing"), function(x, i, j, ...) {
 
 #' Get code from `Quosure`
 #'
+#' @name get_code
 #' @param object (`Quosure`)
 #' @return named `character` with the reproducible code.
 #' @export
