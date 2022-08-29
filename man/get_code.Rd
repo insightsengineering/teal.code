@@ -2,9 +2,12 @@
 % Please edit documentation in R/Quosure.R
 \name{get_code}
 \alias{get_code}
+\alias{get_code,Quosure-method}
 \title{Get code from \code{Quosure}}
 \usage{
 get_code(object)
+
+\S4method{get_code}{Quosure}(object)
 }
 \arguments{
 \item{object}{(\code{Quosure})}
