@@ -246,9 +246,8 @@ setGeneric("get_code", function(object) {
   standardGeneric("get_code")
 })
 
-#' Get the code from the `Quosure`
-#'
-#' @param object (`Quosure`)
+#' @rdname get_code
+#' @export
 setMethod("get_code", signature = "Quosure", function(object) {
   object@code
 })
