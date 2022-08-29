@@ -39,7 +39,8 @@ setGeneric("new_quosure", function(env = new.env(parent = parent.env(.GlobalEnv)
 #' @rdname new_quosure
 #' @export
 setMethod(
-  "new_quosure", signature = c(env = "environment", code = "character"),
+  "new_quosure",
+  signature = c(env = "environment", code = "character"),
   function(env, code) {
     lockEnvironment(env)
 
@@ -57,7 +58,8 @@ setMethod(
 #' @rdname new_quosure
 #' @export
 setMethod(
-  "new_quosure", signature = c(env = "environment", code = "expression"),
+  "new_quosure",
+  signature = c(env = "environment", code = "expression"),
   function(env, code) {
     code_char <- as.character(code)
     new_quosure(env = env, code = code_char)
@@ -67,7 +69,8 @@ setMethod(
 #' @rdname new_quosure
 #' @export
 setMethod(
-  "new_quosure", signature = c(env = "environment", code = "language"),
+  "new_quosure",
+  signature = c(env = "environment", code = "language"),
   function(env, code) {
     code_expr <- as.expression(code)
     new_quosure(env = env, code = code_expr)
@@ -77,7 +80,8 @@ setMethod(
 #' @rdname new_quosure
 #' @export
 setMethod(
-  "new_quosure", signature = c(env = "environment", code = "ANY"),
+  "new_quosure",
+  signature = c(env = "environment", code = "ANY"),
   function(env, code) {
     quoted_expr <- substitute(code)
     new_quosure(env = env, code = quoted_expr)
@@ -87,7 +91,8 @@ setMethod(
 #' @rdname new_quosure
 #' @export
 setMethod(
-  "new_quosure", signature = c(env = "list"),
+  "new_quosure",
+  signature = c(env = "list"),
   function(env, code) {
     if (!missing(code)) {
       warning(
@@ -117,7 +122,8 @@ setMethod(
 #' @rdname new_quosure
 #' @export
 setMethod(
-  "new_quosure", signature = c(code = "missing", env = "missing"),
+  "new_quosure",
+  signature = c(code = "missing", env = "missing"),
   function(env, code) {
     new_quosure(env = env, code = code)
   }
@@ -143,7 +149,8 @@ setGeneric("eval_code", function(object, code, name = "code") {
 #' @rdname eval_code
 #' @export
 setMethod(
-  "eval_code", signature = c("Quosure", "character"),
+  "eval_code",
+  signature = c("Quosure", "character"),
   function(object, code, name) {
     checkmate::assert_character(name, len = 1L)
     if (is.null(names(code))) {
@@ -166,7 +173,8 @@ setMethod(
 #' @rdname eval_code
 #' @export
 setMethod(
-  "eval_code", signature = c("Quosure", "expression"),
+  "eval_code",
+  signature = c("Quosure", "expression"),
   function(object, code, name) {
     code_char <- as.character(code)
     eval_code(object, code_char, name = name)
@@ -176,7 +184,8 @@ setMethod(
 #' @rdname eval_code
 #' @export
 setMethod(
-  "eval_code", signature = c("Quosure", "language"),
+  "eval_code",
+  signature = c("Quosure", "language"),
   function(object, code, name) {
     code_char <- as.expression(code)
     eval_code(object, code_char, name = name)
@@ -186,7 +195,8 @@ setMethod(
 #' @rdname eval_code
 #' @export
 setMethod(
-  "eval_code", signature = c("Quosure", "ANY"),
+  "eval_code",
+  signature = c("Quosure", "ANY"),
   function(object, code, name) {
     code_expr <- substitute(code)
     eval_code(object, code_expr, name = name)
@@ -286,7 +296,8 @@ setGeneric("check_joinable", function(x, y) {
 })
 
 setMethod(
-  "check_joinable", signature = c(x = "Quosure", y = "Quosure"),
+  "check_joinable",
+  signature = c(x = "Quosure", y = "Quosure"),
   function(x, y) {
     common_names <- intersect(ls(x@env), ls(y@env))
     is_overwritten <- vapply(common_names, function(el) {
@@ -303,7 +314,9 @@ setMethod(
     }
 
     shared_ids <- intersect(x@id, y@id)
-    if (length(shared_ids) == 0) return(TRUE)
+    if (length(shared_ids) == 0) {
+      return(TRUE)
+    }
 
     shared_in_x <- match(shared_ids, x@id)
     shared_in_y <- match(shared_ids, y@id)
@@ -342,6 +355,8 @@ setMethod(
 
 .keep_code_name_unique <- function(x, y = character(0)) {
   combined <- c(x, y)
-  if (length(names(combined)) == 0) return(combined)
+  if (length(names(combined)) == 0) {
+    return(combined)
+  }
   setNames(combined, make.unique(names(combined)))
 }
