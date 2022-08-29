@@ -88,7 +88,7 @@ testthat::test_that("join does not duplicate code but adds only extra code", {
   testthat::expect_identical(q@id, c(q1@id, q2@id[3]))
 })
 
-testthat::test_that("Not possible to join quosures which shares some code and modify one of the shared object", {
+testthat::test_that("Not possible to join quosures which share some code when one of the shared object was modified", {
   env <- new.env()
   env$iris1 <- iris
   env$mtcars1 <- mtcars
