@@ -23,8 +23,8 @@ reference:
   - title: "Reproducible Quosures objects"
     desc: "methods to get and modify values of the Quosure object"
     contents:
-      - eval_code, 
+      - eval_code
       - get_code
-      - get_var 
+      - get_var
       - join
       - new_quosure
