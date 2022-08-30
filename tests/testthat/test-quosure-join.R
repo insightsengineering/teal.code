@@ -113,7 +113,7 @@ testthat::test_that("Quosure objects are mergeable if they don't share any code 
   testthat::expect_identical(cq@id, c(q1@id, q2@id))
 })
 
-testthat::test_that("Quosure objects are mergeable if they share common initial code", {
+testthat::test_that("Quosure objects are mergeable if they share common initial quosure elements", {
   q1 <- new_quosure(code = "a1 <- 1", env = list2env(list(a1 = 1)))
   q2 <- eval_code(q1, "b1 <- 2")
   q1 <- eval_code(q1, "a2 <- 3")
@@ -129,15 +129,18 @@ testthat::test_that("Quosure objects are mergeable if they share common initial 
   testthat::expect_identical(cq@id, union(q1@id, q2@id))
 })
 
-testthat::test_that("Quosure objects aren't mergeable if they share common code proceeded with some other code", {
-  q1 <- new_quosure(code = "a1 <- 1", env = list2env(list(a1 = 1)))
-  q2 <- new_quosure(code = "b1 <- 2", env = list2env(list(b1 = 2)))
-  q_common <- new_quosure("c1 <- 3", env = list2env(list(c1 = 3)))
-  q1 <- join(q1, q_common)
-  q2 <- join(q2, q_common)
-  testthat::expect_match(check_joinable(q1, q2), "start from index = 1")
-  testthat::expect_error(join(q1, q2), "start from index = 1")
-})
+testthat::test_that(
+  "Quosure objects aren't mergeable if they share common quosure elements proceeded with some other code",
+  {
+    q1 <- new_quosure(code = "a1 <- 1", env = list2env(list(a1 = 1)))
+    q2 <- new_quosure(code = "b1 <- 2", env = list2env(list(b1 = 2)))
+    q_common <- new_quosure("c1 <- 3", env = list2env(list(c1 = 3)))
+    q1 <- join(q1, q_common)
+    q2 <- join(q2, q_common)
+    testthat::expect_match(check_joinable(q1, q2), "start from index = 1")
+    testthat::expect_error(join(q1, q2), "start from index = 1")
+  }
+)
 
 testthat::test_that("Quosure objects are not mergable if they have multiple common streaks", {
   q_common1 <- new_quosure(code = c("c1 <- 1"), env = list2env(list(c1 = 1)))
