@@ -18,3 +18,4 @@ unique names.
 \description{
 Combines two code vectors and modifies duplicated names.
 }
+\keyword{internal}

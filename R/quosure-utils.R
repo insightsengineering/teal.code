@@ -18,6 +18,7 @@
 #' @param y (`character`) vector of code.
 #' @return `character` containing both `x` and `y` combined with
 #'  unique names.
+#' @keywords internal
 .keep_code_name_unique <- function(x, y = character(0)) {
   combined <- c(x, y)
   if (length(names(combined)) == 0) {
