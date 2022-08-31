@@ -28,3 +28,10 @@ get_var(object, var)
 \description{
 Get object from the \code{Quosure} environment.
 }
+\examples{
+q1 <- new_quosure(env = list2env(list(a = 1)), code = quote(a <- 1))
+q2 <- eval_code(q1, code = "b <- a")
+get_var(q2, "b")
+q2[["b"]]
+
+}

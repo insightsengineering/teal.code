@@ -11,6 +11,13 @@
   env_new
 }
 
+#' Combine two code vectors and keep unique names
+#'
+#' Combines two code vectors and modifies duplicated names.
+#' @param x (`character`) vector of code.
+#' @param y (`character`) vector of code.
+#' @return `character` containing both `x` and `y` combined with
+#'  unique names.
 .keep_code_name_unique <- function(x, y = character(0)) {
   combined <- c(x, y)
   if (length(names(combined)) == 0) {

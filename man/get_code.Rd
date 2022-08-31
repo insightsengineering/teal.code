@@ -18,3 +18,11 @@ named \code{character} with the reproducible code.
 \description{
 Get code from \code{Quosure}
 }
+\examples{
+q1 <- new_quosure(env = list2env(list(a = 1)), code = quote(a <- 1))
+q2 <- eval_code(q1, code = "b <- a", name = "copy a to b")
+q3 <- eval_code(q2, code = "# comment line")
+q4 <- eval_code(q3, code = "d <- 2", name = "assign d")
+get_code(q4)
+
+}

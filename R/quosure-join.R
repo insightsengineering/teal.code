@@ -9,6 +9,19 @@
 #' - more cases to be done
 #' @param x (`Quosure`)
 #' @param y (`Quosure`)
+#' @examples
+#'  q1 <- new_quosure(
+#'    code = c(iris1 = "iris1 <- iris", mtcars1 = "mtcars1 <- mtcars"),
+#'    env = list2env(list(
+#'      iris1 = iris,
+#'      mtcars1 = mtcars
+#'    ))
+#'  )
+#'  q2 <- q1
+#'  q1 <- eval_code(q1, "iris2 <- iris")
+#'  q2 <- eval_code(q2, "mtcars2 <- mtcars")
+#'  qq <- join(q1, q2)
+#'  get_code(qq)
 #' @export
 setGeneric("join", function(x, y) {
   standardGeneric("join")

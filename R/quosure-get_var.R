@@ -4,6 +4,12 @@
 #' @param object (`Quosure`)
 #' @param var (`character(1)`) name of the variable to pull from the environment.
 #' @name get_var
+#' @examples
+#' q1 <- new_quosure(env = list2env(list(a = 1)), code = quote(a <- 1))
+#' q2 <- eval_code(q1, code = "b <- a")
+#' get_var(q2, "b")
+#' q2[["b"]]
+#'
 #' @export
 setGeneric("get_var", function(object, var) {
   standardGeneric("get_var")
