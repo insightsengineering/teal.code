@@ -41,4 +41,3 @@ the `dependencies = FALSE` argument to `install_github` it may produce an error.
 ### Forkers
 
 [![Forkers repo roster for @insightsengineering/teal.code](https://reporoster.com/forks/insightsengineering/teal.code)](https://github.com/insightsengineering/teal.code/network/members)
-
