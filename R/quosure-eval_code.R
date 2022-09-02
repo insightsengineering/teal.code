@@ -66,13 +66,3 @@ setMethod(
   }
 )
 
-#' @rdname eval_code
-#' @export
-setMethod(
-  "eval_code",
-  signature = c("Quosure", "ANY"),
-  function(object, code, name) {
-    code_expr <- substitute(code)
-    eval_code(object, code_expr, name = name)
-  }
-)

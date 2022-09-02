@@ -13,8 +13,8 @@ testthat::test_that("Joining two identical quosures outputs the same object", {
 })
 
 testthat::test_that("Joining two independent quosures results in object having combined code and environments", {
-  q1 <- new_quosure(iris1 <- iris, env = list2env(list(iris1 = iris)))
-  q2 <- new_quosure(mtcars1 <- mtcars, env = list2env(list(mtcars1 = mtcars)))
+  q1 <- new_quosure("iris1 <- iris", env = list2env(list(iris1 = iris)))
+  q2 <- new_quosure("mtcars1 <- mtcars", env = list2env(list(mtcars1 = mtcars)))
 
   testthat::expect_true(check_joinable(q1, q2))
   q <- join(q1, q2)
@@ -35,7 +35,7 @@ testthat::test_that("Joined quosure does not duplicate common code", {
 
   q1 <- new_quosure(code = c(iris1 = "iris1 <- iris", mtcars1 = "mtcars1 <- mtcars"), env = env)
   q2 <- q1
-  q2 <- eval_code(q2, mtcars2 <- mtcars)
+  q2 <- eval_code(q2, "mtcars2 <- mtcars")
 
   testthat::expect_true(check_joinable(q1, q2))
   q <- join(q1, q2)
@@ -54,8 +54,8 @@ testthat::test_that("Not able to join two Quosures if any of the shared objects 
   ))
   env2 <- list2env(list(iris1 = head(iris)))
 
-  q1 <- new_quosure(iris1 <- iris, env = env1)
-  q2 <- new_quosure(iris1 <- head(iris), env = env2)
+  q1 <- new_quosure("iris1 <- iris", env = env1)
+  q2 <- new_quosure("iris1 <- head(iris)", env = env2)
 
   testthat::expect_match(check_joinable(q1, q2), "Not possible to join Quosure objects")
   testthat::expect_error(join(q1, q2), "Not possible to join Quosure objects")

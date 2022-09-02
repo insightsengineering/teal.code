@@ -54,15 +54,6 @@ testthat::test_that("new_quosure works with code being quoted expression", {
   testthat::expect_true(checkmate::test_int(q@id))
 })
 
-testthat::test_that("new_quosure works with code being unquoted expression", {
-  env <- new.env()
-  env$iris1 <- iris
-  q <- new_quosure(iris1 <- iris, env = env)
-  testthat::expect_equal(q@env, env)
-  testthat::expect_identical(q@code, c(`initial code` = "iris1 <- iris"))
-  testthat::expect_true(checkmate::test_int(q@id))
-})
-
 testthat::test_that("new_quosure works with env being a list", {
   list <- list(iris1 = iris)
   attr(list, "code") <- quote(iris1 <- iris)

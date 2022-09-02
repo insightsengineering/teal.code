@@ -65,17 +65,6 @@ setMethod(
 #' @export
 setMethod(
   "new_quosure",
-  signature = c(env = "environment", code = "ANY"),
-  function(env, code) {
-    quoted_expr <- substitute(code)
-    new_quosure(env = env, code = quoted_expr)
-  }
-)
-
-#' @rdname new_quosure
-#' @export
-setMethod(
-  "new_quosure",
   signature = c(env = "list"),
   function(env, code) {
     if (!missing(code)) {
