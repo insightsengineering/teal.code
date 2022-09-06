@@ -32,15 +32,28 @@ setMethod(
       names(code) <- name
     }
     id <- sample.int(.Machine$integer.max, size = length(code))
+
+    evaluated_code <- object@code
+
     object@id <- c(object@id, id)
     object@code <- .keep_code_name_unique(object@code, code)
 
     # need to copy the objects from old env to new env
     # to avoid updating environments in the separate objects
     object@env <- .copy_env(object@env)
-    eval(parse(text = code), envir = object@env)
-    lockEnvironment(object@env)
-    object
+    tryCatch({
+      eval(parse(text = code), envir = object@env)
+      lockEnvironment(object@env)
+      object
+    },
+    error = function(cond) {
+      methods::new(
+        "QuosureError",
+        message = cond$message,
+        code = code,
+        evaluated_code = evaluated_code
+      )
+    })
   }
 )
 
@@ -66,3 +79,12 @@ setMethod(
   }
 )
 
+#' @rdname eval_code
+#' @export
+setMethod(
+  "eval_code",
+  signature = c("QuosureError", "ANY"),
+  function(object, code, name) {
+    create_shiny_error(object)
+  }
+)

@@ -31,3 +31,11 @@ setMethod("get_var", signature = c("Quosure", "character"), function(object, var
 setMethod("[[", c("Quosure", "ANY", "missing"), function(x, i, j, ...) {
   get_var(x, i)
 })
+
+setMethod("get_var", signature = c("QuosureError", "character"), function(object, var) {
+  create_shiny_error(object)
+})
+
+setMethod("[[", c("QuosureError", "ANY", "missing"), function(x, i, j, ...) {
+  create_shiny_error(x)
+})
