@@ -7,7 +7,10 @@ setClass(
   prototype = list(message = character(0), code = character(0), evaluated_code = character(0))
 )
 
-create_shiny_error <- function(object, message = paste("Error evaluating code:", object@message)) {
+create_shiny_error <- function(
+  object,
+  message = paste0("Error: '", object@message, "' when evaluating: ", paste(object@code, collapse = "\n"))
+) {
   cond <- structure(
     list(message = message),
     class = c("shiny.silent.error", "validation", "error", "condition")

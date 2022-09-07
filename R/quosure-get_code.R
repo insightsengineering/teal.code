@@ -24,8 +24,9 @@ setMethod("get_code", signature = "Quosure", function(object) {
 #' @rdname get_code
 #' @export
 setMethod("get_code", signature = "QuosureError", function(object) {
-  message <- paste("An error occurred:", object@message)
-  message <- paste(message, "when evaluating code: ", paste(object@code, collapse = "\n"), "\n")
+  message <- paste0(
+    "Error: '", object@message, "' when evaluating: ", paste(object@code, collapse = "\n"), "\n"
+  )
   if (length(object@evaluated_code) > 0) {
     message <- paste0(
       message,
