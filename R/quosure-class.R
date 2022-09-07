@@ -16,6 +16,7 @@ setClass(
 )
 
 #' It takes a `Quosure` class and returns TRUE if the input is valid
+#' @name Quosure-class
 #' @keywords internal
 setValidity("Quosure", function(object) {
   if (length(object@code) != length(object@id)) {

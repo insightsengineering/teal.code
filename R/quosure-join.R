@@ -48,6 +48,18 @@ setMethod("join", signature = c("Quosure", "Quosure"), function(x, y) {
   x
 })
 
+#' @rdname join
+#' @export
+setMethod("join", signature = c("QuosureError", "ANY"), function(x, y) {
+  x
+})
+
+#' @rdname join
+#' @export
+setMethod("join", signature = c("ANY", "QuosureError"), function(x, y) {
+  y
+})
+
 #' If two `Quosure` can be joined
 #'
 #' Checks if two `Quosure` objects can be combined.
