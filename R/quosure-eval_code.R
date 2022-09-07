@@ -85,6 +85,6 @@ setMethod(
   "eval_code",
   signature = c("QuosureError", "ANY"),
   function(object, code, name) {
-    create_shiny_error(object)
+    object
   }
 )
