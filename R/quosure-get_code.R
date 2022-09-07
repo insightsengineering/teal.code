@@ -20,3 +20,21 @@ setGeneric("get_code", function(object) {
 setMethod("get_code", signature = "Quosure", function(object) {
   object@code
 })
+
+#' @rdname get_code
+#' @export
+setMethod("get_code", signature = "QuosureError", function(object) {
+  message <- paste("An error occurred:", object@message)
+  message <- paste(message, "when evaluating code: ", paste(object@code, collapse = "\n"), "\n")
+  if (length(object@evaluated_code) > 0) {
+    message <- paste0(
+      message,
+      "\nTrace:\n",
+      paste(object@evaluated_code, collapse = "\n"),
+      "\n",
+      paste(object@code, collapse = "\n"),
+      "\n"
+    )
+  }
+  create_shiny_error(object, message)
+})
