@@ -12,6 +12,10 @@
 #'
 #' @export
 setGeneric("get_code", function(object) {
+  if (inherits(try(object, silent = TRUE), "try-error")) {
+    return(object)
+  }
+
   standardGeneric("get_code")
 })
 
@@ -19,23 +23,4 @@ setGeneric("get_code", function(object) {
 #' @export
 setMethod("get_code", signature = "Quosure", function(object) {
   object@code
-})
-
-#' @rdname get_code
-#' @export
-setMethod("get_code", signature = "QuosureError", function(object) {
-  message <- paste0(
-    "Error: '", object@message, "' when evaluating: ", paste(object@code, collapse = "\n"), "\n"
-  )
-  if (length(object@evaluated_code) > 0) {
-    message <- paste0(
-      message,
-      "\nTrace:\n",
-      paste(object@evaluated_code, collapse = "\n"),
-      "\n",
-      paste(object@code, collapse = "\n"),
-      "\n"
-    )
-  }
-  create_shiny_error(object, message)
 })

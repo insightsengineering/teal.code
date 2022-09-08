@@ -12,6 +12,9 @@
 #'
 #' @export
 setGeneric("get_var", function(object, var) {
+  if (inherits(try(object, silent = TRUE), "try-error")) {
+    return(object)
+  }
   standardGeneric("get_var")
 })
 
@@ -32,10 +35,10 @@ setMethod("[[", c("Quosure", "ANY", "missing"), function(x, i, j, ...) {
   get_var(x, i)
 })
 
-setMethod("get_var", signature = c("QuosureError", "character"), function(object, var) {
-  create_shiny_error(object)
+setMethod("get_var", signature = c("error", "character"), function(object, var) {
+  object
 })
 
-setMethod("[[", c("QuosureError", "ANY", "missing"), function(x, i, j, ...) {
-  create_shiny_error(x)
+setMethod("[[", c("error", "ANY", "missing"), function(x, i, j, ...) {
+  x
 })

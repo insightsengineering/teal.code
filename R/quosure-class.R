@@ -27,3 +27,5 @@ setValidity("Quosure", function(object) {
     TRUE
   }
 })
+
+setOldClass("error")

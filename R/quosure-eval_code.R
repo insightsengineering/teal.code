@@ -17,6 +17,9 @@
 #'
 #' @export
 setGeneric("eval_code", function(object, code, name = "code") {
+  if (inherits(try(object, silent = TRUE), "try-error")) {
+    return(object)
+  }
   standardGeneric("eval_code")
 })
 
@@ -41,19 +44,10 @@ setMethod(
     # need to copy the objects from old env to new env
     # to avoid updating environments in the separate objects
     object@env <- .copy_env(object@env)
-    tryCatch({
-      eval(parse(text = code), envir = object@env)
-      lockEnvironment(object@env)
-      object
-    },
-    error = function(cond) {
-      methods::new(
-        "QuosureError",
-        message = cond$message,
-        code = code,
-        evaluated_code = evaluated_code
-      )
-    })
+    eval(parse(text = code), envir = object@env)
+    lockEnvironment(object@env)
+    object
+
   }
 )
 
@@ -83,7 +77,7 @@ setMethod(
 #' @export
 setMethod(
   "eval_code",
-  signature = c("QuosureError", "ANY"),
+  signature = c("error", "ANY"),
   function(object, code, name) {
     object
   }

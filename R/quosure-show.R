@@ -9,8 +9,3 @@ setMethod("show", "Quosure", function(object) {
 })
 
 
-#' @export
-setMethod("show", "QuosureError", function(object) {
-  create_shiny_error(object)
-})
-
