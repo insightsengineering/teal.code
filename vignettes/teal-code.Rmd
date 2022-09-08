@@ -39,7 +39,6 @@ The reproducible code displayed for outputs in `teal` is always made from three 
   - Checking data reproducibility
 
 3. Teal Module Analysis Code which includes:
-  - [Data merging](https://insightsengineering.github.io/teal.transform/articles/transforming-teal-data) (optional)
   - Filtering and encodings
   - Data analysis/visualization
 
