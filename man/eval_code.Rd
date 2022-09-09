@@ -5,7 +5,7 @@
 \alias{eval_code,Quosure,character-method}
 \alias{eval_code,Quosure,expression-method}
 \alias{eval_code,Quosure,language-method}
-\alias{eval_code,QuosureError,ANY-method}
+\alias{eval_code,errors,ANY-method}
 \title{Evaluate the code in the \code{Quosure} environment}
 \usage{
 eval_code(object, code, name = "code")
@@ -16,7 +16,7 @@ eval_code(object, code, name = "code")
 
 \S4method{eval_code}{Quosure,language}(object, code, name = "code")
 
-\S4method{eval_code}{QuosureError,ANY}(object, code, name = "code")
+\S4method{eval_code}{errors,ANY}(object, code, name = "code")
 }
 \arguments{
 \item{object}{(\code{Quosure})}

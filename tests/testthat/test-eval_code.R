@@ -8,7 +8,7 @@ testthat::test_that("eval_code doesn't have access to environment where it's cal
   a <- 1L
   q1 <- new_quosure("a <- 1", env = environment())
   b <- 2L
-  testthat::expect_error(eval_code(q1, "d <- b"), "object 'b' not found")
+  testthat::expect_condition(eval_code(q1, "d <- b"), "object 'b' not found", class = "quosure.error")
 })
 
 testthat::test_that("@env in quosure is always a sibling of .GlobalEnv", {

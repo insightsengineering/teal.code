@@ -3,14 +3,20 @@
 \name{get_var}
 \alias{get_var}
 \alias{get_var,Quosure,character-method}
+\alias{get_var,errors,ANY-method}
 \alias{[[,Quosure,ANY,missing-method}
+\alias{[[,errors,ANY,ANY-method}
 \title{Get object from the \code{Quosure} environment}
 \usage{
 get_var(object, var)
 
 \S4method{get_var}{Quosure,character}(object, var)
 
+\S4method{get_var}{errors,ANY}(object, var)
+
 \S4method{[[}{Quosure,ANY,missing}(x, i, j, ...)
+
+\S4method{[[}{errors,ANY,ANY}(x, i, j, ...)
 }
 \arguments{
 \item{object}{(\code{Quosure})}

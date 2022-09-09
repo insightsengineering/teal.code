@@ -12,9 +12,6 @@
 #'
 #' @export
 setGeneric("get_var", function(object, var) {
-  if (inherits(try(object, silent = TRUE), "try-error")) {
-    return(object)
-  }
   standardGeneric("get_var")
 })
 
@@ -25,20 +22,26 @@ setMethod("get_var", signature = c("Quosure", "character"), function(object, var
   get(var, envir = object@env)
 })
 
+#' @rdname get_var
+#' @export
+setMethod("get_var", signature = "errors", function(object, var) {
+  object
+})
+
+
 #' @param x (`Quosure`)
 #' @param i (`character`) name of the binding in environment (name of the variable)
 #' @param j not used
 #' @param ... not used
 #' @rdname get_var
 #' @export
-setMethod("[[", c("Quosure", "ANY", "missing"), function(x, i, j, ...) {
+setMethod("[[", signature = c("Quosure", "ANY", "missing"), function(x, i, j, ...) {
   get_var(x, i)
 })
 
-setMethod("get_var", signature = c("error", "character"), function(object, var) {
-  object
-})
-
-setMethod("[[", c("error", "ANY", "missing"), function(x, i, j, ...) {
+#' @rdname get_var
+#' @export
+setMethod("[[", signature = "errors", function(x, i, j, ...) {
+  print("\n\n\nelo\n\n\n")
   x
 })

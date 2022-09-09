@@ -12,10 +12,7 @@
 #'
 #' @export
 setGeneric("get_code", function(object) {
-  if (inherits(try(object, silent = TRUE), "try-error")) {
-    return(object)
-  }
-
+  object
   standardGeneric("get_code")
 })
 
@@ -23,4 +20,10 @@ setGeneric("get_code", function(object) {
 #' @export
 setMethod("get_code", signature = "Quosure", function(object) {
   object@code
+})
+
+#' @rdname get_code
+#' @export
+setMethod("get_code", signature = "errors", function(object) {
+  object
 })
