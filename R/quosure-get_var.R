@@ -24,7 +24,7 @@ setMethod("get_var", signature = c("Quosure", "character"), function(object, var
 
 #' @rdname get_var
 #' @export
-setMethod("get_var", signature = "errors", function(object, var) {
+setMethod("get_var", signature = "quosure.error", function(object, var) {
   object
 })
 
@@ -41,7 +41,6 @@ setMethod("[[", signature = c("Quosure", "ANY", "missing"), function(x, i, j, ..
 
 #' @rdname get_var
 #' @export
-setMethod("[[", signature = "errors", function(x, i, j, ...) {
-  print("\n\n\nelo\n\n\n")
+`[[.quosure.error` <- function(x, i, j, ...) {
   x
-})
+}

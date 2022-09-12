@@ -50,7 +50,7 @@ setMethod("eval_code", signature = c("Quosure", "character"), function(object, c
         conditionMessage(e),
         paste(code, collapse = "\n ")
       ),
-      class = c("quosure.error", "try-error")
+      class = c("quosure.error", "try-error", "simpleError")
     )
   })
 })
@@ -71,6 +71,6 @@ setMethod("eval_code", signature = c("Quosure", "language"), function(object, co
 
 #' @rdname eval_code
 #' @export
-setMethod("eval_code", signature = "errors", function(object, code, name) {
+setMethod("eval_code", signature = "quosure.error", function(object, code, name) {
   object
 })

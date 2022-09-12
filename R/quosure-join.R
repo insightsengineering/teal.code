@@ -50,13 +50,13 @@ setMethod("join", signature = c("Quosure", "Quosure"), function(x, y) {
 
 #' @rdname join
 #' @export
-setMethod("join", signature = "errors", function(x, y) {
+setMethod("join", signature = "quosure.error", function(x, y) {
   x
 })
 
 #' @rdname join
 #' @export
-setMethod("join", signature = c("Quosure", "errors"), function(x, y) {
+setMethod("join", signature = c("Quosure", "quosure.error"), function(x, y) {
   y
 })
 

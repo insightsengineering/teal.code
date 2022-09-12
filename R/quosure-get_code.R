@@ -24,6 +24,6 @@ setMethod("get_code", signature = "Quosure", function(object) {
 
 #' @rdname get_code
 #' @export
-setMethod("get_code", signature = "errors", function(object) {
+setMethod("get_code", signature = "quosure.error", function(object) {
   object
 })

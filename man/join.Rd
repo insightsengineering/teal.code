@@ -3,17 +3,17 @@
 \name{join}
 \alias{join}
 \alias{join,Quosure,Quosure-method}
-\alias{join,errors,ANY-method}
-\alias{join,Quosure,errors-method}
+\alias{join,quosure.error,ANY-method}
+\alias{join,Quosure,quosure.error-method}
 \title{Join two \code{Quosure} objects}
 \usage{
 join(x, y)
 
 \S4method{join}{Quosure,Quosure}(x, y)
 
-\S4method{join}{errors,ANY}(x, y)
+\S4method{join}{quosure.error,ANY}(x, y)
 
-\S4method{join}{Quosure,errors}(x, y)
+\S4method{join}{Quosure,quosure.error}(x, y)
 }
 \arguments{
 \item{x}{(\code{Quosure})}

@@ -8,7 +8,7 @@ testthat::test_that("eval_code doesn't have access to environment where it's cal
   a <- 1L
   q1 <- new_quosure("a <- 1", env = environment())
   b <- 2L
-  testthat::expect_condition(eval_code(q1, "d <- b"), "object 'b' not found", class = "quosure.error")
+  testthat::expect_s3_class(eval_code(q1, "d <- b"), c("quosure.error", "try-error", "error", "condition"))
 })
 
 testthat::test_that("@env in quosure is always a sibling of .GlobalEnv", {
@@ -30,7 +30,7 @@ testthat::test_that("library have to be called separately before using function 
   testthat::expect_identical(parent.env(q2@env), parent.env(.GlobalEnv))
 
   detach("package:checkmate", unload = TRUE)
-  testthat::expect_error(
+  testthat::expect_s3_class(
     eval_code(
       new_quosure(),
       as.expression(c(
@@ -38,7 +38,7 @@ testthat::test_that("library have to be called separately before using function 
         quote(assert_number(1))
       ))
     ),
-    "could not find function \"assert_number\""
+    "quosure.error"
   )
 })
 
