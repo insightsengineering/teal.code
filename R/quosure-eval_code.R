@@ -50,7 +50,8 @@ setMethod("eval_code", signature = c("Quosure", "character"), function(object, c
         conditionMessage(e),
         paste(code, collapse = "\n ")
       ),
-      class = c("quosure.error", "try-error", "simpleError")
+      class = c("quosure.error", "try-error", "simpleError"),
+      code = object@code
     )
   })
 })

@@ -25,5 +25,9 @@ setMethod("get_code", signature = "Quosure", function(object) {
 #' @rdname get_code
 #' @export
 setMethod("get_code", signature = "quosure.error", function(object) {
-  object
+  sprintf(
+    "<quosure.error: %s>\n\ntrace: \n %s",
+    conditionMessage(object),
+    paste(object$code, collapse = "\n ")
+  )
 })
