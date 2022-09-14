@@ -101,8 +101,8 @@ get_eval_details_srv <- function(id, chunks) {
             span()
           ),
           `if`(
-            eval_info_summary["quosure.error"] > 0,
-            get_number_in_box(eval_info_summary["quosure.error"], box_color = "#ff0000", char_color = "#ffffff"),
+            eval_info_summary["errors"] > 0,
+            get_number_in_box(eval_info_summary["errors"], box_color = "#ff0000", char_color = "#ffffff"),
             span()
           )
         )
