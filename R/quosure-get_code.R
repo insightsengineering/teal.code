@@ -12,7 +12,10 @@
 #'
 #' @export
 setGeneric("get_code", function(object) {
+  # this line forces evaluation of object before passing to the generic
+  # needed for error handling to work properly
   object
+
   standardGeneric("get_code")
 })
 

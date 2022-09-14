@@ -30,8 +30,6 @@ setMethod("eval_code", signature = c("Quosure", "character"), function(object, c
   }
   id <- sample.int(.Machine$integer.max, size = length(code))
 
-  evaluated_code <- object@code
-
   object@id <- c(object@id, id)
   object@code <- .keep_code_name_unique(object@code, code)
 
@@ -46,7 +44,7 @@ setMethod("eval_code", signature = c("Quosure", "character"), function(object, c
   error = function(e) {
     errorCondition(
       message = sprintf(
-        "%s \n when evaluating a Quosure code:\n %s",
+        "%s \n when evaluating Quosure code:\n %s",
         conditionMessage(e),
         paste(code, collapse = "\n ")
       ),
