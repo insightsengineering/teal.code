@@ -4,7 +4,6 @@ testthat::test_that("get_var and `[[`return quosure.error if given quosure error
 
   testthat::expect_s3_class(get_var(q, "x"), "quosure.error")
   testthat::expect_s3_class(q[["x"]], "quosure.error")
-
 })
 
 

@@ -156,7 +156,6 @@ testthat::test_that("Quosure objects are not mergable if they have multiple comm
 
 
 testthat::test_that("joining with a quosure.error object returns the quosure.error object", {
-
   q1 <- eval_code(new_quosure(), "x <- 1")
   error_q <- eval_code(new_quosure(), "y <- w")
   error_q2 <- eval_code(new_quosure(), "z <- w")
@@ -168,4 +167,3 @@ testthat::test_that("joining with a quosure.error object returns the quosure.err
   # if joining two quosure.error objects keep the first
   testthat::expect_equal(join(error_q, error_q2), error_q)
 })
-

@@ -16,5 +16,3 @@ setMethod("show", "Quosure", function(object) {
     cat("A quosure object containing no objects")
   }
 })
-
-

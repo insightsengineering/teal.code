@@ -36,22 +36,24 @@ setMethod("eval_code", signature = c("Quosure", "character"), function(object, c
   # need to copy the objects from old env to new env
   # to avoid updating environments in the separate objects
   object@env <- .copy_env(object@env)
-  tryCatch({
-    eval(parse(text = code), envir = object@env)
-    lockEnvironment(object@env)
-    object
-  },
-  error = function(e) {
-    errorCondition(
-      message = sprintf(
-        "%s \n when evaluating Quosure code:\n %s",
-        conditionMessage(e),
-        paste(code, collapse = "\n ")
-      ),
-      class = c("quosure.error", "try-error", "simpleError"),
-      trace = object@code
-    )
-  })
+  tryCatch(
+    {
+      eval(parse(text = code), envir = object@env)
+      lockEnvironment(object@env)
+      object
+    },
+    error = function(e) {
+      errorCondition(
+        message = sprintf(
+          "%s \n when evaluating Quosure code:\n %s",
+          conditionMessage(e),
+          paste(code, collapse = "\n ")
+        ),
+        class = c("quosure.error", "try-error", "simpleError"),
+        trace = object@code
+      )
+    }
+  )
 })
 
 #' @rdname eval_code
