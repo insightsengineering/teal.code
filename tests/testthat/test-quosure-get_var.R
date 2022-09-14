@@ -1,9 +1,9 @@
-testthat::test_that("get_var and `[[`return quosure.error if given quosure error", {
+testthat::test_that("get_var and `[[`return error if object is quosure.error", {
   q <- eval_code(new_quosure(), "x <- 1")
   q <- eval_code(q, "y <- w * x")
 
-  testthat::expect_s3_class(get_var(q, "x"), "quosure.error")
-  testthat::expect_s3_class(q[["x"]], "quosure.error")
+  testthat::expect_error(get_var(q, "x"), "when evaluating Quosure code")
+  testthat::expect_error(q[["x"]], "when evaluating Quosure code")
 })
 
 

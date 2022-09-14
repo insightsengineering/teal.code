@@ -25,7 +25,10 @@ setMethod("get_var", signature = c("Quosure", "character"), function(object, var
 #' @rdname get_var
 #' @export
 setMethod("get_var", signature = "quosure.error", function(object, var) {
-  object
+  stop(errorCondition(
+    list(message = conditionMessage(object)),
+    class = c("validation", "try-error", "simpleError")
+  ))
 })
 
 
@@ -42,5 +45,8 @@ setMethod("[[", signature = c("Quosure", "ANY", "missing"), function(x, i, j, ..
 #' @rdname get_var
 #' @export
 `[[.quosure.error` <- function(x, i, j, ...) {
-  x
+  stop(errorCondition(
+    list(message = conditionMessage(x)),
+    class = c("validation", "try-error", "simpleError")
+  ))
 }
