@@ -98,7 +98,7 @@ testthat::test_that("an error when calling eval_code returns a quosure.error obj
   testthat::expect_equal(q$message, "object 'w' not found \n when evaluating Quosure code:\n z <- w * x")
 })
 
-testthat::test_that("get_code make name of the code block unique if duplicated", {
+testthat::test_that("eval_code make name of the code block unique if duplicated", {
   q1 <- new_quosure()
   q2 <- eval_code(q1, code = "a <- 1", name = "test")
   q3 <- eval_code(q2, code = "b <- 2", name = "test")
