@@ -4,6 +4,8 @@ testthat::test_that("showing an empty quosure states quosure is empty" , {
 })
 
 testthat::test_that("showing a non-empty quosure lists its contents" , {
-  q <- new_quosure() %>% eval_code("x <- 1") %>% eval_code("y <- 2")
+  q <- new_quosure()
+  q <- eval_code(q, "x <- 1")
+  q <- eval_code(q, "y <- 2")
   testthat::expect_output(show(q), "A quosure object containing: x, y")
 })

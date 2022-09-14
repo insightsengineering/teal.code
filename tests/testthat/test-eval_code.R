@@ -89,6 +89,15 @@ testthat::test_that("each eval_code adds name to passed code", {
   testthat::expect_identical(q3@code, c(test = "a <- 1", test2 = "b <- 2"))
 })
 
+testthat::test_that("an error when calling eval_code returns a quosure.error object which has message and trace", {
+  q <- eval_code(new_quosure(), "x <- 1")
+  q <- eval_code(q, "y <- 2")
+  q <- eval_code(q, "z <- w * x")
+  testthat::expect_s3_class(q, "quosure.error")
+  testthat::expect_equal(unname(q$trace), c("x <- 1", "y <- 2", "z <- w * x"))
+  testthat::expect_equal(q$message, "object 'w' not found \n when evaluating Quosure code:\n z <- w * x")
+})
+
 testthat::test_that("get_code make name of the code block unique if duplicated", {
   q1 <- new_quosure()
   q2 <- eval_code(q1, code = "a <- 1", name = "test")
