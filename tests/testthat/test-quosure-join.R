@@ -153,3 +153,17 @@ testthat::test_that("Quosure objects are not mergable if they have multiple comm
   testthat::expect_match(check_joinable(q1, q2), "doesn't have the same indices")
   testthat::expect_error(join(q1, q2), "doesn't have the same indices")
 })
+
+
+testthat::test_that("joining with a quosure.error object returns the quosure.error object", {
+  q1 <- eval_code(new_quosure(), "x <- 1")
+  error_q <- eval_code(new_quosure(), "y <- w")
+  error_q2 <- eval_code(new_quosure(), "z <- w")
+
+  testthat::expect_s3_class(join(q1, error_q), "quosure.error")
+  testthat::expect_s3_class(join(error_q, error_q2), "quosure.error")
+  testthat::expect_s3_class(join(error_q, q1), "quosure.error")
+
+  # if joining two quosure.error objects keep the first
+  testthat::expect_equal(join(error_q, error_q2), error_q)
+})

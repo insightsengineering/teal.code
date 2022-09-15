@@ -22,12 +22,31 @@ setMethod("get_var", signature = c("Quosure", "character"), function(object, var
   get(var, envir = object@env)
 })
 
+#' @rdname get_var
+#' @export
+setMethod("get_var", signature = "quosure.error", function(object, var) {
+  stop(errorCondition(
+    list(message = conditionMessage(object)),
+    class = c("validation", "try-error", "simpleError")
+  ))
+})
+
+
 #' @param x (`Quosure`)
 #' @param i (`character`) name of the binding in environment (name of the variable)
 #' @param j not used
 #' @param ... not used
 #' @rdname get_var
 #' @export
-setMethod("[[", c("Quosure", "ANY", "missing"), function(x, i, j, ...) {
+setMethod("[[", signature = c("Quosure", "ANY", "missing"), function(x, i, j, ...) {
   get_var(x, i)
 })
+
+#' @rdname get_var
+#' @export
+`[[.quosure.error` <- function(x, i, j, ...) {
+  stop(errorCondition(
+    list(message = conditionMessage(x)),
+    class = c("validation", "try-error", "simpleError")
+  ))
+}

@@ -8,7 +8,7 @@ testthat::test_that("eval_code doesn't have access to environment where it's cal
   a <- 1L
   q1 <- new_quosure("a <- 1", env = environment())
   b <- 2L
-  testthat::expect_error(eval_code(q1, "d <- b"), "object 'b' not found")
+  testthat::expect_s3_class(eval_code(q1, "d <- b"), c("quosure.error", "try-error", "error", "condition"))
 })
 
 testthat::test_that("@env in quosure is always a sibling of .GlobalEnv", {
@@ -30,7 +30,7 @@ testthat::test_that("library have to be called separately before using function 
   testthat::expect_identical(parent.env(q2@env), parent.env(.GlobalEnv))
 
   detach("package:checkmate", unload = TRUE)
-  testthat::expect_error(
+  testthat::expect_s3_class(
     eval_code(
       new_quosure(),
       as.expression(c(
@@ -38,7 +38,7 @@ testthat::test_that("library have to be called separately before using function 
         quote(assert_number(1))
       ))
     ),
-    "could not find function \"assert_number\""
+    "quosure.error"
   )
 })
 
@@ -89,7 +89,16 @@ testthat::test_that("each eval_code adds name to passed code", {
   testthat::expect_identical(q3@code, c(test = "a <- 1", test2 = "b <- 2"))
 })
 
-testthat::test_that("get_code make name of the code block unique if duplicated", {
+testthat::test_that("an error when calling eval_code returns a quosure.error object which has message and trace", {
+  q <- eval_code(new_quosure(), "x <- 1")
+  q <- eval_code(q, "y <- 2")
+  q <- eval_code(q, "z <- w * x")
+  testthat::expect_s3_class(q, "quosure.error")
+  testthat::expect_equal(unname(q$trace), c("x <- 1", "y <- 2", "z <- w * x"))
+  testthat::expect_equal(q$message, "object 'w' not found \n when evaluating Quosure code:\n z <- w * x")
+})
+
+testthat::test_that("eval_code make name of the code block unique if duplicated", {
   q1 <- new_quosure()
   q2 <- eval_code(q1, code = "a <- 1", name = "test")
   q3 <- eval_code(q2, code = "b <- 2", name = "test")

@@ -12,6 +12,10 @@
 #'
 #' @export
 setGeneric("get_code", function(object) {
+  # this line forces evaluation of object before passing to the generic
+  # needed for error handling to work properly
+  object
+
   standardGeneric("get_code")
 })
 
@@ -19,4 +23,19 @@ setGeneric("get_code", function(object) {
 #' @export
 setMethod("get_code", signature = "Quosure", function(object) {
   object@code
+})
+
+#' @rdname get_code
+#' @export
+setMethod("get_code", signature = "quosure.error", function(object) {
+  stop(
+    errorCondition(
+      sprintf(
+        "%s\n\ntrace: \n %s\n",
+        conditionMessage(object),
+        paste(object$trace, collapse = "\n ")
+      ),
+      class = c("validation", "try-error", "simpleError")
+    )
+  )
 })

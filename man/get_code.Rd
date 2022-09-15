@@ -3,11 +3,14 @@
 \name{get_code}
 \alias{get_code}
 \alias{get_code,Quosure-method}
+\alias{get_code,quosure.error-method}
 \title{Get code from \code{Quosure}}
 \usage{
 get_code(object)
 
 \S4method{get_code}{Quosure}(object)
+
+\S4method{get_code}{quosure.error}(object)
 }
 \arguments{
 \item{object}{(\code{Quosure})}
