@@ -1,8 +1,8 @@
 Type: Package
 Package: teal.code
-Title: Code storage and execution class for teal applications
-Version: 0.1.1.9007
-Date: 2022-09-06
+Title: Code Storage and Execution Class for `teal` Applications
+Version: 0.1.1.9008
+Date: 2022-09-09
 Authors@R: c(
     person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = c("aut", "cre")),
     person("Pawel", "Rucki", , "pawel.rucki@roche.com", role = "aut"),
@@ -13,7 +13,7 @@ Authors@R: c(
     person("Junlue", "Zhao", , "zhaoj88@gene.com", role = "aut"),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
   )
-Description: Code storage and execution class for teal applications.
+Description: Code storage and execution class for `teal` applications.
 License: Apache License 2.0 | file LICENSE
 Depends:
     R (>= 4.0)
