@@ -34,7 +34,7 @@ setMethod(
   signature = c(env = "environment", code = "expression"),
   function(env, code) {
     new_env <- rlang::env_clone(env, parent = parent.env(.GlobalEnv))
-    lockEnvironment(new_env)
+    lockEnvironment(new_env, bindings = TRUE)
     id <- sample.int(.Machine$integer.max, size = length(code))
     methods::new("Quosure", env = new_env, code = code, id = id)
   }

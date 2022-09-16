@@ -37,7 +37,7 @@ setMethod("eval_code", signature = c("Quosure", "expression"), function(object, 
   tryCatch(
     {
       eval(code, envir = object@env)
-      lockEnvironment(object@env)
+      lockEnvironment(object@env, bindings = TRUE)
       object
     },
     error = function(e) {
