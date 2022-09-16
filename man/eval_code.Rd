@@ -2,19 +2,19 @@
 % Please edit documentation in R/quosure-eval_code.R
 \name{eval_code}
 \alias{eval_code}
-\alias{eval_code,Quosure,character-method}
 \alias{eval_code,Quosure,expression-method}
 \alias{eval_code,Quosure,language-method}
+\alias{eval_code,Quosure,character-method}
 \alias{eval_code,quosure.error,ANY-method}
 \title{Evaluate the code in the \code{Quosure} environment}
 \usage{
 eval_code(object, code)
 
-\S4method{eval_code}{Quosure,character}(object, code)
-
 \S4method{eval_code}{Quosure,expression}(object, code)
 
 \S4method{eval_code}{Quosure,language}(object, code)
+
+\S4method{eval_code}{Quosure,character}(object, code)
 
 \S4method{eval_code}{quosure.error,ANY}(object, code)
 }

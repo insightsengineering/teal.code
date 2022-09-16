@@ -21,12 +21,6 @@ setGeneric("eval_code", function(object, code) {
 
 #' @rdname eval_code
 #' @export
-setMethod("eval_code", signature = c("Quosure", "character"), function(object, code) {
-  eval_code(object, code = parse(text = code, keep.source = FALSE))
-})
-
-#' @rdname eval_code
-#' @export
 setMethod("eval_code", signature = c("Quosure", "expression"), function(object, code) {
   id <- sample.int(.Machine$integer.max, size = length(code))
 
@@ -59,6 +53,12 @@ setMethod("eval_code", signature = c("Quosure", "expression"), function(object, 
 setMethod("eval_code", signature = c("Quosure", "language"), function(object, code) {
   code_char <- as.expression(code)
   eval_code(object, code_char)
+})
+
+#' @rdname eval_code
+#' @export
+setMethod("eval_code", signature = c("Quosure", "character"), function(object, code) {
+  eval_code(object, code = parse(text = code, keep.source = FALSE))
 })
 
 #' @rdname eval_code
