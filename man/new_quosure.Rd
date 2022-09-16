@@ -2,8 +2,8 @@
 % Please edit documentation in R/quosure-constructor.R
 \name{new_quosure}
 \alias{new_quosure}
-\alias{new_quosure,environment,character-method}
 \alias{new_quosure,environment,expression-method}
+\alias{new_quosure,environment,character-method}
 \alias{new_quosure,environment,language-method}
 \alias{new_quosure,list,ANY-method}
 \alias{new_quosure,missing,missing-method}
@@ -14,12 +14,12 @@ new_quosure(
   code = expression()
 )
 
-\S4method{new_quosure}{environment,character}(
+\S4method{new_quosure}{environment,expression}(
   env = new.env(parent = parent.env(.GlobalEnv)),
   code = expression()
 )
 
-\S4method{new_quosure}{environment,expression}(
+\S4method{new_quosure}{environment,character}(
   env = new.env(parent = parent.env(.GlobalEnv)),
   code = expression()
 )
@@ -52,5 +52,6 @@ can create an empty \code{Quosure} and evaluate the expressions in this object u
 \examples{
 new_quosure(env = list2env(list(a = 1)), code = quote(a <- 1))
 new_quosure(env = list2env(list(a = 1)), code = parse(text = "a <- 1"))
+new_quosure(env = list2env(list(a = 1)), code = "a <- 1")
 
 }

@@ -11,21 +11,12 @@
 #' @examples
 #' new_quosure(env = list2env(list(a = 1)), code = quote(a <- 1))
 #' new_quosure(env = list2env(list(a = 1)), code = parse(text = "a <- 1"))
+#' new_quosure(env = list2env(list(a = 1)), code = "a <- 1")
 #'
 #' @export
 setGeneric("new_quosure", function(env = new.env(parent = parent.env(.GlobalEnv)), code = expression()) {
   standardGeneric("new_quosure")
 })
-
-#' @rdname new_quosure
-#' @export
-setMethod(
-  "new_quosure",
-  signature = c(env = "environment", code = "character"),
-  function(env, code) {
-    new_quosure(env, code = parse(text = code, keep.source = FALSE))
-  }
-)
 
 #' @rdname new_quosure
 #' @export
@@ -37,6 +28,16 @@ setMethod(
     lockEnvironment(new_env, bindings = TRUE)
     id <- sample.int(.Machine$integer.max, size = length(code))
     methods::new("Quosure", env = new_env, code = code, id = id)
+  }
+)
+
+#' @rdname new_quosure
+#' @export
+setMethod(
+  "new_quosure",
+  signature = c(env = "environment", code = "character"),
+  function(env, code) {
+    new_quosure(env, code = parse(text = code, keep.source = FALSE))
   }
 )
 
