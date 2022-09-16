@@ -39,12 +39,11 @@ setMethod("join", signature = c("Quosure", "Quosure"), function(x, y) {
 
   id_unique <- !y@id %in% x@id
   x@id <- c(x@id, y@id[id_unique])
-  x@code <- .keep_code_name_unique(x@code, y@code[id_unique])
+  x@code <- c(x@code, y@code[id_unique])
 
   # insert (and overwrite) objects from env2 to env
-  x@env <- .copy_env(x@env)
-  lapply(ls(y@env, all.names = TRUE), function(xx) assign(xx, get(xx, y@env), x@env))
-
+  x@env <- rlang::env_clone(x@env, parent = parent.env(.GlobalEnv))
+  rlang::env_coalesce(env = x@env, from = y@env)
   x
 })
 

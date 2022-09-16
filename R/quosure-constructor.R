@@ -9,12 +9,11 @@
 #' @param env (`environment`) Environment being a result of the `code` evaluation.
 #'
 #' @examples
-#' new_quosure(env = list2env(list(a = 1)), code = "a <- 1")
 #' new_quosure(env = list2env(list(a = 1)), code = quote(a <- 1))
 #' new_quosure(env = list2env(list(a = 1)), code = parse(text = "a <- 1"))
 #'
 #' @export
-setGeneric("new_quosure", function(env = new.env(parent = parent.env(.GlobalEnv)), code = character(0)) {
+setGeneric("new_quosure", function(env = new.env(parent = parent.env(.GlobalEnv)), code = expression()) {
   standardGeneric("new_quosure")
 })
 
@@ -24,18 +23,7 @@ setMethod(
   "new_quosure",
   signature = c(env = "environment", code = "character"),
   function(env, code) {
-    checkmate::assert_character(code, any.missing = FALSE)
-    new_env <- .copy_env(env)
-    lockEnvironment(new_env)
-
-    if (is.null(names(code)) && length(code)) {
-      names(code) <- make.unique(rep("initial code", length(code)))
-    }
-
-    code <- .keep_code_name_unique(code)
-    id <- sample.int(.Machine$integer.max, size = length(code))
-
-    methods::new("Quosure", env = new_env, code = code, id = id)
+    new_quosure(env, code = parse(text = code, keep.source = FALSE))
   }
 )
 
@@ -45,8 +33,10 @@ setMethod(
   "new_quosure",
   signature = c(env = "environment", code = "expression"),
   function(env, code) {
-    code_char <- as.character(code)
-    new_quosure(env = env, code = code_char)
+    new_env <- rlang::env_clone(env, parent = parent.env(.GlobalEnv))
+    lockEnvironment(new_env)
+    id <- sample.int(.Machine$integer.max, size = length(code))
+    methods::new("Quosure", env = new_env, code = code, id = id)
   }
 )
 

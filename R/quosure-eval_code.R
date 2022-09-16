@@ -8,37 +8,35 @@
 #'
 #' @param object (`Quosure`)
 #' @param code (`character` or `language`) code to evaluate. Also accepts and stores comments
-#' @param name (`character(1)`) name of the code block.
 #'
 #' @examples
 #' q1 <- new_quosure(env = list2env(list(a = 1)), code = quote(a <- 1))
-#' q2 <- eval_code(q1, "library(checkmate)")
-#' q3 <- eval_code(q2, "assert_number(a)")
+#' q2 <- eval_code(q1, quote(library(checkmate)))
+#' q3 <- eval_code(q2, quote(assert_number(a)))
 #'
 #' @export
-setGeneric("eval_code", function(object, code, name = "code") {
+setGeneric("eval_code", function(object, code) {
   standardGeneric("eval_code")
 })
 
 #' @rdname eval_code
 #' @export
-setMethod("eval_code", signature = c("Quosure", "character"), function(object, code, name) {
-  checkmate::assert_string(name)
-  if (is.null(names(code))) {
-    code <- paste(code, collapse = "\n")
-    names(code) <- name
-  }
+setMethod("eval_code", signature = c("Quosure", "character"), function(object, code) {
+  eval_code(object, code = parse(text = code, keep.source = FALSE))
+})
+
+#' @rdname eval_code
+#' @export
+setMethod("eval_code", signature = c("Quosure", "expression"), function(object, code) {
   id <- sample.int(.Machine$integer.max, size = length(code))
 
   object@id <- c(object@id, id)
-  object@code <- .keep_code_name_unique(object@code, code)
+  object@env <- rlang::env_clone(object@env, parent = parent.env(.GlobalEnv))
+  object@code <- c(object@code, code)
 
-  # need to copy the objects from old env to new env
-  # to avoid updating environments in the separate objects
-  object@env <- .copy_env(object@env)
   tryCatch(
     {
-      eval(parse(text = code), envir = object@env)
+      eval(code, envir = object@env)
       lockEnvironment(object@env)
       object
     },
@@ -58,20 +56,13 @@ setMethod("eval_code", signature = c("Quosure", "character"), function(object, c
 
 #' @rdname eval_code
 #' @export
-setMethod("eval_code", signature = c("Quosure", "expression"), function(object, code, name) {
-  code_char <- as.character(code)
-  eval_code(object, code_char, name = name)
-})
-
-#' @rdname eval_code
-#' @export
-setMethod("eval_code", signature = c("Quosure", "language"), function(object, code, name) {
+setMethod("eval_code", signature = c("Quosure", "language"), function(object, code) {
   code_char <- as.expression(code)
-  eval_code(object, code_char, name = name)
+  eval_code(object, code_char)
 })
 
 #' @rdname eval_code
 #' @export
-setMethod("eval_code", signature = "quosure.error", function(object, code, name) {
+setMethod("eval_code", signature = "quosure.error", function(object, code) {
   object
 })

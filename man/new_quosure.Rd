@@ -11,32 +11,32 @@
 \usage{
 new_quosure(
   env = new.env(parent = parent.env(.GlobalEnv)),
-  code = character(0)
+  code = expression()
 )
 
 \S4method{new_quosure}{environment,character}(
   env = new.env(parent = parent.env(.GlobalEnv)),
-  code = character(0)
+  code = expression()
 )
 
 \S4method{new_quosure}{environment,expression}(
   env = new.env(parent = parent.env(.GlobalEnv)),
-  code = character(0)
+  code = expression()
 )
 
 \S4method{new_quosure}{environment,language}(
   env = new.env(parent = parent.env(.GlobalEnv)),
-  code = character(0)
+  code = expression()
 )
 
 \S4method{new_quosure}{list,ANY}(
   env = new.env(parent = parent.env(.GlobalEnv)),
-  code = character(0)
+  code = expression()
 )
 
 \S4method{new_quosure}{missing,missing}(
   env = new.env(parent = parent.env(.GlobalEnv)),
-  code = character(0)
+  code = expression()
 )
 }
 \arguments{
@@ -50,7 +50,6 @@ one needs to initialize with \code{env} which can be reproduced by the \code{cod
 can create an empty \code{Quosure} and evaluate the expressions in this object using \code{eval_code}.
 }
 \examples{
-new_quosure(env = list2env(list(a = 1)), code = "a <- 1")
 new_quosure(env = list2env(list(a = 1)), code = quote(a <- 1))
 new_quosure(env = list2env(list(a = 1)), code = parse(text = "a <- 1"))
 

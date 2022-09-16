@@ -2,16 +2,16 @@
 #'
 #' @name get_code
 #' @param object (`Quosure`)
+#' @param deparse (`logical(1)`) if the returned code should be converted to character.
 #' @return named `character` with the reproducible code.
 #' @examples
 #' q1 <- new_quosure(env = list2env(list(a = 1)), code = quote(a <- 1))
-#' q2 <- eval_code(q1, code = "b <- a", name = "copy a to b")
-#' q3 <- eval_code(q2, code = "# comment line")
-#' q4 <- eval_code(q3, code = "d <- 2", name = "assign d")
-#' get_code(q4)
-#'
+#' q2 <- eval_code(q1, code = quote(b <- a))
+#' q3 <- eval_code(q2, code = quote(d <- 2))
+#' get_code(q3)
+#' get_code(q3, deparse = FALSE)
 #' @export
-setGeneric("get_code", function(object) {
+setGeneric("get_code", function(object, deparse = TRUE) {
   # this line forces evaluation of object before passing to the generic
   # needed for error handling to work properly
   object
@@ -21,8 +21,13 @@ setGeneric("get_code", function(object) {
 
 #' @rdname get_code
 #' @export
-setMethod("get_code", signature = "Quosure", function(object) {
-  object@code
+setMethod("get_code", signature = "Quosure", function(object, deparse = TRUE) {
+  checkmate::assert_flag(deparse)
+  if (deparse) {
+    as.character(object@code)
+  } else {
+    object@code
+  }
 })
 
 #' @rdname get_code
