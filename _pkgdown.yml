@@ -10,16 +10,6 @@ navbar:
       href: https://github.com/insightsengineering/teal.code
 
 reference:
-  - title: "Reproducible Modules"
-    desc: Functions to create a code chunk stack
-    contents:
-      - contains("chunk")
-  - title: "Debugging chunks evaluation"
-    desc: "shiny modules to examine chunks evaluation results"
-    contents:
-      - get_eval_details_srv
-      - get_eval_details_ui
-      - show_eval_details_modal
   - title: "Reproducible Quosures objects"
     desc: "methods to get and modify values of the Quosure object"
     contents:
@@ -28,3 +18,13 @@ reference:
       - get_var
       - join
       - new_quosure
+  - title: "Reproducible Modules (deprecated)"
+    desc: Functions to create a code chunk stack
+    contents:
+      - contains("chunk")
+  - title: "Debugging chunks evaluation (deprecated)"
+    desc: "shiny modules to examine chunks evaluation results"
+    contents:
+      - get_eval_details_srv
+      - get_eval_details_ui
+      - show_eval_details_modal
