@@ -9,6 +9,8 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+NOTE: Chunks are being deprecated `qenv` objects should be used instead - new vignettes are on their way.
+
 ## Decoupling chunks containers
 
 In a shiny app there is often a need to have multiple chunks containers that may be used independently by certain parts of the application and may be used together by other parts of the application. The ability to have multiple chunks containers combined into one allows for greater flexibility of the code, which allows the developer to apply the `DRY` principle (stands for `Do not repeat` which means code that are used in multiple places should only be written and defined once) and optimize performance. Much of the functionality to use a single chunks container object independently has already been covered in the [Basic chunks](./basic_chunks.Rmd) vignette, which you should read first before going any further.

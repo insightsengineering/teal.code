@@ -3,9 +3,8 @@
 #' Code chunk - including expression and variables
 #'
 #' @name chunk_call
-#' @description `r lifecycle::badge("stable")`
-#'
-#' @docType class
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #'
 #' @keywords data
 #'
@@ -276,7 +275,8 @@ chunk <- chunk_call
 
 #' Code Chunk comment
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #' @name chunk_comment
 #' @docType class
 #' @keywords data

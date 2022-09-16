@@ -9,6 +9,8 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+NOTE: Chunks are being deprecated `qenv` objects should be used instead - new vignettes are on their way.
+
 # The chunks container
 
 The main concept behind code reproducibility in teal is the chunks container object. This object consists of two elements:

@@ -16,7 +16,8 @@ If not provided then automatic \code{chunks} object detection is run via \link{g
 nothing, it modifies shiny session object
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+Chunks are being deprecated \code{qenv} objects should be used instead
 
 Empty the chunk list and the remaining and evaluated list.
 }
