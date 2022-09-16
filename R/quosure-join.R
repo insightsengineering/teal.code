@@ -30,7 +30,7 @@ setGeneric("join", function(x, y) {
 #' @rdname join
 #' @export
 setMethod("join", signature = c("Quosure", "Quosure"), function(x, y) {
-  join_validation <- check_joinable(x, y)
+  join_validation <- .check_joinable(x, y)
 
   # join expressions
   if (!isTRUE(join_validation)) {
@@ -69,7 +69,7 @@ setMethod("join", signature = c("Quosure", "quosure.error"), function(x, y) {
 #' @param y (`Quosure`)
 #' @return `TRUE` if able to join or `character` used to print error message.
 #' @keywords internal
-check_joinable <- function(x, y) {
+.check_joinable <- function(x, y) {
   checkmate::assert_class(x, "Quosure")
   checkmate::assert_class(y, "Quosure")
 
