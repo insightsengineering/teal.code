@@ -73,7 +73,7 @@ check_joinable <- function(x, y) {
   checkmate::assert_class(x, "Quosure")
   checkmate::assert_class(y, "Quosure")
 
-  common_names <- intersect(ls(x@env), ls(y@env))
+  common_names <- intersect(rlang::env_names(x@env), rlang::env_names(y@env))
   is_overwritten <- vapply(common_names, function(el) {
     !identical(get(el, x@env), get(el, y@env))
   }, logical(1))
