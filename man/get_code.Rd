@@ -6,14 +6,16 @@
 \alias{get_code,quosure.error-method}
 \title{Get code from \code{Quosure}}
 \usage{
-get_code(object)
+get_code(object, deparse = TRUE)
 
-\S4method{get_code}{Quosure}(object)
+\S4method{get_code}{Quosure}(object, deparse = TRUE)
 
 \S4method{get_code}{quosure.error}(object)
 }
 \arguments{
 \item{object}{(\code{Quosure})}
+
+\item{deparse}{(\code{logical(1)}) if the returned code should be converted to character.}
 }
 \value{
 named \code{character} with the reproducible code.
@@ -23,9 +25,8 @@ Get code from \code{Quosure}
 }
 \examples{
 q1 <- new_quosure(env = list2env(list(a = 1)), code = quote(a <- 1))
-q2 <- eval_code(q1, code = "b <- a", name = "copy a to b")
-q3 <- eval_code(q2, code = "# comment line")
-q4 <- eval_code(q3, code = "d <- 2", name = "assign d")
-get_code(q4)
-
+q2 <- eval_code(q1, code = quote(b <- a))
+q3 <- eval_code(q2, code = quote(d <- 2))
+get_code(q3)
+get_code(q3, deparse = FALSE)
 }

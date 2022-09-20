@@ -30,7 +30,7 @@ setGeneric("join", function(x, y) {
 #' @rdname join
 #' @export
 setMethod("join", signature = c("Quosure", "Quosure"), function(x, y) {
-  join_validation <- check_joinable(x, y)
+  join_validation <- .check_joinable(x, y)
 
   # join expressions
   if (!isTRUE(join_validation)) {
@@ -39,12 +39,11 @@ setMethod("join", signature = c("Quosure", "Quosure"), function(x, y) {
 
   id_unique <- !y@id %in% x@id
   x@id <- c(x@id, y@id[id_unique])
-  x@code <- .keep_code_name_unique(x@code, y@code[id_unique])
+  x@code <- c(x@code, y@code[id_unique])
 
-  # insert (and overwrite) objects from env2 to env
-  x@env <- .copy_env(x@env)
-  lapply(ls(y@env, all.names = TRUE), function(xx) assign(xx, get(xx, y@env), x@env))
-
+  # insert (and overwrite) objects from y to x
+  x@env <- rlang::env_clone(x@env, parent = parent.env(.GlobalEnv))
+  rlang::env_coalesce(env = x@env, from = y@env)
   x
 })
 
@@ -70,11 +69,11 @@ setMethod("join", signature = c("Quosure", "quosure.error"), function(x, y) {
 #' @param y (`Quosure`)
 #' @return `TRUE` if able to join or `character` used to print error message.
 #' @keywords internal
-check_joinable <- function(x, y) {
+.check_joinable <- function(x, y) {
   checkmate::assert_class(x, "Quosure")
   checkmate::assert_class(y, "Quosure")
 
-  common_names <- intersect(ls(x@env), ls(y@env))
+  common_names <- intersect(rlang::env_names(x@env), rlang::env_names(y@env))
   is_overwritten <- vapply(common_names, function(el) {
     !identical(get(el, x@env), get(el, y@env))
   }, logical(1))

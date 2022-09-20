@@ -2,28 +2,26 @@
 % Please edit documentation in R/quosure-eval_code.R
 \name{eval_code}
 \alias{eval_code}
-\alias{eval_code,Quosure,character-method}
 \alias{eval_code,Quosure,expression-method}
 \alias{eval_code,Quosure,language-method}
+\alias{eval_code,Quosure,character-method}
 \alias{eval_code,quosure.error,ANY-method}
 \title{Evaluate the code in the \code{Quosure} environment}
 \usage{
-eval_code(object, code, name = "code")
+eval_code(object, code)
 
-\S4method{eval_code}{Quosure,character}(object, code, name = "code")
+\S4method{eval_code}{Quosure,expression}(object, code)
 
-\S4method{eval_code}{Quosure,expression}(object, code, name = "code")
+\S4method{eval_code}{Quosure,language}(object, code)
 
-\S4method{eval_code}{Quosure,language}(object, code, name = "code")
+\S4method{eval_code}{Quosure,character}(object, code)
 
-\S4method{eval_code}{quosure.error,ANY}(object, code, name = "code")
+\S4method{eval_code}{quosure.error,ANY}(object, code)
 }
 \arguments{
 \item{object}{(\code{Quosure})}
 
 \item{code}{(\code{character} or \code{language}) code to evaluate. Also accepts and stores comments}
-
-\item{name}{(\code{character(1)}) name of the code block.}
 }
 \description{
 Given code is evaluated in the \code{Quosure} environment and appended to the \code{code} slot. This means
@@ -32,7 +30,7 @@ with reproducible code.
 }
 \examples{
 q1 <- new_quosure(env = list2env(list(a = 1)), code = quote(a <- 1))
-q2 <- eval_code(q1, "library(checkmate)")
-q3 <- eval_code(q2, "assert_number(a)")
+q2 <- eval_code(q1, quote(library(checkmate)))
+q3 <- eval_code(q2, quote(assert_number(a)))
 
 }
