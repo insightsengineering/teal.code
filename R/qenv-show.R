@@ -1,18 +1,18 @@
-#' Show the `Quosure` object
+#' Show the `qenv` object
 #'
-#' Prints the `Quosure` object
-#' @param object (`Quosure`)
+#' Prints the `qenv` object
+#' @param object (`qenv`)
 #' @return nothing
 #' @importFrom methods show
 #' @examples
-#' q1 <- new_quosure(code = "print('a')", env = new.env())
+#' q1 <- new_qenv(code = "print('a')", env = new.env())
 #' q1
 #' @export
-setMethod("show", "Quosure", function(object) {
+setMethod("show", "qenv", function(object) {
   obs <- names(as.list(object@env))
   if (length(obs) > 0) {
-    cat(sprintf("A quosure object containing: %s\n", paste(obs, collapse = ", ")))
+    cat(sprintf("A qenv object containing: %s\n", paste(obs, collapse = ", ")))
   } else {
-    cat("A quosure object containing no objects.\n")
+    cat("A qenv object containing no objects.\n")
   }
 })

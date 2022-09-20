@@ -20,11 +20,11 @@ reference:
       - get_eval_details_srv
       - get_eval_details_ui
       - show_eval_details_modal
-  - title: "Reproducible Quosures objects"
-    desc: "methods to get and modify values of the Quosure object"
+  - title: "Reproducible qenv objects"
+    desc: "methods to get and modify values of qenv objects"
     contents:
       - eval_code
       - get_code
       - get_var
       - join
-      - new_quosure
+      - new_qenv

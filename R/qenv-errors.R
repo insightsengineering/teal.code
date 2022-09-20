@@ -1,2 +1,2 @@
 # needed to handle try-error
-setOldClass("quosure.error")
+setOldClass("qenv.error")
