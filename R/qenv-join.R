@@ -100,14 +100,14 @@ setMethod("join", signature = c("qenv", "qenv.error"), function(x, y) {
     TRUE
   } else if (!identical(shared_in_x, shared_in_y)) {
     paste(
-      "The common code of joined objects doesn't have the same indices. It means that `x` and `y`",
-      "can't be joined together as it's impossible to determine the evaluation's order.",
+      "The common shared code of the qenvs does not occur in the same position in both qenv objects",
+      "so they cannot be joined together as it's impossible to determine the evaluation's order.",
       collapse = ""
     )
   } else {
     paste(
-      "The common code of joined object does not start from index = 1.",
-      "It means that joined object(x) has some extra code elements before.",
+      "There is code in the qenv objects before their common shared code",
+      "which means these objects cannot be joined.",
       collapse = ""
     )
   }
