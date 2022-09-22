@@ -1,16 +1,16 @@
-#' Join two `Quosure` objects
+#' Join two `qenv` objects
 #'
-#' Combine two `Quosure` object by merging their environments and the code.
-#' Not every `Quosure` objects can be combined:
+#' Combine two `qenv` objects by merging their environments and the code.
+#' Not all `qenv` objects can be combined:
 #' - if their environments contains objects of the same name but not identical
 #' - if `y` has unique code element placed before common element. This means that `y`
 #' in the environment of the `y` was evaluated some extra code before which can influence
 #' reproducibility
 #' - more cases to be done
-#' @param x (`Quosure`)
-#' @param y (`Quosure`)
+#' @param x (`qenv`)
+#' @param y (`qenv`)
 #' @examples
-#' q1 <- new_quosure(
+#' q1 <- new_qenv(
 #'   code = c(iris1 = "iris1 <- iris", mtcars1 = "mtcars1 <- mtcars"),
 #'   env = list2env(list(
 #'     iris1 = iris,
@@ -29,7 +29,7 @@ setGeneric("join", function(x, y) {
 
 #' @rdname join
 #' @export
-setMethod("join", signature = c("Quosure", "Quosure"), function(x, y) {
+setMethod("join", signature = c("qenv", "qenv"), function(x, y) {
   join_validation <- .check_joinable(x, y)
 
   # join expressions
@@ -49,29 +49,29 @@ setMethod("join", signature = c("Quosure", "Quosure"), function(x, y) {
 
 #' @rdname join
 #' @export
-setMethod("join", signature = "quosure.error", function(x, y) {
+setMethod("join", signature = "qenv.error", function(x, y) {
   x
 })
 
 #' @rdname join
 #' @export
-setMethod("join", signature = c("Quosure", "quosure.error"), function(x, y) {
+setMethod("join", signature = c("qenv", "qenv.error"), function(x, y) {
   y
 })
 
-#' If two `Quosure` can be joined
+#' If two `qenv` can be joined
 #'
-#' Checks if two `Quosure` objects can be combined.
+#' Checks if two `qenv` objects can be combined.
 #' They can't be combined if (and):
 #' - both share the same code (identified by `id`)
 #' - indices of the shared code are not consecutive or don't start from 1
-#' @param x (`Quosure`)
-#' @param y (`Quosure`)
+#' @param x (`qenv`)
+#' @param y (`qenv`)
 #' @return `TRUE` if able to join or `character` used to print error message.
 #' @keywords internal
 .check_joinable <- function(x, y) {
-  checkmate::assert_class(x, "Quosure")
-  checkmate::assert_class(y, "Quosure")
+  checkmate::assert_class(x, "qenv")
+  checkmate::assert_class(y, "qenv")
 
   common_names <- intersect(rlang::env_names(x@env), rlang::env_names(y@env))
   is_overwritten <- vapply(common_names, function(el) {
@@ -80,7 +80,7 @@ setMethod("join", signature = c("Quosure", "quosure.error"), function(x, y) {
   if (any(is_overwritten)) {
     return(
       paste(
-        "Not possible to join Quosure objects if anything in their environment has been modified.\n",
+        "Not possible to join qenv objects if anything in their environment has been modified.\n",
         "Following object(s) have been modified:\n - ",
         paste(common_names[is_overwritten], collapse = "\n - ")
       )
