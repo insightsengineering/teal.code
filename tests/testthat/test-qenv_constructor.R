@@ -54,12 +54,6 @@ testthat::test_that("new_qenv works with code being quoted expression", {
   testthat::expect_true(checkmate::test_int(q@id))
 })
 
-testthat::test_that("code argument is ignored in new_qenv and throws a warning", {
-  env <- list(iris1 = iris)
-  attr(env, "code") <- quote(iris1 <- iris)
-  testthat::expect_warning(new_qenv(env = env, iris1 <- iris))
-})
-
 testthat::test_that("new_qenv works with code being length > 1", {
   env <- new.env()
   env$iris1 <- iris

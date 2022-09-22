@@ -5,7 +5,6 @@
 \alias{new_qenv,environment,expression-method}
 \alias{new_qenv,environment,character-method}
 \alias{new_qenv,environment,language-method}
-\alias{new_qenv,list,ANY-method}
 \alias{new_qenv,missing,missing-method}
 \title{Initialize \code{qenv} object}
 \usage{
@@ -16,8 +15,6 @@ new_qenv(env = new.env(parent = parent.env(.GlobalEnv)), code = expression())
 \S4method{new_qenv}{environment,character}(env = new.env(parent = parent.env(.GlobalEnv)), code = expression())
 
 \S4method{new_qenv}{environment,language}(env = new.env(parent = parent.env(.GlobalEnv)), code = expression())
-
-\S4method{new_qenv}{list,ANY}(env = new.env(parent = parent.env(.GlobalEnv)), code = expression())
 
 \S4method{new_qenv}{missing,missing}(env = new.env(parent = parent.env(.GlobalEnv)), code = expression())
 }
