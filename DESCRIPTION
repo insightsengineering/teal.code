@@ -28,6 +28,7 @@ Imports:
     teal.widgets (>= 0.1.1)
 Suggests:
     knitr,
+    magrittr,
     rlang,
     rmarkdown,
     testthat (>= 2.0)
