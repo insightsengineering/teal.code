@@ -56,37 +56,6 @@ setMethod(
 #' @export
 setMethod(
   "new_qenv",
-  signature = c(env = "list"),
-  function(env, code) {
-    if (!missing(code)) {
-      warning(
-        "`code` argument is ignored when creating qenv from the list.",
-        "\nPlease pass the code througn attr(<list>, 'code')"
-      )
-    }
-
-    code <- attr(env, "code") # named
-    if (length(code) == 0) {
-      stop("To create the qenv from the list it must contain 'code' attribute.")
-    }
-
-    if (checkmate::test_list(env, "reactive")) {
-      env <- lapply(env, function(x) {
-        if (inherits(x, "reactive")) {
-          x()
-        } else {
-          x
-        }
-      })
-    }
-    new_qenv(env = list2env(env), code = code)
-  }
-)
-
-#' @rdname new_qenv
-#' @export
-setMethod(
-  "new_qenv",
   signature = c(code = "missing", env = "missing"),
   function(env, code) {
     new_qenv(env = env, code = code)

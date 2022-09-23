@@ -139,8 +139,8 @@ testthat::test_that(
     q_common <- new_qenv(quote(c1 <- 3), env = list2env(list(c1 = 3)))
     q1 <- join(q1, q_common)
     q2 <- join(q2, q_common)
-    testthat::expect_match(.check_joinable(q1, q2), "start from index = 1")
-    testthat::expect_error(join(q1, q2), "start from index = 1")
+    testthat::expect_match(.check_joinable(q1, q2), "these objects cannot be joined")
+    testthat::expect_error(join(q1, q2), "these objects cannot be joined")
   }
 )
 
@@ -152,8 +152,8 @@ testthat::test_that("qenv objects are not mergable if they have multiple common 
   q1 <- join(q1, q_common2) # c1, a1, c2
   q2 <- join(q_common1, q_common2) # c1, c2
 
-  testthat::expect_match(.check_joinable(q1, q2), "doesn't have the same indices")
-  testthat::expect_error(join(q1, q2), "doesn't have the same indices")
+  testthat::expect_match(.check_joinable(q1, q2), "it's impossible to determine the evaluation's order")
+  testthat::expect_error(join(q1, q2), "it's impossible to determine the evaluation's order")
 })
 
 
