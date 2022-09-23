@@ -1,16 +1,16 @@
-#' Join two `Quosure` objects
+#' Join two `qenv` objects
 #'
-#' Combine two `Quosure` object by merging their environments and the code.
-#' Not every `Quosure` objects can be combined:
+#' Combine two `qenv` objects by merging their environments and the code.
+#' Not all `qenv` objects can be combined:
 #' - if their environments contains objects of the same name but not identical
 #' - if `y` has unique code element placed before common element. This means that `y`
 #' in the environment of the `y` was evaluated some extra code before which can influence
 #' reproducibility
 #' - more cases to be done
-#' @param x (`Quosure`)
-#' @param y (`Quosure`)
+#' @param x (`qenv`)
+#' @param y (`qenv`)
 #' @examples
-#' q1 <- new_quosure(
+#' q1 <- new_qenv(
 #'   code = c(iris1 = "iris1 <- iris", mtcars1 = "mtcars1 <- mtcars"),
 #'   env = list2env(list(
 #'     iris1 = iris,
@@ -29,8 +29,8 @@ setGeneric("join", function(x, y) {
 
 #' @rdname join
 #' @export
-setMethod("join", signature = c("Quosure", "Quosure"), function(x, y) {
-  join_validation <- check_joinable(x, y)
+setMethod("join", signature = c("qenv", "qenv"), function(x, y) {
+  join_validation <- .check_joinable(x, y)
 
   # join expressions
   if (!isTRUE(join_validation)) {
@@ -39,49 +39,48 @@ setMethod("join", signature = c("Quosure", "Quosure"), function(x, y) {
 
   id_unique <- !y@id %in% x@id
   x@id <- c(x@id, y@id[id_unique])
-  x@code <- .keep_code_name_unique(x@code, y@code[id_unique])
+  x@code <- c(x@code, y@code[id_unique])
 
-  # insert (and overwrite) objects from env2 to env
-  x@env <- .copy_env(x@env)
-  lapply(ls(y@env, all.names = TRUE), function(xx) assign(xx, get(xx, y@env), x@env))
-
+  # insert (and overwrite) objects from y to x
+  x@env <- rlang::env_clone(x@env, parent = parent.env(.GlobalEnv))
+  rlang::env_coalesce(env = x@env, from = y@env)
   x
 })
 
 #' @rdname join
 #' @export
-setMethod("join", signature = "quosure.error", function(x, y) {
+setMethod("join", signature = "qenv.error", function(x, y) {
   x
 })
 
 #' @rdname join
 #' @export
-setMethod("join", signature = c("Quosure", "quosure.error"), function(x, y) {
+setMethod("join", signature = c("qenv", "qenv.error"), function(x, y) {
   y
 })
 
-#' If two `Quosure` can be joined
+#' If two `qenv` can be joined
 #'
-#' Checks if two `Quosure` objects can be combined.
+#' Checks if two `qenv` objects can be combined.
 #' They can't be combined if (and):
 #' - both share the same code (identified by `id`)
 #' - indices of the shared code are not consecutive or don't start from 1
-#' @param x (`Quosure`)
-#' @param y (`Quosure`)
+#' @param x (`qenv`)
+#' @param y (`qenv`)
 #' @return `TRUE` if able to join or `character` used to print error message.
 #' @keywords internal
-check_joinable <- function(x, y) {
-  checkmate::assert_class(x, "Quosure")
-  checkmate::assert_class(y, "Quosure")
+.check_joinable <- function(x, y) {
+  checkmate::assert_class(x, "qenv")
+  checkmate::assert_class(y, "qenv")
 
-  common_names <- intersect(ls(x@env), ls(y@env))
+  common_names <- intersect(rlang::env_names(x@env), rlang::env_names(y@env))
   is_overwritten <- vapply(common_names, function(el) {
     !identical(get(el, x@env), get(el, y@env))
   }, logical(1))
   if (any(is_overwritten)) {
     return(
       paste(
-        "Not possible to join Quosure objects if anything in their environment has been modified.\n",
+        "Not possible to join qenv objects if anything in their environment has been modified.\n",
         "Following object(s) have been modified:\n - ",
         paste(common_names[is_overwritten], collapse = "\n - ")
       )
@@ -101,14 +100,14 @@ check_joinable <- function(x, y) {
     TRUE
   } else if (!identical(shared_in_x, shared_in_y)) {
     paste(
-      "The common code of joined objects doesn't have the same indices. It means that `x` and `y`",
-      "can't be joined together as it's impossible to determine the evaluation's order.",
+      "The common shared code of the qenvs does not occur in the same position in both qenv objects",
+      "so they cannot be joined together as it's impossible to determine the evaluation's order.",
       collapse = ""
     )
   } else {
     paste(
-      "The common code of joined object does not start from index = 1.",
-      "It means that joined object(x) has some extra code elements before.",
+      "There is code in the qenv objects before their common shared code",
+      "which means these objects cannot be joined.",
       collapse = ""
     )
   }
