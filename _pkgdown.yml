@@ -28,4 +28,3 @@ reference:
       - get_eval_details_srv
       - get_eval_details_ui
       - show_eval_details_modal
-      
