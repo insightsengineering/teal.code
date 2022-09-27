@@ -44,18 +44,6 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
         class = c("qenv.error", "try-error", "simpleError"),
         trace = object@code
       )
-    },
-    warning = function(w) {
-      attr(object@code, "warning") <- as.character(w)
-      eval(code, envir = object@env)
-      lockEnvironment(object@env, bindings = TRUE)
-      object
-    },
-    message = function(m) {
-      attr(object@code, "message") <- as.character(m)
-      eval(code, envir = object@env)
-      lockEnvironment(object@env, bindings = TRUE)
-      object
     }
   )
 })
