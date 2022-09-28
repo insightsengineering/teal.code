@@ -60,12 +60,13 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
     }
   )
   if (!is.null(x)) {
-    x
-  } else {
-    object@warnings <- current_warnings
-    object@messages <- current_messages
-    object
+    return(x)
   }
+
+  object@warnings <- c(object@warnings, current_warnings)
+  object@messages <- c(object@messages, current_messages)
+  object
+
 })
 
 #' @rdname eval_code
