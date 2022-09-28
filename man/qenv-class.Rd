@@ -17,6 +17,10 @@ of the \code{code} slot.}
 
 \item{\code{id}}{(\code{integer}) random identifier of the code element to make sure uniqueness
 when joining.}
+
+\item{\code{warnings}}{(\code{character}) the warnings output when evaluating the code}
+
+\item{\code{messages}}{(\code{character}) the messages output when evaluating the code}
 }}
 
 \keyword{internal}

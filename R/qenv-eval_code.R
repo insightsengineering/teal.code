@@ -51,19 +51,19 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
       }
     ),
     warning = function(w) {
-      current_warnings <<- c(current_warnings, as.character(w))
+      current_warnings <<- paste(current_warnings, suppressWarnings(as.character(w)))
       invokeRestart("muffleWarning")
     },
     message = function(m) {
-      current_messages <<- c(current_messages, as.character(m))
+      current_messages <<- paste(current_messages, suppressWarnings(as.character(m)))
       invokeRestart("muffleMessage")
     }
   )
   if (!is.null(x)) {
     x
   } else {
-    attr(object@code, "warnings") <- current_warnings
-    attr(object@code, "messages") <- current_messages
+    object@warnings <- current_warnings
+    object@messages <- current_messages
     object
   }
 })
