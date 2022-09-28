@@ -74,3 +74,9 @@ testthat::test_that("new_qenv works with code being length > 1", {
 testthat::test_that("new_qenv allows to pass irreproducible env and code", {
   testthat::expect_error(new_qenv(quote(a <- 1), env = list2env(b = 0)))
 })
+
+testthat::test_that("Initializing qenv with code only creates corresponding warnings and messages slots", {
+  q1 <- new_qenv(bquote(a <- 1), env = list2env(list(a = 1)))
+  testthat::expect_identical(q1@warnings, "")
+  testthat::expect_identical(q1@messages, "")
+})
