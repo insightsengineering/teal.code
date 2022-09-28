@@ -22,7 +22,8 @@ get_warnings(object)
 Get the warnings of qenv object
 }
 \examples{
-data_q <- new_qenv() \%>\% eval_code("iris_data <- iris")
+data_q <- new_qenv()
+data_q <- eval_code(new_qenv(), "iris_data <- iris")
 warning_qenv <- eval_code(
   data_q,
   bquote(p <- hist(iris_data[, .("Sepal.Length")], ff = ""))
