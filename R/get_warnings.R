@@ -14,7 +14,11 @@
 #' get_warnings(warning_qenv)
 #'
 get_warnings <- function(object) {
-  attr(object@code, "warning")
+  if (inherits(object, "qenv.error")) {
+    NULL
+  } else {
+    attr(object@code, "warning")
+  }
 }
 
 #' Get the messages of qenv object

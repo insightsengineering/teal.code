@@ -28,36 +28,44 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
   object@env <- rlang::env_clone(object@env, parent = parent.env(.GlobalEnv))
   object@code <- c(object@code, code)
 
-  tryCatch(
-    {
-      eval(code, envir = object@env)
-      lockEnvironment(object@env, bindings = TRUE)
-      object
-    },
-    error = function(e) {
-      errorCondition(
-        message = sprintf(
-          "%s \n when evaluating qenv code:\n %s",
-          conditionMessage(e),
-          paste(code, collapse = "\n ")
-        ),
-        class = c("qenv.error", "try-error", "simpleError"),
-        trace = object@code
-      )
-    },
+  current_warnings <- ""
+  current_messages <- ""
+
+  x <- withCallingHandlers(
+    tryCatch(
+      {
+        eval(code, envir = object@env)
+        lockEnvironment(object@env, bindings = TRUE)
+        NULL
+      },
+      error = function(e) {
+        errorCondition(
+          message = sprintf(
+            "%s \n when evaluating qenv code:\n %s",
+            conditionMessage(e),
+            paste(code, collapse = "\n ")
+          ),
+          class = c("qenv.error", "try-error", "simpleError"),
+          trace = object@code
+        )
+      }
+    ),
     warning = function(w) {
-      attr(object@code, "warning") <- as.character(w)
-      eval(code, envir = object@env)
-      lockEnvironment(object@env, bindings = TRUE)
-      object
+      current_warnings <<- c(current_warnings, as.character(w))
+      invokeRestart("muffleWarning")
     },
     message = function(m) {
-      attr(object@code, "message") <- as.character(m)
-      eval(code, envir = object@env)
-      lockEnvironment(object@env, bindings = TRUE)
-      object
+      current_messages <<- c(current_messages, as.character(m))
+      invokeRestart("muffleMessage")
     }
   )
+  if (!is.null(x)) {
+    x
+  } else {
+    attr(object@code, "warnings") <- current_warnings
+    attr(object@code, "messages") <- current_messages
+    object
+  }
 })
 
 #' @rdname eval_code
