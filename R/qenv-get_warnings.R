@@ -34,7 +34,9 @@ setMethod("get_warnings", signature = c("qenv"), function(object) {
   for(warn_idx in seq_along(object@warnings)) {
     warn <- object@warnings[warn_idx]
     if (warn != "") {
-      warning_output <- paste(warning_output, "\nWhen running code:\n", paste(object@code[warn_idx], collapse = "\n"))
+      warning_output <- paste(
+        warning_output, warn, "\nWhen running code:\n", paste(object@code[warn_idx], collapse = "\n")
+      )
     }
   }
   paste(warning_output, "\n\nTrace:\n", paste(get_code(object), collapse = "\n"))
