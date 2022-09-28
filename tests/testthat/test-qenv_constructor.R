@@ -4,6 +4,8 @@ testthat::test_that("constructor returns qenv if nothing is specified", {
   testthat::expect_identical(ls(q@env), character(0))
   testthat::expect_identical(q@code, expression())
   testthat::expect_identical(q@id, integer(0))
+  testthat::expect_identical(q@warnings, character(0))
+  testthat::expect_identical(q@messages, character(0))
 })
 
 testthat::test_that("parent of qenv environment is the parent of .GlobalEnv", {

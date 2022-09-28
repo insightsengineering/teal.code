@@ -108,3 +108,41 @@ testthat::test_that("an error when calling eval_code returns a qenv.error object
   )
   testthat::expect_equal(q$message, "object 'w' not found \n when evaluating qenv code:\n z <- w * x")
 })
+
+testthat::test_that("a warning when calling eval_code returns a qenv object which has warnings", {
+  q <- eval_code(new_qenv(), quote("iris_data <- iris"))
+  q <- eval_code(q, quote("p <- hist(iris_data[, 'Sepal.Length'], ff = '')"))
+  testthat::expect_s4_class(q, "qenv")
+  testthat::expect_equal(
+    q@warnings,
+    c(
+      "",
+      paste0(
+        " simpleWarning in plot.window(xlim, ylim, \"\", ...): \"ff\" is not a graphical parameter\n simpleWarning in",
+        " title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...): \"ff\" is not a graphical parameter\n simple",
+        "Warning in axis(1, ...): \"ff\" is not a graphical parameter\n simpleWarning in axis(2, ...): \"ff\" is not",
+        " a graphical parameter\n"
+      )
+    )
+  )
+})
+
+testthat::test_that("a message when calling eval_code returns a qenv object which has messages", {
+  q <- eval_code(new_qenv(), quote("iris_data <- head(iris)"))
+  q <- eval_code(q, quote("message('This is a message')"))
+  testthat::expect_s4_class(q, "qenv")
+  testthat::expect_equal(
+    q@messages,
+    c(
+      "",
+      " simpleMessage in message(\"This is a message\"): This is a message\n\n"
+    )
+  )
+})
+
+testthat::test_that("eval_code returns a qenv object with empty messages and warnings when none are returned", {
+  q <- eval_code(new_qenv(), quote("iris_data <- head(iris)"))
+  testthat::expect_s4_class(q, "qenv")
+  testthat::expect_equal(q@messages, "")
+  testthat::expect_equal(q@warnings, "")
+})

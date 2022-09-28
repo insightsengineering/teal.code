@@ -169,3 +169,35 @@ testthat::test_that("joining with a qenv.error object returns the qenv.error obj
   # if joining two qenv.error objects keep the first
   testthat::expect_equal(join(error_q, error_q2), error_q)
 })
+
+testthat::test_that("Joining two independent qenvs with warnings results in object having combined warnings", {
+  q1 <- new_qenv() %>% eval_code("warning('This is warning 1')")
+  q2 <- new_qenv() %>% eval_code("warning('This is warning 2')")
+
+  testthat::expect_true(.check_joinable(q1, q2))
+  q <- join(q1, q2)
+
+  testthat::expect_equal(
+    q@warnings,
+    c(
+      " simpleWarning in eval(code, envir = object@env): This is warning 1\n",
+      " simpleWarning in eval(code, envir = object@env): This is warning 2\n"
+    )
+  )
+})
+
+testthat::test_that("Joining two independent qenvs with messages results in object having combined messages", {
+  q1 <- new_qenv() %>% eval_code("message('This is message 1')")
+  q2 <- new_qenv() %>% eval_code("message('This is message 2')")
+
+  testthat::expect_true(.check_joinable(q1, q2))
+  q <- join(q1, q2)
+
+  testthat::expect_equal(
+    q@messages,
+    c(
+      " simpleMessage in message(\"This is message 1\"): This is message 1\n\n",
+      " simpleMessage in message(\"This is message 2\"): This is message 2\n\n"
+    )
+  )
+})
