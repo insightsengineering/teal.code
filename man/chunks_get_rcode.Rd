@@ -15,7 +15,8 @@ The R code stored inside the chunks that can be used to reproduce the value of t
 of all code chunks.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+Chunks are being deprecated \code{qenv} objects should be used instead
 
 This function returns a list of the R-Code that reproduces all currently registered chunks
 inside the chunk stack.
