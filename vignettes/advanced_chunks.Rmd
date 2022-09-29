@@ -11,3 +11,4 @@ vignette: >
 
 Chunks have been deprecated and will be removed from `teal.code` in a later release. 
 Please use [`qenv`](https://insightsengineering.github.io/teal.code/articles/qenv.html) instead.
+

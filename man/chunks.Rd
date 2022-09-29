@@ -8,10 +8,8 @@
 An \code{\link{R6Class}} generator object
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
-
-\code{chunks} is a specialized stack for call objects and comments. It is intended to capture and evaluate R code for
-a sequence of analysis steps.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+Chunks are being deprecated \code{qenv} objects should be used instead
 }
 \section{Methods}{
 
@@ -165,4 +163,25 @@ x$is_ok() # now all chunks were evaluated and no errors occured
 
 cat(paste(x$get_rcode(), collapse = "\n"))
 }
+\keyword{It}
+\keyword{R}
+\keyword{\code{chunks}}
+\keyword{a}
+\keyword{analysis}
+\keyword{and}
+\keyword{call}
+\keyword{capture}
+\keyword{code}
+\keyword{comments.}
 \keyword{data}
+\keyword{evaluate}
+\keyword{for}
+\keyword{intended}
+\keyword{is}
+\keyword{objects}
+\keyword{of}
+\keyword{sequence}
+\keyword{specialized}
+\keyword{stack}
+\keyword{steps.}
+\keyword{to}
