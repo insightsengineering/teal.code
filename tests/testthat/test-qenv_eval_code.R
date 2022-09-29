@@ -127,6 +127,12 @@ testthat::test_that("a warning when calling eval_code returns a qenv object whic
   )
 })
 
+testthat::test_that("eval_code with a vector of code produces one warning element per code element", {
+  q <- eval_code(new_qenv(), c("x <- 1", "y <- 1", "warning('warn1')"))
+  testthat::expect_equal(c("", "", "warn1"), q@warnings)
+})
+
+
 testthat::test_that("a message when calling eval_code returns a qenv object which has messages", {
   q <- eval_code(new_qenv(), quote("iris_data <- head(iris)"))
   q <- eval_code(q, quote("message('This is a message')"))
