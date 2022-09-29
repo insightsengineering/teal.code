@@ -180,8 +180,8 @@ testthat::test_that("Joining two independent qenvs with warnings results in obje
   testthat::expect_equal(
     q@warnings,
     c(
-      " simpleWarning in eval(code, envir = object@env): This is warning 1\n",
-      " simpleWarning in eval(code, envir = object@env): This is warning 2\n"
+      "This is warning 1",
+      "This is warning 2"
     )
   )
 })
@@ -196,8 +196,8 @@ testthat::test_that("Joining two independent qenvs with messages results in obje
   testthat::expect_equal(
     q@messages,
     c(
-      " simpleMessage in message(\"This is message 1\"): This is message 1\n\n",
-      " simpleMessage in message(\"This is message 2\"): This is message 2\n\n"
+      "This is message 1\n",
+      "This is message 2\n"
     )
   )
 })

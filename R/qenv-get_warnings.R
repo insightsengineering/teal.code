@@ -15,6 +15,10 @@
 #' cat(get_warnings(warning_qenv))
 #' @export
 setGeneric("get_warnings", function(object) {
+  # this line forces evaluation of object before passing to the generic
+  # needed for error handling to work properly
+  object
+
   standardGeneric("get_warnings")
 })
 
@@ -36,9 +40,9 @@ setMethod("get_warnings", signature = c("qenv"), function(object) {
     warn <- object@warnings[warn_idx]
     if (warn != "") {
       warning_output <- paste(
-        warning_output, warn, "\nWhen running code:\n", paste(object@code[warn_idx], collapse = "\n")
+        warning_output, "\n>", warn, "\nWhen running code:\n", paste(object@code[warn_idx], collapse = "\n")
       )
     }
   }
-  paste(warning_output, "\n\nTrace:\n", paste(get_code(object), collapse = "\n"))
+  paste0(warning_output, "\n\nTrace:\n", paste(get_code(object), collapse = "\n"))
 })

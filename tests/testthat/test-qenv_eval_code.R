@@ -118,10 +118,10 @@ testthat::test_that("a warning when calling eval_code returns a qenv object whic
     c(
       "",
       paste0(
-        " simpleWarning in plot.window(xlim, ylim, \"\", ...): \"ff\" is not a graphical parameter\n simpleWarning in",
-        " title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...): \"ff\" is not a graphical parameter\n simple",
-        "Warning in axis(1, ...): \"ff\" is not a graphical parameter\n simpleWarning in axis(2, ...): \"ff\" is not",
-        " a graphical parameter\n"
+        "\"ff\" is not a graphical parameter",
+        "\"ff\" is not a graphical parameter",
+        "\"ff\" is not a graphical parameter",
+        "\"ff\" is not a graphical parameter"
       )
     )
   )
@@ -135,7 +135,7 @@ testthat::test_that("a message when calling eval_code returns a qenv object whic
     q@messages,
     c(
       "",
-      " simpleMessage in message(\"This is a message\"): This is a message\n\n"
+      "This is a message\n"
     )
   )
 })

@@ -3,8 +3,8 @@ testthat::test_that("get_warnings accepts a qenv object and returns character", 
   testthat::expect_identical(
     get_warnings(q),
     paste0(
-      "Warnings:  simpleWarning in eval(code, envir = object@env): This is a warning!\n \nWhen running code:\n ",
-      "warning(\"This is a warning!\") \n\nTrace:\n warning(\"This is a warning!\")"
+      "Warnings: \n> This is a warning! \nWhen running code:\n warning(\"This is a warning!\")\n\n",
+      "Trace:\nwarning(\"This is a warning!\")"
     )
   )
 })
@@ -24,10 +24,9 @@ testthat::test_that("get_warnings accepts a qenv object with 2 warnings", {
   testthat::expect_identical(
     get_warnings(q),
     paste0(
-      "Warnings:  simpleWarning in eval(code, envir = object@env): This is a warning 1!\n \nWhen running code:\n ",
-      "warning(\"This is a warning 1!\")  simpleWarning in eval(code, envir = object@env): This is a warning 2!\n",
-      " \nWhen running code:\n warning(\"This is a warning 2!\") \n\nTrace:\n warning(\"This is a warning 1!\")\n",
-      "warning(\"This is a warning 2!\")"
+      "Warnings: \n> This is a warning 1! \nWhen running code:\n warning(\"This is a warning 1!\")",
+      " \n> This is a warning 2! \nWhen running code:\n warning(\"This is a warning 2!\")\n\n",
+      "Trace:\nwarning(\"This is a warning 1!\")\nwarning(\"This is a warning 2!\")"
     )
   )
 })
@@ -40,10 +39,9 @@ testthat::test_that("get_warnings accepts a qenv object with a single eval_code 
   testthat::expect_identical(
     get_warnings(q),
     paste0(
-      "Warnings:  simpleWarning in eval(code, envir = object@env): This is a warning 1!\n simpleWarning in",
-      " eval(code, envir = object@env): This is a warning 2!\n \nWhen running code:\n {\n    warning(\"This is a",
-      " warning 1!\")\n    warning(\"This is a warning 2!\")\n} \n\nTrace:\n {\n    warning(\"This is a warning 1!\")",
-      "\n    warning(\"This is a warning 2!\")\n}"
+      "Warnings: \n> This is a warning 1!This is a warning 2! \nWhen running code:\n {\n    ",
+      "warning(\"This is a warning 1!\")\n    warning(\"This is a warning 2!\")\n}\n\nTrace:\n{\n",
+      "    warning(\"This is a warning 1!\")\n    warning(\"This is a warning 2!\")\n}"
     )
   )
 })
@@ -53,8 +51,8 @@ testthat::test_that("get_warnings accepts a qenv object with 1 warning eval_code
   testthat::expect_identical(
     get_warnings(q),
     paste0(
-      "Warnings:  simpleWarning in eval(code, envir = object@env): This is a warning 2!\n \nWhen running code:\n",
-      " warning(\"This is a warning 2!\") \n\nTrace:\n x <- 1\nwarning(\"This is a warning 2!\")"
+      "Warnings: \n> This is a warning 2! \nWhen running code:\n warning(\"This is a warning 2!\")\n\n",
+      "Trace:\nx <- 1\nwarning(\"This is a warning 2!\")"
     )
   )
 })
