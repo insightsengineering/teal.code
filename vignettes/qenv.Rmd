@@ -73,6 +73,27 @@ print(join_q)
 
 Dependent on the contents of the environments and order of code it may not be possible to join `qenv` objects. See the function documentation for more details.
 
+### Warnings and messages in `qenv` objects
+
+If warnings or messages are thrown when evaluating code in a `qenv` environment, they are captured and stored in the  `qenv` object. These messages and warnings can be accessed with the `@` operator.
+
+```{r}
+q_message <- eval_code(new_qenv(), quote(message('this is a message')))
+q_message@messages
+
+q_warning <- eval_code(new_qenv(), quote(warning('and this is a warning')))
+q_warning@warnings
+```
+
+If no warning or message occurs on a particular line of code, the corresponding message/warning value will be an empty string.
+
+```{r}
+q_message@warnings
+q_warning@messages
+```
+
+
+
 ## Using `qenv` inside `shiny` applications
 
 The functions above can be combined into a `shiny` application generating reproducible outputs. In the example below the `verbatim_popup` from `teal.widgets` is used to hide the code used to generate output in a modal dialog. 
