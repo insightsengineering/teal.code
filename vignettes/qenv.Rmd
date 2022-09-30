@@ -4,7 +4,7 @@ author: "NEST coreDev"
 date: "2022-10-01"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Basic chunks}
+  %\VignetteIndexEntry{qenv}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
