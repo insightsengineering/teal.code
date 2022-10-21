@@ -19,16 +19,20 @@ setGeneric("get_var", function(object, var) {
 #' @rdname get_var
 #' @export
 setMethod("get_var", signature = c("qenv", "character"), function(object, var) {
-  get(var, envir = object@env)
+  tryCatch(
+    get(var, envir = object@env),
+    error = function(e) {
+      message(conditionMessage(e))
+      NULL
+    }
+  )
 })
 
 #' @rdname get_var
 #' @export
 setMethod("get_var", signature = "qenv.error", function(object, var) {
-  stop(errorCondition(
-    list(message = conditionMessage(object)),
-    class = c("validation", "try-error", "simpleError")
-  ))
+  message(conditionMessage(object))
+  NULL
 })
 
 
@@ -45,8 +49,6 @@ setMethod("[[", signature = c("qenv", "ANY", "missing"), function(x, i, j, ...) 
 #' @rdname get_var
 #' @export
 `[[.qenv.error` <- function(x, i, j, ...) {
-  stop(errorCondition(
-    list(message = conditionMessage(x)),
-    class = c("validation", "try-error", "simpleError")
-  ))
+  message(conditionMessage(x))
+  NULL
 }
