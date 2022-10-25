@@ -1,8 +1,8 @@
 Type: Package
 Package: teal.code
 Title: Code Storage and Execution Class for `teal` Applications
-Version: 0.1.1.9008
-Date: 2022-09-09
+Version: 0.2.0.9000
+Date: 2022-10-14
 Authors@R: c(
     person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = c("aut", "cre")),
     person("Pawel", "Rucki", , "pawel.rucki@roche.com", role = "aut"),
@@ -25,7 +25,7 @@ Imports:
     R6,
     shiny,
     styler,
-    teal.widgets (>= 0.1.1)
+    teal.widgets (>= 0.2.0)
 Suggests:
     knitr,
     magrittr,
