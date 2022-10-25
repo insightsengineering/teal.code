@@ -19,7 +19,13 @@ setGeneric("get_var", function(object, var) {
 #' @rdname get_var
 #' @export
 setMethod("get_var", signature = c("qenv", "character"), function(object, var) {
-  get(var, envir = object@env)
+  tryCatch(
+    get(var, envir = object@env),
+    error = function(e) {
+      message(conditionMessage(e))
+      NULL
+    }
+  )
 })
 
 #' @rdname get_var
