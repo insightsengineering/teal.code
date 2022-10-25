@@ -31,8 +31,10 @@ setMethod("get_var", signature = c("qenv", "character"), function(object, var) {
 #' @rdname get_var
 #' @export
 setMethod("get_var", signature = "qenv.error", function(object, var) {
-  message(conditionMessage(object))
-  NULL
+  stop(errorCondition(
+    list(message = conditionMessage(object)),
+    class = c("validation", "try-error", "simpleError")
+  ))
 })
 
 
@@ -49,6 +51,8 @@ setMethod("[[", signature = c("qenv", "ANY", "missing"), function(x, i, j, ...) 
 #' @rdname get_var
 #' @export
 `[[.qenv.error` <- function(x, i, j, ...) {
-  message(conditionMessage(x))
-  NULL
+  stop(errorCondition(
+    list(message = conditionMessage(x)),
+    class = c("validation", "try-error", "simpleError")
+  ))
 }
