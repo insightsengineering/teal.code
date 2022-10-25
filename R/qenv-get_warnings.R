@@ -46,3 +46,9 @@ setMethod("get_warnings", signature = c("qenv"), function(object) {
   }
   paste0(warning_output, "\n\nTrace:\n", paste(get_code(object), collapse = "\n"))
 })
+
+#' @rdname get_warnings
+#' @export
+setMethod("get_warnings", "NULL", function(object) {
+  NULL
+})

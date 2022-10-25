@@ -92,7 +92,7 @@ q_message@warnings
 q_warning@messages
 ```
 
-
+A helper function `get_warnings()` is also available to produce a formatted string containing the warnings and the code used to produce them - it returns NULL when there are no warnings.
 
 ## Using `qenv` inside `shiny` applications
 

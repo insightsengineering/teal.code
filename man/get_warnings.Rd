@@ -4,6 +4,7 @@
 \alias{get_warnings}
 \alias{get_warnings,qenv.error-method}
 \alias{get_warnings,qenv-method}
+\alias{get_warnings,NULL-method}
 \title{Get the warnings of qenv object}
 \usage{
 get_warnings(object)
@@ -11,6 +12,8 @@ get_warnings(object)
 \S4method{get_warnings}{qenv.error}(object)
 
 \S4method{get_warnings}{qenv}(object)
+
+\S4method{get_warnings}{`NULL`}(object)
 }
 \arguments{
 \item{object}{(\code{qenv})}

@@ -14,6 +14,10 @@ testthat::test_that("get_warnings accepts a qenv.error object and returns NULL",
   testthat::expect_null(get_warnings(q))
 })
 
+testthat::test_that("get_warnings accepts a NULL object and returns NULL", {
+  testthat::expect_null(get_warnings(NULL))
+})
+
 testthat::test_that("get_warnings accepts a qenv object with no warning and returns NULL", {
   q <- new_qenv() %>% eval_code(bquote("x <- 1"))
   testthat::expect_null(get_warnings(q))
