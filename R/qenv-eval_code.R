@@ -28,24 +28,46 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
   object@env <- rlang::env_clone(object@env, parent = parent.env(.GlobalEnv))
   object@code <- c(object@code, code)
 
-  tryCatch(
-    {
-      eval(code, envir = object@env)
-      lockEnvironment(object@env, bindings = TRUE)
-      object
-    },
-    error = function(e) {
-      errorCondition(
-        message = sprintf(
-          "%s \n when evaluating qenv code:\n %s",
-          conditionMessage(e),
-          paste(code, collapse = "\n ")
-        ),
-        class = c("qenv.error", "try-error", "simpleError"),
-        trace = object@code
-      )
+  current_warnings <- ""
+  current_messages <- ""
+
+  for (code_line in code) {
+    x <- withCallingHandlers(
+      tryCatch(
+        {
+          eval(code_line, envir = object@env)
+          NULL
+        },
+        error = function(e) {
+          errorCondition(
+            message = sprintf(
+              "%s \n when evaluating qenv code:\n %s",
+              conditionMessage(e),
+              paste(code, collapse = "\n ")
+            ),
+            class = c("qenv.error", "try-error", "simpleError"),
+            trace = object@code
+          )
+        }
+      ),
+      warning = function(w) {
+        current_warnings <<- paste0(current_warnings, conditionMessage(w))
+        invokeRestart("muffleWarning")
+      },
+      message = function(m) {
+        current_messages <<- paste0(current_messages, conditionMessage(m))
+        invokeRestart("muffleMessage")
+      }
+    )
+    if (!is.null(x)) {
+      return(x)
     }
-  )
+
+    object@warnings <- c(object@warnings, current_warnings)
+    object@messages <- c(object@messages, current_messages)
+  }
+  lockEnvironment(object@env, bindings = TRUE)
+  object
 })
 
 #' @rdname eval_code

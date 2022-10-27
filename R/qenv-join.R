@@ -40,6 +40,8 @@ setMethod("join", signature = c("qenv", "qenv"), function(x, y) {
   id_unique <- !y@id %in% x@id
   x@id <- c(x@id, y@id[id_unique])
   x@code <- c(x@code, y@code[id_unique])
+  x@warnings <- c(x@warnings, y@warnings[id_unique])
+  x@messages <- c(x@messages, y@messages[id_unique])
 
   # insert (and overwrite) objects from y to x
   x@env <- rlang::env_clone(x@env, parent = parent.env(.GlobalEnv))

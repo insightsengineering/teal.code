@@ -8,11 +8,16 @@
 #'  of the `code` slot.
 #' @slot id (`integer`) random identifier of the code element to make sure uniqueness
 #'  when joining.
+#' @slot warnings (`character`) the warnings output when evaluating the code
+#' @slot messages (`character`) the messages output when evaluating the code
 #' @keywords internal
 setClass(
   "qenv",
-  slots = c(env = "environment", code = "expression", id = "integer"),
-  prototype = list(env = new.env(parent = parent.env(.GlobalEnv)), code = expression(), id = integer(0))
+  slots = c(env = "environment", code = "expression", id = "integer", warnings = "character", messages = "character"),
+  prototype = list(
+    env = new.env(parent = parent.env(.GlobalEnv)), code = expression(), id = integer(0),
+    warnings = character(0), messages = character(0)
+  )
 )
 
 #' It takes a `qenv` class and returns `TRUE` if the input is valid
@@ -21,6 +26,10 @@ setClass(
 setValidity("qenv", function(object) {
   if (length(object@code) != length(object@id)) {
     "@code and @id slots must have the same length."
+  } else if (length(object@code) != length(object@warnings)) {
+    "@code and @warnings slots must have the same length"
+  } else if (length(object@code) != length(object@messages)) {
+    "@code and @messages slots must have the same length"
   } else if (any(duplicated(object@id))) {
     "@id contains duplicated values."
   } else {

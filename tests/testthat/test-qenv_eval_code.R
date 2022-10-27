@@ -108,3 +108,47 @@ testthat::test_that("an error when calling eval_code returns a qenv.error object
   )
   testthat::expect_equal(q$message, "object 'w' not found \n when evaluating qenv code:\n z <- w * x")
 })
+
+testthat::test_that("a warning when calling eval_code returns a qenv object which has warnings", {
+  q <- eval_code(new_qenv(), quote("iris_data <- iris"))
+  q <- eval_code(q, quote("p <- hist(iris_data[, 'Sepal.Length'], ff = '')"))
+  testthat::expect_s4_class(q, "qenv")
+  testthat::expect_equal(
+    q@warnings,
+    c(
+      "",
+      paste0(
+        "\"ff\" is not a graphical parameter",
+        "\"ff\" is not a graphical parameter",
+        "\"ff\" is not a graphical parameter",
+        "\"ff\" is not a graphical parameter"
+      )
+    )
+  )
+})
+
+testthat::test_that("eval_code with a vector of code produces one warning element per code element", {
+  q <- eval_code(new_qenv(), c("x <- 1", "y <- 1", "warning('warn1')"))
+  testthat::expect_equal(c("", "", "warn1"), q@warnings)
+})
+
+
+testthat::test_that("a message when calling eval_code returns a qenv object which has messages", {
+  q <- eval_code(new_qenv(), quote("iris_data <- head(iris)"))
+  q <- eval_code(q, quote("message('This is a message')"))
+  testthat::expect_s4_class(q, "qenv")
+  testthat::expect_equal(
+    q@messages,
+    c(
+      "",
+      "This is a message\n"
+    )
+  )
+})
+
+testthat::test_that("eval_code returns a qenv object with empty messages and warnings when none are returned", {
+  q <- eval_code(new_qenv(), quote("iris_data <- head(iris)"))
+  testthat::expect_s4_class(q, "qenv")
+  testthat::expect_equal(q@messages, "")
+  testthat::expect_equal(q@warnings, "")
+})
