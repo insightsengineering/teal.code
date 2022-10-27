@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage line-rate="0.782258064516129" branch-rate="0" lines-covered="679" lines-valid="868" branches-covered="0" branches-valid="0" complexity="0" version="3.6.1" timestamp="2022-10-27 12:46:15">
+<coverage line-rate="0.782508630609896" branch-rate="0" lines-covered="680" lines-valid="869" branches-covered="0" branches-valid="0" complexity="0" version="3.6.1" timestamp="2022-10-27 13:20:23">
   <sources/>
   <packages>
-    <package name="teal.code" line-rate="0.782258064516129" branch-rate="0" complexity="0">
+    <package name="teal.code" line-rate="0.782508630609896" branch-rate="0" complexity="0">
       <classes>
         <class name="chunk.R" filename="R/chunk.R" line-rate="0.98" branch-rate="0" complexity="0">
           <methods>
@@ -1737,13 +1737,14 @@
             </method>
             <method name="get_eval_details_srv" signature="" line-rate="0" branch-rate="0">
               <lines>
+                <line number="74" hits="0" branch="false"/>
                 <line number="75" hits="0" branch="false"/>
                 <line number="76" hits="0" branch="false"/>
                 <line number="77" hits="0" branch="false"/>
                 <line number="78" hits="0" branch="false"/>
-                <line number="79" hits="0" branch="false"/>
+                <line number="80" hits="0" branch="false"/>
                 <line number="81" hits="0" branch="false"/>
-                <line number="82" hits="0" branch="false"/>
+                <line number="84" hits="0" branch="false"/>
                 <line number="85" hits="0" branch="false"/>
                 <line number="86" hits="0" branch="false"/>
                 <line number="87" hits="0" branch="false"/>
@@ -1751,7 +1752,7 @@
                 <line number="89" hits="0" branch="false"/>
                 <line number="90" hits="0" branch="false"/>
                 <line number="91" hits="0" branch="false"/>
-                <line number="92" hits="0" branch="false"/>
+                <line number="93" hits="0" branch="false"/>
                 <line number="94" hits="0" branch="false"/>
                 <line number="95" hits="0" branch="false"/>
                 <line number="96" hits="0" branch="false"/>
@@ -1777,15 +1778,15 @@
                 <line number="116" hits="0" branch="false"/>
                 <line number="117" hits="0" branch="false"/>
                 <line number="118" hits="0" branch="false"/>
-                <line number="119" hits="0" branch="false"/>
+                <line number="120" hits="0" branch="false"/>
                 <line number="121" hits="0" branch="false"/>
                 <line number="122" hits="0" branch="false"/>
                 <line number="123" hits="0" branch="false"/>
-                <line number="124" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="get_eval_details_ui" signature="" line-rate="0" branch-rate="0">
               <lines>
+                <line number="138" hits="0" branch="false"/>
                 <line number="139" hits="0" branch="false"/>
                 <line number="140" hits="0" branch="false"/>
                 <line number="141" hits="0" branch="false"/>
@@ -1800,14 +1801,14 @@
                 <line number="150" hits="0" branch="false"/>
                 <line number="151" hits="0" branch="false"/>
                 <line number="152" hits="0" branch="false"/>
-                <line number="153" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="get_number_in_box" signature="" line-rate="0" branch-rate="0">
               <lines>
+                <line number="173" hits="0" branch="false"/>
                 <line number="174" hits="0" branch="false"/>
                 <line number="175" hits="0" branch="false"/>
-                <line number="176" hits="0" branch="false"/>
+                <line number="177" hits="0" branch="false"/>
                 <line number="178" hits="0" branch="false"/>
                 <line number="179" hits="0" branch="false"/>
                 <line number="180" hits="0" branch="false"/>
@@ -1819,7 +1820,6 @@
                 <line number="186" hits="0" branch="false"/>
                 <line number="187" hits="0" branch="false"/>
                 <line number="188" hits="0" branch="false"/>
-                <line number="189" hits="0" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -1867,13 +1867,14 @@
             <line number="57" hits="0" branch="false"/>
             <line number="58" hits="0" branch="false"/>
             <line number="59" hits="0" branch="false"/>
+            <line number="74" hits="0" branch="false"/>
             <line number="75" hits="0" branch="false"/>
             <line number="76" hits="0" branch="false"/>
             <line number="77" hits="0" branch="false"/>
             <line number="78" hits="0" branch="false"/>
-            <line number="79" hits="0" branch="false"/>
+            <line number="80" hits="0" branch="false"/>
             <line number="81" hits="0" branch="false"/>
-            <line number="82" hits="0" branch="false"/>
+            <line number="84" hits="0" branch="false"/>
             <line number="85" hits="0" branch="false"/>
             <line number="86" hits="0" branch="false"/>
             <line number="87" hits="0" branch="false"/>
@@ -1881,7 +1882,7 @@
             <line number="89" hits="0" branch="false"/>
             <line number="90" hits="0" branch="false"/>
             <line number="91" hits="0" branch="false"/>
-            <line number="92" hits="0" branch="false"/>
+            <line number="93" hits="0" branch="false"/>
             <line number="94" hits="0" branch="false"/>
             <line number="95" hits="0" branch="false"/>
             <line number="96" hits="0" branch="false"/>
@@ -1907,11 +1908,11 @@
             <line number="116" hits="0" branch="false"/>
             <line number="117" hits="0" branch="false"/>
             <line number="118" hits="0" branch="false"/>
-            <line number="119" hits="0" branch="false"/>
+            <line number="120" hits="0" branch="false"/>
             <line number="121" hits="0" branch="false"/>
             <line number="122" hits="0" branch="false"/>
             <line number="123" hits="0" branch="false"/>
-            <line number="124" hits="0" branch="false"/>
+            <line number="138" hits="0" branch="false"/>
             <line number="139" hits="0" branch="false"/>
             <line number="140" hits="0" branch="false"/>
             <line number="141" hits="0" branch="false"/>
@@ -1926,10 +1927,10 @@
             <line number="150" hits="0" branch="false"/>
             <line number="151" hits="0" branch="false"/>
             <line number="152" hits="0" branch="false"/>
-            <line number="153" hits="0" branch="false"/>
+            <line number="173" hits="0" branch="false"/>
             <line number="174" hits="0" branch="false"/>
             <line number="175" hits="0" branch="false"/>
-            <line number="176" hits="0" branch="false"/>
+            <line number="177" hits="0" branch="false"/>
             <line number="178" hits="0" branch="false"/>
             <line number="179" hits="0" branch="false"/>
             <line number="180" hits="0" branch="false"/>
@@ -1941,7 +1942,6 @@
             <line number="186" hits="0" branch="false"/>
             <line number="187" hits="0" branch="false"/>
             <line number="188" hits="0" branch="false"/>
-            <line number="189" hits="0" branch="false"/>
           </lines>
         </class>
         <class name="include_css_js.R" filename="R/include_css_js.R" line-rate="0" branch-rate="0" complexity="0">
@@ -1983,22 +1983,23 @@
                 <line number="30" hits="63" branch="false"/>
                 <line number="31" hits="63" branch="false"/>
                 <line number="32" hits="63" branch="false"/>
+                <line number="33" hits="63" branch="false"/>
               </lines>
             </method>
             <method name="environment#character" signature="" line-rate="1" branch-rate="0">
               <lines>
-                <line number="42" hits="1" branch="false"/>
+                <line number="43" hits="1" branch="false"/>
               </lines>
             </method>
             <method name="environment#language" signature="" line-rate="1" branch-rate="0">
               <lines>
-                <line number="52" hits="24" branch="false"/>
                 <line number="53" hits="24" branch="false"/>
+                <line number="54" hits="24" branch="false"/>
               </lines>
             </method>
             <method name="missing#missing" signature="" line-rate="1" branch-rate="0">
               <lines>
-                <line number="63" hits="33" branch="false"/>
+                <line number="64" hits="33" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -2010,10 +2011,11 @@
             <line number="30" hits="63" branch="false"/>
             <line number="31" hits="63" branch="false"/>
             <line number="32" hits="63" branch="false"/>
-            <line number="42" hits="1" branch="false"/>
-            <line number="52" hits="24" branch="false"/>
+            <line number="33" hits="63" branch="false"/>
+            <line number="43" hits="1" branch="false"/>
             <line number="53" hits="24" branch="false"/>
-            <line number="63" hits="33" branch="false"/>
+            <line number="54" hits="24" branch="false"/>
+            <line number="64" hits="33" branch="false"/>
           </lines>
         </class>
         <class name="qenv-eval_code.R" filename="R/qenv-eval_code.R" line-rate="0.977777777777778" branch-rate="0" complexity="0">
