@@ -21,12 +21,14 @@ Imports:
     checkmate,
     crayon,
     lifecycle,
+    methods,
     R6,
     shiny,
     styler,
     teal.widgets (>= 0.2.0)
 Suggests:
     knitr,
+    magrittr,
     rlang,
     rmarkdown,
     testthat (>= 2.0)

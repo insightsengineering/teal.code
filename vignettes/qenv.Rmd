@@ -1,0 +1,145 @@
+---
+title: "qenv"
+author: "NEST coreDev"
+date: "2022-10-01"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{qenv}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Introduction to `qenv`
+
+A `qenv` is an R object which contains code and an environment and can be used to create reproducible outputs.
+
+### Initialization
+
+The `new_qenv()` function is used to create an initial `qenv` object:
+
+```{r}
+library(teal.code)
+
+# can be created without any code/environment
+empty_qenv <- new_qenv()
+print(empty_qenv)
+
+# or can be created with objects inside the environment
+my_qenv <- new_qenv(env = list2env(list(x = 5)), code = "x <- 5")
+print(my_qenv)
+```
+
+If the `qenv` is created with objects inside the environment then to ensure reproducibility the code used to generate those objects should be provided. It is the users responsibility to ensure this is the case.
+
+### `qenv` basic usage
+
+The `eval_code()` function can be used to run code inside a `qenv` environment returning a new `qenv` object.  
+
+```{r}
+library(magrittr)
+
+q2 <- eval_code(my_qenv, "y <- x * 2") %>% eval_code("z <- y * 2")
+
+# my_qenv still contains only x
+print(my_qenv)
+
+# q2 contains x, y and z
+print(q2)
+```
+
+Objects can be extracted from a `qenv` using `[[` for example in order for them to be displayed in a shiny app. The code used to generate the `qenv` is obtained using the `get_code()` function.
+
+```{r}
+
+print(q2[["y"]])
+
+cat(paste(get_code(q2), collapse = "\n"))
+```
+### Joining `qenv` objects
+
+Given a pair of `qenv` objects it might be possible to "join" them together creating a new `qenv` object containing the union of both environments together with the code needed to reproduce it:
+
+```{r}
+
+common_q <- eval_code(new_qenv(), quote(x <- 1))
+
+x_q <- eval_code(common_q, quote(y <- 5))
+y_q <- eval_code(common_q, quote(z <- 5))
+
+join_q <- join(x_q, y_q)
+
+print(join_q)
+```
+
+Dependent on the contents of the environments and order of code it may not be possible to join `qenv` objects. See the function documentation for more details.
+
+### Warnings and messages in `qenv` objects
+
+If warnings or messages are thrown when evaluating code in a `qenv` environment, they are captured and stored in the  `qenv` object. These messages and warnings can be accessed with the `@` operator.
+
+```{r}
+q_message <- eval_code(new_qenv(), quote(message('this is a message')))
+q_message@messages
+
+q_warning <- eval_code(new_qenv(), quote(warning('and this is a warning')))
+q_warning@warnings
+```
+
+If no warning or message occurs on a particular line of code, the corresponding message/warning value will be an empty string.
+
+```{r}
+q_message@warnings
+q_warning@messages
+```
+
+A helper function `get_warnings()` is also available to produce a formatted string containing the warnings and the code used to produce them - it returns NULL when there are no warnings.
+
+## Using `qenv` inside `shiny` applications
+
+The functions above can be combined into a `shiny` application generating reproducible outputs. In the example below the `verbatim_popup` from `teal.widgets` is used to hide the code used to generate output in a modal dialog. 
+When using a `qenv` to evaluate code, if an error occurs then an object of type `qenv.error` is created. This object can be used in all the same places a `qenv` object is used and means you do not need to change your code to handle these errors - select `error_option` in the example below to see `qenv` error handling in action. 
+
+```{r}
+library(shiny)
+library(teal.widgets)
+
+# create an initial qenv with the data in
+data_q <- new_qenv() %>% eval_code("iris_data <- iris")
+
+ui <- fluidPage(
+  radioButtons(
+    "option", "Choose a column to plot:",
+    c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "error_option")
+  ),
+  # button for the Code to be shown when clicked on
+  verbatim_popup_ui("rcode", button_label = "Show Code"),
+  plotOutput("plot")
+)
+
+server <- function(input, output, session) {
+
+  # create a qenv containing the reproducible output
+  output_q <- reactive({
+    req(input$option)
+    eval_code(
+      data_q,
+      bquote(p <- hist(iris_data[, .(input$option)]))
+    )
+  })
+
+  # display output
+  output$plot <- renderPlot(output_q()[["p"]])
+
+  # code is displayed when "Show Code" button is clicked on
+  verbatim_popup_srv("rcode", reactive(paste(get_code(output_q()), collapse = "\n")), title = "Code")
+}
+
+if (interactive()) {
+  shinyApp(ui, server)
+}
+```
+
+
+## `qenv` and `teal` applications
+
+The `qenv` object can easily be incorporated into `teal` modules. See the `teal` vignette [Creating Custom Modules](https://insightsengineering.github.io/teal/main/articles/creating-custom-modules.html) for further details.
