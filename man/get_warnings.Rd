@@ -5,7 +5,7 @@
 \alias{get_warnings,qenv.error-method}
 \alias{get_warnings,qenv-method}
 \alias{get_warnings,NULL-method}
-\title{Get the warnings of qenv object}
+\title{Get the warnings of \code{qenv} object}
 \usage{
 get_warnings(object)
 
@@ -22,7 +22,7 @@ get_warnings(object)
 \code{character} containing warning information or \code{NULL} if no warnings
 }
 \description{
-Get the warnings of qenv object
+Get the warnings of \code{qenv} object
 }
 \examples{
 data_q <- new_qenv()

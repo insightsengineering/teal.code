@@ -16,8 +16,10 @@ reference:
       - eval_code
       - get_code
       - get_var
+      - get_warnings
       - join
       - new_qenv
+      - show,qenv-method
   - title: "Reproducible Modules (deprecated)"
     desc: Functions to create a code chunk stack
     contents:

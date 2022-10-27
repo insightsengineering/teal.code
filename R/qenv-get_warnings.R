@@ -1,4 +1,4 @@
-#' Get the warnings of qenv object
+#' Get the warnings of `qenv` object
 #'
 #' @param object (`qenv`)
 #'
