@@ -1663,7 +1663,6 @@ testthat::test_that("chunks_validate_all", {
 
 
 testthat::test_that("chunks_deep_clone", {
-
   # check validation
   testthat::expect_error(chunks_deep_clone(list()), "Assertion on 'chunks' failed")
   # note chunk not chunks here

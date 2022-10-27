@@ -28,7 +28,8 @@ setMethod(
     lockEnvironment(new_env, bindings = TRUE)
     id <- sample.int(.Machine$integer.max, size = length(code))
     methods::new(
-      "qenv", env = new_env, code = code, warnings = rep("", length(code)), messages = rep("", length(code)), id = id
+      "qenv",
+      env = new_env, code = code, warnings = rep("", length(code)), messages = rep("", length(code)), id = id
     )
   }
 )

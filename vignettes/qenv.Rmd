@@ -78,10 +78,10 @@ Dependent on the contents of the environments and order of code it may not be po
 If warnings or messages are thrown when evaluating code in a `qenv` environment, they are captured and stored in the  `qenv` object. These messages and warnings can be accessed with the `@` operator.
 
 ```{r}
-q_message <- eval_code(new_qenv(), quote(message('this is a message')))
+q_message <- eval_code(new_qenv(), quote(message("this is a message")))
 q_message@messages
 
-q_warning <- eval_code(new_qenv(), quote(warning('and this is a warning')))
+q_warning <- eval_code(new_qenv(), quote(warning("and this is a warning")))
 q_warning@warnings
 ```
 
@@ -117,7 +117,6 @@ ui <- fluidPage(
 )
 
 server <- function(input, output, session) {
-
   # create a qenv containing the reproducible output
   output_q <- reactive({
     req(input$option)

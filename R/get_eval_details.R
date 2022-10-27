@@ -71,7 +71,6 @@ show_eval_details_modal <- function(chunks) {
 #' @export
 #'
 get_eval_details_srv <- function(id, chunks) {
-
   lifecycle::deprecate_warn(
     when = "0.1.2",
     what = "get_eval_details_srv()",

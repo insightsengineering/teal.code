@@ -36,7 +36,7 @@ setMethod("get_warnings", signature = c("qenv"), function(object) {
   }
 
   warning_output <- "Warnings:"
-  for(warn_idx in seq_along(object@warnings)) {
+  for (warn_idx in seq_along(object@warnings)) {
     warn <- object@warnings[warn_idx]
     if (warn != "") {
       warning_output <- paste(
