@@ -1,5 +1,5 @@
 ---
-title: "qenv"
+title: "`qenv`"
 author: "NEST coreDev"
 date: "2022-10-01"
 output: rmarkdown::html_vignette
