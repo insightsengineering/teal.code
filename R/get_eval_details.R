@@ -72,7 +72,7 @@ show_eval_details_modal <- function(chunks) {
 #'
 get_eval_details_srv <- function(id, chunks) {
   lifecycle::deprecate_warn(
-    when = "0.1.2",
+    when = "0.2.1",
     what = "get_eval_details_srv()",
     details = "Chunks are being deprecated qenv objects should be used instead"
   )
