@@ -1014,7 +1014,7 @@ init_chunks <- function(new_chunks = chunks_new(), session = get_session_object(
 chunks_new <- function(envir = new.env()) {
   lifecycle::deprecate_warn(
     when = "0.2.1",
-    what = "init_chunks()",
+    what = "chunks_new()",
     details = "Chunks are being deprecated qenv objects should be used instead"
   )
 
