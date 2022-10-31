@@ -7,9 +7,9 @@
 \alias{join,qenv,qenv.error-method}
 \title{Join two \code{qenv} objects}
 \usage{
-join(x, y)
+join(x, y, force, verbose)
 
-\S4method{join}{qenv,qenv}(x, y)
+\S4method{join}{qenv,qenv}(x, y, force, verbose)
 
 \S4method{join}{qenv.error,ANY}(x, y)
 
@@ -19,6 +19,13 @@ join(x, y)
 \item{x}{(\code{qenv})}
 
 \item{y}{(\code{qenv})}
+
+\item{force}{(\code{logical(1)}) whether to turn off automatic validation and duplicated code removal, by default \code{FALSE}.
+Please be careful as the default setup is recommended and supported,
+the forced join is available only for advanced users who are aware of all risks.}
+
+\item{verbose}{(\code{logical(1)}) whether to print messages and warnings connected with the \code{force} argument.
+By default to \code{TRUE}.}
 }
 \description{
 Combine two \code{qenv} objects by merging their environments and the code.

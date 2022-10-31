@@ -201,3 +201,35 @@ testthat::test_that("Joining two independent qenvs with messages results in obje
     )
   )
 })
+
+testthat::test_that("Forced join of two dependent qenvs", {
+  q1 <- new_qenv() %>% eval_code("x = 2")
+  q2 <- new_qenv() %>% eval_code("x = 3")
+
+  testthat::expect_error(join(q1, q2), "Not possible to join qenv objects")
+
+  testthat::expect_message(
+    q <- join(q1, q2, force = TRUE),
+    "The join method of qenv was forced, please be careful and manually validate the results"
+  )
+
+  expect_identical(q[["x"]], 3)
+  expect_identical(get_code(q), c("x = 2", "x = 3"))
+})
+
+testthat::test_that("Forced join of two independent qenvs", {
+  q1 <- new_qenv() %>% eval_code("x = 2")
+  q2 <- new_qenv() %>% eval_code("y = 3")
+
+  testthat::expect_warning(
+    testthat::expect_message(
+      q <- join(q1, q2, force = TRUE),
+      "The join method of qenv was forced, please be careful and manually validate the results"
+    ),
+    "Forced join is not recomended for this scenario, the default mechanism seems to be suited"
+  )
+
+  expect_identical(q[["x"]], 2)
+  expect_identical(q[["y"]], 3)
+  expect_identical(get_code(q), c("x = 2", "y = 3"))
+})

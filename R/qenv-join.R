@@ -9,6 +9,11 @@
 #' - more cases to be done
 #' @param x (`qenv`)
 #' @param y (`qenv`)
+#' @param force (`logical(1)`) whether to turn off automatic validation and duplicated code removal, by default `FALSE`.
+#' Please be careful as the default setup is recommended and supported,
+#' the forced join is available only for advanced users who are aware of all risks.
+#' @param verbose (`logical(1)`) whether to print messages and warnings connected with the `force` argument.
+#' By default to `TRUE`.
 #' @examples
 #' q1 <- new_qenv(
 #'   code = c(iris1 = "iris1 <- iris", mtcars1 = "mtcars1 <- mtcars"),
@@ -23,30 +28,54 @@
 #' qq <- join(q1, q2)
 #' get_code(qq)
 #' @export
-setGeneric("join", function(x, y) {
+setGeneric("join", function(x, y, force, verbose) {
   standardGeneric("join")
 })
 
 #' @rdname join
 #' @export
-setMethod("join", signature = c("qenv", "qenv"), function(x, y) {
+setMethod("join", signature = c("qenv", "qenv"), function(x, y, force, verbose) {
+  if (missing(force) || !is.logical(force)) force <- FALSE
+  if (missing(verbose) || !is.logical(verbose)) verbose <- TRUE
+
   join_validation <- .check_joinable(x, y)
 
-  # join expressions
-  if (!isTRUE(join_validation)) {
-    stop(join_validation)
+  if (isFALSE(force)) {
+    # Default
+
+    # join expressions validation
+    if (!isTRUE(join_validation)) {
+      stop(join_validation)
+    }
+
+    id_unique <- !y@id %in% x@id
+    x@id <- c(x@id, y@id[id_unique])
+    x@code <- c(x@code, y@code[id_unique])
+    x@warnings <- c(x@warnings, y@warnings[id_unique])
+    x@messages <- c(x@messages, y@messages[id_unique])
+
+    # insert (and overwrite) objects from y to x
+    x@env <- rlang::env_clone(x@env, parent = parent.env(.GlobalEnv))
+    rlang::env_coalesce(env = x@env, from = y@env)
+    x
+  } else {
+    if (verbose) {
+      message("The join method of qenv was forced, please be careful and manually validate the results.")
+      if (isTRUE(join_validation)) {
+        warning("Forced join is not recomended for this scenario, the default mechanism seems to be suited.")
+      }
+    }
+
+    y@id <- c(x@id, y@id)
+    y@code <- c(x@code, y@code)
+    y@warnings <- c(x@warnings, y@warnings)
+    y@messages <- c(x@messages, y@messages)
+
+    # insert (and overwrite) objects from y to x
+    y@env <- rlang::env_clone(y@env, parent = parent.env(.GlobalEnv))
+    rlang::env_coalesce(env = y@env, from = x@env)
+    y
   }
-
-  id_unique <- !y@id %in% x@id
-  x@id <- c(x@id, y@id[id_unique])
-  x@code <- c(x@code, y@code[id_unique])
-  x@warnings <- c(x@warnings, y@warnings[id_unique])
-  x@messages <- c(x@messages, y@messages[id_unique])
-
-  # insert (and overwrite) objects from y to x
-  x@env <- rlang::env_clone(x@env, parent = parent.env(.GlobalEnv))
-  rlang::env_coalesce(env = x@env, from = y@env)
-  x
 })
 
 #' @rdname join
