@@ -42,7 +42,7 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
           errorCondition(
             message = sprintf(
               "%s \n when evaluating qenv code:\n %s",
-              conditionMessage(e),
+              cli::ansi_strip(conditionMessage(e)),
               paste(code, collapse = "\n ")
             ),
             class = c("qenv.error", "try-error", "simpleError"),
