@@ -51,11 +51,11 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
         }
       ),
       warning = function(w) {
-        current_warnings <<- paste0(current_warnings, conditionMessage(w))
+        current_warnings <<- paste0(current_warnings, cli::ansi_strip(conditionMessage(w)))
         invokeRestart("muffleWarning")
       },
       message = function(m) {
-        current_messages <<- paste0(current_messages, conditionMessage(m))
+        current_messages <<- paste0(current_messages, cli::ansi_strip(conditionMessage(m)))
         invokeRestart("muffleMessage")
       }
     )
