@@ -130,7 +130,7 @@ server <- function(input, output, session) {
   output$plot <- renderPlot(output_q()[["p"]])
 
   # code is displayed when "Show Code" button is clicked on
-  verbatim_popup_srv("rcode", reactive(paste(get_code(output_q()), collapse = "\n")), title = "Code")
+  verbatim_popup_srv("rcode", reactive(get_code(output_q())), title = "Code")
 }
 
 if (interactive()) {
