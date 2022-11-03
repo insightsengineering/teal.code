@@ -42,7 +42,7 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
           errorCondition(
             message = sprintf(
               "%s \n when evaluating qenv code:\n %s",
-              cli::ansi_strip(conditionMessage(e)),
+              .ansi_strip(conditionMessage(e)),
               paste(code, collapse = "\n ")
             ),
             class = c("qenv.error", "try-error", "simpleError"),
@@ -51,11 +51,11 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
         }
       ),
       warning = function(w) {
-        current_warnings <<- paste0(current_warnings, cli::ansi_strip(conditionMessage(w)))
+        current_warnings <<- paste0(current_warnings, .ansi_strip(conditionMessage(w)))
         invokeRestart("muffleWarning")
       },
       message = function(m) {
-        current_messages <<- paste0(current_messages, cli::ansi_strip(conditionMessage(m)))
+        current_messages <<- paste0(current_messages, .ansi_strip(conditionMessage(m)))
         invokeRestart("muffleMessage")
       }
     )
@@ -88,3 +88,13 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
 setMethod("eval_code", signature = "qenv.error", function(object, code) {
   object
 })
+
+# if cli is installed rlang adds terminal printing characters
+# which need to be removed
+.ansi_strip <- function(chr) {
+  if (requireNamespace("cli", quietly = TRUE)) {
+    cli::ansi_strip(chr)
+  } else {
+    chr
+  }
+}
