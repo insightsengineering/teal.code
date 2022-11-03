@@ -9,7 +9,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-NOTE: Chunks are being deprecated `qenv` objects should be used instead - new vignettes are on their way.
 
 Reproducibility is an important feature when it comes to data analysis for the following reasons:
 
@@ -21,3 +20,6 @@ This is where the `qenv` object of the`teal.code` package comes into play. It pr
 Note that there is a public [`shinymeta`](https://github.com/rstudio/shinymeta) R package from `RStudio` that offers similar functionality. However, currently, `shinymeta` can not be easily integrated into `teal` modules and hence we recommend using `qenv` for `teal` based apps.
 
 For further details see the [`qenv` vignette](https://insightsengineering.github.io/teal.code/articles/qenv.html).
+
+Note: the older method of handling reproducibility, `chunks`, have now been deprecated and `qenv` should be used instead.
+
