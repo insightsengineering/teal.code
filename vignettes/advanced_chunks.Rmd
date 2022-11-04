@@ -1,7 +1,7 @@
 ---
 title: "Advanced chunks"
 author: "NEST coreDev"
-date: "2022-10-01"
+date: "2022-11-03"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Advanced chunks}
