@@ -582,6 +582,7 @@ testthat::test_that("chunks get_rcode", {
 
 
 testthat::test_that("chunks_eval", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
   testthat::expect_silent({
     rm(list = ls())
     dataset <- data.frame(x = c(1, 2, 3, 4, 5, 6), y = c(1, 1, 1, 1, 1, 1))
@@ -604,6 +605,7 @@ testthat::test_that("chunks_eval", {
   )
 })
 testthat::test_that("get_code_chunk", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
   testthat::expect_silent({
     rm(list = ls())
     dataset <- data.frame(x = c(1, 2, 3, 4, 5, 6), y = c(1, 1, 1, 1, 1, 1))
@@ -627,6 +629,7 @@ testthat::test_that("get_code_chunk", {
 })
 
 testthat::test_that("get_code_chunk curly braces", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
   testthat::expect_silent({
     rm(list = ls())
     dataset <- data.frame(x = c(1, 2, 3, 4, 5, 6), y = c(1, 1, 1, 1, 1, 1))
@@ -650,6 +653,7 @@ testthat::test_that("get_code_chunk curly braces", {
 })
 
 testthat::test_that("init_chunks", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
   session <- new.env()
   session$userData <- new.env() # nolint
   session$ns <- function(x) {
@@ -666,21 +670,25 @@ testthat::test_that("init_chunks", {
 })
 
 testthat::test_that("chunks_new returns R6 chunks object", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
   chunks_1 <- chunks_new()
   testthat::expect_identical(class(chunks_1), c("chunks", "R6"))
 })
 
 testthat::test_that("chunks_new accepts environment object or empty as input", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
   testthat::expect_error(chunks_new(envir = new.env()), NA)
   testthat::expect_error(chunks_new(), NA)
 })
 
 testthat::test_that("chunks_new throws error when an input is not environment", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
   testthat::expect_error(chunks_new(envir = "AA"), "Must be an environment")
   testthat::expect_error(chunks_new(envir = 123), "Must be an environment")
 })
 
 testthat::test_that("set chunk environment", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
   rm(list = ls())
   my_chunks <- chunks_new(envir = environment())
   testthat::expect_equal(
@@ -794,6 +802,7 @@ testthat::test_that("deep clone method", {
 
 
 testthat::test_that("lhs and rhs", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
   testthat::expect_silent({
     rm(list = ls())
     dataset <- data.frame(x = c(1, 2, 3, 4, 5, 6), y = c(1, 1, 1, 1, 1, 1))
@@ -818,6 +827,7 @@ testthat::test_that("lhs and rhs", {
 
 # * push_chunks ====
 testthat::test_that("chunks push_chunks", {
+  rlang::local_options(lifecycle_verbosity = "quiet")
   testthat::expect_silent({
     chunks_object <- chunks$new()
     chunks_object$push(bquote(x <- 1))
@@ -1653,7 +1663,6 @@ testthat::test_that("chunks_validate_all", {
 
 
 testthat::test_that("chunks_deep_clone", {
-
   # check validation
   testthat::expect_error(chunks_deep_clone(list()), "Assertion on 'chunks' failed")
   # note chunk not chunks here

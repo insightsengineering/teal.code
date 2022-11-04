@@ -1,7 +1,9 @@
 ## Module ----
 #' Shows Evaluation Details Modal
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
+#'
 #' Use the [shiny::showModal()] function to show the errors generated from chunks.
 #'
 #' @param chunks (`chunks`)\cr
@@ -59,8 +61,8 @@ show_eval_details_modal <- function(chunks) {
 
 #' Server part of \code{get_chunks_info}
 #'
-#' @description `r lifecycle::badge("stable")`
-#'
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #' @inheritParams shiny::moduleServer
 #' @inheritParams show_eval_details_modal
 #'
@@ -69,6 +71,12 @@ show_eval_details_modal <- function(chunks) {
 #' @export
 #'
 get_eval_details_srv <- function(id, chunks) {
+  lifecycle::deprecate_warn(
+    when = "0.2.1",
+    what = "get_eval_details_srv()",
+    details = "Chunks are being deprecated qenv objects should be used instead"
+  )
+
   if (!inherits(chunks, "chunks")) {
     stop("Provided chunks are not of class chunks. Make sure to use init_chunks() in the module's server function.")
   }
@@ -117,7 +125,9 @@ get_eval_details_srv <- function(id, chunks) {
 
 #' The `UI` part of get chunks info module
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
+#'
 #' @param id (`character`)\cr
 #' id of a shiny module
 #'

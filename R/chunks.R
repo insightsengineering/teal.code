@@ -2,12 +2,12 @@
 
 #' Multiple Code chunk handler
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #' @name chunks
 #' @docType class
 #' @keywords data
 #'
-#' @description
 #' \code{chunks} is a specialized stack for call objects and comments. It is intended to capture and evaluate R code for
 #' a sequence of analysis steps.
 #'
@@ -681,7 +681,8 @@ get_session_object <- function() {
 
 #' Gets chunks object
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #'
 #' @param session optional, (\code{ShinySession})\cr
 #'  \code{shiny} session object, if missing then
@@ -721,8 +722,8 @@ clone_env <- function(envir_from, envir_to) {
 
 #' Pushes a code chunk for global chunks
 #'
-#' @description `r lifecycle::badge("stable")`
-#'
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #' @param expression (\code{call}) Expression that contains a function call.
 #' @param id optional, (\code{character}) ID given for the code chunk
 #' @param chunks optional, (\code{chunks}) object.
@@ -751,8 +752,8 @@ chunks_push <- function(expression,
 
 #' Pushes a chunks stack to global chunks
 #'
-#' @description `r lifecycle::badge("stable")`
-#'
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #' @inheritParams chunks_push
 #' @param x (\code{chunks}) stack object
 #' @param overwrite optional, (\code{logical}) Whether to ignore conflicts
@@ -784,8 +785,8 @@ chunks_push_chunks <- function(x,
 
 #' Pushes a merged_dataset to chunks
 #'
-#' @description `r lifecycle::badge("stable")`
-#'
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #' @inheritParams chunks_push
 #' @param x (\code{list}) outcome of \code{data_merge_srv}
 #'
@@ -801,8 +802,8 @@ chunks_push_data_merge <- function(x, chunks = get_chunks_object()) {
 
 #' Pushes a code comment chunk for global chunks
 #'
-#' @description `r lifecycle::badge("stable")`
-#'
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #' @inheritParams chunks_push
 #' @param comment (code{character}) Comment to be inserted into the Show-R code.
 #'
@@ -827,8 +828,8 @@ chunks_push_comment <- function(comment,
 
 #' Adds an empty line to the code chunks
 #'
-#' @description `r lifecycle::badge("stable")`
-#'
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #' @inheritParams chunks_push
 #'
 #' @return NULL
@@ -850,7 +851,8 @@ chunks_push_new_line <- function(chunks = get_chunks_object()) {
 
 #' Evaluates all remaining chunks
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #'
 #' You can evaluate all remaining chunks of chunks being setup in the shiny session (see [get_chunks_object()]).
 #' The value of the last chunk being evaluated will be returned.
@@ -877,8 +879,8 @@ chunks_eval <- function(chunks = get_chunks_object()) {
 #'
 #' Keep code pieces.
 #'
-#' @description `r lifecycle::badge("stable")`
-#'
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #' @inheritParams chunks_push
 #' @param overwrite (\code{logical}) Whether to use values from the current environment
 #'   or just use a new one
@@ -895,7 +897,8 @@ chunks_uneval <- function(chunks = get_chunks_object(), overwrite = FALSE, envir
 
 #' Evaluates all remaining chunks and validate if error
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #'
 #' You can evaluate all remaining chunks of chunks being setup in the shiny session (see [get_chunks_object()]).
 #' The value of the last chunk being evaluated will be returned.
@@ -912,7 +915,8 @@ chunks_safe_eval <- function(chunks = get_chunks_object()) {
 
 #' Returns the R-Code from a `chunks` object
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #'
 #' This function returns a list of the R-Code that reproduces all currently registered chunks
 #' inside the chunk stack.
@@ -932,7 +936,9 @@ chunks_get_rcode <- function(chunks = get_chunks_object()) {
 
 #' Gets warnings from the \code{chunks} object
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
+#'
 #' This function returns a list of all the warnings encountered during evaluation of the code
 #' in the \code{chunks} object.
 #'
@@ -948,7 +954,8 @@ chunks_warnings <- function(chunks = get_chunks_object()) {
 
 #' Gets messages from the \code{chunks} object
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #'
 #' This function returns a list of all the messages encountered during evaluation of the code
 #' in the \code{chunks} object.
@@ -965,7 +972,8 @@ chunks_messages <- function(chunks = get_chunks_object()) {
 
 #' Allows using chunks in the global environment of a teal app
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #'
 #' @param new_chunks optional, (\code{chunks_stack}) new object to initialize with
 #' @param session optional, (\code{ShinySession}) \code{shiny} session object.
@@ -977,6 +985,12 @@ chunks_messages <- function(chunks = get_chunks_object()) {
 #'
 #' @references chunks
 init_chunks <- function(new_chunks = chunks_new(), session = get_session_object()) {
+  lifecycle::deprecate_warn(
+    when = "0.2.1",
+    what = "init_chunks()",
+    details = "Chunks are being deprecated qenv objects should be used instead"
+  )
+
   session$userData[[session$ns(character(0))]]$chunks <- "A"
   suppressWarnings(rm(envir = session$userData, list = session$ns(character(0))))
   session$userData[[session$ns(character(0))]]$chunks <- new_chunks # nolint
@@ -985,7 +999,8 @@ init_chunks <- function(new_chunks = chunks_new(), session = get_session_object(
 
 #' Creates and returns a R6 chunks object to be used in a shiny/teal app
 #'
-#' @description `r lifecycle::badge("experimental")`
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #'
 #' @param envir (`environment` or `NULL`) optional, environment to get objects from to chunks environment
 #'
@@ -997,13 +1012,20 @@ init_chunks <- function(new_chunks = chunks_new(), session = get_session_object(
 #' @examples
 #' new_chunks <- chunks_new()
 chunks_new <- function(envir = new.env()) {
+  lifecycle::deprecate_warn(
+    when = "0.2.1",
+    what = "chunks_new()",
+    details = "Chunks are being deprecated qenv objects should be used instead"
+  )
+
   checkmate::assert_environment(envir)
   return(chunks$new(envir = envir))
 }
 
 #' Overwrites chunks object in session
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #'
 #' @param x (\code{chunks}) \link{chunks}-object to be used inside the current
 #'   session.
@@ -1031,7 +1053,8 @@ overwrite_chunks <- function(x = chunks_new(envir = parent.frame()), session = g
 
 #' Resets the current chunk list
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #'
 #' Empty the chunk list and the remaining and evaluated list.
 #'
@@ -1053,7 +1076,8 @@ chunks_reset <- function(envir = parent.frame(),
 
 #' Get variable from chunk environment
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #'
 #' @inheritParams chunks_push
 #' @param var (\code{character}) variable name
@@ -1073,7 +1097,8 @@ chunks_get_var <- function(var,
 
 #' Check chunks status (i.e. evaluated and no errors)
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #'
 #' @inheritParams chunks_push
 #'
@@ -1089,7 +1114,8 @@ chunks_is_ok <- function(chunks = get_chunks_object()) {
 
 #' Get chunks evaluation message
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #'
 #' @inheritParams chunks_push
 #'
@@ -1105,7 +1131,8 @@ chunks_get_eval_msg <- function(chunks = get_chunks_object()) {
 
 #' Raise shiny validate error if chunks status is not ok
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #'
 #' @inheritParams chunks_push
 #' @param msg optional, (\code{character}) custom error message, if \code{NULL} then default error message is used
@@ -1129,7 +1156,8 @@ chunks_validate_is_ok <- function(msg = NULL,
 
 #' Raise shiny validate error if variable is not of a certain class
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #'
 #' @inheritParams chunks_validate_is_ok
 #' @param var (\code{character}) variable name
@@ -1153,7 +1181,8 @@ chunks_validate_is <- function(var,
 
 #' Raise shiny validate error if chunks status is not ok or variable is not of a certain class
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #'
 #' @inheritParams chunks_validate_is
 #'
@@ -1181,7 +1210,8 @@ chunks_validate_all <- function(var,
 
 #' Executes validate statements on custom expressions that are evaluated inside a chunks object's environment
 #'
-#' @description `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
 #'
 #' @inheritParams chunks_validate_is
 #' @param x (\code{language}) an expression that evaluates to \code{TRUE} or \code{FALSE} inside \code{chunks}
@@ -1211,7 +1241,9 @@ chunks_validate_custom <- function(x,
 
 
 #' Deep clones a chunks object
-#' @description `r lifecycle::badge("stable")`
+#' @description `r lifecycle::badge("deprecated")`
+#' Chunks are being deprecated `qenv` objects should be used instead
+#'
 #' @inheritParams chunks_push
 #'
 #' @details use this function if you need to copy a `chunks` object as this

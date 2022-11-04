@@ -21,13 +21,16 @@ Imports:
     checkmate,
     crayon,
     lifecycle,
+    methods,
     R6,
+    rlang,
     shiny,
     styler,
     teal.widgets (>= 0.2.0)
 Suggests:
+    cli,
     knitr,
-    rlang,
+    magrittr,
     rmarkdown,
     testthat (>= 2.0)
 VignetteBuilder:

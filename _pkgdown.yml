@@ -10,11 +10,21 @@ navbar:
       href: https://github.com/insightsengineering/teal.code
 
 reference:
-  - title: "Reproducible Modules"
+  - title: "Reproducible qenv objects"
+    desc: "methods to get and modify values of qenv objects"
+    contents:
+      - eval_code
+      - get_code
+      - get_var
+      - get_warnings
+      - join
+      - new_qenv
+      - show,qenv-method
+  - title: "Reproducible Modules (deprecated)"
     desc: Functions to create a code chunk stack
     contents:
       - contains("chunk")
-  - title: "Debugging chunks evaluation"
+  - title: "Debugging chunks evaluation (deprecated)"
     desc: "shiny modules to examine chunks evaluation results"
     contents:
       - get_eval_details_srv

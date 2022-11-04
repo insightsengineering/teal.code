@@ -5,11 +5,9 @@
 `teal.code` is an R library providing tools to store code and an execution environment associated with it. The features
 include:
 
-* storing character literals as code,
-* storing an execution environment,
-* swapping the execution environment of the stored code,
-* evaluating only parts of the stored code,
-* means to execute code with a no-throw guarantee (errors demoted to warnings and messages stored for retrieval).
+* an object `qenv` for storing code and an execution environment which integrates well with `shiny reactives` for use in `shiny` applications whose outputs require reproducibility (i.e. the code used to generate them)
+* ability to chain and join `qenv` objects together to provide fine-grained control over executed code
+* automatic error and warning handling for executed code
 
 `teal.code` also ships a [`shiny`](https://shiny.rstudio.com/) module that helps inspect the stored code as well as messages, warnings and error messages resulting from evaluation via `shiny` web application.
 
