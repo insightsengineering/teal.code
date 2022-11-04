@@ -29,19 +29,12 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/advanced_chunks.html">Advanced chunks</a>
     <a class="dropdown-item" href="../articles/basic_chunks.html">Basic chunks</a>
+    <a class="dropdown-item" href="../articles/qenv.html">`qenv`</a>
   </div>
 </li>
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/v0.2.0">v0.2.0</a> </div></li>
-<!-- end dropdown for versions -->
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -62,7 +55,53 @@
     </div>
 
     <div class="section level2">
-      <h2 id="reproducible-modules">Reproducible Modules<a class="anchor" aria-label="anchor" href="#reproducible-modules"></a></h2>
+      <h2 id="reproducible-qenv-objects">Reproducible qenv objects<a class="anchor" aria-label="anchor" href="#reproducible-qenv-objects"></a></h2>
+      
+      <p class="section-desc"></p><p>methods to get and modify values of qenv objects</p>
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="eval_code.html">eval_code()</a></code> 
+        </dt>
+        <dd>Evaluate the code in the <code>qenv</code> environment</dd>
+      </dl><dl><dt>
+          
+          <code><a href="get_code.html">get_code()</a></code> 
+        </dt>
+        <dd>Get code from <code>qenv</code></dd>
+      </dl><dl><dt>
+          
+          <code><a href="get_var.html">get_var()</a></code> <code><a href="get_var.html">`[[`(<i>&lt;qenv&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> <code><a href="get_var.html">`[[`(<i>&lt;qenv.error&gt;</i>)</a></code> 
+        </dt>
+        <dd>Get object from the <code>qenv</code> environment</dd>
+      </dl><dl><dt>
+          
+          <code><a href="get_warnings.html">get_warnings</a></code> <code><a href="get_warnings.html">get_warnings,qenv.error-method</a></code> <code><a href="get_warnings.html">get_warnings,qenv-method</a></code> <code><a href="get_warnings.html">get_warnings,NULL-method</a></code> 
+        </dt>
+        <dd>Get the warnings of <code>qenv</code> object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="join.html">join()</a></code> 
+        </dt>
+        <dd>Join two <code>qenv</code> objects</dd>
+      </dl><dl><dt>
+          
+          <code><a href="new_qenv.html">new_qenv()</a></code> 
+        </dt>
+        <dd>Initialize <code>qenv</code> object</dd>
+      </dl><dl><dt>
+          
+          <code><a href="show-qenv-method.html">show(<i>&lt;qenv&gt;</i>)</a></code> 
+        </dt>
+        <dd>Show the <code>qenv</code> object</dd>
+      </dl></div><div class="section level2">
+      <h2 id="reproducible-modules-deprecated-">Reproducible Modules (deprecated)<a class="anchor" aria-label="anchor" href="#reproducible-modules-deprecated-"></a></h2>
       
       <p class="section-desc"></p><p>Functions to create a code chunk stack</p>
 
@@ -208,7 +247,7 @@
         </dt>
         <dd>Overwrites chunks object in session</dd>
       </dl></div><div class="section level2">
-      <h2 id="debugging-chunks-evaluation">Debugging chunks evaluation<a class="anchor" aria-label="anchor" href="#debugging-chunks-evaluation"></a></h2>
+      <h2 id="debugging-chunks-evaluation-deprecated-">Debugging chunks evaluation (deprecated)<a class="anchor" aria-label="anchor" href="#debugging-chunks-evaluation-deprecated-"></a></h2>
       
       <p class="section-desc"></p><p>shiny modules to examine chunks evaluation results</p>
 

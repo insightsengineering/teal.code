@@ -25,6 +25,9 @@
     <loc>https://insightsengineering.github.io/teal.code/main/articles/index.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/teal.code/main/articles/qenv.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/teal.code/main/articles/teal-code.html</loc>
   </url>
   <url>
@@ -112,7 +115,16 @@
     <loc>https://insightsengineering.github.io/teal.code/main/reference/chunks_warnings.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/teal.code/main/reference/dot-check_joinable.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.code/main/reference/eval_code.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/teal.code/main/reference/get_chunks_object.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.code/main/reference/get_code.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.code/main/reference/get_eval_details_srv.html</loc>
@@ -124,6 +136,12 @@
     <loc>https://insightsengineering.github.io/teal.code/main/reference/get_number_in_box.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/teal.code/main/reference/get_var.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.code/main/reference/get_warnings.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/teal.code/main/reference/include_css_files.html</loc>
   </url>
   <url>
@@ -133,10 +151,22 @@
     <loc>https://insightsengineering.github.io/teal.code/main/reference/init_chunks.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/teal.code/main/reference/join.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.code/main/reference/new_qenv.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/teal.code/main/reference/overwrite_chunks.html</loc>
   </url>
   <url>
+    <loc>https://insightsengineering.github.io/teal.code/main/reference/qenv-class.html</loc>
+  </url>
+  <url>
     <loc>https://insightsengineering.github.io/teal.code/main/reference/remove_enclosing_curly_braces.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.code/main/reference/show-qenv-method.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.code/main/reference/show_eval_details_modal.html</loc>

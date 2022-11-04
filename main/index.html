@@ -47,19 +47,12 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="articles/advanced_chunks.html">Advanced chunks</a>
     <a class="dropdown-item" href="articles/basic_chunks.html">Basic chunks</a>
+    <a class="dropdown-item" href="articles/qenv.html">`qenv`</a>
   </div>
 </li>
 <li class="nav-item">
   <a class="nav-link" href="news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/v0.2.0">v0.2.0</a> </div></li>
-<!-- end dropdown for versions -->
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off">
@@ -87,11 +80,9 @@
 </h2>
 <p><code>teal.code</code> is an R library providing tools to store code and an execution environment associated with it. The features include:</p>
 <ul>
-<li>storing character literals as code,</li>
-<li>storing an execution environment,</li>
-<li>swapping the execution environment of the stored code,</li>
-<li>evaluating only parts of the stored code,</li>
-<li>means to execute code with a no-throw guarantee (errors demoted to warnings and messages stored for retrieval).</li>
+<li>an object <code>qenv</code> for storing code and an execution environment which integrates well with <code>shiny reactives</code> for use in <code>shiny</code> applications whose outputs require reproducibility (i.e. the code used to generate them)</li>
+<li>ability to chain and join <code>qenv</code> objects together to provide fine-grained control over executed code</li>
+<li>automatic error and warning handling for executed code</li>
 </ul>
 <p><code>teal.code</code> also ships a <a href="https://shiny.rstudio.com/" class="external-link"><code>shiny</code></a> module that helps inspect the stored code as well as messages, warnings and error messages resulting from evaluation via <code>shiny</code> web application.</p>
 </div>

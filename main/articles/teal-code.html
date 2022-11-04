@@ -47,19 +47,12 @@
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/advanced_chunks.html">Advanced chunks</a>
     <a class="dropdown-item" href="../articles/basic_chunks.html">Basic chunks</a>
+    <a class="dropdown-item" href="../articles/qenv.html">`qenv`</a>
   </div>
 </li>
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/v0.2.0">v0.2.0</a> </div></li>
-<!-- end dropdown for versions -->
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
@@ -104,85 +97,23 @@ console outside of a reactive shiny app.</li>
 <li>Provides transparency where it helps users and others understand
 what happened during the analysis.</li>
 </ul>
-<p>This is where the <code>chunks</code> concept of
+<p>This is where the <code>qenv</code> object of
 the<code>teal.code</code> package comes into play. It provides a
 mechanism to develop reproducible shiny/teal modules. The
-<code>teal</code> package complements the chunks concept by providing a
-server and an interface to retrieve the reproducible code via a
-<code>Show R code</code> button.</p>
+<code>teal.widgets</code> package complements the chunks concept by
+providing a <code>verbatim_popup</code> widget which can be used to
+display the reproducible code via a button inside shiny/teal
+modules.</p>
 <p>Note that there is a public <a href="https://github.com/rstudio/shinymeta" class="external-link"><code>shinymeta</code></a> R
 package from <code>RStudio</code> that offers similar functionality.
 However, currently, <code>shinymeta</code> can not be easily integrated
 into <code>teal</code> modules and hence we recommend using
-<code>chunks</code> for <code>teal</code> based apps.</p>
-<div class="section level2">
-<h2 id="reproducibility-in-teal">Reproducibility in teal<a class="anchor" aria-label="anchor" href="#reproducibility-in-teal"></a>
-</h2>
-<p>Teal applications can be designed and set up such that for every
-output displayed, the associated R code can be requested via the
-<strong>Show R code button</strong>. In order to develop a teal
-application with reproducible outputs the app developer needs to take
-this into account when implementing the app.</p>
-<p>The reproducible code displayed for outputs in <code>teal</code> is
-always made from three parts:</p>
-<ol style="list-style-type: decimal">
-<li>Header which includes information such as:</li>
-</ol>
-<ul>
-<li>directory path</li>
-<li>server name</li>
-<li>R version</li>
-<li>date</li>
-<li><code>libPaths()</code></li>
-<li>packages’ versions.</li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li>Preprocessing Code: refers to the code which precedes the teal app
-initialization, this includes:</li>
-</ol>
-<ul>
-<li>Data imports</li>
-<li>Data transformation</li>
-<li>Checking data reproducibility</li>
-</ul>
-<ol start="3" style="list-style-type: decimal">
-<li>Teal Module Analysis Code which includes:</li>
-</ol>
-<ul>
-<li>Filtering and encodings</li>
-<li>Data analysis/visualization</li>
-</ul>
-<p><img src="images/show_r_code.gif" alt="SRC" style="width: 100%;"></p>
-<p>The header is created by <code>teal</code>, the preprocessing code
-must be supplied by the app developer and the analysis code is provided
-by the teal modules.</p>
-</div>
-<div class="section level2">
-<h2 id="chunks">Chunks<a class="anchor" aria-label="anchor" href="#chunks"></a>
-</h2>
-<p>The code chunks were introduced to allow the development of
-reproducible <code>shiny</code>/<code>teal</code> modules. A
-reproducible module includes a “Show R Code” button which can display
-the code needed to reproduce the outputs of the module. Inside the
-modal, which pops up after clicking the button, you should see:</p>
-<ol style="list-style-type: decimal">
-<li>The code loading the necessary libraries - by
-<code>teal::get_code</code>
-</li>
-<li>The code used for loading and filtering data sets - by
-<code>teal::FilteredData</code>
-</li>
-<li>The code used for merging multiple data sets - by
-<code>teal.transform::data_merge_srv</code>
-</li>
-<li>The code generating the outputs - by <strong>code
-chunks</strong>
-</li>
-</ol>
-<p>The code chunks were especially designed for the code leading from an
-input data set to the outputs. To get more information about the concept
-of chunks, please refer to article <a href="https://insightsengineering.github.io/teal.code/articles/basic_chunks.html" class="external-link"><code>basic chunks</code></a>.</p>
-</div>
+<code>qenv</code> for <code>teal</code> based apps.</p>
+<p>For further details see the <a href="https://insightsengineering.github.io/teal.code/articles/qenv.html" class="external-link"><code>qenv</code>
+vignette</a>.</p>
+<p>Note: the older method of handling reproducibility,
+<code>chunks</code>, have now been deprecated and <code>qenv</code>
+should be used instead.</p>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
 </div>
