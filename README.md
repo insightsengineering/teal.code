@@ -1,5 +1,9 @@
 # teal.code
 
+<!-- start badges -->
+[![Code Coverage](https://raw.githubusercontent.com/insightsengineering/teal.code/_xml_coverage_reports/data/main/badge.svg)](https://raw.githubusercontent.com/insightsengineering/teal.code/_xml_coverage_reports/data/main/coverage.xml)
+<!-- end badges -->
+
 ## Overview
 
 `teal.code` is an R library providing tools to store code and an execution environment associated with it. The features
