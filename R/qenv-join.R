@@ -2,8 +2,8 @@
 #'
 #' `join()` perform checks and merges two `qenv` objects into one `qenv` object.
 #'
-#' There are some situations where `join()` cannot be performed, such as:
-#' \itemize{
+#' There are some situations where `join()` cannot be properly performed, such as these three scenarios:
+#' \enumerate{
 #'   \item Both `qenv` objects contain an object of the same name but are not identical. \cr\cr
 #'   Example:
 #'   \preformatted{
@@ -66,13 +66,14 @@
 #'        y <- c(y, i)
 #'      }"
 #'   )
+#'   q <- join(x,y)
 #'   # Error message will occur
 #'
 #'   # Check the value of temporary variable i in both objects
 #'   x@env$i # Output: 2
 #'   y@env$i # Output: 3
 #'   }
-#'   `join()` fails because the temporary variable `i` exists in both objects but has different value.\cr
+#'   `join()` fails to provide a proper result because of the temporary variable `i` exists in both objects but has different value.\cr
 #'   To fix this, we can set `i <- NULL` in the code expression for both objects.
 #'   \preformatted{
 #'   common_q <- new_qenv()
