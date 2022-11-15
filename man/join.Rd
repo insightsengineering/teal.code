@@ -105,6 +105,7 @@ To fix this, we can set \code{i <- NULL} in the code expression for both objects
      for (i in 1:2) {
        x <- c(x, i)
      }
+     # dummy i variable to fix it
      i <- NULL"
   )
   y <- eval_code(
@@ -113,6 +114,7 @@ To fix this, we can set \code{i <- NULL} in the code expression for both objects
      for (i in 1:3) {
        y <- c(y, i)
      }
+     # dummy i variable to fix it
      i <- NULL"
   )
   q <- join(x,y)
