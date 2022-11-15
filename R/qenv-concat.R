@@ -1,7 +1,8 @@
 #' Concatenate two `qenv` objects
 #'
 #' Combine two `qenv` objects by simple concatenate their environments and the code.
-#' We recommend to use the `join` method for most cases.
+#' We recommend to use the `join` method to have a stricter control 
+#' in case `x` and `y` contain duplicated bindings and code.
 #' @param x (`qenv`)
 #' @param y (`qenv`)
 #' @include qenv-errors.R
