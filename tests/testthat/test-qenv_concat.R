@@ -27,6 +27,14 @@ testthat::test_that("Joining two independent qenvs results in object having comb
   testthat::expect_identical(q@id, c(q1@id, q2@id))
 })
 
+testthat::test_that("Joining qenvs results with the same variable, the RHS has priority", {
+  q1 <- new_qenv() |> eval_code(quote(a <- data.frame(1)))
+  q2 <- new_qenv() |> eval_code(quote(a <- data.frame(2)))
+
+  qenv <- concat(q1, q2)
+  testthat::expect_identical(qenv[["a"]], data.frame(2))
+})
+
 testthat::test_that("concatenate with a qenv.error object returns the qenv.error object", {
   q1 <- eval_code(new_qenv(), quote(x <- 1))
   error_q <- eval_code(new_qenv(), quote(y <- w))
