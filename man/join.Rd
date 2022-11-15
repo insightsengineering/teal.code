@@ -24,8 +24,8 @@ join(x, y)
 \code{join()} perform checks and merges two \code{qenv} objects into one \code{qenv} object.
 }
 \details{
-There are some situations where \code{join()} cannot be performed, such as:
-\itemize{
+There are some situations where \code{join()} cannot be properly performed, such as these three scenarios:
+\enumerate{
 \item Both \code{qenv} objects contain an object of the same name but are not identical. \cr\cr
 Example:
 \preformatted{
@@ -88,13 +88,14 @@ Example:
        y <- c(y, i)
      }"
   )
+  q <- join(x,y)
   # Error message will occur
 
   # Check the value of temporary variable i in both objects
   x@env$i # Output: 2
   y@env$i # Output: 3
   }
-\code{join()} fails because the temporary variable \code{i} exists in both objects but has different value.\cr
+\code{join()} fails to provide a proper result because of the temporary variable \code{i} exists in both objects but has different value.\cr
 To fix this, we can set \code{i <- NULL} in the code expression for both objects.
 \preformatted{
   common_q <- new_qenv()
