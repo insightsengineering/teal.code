@@ -23,6 +23,7 @@ concat(x, y)
 \description{
 Combine two \code{qenv} objects by simple concatenate their environments and the code.
 We recommend to use the \code{join} method for most cases.
+RHS argument content has priority over the LHS one.
 }
 \examples{
 q1 <- new_qenv(
