@@ -35,16 +35,18 @@ setMethod("get_warnings", signature = c("qenv"), function(object) {
     return(NULL)
   }
 
-  warning_output <- "Warnings:"
-  for (warn_idx in seq_along(object@warnings)) {
-    warn <- object@warnings[warn_idx]
-    if (warn != "") {
-      warning_output <- paste(
-        warning_output, "\n>", warn, "\nWhen running code:\n", paste(object@code[warn_idx], collapse = "\n")
-      )
-    }
+  format_condition <- function(warn, expr) {
+    if (warn == "") return(NULL)
+    sprintf("%swhen running code:\n%s", warn, expr)
   }
-  paste0(warning_output, "\n\nTrace:\n", paste(get_code(object), collapse = "\n"))
+  lines <- mapply(format_condition,
+         warn = as.list(object@warnings),
+         expr = as.list(get_code(object)))
+  lines <- Filter(Negate(is.null), lines)
+
+  sprintf("~~~Warnings~~~\n\n%s\n\n~~~Trace~~~\n\n%s",
+          paste(lines, collapse = "\n\n"),
+          paste(get_code(object), collapse = "\n"))
 })
 
 #' @rdname get_warnings
