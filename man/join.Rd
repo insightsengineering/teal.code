@@ -22,6 +22,9 @@ join(x, y)
 }
 \description{
 \code{join()} perform checks and merges two \code{qenv} objects into one \code{qenv} object.
+Any common code at the start of the qenvs is only placed once at the start of the joined qenv.
+This allows consistent behaviour when joining qenvs which share a common ancestor.
+See below for an example.
 }
 \details{
 There are some situations where \code{join()} cannot be properly performed, such as these three scenarios:
@@ -134,4 +137,12 @@ q1 <- eval_code(q1, "iris2 <- iris")
 q2 <- eval_code(q2, "mtcars2 <- mtcars")
 qq <- join(q1, q2)
 get_code(qq)
+
+common_q <- new_qenv(list2env(list(x = 1)), quote(x <- 1))
+y_q <- eval_code(common_q, quote(y <- x * 2))
+z_q <- eval_code(common_q, quote(z <- x * 3))
+join_q <- join(y_q, z_q)
+# get_code only has "x <- 1" occurring once
+get_code(join_q)
+
 }
