@@ -44,7 +44,7 @@ setMethod("get_warnings", signature = c("qenv"), function(object) {
     expr = as.list(get_code(object)))
   lines <- Filter(Negate(is.null), lines)
 
-  sprintf("~~~Warnings~~~\n\n%s\n\n~~~Trace~~~\n\n%s",
+  sprintf("~~~ Warnings ~~~\n\n%s\n\n~~~ Trace ~~~\n\n%s",
           paste(lines, collapse = "\n\n"),
           paste(get_code(object), collapse = "\n"))
 })
