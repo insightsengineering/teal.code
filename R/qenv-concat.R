@@ -1,7 +1,7 @@
 #' Concatenate two `qenv` objects
 #'
 #' Combine two `qenv` objects by simple concatenate their environments and the code.
-#' We recommend to use the `join` method to have a stricter control 
+#' We recommend to use the `join` method to have a stricter control
 #' in case `x` and `y` contain duplicated bindings and code.
 #' RHS argument content has priority over the LHS one.
 #' @param x (`qenv`)
