@@ -22,7 +22,8 @@ concat(x, y)
 }
 \description{
 Combine two \code{qenv} objects by simple concatenate their environments and the code.
-We recommend to use the \code{join} method for most cases.
+We recommend to use the \code{join} method to have a stricter control
+in case \code{x} and \code{y} contain duplicated bindings and code.
 RHS argument content has priority over the LHS one.
 }
 \examples{

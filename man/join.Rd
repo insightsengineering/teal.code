@@ -22,8 +22,8 @@ join(x, y)
 }
 \description{
 \code{join()} perform checks and merges two \code{qenv} objects into one \code{qenv} object.
-Any common code at the start of the qenvs is only placed once at the start of the joined qenv.
-This allows consistent behaviour when joining qenvs which share a common ancestor.
+Any common code at the start of the \code{qenvs} is only placed once at the start of the joined \code{qenv}.
+This allows consistent behavior when joining \code{qenvs} which share a common ancestor.
 See below for an example.
 }
 \details{
@@ -98,7 +98,8 @@ Example:
   x@env$i # Output: 2
   y@env$i # Output: 3
   }
-\code{join()} fails to provide a proper result because of the temporary variable \code{i} exists in both objects but has different value.\cr
+\code{join()} fails to provide a proper result because of the temporary variable \code{i} exists
+in both objects but has different value.\cr
 To fix this, we can set \code{i <- NULL} in the code expression for both objects.
 \preformatted{
   common_q <- new_qenv()

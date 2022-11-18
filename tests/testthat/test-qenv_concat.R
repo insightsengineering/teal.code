@@ -57,8 +57,8 @@ testthat::test_that("Concatenate two independent qenvs with warnings results in 
   testthat::expect_equal(
     q@warnings,
     c(
-      "This is warning 1",
-      "This is warning 2"
+      "> This is warning 1\n",
+      "> This is warning 2\n"
     )
   )
 })
@@ -72,8 +72,8 @@ testthat::test_that("Concatenate two independent qenvs with messages results in 
   testthat::expect_equal(
     q@messages,
     c(
-      "This is message 1\n",
-      "This is message 2\n"
+      "> This is message 1\n",
+      "> This is message 2\n"
     )
   )
 })
