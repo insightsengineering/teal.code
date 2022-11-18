@@ -13,6 +13,7 @@ reference:
   - title: "Reproducible qenv objects"
     desc: "methods to get and modify values of qenv objects"
     contents:
+      - concat
       - eval_code
       - get_code
       - get_var
