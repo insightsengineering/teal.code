@@ -35,13 +35,13 @@ setMethod("get_warnings", signature = c("qenv"), function(object) {
     return(NULL)
   }
 
-  format_condition <- function(warn, expr) {
-    if (warn == "") return(NULL)
-    sprintf("%swhen running code:\n%s", warn, expr)
-  }
-  lines <- mapply(format_condition,
-         warn = as.list(object@warnings),
-         expr = as.list(get_code(object)))
+  lines <- mapply(
+    function(warn, expr) {
+      if (warn == "") return(NULL)
+      sprintf("%swhen running code:\n%s", warn, expr)
+    },
+    warn = as.list(object@warnings),
+    expr = as.list(get_code(object)))
   lines <- Filter(Negate(is.null), lines)
 
   sprintf("~~~Warnings~~~\n\n%s\n\n~~~Trace~~~\n\n%s",
