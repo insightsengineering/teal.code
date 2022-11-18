@@ -1,8 +1,8 @@
 #' Join two `qenv` objects
 #'
 #' `join()` perform checks and merges two `qenv` objects into one `qenv` object.
-#' Any common code at the start of the qenvs is only placed once at the start of the joined qenv.
-#' This allows consistent behaviour when joining qenvs which share a common ancestor.
+#' Any common code at the start of the `qenvs` is only placed once at the start of the joined `qenv`.
+#' This allows consistent behavior when joining `qenvs` which share a common ancestor.
 #' See below for an example.
 #'
 #' There are some situations where `join()` cannot be properly performed, such as these three scenarios:
@@ -76,7 +76,8 @@
 #'   x@env$i # Output: 2
 #'   y@env$i # Output: 3
 #'   }
-#'   `join()` fails to provide a proper result because of the temporary variable `i` exists in both objects but has different value.\cr
+#'   `join()` fails to provide a proper result because of the temporary variable `i` exists
+#'   in both objects but has different value.\cr
 #'   To fix this, we can set `i <- NULL` in the code expression for both objects.
 #'   \preformatted{
 #'   common_q <- new_qenv()
@@ -104,6 +105,7 @@
 #'
 #' @param x (`qenv`)
 #' @param y (`qenv`)
+#' @include qenv-errors.R
 #' @examples
 #' q1 <- new_qenv(
 #'   code = c(iris1 = "iris1 <- iris", mtcars1 = "mtcars1 <- mtcars"),
