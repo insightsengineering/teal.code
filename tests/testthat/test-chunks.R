@@ -1544,6 +1544,8 @@ testthat::test_that("overwrite_chunks", {
 
   testthat::expect_error(overwrite_chunks(x = test_chunks))
 
+  # suppress deprecation warning
+  rlang::local_options(lifecycle_verbosity = "quiet")
   init_chunks(session = session)
 
   overwrite_chunks(x = test_chunks, session = session)

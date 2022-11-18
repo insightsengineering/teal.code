@@ -55,7 +55,7 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
         invokeRestart("muffleWarning")
       },
       message = function(m) {
-        current_messages <<- paste0(current_messages, .ansi_strip(sprintf("> %s\n", conditionMessage(m))))
+        current_messages <<- paste0(current_messages, .ansi_strip(sprintf("> %s", conditionMessage(m))))
         invokeRestart("muffleMessage")
       }
     )
