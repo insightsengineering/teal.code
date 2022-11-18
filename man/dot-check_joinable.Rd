@@ -16,10 +16,6 @@
 }
 \description{
 Checks if two \code{qenv} objects can be combined.
-They can't be combined if (and):
-\itemize{
-\item both share the same code (identified by \code{id})
-\item indices of the shared code are not consecutive or don't start from 1
-}
+For more information, please see \code{\link{join}}
 }
 \keyword{internal}
