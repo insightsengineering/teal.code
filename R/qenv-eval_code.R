@@ -32,6 +32,8 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
   current_messages <- ""
 
   for (code_line in code) {
+    # Using withCallingHandlers to capture ALL warnings and messages.
+    # Using tryCatch to capture the FIRST error and abort further evaluation.
     x <- withCallingHandlers(
       tryCatch(
         {
@@ -51,11 +53,11 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
         }
       ),
       warning = function(w) {
-        current_warnings <<- paste0(current_warnings, .ansi_strip(conditionMessage(w)))
+        current_warnings <<- paste0(current_warnings, .ansi_strip(sprintf("> %s\n", conditionMessage(w))))
         invokeRestart("muffleWarning")
       },
       message = function(m) {
-        current_messages <<- paste0(current_messages, .ansi_strip(conditionMessage(m)))
+        current_messages <<- paste0(current_messages, .ansi_strip(sprintf("> %s", conditionMessage(m))))
         invokeRestart("muffleMessage")
       }
     )

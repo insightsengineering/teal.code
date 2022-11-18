@@ -118,10 +118,10 @@ testthat::test_that("a warning when calling eval_code returns a qenv object whic
     c(
       "",
       paste0(
-        "\"ff\" is not a graphical parameter",
-        "\"ff\" is not a graphical parameter",
-        "\"ff\" is not a graphical parameter",
-        "\"ff\" is not a graphical parameter"
+        "> \"ff\" is not a graphical parameter\n",
+        "> \"ff\" is not a graphical parameter\n",
+        "> \"ff\" is not a graphical parameter\n",
+        "> \"ff\" is not a graphical parameter\n"
       )
     )
   )
@@ -129,7 +129,7 @@ testthat::test_that("a warning when calling eval_code returns a qenv object whic
 
 testthat::test_that("eval_code with a vector of code produces one warning element per code element", {
   q <- eval_code(new_qenv(), c("x <- 1", "y <- 1", "warning('warn1')"))
-  testthat::expect_equal(c("", "", "warn1"), q@warnings)
+  testthat::expect_equal(c("", "", "> warn1\n"), q@warnings)
 })
 
 
@@ -141,7 +141,7 @@ testthat::test_that("a message when calling eval_code returns a qenv object whic
     q@messages,
     c(
       "",
-      "This is a message\n"
+      "> This is a message\n"
     )
   )
 })
