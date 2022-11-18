@@ -6,6 +6,9 @@
 ### Enhancements
 * Improved output format of warnings in `get_warnings`.
 
+### Miscellaneous
+* Silenced deprecation warnings in unit tests.
+
 # teal.code 0.2.0
 
 ### Miscellaneous
