@@ -24,7 +24,7 @@ setGeneric("get_code", function(object, deparse = TRUE) {
 setMethod("get_code", signature = "qenv", function(object, deparse = TRUE) {
   checkmate::assert_flag(deparse)
   if (deparse) {
-    as.character(object@code)
+    remove_enclosing_curly_braces(object@code)
   } else {
     object@code
   }
@@ -38,7 +38,7 @@ setMethod("get_code", signature = "qenv.error", function(object) {
       sprintf(
         "%s\n\ntrace: \n %s\n",
         conditionMessage(object),
-        paste(object$trace, collapse = "\n ")
+        paste(remove_enclosing_curly_braces(object$trace), collapse = "\n ")
       ),
       class = c("validation", "try-error", "simpleError")
     )
