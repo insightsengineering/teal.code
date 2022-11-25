@@ -12,22 +12,24 @@ remove_enclosing_curly_braces <- function(x) {
     return(x)
   }
 
-  open_bracket_then_spaces <- "^\\{[[:blank:]]*"
-  close_bracket_then_spaces <- "^\\}[[:blank:]]*"
+  open_bracket_and_spaces <- "^[[:blank:]]*\\{[[:blank:]]*$"
+  close_bracket_and_spaces <- "^[[:blank:]]*\\}[[:blank:]]*$"
   blank_line <- "^[[:blank:]]*$"
   four_spaces_at_start_of_line <- "^[[:blank:]]{4}"
 
   split_text <- unlist(strsplit(x, "\n", fixed = TRUE))
 
   # if text begins with "{   \n" and ends with "\n}   "
-  if (grepl(open_bracket_then_spaces, utils::head(split_text, 1)) &&
-    grepl(close_bracket_then_spaces, utils::tail(split_text, 1))) {
+  if (grepl(open_bracket_and_spaces, utils::head(split_text, 1)) &&
+    grepl(close_bracket_and_spaces, utils::tail(split_text, 1))) {
     # remove the first and last line
     split_text <- split_text[-c(1, length(split_text))]
 
     # if any line is not blank then indent
     if (!all(grepl(blank_line, split_text))) {
       return(gsub(four_spaces_at_start_of_line, "", split_text))
+    } else {
+      return(split_text)
     }
   } else {
     return(split_text)
