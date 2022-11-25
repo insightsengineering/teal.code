@@ -46,10 +46,10 @@ testthat::test_that("get_warnings accepts a qenv object with a single eval_code 
     get_warnings(q),
     paste0(
       "~~~ Warnings ~~~\n\n",
-      "> This is a warning 1!\n> This is a warning 2!\nwhen running code:\n{\n    ",
-      "warning(\"This is a warning 1!\")\n    warning(\"This is a warning 2!\")\n}\n\n",
-      "~~~ Trace ~~~\n\n{\n",
-      "    warning(\"This is a warning 1!\")\n    warning(\"This is a warning 2!\")\n}"
+      "> This is a warning 1!\n> This is a warning 2!\nwhen running code:\n",
+      "warning(\"This is a warning 1!\")\nwarning(\"This is a warning 2!\")\n\n",
+      "~~~ Trace ~~~\n\n",
+      "warning(\"This is a warning 1!\")\nwarning(\"This is a warning 2!\")"
     )
   )
 })
