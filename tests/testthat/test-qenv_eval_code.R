@@ -106,7 +106,7 @@ testthat::test_that("an error when calling eval_code returns a qenv.error object
       )
     )
   )
-  testthat::expect_equal(q$message, "object 'w' not found \n when evaluating qenv code:\n z <- w * x")
+  testthat::expect_equal(q$message, "object 'w' not found \n when evaluating qenv code:\nz <- w * x")
 })
 
 testthat::test_that("a warning when calling eval_code returns a qenv object which has warnings", {

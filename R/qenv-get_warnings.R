@@ -40,10 +40,10 @@ setMethod("get_warnings", signature = c("qenv"), function(object) {
       if (warn == "") {
         return(NULL)
       }
-      sprintf("%swhen running code:\n%s", warn, expr)
+      sprintf("%swhen running code:\n%s", warn, paste(format_expression(expr), collapse = "\n"))
     },
     warn = as.list(object@warnings),
-    expr = as.list(get_code(object))
+    expr = as.list(as.character(object@code))
   )
   lines <- Filter(Negate(is.null), lines)
 

@@ -13,7 +13,7 @@ testthat::test_that("get_code returns code elements being code-blocks as charact
       z <- 5
     })
   )
-  testthat::expect_equal(get_code(q), c("x <- 1", "{\n    y <- x\n    z <- 5\n}"))
+  testthat::expect_equal(get_code(q), c("x <- 1", "y <- x", "z <- 5"))
 })
 
 testthat::test_that("get_code returns code (unparsed) of qenv object if deparse = FALSE", {
@@ -34,6 +34,6 @@ testthat::test_that("get_code called with qenv.error returns error with trace in
   testthat::expect_equal(class(code), c("validation", "try-error", "simpleError", "error", "condition"))
   testthat::expect_equal(
     code$message,
-    "object 'v' not found \n when evaluating qenv code:\n w <- v\n\ntrace: \n x <- 1\n y <- x\n w <- v\n"
+    "object 'v' not found \n when evaluating qenv code:\nw <- v\n\ntrace: \n x <- 1\n y <- x\n w <- v\n"
   )
 })
