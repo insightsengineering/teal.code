@@ -12,10 +12,10 @@ remove_enclosing_curly_braces <- function(x) {
     return(x)
   }
 
-  open_bracket_then_spaces <- "^\\{[[:space:]]*"
-  close_bracket_then_spaces <- "^\\}[[:space:]]*"
-  blank_line <- "^[[:space:]]*$"
-  four_spaces_at_start_of_line <- "^[[:space:]]{4}"
+  open_bracket_then_spaces <- "^\\{[[:blank:]]*"
+  close_bracket_then_spaces <- "^\\}[[:blank:]]*"
+  blank_line <- "^[[:blank:]]*$"
+  four_spaces_at_start_of_line <- "^[[:blank:]]{4}"
 
   split_text <- unlist(strsplit(x, "\n", fixed = TRUE))
 
