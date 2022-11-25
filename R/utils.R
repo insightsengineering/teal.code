@@ -4,7 +4,7 @@
 #' @description `r lifecycle::badge("stable")`
 #' @param x (`character`)\cr
 #'
-#' @return Character string without curly braces
+#' @return character string without curly braces
 #' @keywords internal
 remove_enclosing_curly_braces <- function(x) {
   checkmate::assert_character(x)

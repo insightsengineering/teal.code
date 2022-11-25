@@ -2,16 +2,16 @@
 % Please edit documentation in R/utils.R
 \name{remove_enclosing_curly_braces}
 \alias{remove_enclosing_curly_braces}
-\title{Removes leading and trailing curly brackets from expressions
-when converting a vector of expressions to a string}
+\title{Removes leading and trailing curly brackets from character
+string and removes indentation of remaining contents}
 \usage{
-remove_enclosing_curly_braces(code)
+remove_enclosing_curly_braces(x)
 }
 \arguments{
-\item{code}{(\code{expression})\cr}
+\item{x}{(\code{character})\cr}
 }
 \value{
-Character string without curly braces
+character string without curly braces
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
