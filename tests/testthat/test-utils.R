@@ -13,12 +13,18 @@ testthat::test_that("remove_enclosing_curly_braces only splits string on \n if n
   testthat::expect_equal(remove_enclosing_curly_braces("{\nABC\nDEF\n A  }"), c("{", "ABC", "DEF", " A  }"))
 })
 
-testthat::test_that("remove_enclosing_curly_braces cconcatenates input character vector", {
+testthat::test_that("remove_enclosing_curly_braces removes enclosing curly brackets", {
+  testthat::expect_equal(remove_enclosing_curly_braces("{\nA\n}"), "A")
+  testthat::expect_equal(remove_enclosing_curly_braces("{  \nA\n}"), "A")
+  testthat::expect_equal(remove_enclosing_curly_braces("{\nA\n}  "), "A")
+  testthat::expect_equal(remove_enclosing_curly_braces("  {  \nA\n  }"), "A")
+})
+
+testthat::test_that("remove_enclosing_curly_braces concatenates input character vector", {
   testthat::expect_equal(remove_enclosing_curly_braces(c("ABC", "DEF")), c("ABC", "DEF"))
   testthat::expect_equal(remove_enclosing_curly_braces(c("{\n    ABC", "    DEF\n}")), c("ABC", "DEF"))
   testthat::expect_equal(remove_enclosing_curly_braces(c("{\n    ABC\n}", " DEF")), c("{", "    ABC", "}", " DEF"))
 })
-
 
 testthat::test_that(
   desc = "remove_enclosing_curly_braces containing enclosing brackets and only blank lines returns blank lines",
@@ -27,3 +33,11 @@ testthat::test_that(
     testthat::expect_equal(remove_enclosing_curly_braces(" {  \n\n  }  "), "")
   }
 )
+
+testthat::test_that("remove_enclosing_curly_braces removes 4 spaces from lines enclosed by brackets if they exist", {
+  testthat::expect_equal(remove_enclosing_curly_braces("{\n    A\n}"), "A")
+  testthat::expect_equal(
+    remove_enclosing_curly_braces("{\nA\n B\n  C\n   D\n    E \n    F\n    \n}"),
+    c("A", " B", "  C", "   D", "E ", "F", "")
+  )
+})
