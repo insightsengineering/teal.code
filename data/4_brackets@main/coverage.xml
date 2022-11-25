@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage line-rate="0.806122448979592" branch-rate="0" lines-covered="711" lines-valid="882" branches-covered="0" branches-valid="0" complexity="0" version="3.6.1" timestamp="2022-11-25 10:36:50">
+<coverage line-rate="0.806122448979592" branch-rate="0" lines-covered="711" lines-valid="882" branches-covered="0" branches-valid="0" complexity="0" version="3.6.1" timestamp="2022-11-25 10:44:16">
   <sources/>
   <packages>
     <package name="teal.code" line-rate="0.806122448979592" branch-rate="0" complexity="0">
@@ -2622,19 +2622,19 @@
           <methods>
             <method name="remove_enclosing_curly_braces" signature="" line-rate="1" branch-rate="0">
               <lines>
-                <line number="10" hits="91" branch="false"/>
-                <line number="11" hits="90" branch="false"/>
+                <line number="10" hits="97" branch="false"/>
+                <line number="11" hits="96" branch="false"/>
                 <line number="12" hits="1" branch="false"/>
-                <line number="15" hits="89" branch="false"/>
-                <line number="16" hits="89" branch="false"/>
-                <line number="17" hits="89" branch="false"/>
-                <line number="18" hits="89" branch="false"/>
-                <line number="20" hits="89" branch="false"/>
-                <line number="23" hits="89" branch="false"/>
-                <line number="24" hits="89" branch="false"/>
-                <line number="26" hits="6" branch="false"/>
-                <line number="29" hits="6" branch="false"/>
-                <line number="30" hits="4" branch="false"/>
+                <line number="15" hits="95" branch="false"/>
+                <line number="16" hits="95" branch="false"/>
+                <line number="17" hits="95" branch="false"/>
+                <line number="18" hits="95" branch="false"/>
+                <line number="20" hits="95" branch="false"/>
+                <line number="23" hits="95" branch="false"/>
+                <line number="24" hits="95" branch="false"/>
+                <line number="26" hits="12" branch="false"/>
+                <line number="29" hits="12" branch="false"/>
+                <line number="30" hits="10" branch="false"/>
                 <line number="32" hits="2" branch="false"/>
                 <line number="35" hits="83" branch="false"/>
               </lines>
@@ -2646,19 +2646,19 @@
             </method>
           </methods>
           <lines>
-            <line number="10" hits="91" branch="false"/>
-            <line number="11" hits="90" branch="false"/>
+            <line number="10" hits="97" branch="false"/>
+            <line number="11" hits="96" branch="false"/>
             <line number="12" hits="1" branch="false"/>
-            <line number="15" hits="89" branch="false"/>
-            <line number="16" hits="89" branch="false"/>
-            <line number="17" hits="89" branch="false"/>
-            <line number="18" hits="89" branch="false"/>
-            <line number="20" hits="89" branch="false"/>
-            <line number="23" hits="89" branch="false"/>
-            <line number="24" hits="89" branch="false"/>
-            <line number="26" hits="6" branch="false"/>
-            <line number="29" hits="6" branch="false"/>
-            <line number="30" hits="4" branch="false"/>
+            <line number="15" hits="95" branch="false"/>
+            <line number="16" hits="95" branch="false"/>
+            <line number="17" hits="95" branch="false"/>
+            <line number="18" hits="95" branch="false"/>
+            <line number="20" hits="95" branch="false"/>
+            <line number="23" hits="95" branch="false"/>
+            <line number="24" hits="95" branch="false"/>
+            <line number="26" hits="12" branch="false"/>
+            <line number="29" hits="12" branch="false"/>
+            <line number="30" hits="10" branch="false"/>
             <line number="32" hits="2" branch="false"/>
             <line number="35" hits="83" branch="false"/>
             <line number="42" hits="22" branch="false"/>
