@@ -41,3 +41,14 @@ testthat::test_that("remove_enclosing_curly_braces removes 4 spaces from lines e
     c("A", " B", "  C", "   D", "E ", "F", "")
   )
 })
+
+testthat::test_that("format expression concatenates results of remove_enclosing_curly_braces", {
+  code_list <- list(
+    quote("x <- 1"),
+    quote({
+      y <- 1
+      z <- 1
+    })
+  )
+  expect_equal(format_expression(code_list), c("x <- 1", "y <- 1", "z <- 1"))
+})
