@@ -19,7 +19,6 @@
 [![Open Issues](https://img.shields.io/github/issues-raw/insightsengineering/teal.code?color=red\&label=open%20issues)](https://github.com/insightsengineering/teal.code/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)
 <!-- end badges -->
 
-
 ## Overview
 
 `teal.code` is an R library providing tools to store code and an execution environment associated with it. The features
