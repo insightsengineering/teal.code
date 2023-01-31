@@ -986,7 +986,7 @@ chunks_messages <- function(chunks = get_chunks_object()) {
 #' @references chunks
 init_chunks <- function(new_chunks = chunks_new(), session = get_session_object()) {
   lifecycle::deprecate_warn(
-    when = "0.2.1",
+    when = "0.3.0",
     what = "init_chunks()",
     details = "Chunks are being deprecated qenv objects should be used instead"
   )
@@ -1013,7 +1013,7 @@ init_chunks <- function(new_chunks = chunks_new(), session = get_session_object(
 #' new_chunks <- chunks_new()
 chunks_new <- function(envir = new.env()) {
   lifecycle::deprecate_warn(
-    when = "0.2.1",
+    when = "0.3.0",
     what = "chunks_new()",
     details = "Chunks are being deprecated qenv objects should be used instead"
   )
