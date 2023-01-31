@@ -32,15 +32,17 @@ testthat::test_that("library have to be called separately before using function 
   q2 <- eval_code(q1, quote(assert_number(1)))
   testthat::expect_identical(parent.env(q2@env), parent.env(.GlobalEnv))
 
-  detach("package:checkmate", unload = TRUE)
   testthat::expect_s3_class(
-    eval_code(
-      new_qenv(),
-      as.expression(c(
-        quote(library(checkmate)),
-        quote(assert_number(1))
-      ))
-    ),
+    {
+      detach("package:checkmate", unload = TRUE, force = TRUE)
+      eval_code(
+        new_qenv(),
+        as.expression(c(
+          quote(library(checkmate)),
+          quote(assert_number(1))
+        ))
+      )
+    },
     "qenv.error"
   )
 })
