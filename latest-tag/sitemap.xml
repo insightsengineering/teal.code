@@ -1,147 +1,180 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/404.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/404.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/CODE_OF_CONDUCT.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/CONTRIBUTING.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/CONTRIBUTING.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/LICENSE-text.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/SECURITY.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/SECURITY.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/articles/advanced_chunks.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/articles/advanced_chunks.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/articles/basic_chunks.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/articles/basic_chunks.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/articles/index.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/articles/teal-code.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/articles/qenv.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/authors.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/articles/teal-code.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/index.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/authors.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/news/index.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/index.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/pull_request_template.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/news/index.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunk_call.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/pull_request_template.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunk_comment.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunk_call.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunks.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunk_comment.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunks_deep_clone.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunks.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunks_eval.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunks_deep_clone.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunks_get_eval_msg.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunks_eval.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunks_get_rcode.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunks_get_eval_msg.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunks_get_var.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunks_get_rcode.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunks_is_ok.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunks_get_var.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunks_messages.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunks_is_ok.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunks_new.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunks_messages.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunks_push.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunks_new.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunks_push_chunks.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunks_push.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunks_push_comment.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunks_push_chunks.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunks_push_data_merge.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunks_push_comment.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunks_push_new_line.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunks_push_data_merge.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunks_reset.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunks_push_new_line.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunks_safe_eval.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunks_reset.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunks_uneval.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunks_safe_eval.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunks_validate_all.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunks_uneval.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunks_validate_custom.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunks_validate_all.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunks_validate_is.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunks_validate_custom.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunks_validate_is_ok.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunks_validate_is.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/chunks_warnings.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunks_validate_is_ok.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/get_chunks_object.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/chunks_warnings.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/get_eval_details_srv.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/concat.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/get_eval_details_ui.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/dot-check_joinable.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/get_number_in_box.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/eval_code.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/include_css_files.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/get_chunks_object.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/index.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/get_code.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/init_chunks.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/get_eval_details_srv.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/overwrite_chunks.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/get_eval_details_ui.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/remove_enclosing_curly_braces.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/get_number_in_box.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/show_eval_details_modal.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/get_var.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/v0.2.0/reference/teal.code-package.html</loc>
+    <loc>https://insightsengineering.github.io/teal.code/reference/get_warnings.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.code/reference/include_css_files.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.code/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.code/reference/init_chunks.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.code/reference/join.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.code/reference/new_qenv.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.code/reference/overwrite_chunks.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.code/reference/qenv-class.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.code/reference/remove_enclosing_curly_braces.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.code/reference/show-qenv-method.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.code/reference/show_eval_details_modal.html</loc>
+  </url>
+  <url>
+    <loc>https://insightsengineering.github.io/teal.code/reference/teal.code-package.html</loc>
   </url>
 </urlset>
