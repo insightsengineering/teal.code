@@ -18,21 +18,21 @@ License: Apache License 2.0 | file LICENSE
 Depends:
     R (>= 4.0)
 Imports:
-    checkmate,
-    crayon,
-    lifecycle,
+    checkmate (>= 2.0.0),
+    crayon (>= 1.3.4),
+    lifecycle (>= 1.0.3),
     methods,
-    R6,
-    rlang,
-    shiny,
+    R6 (>= 2.2.0),
+    rlang (>= 1.0.6),
+    shiny (>= 1.6.0),
     styler,
     teal.widgets (>= 0.2.0)
 Suggests:
-    cli,
-    knitr,
-    magrittr,
+    cli (>= 3.4.0),
+    knitr (>= 1.15),
+    magrittr (>= 1.5.0),
     rmarkdown,
-    testthat (>= 2.0)
+    testthat (>= 2.3.0)
 VignetteBuilder:
     knitr
 RdMacros:
@@ -44,7 +44,7 @@ Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
-Collate: 
+Collate:
     'chunk.R'
     'chunks.R'
     'get_eval_details.R'
