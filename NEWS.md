@@ -1,4 +1,6 @@
-# teal.code 0.2.0.9010
+# teal.code 0.3.0.9000
+
+# teal.code 0.3.0
 
 ### Major breaking change
 * `chunks` have now been deprecated and will be removed from the package in a future release. The new `qenv` object should be used instead. See the new `qenv` vignette in the package for further details.
