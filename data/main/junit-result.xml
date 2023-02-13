@@ -1,466 +1,466 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="chunks" timestamp="2023-02-08T12:54:06Z" hostname="694a421bb395" tests="282" skipped="0" failures="0" errors="0" time="3.865">
-    <testcase time="0.0489999999999999" classname="chunks" name="chunk_comment_init"/>
-    <testcase time="0.036" classname="chunks" name="chunk_comment_init"/>
-    <testcase time="0.022" classname="chunks" name="chunk_comment_init"/>
-    <testcase time="0.00300000000000011" classname="chunks" name="chunk_comment_methods"/>
+  <testsuite name="chunks" timestamp="2023-02-13T17:43:41Z" hostname="6758c39e29e9" tests="282" skipped="0" failures="0" errors="0" time="2.519">
+    <testcase time="0.037" classname="chunks" name="chunk_comment_init"/>
+    <testcase time="0.025" classname="chunks" name="chunk_comment_init"/>
+    <testcase time="0.0139999999999999" classname="chunks" name="chunk_comment_init"/>
+    <testcase time="0.003" classname="chunks" name="chunk_comment_methods"/>
     <testcase time="0.002" classname="chunks" name="chunk_comment_methods"/>
-    <testcase time="0.002" classname="chunks" name="chunk_comment_methods"/>
-    <testcase time="0.00299999999999989" classname="chunks" name="chunk_comment_methods"/>
-    <testcase time="0.00700000000000012" classname="chunks" name="chunk_init"/>
-    <testcase time="0.014" classname="chunks" name="chunk_init"/>
-    <testcase time="0.00299999999999989" classname="chunks" name="chunk_init"/>
-    <testcase time="0.00600000000000001" classname="chunks" name="chunk_eval"/>
+    <testcase time="0.001" classname="chunks" name="chunk_comment_methods"/>
+    <testcase time="0.003" classname="chunks" name="chunk_comment_methods"/>
+    <testcase time="0.005" classname="chunks" name="chunk_init"/>
+    <testcase time="0.01" classname="chunks" name="chunk_init"/>
+    <testcase time="0.002" classname="chunks" name="chunk_init"/>
+    <testcase time="0.003" classname="chunks" name="chunk_eval"/>
+    <testcase time="0.001" classname="chunks" name="chunk_eval"/>
+    <testcase time="0.003" classname="chunks" name="chunk_eval"/>
     <testcase time="0.002" classname="chunks" name="chunk_eval"/>
-    <testcase time="0.00300000000000011" classname="chunks" name="chunk_eval"/>
-    <testcase time="0.00299999999999989" classname="chunks" name="chunk_eval"/>
+    <testcase time="0.002" classname="chunks" name="chunk_eval"/>
+    <testcase time="0.005" classname="chunks" name="chunk_eval"/>
     <testcase time="0.004" classname="chunks" name="chunk_eval"/>
-    <testcase time="0.00800000000000001" classname="chunks" name="chunk_eval"/>
-    <testcase time="0.0069999999999999" classname="chunks" name="chunk_eval"/>
-    <testcase time="0.004" classname="chunks" name="chunk_eval"/>
-    <testcase time="0.00300000000000011" classname="chunks" name="chunk_eval"/>
+    <testcase time="0.003" classname="chunks" name="chunk_eval"/>
+    <testcase time="0.002" classname="chunks" name="chunk_eval"/>
+    <testcase time="0.003" classname="chunks" name="chunk_validation_functions"/>
+    <testcase time="0.001" classname="chunks" name="chunk_validation_functions"/>
+    <testcase time="0.001" classname="chunks" name="chunk_validation_functions"/>
+    <testcase time="0.002" classname="chunks" name="chunk_validation_functions"/>
+    <testcase time="0.001" classname="chunks" name="chunk_validation_functions"/>
+    <testcase time="0.001" classname="chunks" name="chunk_validation_functions"/>
+    <testcase time="0.044" classname="chunks" name="chunk_validation_functions"/>
     <testcase time="0.004" classname="chunks" name="chunk_validation_functions"/>
-    <testcase time="0.002" classname="chunks" name="chunk_validation_functions"/>
-    <testcase time="0.002" classname="chunks" name="chunk_validation_functions"/>
-    <testcase time="0.00299999999999989" classname="chunks" name="chunk_validation_functions"/>
-    <testcase time="0.00100000000000011" classname="chunks" name="chunk_validation_functions"/>
-    <testcase time="0.002" classname="chunks" name="chunk_validation_functions"/>
-    <testcase time="0.0600000000000001" classname="chunks" name="chunk_validation_functions"/>
-    <testcase time="0.00600000000000001" classname="chunks" name="chunk_validation_functions"/>
-    <testcase time="0.0069999999999999" classname="chunks" name="chunk_validation_functions"/>
-    <testcase time="0.00500000000000012" classname="chunks" name="chunk_validation_functions"/>
-    <testcase time="0.00600000000000001" classname="chunks" name="chunk_validation_functions"/>
-    <testcase time="0.004" classname="chunks" name="chunk_get_rcode"/>
-    <testcase time="0.0069999999999999" classname="chunks" name="chunk_get_rcode"/>
-    <testcase time="0.004" classname="chunks" name="chunk_get_rcode"/>
+    <testcase time="0.004" classname="chunks" name="chunk_validation_functions"/>
+    <testcase time="0.00399999999999989" classname="chunks" name="chunk_validation_functions"/>
+    <testcase time="0.003" classname="chunks" name="chunk_validation_functions"/>
+    <testcase time="0.003" classname="chunks" name="chunk_get_rcode"/>
+    <testcase time="0.00600000000000001" classname="chunks" name="chunk_get_rcode"/>
+    <testcase time="0.003" classname="chunks" name="chunk_get_rcode"/>
+    <testcase time="0.001" classname="chunks" name="chunk_get_rcode"/>
     <testcase time="0.002" classname="chunks" name="chunk_get_rcode"/>
     <testcase time="0.002" classname="chunks" name="chunk_get_rcode"/>
-    <testcase time="0.00299999999999989" classname="chunks" name="chunk_get_rcode"/>
-    <testcase time="0.121" classname="chunks" name="chunk_get_rcode"/>
+    <testcase time="0.0830000000000001" classname="chunks" name="chunk_get_rcode"/>
     <testcase time="0.00299999999999989" classname="chunks" name="chunk_info_msg"/>
-    <testcase time="0.0589999999999999" classname="chunks" name="chunk_info_msg"/>
-    <testcase time="0.0630000000000002" classname="chunks" name="chunk_info_msg"/>
-    <testcase time="0.077" classname="chunks" name="chunk_info_msg"/>
-    <testcase time="0.0589999999999999" classname="chunks" name="chunk_info_msg"/>
-    <testcase time="0.071" classname="chunks" name="chunk_info_msg"/>
-    <testcase time="0.0490000000000002" classname="chunks" name="chunk_info_msg"/>
-    <testcase time="0.004" classname="chunks" name="chunk_get_warnings_get_messages"/>
-    <testcase time="0.002" classname="chunks" name="chunk_get_warnings_get_messages"/>
+    <testcase time="0.038" classname="chunks" name="chunk_info_msg"/>
+    <testcase time="0.038" classname="chunks" name="chunk_info_msg"/>
+    <testcase time="0.0449999999999999" classname="chunks" name="chunk_info_msg"/>
+    <testcase time="0.038" classname="chunks" name="chunk_info_msg"/>
+    <testcase time="0.046" classname="chunks" name="chunk_info_msg"/>
+    <testcase time="0.032" classname="chunks" name="chunk_info_msg"/>
     <testcase time="0.00299999999999989" classname="chunks" name="chunk_get_warnings_get_messages"/>
-    <testcase time="0.00300000000000011" classname="chunks" name="chunk_get_warnings_get_messages"/>
-    <testcase time="0.004" classname="chunks" name="chunk_info"/>
-    <testcase time="0.00299999999999989" classname="chunks" name="chunk_info"/>
-    <testcase time="0.004" classname="chunks" name="chunk_info"/>
+    <testcase time="0.002" classname="chunks" name="chunk_get_warnings_get_messages"/>
+    <testcase time="0.002" classname="chunks" name="chunk_get_warnings_get_messages"/>
+    <testcase time="0.002" classname="chunks" name="chunk_get_warnings_get_messages"/>
     <testcase time="0.00300000000000011" classname="chunks" name="chunk_info"/>
-    <testcase time="0.087" classname="chunks" name="chunks_eval_with_random_ID"/>
-    <testcase time="0.004" classname="chunks" name="chunks_eval_with_random_ID"/>
-    <testcase time="0.00200000000000022" classname="chunks" name="chunks_eval_with_random_ID"/>
-    <testcase time="0.0189999999999997" classname="chunks" name="chunks_eval_with_random_ID"/>
-    <testcase time="0.0089999999999999" classname="chunks" name="chunks_eval_with_random_ID"/>
-    <testcase time="0.0100000000000002" classname="chunks" name="chunks_eval_with_random_ID"/>
+    <testcase time="0.002" classname="chunks" name="chunk_info"/>
+    <testcase time="0.00299999999999989" classname="chunks" name="chunk_info"/>
+    <testcase time="0.002" classname="chunks" name="chunk_info"/>
+    <testcase time="0.0650000000000002" classname="chunks" name="chunks_eval_with_random_ID"/>
+    <testcase time="0.00299999999999989" classname="chunks" name="chunks_eval_with_random_ID"/>
+    <testcase time="0.00100000000000011" classname="chunks" name="chunks_eval_with_random_ID"/>
+    <testcase time="0.0129999999999999" classname="chunks" name="chunks_eval_with_random_ID"/>
     <testcase time="0.00499999999999989" classname="chunks" name="chunks_eval_with_random_ID"/>
-    <testcase time="0.0310000000000001" classname="chunks" name="chunks_eval_with_random_ID"/>
-    <testcase time="0.0459999999999998" classname="chunks" name="chunks_eval_with_random_ID"/>
-    <testcase time="0.00599999999999978" classname="chunks" name="chunks_eval_with_random_ID"/>
-    <testcase time="0.00800000000000001" classname="chunks" name="chunks_eval_with_random_ID"/>
-    <testcase time="0.00700000000000012" classname="chunks" name="chunks_eval_with_random_ID"/>
-    <testcase time="0.00599999999999978" classname="chunks" name="chunks_eval_with_random_ID"/>
-    <testcase time="0.0100000000000002" classname="chunks" name="chunks_eval_with_random_ID"/>
-    <testcase time="0.00599999999999978" classname="chunks" name="chunks_eval_with_given_ID"/>
+    <testcase time="0.00600000000000001" classname="chunks" name="chunks_eval_with_random_ID"/>
+    <testcase time="0.002" classname="chunks" name="chunks_eval_with_random_ID"/>
+    <testcase time="0.0210000000000001" classname="chunks" name="chunks_eval_with_random_ID"/>
+    <testcase time="0.03" classname="chunks" name="chunks_eval_with_random_ID"/>
+    <testcase time="0.004" classname="chunks" name="chunks_eval_with_random_ID"/>
+    <testcase time="0.00600000000000001" classname="chunks" name="chunks_eval_with_random_ID"/>
+    <testcase time="0.004" classname="chunks" name="chunks_eval_with_random_ID"/>
+    <testcase time="0.004" classname="chunks" name="chunks_eval_with_random_ID"/>
+    <testcase time="0.0069999999999999" classname="chunks" name="chunks_eval_with_random_ID"/>
+    <testcase time="0.00500000000000012" classname="chunks" name="chunks_eval_with_given_ID"/>
+    <testcase time="0.00299999999999989" classname="chunks" name="chunks_eval_with_given_ID"/>
+    <testcase time="0.00500000000000012" classname="chunks" name="chunks_eval_with_given_ID"/>
+    <testcase time="0.00499999999999989" classname="chunks" name="chunks_eval_with_given_ID"/>
+    <testcase time="0.002" classname="chunks" name="chunks_eval_with_given_ID"/>
     <testcase time="0.004" classname="chunks" name="chunks_eval_with_given_ID"/>
-    <testcase time="0.00800000000000001" classname="chunks" name="chunks_eval_with_given_ID"/>
-    <testcase time="0.00700000000000012" classname="chunks" name="chunks_eval_with_given_ID"/>
     <testcase time="0.004" classname="chunks" name="chunks_eval_with_given_ID"/>
+    <testcase time="0.00900000000000012" classname="chunks" name="chunks_eval_with_given_ID"/>
     <testcase time="0.004" classname="chunks" name="chunks_eval_with_given_ID"/>
-    <testcase time="0.00800000000000001" classname="chunks" name="chunks_eval_with_given_ID"/>
-    <testcase time="0.0140000000000002" classname="chunks" name="chunks_eval_with_given_ID"/>
-    <testcase time="0.00599999999999978" classname="chunks" name="chunks_eval_with_given_ID"/>
-    <testcase time="0.0089999999999999" classname="chunks" name="chunks_eval_with_given_ID"/>
-    <testcase time="0.00600000000000023" classname="chunks" name="chunks_eval_with_given_ID"/>
+    <testcase time="0.00499999999999989" classname="chunks" name="chunks_eval_with_given_ID"/>
     <testcase time="0.004" classname="chunks" name="chunks_eval_with_given_ID"/>
-    <testcase time="0.0129999999999999" classname="chunks" name="chunks_eval_with_given_ID"/>
-    <testcase time="0.00300000000000011" classname="chunks" name="chunks_eval_with_given_ID"/>
-    <testcase time="0.0110000000000001" classname="chunks" name="chunks_get_rcode"/>
-    <testcase time="0.00499999999999989" classname="chunks" name="chunks_get_rcode"/>
-    <testcase time="0.00299999999999967" classname="chunks" name="chunks_get_rcode"/>
+    <testcase time="0.002" classname="chunks" name="chunks_eval_with_given_ID"/>
+    <testcase time="0.00900000000000012" classname="chunks" name="chunks_eval_with_given_ID"/>
+    <testcase time="0.002" classname="chunks" name="chunks_eval_with_given_ID"/>
     <testcase time="0.00800000000000001" classname="chunks" name="chunks_get_rcode"/>
-    <testcase time="0.00300000000000011" classname="chunks" name="chunks_get_rcode"/>
-    <testcase time="0.004" classname="chunks" name="chunks_get_rcode"/>
-    <testcase time="0.00700000000000012" classname="chunks" name="chunks_get_rcode"/>
-    <testcase time="0.004" classname="chunks" name="chunks_get_rcode"/>
-    <testcase time="0.00300000000000011" classname="chunks" name="chunks_get_rcode"/>
-    <testcase time="0.0269999999999997" classname="chunks" name="chunks_eval"/>
-    <testcase time="0.00800000000000001" classname="chunks" name="chunks_eval"/>
-    <testcase time="0.00900000000000034" classname="chunks" name="chunks_eval"/>
-    <testcase time="0.00800000000000001" classname="chunks" name="chunks_eval"/>
-    <testcase time="0.0109999999999997" classname="chunks" name="get_code_chunk"/>
-    <testcase time="0.0140000000000002" classname="chunks" name="get_code_chunk"/>
-    <testcase time="0.0089999999999999" classname="chunks" name="get_code_chunk"/>
-    <testcase time="0.00300000000000011" classname="chunks" name="get_code_chunk"/>
-    <testcase time="0.00999999999999979" classname="chunks" name="get_code_chunk_curly_braces"/>
+    <testcase time="0.00299999999999989" classname="chunks" name="chunks_get_rcode"/>
+    <testcase time="0.002" classname="chunks" name="chunks_get_rcode"/>
+    <testcase time="0.00600000000000001" classname="chunks" name="chunks_get_rcode"/>
+    <testcase time="0.002" classname="chunks" name="chunks_get_rcode"/>
+    <testcase time="0.002" classname="chunks" name="chunks_get_rcode"/>
+    <testcase time="0.00500000000000012" classname="chunks" name="chunks_get_rcode"/>
+    <testcase time="0.00299999999999989" classname="chunks" name="chunks_get_rcode"/>
+    <testcase time="0.002" classname="chunks" name="chunks_get_rcode"/>
+    <testcase time="0.02" classname="chunks" name="chunks_eval"/>
+    <testcase time="0.00600000000000001" classname="chunks" name="chunks_eval"/>
+    <testcase time="0.00600000000000001" classname="chunks" name="chunks_eval"/>
+    <testcase time="0.00500000000000012" classname="chunks" name="chunks_eval"/>
+    <testcase time="0.00800000000000001" classname="chunks" name="get_code_chunk"/>
+    <testcase time="0.01" classname="chunks" name="get_code_chunk"/>
+    <testcase time="0.00600000000000001" classname="chunks" name="get_code_chunk"/>
+    <testcase time="0.002" classname="chunks" name="get_code_chunk"/>
     <testcase time="0.00800000000000001" classname="chunks" name="get_code_chunk_curly_braces"/>
-    <testcase time="0.004" classname="chunks" name="get_code_chunk_curly_braces"/>
-    <testcase time="0.028" classname="chunks" name="init_chunks"/>
-    <testcase time="0.0100000000000002" classname="chunks" name="chunks_new_returns_R6_chunks_object"/>
-    <testcase time="0.0089999999999999" classname="chunks" name="chunks_new_accepts_environment_object_or_empty_as_input"/>
+    <testcase time="0.00599999999999978" classname="chunks" name="get_code_chunk_curly_braces"/>
+    <testcase time="0.002" classname="chunks" name="get_code_chunk_curly_braces"/>
+    <testcase time="0.016" classname="chunks" name="init_chunks"/>
+    <testcase time="0.00600000000000001" classname="chunks" name="chunks_new_returns_R6_chunks_object"/>
     <testcase time="0.00700000000000012" classname="chunks" name="chunks_new_accepts_environment_object_or_empty_as_input"/>
-    <testcase time="0.111" classname="chunks" name="chunks_new_throws_error_when_an_input_is_not_environment"/>
-    <testcase time="0.0110000000000001" classname="chunks" name="chunks_new_throws_error_when_an_input_is_not_environment"/>
-    <testcase time="0.00999999999999979" classname="chunks" name="set_chunk_environment"/>
-    <testcase time="0.00700000000000012" classname="chunks" name="set_chunk_environment"/>
-    <testcase time="0.00800000000000001" classname="chunks" name="set_chunk_environment"/>
+    <testcase time="0.00499999999999989" classname="chunks" name="chunks_new_accepts_environment_object_or_empty_as_input"/>
+    <testcase time="0.089" classname="chunks" name="chunks_new_throws_error_when_an_input_is_not_environment"/>
+    <testcase time="0.00800000000000001" classname="chunks" name="chunks_new_throws_error_when_an_input_is_not_environment"/>
+    <testcase time="0.00600000000000001" classname="chunks" name="set_chunk_environment"/>
+    <testcase time="0.00600000000000001" classname="chunks" name="set_chunk_environment"/>
+    <testcase time="0.00600000000000001" classname="chunks" name="set_chunk_environment"/>
+    <testcase time="0.002" classname="chunks" name="set_chunk_environment"/>
     <testcase time="0.00300000000000011" classname="chunks" name="set_chunk_environment"/>
-    <testcase time="0.004" classname="chunks" name="set_chunk_environment"/>
-    <testcase time="0.012" classname="chunks" name="set_chunk_environment"/>
-    <testcase time="0.00499999999999989" classname="chunks" name="set_chunk_environment"/>
-    <testcase time="0.004" classname="chunks" name="set_chunk_environment"/>
-    <testcase time="0.0449999999999999" classname="chunks" name="deep_clone_method"/>
-    <testcase time="0.00800000000000001" classname="chunks" name="deep_clone_method"/>
-    <testcase time="0.00600000000000023" classname="chunks" name="deep_clone_method"/>
-    <testcase time="0.00499999999999989" classname="chunks" name="deep_clone_method"/>
-    <testcase time="0.00600000000000023" classname="chunks" name="deep_clone_method"/>
+    <testcase time="0.00800000000000001" classname="chunks" name="set_chunk_environment"/>
+    <testcase time="0.00299999999999989" classname="chunks" name="set_chunk_environment"/>
+    <testcase time="0.00300000000000011" classname="chunks" name="set_chunk_environment"/>
+    <testcase time="0.03" classname="chunks" name="deep_clone_method"/>
+    <testcase time="0.00600000000000001" classname="chunks" name="deep_clone_method"/>
+    <testcase time="0.00299999999999989" classname="chunks" name="deep_clone_method"/>
+    <testcase time="0.00300000000000011" classname="chunks" name="deep_clone_method"/>
+    <testcase time="0.004" classname="chunks" name="deep_clone_method"/>
+    <testcase time="0.00299999999999989" classname="chunks" name="deep_clone_method"/>
+    <testcase time="0.00300000000000011" classname="chunks" name="deep_clone_method"/>
     <testcase time="0.004" classname="chunks" name="deep_clone_method"/>
     <testcase time="0.00499999999999989" classname="chunks" name="deep_clone_method"/>
-    <testcase time="0.00499999999999989" classname="chunks" name="deep_clone_method"/>
-    <testcase time="0.00900000000000034" classname="chunks" name="deep_clone_method"/>
     <testcase time="0.004" classname="chunks" name="deep_clone_method"/>
-    <testcase time="0.0109999999999997" classname="chunks" name="deep_clone_method"/>
-    <testcase time="0.004" classname="chunks" name="deep_clone_method"/>
-    <testcase time="0.00900000000000034" classname="chunks" name="deep_clone_method"/>
-    <testcase time="0.0259999999999998" classname="chunks" name="lhs_and_rhs"/>
-    <testcase time="0.0139999999999998" classname="chunks" name="lhs_and_rhs"/>
-    <testcase time="0.0250000000000004" classname="chunks" name="lhs_and_rhs"/>
-    <testcase time="0.012" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.0109999999999997" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.0110000000000001" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.00499999999999989" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.00500000000000034" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.00999999999999979" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.00500000000000012" classname="chunks" name="deep_clone_method"/>
+    <testcase time="0.00299999999999989" classname="chunks" name="deep_clone_method"/>
+    <testcase time="0.00600000000000001" classname="chunks" name="deep_clone_method"/>
+    <testcase time="0.014" classname="chunks" name="lhs_and_rhs"/>
+    <testcase time="0.00600000000000001" classname="chunks" name="lhs_and_rhs"/>
+    <testcase time="0.00499999999999989" classname="chunks" name="lhs_and_rhs"/>
+    <testcase time="0.00700000000000012" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.0069999999999999" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.00600000000000001" classname="chunks" name="chunks_push_chunks"/>
     <testcase time="0.004" classname="chunks" name="chunks_push_chunks"/>
     <testcase time="0.00300000000000011" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.0110000000000001" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.004" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.0139999999999998" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.0129999999999999" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.0110000000000001" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.004" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.0179999999999998" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.00900000000000034" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.0679999999999996" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.0110000000000001" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.00600000000000023" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.004" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.00499999999999989" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.0069999999999999" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.00300000000000011" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.002" classname="chunks" name="chunks_push_chunks"/>
     <testcase time="0.00800000000000001" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.00299999999999989" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.0089999999999999" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.0100000000000002" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.00800000000000001" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.00199999999999978" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.012" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.00600000000000023" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.0469999999999997" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.00800000000000001" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.00300000000000011" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.00300000000000011" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.00300000000000011" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.00499999999999989" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.00300000000000011" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.00699999999999967" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.012" classname="chunks" name="chunks_push_chunks"/>
     <testcase time="0.004" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.0110000000000001" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.0169999999999999" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.00599999999999978" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.00300000000000011" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.00200000000000022" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.0179999999999998" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.0300000000000002" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.00299999999999967" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.00300000000000011" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.0089999999999999" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.00900000000000034" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.00800000000000001" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.0089999999999999" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.0089999999999999" classname="chunks" name="chunks_push_chunks"/>
     <testcase time="0.004" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.004" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.0350000000000001" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.0499999999999998" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.00500000000000034" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.004" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.016" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.02" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.0109999999999997" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.0150000000000001" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.0150000000000001" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.00599999999999978" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.004" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.0289999999999999" classname="chunks" name="chunks_uneval"/>
-    <testcase time="0.00600000000000023" classname="chunks" name="chunks_uneval"/>
+    <testcase time="0.00300000000000011" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.0190000000000001" classname="chunks" name="chunks_uneval"/>
     <testcase time="0.004" classname="chunks" name="chunks_uneval"/>
-    <testcase time="0.0150000000000001" classname="chunks" name="chunks_uneval"/>
-    <testcase time="0.004" classname="chunks" name="chunks_uneval"/>
-    <testcase time="0.02" classname="chunks" name="chunks_uneval"/>
-    <testcase time="0.004" classname="chunks" name="chunks_uneval"/>
+    <testcase time="0.00299999999999967" classname="chunks" name="chunks_uneval"/>
+    <testcase time="0.00900000000000034" classname="chunks" name="chunks_uneval"/>
+    <testcase time="0.00299999999999967" classname="chunks" name="chunks_uneval"/>
+    <testcase time="0.0100000000000002" classname="chunks" name="chunks_uneval"/>
+    <testcase time="0.00300000000000011" classname="chunks" name="chunks_uneval"/>
+    <testcase time="0.00299999999999967" classname="chunks" name="chunks_uneval"/>
+    <testcase time="0.00800000000000001" classname="chunks" name="chunks_uneval"/>
+    <testcase time="0.00499999999999989" classname="chunks" name="chunks_uneval"/>
+    <testcase time="0.00300000000000011" classname="chunks" name="chunks_uneval"/>
+    <testcase time="0.0110000000000001" classname="chunks" name="chunks_uneval"/>
+    <testcase time="0.00300000000000011" classname="chunks" name="chunks_uneval"/>
     <testcase time="0.00999999999999979" classname="chunks" name="chunks_uneval"/>
     <testcase time="0.004" classname="chunks" name="chunks_uneval"/>
-    <testcase time="0.0100000000000002" classname="chunks" name="chunks_uneval"/>
-    <testcase time="0.004" classname="chunks" name="chunks_uneval"/>
-    <testcase time="0.0169999999999999" classname="chunks" name="chunks_uneval"/>
+    <testcase time="0.00300000000000011" classname="chunks" name="chunks_uneval"/>
     <testcase time="0.00499999999999989" classname="chunks" name="chunks_uneval"/>
-    <testcase time="0.0139999999999998" classname="chunks" name="chunks_uneval"/>
-    <testcase time="0.00500000000000034" classname="chunks" name="chunks_uneval"/>
-    <testcase time="0.00499999999999989" classname="chunks" name="chunks_uneval"/>
-    <testcase time="0.00800000000000001" classname="chunks" name="chunks_uneval"/>
     <testcase time="0.004" classname="chunks" name="chunks_uneval"/>
-    <testcase time="0.0289999999999999" classname="chunks" name="chunks_chunks_push_merge_data"/>
-    <testcase time="0.0110000000000001" classname="chunks" name="chunks_chunks_push_merge_data"/>
-    <testcase time="0.00800000000000001" classname="chunks" name="chunks_chunks_push_merge_data"/>
-    <testcase time="0.00599999999999978" classname="chunks" name="chunks_chunks_push_merge_data"/>
-    <testcase time="0.00800000000000001" classname="chunks" name="chunks_warning_messages"/>
-    <testcase time="0.0300000000000002" classname="chunks" name="chunks_warning_messages"/>
+    <testcase time="0.0190000000000001" classname="chunks" name="chunks_chunks_push_merge_data"/>
+    <testcase time="0.00700000000000012" classname="chunks" name="chunks_chunks_push_merge_data"/>
+    <testcase time="0.00499999999999989" classname="chunks" name="chunks_chunks_push_merge_data"/>
+    <testcase time="0.004" classname="chunks" name="chunks_chunks_push_merge_data"/>
+    <testcase time="0.00499999999999989" classname="chunks" name="chunks_warning_messages"/>
+    <testcase time="0.0169999999999999" classname="chunks" name="chunks_warning_messages"/>
+    <testcase time="0.00300000000000011" classname="chunks" name="chunks_warning_messages"/>
     <testcase time="0.004" classname="chunks" name="chunks_warning_messages"/>
+    <testcase time="0.00800000000000001" classname="chunks" name="chunks_warning_messages"/>
+    <testcase time="0.00300000000000011" classname="chunks" name="chunks_warning_messages"/>
     <testcase time="0.00499999999999989" classname="chunks" name="chunks_warning_messages"/>
-    <testcase time="0.00499999999999989" classname="chunks" name="chunks_warning_messages"/>
-    <testcase time="0.00600000000000023" classname="chunks" name="chunks_warning_messages"/>
-    <testcase time="0.00599999999999978" classname="chunks" name="chunks_warning_messages"/>
-    <testcase time="0.0129999999999999" classname="chunks" name="chunks_warning_messages"/>
-    <testcase time="0.012" classname="chunks" name="chunks_warning_messages"/>
-    <testcase time="0.00500000000000034" classname="chunks" name="chunks_warning_messages"/>
-    <testcase time="0.00699999999999967" classname="chunks" name="chunks_warning_messages"/>
-    <testcase time="0.0130000000000003" classname="chunks" name="chunks_eval_info_testing"/>
-    <testcase time="0.00499999999999989" classname="chunks" name="chunks_eval_info_testing"/>
-    <testcase time="0.0110000000000001" classname="chunks" name="chunks_eval_info_testing"/>
-    <testcase time="0.00499999999999989" classname="chunks" name="chunks_eval_info_testing"/>
-    <testcase time="0.0150000000000001" classname="chunks" name="chunks_validate_is"/>
-    <testcase time="0.00999999999999979" classname="chunks" name="chunks_validate_is"/>
-    <testcase time="0.0110000000000001" classname="chunks" name="chunks_validate_is"/>
+    <testcase time="0.00800000000000001" classname="chunks" name="chunks_warning_messages"/>
+    <testcase time="0.00800000000000001" classname="chunks" name="chunks_warning_messages"/>
+    <testcase time="0.004" classname="chunks" name="chunks_warning_messages"/>
+    <testcase time="0.00300000000000011" classname="chunks" name="chunks_warning_messages"/>
+    <testcase time="0.0089999999999999" classname="chunks" name="chunks_eval_info_testing"/>
+    <testcase time="0.00300000000000011" classname="chunks" name="chunks_eval_info_testing"/>
+    <testcase time="0.00800000000000001" classname="chunks" name="chunks_eval_info_testing"/>
+    <testcase time="0.004" classname="chunks" name="chunks_eval_info_testing"/>
+    <testcase time="0.0089999999999999" classname="chunks" name="chunks_validate_is"/>
+    <testcase time="0.00700000000000012" classname="chunks" name="chunks_validate_is"/>
+    <testcase time="0.00699999999999967" classname="chunks" name="chunks_validate_is"/>
+    <testcase time="0.00700000000000012" classname="chunks" name="chunks_validate_is"/>
+    <testcase time="0.00700000000000012" classname="chunks" name="chunks_validate_is"/>
+    <testcase time="0.00700000000000012" classname="chunks" name="chunks_validate_is"/>
     <testcase time="0.0109999999999997" classname="chunks" name="chunks_validate_is"/>
-    <testcase time="0.0150000000000001" classname="chunks" name="chunks_validate_is"/>
-    <testcase time="0.0110000000000001" classname="chunks" name="chunks_validate_is"/>
-    <testcase time="0.0129999999999999" classname="chunks" name="chunks_validate_is"/>
-    <testcase time="0.00600000000000023" classname="chunks" name="chunks_validate_is"/>
-    <testcase time="0.0129999999999999" classname="chunks" name="chunks_validate_is"/>
-    <testcase time="0.00599999999999978" classname="chunks" name="chunks_validate_is"/>
-    <testcase time="0.012" classname="chunks" name="chunks_validate_is"/>
-    <testcase time="0.012" classname="chunks" name="chunks_validate_is"/>
-    <testcase time="0.016" classname="chunks" name="chunks_validate_all"/>
-    <testcase time="0.00499999999999989" classname="chunks" name="chunks_validate_all"/>
-    <testcase time="0.0130000000000003" classname="chunks" name="chunks_validate_all"/>
-    <testcase time="0.016" classname="chunks" name="chunks_validate_all"/>
-    <testcase time="0.0659999999999998" classname="chunks" name="chunks_validate_all"/>
-    <testcase time="0.0180000000000002" classname="chunks" name="chunks_get_reactive_summary"/>
+    <testcase time="0.00299999999999967" classname="chunks" name="chunks_validate_is"/>
+    <testcase time="0.00900000000000034" classname="chunks" name="chunks_validate_is"/>
+    <testcase time="0.004" classname="chunks" name="chunks_validate_is"/>
+    <testcase time="0.00699999999999967" classname="chunks" name="chunks_validate_is"/>
+    <testcase time="0.00700000000000012" classname="chunks" name="chunks_validate_is"/>
+    <testcase time="0.00999999999999979" classname="chunks" name="chunks_validate_all"/>
+    <testcase time="0.004" classname="chunks" name="chunks_validate_all"/>
+    <testcase time="0.00900000000000034" classname="chunks" name="chunks_validate_all"/>
+    <testcase time="0.0089999999999999" classname="chunks" name="chunks_validate_all"/>
+    <testcase time="0.0409999999999999" classname="chunks" name="chunks_validate_all"/>
+    <testcase time="0.016" classname="chunks" name="chunks_get_reactive_summary"/>
+    <testcase time="0.004" classname="chunks" name="chunks_get_reactive_summary"/>
+    <testcase time="0.004" classname="chunks" name="chunks_get_reactive_summary"/>
+    <testcase time="0.00800000000000001" classname="chunks" name="chunks_get_reactive_summary"/>
+    <testcase time="0.004" classname="chunks" name="chunks_get_reactive_summary"/>
+    <testcase time="0.004" classname="chunks" name="chunks_get_reactive_summary"/>
+    <testcase time="0.0350000000000001" classname="chunks" name="chunks_get_reactive_summary"/>
+    <testcase time="0.004" classname="chunks" name="chunks_get_reactive_summary"/>
+    <testcase time="0.004" classname="chunks" name="chunks_get_reactive_summary"/>
     <testcase time="0.00499999999999989" classname="chunks" name="chunks_get_reactive_summary"/>
-    <testcase time="0.00599999999999978" classname="chunks" name="chunks_get_reactive_summary"/>
-    <testcase time="0.0150000000000001" classname="chunks" name="chunks_get_reactive_summary"/>
-    <testcase time="0.00599999999999978" classname="chunks" name="chunks_get_reactive_summary"/>
-    <testcase time="0.00600000000000023" classname="chunks" name="chunks_get_reactive_summary"/>
-    <testcase time="0.0549999999999997" classname="chunks" name="chunks_get_reactive_summary"/>
-    <testcase time="0.00700000000000056" classname="chunks" name="chunks_get_reactive_summary"/>
-    <testcase time="0.00599999999999934" classname="chunks" name="chunks_get_reactive_summary"/>
-    <testcase time="0.00700000000000056" classname="chunks" name="chunks_get_reactive_summary"/>
-    <testcase time="0.00699999999999967" classname="chunks" name="chunks_get_reactive_summary"/>
-    <testcase time="0.00600000000000023" classname="chunks" name="chunks_get_reactive_summary"/>
-    <testcase time="0.0869999999999997" classname="chunks" name="chunks_push"/>
-    <testcase time="0.00700000000000056" classname="chunks" name="chunks_push"/>
-    <testcase time="0.0119999999999996" classname="chunks" name="chunks_push"/>
-    <testcase time="0.0129999999999999" classname="chunks" name="chunks_push"/>
-    <testcase time="0.00999999999999979" classname="chunks" name="chunks_push"/>
-    <testcase time="0.0100000000000007" classname="chunks" name="chunks_push"/>
-    <testcase time="0.00999999999999979" classname="chunks" name="chunks_push"/>
-    <testcase time="0.0110000000000001" classname="chunks" name="chunks_push"/>
-    <testcase time="0.024" classname="chunks" name="chunks_push_chunks"/>
-    <testcase time="0.0119999999999996" classname="chunks" name="chunks_push_data_merge"/>
-    <testcase time="0.0310000000000006" classname="chunks" name="chunks_push_comment"/>
-    <testcase time="0.0119999999999996" classname="chunks" name="chunks_push_comment"/>
-    <testcase time="0.00999999999999979" classname="chunks" name="chunks_push_comment"/>
-    <testcase time="0.00600000000000023" classname="chunks" name="chunks_push_comment"/>
-    <testcase time="0.0250000000000004" classname="chunks" name="chunks_push_new_line"/>
-    <testcase time="0.0109999999999992" classname="chunks" name="chunks_push_new_line"/>
-    <testcase time="0.00600000000000023" classname="chunks" name="chunks_push_new_line"/>
-    <testcase time="0.0129999999999999" classname="chunks" name="chunks_eval"/>
-    <testcase time="0.0140000000000002" classname="chunks" name="chunks_uneval"/>
-    <testcase time="0.0140000000000002" classname="chunks" name="chunks_get_rcode"/>
-    <testcase time="0.0129999999999999" classname="chunks" name="chunks_warnings"/>
-    <testcase time="0.0129999999999999" classname="chunks" name="chunks_messages"/>
-    <testcase time="0.0289999999999999" classname="chunks" name="overwrite_chunks"/>
-    <testcase time="0.0140000000000002" classname="chunks" name="overwrite_chunks"/>
-    <testcase time="0.0129999999999999" classname="chunks" name="overwrite_chunks"/>
-    <testcase time="0.0129999999999999" classname="chunks" name="overwrite_chunks"/>
-    <testcase time="0.0309999999999997" classname="chunks" name="chunks_is_ok"/>
-    <testcase time="0.00600000000000023" classname="chunks" name="chunks_is_ok"/>
-    <testcase time="0.0120000000000005" classname="chunks" name="chunks_is_ok"/>
-    <testcase time="0.0679999999999996" classname="chunks" name="chunks_get_eval_msg"/>
-    <testcase time="0.016" classname="chunks" name="chunks_get_eval_msg"/>
-    <testcase time="0.0270000000000001" classname="chunks" name="chunks_validate__methods"/>
-    <testcase time="0.0300000000000002" classname="chunks" name="chunks_validate__methods"/>
-    <testcase time="0.0129999999999999" classname="chunks" name="chunks_validate__methods"/>
-    <testcase time="0.0329999999999995" classname="chunks" name="chunks_validate_is"/>
-    <testcase time="0.00700000000000056" classname="chunks" name="chunks_validate_is"/>
-    <testcase time="0.0110000000000001" classname="chunks" name="chunks_validate_is"/>
-    <testcase time="0.0259999999999998" classname="chunks" name="chunks_validate_all"/>
-    <testcase time="0.0169999999999995" classname="chunks" name="chunks_validate_all"/>
-    <testcase time="0.00600000000000023" classname="chunks" name="chunks_validate_all"/>
+    <testcase time="0.004" classname="chunks" name="chunks_get_reactive_summary"/>
+    <testcase time="0.004" classname="chunks" name="chunks_get_reactive_summary"/>
+    <testcase time="0.0550000000000002" classname="chunks" name="chunks_push"/>
+    <testcase time="0.004" classname="chunks" name="chunks_push"/>
+    <testcase time="0.00800000000000001" classname="chunks" name="chunks_push"/>
+    <testcase time="0.00800000000000001" classname="chunks" name="chunks_push"/>
+    <testcase time="0.00599999999999978" classname="chunks" name="chunks_push"/>
+    <testcase time="0.00700000000000012" classname="chunks" name="chunks_push"/>
+    <testcase time="0.00599999999999978" classname="chunks" name="chunks_push"/>
+    <testcase time="0.00800000000000001" classname="chunks" name="chunks_push"/>
+    <testcase time="0.016" classname="chunks" name="chunks_push_chunks"/>
+    <testcase time="0.00900000000000034" classname="chunks" name="chunks_push_data_merge"/>
+    <testcase time="0.02" classname="chunks" name="chunks_push_comment"/>
+    <testcase time="0.00699999999999967" classname="chunks" name="chunks_push_comment"/>
+    <testcase time="0.00700000000000012" classname="chunks" name="chunks_push_comment"/>
+    <testcase time="0.004" classname="chunks" name="chunks_push_comment"/>
+    <testcase time="0.016" classname="chunks" name="chunks_push_new_line"/>
+    <testcase time="0.00700000000000012" classname="chunks" name="chunks_push_new_line"/>
+    <testcase time="0.004" classname="chunks" name="chunks_push_new_line"/>
+    <testcase time="0.00800000000000001" classname="chunks" name="chunks_eval"/>
+    <testcase time="0.00800000000000001" classname="chunks" name="chunks_uneval"/>
+    <testcase time="0.0089999999999999" classname="chunks" name="chunks_get_rcode"/>
+    <testcase time="0.00800000000000001" classname="chunks" name="chunks_warnings"/>
+    <testcase time="0.00800000000000001" classname="chunks" name="chunks_messages"/>
+    <testcase time="0.02" classname="chunks" name="overwrite_chunks"/>
+    <testcase time="0.00999999999999979" classname="chunks" name="overwrite_chunks"/>
+    <testcase time="0.00700000000000012" classname="chunks" name="overwrite_chunks"/>
+    <testcase time="0.00700000000000012" classname="chunks" name="overwrite_chunks"/>
+    <testcase time="0.0190000000000001" classname="chunks" name="chunks_is_ok"/>
+    <testcase time="0.004" classname="chunks" name="chunks_is_ok"/>
+    <testcase time="0.00699999999999967" classname="chunks" name="chunks_is_ok"/>
+    <testcase time="0.0449999999999999" classname="chunks" name="chunks_get_eval_msg"/>
+    <testcase time="0.00700000000000012" classname="chunks" name="chunks_get_eval_msg"/>
+    <testcase time="0.0180000000000002" classname="chunks" name="chunks_validate__methods"/>
+    <testcase time="0.0179999999999998" classname="chunks" name="chunks_validate__methods"/>
+    <testcase time="0.00800000000000001" classname="chunks" name="chunks_validate__methods"/>
+    <testcase time="0.0209999999999999" classname="chunks" name="chunks_validate_is"/>
+    <testcase time="0.00500000000000034" classname="chunks" name="chunks_validate_is"/>
+    <testcase time="0.00699999999999967" classname="chunks" name="chunks_validate_is"/>
     <testcase time="0.016" classname="chunks" name="chunks_validate_all"/>
-    <testcase time="0.0150000000000006" classname="chunks" name="chunks_validate_all"/>
-    <testcase time="0.0319999999999991" classname="chunks" name="chunks_validate_all"/>
-    <testcase time="0.0140000000000002" classname="chunks" name="chunks_deep_clone"/>
-    <testcase time="0.0120000000000005" classname="chunks" name="chunks_deep_clone"/>
-    <testcase time="0.056" classname="chunks" name="chunks_deep_clone"/>
-    <testcase time="0.00899999999999945" classname="chunks" name="chunks_deep_clone"/>
+    <testcase time="0.00799999999999956" classname="chunks" name="chunks_validate_all"/>
+    <testcase time="0.00900000000000034" classname="chunks" name="chunks_validate_all"/>
+    <testcase time="0.0089999999999999" classname="chunks" name="chunks_validate_all"/>
+    <testcase time="0.00999999999999979" classname="chunks" name="chunks_validate_all"/>
+    <testcase time="0.0210000000000004" classname="chunks" name="chunks_validate_all"/>
+    <testcase time="0.0089999999999999" classname="chunks" name="chunks_deep_clone"/>
+    <testcase time="0.00800000000000001" classname="chunks" name="chunks_deep_clone"/>
+    <testcase time="0.0219999999999998" classname="chunks" name="chunks_deep_clone"/>
+    <testcase time="0.00600000000000023" classname="chunks" name="chunks_deep_clone"/>
   </testsuite>
-  <testsuite name="chunks_id" timestamp="2023-02-08T12:54:10Z" hostname="694a421bb395" tests="5" skipped="0" failures="0" errors="0" time="0.07">
-    <testcase time="0.04" classname="chunks_id" name="chunks_id_push"/>
-    <testcase time="0.00999999999999979" classname="chunks_id" name="chunks_id_push_chunks"/>
-    <testcase time="0.00600000000000023" classname="chunks_id" name="chunks_id_push_chunks"/>
-    <testcase time="0.00600000000000023" classname="chunks_id" name="chunks_id_push_chunks_empty_to_empty"/>
-    <testcase time="0.00800000000000001" classname="chunks_id" name="chunks_id_push_chunks_empty_to_empty"/>
+  <testsuite name="chunks_id" timestamp="2023-02-13T17:43:43Z" hostname="6758c39e29e9" tests="5" skipped="0" failures="0" errors="0" time="0.047">
+    <testcase time="0.024" classname="chunks_id" name="chunks_id_push"/>
+    <testcase time="0.0109999999999997" classname="chunks_id" name="chunks_id_push_chunks"/>
+    <testcase time="0.004" classname="chunks_id" name="chunks_id_push_chunks"/>
+    <testcase time="0.004" classname="chunks_id" name="chunks_id_push_chunks_empty_to_empty"/>
+    <testcase time="0.004" classname="chunks_id" name="chunks_id_push_chunks_empty_to_empty"/>
   </testsuite>
-  <testsuite name="chunks_validate_custom" timestamp="2023-02-08T12:54:10Z" hostname="694a421bb395" tests="12" skipped="0" failures="0" errors="0" time="0.133">
-    <testcase time="0.0469999999999997" classname="chunks_validate_custom" name="chunks_validate_custom"/>
+  <testsuite name="chunks_validate_custom" timestamp="2023-02-13T17:43:43Z" hostname="6758c39e29e9" tests="12" skipped="0" failures="0" errors="0" time="0.082">
+    <testcase time="0.0300000000000002" classname="chunks_validate_custom" name="chunks_validate_custom"/>
+    <testcase time="0.00300000000000011" classname="chunks_validate_custom" name="chunks_validate_custom"/>
     <testcase time="0.00499999999999989" classname="chunks_validate_custom" name="chunks_validate_custom"/>
-    <testcase time="0.00900000000000034" classname="chunks_validate_custom" name="chunks_validate_custom"/>
-    <testcase time="0.00699999999999967" classname="chunks_validate_custom" name="chunks_validate_custom"/>
-    <testcase time="0.00700000000000056" classname="chunks_validate_custom" name="chunks_validate_custom"/>
-    <testcase time="0.00800000000000001" classname="chunks_validate_custom" name="chunks_validate_custom"/>
-    <testcase time="0.00800000000000001" classname="chunks_validate_custom" name="chunks_validate_custom"/>
-    <testcase time="0.00800000000000001" classname="chunks_validate_custom" name="chunks_validate_custom"/>
-    <testcase time="0.00699999999999967" classname="chunks_validate_custom" name="chunks_validate_custom"/>
-    <testcase time="0.0110000000000001" classname="chunks_validate_custom" name="chunks_validate_custom"/>
-    <testcase time="0.00699999999999967" classname="chunks_validate_custom" name="chunks_validate_custom"/>
-    <testcase time="0.00900000000000034" classname="chunks_validate_custom" name="chunks_validate_custom"/>
+    <testcase time="0.00499999999999989" classname="chunks_validate_custom" name="chunks_validate_custom"/>
+    <testcase time="0.00499999999999989" classname="chunks_validate_custom" name="chunks_validate_custom"/>
+    <testcase time="0.00500000000000034" classname="chunks_validate_custom" name="chunks_validate_custom"/>
+    <testcase time="0.00499999999999989" classname="chunks_validate_custom" name="chunks_validate_custom"/>
+    <testcase time="0.00499999999999989" classname="chunks_validate_custom" name="chunks_validate_custom"/>
+    <testcase time="0.00499999999999989" classname="chunks_validate_custom" name="chunks_validate_custom"/>
+    <testcase time="0.00500000000000034" classname="chunks_validate_custom" name="chunks_validate_custom"/>
+    <testcase time="0.00499999999999989" classname="chunks_validate_custom" name="chunks_validate_custom"/>
+    <testcase time="0.004" classname="chunks_validate_custom" name="chunks_validate_custom"/>
   </testsuite>
-  <testsuite name="qenv_concat" timestamp="2023-02-08T12:54:10Z" hostname="694a421bb395" tests="12" skipped="0" failures="0" errors="0" time="0.051">
-    <testcase time="0.0140000000000002" classname="qenv_concat" name="Concatenate_two_identical_qenvs_outputs"/>
-    <testcase time="0.000999999999999446" classname="qenv_concat" name="Concatenate_two_identical_qenvs_outputs"/>
-    <testcase time="0.00499999999999989" classname="qenv_concat" name="Concatenate_two_independent_qenvs_results_in_object_having_combined_code_and_environments"/>
-    <testcase time="0.00100000000000033" classname="qenv_concat" name="Concatenate_two_independent_qenvs_results_in_object_having_combined_code_and_environments"/>
+  <testsuite name="qenv_concat" timestamp="2023-02-13T17:43:43Z" hostname="6758c39e29e9" tests="12" skipped="0" failures="0" errors="0" time="0.037">
+    <testcase time="0.00700000000000012" classname="qenv_concat" name="Concatenate_two_identical_qenvs_outputs"/>
+    <testcase time="0.00199999999999978" classname="qenv_concat" name="Concatenate_two_identical_qenvs_outputs"/>
+    <testcase time="0.00200000000000022" classname="qenv_concat" name="Concatenate_two_independent_qenvs_results_in_object_having_combined_code_and_environments"/>
     <testcase time="0.00199999999999978" classname="qenv_concat" name="Concatenate_two_independent_qenvs_results_in_object_having_combined_code_and_environments"/>
-    <testcase time="0.00600000000000023" classname="qenv_concat" name="Concatenate_qenvs_results_with_the_same_variable_the_RHS_has_priority"/>
-    <testcase time="0.00499999999999989" classname="qenv_concat" name="Concatenate_with_a_qenv.error_object_returns_the_qenv.error_object"/>
+    <testcase time="0.00099999999999989" classname="qenv_concat" name="Concatenate_two_independent_qenvs_results_in_object_having_combined_code_and_environments"/>
+    <testcase time="0.004" classname="qenv_concat" name="Concatenate_qenvs_results_with_the_same_variable_the_RHS_has_priority"/>
+    <testcase time="0.00300000000000011" classname="qenv_concat" name="Concatenate_with_a_qenv.error_object_returns_the_qenv.error_object"/>
+    <testcase time="0.00200000000000022" classname="qenv_concat" name="Concatenate_with_a_qenv.error_object_returns_the_qenv.error_object"/>
+    <testcase time="0.00099999999999989" classname="qenv_concat" name="Concatenate_with_a_qenv.error_object_returns_the_qenv.error_object"/>
     <testcase time="0.00199999999999978" classname="qenv_concat" name="Concatenate_with_a_qenv.error_object_returns_the_qenv.error_object"/>
-    <testcase time="0.00200000000000067" classname="qenv_concat" name="Concatenate_with_a_qenv.error_object_returns_the_qenv.error_object"/>
-    <testcase time="0.00199999999999978" classname="qenv_concat" name="Concatenate_with_a_qenv.error_object_returns_the_qenv.error_object"/>
-    <testcase time="0.00499999999999989" classname="qenv_concat" name="Concatenate_two_independent_qenvs_with_warnings_results_in_object_having_combined_warnings"/>
-    <testcase time="0.00599999999999934" classname="qenv_concat" name="Concatenate_two_independent_qenvs_with_messages_results_in_object_having_combined_messages"/>
+    <testcase time="0.00300000000000011" classname="qenv_concat" name="Concatenate_two_independent_qenvs_with_warnings_results_in_object_having_combined_warnings"/>
+    <testcase time="0.00800000000000001" classname="qenv_concat" name="Concatenate_two_independent_qenvs_with_messages_results_in_object_having_combined_messages"/>
   </testsuite>
-  <testsuite name="qenv_constructor" timestamp="2023-02-08T12:54:10Z" hostname="694a421bb395" tests="25" skipped="0" failures="0" errors="0" time="0.141">
-    <testcase time="0.00800000000000001" classname="qenv_constructor" name="constructor_returns_qenv_if_nothing_is_specified"/>
-    <testcase time="0.00200000000000067" classname="qenv_constructor" name="constructor_returns_qenv_if_nothing_is_specified"/>
-    <testcase time="0.000999999999999446" classname="qenv_constructor" name="constructor_returns_qenv_if_nothing_is_specified"/>
-    <testcase time="0.00199999999999978" classname="qenv_constructor" name="constructor_returns_qenv_if_nothing_is_specified"/>
+  <testsuite name="qenv_constructor" timestamp="2023-02-13T17:43:43Z" hostname="6758c39e29e9" tests="25" skipped="0" failures="0" errors="0" time="0.092">
+    <testcase time="0.00499999999999989" classname="qenv_constructor" name="constructor_returns_qenv_if_nothing_is_specified"/>
     <testcase time="0.00100000000000033" classname="qenv_constructor" name="constructor_returns_qenv_if_nothing_is_specified"/>
-    <testcase time="0.00199999999999978" classname="qenv_constructor" name="constructor_returns_qenv_if_nothing_is_specified"/>
-    <testcase time="0.00400000000000045" classname="qenv_constructor" name="parent_of_qenv_environment_is_the_parent_of_.GlobalEnv"/>
-    <testcase time="0.00199999999999978" classname="qenv_constructor" name="parent_of_qenv_environment_is_the_parent_of_.GlobalEnv"/>
+    <testcase time="0.00099999999999989" classname="qenv_constructor" name="constructor_returns_qenv_if_nothing_is_specified"/>
+    <testcase time="0.00099999999999989" classname="qenv_constructor" name="constructor_returns_qenv_if_nothing_is_specified"/>
+    <testcase time="0.00099999999999989" classname="qenv_constructor" name="constructor_returns_qenv_if_nothing_is_specified"/>
+    <testcase time="0.00100000000000033" classname="qenv_constructor" name="constructor_returns_qenv_if_nothing_is_specified"/>
+    <testcase time="0.00299999999999967" classname="qenv_constructor" name="parent_of_qenv_environment_is_the_parent_of_.GlobalEnv"/>
     <testcase time="0.00100000000000033" classname="qenv_constructor" name="parent_of_qenv_environment_is_the_parent_of_.GlobalEnv"/>
-    <testcase time="0.00300000000000011" classname="qenv_constructor" name="provided_environment_is_copied_so_the_change_of_the_environment_won_t_affect_qenv"/>
-    <testcase time="0.0609999999999999" classname="qenv_constructor" name="new_qenv_fails_if_code_is_provided_but_not_environment"/>
-    <testcase time="0.00399999999999956" classname="qenv_constructor" name="new_qenv_works_with_code_being_character"/>
-    <testcase time="0.00199999999999978" classname="qenv_constructor" name="new_qenv_works_with_code_being_character"/>
-    <testcase time="0.00500000000000078" classname="qenv_constructor" name="new_qenv_works_with_code_being_character"/>
-    <testcase time="0.00399999999999956" classname="qenv_constructor" name="new_qenv_works_with_code_being_expression"/>
-    <testcase time="0.00100000000000033" classname="qenv_constructor" name="new_qenv_works_with_code_being_expression"/>
-    <testcase time="0.00499999999999989" classname="qenv_constructor" name="new_qenv_works_with_code_being_expression"/>
-    <testcase time="0.00399999999999956" classname="qenv_constructor" name="new_qenv_works_with_code_being_quoted_expression"/>
-    <testcase time="0.00100000000000033" classname="qenv_constructor" name="new_qenv_works_with_code_being_quoted_expression"/>
-    <testcase time="0.00600000000000023" classname="qenv_constructor" name="new_qenv_works_with_code_being_quoted_expression"/>
-    <testcase time="0.00399999999999956" classname="qenv_constructor" name="new_qenv_works_with_code_being_length_1"/>
-    <testcase time="0.00199999999999978" classname="qenv_constructor" name="new_qenv_works_with_code_being_length_1"/>
-    <testcase time="0.0110000000000001" classname="qenv_constructor" name="new_qenv_allows_to_pass_irreproducible_env_and_code"/>
-    <testcase time="0.00400000000000045" classname="qenv_constructor" name="Initializing_qenv_with_code_only_creates_corresponding_warnings_and_messages_slots"/>
-    <testcase time="0.000999999999999446" classname="qenv_constructor" name="Initializing_qenv_with_code_only_creates_corresponding_warnings_and_messages_slots"/>
+    <testcase time="0.00099999999999989" classname="qenv_constructor" name="parent_of_qenv_environment_is_the_parent_of_.GlobalEnv"/>
+    <testcase time="0.00199999999999978" classname="qenv_constructor" name="provided_environment_is_copied_so_the_change_of_the_environment_won_t_affect_qenv"/>
+    <testcase time="0.04" classname="qenv_constructor" name="new_qenv_fails_if_code_is_provided_but_not_environment"/>
+    <testcase time="0.00200000000000022" classname="qenv_constructor" name="new_qenv_works_with_code_being_character"/>
+    <testcase time="0.00099999999999989" classname="qenv_constructor" name="new_qenv_works_with_code_being_character"/>
+    <testcase time="0.004" classname="qenv_constructor" name="new_qenv_works_with_code_being_character"/>
+    <testcase time="0.00200000000000022" classname="qenv_constructor" name="new_qenv_works_with_code_being_expression"/>
+    <testcase time="0.00099999999999989" classname="qenv_constructor" name="new_qenv_works_with_code_being_expression"/>
+    <testcase time="0.004" classname="qenv_constructor" name="new_qenv_works_with_code_being_expression"/>
+    <testcase time="0.00199999999999978" classname="qenv_constructor" name="new_qenv_works_with_code_being_quoted_expression"/>
+    <testcase time="0.00200000000000022" classname="qenv_constructor" name="new_qenv_works_with_code_being_quoted_expression"/>
+    <testcase time="0.00300000000000011" classname="qenv_constructor" name="new_qenv_works_with_code_being_quoted_expression"/>
+    <testcase time="0.00299999999999967" classname="qenv_constructor" name="new_qenv_works_with_code_being_length_1"/>
+    <testcase time="0.00100000000000033" classname="qenv_constructor" name="new_qenv_works_with_code_being_length_1"/>
+    <testcase time="0.00699999999999967" classname="qenv_constructor" name="new_qenv_allows_to_pass_irreproducible_env_and_code"/>
+    <testcase time="0.00200000000000022" classname="qenv_constructor" name="Initializing_qenv_with_code_only_creates_corresponding_warnings_and_messages_slots"/>
+    <testcase time="0.00099999999999989" classname="qenv_constructor" name="Initializing_qenv_with_code_only_creates_corresponding_warnings_and_messages_slots"/>
   </testsuite>
-  <testsuite name="qenv_eval_code" timestamp="2023-02-08T12:54:10Z" hostname="694a421bb395" tests="27" skipped="0" failures="0" errors="0" time="0.302">
-    <testcase time="0.0120000000000005" classname="qenv_eval_code" name="eval_code_evaluates_the_code_in_the_qenvs_environment"/>
-    <testcase time="0.00300000000000011" classname="qenv_eval_code" name="eval_code_doesn_t_have_access_to_environment_where_it_s_called"/>
+  <testsuite name="qenv_eval_code" timestamp="2023-02-13T17:43:43Z" hostname="6758c39e29e9" tests="27" skipped="0" failures="0" errors="0" time="0.222">
+    <testcase time="0.00600000000000023" classname="qenv_eval_code" name="eval_code_evaluates_the_code_in_the_qenvs_environment"/>
+    <testcase time="0.00199999999999978" classname="qenv_eval_code" name="eval_code_doesn_t_have_access_to_environment_where_it_s_called"/>
     <testcase time="0.00300000000000011" classname="qenv_eval_code" name="_env_in_qenv_is_always_a_sibling_of_.GlobalEnv"/>
-    <testcase time="0.00199999999999978" classname="qenv_eval_code" name="_env_in_qenv_is_always_a_sibling_of_.GlobalEnv"/>
-    <testcase time="0.00199999999999978" classname="qenv_eval_code" name="_env_in_qenv_is_always_a_sibling_of_.GlobalEnv"/>
-    <testcase time="0.0120000000000005" classname="qenv_eval_code" name="library_have_to_be_called_separately_before_using_function_from_package"/>
-    <testcase time="0.0209999999999999" classname="qenv_eval_code" name="library_have_to_be_called_separately_before_using_function_from_package"/>
-    <testcase time="0.00499999999999989" classname="qenv_eval_code" name="eval_code_works_with_character"/>
-    <testcase time="0.00199999999999978" classname="qenv_eval_code" name="eval_code_works_with_character"/>
-    <testcase time="0.136" classname="qenv_eval_code" name="eval_code_works_with_expression"/>
-    <testcase time="0.00199999999999978" classname="qenv_eval_code" name="eval_code_works_with_expression"/>
-    <testcase time="0.00400000000000045" classname="qenv_eval_code" name="eval_code_works_with_quoted"/>
+    <testcase time="0.00099999999999989" classname="qenv_eval_code" name="_env_in_qenv_is_always_a_sibling_of_.GlobalEnv"/>
+    <testcase time="0.00099999999999989" classname="qenv_eval_code" name="_env_in_qenv_is_always_a_sibling_of_.GlobalEnv"/>
+    <testcase time="0.00900000000000034" classname="qenv_eval_code" name="library_have_to_be_called_separately_before_using_function_from_package"/>
+    <testcase time="0.0139999999999998" classname="qenv_eval_code" name="library_have_to_be_called_separately_before_using_function_from_package"/>
+    <testcase time="0.00300000000000011" classname="qenv_eval_code" name="eval_code_works_with_character"/>
+    <testcase time="0.00099999999999989" classname="qenv_eval_code" name="eval_code_works_with_character"/>
+    <testcase time="0.00300000000000011" classname="qenv_eval_code" name="eval_code_works_with_expression"/>
+    <testcase time="0.00099999999999989" classname="qenv_eval_code" name="eval_code_works_with_expression"/>
     <testcase time="0.00199999999999978" classname="qenv_eval_code" name="eval_code_works_with_quoted"/>
-    <testcase time="0.00399999999999956" classname="qenv_eval_code" name="eval_code_works_with_quoted_code_block"/>
-    <testcase time="0.00200000000000067" classname="qenv_eval_code" name="eval_code_works_with_quoted_code_block"/>
-    <testcase time="0.0110000000000001" classname="qenv_eval_code" name="eval_code_fails_with_unquoted_expression"/>
-    <testcase time="0.00499999999999989" classname="qenv_eval_code" name="an_error_when_calling_eval_code_returns_a_qenv.error_object_which_has_message_and_trace"/>
-    <testcase time="0.00300000000000011" classname="qenv_eval_code" name="an_error_when_calling_eval_code_returns_a_qenv.error_object_which_has_message_and_trace"/>
-    <testcase time="0.00199999999999978" classname="qenv_eval_code" name="an_error_when_calling_eval_code_returns_a_qenv.error_object_which_has_message_and_trace"/>
-    <testcase time="0.0489999999999995" classname="qenv_eval_code" name="a_warning_when_calling_eval_code_returns_a_qenv_object_which_has_warnings"/>
-    <testcase time="0.00200000000000067" classname="qenv_eval_code" name="a_warning_when_calling_eval_code_returns_a_qenv_object_which_has_warnings"/>
-    <testcase time="0.00499999999999989" classname="qenv_eval_code" name="eval_code_with_a_vector_of_code_produces_one_warning_element_per_code_element"/>
-    <testcase time="0.00399999999999956" classname="qenv_eval_code" name="a_message_when_calling_eval_code_returns_a_qenv_object_which_has_messages"/>
-    <testcase time="0.00199999999999978" classname="qenv_eval_code" name="a_message_when_calling_eval_code_returns_a_qenv_object_which_has_messages"/>
+    <testcase time="0.00200000000000022" classname="qenv_eval_code" name="eval_code_works_with_quoted"/>
+    <testcase time="0.00300000000000011" classname="qenv_eval_code" name="eval_code_works_with_quoted_code_block"/>
+    <testcase time="0.00099999999999989" classname="qenv_eval_code" name="eval_code_works_with_quoted_code_block"/>
+    <testcase time="0.00700000000000012" classname="qenv_eval_code" name="eval_code_fails_with_unquoted_expression"/>
+    <testcase time="0.00299999999999967" classname="qenv_eval_code" name="an_error_when_calling_eval_code_returns_a_qenv.error_object_which_has_message_and_trace"/>
+    <testcase time="0.00100000000000033" classname="qenv_eval_code" name="an_error_when_calling_eval_code_returns_a_qenv.error_object_which_has_message_and_trace"/>
+    <testcase time="0.00099999999999989" classname="qenv_eval_code" name="an_error_when_calling_eval_code_returns_a_qenv.error_object_which_has_message_and_trace"/>
+    <testcase time="0.144" classname="qenv_eval_code" name="a_warning_when_calling_eval_code_returns_a_qenv_object_which_has_warnings"/>
+    <testcase time="0.00199999999999978" classname="qenv_eval_code" name="a_warning_when_calling_eval_code_returns_a_qenv_object_which_has_warnings"/>
+    <testcase time="0.00300000000000011" classname="qenv_eval_code" name="eval_code_with_a_vector_of_code_produces_one_warning_element_per_code_element"/>
+    <testcase time="0.00300000000000011" classname="qenv_eval_code" name="a_message_when_calling_eval_code_returns_a_qenv_object_which_has_messages"/>
+    <testcase time="0.00099999999999989" classname="qenv_eval_code" name="a_message_when_calling_eval_code_returns_a_qenv_object_which_has_messages"/>
     <testcase time="0.00300000000000011" classname="qenv_eval_code" name="eval_code_returns_a_qenv_object_with_empty_messages_and_warnings_when_none_are_returned"/>
-    <testcase time="0.00199999999999978" classname="qenv_eval_code" name="eval_code_returns_a_qenv_object_with_empty_messages_and_warnings_when_none_are_returned"/>
-    <testcase time="0.00199999999999978" classname="qenv_eval_code" name="eval_code_returns_a_qenv_object_with_empty_messages_and_warnings_when_none_are_returned"/>
+    <testcase time="0.00099999999999989" classname="qenv_eval_code" name="eval_code_returns_a_qenv_object_with_empty_messages_and_warnings_when_none_are_returned"/>
+    <testcase time="0.00099999999999989" classname="qenv_eval_code" name="eval_code_returns_a_qenv_object_with_empty_messages_and_warnings_when_none_are_returned"/>
   </testsuite>
-  <testsuite name="qenv_get_code" timestamp="2023-02-08T12:54:11Z" hostname="694a421bb395" tests="5" skipped="0" failures="0" errors="0" time="0.021">
-    <testcase time="0.00800000000000001" classname="qenv_get_code" name="get_code_returns_code_character_by_default_of_qenv_object"/>
-    <testcase time="0.00400000000000045" classname="qenv_get_code" name="get_code_returns_code_elements_being_code_blocks_as_character_1_"/>
-    <testcase time="0.00399999999999956" classname="qenv_get_code" name="get_code_returns_code_unparsed_of_qenv_object_if_deparse_FALSE"/>
-    <testcase time="0.00400000000000045" classname="qenv_get_code" name="get_code_called_with_qenv.error_returns_error_with_trace_in_error_message"/>
-    <testcase time="0.00100000000000033" classname="qenv_get_code" name="get_code_called_with_qenv.error_returns_error_with_trace_in_error_message"/>
+  <testsuite name="qenv_get_code" timestamp="2023-02-13T17:43:44Z" hostname="6758c39e29e9" tests="5" skipped="0" failures="0" errors="0" time="0.015">
+    <testcase time="0.00600000000000023" classname="qenv_get_code" name="get_code_returns_code_character_by_default_of_qenv_object"/>
+    <testcase time="0.00199999999999978" classname="qenv_get_code" name="get_code_returns_code_elements_being_code_blocks_as_character_1_"/>
+    <testcase time="0.00300000000000011" classname="qenv_get_code" name="get_code_returns_code_unparsed_of_qenv_object_if_deparse_FALSE"/>
+    <testcase time="0.00300000000000011" classname="qenv_get_code" name="get_code_called_with_qenv.error_returns_error_with_trace_in_error_message"/>
+    <testcase time="0.00099999999999989" classname="qenv_get_code" name="get_code_called_with_qenv.error_returns_error_with_trace_in_error_message"/>
   </testsuite>
-  <testsuite name="qenv_get_var" timestamp="2023-02-08T12:54:11Z" hostname="694a421bb395" tests="8" skipped="0" failures="0" errors="0" time="0.051">
-    <testcase time="0.016" classname="qenv_get_var" name="get_var_and_return_error_if_object_is_qenv.error"/>
-    <testcase time="0.00899999999999945" classname="qenv_get_var" name="get_var_and_return_error_if_object_is_qenv.error"/>
-    <testcase time="0.00499999999999989" classname="qenv_get_var" name="get_var_and_return_object_from_qenv_environment"/>
-    <testcase time="0.00100000000000033" classname="qenv_get_var" name="get_var_and_return_object_from_qenv_environment"/>
-    <testcase time="0.00800000000000001" classname="qenv_get_var" name="get_var_and_return_NULL_if_object_not_in_qenv_environment"/>
-    <testcase time="0.00299999999999923" classname="qenv_get_var" name="get_var_and_return_NULL_if_object_not_in_qenv_environment"/>
-    <testcase time="0.00500000000000078" classname="qenv_get_var" name="get_var_and_return_NULL_if_object_not_in_qenv_environment"/>
-    <testcase time="0.00399999999999956" classname="qenv_get_var" name="get_var_and_return_NULL_if_object_not_in_qenv_environment"/>
+  <testsuite name="qenv_get_var" timestamp="2023-02-13T17:43:44Z" hostname="6758c39e29e9" tests="8" skipped="0" failures="0" errors="0" time="0.029">
+    <testcase time="0.0089999999999999" classname="qenv_get_var" name="get_var_and_return_error_if_object_is_qenv.error"/>
+    <testcase time="0.00500000000000034" classname="qenv_get_var" name="get_var_and_return_error_if_object_is_qenv.error"/>
+    <testcase time="0.00199999999999978" classname="qenv_get_var" name="get_var_and_return_object_from_qenv_environment"/>
+    <testcase time="0.00099999999999989" classname="qenv_get_var" name="get_var_and_return_object_from_qenv_environment"/>
+    <testcase time="0.00500000000000034" classname="qenv_get_var" name="get_var_and_return_NULL_if_object_not_in_qenv_environment"/>
+    <testcase time="0.00199999999999978" classname="qenv_get_var" name="get_var_and_return_NULL_if_object_not_in_qenv_environment"/>
+    <testcase time="0.00300000000000011" classname="qenv_get_var" name="get_var_and_return_NULL_if_object_not_in_qenv_environment"/>
+    <testcase time="0.00199999999999978" classname="qenv_get_var" name="get_var_and_return_NULL_if_object_not_in_qenv_environment"/>
   </testsuite>
-  <testsuite name="qenv_get_warnings" timestamp="2023-02-08T12:54:11Z" hostname="694a421bb395" tests="7" skipped="0" failures="0" errors="0" time="0.048">
-    <testcase time="0.0110000000000001" classname="qenv_get_warnings" name="get_warnings_accepts_a_qenv_object_and_returns_character"/>
-    <testcase time="0.00800000000000001" classname="qenv_get_warnings" name="get_warnings_accepts_a_qenv.error_object_and_returns_NULL"/>
-    <testcase time="0.00600000000000023" classname="qenv_get_warnings" name="get_warnings_accepts_a_NULL_object_and_returns_NULL"/>
-    <testcase time="0.00800000000000001" classname="qenv_get_warnings" name="get_warnings_accepts_a_qenv_object_with_no_warning_and_returns_NULL"/>
-    <testcase time="0.00499999999999989" classname="qenv_get_warnings" name="get_warnings_accepts_a_qenv_object_with_2_warnings"/>
-    <testcase time="0.00399999999999956" classname="qenv_get_warnings" name="get_warnings_accepts_a_qenv_object_with_a_single_eval_code_returning_2_warnings"/>
-    <testcase time="0.00600000000000023" classname="qenv_get_warnings" name="get_warnings_accepts_a_qenv_object_with_1_warning_eval_code_and_1_no_warning_eval_code"/>
+  <testsuite name="qenv_get_warnings" timestamp="2023-02-13T17:43:44Z" hostname="6758c39e29e9" tests="7" skipped="0" failures="0" errors="0" time="0.028">
+    <testcase time="0.00500000000000034" classname="qenv_get_warnings" name="get_warnings_accepts_a_qenv_object_and_returns_character"/>
+    <testcase time="0.00499999999999989" classname="qenv_get_warnings" name="get_warnings_accepts_a_qenv.error_object_and_returns_NULL"/>
+    <testcase time="0.004" classname="qenv_get_warnings" name="get_warnings_accepts_a_NULL_object_and_returns_NULL"/>
+    <testcase time="0.00499999999999989" classname="qenv_get_warnings" name="get_warnings_accepts_a_qenv_object_with_no_warning_and_returns_NULL"/>
+    <testcase time="0.00300000000000011" classname="qenv_get_warnings" name="get_warnings_accepts_a_qenv_object_with_2_warnings"/>
+    <testcase time="0.00299999999999967" classname="qenv_get_warnings" name="get_warnings_accepts_a_qenv_object_with_a_single_eval_code_returning_2_warnings"/>
+    <testcase time="0.00300000000000011" classname="qenv_get_warnings" name="get_warnings_accepts_a_qenv_object_with_1_warning_eval_code_and_1_no_warning_eval_code"/>
   </testsuite>
-  <testsuite name="qenv_join" timestamp="2023-02-08T12:54:11Z" hostname="694a421bb395" tests="40" skipped="0" failures="0" errors="0" time="0.191">
-    <testcase time="0.0149999999999997" classname="qenv_join" name="Joining_two_identical_qenvs_outputs_the_same_object"/>
-    <testcase time="0.00200000000000067" classname="qenv_join" name="Joining_two_identical_qenvs_outputs_the_same_object"/>
-    <testcase time="0.00199999999999978" classname="qenv_join" name="Joining_two_identical_qenvs_outputs_the_same_object"/>
-    <testcase time="0.00199999999999978" classname="qenv_join" name="Joining_two_identical_qenvs_outputs_the_same_object"/>
-    <testcase time="0.00800000000000001" classname="qenv_join" name="Joining_two_independent_qenvs_results_in_object_having_combined_code_and_environments"/>
-    <testcase time="0.00199999999999978" classname="qenv_join" name="Joining_two_independent_qenvs_results_in_object_having_combined_code_and_environments"/>
-    <testcase time="0.00200000000000067" classname="qenv_join" name="Joining_two_independent_qenvs_results_in_object_having_combined_code_and_environments"/>
-    <testcase time="0.00199999999999978" classname="qenv_join" name="Joining_two_independent_qenvs_results_in_object_having_combined_code_and_environments"/>
-    <testcase time="0.00800000000000001" classname="qenv_join" name="Joined_qenv_does_not_duplicate_common_code"/>
-    <testcase time="0.00199999999999978" classname="qenv_join" name="Joined_qenv_does_not_duplicate_common_code"/>
-    <testcase time="0.00199999999999978" classname="qenv_join" name="Joined_qenv_does_not_duplicate_common_code"/>
+  <testsuite name="qenv_join" timestamp="2023-02-13T17:43:44Z" hostname="6758c39e29e9" tests="40" skipped="0" failures="0" errors="0" time="0.116">
+    <testcase time="0.00800000000000001" classname="qenv_join" name="Joining_two_identical_qenvs_outputs_the_same_object"/>
+    <testcase time="0.00099999999999989" classname="qenv_join" name="Joining_two_identical_qenvs_outputs_the_same_object"/>
+    <testcase time="0.00100000000000033" classname="qenv_join" name="Joining_two_identical_qenvs_outputs_the_same_object"/>
+    <testcase time="0.00099999999999989" classname="qenv_join" name="Joining_two_identical_qenvs_outputs_the_same_object"/>
+    <testcase time="0.004" classname="qenv_join" name="Joining_two_independent_qenvs_results_in_object_having_combined_code_and_environments"/>
+    <testcase time="0.00200000000000022" classname="qenv_join" name="Joining_two_independent_qenvs_results_in_object_having_combined_code_and_environments"/>
+    <testcase time="0.00099999999999989" classname="qenv_join" name="Joining_two_independent_qenvs_results_in_object_having_combined_code_and_environments"/>
+    <testcase time="0.00099999999999989" classname="qenv_join" name="Joining_two_independent_qenvs_results_in_object_having_combined_code_and_environments"/>
+    <testcase time="0.00499999999999989" classname="qenv_join" name="Joined_qenv_does_not_duplicate_common_code"/>
+    <testcase time="0.00100000000000033" classname="qenv_join" name="Joined_qenv_does_not_duplicate_common_code"/>
+    <testcase time="0.00099999999999989" classname="qenv_join" name="Joined_qenv_does_not_duplicate_common_code"/>
+    <testcase time="0.00300000000000011" classname="qenv_join" name="Not_able_to_join_two_qenvs_if_any_of_the_shared_objects_changed"/>
     <testcase time="0.00499999999999989" classname="qenv_join" name="Not_able_to_join_two_qenvs_if_any_of_the_shared_objects_changed"/>
-    <testcase time="0.0150000000000006" classname="qenv_join" name="Not_able_to_join_two_qenvs_if_any_of_the_shared_objects_changed"/>
-    <testcase time="0.00699999999999967" classname="qenv_join" name="join_does_not_duplicate_code_but_adds_only_extra_code"/>
-    <testcase time="0.00199999999999978" classname="qenv_join" name="join_does_not_duplicate_code_but_adds_only_extra_code"/>
-    <testcase time="0.00400000000000045" classname="qenv_join" name="join_does_not_duplicate_code_but_adds_only_extra_code"/>
-    <testcase time="0.00199999999999978" classname="qenv_join" name="join_does_not_duplicate_code_but_adds_only_extra_code"/>
-    <testcase time="0.00999999999999979" classname="qenv_join" name="Not_possible_to_join_qenvs_which_share_some_code_when_one_of_the_shared_object_was_modified"/>
-    <testcase time="0.00700000000000056" classname="qenv_join" name="qenv_objects_are_mergeable_if_they_don_t_share_any_code_identified_by_id_"/>
+    <testcase time="0.00499999999999989" classname="qenv_join" name="join_does_not_duplicate_code_but_adds_only_extra_code"/>
+    <testcase time="0.00200000000000022" classname="qenv_join" name="join_does_not_duplicate_code_but_adds_only_extra_code"/>
+    <testcase time="0.00299999999999967" classname="qenv_join" name="join_does_not_duplicate_code_but_adds_only_extra_code"/>
+    <testcase time="0.00100000000000033" classname="qenv_join" name="join_does_not_duplicate_code_but_adds_only_extra_code"/>
+    <testcase time="0.00599999999999978" classname="qenv_join" name="Not_possible_to_join_qenvs_which_share_some_code_when_one_of_the_shared_object_was_modified"/>
+    <testcase time="0.0100000000000002" classname="qenv_join" name="qenv_objects_are_mergeable_if_they_don_t_share_any_code_identified_by_id_"/>
+    <testcase time="0.00099999999999989" classname="qenv_join" name="qenv_objects_are_mergeable_if_they_don_t_share_any_code_identified_by_id_"/>
     <testcase time="0.00199999999999978" classname="qenv_join" name="qenv_objects_are_mergeable_if_they_don_t_share_any_code_identified_by_id_"/>
-    <testcase time="0.00300000000000011" classname="qenv_join" name="qenv_objects_are_mergeable_if_they_don_t_share_any_code_identified_by_id_"/>
-    <testcase time="0.000999999999999446" classname="qenv_join" name="qenv_objects_are_mergeable_if_they_don_t_share_any_code_identified_by_id_"/>
-    <testcase time="0.00200000000000067" classname="qenv_join" name="qenv_objects_are_mergeable_if_they_don_t_share_any_code_identified_by_id_"/>
-    <testcase time="0.00800000000000001" classname="qenv_join" name="qenv_objects_are_mergeable_if_they_share_common_initial_qenv_elements"/>
-    <testcase time="0.00199999999999978" classname="qenv_join" name="qenv_objects_are_mergeable_if_they_share_common_initial_qenv_elements"/>
-    <testcase time="0.00199999999999978" classname="qenv_join" name="qenv_objects_are_mergeable_if_they_share_common_initial_qenv_elements"/>
-    <testcase time="0.00199999999999978" classname="qenv_join" name="qenv_objects_are_mergeable_if_they_share_common_initial_qenv_elements"/>
-    <testcase time="0.00200000000000067" classname="qenv_join" name="qenv_objects_are_mergeable_if_they_share_common_initial_qenv_elements"/>
-    <testcase time="0.00599999999999934" classname="qenv_join" name="qenv_objects_aren_t_mergeable_if_they_share_common_qenv_elements_proceeded_with_some_other_code"/>
-    <testcase time="0.00800000000000001" classname="qenv_join" name="qenv_objects_aren_t_mergeable_if_they_share_common_qenv_elements_proceeded_with_some_other_code"/>
-    <testcase time="0.0100000000000007" classname="qenv_join" name="qenv_objects_are_not_mergable_if_they_have_multiple_common_streaks"/>
-    <testcase time="0.00999999999999979" classname="qenv_join" name="qenv_objects_are_not_mergable_if_they_have_multiple_common_streaks"/>
-    <testcase time="0.00499999999999989" classname="qenv_join" name="joining_with_a_qenv.error_object_returns_the_qenv.error_object"/>
-    <testcase time="0.00300000000000011" classname="qenv_join" name="joining_with_a_qenv.error_object_returns_the_qenv.error_object"/>
+    <testcase time="0.00100000000000033" classname="qenv_join" name="qenv_objects_are_mergeable_if_they_don_t_share_any_code_identified_by_id_"/>
+    <testcase time="0.00099999999999989" classname="qenv_join" name="qenv_objects_are_mergeable_if_they_don_t_share_any_code_identified_by_id_"/>
+    <testcase time="0.00499999999999989" classname="qenv_join" name="qenv_objects_are_mergeable_if_they_share_common_initial_qenv_elements"/>
+    <testcase time="0.00099999999999989" classname="qenv_join" name="qenv_objects_are_mergeable_if_they_share_common_initial_qenv_elements"/>
+    <testcase time="0.00200000000000022" classname="qenv_join" name="qenv_objects_are_mergeable_if_they_share_common_initial_qenv_elements"/>
+    <testcase time="0.00099999999999989" classname="qenv_join" name="qenv_objects_are_mergeable_if_they_share_common_initial_qenv_elements"/>
+    <testcase time="0.00099999999999989" classname="qenv_join" name="qenv_objects_are_mergeable_if_they_share_common_initial_qenv_elements"/>
+    <testcase time="0.004" classname="qenv_join" name="qenv_objects_aren_t_mergeable_if_they_share_common_qenv_elements_proceeded_with_some_other_code"/>
+    <testcase time="0.00500000000000034" classname="qenv_join" name="qenv_objects_aren_t_mergeable_if_they_share_common_qenv_elements_proceeded_with_some_other_code"/>
+    <testcase time="0.00299999999999967" classname="qenv_join" name="qenv_objects_are_not_mergable_if_they_have_multiple_common_streaks"/>
+    <testcase time="0.00500000000000034" classname="qenv_join" name="qenv_objects_are_not_mergable_if_they_have_multiple_common_streaks"/>
+    <testcase time="0.004" classname="qenv_join" name="joining_with_a_qenv.error_object_returns_the_qenv.error_object"/>
+    <testcase time="0.00099999999999989" classname="qenv_join" name="joining_with_a_qenv.error_object_returns_the_qenv.error_object"/>
     <testcase time="0.00199999999999978" classname="qenv_join" name="joining_with_a_qenv.error_object_returns_the_qenv.error_object"/>
-    <testcase time="0.00199999999999978" classname="qenv_join" name="joining_with_a_qenv.error_object_returns_the_qenv.error_object"/>
-    <testcase time="0.00900000000000034" classname="qenv_join" name="Joining_two_independent_qenvs_with_warnings_results_in_object_having_combined_warnings"/>
-    <testcase time="0.00199999999999978" classname="qenv_join" name="Joining_two_independent_qenvs_with_warnings_results_in_object_having_combined_warnings"/>
-    <testcase time="0.00900000000000034" classname="qenv_join" name="Joining_two_independent_qenvs_with_messages_results_in_object_having_combined_messages"/>
+    <testcase time="0.00200000000000022" classname="qenv_join" name="joining_with_a_qenv.error_object_returns_the_qenv.error_object"/>
+    <testcase time="0.00499999999999989" classname="qenv_join" name="Joining_two_independent_qenvs_with_warnings_results_in_object_having_combined_warnings"/>
+    <testcase time="0.00200000000000022" classname="qenv_join" name="Joining_two_independent_qenvs_with_warnings_results_in_object_having_combined_warnings"/>
+    <testcase time="0.00499999999999989" classname="qenv_join" name="Joining_two_independent_qenvs_with_messages_results_in_object_having_combined_messages"/>
     <testcase time="0.00199999999999978" classname="qenv_join" name="Joining_two_independent_qenvs_with_messages_results_in_object_having_combined_messages"/>
   </testsuite>
-  <testsuite name="utils" timestamp="2023-02-08T12:54:11Z" hostname="694a421bb395" tests="18" skipped="0" failures="0" errors="0" time="0.059">
-    <testcase time="0.016" classname="utils" name="remove_enclosing_curly_braces_errors_if_argument_is_not_character"/>
-    <testcase time="0.00300000000000011" classname="utils" name="remove_enclosing_curly_braces_returns_argument_if_it_has_length_0"/>
-    <testcase time="0.00300000000000011" classname="utils" name="remove_enclosing_curly_braces_only_splits_string_on_if_no_enclosing_curly_brackets"/>
-    <testcase time="0.00199999999999978" classname="utils" name="remove_enclosing_curly_braces_only_splits_string_on_if_no_enclosing_curly_brackets"/>
+  <testsuite name="utils" timestamp="2023-02-13T17:43:44Z" hostname="6758c39e29e9" tests="18" skipped="0" failures="0" errors="0" time="0.037">
+    <testcase time="0.0089999999999999" classname="utils" name="remove_enclosing_curly_braces_errors_if_argument_is_not_character"/>
+    <testcase time="0.00200000000000022" classname="utils" name="remove_enclosing_curly_braces_returns_argument_if_it_has_length_0"/>
     <testcase time="0.00199999999999978" classname="utils" name="remove_enclosing_curly_braces_only_splits_string_on_if_no_enclosing_curly_brackets"/>
     <testcase time="0.00100000000000033" classname="utils" name="remove_enclosing_curly_braces_only_splits_string_on_if_no_enclosing_curly_brackets"/>
-    <testcase time="0.00399999999999956" classname="utils" name="remove_enclosing_curly_braces_removes_enclosing_curly_brackets"/>
-    <testcase time="0.00200000000000067" classname="utils" name="remove_enclosing_curly_braces_removes_enclosing_curly_brackets"/>
-    <testcase time="0.00199999999999978" classname="utils" name="remove_enclosing_curly_braces_removes_enclosing_curly_brackets"/>
-    <testcase time="0.00100000000000033" classname="utils" name="remove_enclosing_curly_braces_removes_enclosing_curly_brackets"/>
-    <testcase time="0.00399999999999956" classname="utils" name="remove_enclosing_curly_braces_concatenates_input_character_vector"/>
+    <testcase time="0.00199999999999978" classname="utils" name="remove_enclosing_curly_braces_only_splits_string_on_if_no_enclosing_curly_brackets"/>
+    <testcase time="0.00099999999999989" classname="utils" name="remove_enclosing_curly_braces_only_splits_string_on_if_no_enclosing_curly_brackets"/>
+    <testcase time="0.00200000000000022" classname="utils" name="remove_enclosing_curly_braces_removes_enclosing_curly_brackets"/>
+    <testcase time="0.00099999999999989" classname="utils" name="remove_enclosing_curly_braces_removes_enclosing_curly_brackets"/>
+    <testcase time="0.00099999999999989" classname="utils" name="remove_enclosing_curly_braces_removes_enclosing_curly_brackets"/>
+    <testcase time="0.00200000000000022" classname="utils" name="remove_enclosing_curly_braces_removes_enclosing_curly_brackets"/>
     <testcase time="0.00199999999999978" classname="utils" name="remove_enclosing_curly_braces_concatenates_input_character_vector"/>
     <testcase time="0.00100000000000033" classname="utils" name="remove_enclosing_curly_braces_concatenates_input_character_vector"/>
-    <testcase time="0.00399999999999956" classname="utils" name="remove_enclosing_curly_braces_containing_enclosing_brackets_and_only_blank_lines_returns_blank_lines"/>
-    <testcase time="0.00200000000000067" classname="utils" name="remove_enclosing_curly_braces_containing_enclosing_brackets_and_only_blank_lines_returns_blank_lines"/>
-    <testcase time="0.00300000000000011" classname="utils" name="remove_enclosing_curly_braces_removes_4_spaces_from_lines_enclosed_by_brackets_if_they_exist"/>
-    <testcase time="0.00199999999999978" classname="utils" name="remove_enclosing_curly_braces_removes_4_spaces_from_lines_enclosed_by_brackets_if_they_exist"/>
-    <testcase time="0.00499999999999989" classname="utils" name="format_expression_concatenates_results_of_remove_enclosing_curly_braces"/>
+    <testcase time="0.00099999999999989" classname="utils" name="remove_enclosing_curly_braces_concatenates_input_character_vector"/>
+    <testcase time="0.00300000000000011" classname="utils" name="remove_enclosing_curly_braces_containing_enclosing_brackets_and_only_blank_lines_returns_blank_lines"/>
+    <testcase time="0.00099999999999989" classname="utils" name="remove_enclosing_curly_braces_containing_enclosing_brackets_and_only_blank_lines_returns_blank_lines"/>
+    <testcase time="0.00200000000000022" classname="utils" name="remove_enclosing_curly_braces_removes_4_spaces_from_lines_enclosed_by_brackets_if_they_exist"/>
+    <testcase time="0.000999999999999446" classname="utils" name="remove_enclosing_curly_braces_removes_4_spaces_from_lines_enclosed_by_brackets_if_they_exist"/>
+    <testcase time="0.00300000000000011" classname="utils" name="format_expression_concatenates_results_of_remove_enclosing_curly_braces"/>
   </testsuite>
 </testsuites>
