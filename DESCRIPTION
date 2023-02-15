@@ -38,7 +38,19 @@ VignetteBuilder:
 RdMacros:
     lifecycle
 Remotes:
-    insightsengineering/teal.widgets@*release
+    mllg/checkmate,
+    r-lib/crayon,
+    r-lib/lifecycle,
+    r-lib/R6,
+    r-lib/rlang,
+    rstudio/shiny,
+    r-lib/styler,
+    insightsengineering/teal.widgets@*release,
+    r-lib/cli,
+    yihui/knitr,
+    tidyverse/magrittr,
+    rstudio/rmarkdown,
+    r-lib/testthat
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
 Language: en-US
