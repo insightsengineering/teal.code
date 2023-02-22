@@ -33,12 +33,6 @@ jobs:
     uses: insightsengineering/r.pkg.template/.github/workflows/min-deps-check.yaml@add-r-min-deps-check-workflow
     secrets:
       REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
-    with:
-      additional-env-vars: |
-        TEST_ENV_VAR_1=test1
-        TEST_ENV_VAR_2=test2
-      check-args: test-check-args
-      build-args: test-build-args
   coverage:
     name: Coverage 📔
     uses: insightsengineering/r.pkg.template/.github/workflows/test-coverage.yaml@main
