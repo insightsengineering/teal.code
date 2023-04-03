@@ -30,7 +30,7 @@ jobs:
       additional-r-cmd-check-params: --as-cran
   r-min-deps-check:
     name: R minimum dependency check
-    uses: insightsengineering/r.pkg.template/.github/workflows/min-deps-check.yaml@add-r-min-deps-check-workflow
+    uses: insightsengineering/r.pkg.template/.github/workflows/integration-tests.yaml@add-r-min-deps-check-workflow
     secrets:
       REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
   coverage:
