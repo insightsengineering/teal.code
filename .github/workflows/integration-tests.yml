@@ -1,5 +1,5 @@
 ---
-name:  Dependency Test 🖇️
+name:  Dependency Test 🔢
 
 on:
   pull_request:
@@ -12,24 +12,13 @@ on:
       - main
 
 jobs:
-  dependency-test-min:
-    name: Dependency Test - min
+  dependency-test:
+    strategy:
+      matrix:
+        test-strategy: ["min", "release", "max"]
     uses: insightsengineering/r.pkg.template/.github/workflows/verdepcheck.yaml@add-r-min-deps-check-workflow
+    name: Dependency Test - ${{ matrix.test-strategy }}
     secrets:
       REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
     with:
-      strategy: min
-  dependency-test-release:
-    name: Dependency Test - release
-    uses: insightsengineering/r.pkg.template/.github/workflows/verdepcheck.yaml@add-r-min-deps-check-workflow
-    secrets:
-      REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
-    with:
-      strategy: release
-  dependency-test-max:
-    name: Dependency Test - max
-    uses: insightsengineering/r.pkg.template/.github/workflows/verdepcheck.yaml@add-r-min-deps-check-workflow
-    secrets:
-      REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
-    with:
-      strategy: max
+      strategy: ${{ matrix.test-strategy }}
