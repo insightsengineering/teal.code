@@ -14,6 +14,7 @@ on:
 jobs:
   dependency-test:
     strategy:
+      fail-fast: false
       matrix:
         test-strategy: ["min", "release", "max"]
     uses: insightsengineering/r.pkg.template/.github/workflows/verdepcheck.yaml@add-r-min-deps-check-workflow
