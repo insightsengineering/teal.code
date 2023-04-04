@@ -28,11 +28,6 @@ jobs:
       additional-env-vars: |
         _R_CHECK_CRAN_INCOMING_REMOTE_=false
       additional-r-cmd-check-params: --as-cran
-  r-min-deps-check:
-    name: R minimum dependency check
-    uses: insightsengineering/r.pkg.template/.github/workflows/integration-tests.yaml@add-r-min-deps-check-workflow
-    secrets:
-      REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
   coverage:
     name: Coverage 📔
     uses: insightsengineering/r.pkg.template/.github/workflows/test-coverage.yaml@main
