@@ -4,9 +4,6 @@ name:  Dependency Test 🔢
 on:
   schedule:
     - cron: '45 3 * * *'
-  pull_request:
-    branches:
-      - main
 
 jobs:
   dependency-test:
@@ -18,5 +15,6 @@ jobs:
     name: Dependency Test - ${{ matrix.test-strategy }}
     secrets:
       REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
+      GCHAT_WEBHOOK: ${{ secrets.GCHAT_WEBHOOK }}
     with:
       strategy: ${{ matrix.test-strategy }}
