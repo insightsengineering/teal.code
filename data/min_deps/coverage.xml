@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage line-rate="0.804323094425484" branch-rate="0" lines-covered="707" lines-valid="879" branches-covered="0" branches-valid="0" complexity="0" version="3.6.1" timestamp="2023-04-07 10:22:43">
-  <sources/>
+<!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
+<coverage line-rate="0.804323094425484" branch-rate="0" lines-covered="707" lines-valid="879" branches-covered="0" branches-valid="0" complexity="0" version="3.6.2" timestamp="2023-04-11 13:52:04">
+  <sources>
+    <source>/__w/teal.code/teal.code/teal.code</source>
+  </sources>
   <packages>
     <package name="teal.code" line-rate="0.804323094425484" branch-rate="0" complexity="0">
       <classes>
         <class name="chunk.R" filename="R/chunk.R" line-rate="0.98" branch-rate="0" complexity="0">
           <methods>
-            <method name="initialize" signature="" line-rate="1" branch-rate="0">
+            <method name="initialize" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="88" hits="95" branch="false"/>
                 <line number="89" hits="94" branch="false"/>
@@ -18,7 +21,7 @@
                 <line number="173" hits="60" branch="false"/>
               </lines>
             </method>
-            <method name="eval" signature="" line-rate="1" branch-rate="0">
+            <method name="eval" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="92" hits="80" branch="false"/>
                 <line number="93" hits="80" branch="false"/>
@@ -67,7 +70,7 @@
                 <line number="296" hits="39" branch="false"/>
               </lines>
             </method>
-            <method name="get_eval_info" signature="" line-rate="1" branch-rate="0">
+            <method name="get_eval_info" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="120" hits="2" branch="false"/>
                 <line number="121" hits="2" branch="false"/>
@@ -107,7 +110,7 @@
                 <line number="360" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name="get_rcode" signature="" line-rate="1" branch-rate="0">
+            <method name="get_rcode" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="140" hits="46" branch="false"/>
                 <line number="141" hits="10" branch="false"/>
@@ -132,36 +135,36 @@
                 <line number="347" hits="16" branch="false"/>
               </lines>
             </method>
-            <method name="is_ok" signature="" line-rate="1" branch-rate="0">
+            <method name="is_ok" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="147" hits="65" branch="false"/>
                 <line number="377" hits="16" branch="false"/>
               </lines>
             </method>
-            <method name="is_errors" signature="" line-rate="0.5" branch-rate="0">
+            <method name="is_errors" signature="" line-rate="0.5" branch-rate="0" complexity="0">
               <lines>
                 <line number="150" hits="102" branch="false"/>
                 <line number="366" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="is_warnings" signature="" line-rate="0.5" branch-rate="0">
+            <method name="is_warnings" signature="" line-rate="0.5" branch-rate="0" complexity="0">
               <lines>
                 <line number="153" hits="95" branch="false"/>
                 <line number="363" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="is_messages" signature="" line-rate="0.5" branch-rate="0">
+            <method name="is_messages" signature="" line-rate="0.5" branch-rate="0" complexity="0">
               <lines>
                 <line number="156" hits="86" branch="false"/>
                 <line number="369" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="is_evaluated" signature="" line-rate="1" branch-rate="0">
+            <method name="is_evaluated" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="159" hits="4" branch="false"/>
               </lines>
             </method>
-            <method name="info" signature="" line-rate="1" branch-rate="0">
+            <method name="info" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="162" hits="2" branch="false"/>
                 <line number="163" hits="2" branch="false"/>
@@ -186,7 +189,7 @@
                 <line number="420" hits="17" branch="false"/>
               </lines>
             </method>
-            <method name="info_msg" signature="" line-rate="0.878048780487805" branch-rate="0">
+            <method name="info_msg" signature="" line-rate="0.878048780487805" branch-rate="0" complexity="0">
               <lines>
                 <line number="172" hits="21" branch="false"/>
                 <line number="173" hits="2" branch="false"/>
@@ -231,12 +234,12 @@
                 <line number="435" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name="get_errors" signature="" line-rate="1" branch-rate="0">
+            <method name="get_errors" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="217" hits="12" branch="false"/>
               </lines>
             </method>
-            <method name="get_warnings" signature="" line-rate="1" branch-rate="0">
+            <method name="get_warnings" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="220" hits="25" branch="false"/>
                 <line number="350" hits="7" branch="false"/>
@@ -250,7 +253,7 @@
                 <line number="22" hits="7" branch="false"/>
               </lines>
             </method>
-            <method name="get_messages" signature="" line-rate="1" branch-rate="0">
+            <method name="get_messages" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="223" hits="18" branch="false"/>
                 <line number="362" hits="6" branch="false"/>
@@ -262,7 +265,7 @@
                 <line number="371" hits="6" branch="false"/>
               </lines>
             </method>
-            <method name="reset" signature="" line-rate="1" branch-rate="0">
+            <method name="reset" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="226" hits="94" branch="false"/>
                 <line number="227" hits="94" branch="false"/>
@@ -278,14 +281,14 @@
                 <line number="181" hits="12" branch="false"/>
               </lines>
             </method>
-            <method name="set_expression" signature="" line-rate="1" branch-rate="0">
+            <method name="set_expression" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="248" hits="95" branch="false"/>
                 <line number="249" hits="94" branch="false"/>
                 <line number="250" hits="94" branch="false"/>
               </lines>
             </method>
-            <method name="deparse" signature="" line-rate="1" branch-rate="0">
+            <method name="deparse" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="253" hits="51" branch="false"/>
                 <line number="254" hits="51" branch="false"/>
@@ -454,7 +457,7 @@
         </class>
         <class name="chunks.R" filename="R/chunks.R" line-rate="0.901442307692308" branch-rate="0" complexity="0">
           <methods>
-            <method name="initialize" signature="" line-rate="1" branch-rate="0">
+            <method name="initialize" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="88" hits="95" branch="false"/>
                 <line number="89" hits="94" branch="false"/>
@@ -466,7 +469,7 @@
                 <line number="173" hits="60" branch="false"/>
               </lines>
             </method>
-            <method name="reset" signature="" line-rate="1" branch-rate="0">
+            <method name="reset" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="226" hits="94" branch="false"/>
                 <line number="227" hits="94" branch="false"/>
@@ -482,7 +485,7 @@
                 <line number="181" hits="12" branch="false"/>
               </lines>
             </method>
-            <method name="push" signature="" line-rate="1" branch-rate="0">
+            <method name="push" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="184" hits="79" branch="false"/>
                 <line number="185" hits="78" branch="false"/>
@@ -506,7 +509,7 @@
                 <line number="209" hits="76" branch="false"/>
               </lines>
             </method>
-            <method name="push_chunks" signature="" line-rate="1" branch-rate="0">
+            <method name="push_chunks" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="212" hits="10" branch="false"/>
                 <line number="213" hits="10" branch="false"/>
@@ -552,7 +555,7 @@
                 <line number="266" hits="9" branch="false"/>
               </lines>
             </method>
-            <method name="eval" signature="" line-rate="1" branch-rate="0">
+            <method name="eval" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="92" hits="80" branch="false"/>
                 <line number="93" hits="80" branch="false"/>
@@ -601,7 +604,7 @@
                 <line number="296" hits="39" branch="false"/>
               </lines>
             </method>
-            <method name="uneval" signature="" line-rate="1" branch-rate="0">
+            <method name="uneval" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="299" hits="5" branch="false"/>
                 <line number="300" hits="1" branch="false"/>
@@ -614,7 +617,7 @@
                 <line number="310" hits="5" branch="false"/>
               </lines>
             </method>
-            <method name="eval_info" signature="" line-rate="1" branch-rate="0">
+            <method name="eval_info" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="313" hits="3" branch="false"/>
                 <line number="314" hits="3" branch="false"/>
@@ -628,7 +631,7 @@
                 <line number="322" hits="3" branch="false"/>
               </lines>
             </method>
-            <method name="get" signature="" line-rate="1" branch-rate="0">
+            <method name="get" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="325" hits="54" branch="false"/>
                 <line number="326" hits="54" branch="false"/>
@@ -637,12 +640,12 @@
                 <line number="331" hits="47" branch="false"/>
               </lines>
             </method>
-            <method name="ls" signature="" line-rate="0" branch-rate="0">
+            <method name="ls" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="334" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="get_rcode" signature="" line-rate="1" branch-rate="0">
+            <method name="get_rcode" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="140" hits="46" branch="false"/>
                 <line number="141" hits="10" branch="false"/>
@@ -667,7 +670,7 @@
                 <line number="347" hits="16" branch="false"/>
               </lines>
             </method>
-            <method name="get_warnings" signature="" line-rate="1" branch-rate="0">
+            <method name="get_warnings" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="220" hits="25" branch="false"/>
                 <line number="350" hits="7" branch="false"/>
@@ -681,7 +684,7 @@
                 <line number="22" hits="7" branch="false"/>
               </lines>
             </method>
-            <method name="get_messages" signature="" line-rate="1" branch-rate="0">
+            <method name="get_messages" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="223" hits="18" branch="false"/>
                 <line number="362" hits="6" branch="false"/>
@@ -693,24 +696,24 @@
                 <line number="371" hits="6" branch="false"/>
               </lines>
             </method>
-            <method name="get_reactive_summary" signature="" line-rate="1" branch-rate="0">
+            <method name="get_reactive_summary" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="374" hits="12" branch="false"/>
               </lines>
             </method>
-            <method name="is_ok" signature="" line-rate="1" branch-rate="0">
+            <method name="is_ok" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="147" hits="65" branch="false"/>
                 <line number="377" hits="16" branch="false"/>
               </lines>
             </method>
-            <method name="validate_is_ok" signature="" line-rate="1" branch-rate="0">
+            <method name="validate_is_ok" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="380" hits="14" branch="false"/>
                 <line number="381" hits="14" branch="false"/>
               </lines>
             </method>
-            <method name="validate_is" signature="" line-rate="1" branch-rate="0">
+            <method name="validate_is" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="384" hits="17" branch="false"/>
                 <line number="385" hits="15" branch="false"/>
@@ -730,13 +733,13 @@
                 <line number="400" hits="11" branch="false"/>
               </lines>
             </method>
-            <method name="validate_all" signature="" line-rate="1" branch-rate="0">
+            <method name="validate_all" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="403" hits="8" branch="false"/>
                 <line number="404" hits="4" branch="false"/>
               </lines>
             </method>
-            <method name="info" signature="" line-rate="1" branch-rate="0">
+            <method name="info" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="162" hits="2" branch="false"/>
                 <line number="163" hits="2" branch="false"/>
@@ -761,7 +764,7 @@
                 <line number="420" hits="17" branch="false"/>
               </lines>
             </method>
-            <method name="info_msg" signature="" line-rate="0.878048780487805" branch-rate="0">
+            <method name="info_msg" signature="" line-rate="0.878048780487805" branch-rate="0" complexity="0">
               <lines>
                 <line number="172" hits="21" branch="false"/>
                 <line number="173" hits="2" branch="false"/>
@@ -806,19 +809,19 @@
                 <line number="435" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name="get_eval_msg" signature="" line-rate="0.666666666666667" branch-rate="0">
+            <method name="get_eval_msg" signature="" line-rate="0.666666666666667" branch-rate="0" complexity="0">
               <lines>
                 <line number="438" hits="2" branch="false"/>
                 <line number="439" hits="0" branch="false"/>
                 <line number="441" hits="2" branch="false"/>
               </lines>
             </method>
-            <method name="get_latest_id" signature="" line-rate="0" branch-rate="0">
+            <method name="get_latest_id" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="459" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="get_new_id" signature="" line-rate="0.75" branch-rate="0">
+            <method name="get_new_id" signature="" line-rate="0.75" branch-rate="0" complexity="0">
               <lines>
                 <line number="462" hits="54" branch="false"/>
                 <line number="463" hits="54" branch="false"/>
@@ -830,14 +833,14 @@
                 <line number="469" hits="54" branch="false"/>
               </lines>
             </method>
-            <method name="get_idx" signature="" line-rate="1" branch-rate="0">
+            <method name="get_idx" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="472" hits="489" branch="false"/>
                 <line number="473" hits="489" branch="false"/>
                 <line number="474" hits="489" branch="false"/>
               </lines>
             </method>
-            <method name="get_call_ids" signature="" line-rate="1" branch-rate="0">
+            <method name="get_call_ids" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="477" hits="2" branch="false"/>
                 <line number="478" hits="2" branch="false"/>
@@ -846,7 +849,7 @@
                 <line number="481" hits="2" branch="false"/>
               </lines>
             </method>
-            <method name="get_comment_ids" signature="" line-rate="0" branch-rate="0">
+            <method name="get_comment_ids" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="484" hits="0" branch="false"/>
                 <line number="485" hits="0" branch="false"/>
@@ -855,52 +858,52 @@
                 <line number="488" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="id_evaluated" signature="" line-rate="0" branch-rate="0">
+            <method name="id_evaluated" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="491" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="id_remaining" signature="" line-rate="1" branch-rate="0">
+            <method name="id_remaining" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="494" hits="107" branch="false"/>
               </lines>
             </method>
-            <method name="any_remaining" signature="" line-rate="1" branch-rate="0">
+            <method name="any_remaining" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="497" hits="138" branch="false"/>
               </lines>
             </method>
-            <method name="id_error" signature="" line-rate="0" branch-rate="0">
+            <method name="id_error" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="500" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="any_error" signature="" line-rate="1" branch-rate="0">
+            <method name="any_error" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="503" hits="60" branch="false"/>
               </lines>
             </method>
-            <method name="id_warning" signature="" line-rate="0" branch-rate="0">
+            <method name="id_warning" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="506" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="any_warning" signature="" line-rate="0" branch-rate="0">
+            <method name="any_warning" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="509" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="id_message" signature="" line-rate="0" branch-rate="0">
+            <method name="id_message" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="512" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="any_message" signature="" line-rate="0" branch-rate="0">
+            <method name="any_message" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="515" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="get_chunk" signature="" line-rate="1" branch-rate="0">
+            <method name="get_chunk" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="518" hits="365" branch="false"/>
                 <line number="519" hits="365" branch="false"/>
@@ -908,7 +911,7 @@
                 <line number="521" hits="365" branch="false"/>
               </lines>
             </method>
-            <method name="reset_chunks" signature="" line-rate="1" branch-rate="0">
+            <method name="reset_chunks" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="524" hits="12" branch="false"/>
                 <line number="525" hits="12" branch="false"/>
@@ -921,7 +924,7 @@
                 <line number="532" hits="12" branch="false"/>
               </lines>
             </method>
-            <method name="reset_env" signature="" line-rate="1" branch-rate="0">
+            <method name="reset_env" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="535" hits="77" branch="false"/>
                 <line number="536" hits="77" branch="false"/>
@@ -929,12 +932,12 @@
                 <line number="539" hits="77" branch="false"/>
               </lines>
             </method>
-            <method name="reset_snapshot" signature="" line-rate="1" branch-rate="0">
+            <method name="reset_snapshot" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="555" hits="12" branch="false"/>
               </lines>
             </method>
-            <method name="deep_clone" signature="" line-rate="0.8" branch-rate="0">
+            <method name="deep_clone" signature="" line-rate="0.8" branch-rate="0" complexity="0">
               <lines>
                 <line number="558" hits="124" branch="false"/>
                 <line number="559" hits="4" branch="false"/>
@@ -943,7 +946,7 @@
                 <line number="563" hits="120" branch="false"/>
               </lines>
             </method>
-            <method name="deep_clone_env" signature="" line-rate="1" branch-rate="0">
+            <method name="deep_clone_env" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="568" hits="7" branch="false"/>
                 <line number="569" hits="7" branch="false"/>
@@ -953,18 +956,18 @@
                 <line number="576" hits="7" branch="false"/>
               </lines>
             </method>
-            <method name="is_empty" signature="" line-rate="1" branch-rate="0">
+            <method name="is_empty" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="579" hits="1112" branch="false"/>
               </lines>
             </method>
-            <method name="id_exists" signature="" line-rate="1" branch-rate="0">
+            <method name="id_exists" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="582" hits="1046" branch="false"/>
                 <line number="583" hits="1046" branch="false"/>
               </lines>
             </method>
-            <method name="eval_id" signature="" line-rate="0.75" branch-rate="0">
+            <method name="eval_id" signature="" line-rate="0.75" branch-rate="0" complexity="0">
               <lines>
                 <line number="586" hits="62" branch="false"/>
                 <line number="587" hits="0" branch="false"/>
@@ -984,7 +987,7 @@
                 <line number="608" hits="62" branch="false"/>
               </lines>
             </method>
-            <method name="get_rcode_id" signature="" line-rate="0.8" branch-rate="0">
+            <method name="get_rcode_id" signature="" line-rate="0.8" branch-rate="0" complexity="0">
               <lines>
                 <line number="611" hits="26" branch="false"/>
                 <line number="612" hits="0" branch="false"/>
@@ -993,7 +996,7 @@
                 <line number="617" hits="26" branch="false"/>
               </lines>
             </method>
-            <method name="get_warnings_id" signature="" line-rate="0.8" branch-rate="0">
+            <method name="get_warnings_id" signature="" line-rate="0.8" branch-rate="0" complexity="0">
               <lines>
                 <line number="620" hits="14" branch="false"/>
                 <line number="621" hits="0" branch="false"/>
@@ -1002,7 +1005,7 @@
                 <line number="626" hits="14" branch="false"/>
               </lines>
             </method>
-            <method name="get_messages_id" signature="" line-rate="0.8" branch-rate="0">
+            <method name="get_messages_id" signature="" line-rate="0.8" branch-rate="0" complexity="0">
               <lines>
                 <line number="629" hits="10" branch="false"/>
                 <line number="630" hits="0" branch="false"/>
@@ -1011,7 +1014,7 @@
                 <line number="635" hits="10" branch="false"/>
               </lines>
             </method>
-            <method name="set_is_message" signature="" line-rate="1" branch-rate="0">
+            <method name="set_is_message" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="638" hits="164" branch="false"/>
                 <line number="639" hits="26" branch="false"/>
@@ -1020,7 +1023,7 @@
                 <line number="643" hits="138" branch="false"/>
               </lines>
             </method>
-            <method name="set_is_warning" signature="" line-rate="1" branch-rate="0">
+            <method name="set_is_warning" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="647" hits="164" branch="false"/>
                 <line number="648" hits="26" branch="false"/>
@@ -1029,7 +1032,7 @@
                 <line number="652" hits="138" branch="false"/>
               </lines>
             </method>
-            <method name="set_is_error" signature="" line-rate="1" branch-rate="0">
+            <method name="set_is_error" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="656" hits="164" branch="false"/>
                 <line number="657" hits="26" branch="false"/>
@@ -1038,7 +1041,7 @@
                 <line number="661" hits="138" branch="false"/>
               </lines>
             </method>
-            <method name="get_session_object" signature="" line-rate="0.6" branch-rate="0">
+            <method name="get_session_object" signature="" line-rate="0.6" branch-rate="0" complexity="0">
               <lines>
                 <line number="671" hits="3" branch="false"/>
                 <line number="672" hits="0" branch="false"/>
@@ -1047,7 +1050,7 @@
                 <line number="677" hits="3" branch="false"/>
               </lines>
             </method>
-            <method name="get_chunks_object" signature="" line-rate="0.4" branch-rate="0">
+            <method name="get_chunks_object" signature="" line-rate="0.4" branch-rate="0" complexity="0">
               <lines>
                 <line number="696" hits="5" branch="false"/>
                 <line number="697" hits="5" branch="false"/>
@@ -1061,7 +1064,7 @@
                 <line number="706" hits="2" branch="false"/>
               </lines>
             </method>
-            <method name="clone_env" signature="" line-rate="1" branch-rate="0">
+            <method name="clone_env" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="711" hits="77" branch="false"/>
                 <line number="712" hits="77" branch="false"/>
@@ -1070,7 +1073,7 @@
                 <line number="718" hits="77" branch="false"/>
               </lines>
             </method>
-            <method name="chunks_push" signature="" line-rate="1" branch-rate="0">
+            <method name="chunks_push" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="745" hits="13" branch="false"/>
                 <line number="746" hits="13" branch="false"/>
@@ -1078,14 +1081,14 @@
                 <line number="750" hits="11" branch="false"/>
               </lines>
             </method>
-            <method name="chunks_push_chunks" signature="" line-rate="1" branch-rate="0">
+            <method name="chunks_push_chunks" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="779" hits="3" branch="false"/>
                 <line number="780" hits="1" branch="false"/>
                 <line number="783" hits="2" branch="false"/>
               </lines>
             </method>
-            <method name="chunks_push_data_merge" signature="" line-rate="1" branch-rate="0">
+            <method name="chunks_push_data_merge" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="795" hits="2" branch="false"/>
                 <line number="796" hits="1" branch="false"/>
@@ -1093,7 +1096,7 @@
                 <line number="800" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name="chunks_push_comment" signature="" line-rate="1" branch-rate="0">
+            <method name="chunks_push_comment" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="821" hits="3" branch="false"/>
                 <line number="822" hits="2" branch="false"/>
@@ -1101,28 +1104,28 @@
                 <line number="826" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name="chunks_push_new_line" signature="" line-rate="1" branch-rate="0">
+            <method name="chunks_push_new_line" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="845" hits="2" branch="false"/>
                 <line number="846" hits="1" branch="false"/>
                 <line number="849" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name="chunks_eval" signature="" line-rate="1" branch-rate="0">
+            <method name="chunks_eval" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="872" hits="4" branch="false"/>
                 <line number="873" hits="2" branch="false"/>
                 <line number="875" hits="2" branch="false"/>
               </lines>
             </method>
-            <method name="chunks_uneval" signature="" line-rate="1" branch-rate="0">
+            <method name="chunks_uneval" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="892" hits="2" branch="false"/>
                 <line number="893" hits="1" branch="false"/>
                 <line number="895" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name="chunks_safe_eval" signature="" line-rate="1" branch-rate="0">
+            <method name="chunks_safe_eval" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="910" hits="3" branch="false"/>
                 <line number="911" hits="3" branch="false"/>
@@ -1130,28 +1133,28 @@
                 <line number="913" hits="3" branch="false"/>
               </lines>
             </method>
-            <method name="chunks_get_rcode" signature="" line-rate="1" branch-rate="0">
+            <method name="chunks_get_rcode" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="931" hits="3" branch="false"/>
                 <line number="932" hits="1" branch="false"/>
                 <line number="934" hits="2" branch="false"/>
               </lines>
             </method>
-            <method name="chunks_warnings" signature="" line-rate="1" branch-rate="0">
+            <method name="chunks_warnings" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="949" hits="3" branch="false"/>
                 <line number="950" hits="1" branch="false"/>
                 <line number="952" hits="2" branch="false"/>
               </lines>
             </method>
-            <method name="chunks_messages" signature="" line-rate="1" branch-rate="0">
+            <method name="chunks_messages" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="967" hits="3" branch="false"/>
                 <line number="968" hits="1" branch="false"/>
                 <line number="970" hits="2" branch="false"/>
               </lines>
             </method>
-            <method name="init_chunks" signature="" line-rate="1" branch-rate="0">
+            <method name="init_chunks" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="988" hits="3" branch="false"/>
                 <line number="989" hits="3" branch="false"/>
@@ -1164,7 +1167,7 @@
                 <line number="997" hits="3" branch="false"/>
               </lines>
             </method>
-            <method name="chunks_new" signature="" line-rate="1" branch-rate="0">
+            <method name="chunks_new" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="1015" hits="32" branch="false"/>
                 <line number="1016" hits="32" branch="false"/>
@@ -1175,7 +1178,7 @@
                 <line number="1022" hits="30" branch="false"/>
               </lines>
             </method>
-            <method name="overwrite_chunks" signature="" line-rate="1" branch-rate="0">
+            <method name="overwrite_chunks" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="1039" hits="4" branch="false"/>
                 <line number="1040" hits="1" branch="false"/>
@@ -1186,7 +1189,7 @@
                 <line number="1051" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name="chunks_reset" signature="" line-rate="0.75" branch-rate="0">
+            <method name="chunks_reset" signature="" line-rate="0.75" branch-rate="0" complexity="0">
               <lines>
                 <line number="1069" hits="2" branch="false"/>
                 <line number="1070" hits="0" branch="false"/>
@@ -1194,7 +1197,7 @@
                 <line number="1074" hits="2" branch="false"/>
               </lines>
             </method>
-            <method name="chunks_get_var" signature="" line-rate="0.75" branch-rate="0">
+            <method name="chunks_get_var" signature="" line-rate="0.75" branch-rate="0" complexity="0">
               <lines>
                 <line number="1090" hits="3" branch="false"/>
                 <line number="1091" hits="3" branch="false"/>
@@ -1202,21 +1205,21 @@
                 <line number="1095" hits="3" branch="false"/>
               </lines>
             </method>
-            <method name="chunks_is_ok" signature="" line-rate="1" branch-rate="0">
+            <method name="chunks_is_ok" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="1109" hits="2" branch="false"/>
                 <line number="1110" hits="1" branch="false"/>
                 <line number="1112" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name="chunks_get_eval_msg" signature="" line-rate="1" branch-rate="0">
+            <method name="chunks_get_eval_msg" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="1126" hits="2" branch="false"/>
                 <line number="1127" hits="1" branch="false"/>
                 <line number="1129" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name="chunks_validate_is_ok" signature="" line-rate="0.8" branch-rate="0">
+            <method name="chunks_validate_is_ok" signature="" line-rate="0.8" branch-rate="0" complexity="0">
               <lines>
                 <line number="1147" hits="3" branch="false"/>
                 <line number="1148" hits="3" branch="false"/>
@@ -1225,7 +1228,7 @@
                 <line number="1154" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name="chunks_validate_is" signature="" line-rate="1" branch-rate="0">
+            <method name="chunks_validate_is" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="1173" hits="3" branch="false"/>
                 <line number="1174" hits="1" branch="false"/>
@@ -1233,7 +1236,7 @@
                 <line number="1179" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name="chunks_validate_all" signature="" line-rate="0.857142857142857" branch-rate="0">
+            <method name="chunks_validate_all" signature="" line-rate="0.857142857142857" branch-rate="0" complexity="0">
               <lines>
                 <line number="1198" hits="5" branch="false"/>
                 <line number="1199" hits="5" branch="false"/>
@@ -1244,7 +1247,7 @@
                 <line number="1207" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name="chunks_validate_custom" signature="" line-rate="1" branch-rate="0">
+            <method name="chunks_validate_custom" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="1226" hits="12" branch="false"/>
                 <line number="1227" hits="11" branch="false"/>
@@ -1260,7 +1263,7 @@
                 <line number="1239" hits="5" branch="false"/>
               </lines>
             </method>
-            <method name="chunks_deep_clone" signature="" line-rate="1" branch-rate="0">
+            <method name="chunks_deep_clone" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="1272" hits="3" branch="false"/>
                 <line number="1273" hits="1" branch="false"/>
@@ -1688,7 +1691,7 @@
         </class>
         <class name="get_eval_details.R" filename="R/get_eval_details.R" line-rate="0" branch-rate="0" complexity="0">
           <methods>
-            <method name="show_eval_details_modal" signature="" line-rate="0" branch-rate="0">
+            <method name="show_eval_details_modal" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="17" hits="0" branch="false"/>
                 <line number="18" hits="0" branch="false"/>
@@ -1735,7 +1738,7 @@
                 <line number="59" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="get_eval_details_srv" signature="" line-rate="0" branch-rate="0">
+            <method name="get_eval_details_srv" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="74" hits="0" branch="false"/>
                 <line number="75" hits="0" branch="false"/>
@@ -1784,7 +1787,7 @@
                 <line number="123" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="get_eval_details_ui" signature="" line-rate="0" branch-rate="0">
+            <method name="get_eval_details_ui" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="138" hits="0" branch="false"/>
                 <line number="139" hits="0" branch="false"/>
@@ -1803,7 +1806,7 @@
                 <line number="152" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="get_number_in_box" signature="" line-rate="0" branch-rate="0">
+            <method name="get_number_in_box" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="173" hits="0" branch="false"/>
                 <line number="174" hits="0" branch="false"/>
@@ -1946,7 +1949,7 @@
         </class>
         <class name="include_css_js.R" filename="R/include_css_js.R" line-rate="0" branch-rate="0" complexity="0">
           <methods>
-            <method name="include_css_files" signature="" line-rate="0" branch-rate="0">
+            <method name="include_css_files" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
                 <line number="12" hits="0" branch="false"/>
                 <line number="13" hits="0" branch="false"/>
@@ -1970,12 +1973,12 @@
         </class>
         <class name="qenv-concat.R" filename="R/qenv-concat.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="concat" signature="" line-rate="1" branch-rate="0">
+            <method name="concat" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="25" hits="9" branch="false"/>
               </lines>
             </method>
-            <method name="qenv#qenv" signature="" line-rate="1" branch-rate="0">
+            <method name="qenv#qenv" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="31" hits="5" branch="false"/>
                 <line number="32" hits="5" branch="false"/>
@@ -1997,7 +2000,7 @@
                 <line number="154" hits="12" branch="false"/>
               </lines>
             </method>
-            <method name="qenv.error#ANY" signature="" line-rate="0.857142857142857" branch-rate="0">
+            <method name="qenv.error#ANY" signature="" line-rate="0.857142857142857" branch-rate="0" complexity="0">
               <lines>
                 <line number="45" hits="3" branch="false"/>
                 <line number="91" hits="0" branch="false"/>
@@ -2008,7 +2011,7 @@
                 <line number="160" hits="3" branch="false"/>
               </lines>
             </method>
-            <method name="qenv#qenv.error" signature="" line-rate="1" branch-rate="0">
+            <method name="qenv#qenv.error" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="51" hits="1" branch="false"/>
                 <line number="166" hits="1" branch="false"/>
@@ -2030,12 +2033,12 @@
         </class>
         <class name="qenv-constructor.R" filename="R/qenv-constructor.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="new_qenv" signature="" line-rate="1" branch-rate="0">
+            <method name="new_qenv" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="18" hits="143" branch="false"/>
               </lines>
             </method>
-            <method name="environment#expression" signature="" line-rate="1" branch-rate="0">
+            <method name="environment#expression" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="27" hits="73" branch="false"/>
                 <line number="28" hits="73" branch="false"/>
@@ -2046,18 +2049,18 @@
                 <line number="33" hits="73" branch="false"/>
               </lines>
             </method>
-            <method name="environment#character" signature="" line-rate="1" branch-rate="0">
+            <method name="environment#character" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="43" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name="environment#language" signature="" line-rate="1" branch-rate="0">
+            <method name="environment#language" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="53" hits="27" branch="false"/>
                 <line number="54" hits="27" branch="false"/>
               </lines>
             </method>
-            <method name="missing#missing" signature="" line-rate="1" branch-rate="0">
+            <method name="missing#missing" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="64" hits="40" branch="false"/>
               </lines>
@@ -2080,12 +2083,12 @@
         </class>
         <class name="qenv-eval_code.R" filename="R/qenv-eval_code.R" line-rate="0.958333333333333" branch-rate="0" complexity="0">
           <methods>
-            <method name="eval_code" signature="" line-rate="1" branch-rate="0">
+            <method name="eval_code" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="19" hits="125" branch="false"/>
               </lines>
             </method>
-            <method name="qenv#expression" signature="" line-rate="1" branch-rate="0">
+            <method name="qenv#expression" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="25" hits="63" branch="false"/>
                 <line number="27" hits="63" branch="false"/>
@@ -2129,13 +2132,13 @@
                 <line number="72" hits="53" branch="false"/>
               </lines>
             </method>
-            <method name="qenv#language" signature="" line-rate="1" branch-rate="0">
+            <method name="qenv#language" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="78" hits="44" branch="false"/>
                 <line number="79" hits="44" branch="false"/>
               </lines>
             </method>
-            <method name="qenv#character" signature="" line-rate="1" branch-rate="0">
+            <method name="qenv#character" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="85" hits="17" branch="false"/>
                 <line number="22" hits="8" branch="false"/>
@@ -2147,7 +2150,7 @@
                 <line number="28" hits="8" branch="false"/>
               </lines>
             </method>
-            <method name="qenv.error#ANY" signature="" line-rate="0.857142857142857" branch-rate="0">
+            <method name="qenv.error#ANY" signature="" line-rate="0.857142857142857" branch-rate="0" complexity="0">
               <lines>
                 <line number="45" hits="3" branch="false"/>
                 <line number="91" hits="0" branch="false"/>
@@ -2158,7 +2161,7 @@
                 <line number="160" hits="3" branch="false"/>
               </lines>
             </method>
-            <method name=".ansi_strip" signature="" line-rate="0.666666666666667" branch-rate="0">
+            <method name=".ansi_strip" signature="" line-rate="0.666666666666667" branch-rate="0" complexity="0">
               <lines>
                 <line number="97" hits="30" branch="false"/>
                 <line number="98" hits="30" branch="false"/>
@@ -2219,13 +2222,13 @@
         </class>
         <class name="qenv-get_code.R" filename="R/qenv-get_code.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="get_code" signature="" line-rate="1" branch-rate="0">
+            <method name="get_code" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="17" hits="8" branch="false"/>
                 <line number="19" hits="8" branch="false"/>
               </lines>
             </method>
-            <method name="qenv" signature="" line-rate="0.956521739130435" branch-rate="0">
+            <method name="qenv" signature="" line-rate="0.956521739130435" branch-rate="0" complexity="0">
               <lines>
                 <line number="25" hits="7" branch="false"/>
                 <line number="26" hits="7" branch="false"/>
@@ -2252,7 +2255,7 @@
                 <line number="16" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="qenv.error" signature="" line-rate="1" branch-rate="0">
+            <method name="qenv.error" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="36" hits="1" branch="false"/>
                 <line number="37" hits="1" branch="false"/>
@@ -2289,12 +2292,12 @@
         </class>
         <class name="qenv-get_var.R" filename="R/qenv-get_var.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="get_var" signature="" line-rate="1" branch-rate="0">
+            <method name="get_var" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="15" hits="9" branch="false"/>
               </lines>
             </method>
-            <method name="qenv#character" signature="" line-rate="1" branch-rate="0">
+            <method name="qenv#character" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="85" hits="17" branch="false"/>
                 <line number="22" hits="8" branch="false"/>
@@ -2306,7 +2309,7 @@
                 <line number="28" hits="8" branch="false"/>
               </lines>
             </method>
-            <method name="qenv.error#ANY" signature="" line-rate="0.857142857142857" branch-rate="0">
+            <method name="qenv.error#ANY" signature="" line-rate="0.857142857142857" branch-rate="0" complexity="0">
               <lines>
                 <line number="45" hits="3" branch="false"/>
                 <line number="91" hits="0" branch="false"/>
@@ -2317,12 +2320,12 @@
                 <line number="160" hits="3" branch="false"/>
               </lines>
             </method>
-            <method name="qenv#ANY#missing" signature="" line-rate="1" branch-rate="0">
+            <method name="qenv#ANY#missing" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="48" hits="4" branch="false"/>
               </lines>
             </method>
-            <method name="[[.qenv.error" signature="" line-rate="1" branch-rate="0">
+            <method name="[[.qenv.error" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="54" hits="1" branch="false"/>
                 <line number="55" hits="1" branch="false"/>
@@ -2353,7 +2356,7 @@
         </class>
         <class name="qenv-get_warnings.R" filename="R/qenv-get_warnings.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="get_warnings" signature="" line-rate="1" branch-rate="0">
+            <method name="get_warnings" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="220" hits="25" branch="false"/>
                 <line number="350" hits="7" branch="false"/>
@@ -2367,7 +2370,7 @@
                 <line number="22" hits="7" branch="false"/>
               </lines>
             </method>
-            <method name="qenv.error" signature="" line-rate="1" branch-rate="0">
+            <method name="qenv.error" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="36" hits="1" branch="false"/>
                 <line number="37" hits="1" branch="false"/>
@@ -2382,7 +2385,7 @@
                 <line number="28" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name="qenv" signature="" line-rate="0.956521739130435" branch-rate="0">
+            <method name="qenv" signature="" line-rate="0.956521739130435" branch-rate="0" complexity="0">
               <lines>
                 <line number="25" hits="7" branch="false"/>
                 <line number="26" hits="7" branch="false"/>
@@ -2409,7 +2412,7 @@
                 <line number="16" hits="0" branch="false"/>
               </lines>
             </method>
-            <method name="NULL" signature="" line-rate="1" branch-rate="0">
+            <method name="NULL" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="60" hits="1" branch="false"/>
               </lines>
@@ -2442,12 +2445,12 @@
         </class>
         <class name="qenv-join.R" filename="R/qenv-join.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="join" signature="" line-rate="1" branch-rate="0">
+            <method name="join" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="132" hits="20" branch="false"/>
               </lines>
             </method>
-            <method name="qenv#qenv" signature="" line-rate="1" branch-rate="0">
+            <method name="qenv#qenv" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="31" hits="5" branch="false"/>
                 <line number="32" hits="5" branch="false"/>
@@ -2469,7 +2472,7 @@
                 <line number="154" hits="12" branch="false"/>
               </lines>
             </method>
-            <method name="qenv.error#ANY" signature="" line-rate="0.857142857142857" branch-rate="0">
+            <method name="qenv.error#ANY" signature="" line-rate="0.857142857142857" branch-rate="0" complexity="0">
               <lines>
                 <line number="45" hits="3" branch="false"/>
                 <line number="91" hits="0" branch="false"/>
@@ -2480,13 +2483,13 @@
                 <line number="160" hits="3" branch="false"/>
               </lines>
             </method>
-            <method name="qenv#qenv.error" signature="" line-rate="1" branch-rate="0">
+            <method name="qenv#qenv.error" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="51" hits="1" branch="false"/>
                 <line number="166" hits="1" branch="false"/>
               </lines>
             </method>
-            <method name=".check_joinable" signature="" line-rate="1" branch-rate="0">
+            <method name=".check_joinable" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="178" hits="30" branch="false"/>
                 <line number="179" hits="30" branch="false"/>
@@ -2574,7 +2577,7 @@
         </class>
         <class name="qenv-show.R" filename="R/qenv-show.R" line-rate="0" branch-rate="0" complexity="0">
           <methods>
-            <method name="qenv" signature="" line-rate="0.956521739130435" branch-rate="0">
+            <method name="qenv" signature="" line-rate="0.956521739130435" branch-rate="0" complexity="0">
               <lines>
                 <line number="25" hits="7" branch="false"/>
                 <line number="26" hits="7" branch="false"/>
@@ -2608,7 +2611,7 @@
         </class>
         <class name="utils.R" filename="R/utils.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="remove_enclosing_curly_braces" signature="" line-rate="1" branch-rate="0">
+            <method name="remove_enclosing_curly_braces" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="10" hits="99" branch="false"/>
                 <line number="11" hits="98" branch="false"/>
@@ -2627,7 +2630,7 @@
                 <line number="35" hits="84" branch="false"/>
               </lines>
             </method>
-            <method name="format_expression" signature="" line-rate="1" branch-rate="0">
+            <method name="format_expression" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
                 <line number="42" hits="23" branch="false"/>
               </lines>
