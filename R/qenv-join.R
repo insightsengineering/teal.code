@@ -128,9 +128,7 @@
 #' get_code(join_q)
 #'
 #' @export
-setGeneric("join", function(x, y) {
-  standardGeneric("join")
-})
+setGeneric("join", function(x, y) standardGeneric("join"))
 
 #' @rdname join
 #' @export
