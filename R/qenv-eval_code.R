@@ -15,9 +15,7 @@
 #' q3 <- eval_code(q2, quote(assert_number(a)))
 #'
 #' @export
-setGeneric("eval_code", function(object, code) {
-  standardGeneric("eval_code")
-})
+setGeneric("eval_code", function(object, code) standardGeneric("eval_code"))
 
 #' @rdname eval_code
 #' @export

@@ -21,9 +21,7 @@
 #' qq <- concat(q1, q2)
 #' get_code(qq)
 #' @export
-setGeneric("concat", function(x, y) {
-  standardGeneric("concat")
-})
+setGeneric("concat", function(x, y) standardGeneric("concat"))
 
 #' @rdname concat
 #' @export
