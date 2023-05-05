@@ -39,5 +39,5 @@ remove_enclosing_curly_braces <- function(x) {
 
 # converts vector of expressions to character
 format_expression <- function(code) {
-  unlist(lapply(as.character(code), remove_enclosing_curly_braces))
+  as.character(styler::style_text(unlist(lapply(as.character(code), remove_enclosing_curly_braces))))
 }
