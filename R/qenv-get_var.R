@@ -11,9 +11,7 @@
 #' q2[["b"]]
 #'
 #' @export
-setGeneric("get_var", function(object, var) {
-  standardGeneric("get_var")
-})
+setGeneric("get_var", function(object, var) standardGeneric("get_var"))
 
 
 #' @rdname get_var

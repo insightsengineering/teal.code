@@ -14,9 +14,7 @@
 #' new_qenv(env = list2env(list(a = 1)), code = "a <- 1")
 #'
 #' @export
-setGeneric("new_qenv", function(env = new.env(parent = parent.env(.GlobalEnv)), code = expression()) {
-  standardGeneric("new_qenv")
-})
+setGeneric("new_qenv", function(env = new.env(parent = parent.env(.GlobalEnv)), code = expression()) standardGeneric("new_qenv")) # nolint
 
 #' @rdname new_qenv
 #' @export
