@@ -1,5 +1,8 @@
 # teal.code 0.3.0.9002
 
+### Miscellaneous
+* Specified minimal version of dependencies.
+
 # teal.code 0.3.0
 
 ### Major breaking change
@@ -7,9 +10,6 @@
 
 ### New features
 * Added `concat` method to the `qenv` to offer the concatenate functionality.
-
-### Miscellaneous
-* Specified minimal version of dependencies.
 
 # teal.code 0.2.0
 
