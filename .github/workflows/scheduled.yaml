@@ -1,13 +1,10 @@
 ---
-name: Integration Tests 🧪
+name: Scheduled 🕰️
 
 on:
   schedule:
     - cron: '45 3 * * 0'
   workflow_dispatch:
-  push:
-    branches:
-      - min_deps
 
 jobs:
   dependency-test:
@@ -22,3 +19,10 @@ jobs:
       GCHAT_WEBHOOK: ${{ secrets.GCHAT_WEBHOOK }}
     with:
       strategy: ${{ matrix.test-strategy }}
+      additional-env-vars: |
+        PKG_SYSREQS_DRY_RUN=true
+  branch-cleanup:
+    name: Branch Cleanup 🧹
+    uses: insightsengineering/r.pkg.template/.github/workflows/branch-cleanup.yaml@main
+    secrets:
+      REPO_GITHUB_TOKEN: ${{ secrets.REPO_GITHUB_TOKEN }}
