@@ -12,7 +12,7 @@ Chunks are being deprecated qenv objects should be used instead"><!-- mathjax --
     
     <a class="navbar-brand me-2" href="../index.html">teal.code</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.9004</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0.9005</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,15 +37,6 @@ Chunks are being deprecated qenv objects should be used instead"><!-- mathjax --
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/v0.3.0">v0.3.0</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/v0.2.0">v0.2.0</a> </div></li>
-<!-- end dropdown for versions -->
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-reports">Reports</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-reports">
@@ -90,23 +81,23 @@ Chunks are being deprecated <code>qenv</code> objects should be used instead</p>
 
 <dl><dt><code>initialize(envir = new.env())</code></dt>
 <dd><p>Initializes the object.</p>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>\code{envir}<span class="sc">:</span> (optional) environment to get objects from to chunks environment</span></code></pre><p></p></div></dd>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>\code{envir}<span class="sc">:</span> (optional) environment to get objects from to chunks environment</span></code></pre><p></p></div></dd>
 
 <dt><code>push(x, id)</code></dt>
 <dd><p>This method adds an expression code chunk or comment code chunk to this object.
 If no <code>id</code> is given a random id is generated.</p>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>  The method needs the parameter \code{x}. In case this is of type \code{call} and the code will</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  be evaluated via \code{eval}. Additionally, the code can be given as a string and a comment will be inserted.</span></code></pre><p></p></div></dd>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>  The method needs the parameter \code{x}. In case this is of type \code{call} and the code will</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  be evaluated via \code{eval}. Additionally, the code can be given as a string and a comment will be inserted.</span></code></pre><p></p></div></dd>
 
 <dt><code><a href="https://rdrr.io/r/base/eval.html" class="external-link">eval()</a></code></dt>
 <dd><p>This method applies the <code>eval_id</code> method to each code chunk stored inside this object.</p>
-<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>   This method should not be evaluated multiple times, <span class="cf">else</span> it throws a warning. This is due to the</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>   fact that multiple evaluations of the following second code snippet is dangerous<span class="sc">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>   \itemize{</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>     \item{<span class="dv">1</span> }{a <span class="ot">&lt;-</span> <span class="dv">2</span>}</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>     \item{<span class="dv">2</span> }{a <span class="ot">&lt;-</span> a <span class="sc">+</span> <span class="dv">1</span>}</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>   }</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>   \code{eval} evaluates code just once and warn user <span class="cf">if</span> one tries to evaluate multiple times.</span></code></pre><p></p></div></dd>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>   This method should not be evaluated multiple times, <span class="cf">else</span> it throws a warning. This is due to the</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>   fact that multiple evaluations of the following second code snippet is dangerous<span class="sc">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>   \itemize{</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>     \item{<span class="dv">1</span> }{a <span class="ot">&lt;-</span> <span class="dv">2</span>}</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>     \item{<span class="dv">2</span> }{a <span class="ot">&lt;-</span> a <span class="sc">+</span> <span class="dv">1</span>}</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>   }</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>   \code{eval} evaluates code just once and warn user <span class="cf">if</span> one tries to evaluate multiple times.</span></code></pre><p></p></div></dd>
 
 <dt><code>get_rcode()</code></dt>
 <dd><p>Run <code>get_rcode_id</code> for all code chunks inside this object.</p></dd>
@@ -213,7 +204,7 @@ Each element is a logical vector with values corresponding to <code>chunk</code>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">x</span><span class="op">$</span><span class="fu">info</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $envir</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55fd4720bc58&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x5640ca045d60&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $id</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "test_1"     "test_2"     "test_3"     "test_4"     "test_error"</span>
