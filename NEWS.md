@@ -1,6 +1,7 @@
 # teal.code 0.3.0.9006
 
 * `chunks` have been removed. The new `qenv` object should be used instead. See the new `qenv` vignette in the package for further details.
+    ** In consequence `teal.widgets` were moved from `Imports` to `Suggests`, as it is only used in vignettes.
 
 # teal.code 0.3.0
 

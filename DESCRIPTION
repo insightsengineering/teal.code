@@ -25,14 +25,14 @@ Imports:
     R6,
     rlang,
     shiny,
-    styler,
-    teal.widgets (>= 0.2.0)
+    styler
 Suggests:
     cli,
     knitr,
     magrittr,
     rmarkdown,
-    testthat (>= 2.0)
+    testthat (>= 2.0),
+    teal.widgets (>= 0.2.0)
 VignetteBuilder:
     knitr
 RdMacros:
