@@ -21,5 +21,5 @@ Note that there is a public [`shinymeta`](https://github.com/rstudio/shinymeta) 
 
 For further details see the [`qenv` vignette](https://insightsengineering.github.io/teal.code/articles/qenv.html).
 
-Note: the older method of handling reproducibility, `chunks`, have now been deprecated and `qenv` should be used instead.
+Note: the older method of handling reproducibility, `chunks`, have now been deleted and `qenv` should be used instead.
 
