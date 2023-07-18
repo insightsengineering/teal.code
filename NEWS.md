@@ -1,4 +1,4 @@
-# teal.code 0.3.0.9006
+# teal.code 0.3.0.9007
 
 * `chunks` have been removed. The new `qenv` object should be used instead. See the new `qenv` vignette in the package for further details.
 
