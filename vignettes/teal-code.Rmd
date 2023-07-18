@@ -15,11 +15,11 @@ Reproducibility is an important feature when it comes to data analysis for the f
 - Enables users to reproduce the outputs at any moment in a simple R console outside of a reactive shiny app.
 - Provides transparency where it helps users and others understand what happened during the analysis.
 
-This is where the `qenv` object of the`teal.code` package comes into play. It provides a mechanism to develop reproducible shiny/teal modules. The `teal.widgets` package complements the chunks concept by providing a `verbatim_popup` widget which can be used to display the reproducible code via a button inside shiny/teal modules.
+This is where the `qenv` object of the`teal.code` package comes into play. It provides a mechanism to develop reproducible shiny/teal modules. 
 
 Note that there is a public [`shinymeta`](https://github.com/rstudio/shinymeta) R package from `RStudio` that offers similar functionality. However, currently, `shinymeta` can not be easily integrated into `teal` modules and hence we recommend using `qenv` for `teal` based apps.
 
 For further details see the [`qenv` vignette](https://insightsengineering.github.io/teal.code/articles/qenv.html).
 
-Note: the older method of handling reproducibility, `chunks`, have now been deprecated and `qenv` should be used instead.
+Note: the older method of handling reproducibility, `chunks`, have now been deleted and `qenv` should be used instead.
 

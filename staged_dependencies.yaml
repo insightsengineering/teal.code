@@ -1,10 +1,8 @@
+---
 current_repo:
   repo: insightsengineering/teal.code
   host: https://github.com
 upstream_repos:
-  insightsengineering/teal.widgets:
-    repo: insightsengineering/teal.widgets
-    host: https://github.com
 downstream_repos:
   insightsengineering/teal.transform:
     repo: insightsengineering/teal.transform
