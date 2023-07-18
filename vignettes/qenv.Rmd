@@ -50,7 +50,6 @@ print(q2)
 Objects can be extracted from a `qenv` using `[[` for example in order for them to be displayed in a shiny app. The code used to generate the `qenv` is obtained using the `get_code()` function.
 
 ```{r}
-
 print(q2[["y"]])
 
 cat(paste(get_code(q2), collapse = "\n"))
@@ -60,7 +59,6 @@ cat(paste(get_code(q2), collapse = "\n"))
 Given a pair of `qenv` objects it might be possible to "join" them together creating a new `qenv` object containing the union of both environments together with the code needed to reproduce it:
 
 ```{r}
-
 common_q <- eval_code(new_qenv(), quote(x <- 1))
 
 x_q <- eval_code(common_q, quote(y <- 5))
