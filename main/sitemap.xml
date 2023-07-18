@@ -16,12 +16,6 @@
     <loc>https://insightsengineering.github.io/teal.code/main/SECURITY.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/articles/advanced_chunks.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/articles/basic_chunks.html</loc>
-  </url>
-  <url>
     <loc>https://insightsengineering.github.io/teal.code/main/articles/index.html</loc>
   </url>
   <url>
@@ -43,78 +37,6 @@
     <loc>https://insightsengineering.github.io/teal.code/main/pull_request_template.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunk_call.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunk_comment.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunks.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunks_deep_clone.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunks_eval.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunks_get_eval_msg.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunks_get_rcode.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunks_get_var.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunks_is_ok.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunks_messages.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunks_new.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunks_push.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunks_push_chunks.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunks_push_comment.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunks_push_data_merge.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunks_push_new_line.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunks_reset.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunks_safe_eval.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunks_uneval.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunks_validate_all.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunks_validate_custom.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunks_validate_is.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunks_validate_is_ok.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/chunks_warnings.html</loc>
-  </url>
-  <url>
     <loc>https://insightsengineering.github.io/teal.code/main/reference/concat.html</loc>
   </url>
   <url>
@@ -124,19 +46,7 @@
     <loc>https://insightsengineering.github.io/teal.code/main/reference/eval_code.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/get_chunks_object.html</loc>
-  </url>
-  <url>
     <loc>https://insightsengineering.github.io/teal.code/main/reference/get_code.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/get_eval_details_srv.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/get_eval_details_ui.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/get_number_in_box.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.code/main/reference/get_var.html</loc>
@@ -151,16 +61,10 @@
     <loc>https://insightsengineering.github.io/teal.code/main/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/init_chunks.html</loc>
-  </url>
-  <url>
     <loc>https://insightsengineering.github.io/teal.code/main/reference/join.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.code/main/reference/new_qenv.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/overwrite_chunks.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.code/main/reference/qenv-class.html</loc>
@@ -170,9 +74,6 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.code/main/reference/show-qenv-method.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/main/reference/show_eval_details_modal.html</loc>
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.code/main/reference/teal.code-package.html</loc>
