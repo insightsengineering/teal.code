@@ -19,14 +19,11 @@ Depends:
     R (>= 4.0)
 Imports:
     checkmate,
-    crayon,
     lifecycle,
     methods,
-    R6,
     rlang,
     shiny,
-    styler,
-    teal.widgets (>= 0.2.0)
+    styler
 Suggests:
     cli,
     knitr,
@@ -37,17 +34,12 @@ VignetteBuilder:
     knitr
 RdMacros:
     lifecycle
-Remotes:
-    insightsengineering/teal.widgets@*release
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Collate: 
-    'chunk.R'
-    'chunks.R'
-    'get_eval_details.R'
     'include_css_js.R'
     'qenv-class.R'
     'qenv-errors.R'
