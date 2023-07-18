@@ -29,14 +29,11 @@ Suggests:
     knitr,
     magrittr,
     rmarkdown,
-    testthat (>= 2.0),
-    teal.widgets (>= 0.2.0)
+    testthat (>= 2.0)
 VignetteBuilder:
     knitr
 RdMacros:
     lifecycle
-Remotes:
-    insightsengineering/teal.widgets@*release
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
 Language: en-US

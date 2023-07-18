@@ -96,13 +96,12 @@ A helper function `get_warnings()` is also available to produce a formatted stri
 
 ## Using `qenv` inside `shiny` applications
 
-The functions above can be combined into a `shiny` application generating reproducible outputs. In the example below the `verbatim_popup` from `teal.widgets` is used to hide the code used to generate output in a modal dialog. 
+The functions above can be combined into a `shiny` application generating reproducible outputs. In the example below the `rcode` is used to show the code used to generate the output.
 When using a `qenv` to evaluate code, if an error occurs then an object of type `qenv.error` is created. This object can be used in all the same places a `qenv` object is used and means you do not need to change your code to handle these errors - select `error_option` in the example below to see `qenv` error handling in action. 
 
 ```{r}
 library(shiny)
-library(teal.widgets)
-
+library(magrittr)
 # create an initial qenv with the data in
 data_q <- new_qenv() %>% eval_code("iris_data <- iris")
 
@@ -111,8 +110,7 @@ ui <- fluidPage(
     "option", "Choose a column to plot:",
     c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "error_option")
   ),
-  # button for the Code to be shown when clicked on
-  verbatim_popup_ui("rcode", button_label = "Show Code"),
+  verbatimTextOutput("rcode"),
   plotOutput("plot")
 )
 
@@ -128,9 +126,8 @@ server <- function(input, output, session) {
 
   # display output
   output$plot <- renderPlot(output_q()[["p"]])
-
-  # code is displayed when "Show Code" button is clicked on
-  verbatim_popup_srv("rcode", reactive(get_code(output_q())), title = "Code")
+  # display code
+  output$rcode <- renderText(get_code(output_q()))
 }
 
 if (interactive()) {
