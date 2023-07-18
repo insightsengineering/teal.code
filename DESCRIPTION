@@ -21,7 +21,6 @@ Imports:
     checkmate,
     lifecycle,
     methods,
-    R6,
     rlang,
     shiny,
     styler

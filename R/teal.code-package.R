@@ -8,7 +8,6 @@
 "_PACKAGE"
 
 #' @import shiny
-#' @importFrom R6 R6Class
 #' @importFrom lifecycle badge
 #' @importFrom styler style_text
 NULL
