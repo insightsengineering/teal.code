@@ -106,1150 +106,11 @@ table.table-condensed {
       </ul>
       <div class="tab-content" data-tabsetid="covr">
         <div class="tab-pane active" title="Files" data-value="Files" id="tab-covr-1">
-          <div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-b38c610fbd2a786b7081" style="width:100%;height:500px;"></div>
-          <script type="application/json" data-for="htmlwidget-b38c610fbd2a786b7081">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["<a href=\"#\">R/include_css_js.R<\/a>","<a href=\"#\">R/qenv-show.R<\/a>","<a href=\"#\">R/qenv-eval_code.R<\/a>","<a href=\"#\">R/qenv-join.R<\/a>","<a href=\"#\">R/qenv-get_warnings.R<\/a>","<a href=\"#\">R/utils.R<\/a>","<a href=\"#\">R/qenv-get_var.R<\/a>","<a href=\"#\">R/qenv-get_code.R<\/a>","<a href=\"#\">R/qenv-constructor.R<\/a>","<a href=\"#\">R/qenv-concat.R<\/a>"],[20,17,100,217,61,43,56,46,64,50],[6,1,39,42,18,16,13,13,11,10],[0,0,37,42,18,16,13,13,11,10],[6,1,2,0,0,0,0,0,0,0],["0","0","41","13","4","32","4","3","61","5"],["0.00%","0.00%","94.87%","100.00%","100.00%","100.00%","100.00%","100.00%","100.00%","100.00%"]],"container":"<table class=\"row-border\">\n  <thead>\n    <tr>\n      <th>File<\/th>\n      <th>Lines<\/th>\n      <th>Relevant<\/th>\n      <th>Covered<\/th>\n      <th>Missed<\/th>\n      <th>Hits / Line<\/th>\n      <th>Coverage<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"searching":false,"dom":"t","paging":false,"columnDefs":[{"targets":6,"createdCell":"function(td, cellData, rowData, row, col) {\n  var percent = cellData.replace(\"%\", \"\");\n  if (percent > 90) {\n    var grad = \"linear-gradient(90deg, #edfde7 \" + cellData + \", white \" + cellData + \")\";\n  } else if (percent > 75) {\n    var grad = \"linear-gradient(90deg, #f9ffe5 \" + cellData + \", white \" + cellData + \")\";\n  } else {\n    var grad = \"linear-gradient(90deg, #fcece9 \" + cellData + \", white \" + cellData + \")\";\n  }\n  $(td).css(\"background\", grad);\n}\n"},{"className":"dt-right","targets":[1,2,3,4]}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\ntable.on('click.dt', 'a', function() {\n  files = $('div#files div');\n  files.not('div.hidden').addClass('hidden');\n  id = $(this).text();\n  files.filter('div[id=\\'' + id + '\\']').removeClass('hidden');\n  $('ul.nav a[data-value=Source]').text(id).tab('show');\n});\n}"},"evals":["options.columnDefs.0.createdCell","callback"],"jsHooks":[]}</script>
+          <div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-87d9a23c7ce74a2b0f77" style="width:100%;height:500px;"></div>
+          <script type="application/json" data-for="htmlwidget-87d9a23c7ce74a2b0f77">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["<a href=\"#\">R/include_css_js.R<\/a>","<a href=\"#\">R/qenv-show.R<\/a>","<a href=\"#\">R/qenv-eval_code.R<\/a>","<a href=\"#\">R/qenv-join.R<\/a>","<a href=\"#\">R/qenv-get_warnings.R<\/a>","<a href=\"#\">R/utils.R<\/a>","<a href=\"#\">R/qenv-get_var.R<\/a>","<a href=\"#\">R/qenv-get_code.R<\/a>","<a href=\"#\">R/qenv-constructor.R<\/a>","<a href=\"#\">R/qenv-concat.R<\/a>"],[21,17,100,217,61,43,56,46,64,50],[6,1,39,42,18,16,13,13,11,10],[0,0,37,42,18,16,13,13,11,10],[6,1,2,0,0,0,0,0,0,0],["0","0","41","13","4","32","4","3","61","5"],["0.00%","0.00%","94.87%","100.00%","100.00%","100.00%","100.00%","100.00%","100.00%","100.00%"]],"container":"<table class=\"row-border\">\n  <thead>\n    <tr>\n      <th>File<\/th>\n      <th>Lines<\/th>\n      <th>Relevant<\/th>\n      <th>Covered<\/th>\n      <th>Missed<\/th>\n      <th>Hits / Line<\/th>\n      <th>Coverage<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"searching":false,"dom":"t","paging":false,"columnDefs":[{"targets":6,"createdCell":"function(td, cellData, rowData, row, col) {\n  var percent = cellData.replace(\"%\", \"\");\n  if (percent > 90) {\n    var grad = \"linear-gradient(90deg, #edfde7 \" + cellData + \", white \" + cellData + \")\";\n  } else if (percent > 75) {\n    var grad = \"linear-gradient(90deg, #f9ffe5 \" + cellData + \", white \" + cellData + \")\";\n  } else {\n    var grad = \"linear-gradient(90deg, #fcece9 \" + cellData + \", white \" + cellData + \")\";\n  }\n  $(td).css(\"background\", grad);\n}\n"},{"className":"dt-right","targets":[1,2,3,4]}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\ntable.on('click.dt', 'a', function() {\n  files = $('div#files div');\n  files.not('div.hidden').addClass('hidden');\n  id = $(this).text();\n  files.filter('div[id=\\'' + id + '\\']').removeClass('hidden');\n  $('ul.nav a[data-value=Source]').text(id).tab('show');\n});\n}"},"evals":["options.columnDefs.0.createdCell","callback"],"jsHooks":[]}</script>
         </div>
         <div class="tab-pane" title="Source" data-value="Source" id="tab-covr-2">
           <div id="files">
-            <div id="R/qenv-eval_code.R" class="hidden">
-              <table class="table-condensed">
-                <tbody>
-                  <tr class="never">
-                    <td class="num">1</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' Evaluate the code in the `qenv` environment</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">2</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">3</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' Given code is evaluated in the `qenv` environment and appended to the `code` slot. This means</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">4</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' that state of the environment is always a result of the stored code (if `qenv` was initialized)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">5</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' with reproducible code.</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">6</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">7</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @name eval_code</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">8</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">9</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @param object (`qenv`)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">10</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @param code (`character` or `language`) code to evaluate. Also accepts and stores comments</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">11</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">12</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @examples</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">13</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' q1 &lt;- new_qenv(env = list2env(list(a = 1)), code = quote(a &lt;- 1))</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">14</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' q2 &lt;- eval_code(q1, quote(library(checkmate)))</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">15</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' q3 &lt;- eval_code(q2, quote(assert_number(a)))</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">16</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">17</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @export</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">18</td>
-                    <td class="coverage">125<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">setGeneric("eval_code", function(object, code) standardGeneric("eval_code"))</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">19</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">20</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @rdname eval_code</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">21</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @export</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">22</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">setMethod("eval_code", signature = c("qenv", "expression"), function(object, code) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">23</td>
-                    <td class="coverage">63<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  id &lt;- sample.int(.Machine$integer.max, size = length(code))</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">24</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">25</td>
-                    <td class="coverage">63<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  object@id &lt;- c(object@id, id)</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">26</td>
-                    <td class="coverage">63<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  object@env &lt;- rlang::env_clone(object@env, parent = parent.env(.GlobalEnv))</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">27</td>
-                    <td class="coverage">63<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  object@code &lt;- c(object@code, code)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">28</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">29</td>
-                    <td class="coverage">63<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  current_warnings &lt;- ""</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">30</td>
-                    <td class="coverage">63<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  current_messages &lt;- ""</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">31</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">32</td>
-                    <td class="coverage">63<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  for (code_line in code) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">33</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    # Using withCallingHandlers to capture ALL warnings and messages.</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">34</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    # Using tryCatch to capture the FIRST error and abort further evaluation.</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">35</td>
-                    <td class="coverage">66<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    x &lt;- withCallingHandlers(</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">36</td>
-                    <td class="coverage">66<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">      tryCatch(</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">37</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">        {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">38</td>
-                    <td class="coverage">66<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">          eval(code_line, envir = object@env)</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">39</td>
-                    <td class="coverage">56<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">          NULL</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">40</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">        },</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">41</td>
-                    <td class="coverage">66<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">        error = function(e) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">42</td>
-                    <td class="coverage">10<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">          errorCondition(</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">43</td>
-                    <td class="coverage">10<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">            message = sprintf(</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">44</td>
-                    <td class="coverage">10<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">              "%s \n when evaluating qenv code:\n%s",</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">45</td>
-                    <td class="coverage">10<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">              .ansi_strip(conditionMessage(e)),</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">46</td>
-                    <td class="coverage">10<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">              paste(format_expression(code), collapse = "\n")</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">47</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">            ),</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">48</td>
-                    <td class="coverage">10<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">            class = c("qenv.error", "try-error", "simpleError"),</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">49</td>
-                    <td class="coverage">10<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">            trace = object@code</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">50</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">          )</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">51</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">        }</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">52</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">      ),</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">53</td>
-                    <td class="coverage">66<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">      warning = function(w) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">54</td>
-                    <td class="coverage">15<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">        current_warnings &lt;&lt;- paste0(current_warnings, .ansi_strip(sprintf("&gt; %s\n", conditionMessage(w))))</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">55</td>
-                    <td class="coverage">15<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">        invokeRestart("muffleWarning")</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">56</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">      },</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">57</td>
-                    <td class="coverage">66<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">      message = function(m) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">58</td>
-                    <td class="coverage">5<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">        current_messages &lt;&lt;- paste0(current_messages, .ansi_strip(sprintf("&gt; %s", conditionMessage(m))))</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">59</td>
-                    <td class="coverage">5<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">        invokeRestart("muffleMessage")</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">60</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">      }</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">61</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    )</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">62</td>
-                    <td class="coverage">66<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    if (!is.null(x)) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">63</td>
-                    <td class="coverage">10<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">      return(x)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">64</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    }</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">65</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">66</td>
-                    <td class="coverage">56<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    object@warnings &lt;- c(object@warnings, current_warnings)</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">67</td>
-                    <td class="coverage">56<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    object@messages &lt;- c(object@messages, current_messages)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">68</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  }</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">69</td>
-                    <td class="coverage">53<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  lockEnvironment(object@env, bindings = TRUE)</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">70</td>
-                    <td class="coverage">53<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  object</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">71</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">})</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">72</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">73</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @rdname eval_code</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">74</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @export</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">75</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">setMethod("eval_code", signature = c("qenv", "language"), function(object, code) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">76</td>
-                    <td class="coverage">44<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  code_char &lt;- as.expression(code)</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">77</td>
-                    <td class="coverage">44<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  eval_code(object, code_char)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">78</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">})</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">79</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">80</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @rdname eval_code</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">81</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @export</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">82</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">setMethod("eval_code", signature = c("qenv", "character"), function(object, code) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">83</td>
-                    <td class="coverage">17<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  eval_code(object, code = parse(text = code, keep.source = FALSE))</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">84</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">})</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">85</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">86</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @rdname eval_code</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">87</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @export</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">88</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">setMethod("eval_code", signature = "qenv.error", function(object, code) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="missed">
-                    <td class="num">89</td>
-                    <td class="coverage">!</td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  object</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">90</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">})</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">91</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">92</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"># if cli is installed rlang adds terminal printing characters</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">93</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"># which need to be removed</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">94</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">.ansi_strip &lt;- function(chr) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">95</td>
-                    <td class="coverage">30<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  if (requireNamespace("cli", quietly = TRUE)) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">96</td>
-                    <td class="coverage">30<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    cli::ansi_strip(chr)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">97</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  } else {</pre>
-                    </td>
-                  </tr>
-                  <tr class="missed">
-                    <td class="num">98</td>
-                    <td class="coverage">!</td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    chr</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">99</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  }</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">100</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">}</pre>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div id="R/qenv-get_warnings.R" class="hidden">
-              <table class="table-condensed">
-                <tbody>
-                  <tr class="never">
-                    <td class="num">1</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' Get the warnings of `qenv` object</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">2</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">3</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @param object (`qenv`)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">4</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">5</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @return `character` containing warning information or `NULL` if no warnings</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">6</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @export</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">7</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">8</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @examples</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">9</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' data_q &lt;- new_qenv()</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">10</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' data_q &lt;- eval_code(new_qenv(), "iris_data &lt;- iris")</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">11</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' warning_qenv &lt;- eval_code(</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">12</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'   data_q,</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">13</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'   bquote(p &lt;- hist(iris_data[, .("Sepal.Length")], ff = ""))</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">14</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' )</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">15</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' cat(get_warnings(warning_qenv))</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">16</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @export</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">17</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">setGeneric("get_warnings", function(object) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">18</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  # this line forces evaluation of object before passing to the generic</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">19</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  # needed for error handling to work properly</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">20</td>
-                    <td class="coverage">7<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  object</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">21</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">22</td>
-                    <td class="coverage">7<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  standardGeneric("get_warnings")</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">23</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">})</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">24</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">25</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @rdname get_warnings</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">26</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @export</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">27</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">setMethod("get_warnings", signature = c("qenv.error"), function(object) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">28</td>
-                    <td class="coverage">1<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  NULL</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">29</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">})</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">30</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">31</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @rdname get_warnings</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">32</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @export</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">33</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">setMethod("get_warnings", signature = c("qenv"), function(object) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">34</td>
-                    <td class="coverage">5<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  if (all(object@warnings == "")) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">35</td>
-                    <td class="coverage">1<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    return(NULL)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">36</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  }</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">37</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">38</td>
-                    <td class="coverage">4<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  lines &lt;- mapply(</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">39</td>
-                    <td class="coverage">4<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    function(warn, expr) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">40</td>
-                    <td class="coverage">6<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">      if (warn == "") {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">41</td>
-                    <td class="coverage">1<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">        return(NULL)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">42</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">      }</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">43</td>
-                    <td class="coverage">5<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">      sprintf("%swhen running code:\n%s", warn, paste(format_expression(expr), collapse = "\n"))</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">44</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    },</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">45</td>
-                    <td class="coverage">4<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    warn = as.list(object@warnings),</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">46</td>
-                    <td class="coverage">4<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    expr = as.list(as.character(object@code))</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">47</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  )</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">48</td>
-                    <td class="coverage">4<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  lines &lt;- Filter(Negate(is.null), lines)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">49</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">50</td>
-                    <td class="coverage">4<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  sprintf(</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">51</td>
-                    <td class="coverage">4<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    "~~~ Warnings ~~~\n\n%s\n\n~~~ Trace ~~~\n\n%s",</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">52</td>
-                    <td class="coverage">4<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    paste(lines, collapse = "\n\n"),</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">53</td>
-                    <td class="coverage">4<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    paste(get_code(object), collapse = "\n")</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">54</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  )</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">55</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">})</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">56</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">57</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @rdname get_warnings</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">58</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @export</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">59</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">setMethod("get_warnings", "NULL", function(object) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">60</td>
-                    <td class="coverage">1<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  NULL</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">61</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">})</pre>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
             <div id="R/utils.R" class="hidden">
               <table class="table-condensed">
                 <tbody>
@@ -1552,858 +413,6 @@ table.table-condensed {
                     <td class="coverage"></td>
                     <td class="col-sm-12">
                       <pre class="language-r">}</pre>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div id="R/qenv-get_var.R" class="hidden">
-              <table class="table-condensed">
-                <tbody>
-                  <tr class="never">
-                    <td class="num">1</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' Get object from the `qenv` environment</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">2</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">3</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' Get object from the `qenv` environment.</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">4</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @param object (`qenv`)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">5</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @param var (`character(1)`) name of the variable to pull from the environment.</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">6</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @name get_var</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">7</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @examples</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">8</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' q1 &lt;- new_qenv(env = list2env(list(a = 1)), code = quote(a &lt;- 1))</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">9</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' q2 &lt;- eval_code(q1, code = "b &lt;- a")</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">10</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' get_var(q2, "b")</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">11</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' q2[["b"]]</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">12</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">13</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @export</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">14</td>
-                    <td class="coverage">9<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">setGeneric("get_var", function(object, var) standardGeneric("get_var"))</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">15</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">16</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">17</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @rdname get_var</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">18</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @export</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">19</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">setMethod("get_var", signature = c("qenv", "character"), function(object, var) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">20</td>
-                    <td class="coverage">8<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  tryCatch(</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">21</td>
-                    <td class="coverage">8<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    get(var, envir = object@env),</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">22</td>
-                    <td class="coverage">8<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    error = function(e) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">23</td>
-                    <td class="coverage">4<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">      message(conditionMessage(e))</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">24</td>
-                    <td class="coverage">4<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">      NULL</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">25</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    }</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">26</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  )</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">27</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">})</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">28</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">29</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @rdname get_var</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">30</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @export</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">31</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">setMethod("get_var", signature = "qenv.error", function(object, var) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">32</td>
-                    <td class="coverage">1<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  stop(errorCondition(</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">33</td>
-                    <td class="coverage">1<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    list(message = conditionMessage(object)),</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">34</td>
-                    <td class="coverage">1<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    class = c("validation", "try-error", "simpleError")</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">35</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  ))</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">36</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">})</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">37</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">38</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">39</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @param x (`qenv`)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">40</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @param i (`character`) name of the binding in environment (name of the variable)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">41</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @param j not used</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">42</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @param ... not used</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">43</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @rdname get_var</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">44</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @export</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">45</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">setMethod("[[", signature = c("qenv", "ANY", "missing"), function(x, i, j, ...) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">46</td>
-                    <td class="coverage">4<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  get_var(x, i)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">47</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">})</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">48</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">49</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @rdname get_var</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">50</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @export</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">51</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">`[[.qenv.error` &lt;- function(x, i, j, ...) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">52</td>
-                    <td class="coverage">1<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  stop(errorCondition(</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">53</td>
-                    <td class="coverage">1<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    list(message = conditionMessage(x)),</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">54</td>
-                    <td class="coverage">1<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    class = c("validation", "try-error", "simpleError")</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">55</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  ))</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">56</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">}</pre>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div id="R/qenv-constructor.R" class="hidden">
-              <table class="table-condensed">
-                <tbody>
-                  <tr class="never">
-                    <td class="num">1</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' Initialize `qenv` object</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">2</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">3</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' Initialize `qenv` object with `code` and `env`. In order to have `qenv` reproducible</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">4</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' one needs to initialize with `env` which can be reproduced by the `code`. Alternatively, one</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">5</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' can create an empty `qenv` and evaluate the expressions in this object using `eval_code`.</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">6</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @name new_qenv</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">7</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">8</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @param code (`character(1)` or `language`) code to evaluate. Accepts and stores comments also.</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">9</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @param env (`environment`) Environment being a result of the `code` evaluation.</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">10</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">11</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @examples</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">12</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' new_qenv(env = list2env(list(a = 1)), code = quote(a &lt;- 1))</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">13</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' new_qenv(env = list2env(list(a = 1)), code = parse(text = "a &lt;- 1"))</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">14</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' new_qenv(env = list2env(list(a = 1)), code = "a &lt;- 1")</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">15</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">16</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @export</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">17</td>
-                    <td class="coverage">143<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">setGeneric("new_qenv", function(env = new.env(parent = parent.env(.GlobalEnv)), code = expression()) standardGeneric("new_qenv")) # nolint</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">18</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">19</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @rdname new_qenv</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">20</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @export</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">21</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">setMethod(</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">22</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  "new_qenv",</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">23</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  signature = c(env = "environment", code = "expression"),</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">24</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  function(env, code) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">25</td>
-                    <td class="coverage">73<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    new_env &lt;- rlang::env_clone(env, parent = parent.env(.GlobalEnv))</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">26</td>
-                    <td class="coverage">73<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    lockEnvironment(new_env, bindings = TRUE)</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">27</td>
-                    <td class="coverage">73<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    id &lt;- sample.int(.Machine$integer.max, size = length(code))</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">28</td>
-                    <td class="coverage">73<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    methods::new(</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">29</td>
-                    <td class="coverage">73<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">      "qenv",</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">30</td>
-                    <td class="coverage">73<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">      env = new_env, code = code, warnings = rep("", length(code)), messages = rep("", length(code)), id = id</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">31</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    )</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">32</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  }</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">33</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">34</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">35</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @rdname new_qenv</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">36</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @export</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">37</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">setMethod(</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">38</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  "new_qenv",</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">39</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  signature = c(env = "environment", code = "character"),</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">40</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  function(env, code) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">41</td>
-                    <td class="coverage">1<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    new_qenv(env, code = parse(text = code, keep.source = FALSE))</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">42</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  }</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">43</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">44</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">45</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @rdname new_qenv</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">46</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @export</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">47</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">setMethod(</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">48</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  "new_qenv",</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">49</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  signature = c(env = "environment", code = "language"),</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">50</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  function(env, code) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">51</td>
-                    <td class="coverage">27<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    code_expr &lt;- as.expression(code)</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">52</td>
-                    <td class="coverage">27<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    new_qenv(env = env, code = code_expr)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">53</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  }</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">54</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">55</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">56</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @rdname new_qenv</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">57</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @export</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">58</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">setMethod(</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">59</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  "new_qenv",</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">60</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  signature = c(code = "missing", env = "missing"),</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">61</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  function(env, code) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">62</td>
-                    <td class="coverage">40<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    new_qenv(env = env, code = code)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">63</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  }</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">64</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">)</pre>
                     </td>
                   </tr>
                 </tbody>
@@ -3934,14 +1943,14 @@ table.table-condensed {
                 </tbody>
               </table>
             </div>
-            <div id="R/include_css_js.R" class="hidden">
+            <div id="R/qenv-get_warnings.R" class="hidden">
               <table class="table-condensed">
                 <tbody>
                   <tr class="never">
                     <td class="num">1</td>
                     <td class="coverage"></td>
                     <td class="col-sm-12">
-                      <pre class="language-r">#' Include `CSS` files from `/inst/css/` package directory to application header</pre>
+                      <pre class="language-r">#' Get the warnings of `qenv` object</pre>
                     </td>
                   </tr>
                   <tr class="never">
@@ -3955,21 +1964,454 @@ table.table-condensed {
                     <td class="num">3</td>
                     <td class="coverage"></td>
                     <td class="col-sm-12">
-                      <pre class="language-r">#' `system.file` should not be used to access files in other packages, it does</pre>
+                      <pre class="language-r">#' @param object (`qenv`)</pre>
                     </td>
                   </tr>
                   <tr class="never">
                     <td class="num">4</td>
                     <td class="coverage"></td>
                     <td class="col-sm-12">
-                      <pre class="language-r">#' not work with `devtools`. Therefore, we redefine this method in each package</pre>
+                      <pre class="language-r">#'</pre>
                     </td>
                   </tr>
                   <tr class="never">
                     <td class="num">5</td>
                     <td class="coverage"></td>
                     <td class="col-sm-12">
-                      <pre class="language-r">#' as needed. Thus, we do not export this method</pre>
+                      <pre class="language-r">#' @return `character` containing warning information or `NULL` if no warnings</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">6</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @export</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">7</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">8</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @examples</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">9</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' data_q &lt;- new_qenv()</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">10</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' data_q &lt;- eval_code(new_qenv(), "iris_data &lt;- iris")</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">11</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' warning_qenv &lt;- eval_code(</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">12</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'   data_q,</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">13</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'   bquote(p &lt;- hist(iris_data[, .("Sepal.Length")], ff = ""))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">14</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' )</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">15</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' cat(get_warnings(warning_qenv))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">16</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @export</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">17</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">setGeneric("get_warnings", function(object) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">18</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  # this line forces evaluation of object before passing to the generic</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">19</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  # needed for error handling to work properly</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">20</td>
+                    <td class="coverage">7<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  object</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">21</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">22</td>
+                    <td class="coverage">7<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  standardGeneric("get_warnings")</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">23</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">})</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">24</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">25</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @rdname get_warnings</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">26</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @export</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">27</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">setMethod("get_warnings", signature = c("qenv.error"), function(object) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">28</td>
+                    <td class="coverage">1<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  NULL</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">29</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">})</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">30</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">31</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @rdname get_warnings</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">32</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @export</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">33</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">setMethod("get_warnings", signature = c("qenv"), function(object) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">34</td>
+                    <td class="coverage">5<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  if (all(object@warnings == "")) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">35</td>
+                    <td class="coverage">1<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    return(NULL)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">36</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  }</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">37</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">38</td>
+                    <td class="coverage">4<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  lines &lt;- mapply(</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">39</td>
+                    <td class="coverage">4<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    function(warn, expr) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">40</td>
+                    <td class="coverage">6<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">      if (warn == "") {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">41</td>
+                    <td class="coverage">1<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">        return(NULL)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">42</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">      }</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">43</td>
+                    <td class="coverage">5<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">      sprintf("%swhen running code:\n%s", warn, paste(format_expression(expr), collapse = "\n"))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">44</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    },</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">45</td>
+                    <td class="coverage">4<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    warn = as.list(object@warnings),</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">46</td>
+                    <td class="coverage">4<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    expr = as.list(as.character(object@code))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">47</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  )</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">48</td>
+                    <td class="coverage">4<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  lines &lt;- Filter(Negate(is.null), lines)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">49</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">50</td>
+                    <td class="coverage">4<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  sprintf(</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">51</td>
+                    <td class="coverage">4<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    "~~~ Warnings ~~~\n\n%s\n\n~~~ Trace ~~~\n\n%s",</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">52</td>
+                    <td class="coverage">4<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    paste(lines, collapse = "\n\n"),</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">53</td>
+                    <td class="coverage">4<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    paste(get_code(object), collapse = "\n")</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">54</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  )</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">55</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">})</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">56</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">57</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @rdname get_warnings</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">58</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @export</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">59</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">setMethod("get_warnings", "NULL", function(object) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">60</td>
+                    <td class="coverage">1<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  NULL</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">61</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">})</pre>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div id="R/qenv-eval_code.R" class="hidden">
+              <table class="table-condensed">
+                <tbody>
+                  <tr class="never">
+                    <td class="num">1</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' Evaluate the code in the `qenv` environment</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">2</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">3</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' Given code is evaluated in the `qenv` environment and appended to the `code` slot. This means</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">4</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' that state of the environment is always a result of the stored code (if `qenv` was initialized)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">5</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' with reproducible code.</pre>
                     </td>
                   </tr>
                   <tr class="never">
@@ -3983,7 +2425,7 @@ table.table-condensed {
                     <td class="num">7</td>
                     <td class="coverage"></td>
                     <td class="col-sm-12">
-                      <pre class="language-r">#' @param pattern (`character`) pattern of files to be included</pre>
+                      <pre class="language-r">#' @name eval_code</pre>
                     </td>
                   </tr>
                   <tr class="never">
@@ -3997,81 +2439,641 @@ table.table-condensed {
                     <td class="num">9</td>
                     <td class="coverage"></td>
                     <td class="col-sm-12">
-                      <pre class="language-r">#' @return HTML code that includes `CSS` files</pre>
+                      <pre class="language-r">#' @param object (`qenv`)</pre>
                     </td>
                   </tr>
                   <tr class="never">
                     <td class="num">10</td>
                     <td class="coverage"></td>
                     <td class="col-sm-12">
-                      <pre class="language-r">#' @keywords internal</pre>
+                      <pre class="language-r">#' @param code (`character` or `language`) code to evaluate. Also accepts and stores comments</pre>
                     </td>
                   </tr>
                   <tr class="never">
                     <td class="num">11</td>
                     <td class="coverage"></td>
                     <td class="col-sm-12">
-                      <pre class="language-r">include_css_files &lt;- function(pattern = "*") {</pre>
+                      <pre class="language-r">#'</pre>
                     </td>
                   </tr>
-                  <tr class="missed">
+                  <tr class="never">
                     <td class="num">12</td>
-                    <td class="coverage">!</td>
+                    <td class="coverage"></td>
                     <td class="col-sm-12">
-                      <pre class="language-r">  css_files &lt;- list.files(</pre>
+                      <pre class="language-r">#' @examples</pre>
                     </td>
                   </tr>
-                  <tr class="missed">
+                  <tr class="never">
                     <td class="num">13</td>
-                    <td class="coverage">!</td>
+                    <td class="coverage"></td>
                     <td class="col-sm-12">
-                      <pre class="language-r">    system.file("css", package = "teal.code", mustWork = TRUE),</pre>
+                      <pre class="language-r">#' q1 &lt;- new_qenv(env = list2env(list(a = 1)), code = quote(a &lt;- 1))</pre>
                     </td>
                   </tr>
-                  <tr class="missed">
+                  <tr class="never">
                     <td class="num">14</td>
-                    <td class="coverage">!</td>
+                    <td class="coverage"></td>
                     <td class="col-sm-12">
-                      <pre class="language-r">    pattern = pattern, full.names = TRUE</pre>
+                      <pre class="language-r">#' q2 &lt;- eval_code(q1, quote(library(checkmate)))</pre>
                     </td>
                   </tr>
                   <tr class="never">
                     <td class="num">15</td>
                     <td class="coverage"></td>
                     <td class="col-sm-12">
-                      <pre class="language-r">  )</pre>
-                    </td>
-                  </tr>
-                  <tr class="missed">
-                    <td class="num">16</td>
-                    <td class="coverage">!</td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  if (length(css_files) == 0) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="missed">
-                    <td class="num">17</td>
-                    <td class="coverage">!</td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    return(NULL)</pre>
+                      <pre class="language-r">#' q3 &lt;- eval_code(q2, quote(assert_number(a)))</pre>
                     </td>
                   </tr>
                   <tr class="never">
+                    <td class="num">16</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">17</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @export</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
                     <td class="num">18</td>
+                    <td class="coverage">125<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">setGeneric("eval_code", function(object, code) standardGeneric("eval_code"))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">19</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">20</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @rdname eval_code</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">21</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @export</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">22</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">setMethod("eval_code", signature = c("qenv", "expression"), function(object, code) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">23</td>
+                    <td class="coverage">63<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  id &lt;- sample.int(.Machine$integer.max, size = length(code))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">24</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">25</td>
+                    <td class="coverage">63<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  object@id &lt;- c(object@id, id)</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">26</td>
+                    <td class="coverage">63<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  object@env &lt;- rlang::env_clone(object@env, parent = parent.env(.GlobalEnv))</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">27</td>
+                    <td class="coverage">63<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  object@code &lt;- c(object@code, code)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">28</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">29</td>
+                    <td class="coverage">63<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  current_warnings &lt;- ""</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">30</td>
+                    <td class="coverage">63<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  current_messages &lt;- ""</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">31</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">32</td>
+                    <td class="coverage">63<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  for (code_line in code) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">33</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    # Using withCallingHandlers to capture ALL warnings and messages.</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">34</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    # Using tryCatch to capture the FIRST error and abort further evaluation.</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">35</td>
+                    <td class="coverage">66<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    x &lt;- withCallingHandlers(</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">36</td>
+                    <td class="coverage">66<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">      tryCatch(</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">37</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">        {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">38</td>
+                    <td class="coverage">66<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">          eval(code_line, envir = object@env)</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">39</td>
+                    <td class="coverage">56<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">          NULL</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">40</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">        },</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">41</td>
+                    <td class="coverage">66<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">        error = function(e) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">42</td>
+                    <td class="coverage">10<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">          errorCondition(</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">43</td>
+                    <td class="coverage">10<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">            message = sprintf(</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">44</td>
+                    <td class="coverage">10<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">              "%s \n when evaluating qenv code:\n%s",</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">45</td>
+                    <td class="coverage">10<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">              .ansi_strip(conditionMessage(e)),</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">46</td>
+                    <td class="coverage">10<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">              paste(format_expression(code), collapse = "\n")</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">47</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">            ),</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">48</td>
+                    <td class="coverage">10<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">            class = c("qenv.error", "try-error", "simpleError"),</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">49</td>
+                    <td class="coverage">10<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">            trace = object@code</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">50</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">          )</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">51</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">        }</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">52</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">      ),</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">53</td>
+                    <td class="coverage">66<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">      warning = function(w) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">54</td>
+                    <td class="coverage">15<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">        current_warnings &lt;&lt;- paste0(current_warnings, .ansi_strip(sprintf("&gt; %s\n", conditionMessage(w))))</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">55</td>
+                    <td class="coverage">15<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">        invokeRestart("muffleWarning")</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">56</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">      },</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">57</td>
+                    <td class="coverage">66<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">      message = function(m) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">58</td>
+                    <td class="coverage">5<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">        current_messages &lt;&lt;- paste0(current_messages, .ansi_strip(sprintf("&gt; %s", conditionMessage(m))))</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">59</td>
+                    <td class="coverage">5<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">        invokeRestart("muffleMessage")</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">60</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">      }</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">61</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    )</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">62</td>
+                    <td class="coverage">66<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    if (!is.null(x)) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">63</td>
+                    <td class="coverage">10<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">      return(x)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">64</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    }</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">65</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">66</td>
+                    <td class="coverage">56<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    object@warnings &lt;- c(object@warnings, current_warnings)</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">67</td>
+                    <td class="coverage">56<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    object@messages &lt;- c(object@messages, current_messages)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">68</td>
                     <td class="coverage"></td>
                     <td class="col-sm-12">
                       <pre class="language-r">  }</pre>
                     </td>
                   </tr>
-                  <tr class="missed">
-                    <td class="num">19</td>
-                    <td class="coverage">!</td>
+                  <tr class="covered">
+                    <td class="num">69</td>
+                    <td class="coverage">53<em>x</em></td>
                     <td class="col-sm-12">
-                      <pre class="language-r">  return(shiny::singleton(lapply(css_files, shiny::includeCSS)))</pre>
+                      <pre class="language-r">  lockEnvironment(object@env, bindings = TRUE)</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">70</td>
+                    <td class="coverage">53<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  object</pre>
                     </td>
                   </tr>
                   <tr class="never">
-                    <td class="num">20</td>
+                    <td class="num">71</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">})</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">72</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">73</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @rdname eval_code</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">74</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @export</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">75</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">setMethod("eval_code", signature = c("qenv", "language"), function(object, code) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">76</td>
+                    <td class="coverage">44<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  code_char &lt;- as.expression(code)</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">77</td>
+                    <td class="coverage">44<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  eval_code(object, code_char)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">78</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">})</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">79</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">80</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @rdname eval_code</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">81</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @export</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">82</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">setMethod("eval_code", signature = c("qenv", "character"), function(object, code) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">83</td>
+                    <td class="coverage">17<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  eval_code(object, code = parse(text = code, keep.source = FALSE))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">84</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">})</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">85</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">86</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @rdname eval_code</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">87</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @export</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">88</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">setMethod("eval_code", signature = "qenv.error", function(object, code) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="missed">
+                    <td class="num">89</td>
+                    <td class="coverage">!</td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  object</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">90</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">})</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">91</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">92</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"># if cli is installed rlang adds terminal printing characters</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">93</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"># which need to be removed</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">94</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">.ansi_strip &lt;- function(chr) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">95</td>
+                    <td class="coverage">30<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  if (requireNamespace("cli", quietly = TRUE)) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">96</td>
+                    <td class="coverage">30<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    cli::ansi_strip(chr)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">97</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  } else {</pre>
+                    </td>
+                  </tr>
+                  <tr class="missed">
+                    <td class="num">98</td>
+                    <td class="coverage">!</td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    chr</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">99</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  }</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">100</td>
                     <td class="coverage"></td>
                     <td class="col-sm-12">
                       <pre class="language-r">}</pre>
@@ -4431,6 +3433,1011 @@ table.table-condensed {
                     <td class="coverage"></td>
                     <td class="col-sm-12">
                       <pre class="language-r">})</pre>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div id="R/qenv-constructor.R" class="hidden">
+              <table class="table-condensed">
+                <tbody>
+                  <tr class="never">
+                    <td class="num">1</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' Initialize `qenv` object</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">2</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">3</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' Initialize `qenv` object with `code` and `env`. In order to have `qenv` reproducible</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">4</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' one needs to initialize with `env` which can be reproduced by the `code`. Alternatively, one</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">5</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' can create an empty `qenv` and evaluate the expressions in this object using `eval_code`.</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">6</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @name new_qenv</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">7</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">8</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @param code (`character(1)` or `language`) code to evaluate. Accepts and stores comments also.</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">9</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @param env (`environment`) Environment being a result of the `code` evaluation.</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">10</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">11</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @examples</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">12</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' new_qenv(env = list2env(list(a = 1)), code = quote(a &lt;- 1))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">13</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' new_qenv(env = list2env(list(a = 1)), code = parse(text = "a &lt;- 1"))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">14</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' new_qenv(env = list2env(list(a = 1)), code = "a &lt;- 1")</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">15</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">16</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @export</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">17</td>
+                    <td class="coverage">143<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">setGeneric("new_qenv", function(env = new.env(parent = parent.env(.GlobalEnv)), code = expression()) standardGeneric("new_qenv")) # nolint</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">18</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">19</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @rdname new_qenv</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">20</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @export</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">21</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">setMethod(</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">22</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  "new_qenv",</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">23</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  signature = c(env = "environment", code = "expression"),</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">24</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  function(env, code) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">25</td>
+                    <td class="coverage">73<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    new_env &lt;- rlang::env_clone(env, parent = parent.env(.GlobalEnv))</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">26</td>
+                    <td class="coverage">73<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    lockEnvironment(new_env, bindings = TRUE)</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">27</td>
+                    <td class="coverage">73<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    id &lt;- sample.int(.Machine$integer.max, size = length(code))</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">28</td>
+                    <td class="coverage">73<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    methods::new(</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">29</td>
+                    <td class="coverage">73<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">      "qenv",</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">30</td>
+                    <td class="coverage">73<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">      env = new_env, code = code, warnings = rep("", length(code)), messages = rep("", length(code)), id = id</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">31</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    )</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">32</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  }</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">33</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">34</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">35</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @rdname new_qenv</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">36</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @export</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">37</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">setMethod(</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">38</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  "new_qenv",</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">39</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  signature = c(env = "environment", code = "character"),</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">40</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  function(env, code) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">41</td>
+                    <td class="coverage">1<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    new_qenv(env, code = parse(text = code, keep.source = FALSE))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">42</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  }</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">43</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">44</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">45</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @rdname new_qenv</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">46</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @export</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">47</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">setMethod(</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">48</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  "new_qenv",</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">49</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  signature = c(env = "environment", code = "language"),</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">50</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  function(env, code) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">51</td>
+                    <td class="coverage">27<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    code_expr &lt;- as.expression(code)</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">52</td>
+                    <td class="coverage">27<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    new_qenv(env = env, code = code_expr)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">53</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  }</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">54</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">55</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">56</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @rdname new_qenv</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">57</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @export</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">58</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">setMethod(</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">59</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  "new_qenv",</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">60</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  signature = c(code = "missing", env = "missing"),</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">61</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  function(env, code) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">62</td>
+                    <td class="coverage">40<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    new_qenv(env = env, code = code)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">63</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  }</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">64</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">)</pre>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div id="R/include_css_js.R" class="hidden">
+              <table class="table-condensed">
+                <tbody>
+                  <tr class="never">
+                    <td class="num">1</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' Include `CSS` files from `/inst/css/` package directory to application header</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">2</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">3</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' `system.file` should not be used to access files in other packages, it does</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">4</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' not work with `devtools`. Therefore, we redefine this method in each package</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">5</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' as needed. Thus, we do not export this method</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">6</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">7</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @param pattern (`character`) pattern of files to be included</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">8</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">9</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @return HTML code that includes `CSS` files</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">10</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @keywords internal</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">11</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">include_css_files &lt;- function(pattern = "*") {</pre>
+                    </td>
+                  </tr>
+                  <tr class="missed">
+                    <td class="num">12</td>
+                    <td class="coverage">!</td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  css_files &lt;- list.files(</pre>
+                    </td>
+                  </tr>
+                  <tr class="missed">
+                    <td class="num">13</td>
+                    <td class="coverage">!</td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    system.file("css", package = "teal.code", mustWork = TRUE),</pre>
+                    </td>
+                  </tr>
+                  <tr class="missed">
+                    <td class="num">14</td>
+                    <td class="coverage">!</td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    pattern = pattern, full.names = TRUE</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">15</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  )</pre>
+                    </td>
+                  </tr>
+                  <tr class="missed">
+                    <td class="num">16</td>
+                    <td class="coverage">!</td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  if (length(css_files) == 0) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="missed">
+                    <td class="num">17</td>
+                    <td class="coverage">!</td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    return(NULL)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">18</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  }</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">19</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="missed">
+                    <td class="num">20</td>
+                    <td class="coverage">!</td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  shiny::singleton(lapply(css_files, shiny::includeCSS))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">21</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">}</pre>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div id="R/qenv-get_var.R" class="hidden">
+              <table class="table-condensed">
+                <tbody>
+                  <tr class="never">
+                    <td class="num">1</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' Get object from the `qenv` environment</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">2</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">3</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' Get object from the `qenv` environment.</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">4</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @param object (`qenv`)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">5</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @param var (`character(1)`) name of the variable to pull from the environment.</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">6</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @name get_var</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">7</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @examples</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">8</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' q1 &lt;- new_qenv(env = list2env(list(a = 1)), code = quote(a &lt;- 1))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">9</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' q2 &lt;- eval_code(q1, code = "b &lt;- a")</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">10</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' get_var(q2, "b")</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">11</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' q2[["b"]]</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">12</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">13</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @export</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">14</td>
+                    <td class="coverage">9<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">setGeneric("get_var", function(object, var) standardGeneric("get_var"))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">15</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">16</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">17</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @rdname get_var</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">18</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @export</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">19</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">setMethod("get_var", signature = c("qenv", "character"), function(object, var) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">20</td>
+                    <td class="coverage">8<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  tryCatch(</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">21</td>
+                    <td class="coverage">8<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    get(var, envir = object@env),</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">22</td>
+                    <td class="coverage">8<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    error = function(e) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">23</td>
+                    <td class="coverage">4<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">      message(conditionMessage(e))</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">24</td>
+                    <td class="coverage">4<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">      NULL</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">25</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    }</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">26</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  )</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">27</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">})</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">28</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">29</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @rdname get_var</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">30</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @export</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">31</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">setMethod("get_var", signature = "qenv.error", function(object, var) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">32</td>
+                    <td class="coverage">1<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  stop(errorCondition(</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">33</td>
+                    <td class="coverage">1<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    list(message = conditionMessage(object)),</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">34</td>
+                    <td class="coverage">1<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    class = c("validation", "try-error", "simpleError")</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">35</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  ))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">36</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">})</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">37</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">38</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">39</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @param x (`qenv`)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">40</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @param i (`character`) name of the binding in environment (name of the variable)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">41</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @param j not used</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">42</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @param ... not used</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">43</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @rdname get_var</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">44</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @export</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">45</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">setMethod("[[", signature = c("qenv", "ANY", "missing"), function(x, i, j, ...) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">46</td>
+                    <td class="coverage">4<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  get_var(x, i)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">47</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">})</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">48</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">49</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @rdname get_var</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">50</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @export</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">51</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">`[[.qenv.error` &lt;- function(x, i, j, ...) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">52</td>
+                    <td class="coverage">1<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  stop(errorCondition(</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">53</td>
+                    <td class="coverage">1<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    list(message = conditionMessage(x)),</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">54</td>
+                    <td class="coverage">1<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    class = c("validation", "try-error", "simpleError")</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">55</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  ))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">56</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">}</pre>
                     </td>
                   </tr>
                 </tbody>
