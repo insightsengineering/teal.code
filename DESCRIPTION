@@ -18,23 +18,34 @@ License: Apache License 2.0 | file LICENSE
 Depends:
     R (>= 4.0)
 Imports:
-    checkmate,
+    checkmate (>= 2.1.0),
+    lifecycle (>= 0.2.0),
     grDevices,
-    lifecycle,
     methods,
-    rlang,
-    shiny,
-    styler
+    rlang (>= 1.1.0),
+    shiny (>= 1.6.0),
+    styler (>= 1.0.0)
 Suggests:
-    cli,
-    knitr,
-    magrittr,
-    rmarkdown,
-    testthat (>= 2.0)
+    cli (>= 3.4.0),
+    knitr (>= 1.34),
+    magrittr (>= 1.5),
+    rmarkdown (>= 2.19),
+    testthat (>= 3.0.4)
 VignetteBuilder:
     knitr
 RdMacros:
     lifecycle
+Config/Needs/verdepcheck:
+    mllg/checkmate,
+    r-lib/lifecycle,
+    r-lib/rlang,
+    rstudio/shiny,
+    r-lib/styler,
+    r-lib/cli,
+    yihui/knitr,
+    tidyverse/magrittr,
+    r-studio/rmarkdown,
+    r-lib/testthat
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
 Language: en-US
