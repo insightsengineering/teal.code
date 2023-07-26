@@ -24,7 +24,7 @@ Imports:
     methods,
     rlang (>= 1.1.0),
     shiny (>= 1.6.0),
-    styler (>= 1.0.0)
+    styler (>= 1.2.0)
 Suggests:
     cli (>= 3.4.0),
     knitr (>= 1.34),
@@ -44,7 +44,7 @@ Config/Needs/verdepcheck:
     r-lib/cli,
     yihui/knitr,
     tidyverse/magrittr,
-    r-studio/rmarkdown,
+    rstudio/rmarkdown,
     r-lib/testthat
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
