@@ -35,7 +35,9 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
     x <- withCallingHandlers(
       tryCatch(
         {
+          grDevices::dev.new()
           eval(code_line, envir = object@env)
+          grDevices::dev.off()
           NULL
         },
         error = function(e) {
