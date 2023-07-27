@@ -32,13 +32,10 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
   for (code_line in code) {
     # Using withCallingHandlers to capture ALL warnings and messages.
     # Using tryCatch to capture the FIRST error and abort further evaluation.
+    grDevices::dev.new()
     x <- withCallingHandlers(
       tryCatch(
         {
-          if (interactive()) {
-            grDevices::dev.new()
-            on.exit(grDevices::dev.off())
-          }
           eval(code_line, envir = object@env)
           NULL
         },
@@ -63,7 +60,7 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
         invokeRestart("muffleMessage")
       }
     )
-
+    grDevices::dev.off()
     if (!is.null(x)) {
       return(x)
     }
