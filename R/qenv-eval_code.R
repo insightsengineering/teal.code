@@ -20,6 +20,11 @@ setGeneric("eval_code", function(object, code) standardGeneric("eval_code"))
 #' @rdname eval_code
 #' @export
 setMethod("eval_code", signature = c("qenv", "expression"), function(object, code) {
+  if (interactive()) {
+    grDevices::pdf(file = NULL)
+    on.exit(dev.off())
+  }
+
   id <- sample.int(.Machine$integer.max, size = length(code))
 
   object@id <- c(object@id, id)

@@ -110,8 +110,6 @@ testthat::test_that("an error when calling eval_code returns a qenv.error object
 })
 
 testthat::test_that("a warning when calling eval_code returns a qenv object which has warnings", {
-  pdf(nullfile())
-  on.exit(dev.off())
   q <- eval_code(new_qenv(), quote("iris_data <- iris"))
   q <- eval_code(q, quote("p <- hist(iris_data[, 'Sepal.Length'], ff = '')"))
   testthat::expect_s4_class(q, "qenv")
