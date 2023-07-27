@@ -22,7 +22,7 @@ setGeneric("eval_code", function(object, code) standardGeneric("eval_code"))
 setMethod("eval_code", signature = c("qenv", "expression"), function(object, code) {
   if (interactive()) {
     grDevices::pdf(file = NULL)
-    on.exit(dev.off())
+    on.exit(grDevices::dev.off())
   }
 
   id <- sample.int(.Machine$integer.max, size = length(code))
