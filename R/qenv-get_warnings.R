@@ -17,6 +17,8 @@
 setGeneric("get_warnings", function(object) {
   # this line forces evaluation of object before passing to the generic
   # needed for error handling to work properly
+  grDevices::pdf(nullfile())
+  on.exit(grDevices::dev.off())
   object
 
   standardGeneric("get_warnings")

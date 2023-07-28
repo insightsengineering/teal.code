@@ -14,6 +14,8 @@
 setGeneric("get_code", function(object, deparse = TRUE) {
   # this line forces evaluation of object before passing to the generic
   # needed for error handling to work properly
+  grDevices::pdf(nullfile())
+  on.exit(grDevices::dev.off())
   object
 
   standardGeneric("get_code")
