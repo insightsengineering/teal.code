@@ -44,7 +44,7 @@ remove_enclosing_curly_braces <- function(x) {
 #'
 #' @param x lazy binding which generates the plot(s)
 #'
-#' @details The function uses \code{\link[grDevices]{on.exit}} to ensure that the PDF graphics
+#' @details The function uses \code{\link[base]{on.exit}} to ensure that the PDF graphics
 #'          device is closed (using \code{\link[grDevices]{dev.off}}) when the function exits,
 #'          regardless of whether it exits normally or due to an error. This is necessary to
 #'          clean up the graphics device properly and avoid any potential issues.
