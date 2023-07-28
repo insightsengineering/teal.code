@@ -7,7 +7,7 @@
 dev_suppress(reactive_expr)
 }
 \arguments{
-\item{reactive_expr}{A reactive expression or any other R code that generates the plot(s) on IDE.}
+\item{x}{lazy binding which generates the plot(s)}
 }
 \description{
 This function opens a PDF graphics device using \code{\link[grDevices]{pdf}} to suppress
@@ -19,4 +19,7 @@ The function uses \code{\link[grDevices]{on.exit}} to ensure that the PDF graphi
 device is closed (using \code{\link[grDevices]{dev.off}}) when the function exits,
 regardless of whether it exits normally or due to an error. This is necessary to
 clean up the graphics device properly and avoid any potential issues.
+}
+\examples{
+dev_suppress(plot(1:10))
 }
