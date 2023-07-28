@@ -42,7 +42,7 @@ remove_enclosing_curly_braces <- function(x) {
 #' the plot display in the IDE. The purpose of this function is to avoid opening graphic devices
 #' directly in the IDE.
 #'
-#' @param reactive_expr A reactive expression or any other R code that generates the plot(s) on IDE.
+#' @param x lazy binding which generates the plot(s)
 #'
 #' @details The function uses \code{\link[grDevices]{on.exit}} to ensure that the PDF graphics
 #'          device is closed (using \code{\link[grDevices]{dev.off}}) when the function exits,
