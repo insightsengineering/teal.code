@@ -51,14 +51,14 @@ remove_enclosing_curly_braces <- function(x) {
 #'
 #' @import grDevices
 #'
-#' 
+#'
 #' @examples
 #' dev_suppress(plot(1:10))
 #' @export
-dev_suppress <- function(reactive_expr) {
+dev_suppress <- function(x) {
   grDevices::pdf(nullfile())
   on.exit(grDevices::dev.off())
-  force(reactive_expr)
+  force(x)
 }
 
 # converts vector of expressions to character
