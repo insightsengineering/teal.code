@@ -51,7 +51,9 @@ remove_enclosing_curly_braces <- function(x) {
 #'
 #' @import grDevices
 #'
-#' @rdname dev_suppress
+#' 
+#' @examples
+#' dev_suppress(plot(1:10))
 #' @export
 dev_suppress <- function(reactive_expr) {
   grDevices::pdf(nullfile())
