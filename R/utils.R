@@ -36,6 +36,28 @@ remove_enclosing_curly_braces <- function(x) {
   }
 }
 
+#' Suppresses plot display in the IDE by opening a PDF graphics device
+#'
+#' This function opens a PDF graphics device using \code{\link[grDevices]{pdf}} to suppress
+#' the plot display in the IDE. The purpose of this function is to avoid opening graphic devices
+#' directly in the IDE.
+#'
+#' @param reactive_expr A reactive expression or any other R code that generates the plot(s) on IDE.
+#'
+#' @details The function uses \code{\link[grDevices]{on.exit}} to ensure that the PDF graphics
+#'          device is closed (using \code{\link[grDevices]{dev.off}}) when the function exits,
+#'          regardless of whether it exits normally or due to an error. This is necessary to
+#'          clean up the graphics device properly and avoid any potential issues.
+#'
+#' @import grDevices
+#'
+#' @rdname dev_suppress
+#' @export
+dev_suppress <- function(reactive_expr) {
+  grDevices::pdf(nullfile())
+  on.exit(grDevices::dev.off())
+  force(reactive_expr)
+}
 
 # converts vector of expressions to character
 format_expression <- function(code) {

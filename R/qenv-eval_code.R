@@ -20,11 +20,6 @@ setGeneric("eval_code", function(object, code) standardGeneric("eval_code"))
 #' @rdname eval_code
 #' @export
 setMethod("eval_code", signature = c("qenv", "expression"), function(object, code) {
-  if (interactive()) {
-    grDevices::pdf(file = NULL)
-    on.exit(grDevices::dev.off())
-  }
-
   id <- sample.int(.Machine$integer.max, size = length(code))
 
   object@id <- c(object@id, id)
@@ -37,7 +32,6 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
   for (code_line in code) {
     # Using withCallingHandlers to capture ALL warnings and messages.
     # Using tryCatch to capture the FIRST error and abort further evaluation.
-    grDevices::dev.new()
     x <- withCallingHandlers(
       tryCatch(
         {
@@ -65,7 +59,6 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
         invokeRestart("muffleMessage")
       }
     )
-    grDevices::dev.off()
     if (!is.null(x)) {
       return(x)
     }
