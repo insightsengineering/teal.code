@@ -1,5 +1,6 @@
 # teal.code 0.3.0.9008
 
+* `eval_code` doesn't render plots in a graphical device.  
 * `chunks` have been removed. The new `qenv` object should be used instead. See the new `qenv` vignette in the package for further details.
 
 # teal.code 0.3.0
