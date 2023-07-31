@@ -1,4 +1,4 @@
-# teal.code 0.3.0.9008
+# teal.code 0.3.0.9009
 
 * `dev_suppress` has been added to suppress rendering of plots on IDE.    
 * `chunks` have been removed. The new `qenv` object should be used instead. See the new `qenv` vignette in the package for further details.
