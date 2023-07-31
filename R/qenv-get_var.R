@@ -11,7 +11,11 @@
 #' q2[["b"]]
 #'
 #' @export
-setGeneric("get_var", function(object, var) standardGeneric("get_var"))
+setGeneric("get_var", function(object, var) {
+  grDevices::pdf(nullfile())
+  on.exit(grDevices::dev.off())
+  standardGeneric("get_var")
+})
 
 
 #' @rdname get_var

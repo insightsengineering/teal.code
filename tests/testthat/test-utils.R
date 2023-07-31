@@ -42,6 +42,16 @@ testthat::test_that("remove_enclosing_curly_braces removes 4 spaces from lines e
   )
 })
 
+test_that("dev_suppress function supress printing plot on IDE", {
+  expect_no_error(dev_suppress(plot(1:10)))
+
+  initial_pdf_count <- sum(dev.list())
+  dev_suppress(plot(1:10))
+  final_pdf_count <- sum(dev.list())
+
+  expect_equal(final_pdf_count, initial_pdf_count, label = "The PDF device should be closed after calling dev_suppress")
+})
+
 testthat::test_that("format expression concatenates results of remove_enclosing_curly_braces", {
   code_list <- list(
     quote("x <- 1"),

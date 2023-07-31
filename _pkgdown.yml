@@ -25,6 +25,7 @@ reference:
     desc: "methods to get and modify values of qenv objects"
     contents:
       - concat
+      - dev_suppress
       - eval_code
       - get_code
       - get_var
