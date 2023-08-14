@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">teal.code</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,8 +27,6 @@
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/advanced_chunks.html">Advanced chunks</a>
-    <a class="dropdown-item" href="../articles/basic_chunks.html">Basic chunks</a>
     <a class="dropdown-item" href="../articles/qenv.html">`qenv`</a>
   </div>
 </li>
@@ -41,9 +39,17 @@
           aria-expanded="false" aria-haspopup="true"
           id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/main">main</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/latest-tag">latest-tag</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/v0.4.0">v0.4.0</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/v0.3.0">v0.3.0</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/v0.2.0">v0.2.0</a> </div></li>
 <!-- end dropdown for versions -->
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-reports">Reports</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-reports">
+    <a class="dropdown-item" href="../coverage-report/">Coverage report</a>
+    <a class="dropdown-item" href="../unit-test-report/">Unit test report</a>
+  </div>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -81,6 +87,11 @@
         <dd>Concatenate two <code>qenv</code> objects</dd>
       </dl><dl><dt>
           
+          <code><a href="dev_suppress.html">dev_suppress()</a></code> 
+        </dt>
+        <dd>Suppresses plot display in the IDE by opening a PDF graphics device</dd>
+      </dl><dl><dt>
+          
           <code><a href="eval_code.html">eval_code()</a></code> 
         </dt>
         <dd>Evaluate the code in the <code>qenv</code> environment</dd>
@@ -114,181 +125,8 @@
           <code><a href="show-qenv-method.html">show(<i>&lt;qenv&gt;</i>)</a></code> 
         </dt>
         <dd>Show the <code>qenv</code> object</dd>
-      </dl></div><div class="section level2">
-      <h2 id="reproducible-modules-deprecated-">Reproducible Modules (deprecated)<a class="anchor" aria-label="anchor" href="#reproducible-modules-deprecated-"></a></h2>
-      
-      <p class="section-desc"></p><p>Functions to create a code chunk stack</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="chunk_call.html">chunk_call</a></code> <code><a href="chunk_call.html">chunk_call$new</a></code> <code><a href="chunk_call.html">chunk</a></code> 
-        </dt>
-        <dd>Code chunk - including expression and variables</dd>
-      </dl><dl><dt>
-          
-          <code><a href="chunk_comment.html">chunk_comment</a></code> <code><a href="chunk_comment.html">chunk_comment$new</a></code> 
-        </dt>
-        <dd>Code Chunk comment</dd>
-      </dl><dl><dt>
-          
-          <code><a href="chunks.html">chunks</a></code> 
-        </dt>
-        <dd>Multiple Code chunk handler</dd>
-      </dl><dl><dt>
-          
-          <code><a href="chunks_deep_clone.html">chunks_deep_clone()</a></code> 
-        </dt>
-        <dd>Deep clones a chunks object</dd>
-      </dl><dl><dt>
-          
-          <code><a href="chunks_eval.html">chunks_eval()</a></code> 
-        </dt>
-        <dd>Evaluates all remaining chunks</dd>
-      </dl><dl><dt>
-          
-          <code><a href="chunks_get_eval_msg.html">chunks_get_eval_msg()</a></code> 
-        </dt>
-        <dd>Get chunks evaluation message</dd>
-      </dl><dl><dt>
-          
-          <code><a href="chunks_get_rcode.html">chunks_get_rcode()</a></code> 
-        </dt>
-        <dd>Returns the R-Code from a <code>chunks</code> object</dd>
-      </dl><dl><dt>
-          
-          <code><a href="chunks_get_var.html">chunks_get_var()</a></code> 
-        </dt>
-        <dd>Get variable from chunk environment</dd>
-      </dl><dl><dt>
-          
-          <code><a href="chunks_is_ok.html">chunks_is_ok()</a></code> 
-        </dt>
-        <dd>Check chunks status (i.e. evaluated and no errors)</dd>
-      </dl><dl><dt>
-          
-          <code><a href="chunks_messages.html">chunks_messages()</a></code> 
-        </dt>
-        <dd>Gets messages from the <code>chunks</code> object</dd>
-      </dl><dl><dt>
-          
-          <code><a href="chunks_new.html">chunks_new()</a></code> 
-        </dt>
-        <dd>Creates and returns a R6 chunks object to be used in a shiny/teal app</dd>
-      </dl><dl><dt>
-          
-          <code><a href="chunks_push.html">chunks_push()</a></code> 
-        </dt>
-        <dd>Pushes a code chunk for global chunks</dd>
-      </dl><dl><dt>
-          
-          <code><a href="chunks_push_chunks.html">chunks_push_chunks()</a></code> 
-        </dt>
-        <dd>Pushes a chunks stack to global chunks</dd>
-      </dl><dl><dt>
-          
-          <code><a href="chunks_push_comment.html">chunks_push_comment()</a></code> 
-        </dt>
-        <dd>Pushes a code comment chunk for global chunks</dd>
-      </dl><dl><dt>
-          
-          <code><a href="chunks_push_data_merge.html">chunks_push_data_merge()</a></code> 
-        </dt>
-        <dd>Pushes a merged_dataset to chunks</dd>
-      </dl><dl><dt>
-          
-          <code><a href="chunks_push_new_line.html">chunks_push_new_line()</a></code> 
-        </dt>
-        <dd>Adds an empty line to the code chunks</dd>
-      </dl><dl><dt>
-          
-          <code><a href="chunks_reset.html">chunks_reset()</a></code> 
-        </dt>
-        <dd>Resets the current chunk list</dd>
-      </dl><dl><dt>
-          
-          <code><a href="chunks_safe_eval.html">chunks_safe_eval()</a></code> 
-        </dt>
-        <dd>Evaluates all remaining chunks and validate if error</dd>
-      </dl><dl><dt>
-          
-          <code><a href="chunks_uneval.html">chunks_uneval()</a></code> 
-        </dt>
-        <dd>Resets the evaluation of the chunks.</dd>
-      </dl><dl><dt>
-          
-          <code><a href="chunks_validate_all.html">chunks_validate_all()</a></code> 
-        </dt>
-        <dd>Raise shiny validate error if chunks status is not ok or variable is not of a certain class</dd>
-      </dl><dl><dt>
-          
-          <code><a href="chunks_validate_custom.html">chunks_validate_custom()</a></code> 
-        </dt>
-        <dd>Executes validate statements on custom expressions that are evaluated inside a chunks object's environment</dd>
-      </dl><dl><dt>
-          
-          <code><a href="chunks_validate_is.html">chunks_validate_is()</a></code> 
-        </dt>
-        <dd>Raise shiny validate error if variable is not of a certain class</dd>
-      </dl><dl><dt>
-          
-          <code><a href="chunks_validate_is_ok.html">chunks_validate_is_ok()</a></code> 
-        </dt>
-        <dd>Raise shiny validate error if chunks status is not ok</dd>
-      </dl><dl><dt>
-          
-          <code><a href="chunks_warnings.html">chunks_warnings()</a></code> 
-        </dt>
-        <dd>Gets warnings from the <code>chunks</code> object</dd>
-      </dl><dl><dt>
-          
-          <code><a href="get_chunks_object.html">get_chunks_object()</a></code> 
-        </dt>
-        <dd>Gets chunks object</dd>
-      </dl><dl><dt>
-          
-          <code><a href="init_chunks.html">init_chunks()</a></code> 
-        </dt>
-        <dd>Allows using chunks in the global environment of a teal app</dd>
-      </dl><dl><dt>
-          
-          <code><a href="overwrite_chunks.html">overwrite_chunks()</a></code> 
-        </dt>
-        <dd>Overwrites chunks object in session</dd>
-      </dl></div><div class="section level2">
-      <h2 id="debugging-chunks-evaluation-deprecated-">Debugging chunks evaluation (deprecated)<a class="anchor" aria-label="anchor" href="#debugging-chunks-evaluation-deprecated-"></a></h2>
-      
-      <p class="section-desc"></p><p>shiny modules to examine chunks evaluation results</p>
-
-      
-    </div><div id="" class="section level2">
-      
-      
-      
-
-      <dl><dt>
-          
-          <code><a href="get_eval_details_srv.html">get_eval_details_srv()</a></code> 
-        </dt>
-        <dd>Server part of <code>get_chunks_info</code></dd>
-      </dl><dl><dt>
-          
-          <code><a href="get_eval_details_ui.html">get_eval_details_ui()</a></code> 
-        </dt>
-        <dd>The <code>UI</code> part of get chunks info module</dd>
-      </dl><dl><dt>
-          
-          <code><a href="show_eval_details_modal.html">show_eval_details_modal()</a></code> 
-        </dt>
-        <dd>Shows Evaluation Details Modal</dd>
       </dl></div>
-  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
-    </nav></aside></div>
+  </main></div>
 
 
     <footer><div class="nest">
