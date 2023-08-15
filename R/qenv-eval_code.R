@@ -80,7 +80,131 @@ setMethod("eval_code", signature = c("qenv", "language"), function(object, code)
 #' @rdname eval_code
 #' @export
 setMethod("eval_code", signature = c("qenv", "character"), function(object, code) {
-  eval_code(object, code = parse(text = code, keep.source = FALSE))
+  #eval_code(object, code = parse(text = code, keep.source = FALSE))
+  parsed_code <- parse(text = code)
+  srcref <- attr(parsed_code, 'srcref')
+  pd <- getParseData(parsed_code)
+
+  get_children <- function(pd, parent) {
+    idx_children <- abs(pd$parent) == parent
+    children <- pd[idx_children, c("token", "text", "id")]
+    if (nrow(children) == 0) {
+      return(NULL)
+    }
+
+    if (parent > 0) {
+      rbind(
+        children,
+        do.call(rbind, lapply(children$id, get_children, pd = pd))
+      )
+    }
+  }
+
+  calls_pd <- lapply(pd[pd$parent == 0, "id"], get_children, pd = pd)
+
+  commented_calls <- vapply(
+    calls_pd,
+    function(x) any(x$token == "COMMENT" & grepl("@effect", x$text)),
+    FUN.VALUE = logical(1)
+  )
+  #calls_pd[commented_calls]
+
+  object_names <- {d <- new.env(); eval(parse(text = code), envir = d); ls(d)}
+
+  # may not be needed
+  object_occurence <-
+    lapply(
+      lapply(
+        object_names,
+        function(obj) {
+          unlist(
+            lapply(
+              calls_pd,
+              function(call) {
+                any(call[call$token == 'SYMBOL', 'text'] == obj)
+              }
+            )
+          )
+        }
+      ),
+      which
+    )
+
+  names(object_occurence) <- object_names
+
+  object_cooccurence <- lapply(
+    calls_pd,
+    function(x) {
+      sym_cond <- which(x$token == 'SYMBOL' & x$text %in% object_names)
+      if (length(sym_cond) >= 2) {
+        ass_cond <- grep('ASSIGN', x$token)
+        unique(x[sort(c(sym_cond, ass_cond)), 'text'])
+      }
+    }
+  )
+  # TODO: double check if this is always length 3 (what if higher?)
+
+  return_code <- function(object, src = srcref, object_o = object_occurence, object_co = object_cooccurence, skip = NULL){
+
+    # TODO: can below two calls can be substituted with one?
+    where_influences <-
+      which(
+        unlist(
+          lapply(
+            object_co,
+            function(x)
+              if (!is.null(x)) {
+                (x[3] == object && x[1] %in% c("=", "<-")) || (x[2] == object && x[1] == "->")
+              } else {
+                FALSE
+              }
+            )
+        )
+      )
+
+    object_influencers <-
+      which(
+        unlist(
+          lapply(
+            object_co,
+            function(x)
+              if (!is.null(x)) {
+                (x[2] == object && x[1] %in% c("=", "<-")) || (x[3] == object && x[1] == "->")
+              } else {
+                FALSE
+              }
+          )
+        )
+      )
+    object_influencers <- setdiff(object_influencers, skip)
+
+    lines <- setdiff(object_o[[object]], where_influences)
+
+    if (length(object_influencers) == 0) {
+      return(sort(unique(lines)))
+    } else {
+      for(obj in object_influencers){
+
+        # TRIM DOWN TO LINES ONLY NEEDED TO CREATE THE INITIAL OBJECT,
+        # NOT TO ALL LINES OF THIS INFLUENCER OBJECT
+        # TODO: rewrite to the current object_co structure
+        co_pos <-
+          object_co %>%
+          filter((object1 == object & object2 == obj & direction == '1<-2') |
+                   (object2 == object & object1 == obj & direction == '1->2')) %>%
+          filter(position == max(position)) %>%
+          pull(position)
+
+        obj_code <- return_code(obj, src = src[1:co_pos], object_o = object_o, object_co = object_co, skip = object)
+
+        lines <- c(lines, obj_code)
+      }
+      sort(unique(lines))
+    }
+
+  }
+  # TODO: work on @effects
+
 })
 
 #' @rdname eval_code
