@@ -102,16 +102,8 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
 
   calls_pd <- lapply(pd[pd$parent == 0, "id"], get_children, pd = pd)
 
-  commented_calls <- vapply(
-    calls_pd,
-    function(x) any(x$token == "COMMENT" & grepl("@effect", x$text)),
-    FUN.VALUE = logical(1)
-  )
-  #calls_pd[commented_calls]
-
   object_names <- {d <- new.env(); eval(parse(text = code), envir = d); ls(d)}
 
-  # may not be needed
   occurence <-
     lapply(
       lapply(
@@ -198,9 +190,60 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
 
   }
 
-  return_code('ADLB')
+  # pd_full <- getParseData(parsed_code, includeText = TRUE)
+  # pd_full[pd_full$parent == 0, "text"]
 
-  # TODO: work on @effects
+  # DEAL WITH @effects
+
+  commented_calls <- vapply(
+    calls_pd,
+    function(x) any(x$token == "COMMENT" & grepl("@effect", x$text)),
+    FUN.VALUE = logical(1)
+  )
+  calls_pd_com <- calls_pd[commented_calls]
+
+  return_code_for_effects <- function(object, pd_com = calls_pd_com, occur = occurence, cooccur = cooccurence) {
+
+    symbol_effects_names <-
+      unlist(
+        lapply(
+          calls_pd_com,
+          function(x) {
+            com_cond <-
+              x$token == 'COMMENT' & grepl('@effect', x$text) & grepl(paste0('[\\s]*', object, '[\\s$]*'), x$text)
+
+            # + comment id is not the highest id in the item
+            # for calls like 'options(prompt = ">") # @effect ADLB'
+            # 'options(prompt = ">")' is set to separate item
+            # and '# @effect ADLB' is the first element of the next item
+
+
+            if (!com_cond[1] & sum(com_cond) > 0){
+              x[x$token == 'SYMBOL', 'text']
+            } else if (com_cond[1] & sum(com_cond[-1]) > 0) {
+              x <- x[-1, ]
+              x[x$token == 'SYMBOL', 'text']
+            }
+          }
+        )
+      )
+
+    # QUESTION: SHOULD cooccur BE TRIMMED like it happens in return_code()?
+    symbol_effects_lines <- unlist(lapply(symbol_effects_names, return_code, occur, cooccur))
+
+    # TODO:
+    # side_effects <-
+    #   when commet_id is the highest id_in the item - take higher item
+    # side_effects_lines <-
+
+    sort(unique(symbol_effects_lines, side_effects_lines))
+
+  }
+
+  object <- 'ADLB'
+  object_lines <- sort(unique(c(return_code(object), return_code_for_effects(object))))
+  srcref[[object_lines]]
+
 
 })
 
