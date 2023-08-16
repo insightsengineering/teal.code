@@ -104,23 +104,18 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
 
   object_names <- {d <- new.env(); eval(parse(text = code), envir = d); ls(d)}
 
-  occurence <-
-    lapply(
+  detect_symbol <- function(obj, pd = calls_pd) {
+    unlist(
       lapply(
-        object_names,
-        function(obj) {
-          unlist(
-            lapply(
-              calls_pd,
-              function(call) {
-                any(call[call$token == 'SYMBOL', 'text'] == obj)
-              }
-            )
-          )
+        pd,
+        function(call) {
+          any(call[call$token == 'SYMBOL', 'text'] == obj)
         }
-      ),
-      which
+      )
     )
+  }
+
+  occurence <- lapply(lapply(object_names, detect_symbol), which)
 
   names(occurence) <- object_names
 
@@ -168,7 +163,7 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
       for(idx in object_influencers){
 
         # TRIM DOWN TO LINES ONLY NEEDED TO CREATE THE INITIAL OBJECT,
-        # NOT TO ALL LINES OF THE INFLUENCER OBJECT
+        # NOT TO ALL LINES OF THE INFLUENCER OBJECT.
 
         influencer_names <- cooccur[[idx]][-1]
 
@@ -195,32 +190,28 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
 
   # DEAL WITH @effects
 
-  commented_calls <- vapply(
-    calls_pd,
-    function(x) any(x$token == "COMMENT" & grepl("@effect", x$text)),
-    FUN.VALUE = logical(1)
-  )
-  calls_pd_com <- calls_pd[commented_calls]
-
-  return_code_for_effects <- function(object, pd_com = calls_pd_com, occur = occurence, cooccur = cooccurence) {
+  return_code_for_effects <- function(object, pd = calls_pd, occur = occurence, cooccur = cooccurence) {
 
     symbol_effects_names <-
       unlist(
         lapply(
-          calls_pd_com,
+          pd,
           function(x) {
             com_cond <-
               x$token == 'COMMENT' & grepl('@effect', x$text) & grepl(paste0('[\\s]*', object, '[\\s$]*'), x$text)
 
-            # + comment id is not the highest id in the item
-            # for calls like 'options(prompt = ">") # @effect ADLB'
-            # 'options(prompt = ">")' is set to separate item
-            # and '# @effect ADLB' is the first element of the next item
+            # Make sure comment id is not the highest id in the item.
+            # For calls like 'options(prompt = ">") # @effect ADLB',
+            # 'options(prompt = ">")' is put in a one item
+            # and '# @effect ADLB' is the first element of the next item.
+            # This is tackled in B.
 
 
             if (!com_cond[1] & sum(com_cond) > 0){
+              # A.
               x[x$token == 'SYMBOL', 'text']
             } else if (com_cond[1] & sum(com_cond[-1]) > 0) {
+              # B.
               x <- x[-1, ]
               x[x$token == 'SYMBOL', 'text']
             }
@@ -228,15 +219,53 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
         )
       )
 
-    # QUESTION: SHOULD cooccur BE TRIMMED like it happens in return_code()?
-    symbol_effects_lines <- unlist(lapply(symbol_effects_names, return_code, occur, cooccur))
+    commented_calls <- vapply(pd,
+      function(x) any(x$token == "COMMENT" & grepl("@effect", x$text)),
+      FUN.VALUE = logical(1)
+    )
 
-    # TODO:
-    # side_effects <-
-    #   when commet_id is the highest id_in the item - take higher item
-    # side_effects_lines <-
+    symbol_effects_lines <-
+      unlist(
+        lapply(
+          symbol_effects_names,
+          function(x) {
+            code <- return_code(x, occur, cooccur) # QUESTION: SHOULD cooccur BE TRIMMED like it happens in return_code()?
+            if (is.null(code)) {
+              # Extract lines for objects that were used, but never created.
+              # Some objects like 'iris' or 'mtcars' are pre-assigned in the session.
+              # Below is just used for comments with @effect.
+              # if (!object %in% names(occur)) {
+              intersect(which(detect_symbol(x, pd)), which(commented_calls))
+              # }
+            } else {
+              code
+            }
+          }
+        )
+      )
 
-    sort(unique(symbol_effects_lines, side_effects_lines))
+    # When commet_id is the highest id in the item - take previous item.
+    side_effects_names <-
+      unlist(
+        lapply(
+          pd,
+          function(x) {
+            com_cond <-
+              x$token == 'COMMENT' & grepl('@effect', x$text) & grepl(paste0('[\\s]*', object, '[\\s$]*'), x$text)
+
+            # Work out the situation when comment id is the highest id in the item.
+            # For calls like 'options(prompt = ">") # @effect ADLB',
+            # 'options(prompt = ">")' is put in a one item
+            # and '# @effect ADLB' is the first element of the next item.
+
+            com_cond[1]
+          }
+        )
+      )
+
+    side_effects_lines <- which(side_effects_names) - 1
+
+    sort(unique(c(symbol_effects_lines, side_effects_lines)))
 
   }
 
