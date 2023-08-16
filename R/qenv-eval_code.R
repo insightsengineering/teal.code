@@ -112,7 +112,7 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
   object_names <- {d <- new.env(); eval(parse(text = code), envir = d); ls(d)}
 
   # may not be needed
-  object_occurence <-
+  occurence <-
     lapply(
       lapply(
         object_names,
@@ -130,79 +130,76 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
       which
     )
 
-  names(object_occurence) <- object_names
+  names(occurence) <- object_names
 
-  object_cooccurence <- lapply(
+  cooccurence <- lapply(
     calls_pd,
     function(x) {
       sym_cond <- which(x$token == 'SYMBOL' & x$text %in% object_names)
       if (length(sym_cond) >= 2) {
         ass_cond <- grep('ASSIGN', x$token)
-        unique(x[sort(c(sym_cond, ass_cond)), 'text'])
+        text <- unique(x[sort(c(sym_cond, ass_cond)), 'text'])
+
+        if (text[1] == "->") {
+          rev(text[-1])
+        } else {
+          text[-1]
+        }
+
       }
     }
   )
-  # TODO: double check if this is always length 3 (what if higher?)
 
-  return_code <- function(object, src = srcref, object_o = object_occurence, object_co = object_cooccurence, skip = NULL){
+  return_code <- function(object, occur = occurence, cooccur = cooccurence, parent = NULL){
 
-    # TODO: can below two calls can be substituted with one?
-    where_influences <-
-      which(
-        unlist(
-          lapply(
-            object_co,
-            function(x)
-              if (!is.null(x)) {
-                (x[3] == object && x[1] %in% c("=", "<-")) || (x[2] == object && x[1] == "->")
-              } else {
-                FALSE
-              }
-            )
-        )
+    influences <-
+      lapply(
+        cooccur,
+        function(x)
+          if (!is.null(x) && object %in% x[-1]) {
+            TRUE
+          } else if (!is.null(x) && object == x[1]){
+            FALSE
+          }
       )
 
-    object_influencers <-
-      which(
-        unlist(
-          lapply(
-            object_co,
-            function(x)
-              if (!is.null(x)) {
-                (x[2] == object && x[1] %in% c("=", "<-")) || (x[3] == object && x[1] == "->")
-              } else {
-                FALSE
-              }
-          )
-        )
-      )
-    object_influencers <- setdiff(object_influencers, skip)
+    where_influences   <- which(unlist(lapply(influences, isTRUE)))
+    object_influencers <- which(unlist(lapply(influences, isFALSE)))
 
-    lines <- setdiff(object_o[[object]], where_influences)
+    object_influencers <- setdiff(object_influencers, parent)
+
+    lines <- setdiff(occur[[object]], where_influences)
 
     if (length(object_influencers) == 0) {
       return(sort(unique(lines)))
     } else {
-      for(obj in object_influencers){
+      for(idx in object_influencers){
 
         # TRIM DOWN TO LINES ONLY NEEDED TO CREATE THE INITIAL OBJECT,
-        # NOT TO ALL LINES OF THIS INFLUENCER OBJECT
-        # TODO: rewrite to the current object_co structure
-        co_pos <-
-          object_co %>%
-          filter((object1 == object & object2 == obj & direction == '1<-2') |
-                   (object2 == object & object1 == obj & direction == '1->2')) %>%
-          filter(position == max(position)) %>%
-          pull(position)
+        # NOT TO ALL LINES OF THE INFLUENCER OBJECT
 
-        obj_code <- return_code(obj, src = src[1:co_pos], object_o = object_o, object_co = object_co, skip = object)
+        influencer_names <- cooccur[[idx]][-1]
 
-        lines <- c(lines, obj_code)
+        influencer_lines <-
+          unlist(
+            lapply(
+              influencer_names,
+              return_code,
+              occur = occur,
+              cooccur = cooccur[1:idx],
+              parent = idx
+            )
+          )
+
+        lines <- c(lines, influencer_lines)
       }
       sort(unique(lines))
     }
 
   }
+
+  return_code('ADLB')
+
   # TODO: work on @effects
 
 })
