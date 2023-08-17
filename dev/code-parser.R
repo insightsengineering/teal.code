@@ -3,9 +3,11 @@ library(dplyr)
 # - assign,
 # - <<-
 # - two appeareance of <- <- in one line
+# - eval(substitute(parse(text = )))
+# - all NSE (non-stander evaluation)
 
 
-# for a given object, we return code lines of
+# for a given object and code, we return code lines of
 # - where it was used                                 [Do we need that?]
 # - where it was created
 # - objects creation, that influence this object
@@ -303,3 +305,7 @@ objects_code <-
   lapply(object_names, function(object) unlist(lapply(srcref[object_lines(object)], as.character)))
 
 names(objects_code) <- object_names
+objects_code
+
+# TODO: add return_code_for_effects() to influences in return_code()
+# TODO: fix var_labels code
