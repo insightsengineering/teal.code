@@ -299,5 +299,7 @@ object_lines <- function(object) {
 }
 srcref[object_lines('ADLB')]
 lapply(object_names, object_lines)
-lapply(object_names, function(object) srcref[object_lines(object)])
+objects_code <-
+  lapply(object_names, function(object) unlist(lapply(srcref[object_lines(object)], as.character)))
 
+names(objects_code) <- object_names
