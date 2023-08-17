@@ -151,6 +151,7 @@ cooccurence <- lapply(
     }
   }
 )
+# First object in an element of the list is the dependent object, the others are influencers.
 
 return_code <- function(object, occur = occurence, cooccur = cooccurence, parent = NULL){
 
@@ -204,6 +205,8 @@ return_code <- function(object, occur = occurence, cooccur = cooccurence, parent
   }
 
 }
+
+#srcref[return_code('ADLB')]
 
 # pd_full <- getParseData(parsed_code, includeText = TRUE)
 # pd_full[pd_full$parent == 0, "text"]
@@ -289,7 +292,12 @@ return_code_for_effects <- function(object, pd = calls_pd, occur = occurence, co
 
 }
 
-object <- 'ADLB'
-object_lines <- sort(unique(c(return_code(object), return_code_for_effects(object))))
-srcref[object_lines]
+#srcref[return_code_for_effects('ADLB')]
+
+object_lines <- function(object) {
+  sort(unique(c(return_code(object), return_code_for_effects(object))))
+}
+srcref[object_lines('ADLB')]
+lapply(object_names, object_lines)
+lapply(object_names, function(object) srcref[object_lines(object)])
 
