@@ -3,23 +3,40 @@
 #'
 #' Simple to use environment with history tracking.
 #'
+#' @param file (`character`) optional path to file that contains R code to evaluate upon instantiation
 #' @param data (`qenv`)
 #' @param expr (`language`) simple or compound expression to evaluate in `data`
 #' @param ... (`pair-list`) `name:value` pairs to inject values into `expr`
-#' @param ... x (`qenv`)
+#' @param x (`qenv`)
 #'
 #' @return
 #' `qenv` returns a `qenv` object. `with` returns NULL invisibly.
 #'
 #' @describeIn qenv create `qenv` object
 #' @export
-qenv <- function() {
+qenv <- function(file) {
   ans <- new.env()
   attr(ans, "code") <- list()
   attr(ans, "errors") <- list()
   attr(ans, "warnings") <- list()
   attr(ans, "messages") <- list()
   class(ans) <- c("qenv", class(ans))
+
+  if (!missing(file)) {
+    tryCatch(
+      stopifnot(
+        is.character(file) &&
+          length(file) == 1L &&
+          file.access(file, mode = 0) == 0L &&
+          file.access(file, mode = 4) == 0L
+      ),
+      error = function(e) stop("\"file\" must be a readable file")
+    )
+    code <- readLines("codefile")
+
+    lapply(code, .eval_one, envir = ans, enclos = parent.frame())
+  }
+
   ans
 }
 
