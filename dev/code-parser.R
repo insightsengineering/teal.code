@@ -100,6 +100,7 @@ code = '
 
 parsed_code <- parse(text = code)
 srcref <- attr(parsed_code, 'srcref')
+
 pd <- getParseData(parsed_code)
 
 get_children <- function(pd, parent) {
@@ -201,7 +202,19 @@ return_code <- function(object, occur = occurence, cooccur = cooccurence, parent
           )
         )
 
-      lines <- c(lines, influencer_lines)
+      # If there is an @effect on the influencer.
+      influencer_effects_lines <-
+        unlist(
+          lapply(
+            influencer_names,
+            return_code_for_effects,
+            occur = occur,
+            cooccur = cooccur # Do not trim to idx.
+          )
+        )
+
+
+      lines <- c(lines, influencer_lines, influencer_effects_lines)
     }
     sort(unique(lines))
   }
@@ -307,5 +320,4 @@ objects_code <-
 names(objects_code) <- object_names
 objects_code
 
-# TODO: add return_code_for_effects() to influences in return_code()
 # TODO: fix var_labels code

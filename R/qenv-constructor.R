@@ -25,9 +25,11 @@ setMethod(
     new_env <- rlang::env_clone(env, parent = parent.env(.GlobalEnv))
     lockEnvironment(new_env, bindings = TRUE)
     id <- sample.int(.Machine$integer.max, size = length(code))
+    code_dependency <- code_dependency(code, new_env)
     methods::new(
       "qenv",
-      env = new_env, code = code, warnings = rep("", length(code)), messages = rep("", length(code)), id = id
+      env = new_env, code = code, code_dependency = code_dependency,
+      warnings = rep("", length(code)), messages = rep("", length(code)), id = id
     )
   }
 )
@@ -38,7 +40,7 @@ setMethod(
   "new_qenv",
   signature = c(env = "environment", code = "character"),
   function(env, code) {
-    new_qenv(env, code = parse(text = code, keep.source = FALSE))
+    new_qenv(env, code = parse(text = code))
   }
 )
 
