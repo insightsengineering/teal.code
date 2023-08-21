@@ -258,9 +258,12 @@ object_info.default <- function(x) sprintf("%s, [%d]", typeof(x), length(x))    
     })
   )
 
-  if (!is.character(expression)) {
-    expression <- do.call(substitute, list(expr = expression, env = extras))
-  }
+  expression <-
+    if (is.character(expression)) {
+      str2expression(expression)
+    } else {
+      do.call(substitute, list(expr = expression, env = extras))
+    }
 
   attr(envir, "code") <- append(attr(envir, "code"), expression)
   tryCatch(
