@@ -35,26 +35,7 @@ with.qenv <- function(data, expr, ...) {
 
   expr <- as.list(substitute(expr))[-1]
 
-  on.exit(
-    lapply(c("errors", "warnings", "messages"), function(c) {
-      if (length(attr(data, c)) < length(attr(data, "code"))) {
-        attr(data, c) <- append(attr(data, c), "")
-      }
-    })
-  )
-
-  lapply(expr, function(expression) {
-    attr(data, "code") <- append(attr(data, "code"), do.call(substitute, list(expr = expression, env = extras)))
-    tryCatch(
-      eval(do.call(substitute, list(expr = expression, env = extras)), envir = data, enclos = parent.frame()),
-      message = function(m) attr(data, "messages") <- append(attr(data, "messages"), trimws(m$message)),
-      warning = function(w) attr(data, "warnings") <- append(attr(data, "warnings"), w$message),
-      error = function(e) {
-        attr(data, "errors") <- append(attr(data, "errors"), e$message)
-        stop(sprintf("Evaluation failed: %s", deparse1(expression)), call. = FALSE)
-      }
-    )
-  })
+  lapply(expr, .eval_one, envir = data, enclos = parent.frame(), extras = extras)
 
   invisible(NULL)
 }
@@ -246,3 +227,32 @@ object_info.data.frame <- function(x) sprintf("%d x %d", dim(x)[1], dim(x)[2])  
 object_info.matrix <- function(x) sprintf("%s, %d x %d", typeof(x), dim(x)[1], dim(x)[2])   # nolint
 object_info.factor <- function(x) sprintf("%d levels, [%d]", length(levels(x)), length(x))  # nolint
 object_info.default <- function(x) sprintf("%s, [%d]", typeof(x), length(x))                # nolint
+
+
+#' @keywords internal
+# internal funciton to evaluate one expression
+# used in `qenv` and in `with.qenv`
+.eval_one <- function(expression, envir, enclos, extras) {
+  on.exit(
+    lapply(c("errors", "warnings", "messages"), function(c) {
+      if (length(attr(envir, c)) < length(attr(envir, "code"))) {
+        attr(envir, c) <- append(attr(envir, c), "")
+      }
+    })
+  )
+
+  if (!is.character(expression)) {
+    expression <- do.call(substitute, list(expr = expression, env = extras))
+  }
+
+  attr(envir, "code") <- append(attr(envir, "code"), expression)
+  tryCatch(
+    eval(expression, envir = envir, enclos = enclos),
+    message = function(m) attr(envir, "messages") <- append(attr(envir, "messages"), trimws(m$message)),
+    warning = function(w) attr(envir, "warnings") <- append(attr(envir, "warnings"), w$message),
+    error = function(e) {
+      attr(envir, "errors") <- append(attr(envir, "errors"), e$message)
+      stop(sprintf("Evaluation failed: %s", deparse1(expression)), call. = FALSE)
+    }
+  )
+}
