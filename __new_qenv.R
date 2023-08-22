@@ -10,7 +10,7 @@
 #' @param x (`qenv`)
 #'
 #' @return
-#' `qenv` returns a `qenv` object. `with` returns NULL invisibly.
+#' `qenv` returns a `qenv` object. `with` returns NULL invisibly. `within` returns a modified deep copy of `data`.
 #'
 #' @describeIn qenv create `qenv` object
 #' @export
@@ -28,14 +28,21 @@ qenv <- function(file) {
 #' @describeIn qenv act in `qenv` object
 #' @export
 with.qenv <- function(data, expr, text, ...) {
-
   code <- .prepare_code(if (!missing(expr)) substitute(expr), if (!missing(text)) text)
-
   extras <- list(...)
-
   lapply(code, .eval_one, envir = data, enclos = parent.frame(), extras = extras)
-
   invisible(NULL)
+}
+
+
+#' @describeIn qenv create and modify a (deep) copy of a qenv
+#' @export
+within.qenv <- function(data, expr, text, ...) {
+  data <- .clone_qenv(data)
+  code <- .prepare_code(if (!missing(expr)) substitute(expr), if (!missing(text)) text)
+  extras <- list(...)
+  lapply(code, .eval_one, envir = data, enclos = parent.frame(), extras = extras)
+  data
 }
 
 
@@ -290,4 +297,14 @@ object_info.default <- function(x) sprintf("%s, [%d]", typeof(x), length(x))    
       stop(sprintf("Evaluation failed: %s", deparse1(expression)), call. = FALSE)
     }
   )
+}
+
+
+#' @keywords internal
+# deep copy a qenv
+.clone_qenv <- function(x) {
+  if (!inherits(x, "qenv")) stop("\"x\" must be a qenv object")
+  ans <- list2env(mget(ls(envir = x, all.names = TRUE, sorted = FALSE), envir = x), parent = parent.env(x))
+  attributes(ans) <- attributes(x)
+  ans
 }
