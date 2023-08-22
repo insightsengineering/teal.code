@@ -41,7 +41,8 @@ within.qenv <- function(data, expr, text, ...) {
   code <- .prepare_code(if (!missing(expr)) substitute(expr), if (!missing(text)) text)
   extras <- list(...)
   lapply(code, .eval_one, envir = data, enclos = parent.frame(), extras = extras)
-  data
+  # Force a return even if some evaluation fails.
+  on.exit(return(data))
 }
 
 
