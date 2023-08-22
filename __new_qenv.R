@@ -3,11 +3,10 @@
 #'
 #' Simple to use environment with history tracking.
 #'
-#' @param data (`qenv`)
+#' @param data,x (`qenv`)
 #' @param expr (`language`) simple or compound expression to evaluate in `data`
 #' @param text (`character`) character vector of expressions to evaluate in `data`
-#' @param ... (`pair-list`) `name:value` pairs to inject values into `expr`
-#' @param x (`qenv`)
+#' @param ... `name:value` pairs to inject values into `expr`
 #'
 #' @return
 #' `qenv` returns a `qenv` object. `with` returns NULL invisibly. `within` returns a modified deep copy of `data`.
