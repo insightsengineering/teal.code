@@ -43,14 +43,14 @@ with.qenv <- function(data, expr, text, ...) {
     text <- Filter(Negate(function(x) identical(x, "")), text)
   }
 
-  extras <- list(...)
-
   code <-
     if (missing(text)) {
       as.list(substitute(expr))[-1]
     } else if (missing(expr)) {
       text
     }
+
+  extras <- list(...)
 
   lapply(code, .eval_one, envir = data, enclos = parent.frame(), extras = extras)
 
