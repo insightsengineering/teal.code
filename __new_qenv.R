@@ -29,26 +29,7 @@ qenv <- function(file) {
 #' @export
 with.qenv <- function(data, expr, text, ...) {
 
-  if ((missing(expr) && missing(text)) || (!missing(expr) && !missing(text))) {
-    stop("specify either \"expr\" or \"text\"")
-  }
-
-  if (!missing(expr) && !grepl("^\\{", deparse1(substitute(expr)))) {
-    expr <- call("{", match.call()$expr)
-  }
-
-  if (!missing(text) && length(text) == 1L && grepl("^\\{", text)) {
-    text <- strsplit(text, split = "\n")[[1]]
-    text <- trimws(text, whitespace = "[ \t\r\n\\{\\}]")
-    text <- Filter(Negate(function(x) identical(x, "")), text)
-  }
-
-  code <-
-    if (missing(text)) {
-      as.list(substitute(expr))[-1]
-    } else if (missing(expr)) {
-      text
-    }
+  code <- .prepare_code(if (!missing(expr)) substitute(expr), if (!missing(text)) text)
 
   extras <- list(...)
 
@@ -247,8 +228,42 @@ object_info.default <- function(x) sprintf("%s, [%d]", typeof(x), length(x))    
 
 
 #' @keywords internal
+# internal function to prepare expression(s) for evaluation
+.prepare_code <- function(expr, text) {
+
+  parent_call <- match.call(definition = sys.function(2), call = sys.call(2))
+
+  if ((is.null(expr) && is.null(text)) || (!is.null(expr) && !is.null(text))) {
+    stop("specify either \"expr\" or \"text\": ", deparse1(parent_call), call. = FALSE)
+  }
+
+  if (!is.null(expr) && is.character(expr)) {
+    stop("character vector passed to \"expr\": ", deparse1(parent_call), call. = FALSE)
+  }
+
+  if (!is.null(expr) && !grepl("^\\{", deparse1(expr))) {
+    expr <- call("{", expr)
+  }
+
+  if (!is.null(text) && length(text) == 1L && grepl("^\\{", text)) {
+    text <- strsplit(text, split = "\n")[[1]]
+    text <- trimws(text, whitespace = "[ \t\r\n\\{\\}]")
+    text <- Filter(Negate(function(x) identical(x, "")), text)
+  }
+
+  code <-
+    if (is.null(text)) {
+      as.list(expr)[-1]
+    } else if (is.null(expr)) {
+      text
+    }
+
+  code
+}
+
+
+#' @keywords internal
 # internal function to evaluate one expression
-# used in `qenv` and in `with.qenv`
 .eval_one <- function(expression, envir, enclos, extras) {
   on.exit(
     lapply(c("errors", "warnings", "messages"), function(c) {
