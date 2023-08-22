@@ -236,7 +236,9 @@ object_info.default <- function(x) sprintf("%s, [%d]", typeof(x), length(x))    
 #' @keywords internal
 # internal function to prepare expression(s) for evaluation
 .prepare_code <- function(expr, text) {
+  # This function cannot handle missing arguments, so the caller passes if statements that return NULL if FALSE.
 
+  # Get parent call to use in error messages.
   parent_call <- match.call(definition = sys.function(2), call = sys.call(2))
 
   if ((is.null(expr) && is.null(text)) || (!is.null(expr) && !is.null(text))) {
@@ -247,10 +249,12 @@ object_info.default <- function(x) sprintf("%s, [%d]", typeof(x), length(x))    
     stop("character vector passed to \"expr\": ", deparse1(parent_call), call. = FALSE)
   }
 
+  # Add braces to expressions. Necessary for proper storage of some expressions (e.g. rm(x)).
   if (!is.null(expr) && !grepl("^\\{", deparse1(expr))) {
     expr <- call("{", expr)
   }
 
+  # Process compound expression string: split lines, remove braces and white space, ignore empty strings.
   if (!is.null(text) && length(text) == 1L && grepl("^\\{", text)) {
     text <- strsplit(text, split = "\n")[[1]]
     text <- trimws(text, whitespace = "[ \t\r\n\\{\\}]")
@@ -259,6 +263,7 @@ object_info.default <- function(x) sprintf("%s, [%d]", typeof(x), length(x))    
 
   code <-
     if (is.null(text)) {
+      # Drop strings from compound expressions.
       Filter(Negate(is.character), as.list(expr)[-1])
     } else if (is.null(expr)) {
       text
@@ -271,6 +276,7 @@ object_info.default <- function(x) sprintf("%s, [%d]", typeof(x), length(x))    
 #' @keywords internal
 # internal function to evaluate one expression
 .eval_one <- function(expression, envir, enclos, extras) {
+  # Add empty string if no condition raised during evaluation.
   on.exit(
     lapply(c("errors", "warnings", "messages"), function(c) {
       if (length(attr(envir, c)) < length(attr(envir, "code"))) {
