@@ -253,7 +253,7 @@ object_info.default <- function(x) sprintf("%s, [%d]", typeof(x), length(x))    
 
   code <-
     if (is.null(text)) {
-      as.list(expr)[-1]
+      Filter(Negate(is.character), as.list(expr)[-1])
     } else if (is.null(expr)) {
       text
     }
