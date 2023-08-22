@@ -1,5 +1,7 @@
 # teal.code 0.4.0.9001
-* Fix NEWS.md
+
+### Miscellaneous
+* Fix NEWS
 
 # teal.code 0.4.0
 
