@@ -109,10 +109,10 @@
 #'   iris5 <- iris'
 #'
 #' d <- new.env()
-#' old_code_dep <- code_dependency(parse(text = code), d)
+#' old_code_dep <- code_dependency(parse(text = code), envir = d)
 #' eval(parse(text = code), envir = d)
 #' ls(d)
-#' new_code_dep <- code_dependency(parse(text = code2), d)
+#' new_code_dep <- code_dependency(parse(text = code2), envir = d)
 #' bind_code_dependency(old_code_dep, new_code_dep)
 #'
 #'
@@ -130,10 +130,11 @@
 #' q4 <- teal.code::eval_code(q3, code = code3)
 #' q4@code
 #' q4@code_dependency
+#' # TODO: MISSING options(prompt = ">")
 #'
-#' get_code_dependencies(q2, 'ALDB')
-#' get_code_dependencies(q3, 'ALDB')
-#' get_code_dependencies(q4, 'ALDB')
+#' get_code_dependencies(q2, 'ADLB')
+#' get_code_dependencies(q3, 'ADLB')
+#' get_code_dependencies(q4, 'ADLB')
 #'
 #' @keywords internal
 code_dependency <- function(parsed_code, envir = new.env()){
@@ -217,7 +218,7 @@ detect_symbol <- function(object, pd = calls_pd) {
 #' omit dependency cycles
 #'
 #' @keywords internal
-return_code <- function(object, occur = occurence, cooccur = cooccurence, parent = NULL){
+return_code <- function(object, pd = calls_pd, occur = occurence, cooccur = cooccurence, parent = NULL){
 
   influences <-
     lapply(
@@ -267,6 +268,7 @@ return_code <- function(object, occur = occurence, cooccur = cooccurence, parent
           lapply(
             influencer_names,
             return_code_for_effects,
+            pd = pd,
             occur = occur,
             cooccur = cooccur # Do not trim to idx.
           )
@@ -376,9 +378,14 @@ return_code_for_effects <- function(object, pd = calls_pd, occur = occurence, co
 #' @keywords internal
 get_code_dependencies <- function(qenv, name){
 
+  parsed_code <- parse(text = as.character(qenv@code))
+  pd <- getParseData(parsed_code)
+  calls_pd <- lapply(pd[pd$parent == 0, "id"], get_children, pd = pd)
+
   object_lines <-
     return_code(
       name,
+      pd = calls_pd,
       occur = qenv@code_dependency$occurence,
       cooccur = qenv@code_dependency$cooccurence
     )
@@ -387,10 +394,10 @@ get_code_dependencies <- function(qenv, name){
 
   object_lines_unique <- sort(unique(c(object_lines, effects_lines)))
 
-  deparse(qenv$code[[object_lines_unique]])
-
-  # objects_code <-
-  #   lapply(object_names, function(object) unlist(lapply(srcref[object_lines(object)], as.character)))
+  as.character(parsed_code)[object_lines_unique]
+  # or
+  # srcref <- attr(parsed_code, 'srcref')
+  # unlist(lapply(srcref, as.character))[object_lines_unique]
 
 }
 
