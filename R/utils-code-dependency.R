@@ -131,9 +131,6 @@
 #' q4@code
 #' q4@code_dependency
 #'
-#' # missing occurence
-#' # missing effect
-#'
 #' get_code_dependencies(q2, 'ALDB')
 #' get_code_dependencies(q3, 'ALDB')
 #' get_code_dependencies(q4, 'ALDB')
@@ -411,9 +408,9 @@ bind_code_dependency <- function(old_code_dep, new_code_dep){
     }
   )
 
-  occurence <- Map(c, old_code_dep$occurence, new_code_dep$occurence)
+  occurence <- bind_lists(old_code_dep$occurence, new_code_dep$occurence)
   cooccurence <- c(old_code_dep$cooccurence, new_code_dep$cooccurence)
-  effects <- Map(c, old_code_dep$effects, new_code_dep$effects)
+  effects <- bind_lists(old_code_dep$effects, new_code_dep$effects)
 
   list(
     occurence = occurence,
@@ -422,3 +419,14 @@ bind_code_dependency <- function(old_code_dep, new_code_dep){
   )
 }
 
+bind_lists <- function(list1, list2){
+  if (length(list1) == 0) {
+    return(list2)
+  }
+
+  list1_only <- setdiff(names(list1), names(list2))
+  list2_only <- setdiff(names(list2), names(list1))
+  both_lists <- intersect(names(list1), names(list2))
+
+  c(list1[list1_only], Map(c, list1[both_lists], list2[both_lists]), list2[list2_only])
+}
