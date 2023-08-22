@@ -43,16 +43,32 @@ qenv <- function(file) {
 
 #' @describeIn qenv act in `qenv` object
 #' @export
-with.qenv <- function(data, expr, ...) {
-  if (!grepl("^\\{", deparse1(substitute(expr)))) {
+with.qenv <- function(data, expr, text, ...) {
+
+  if ((missing(expr) && missing(text)) || (!missing(expr) && !missing(text))) {
+    stop("specify either \"expr\" or \"text\"")
+  }
+
+  if (!missing(expr) && !grepl("^\\{", deparse1(substitute(expr)))) {
     expr <- call("{", match.call()$expr)
+  }
+
+  if (!missing(text) && length(text) == 1L && grepl("^\\{", text)) {
+    text <- strsplit(text, split = "\n")[[1]]
+    text <- trimws(text, whitespace = "[ \t\r\n\\{\\}]")
+    text <- Filter(Negate(function(x) identical(x, "")), text)
   }
 
   extras <- list(...)
 
-  expr <- as.list(substitute(expr))[-1]
+  code <-
+    if (missing(text)) {
+      as.list(substitute(expr))[-1]
+    } else if (missing(expr)) {
+      text
+    }
 
-  lapply(expr, .eval_one, envir = data, enclos = parent.frame(), extras = extras)
+  lapply(code, .eval_one, envir = data, enclos = parent.frame(), extras = extras)
 
   invisible(NULL)
 }
@@ -247,7 +263,7 @@ object_info.default <- function(x) sprintf("%s, [%d]", typeof(x), length(x))    
 
 
 #' @keywords internal
-# internal funciton to evaluate one expression
+# internal function to evaluate one expression
 # used in `qenv` and in `with.qenv`
 .eval_one <- function(expression, envir, enclos, extras) {
   on.exit(
@@ -260,7 +276,7 @@ object_info.default <- function(x) sprintf("%s, [%d]", typeof(x), length(x))    
 
   expression <-
     if (is.character(expression)) {
-      str2expression(expression)
+      str2lang(expression)
     } else {
       do.call(substitute, list(expr = expression, env = extras))
     }
