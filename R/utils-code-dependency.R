@@ -135,6 +135,8 @@
 #' get_code_dependencies(q2, 'ADLB')
 #' get_code_dependencies(q3, 'ADLB')
 #' get_code_dependencies(q4, 'ADLB')
+#' get_code_dependencies(q4, 'var_labels')
+#' get_code_dependencies(q4, 'ADSL')
 #'
 #' @keywords internal
 code_dependency <- function(parsed_code, envir = new.env()){
@@ -253,7 +255,7 @@ return_code <- function(object, pd = calls_pd, occur = occurence, cooccur = cooc
           lapply(
             influencer_names,
             return_code,
-            occur = occur,
+            occur = lapply(occur, function(x) setdiff(x, idx:max(x))),
             cooccur = cooccur[1:idx],
             parent = where_influences
             # We need to skip parent_object so that we do not end up in a hole,
@@ -329,7 +331,7 @@ return_code_for_effects <- function(object, pd = calls_pd, occur = occurence, co
       lapply(
         symbol_effects_names,
         function(x) {
-          code <- return_code(x, occur, cooccur) # QUESTION: SHOULD cooccur BE TRIMMED like it happens in return_code()?
+          code <- return_code(x, pd = pd, occur = occur, cooccur = cooccur) # QUESTION: SHOULD cooccur BE TRIMMED like it happens in return_code()?
           if (is.null(code)) {
             # Extract lines for objects that were used, but never created.
             # Some objects like 'iris' or 'mtcars' are pre-assigned in the session.
