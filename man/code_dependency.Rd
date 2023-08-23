@@ -35,7 +35,7 @@ in which the side-effect appears. Check examples to see the usage.
 \examples{
 
 library(dplyr)
-code = '
+code <- '
   arm_mapping <- list(
     "A: Drug X" = "150mg QD",
     "B: Placebo" = "Placebo",
@@ -49,7 +49,7 @@ code = '
   iris2 <- iris # @effect ADLB ADSL
   var_labels <- lapply(ADLB, function(x) attributes(x)$label)
   iris3 <- iris'
-code2 = '
+code2 <- '
   ADLB <- ADLB \%>\%
     dplyr::mutate(AVISITCD = dplyr::case_when(
       AVISIT == "SCREENING" ~ "SCR",
@@ -108,7 +108,7 @@ code2 = '
     )) \%>\%
     ungroup()'
 
-code3 = '
+code3 <- '
   attr(ADLB[["ARM"]], "label") <- var_labels[["ARM"]]
   attr(ADLB[["ANRHI"]], "label") <- "Analysis Normal Range Upper Limit"
   attr(ADLB[["ANRLO"]], "label") <- "Analysis Normal Range Lower Limit"
@@ -145,11 +145,11 @@ q4 <- teal.code::eval_code(q3, code = code3)
 q4@code
 q4@code_dependency
 
-get_code_dependencies(q2, 'ADLB')
-get_code_dependencies(q3, 'ADLB')
-get_code_dependencies(q4, 'ADLB')
-get_code_dependencies(q4, 'var_labels')
-get_code_dependencies(q4, 'ADSL')
+get_code_dependencies(q2, "ADLB")
+get_code_dependencies(q3, "ADLB")
+get_code_dependencies(q4, "ADLB")
+get_code_dependencies(q4, "var_labels")
+get_code_dependencies(q4, "ADSL")
 
 }
 \keyword{internal}
