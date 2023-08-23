@@ -144,7 +144,7 @@ print.qenv <- function(x, ...) {
 `$<-.qenv` <- function(x, name, value) {
   stop(
     "Direct assignment is forbidden as it cannot be tracked. ",
-    "Use", sprintf("`with( <qenv>, { %s <- %s })`", name, deparse(value)), " instead."
+    "Use `with( <qenv>, { <name> <- <value> })` instead."
   )
 }
 
