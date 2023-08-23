@@ -21,7 +21,7 @@
 #' @examples
 #'
 #' library(dplyr)
-#' code = '
+#' code <- '
 #'   arm_mapping <- list(
 #'     "A: Drug X" = "150mg QD",
 #'     "B: Placebo" = "Placebo",
@@ -35,7 +35,7 @@
 #'   iris2 <- iris # @effect ADLB ADSL
 #'   var_labels <- lapply(ADLB, function(x) attributes(x)$label)
 #'   iris3 <- iris'
-#' code2 = '
+#' code2 <- '
 #'   ADLB <- ADLB %>%
 #'     dplyr::mutate(AVISITCD = dplyr::case_when(
 #'       AVISIT == "SCREENING" ~ "SCR",
@@ -94,7 +94,7 @@
 #'     )) %>%
 #'     ungroup()'
 #'
-#' code3 = '
+#' code3 <- '
 #'   attr(ADLB[["ARM"]], "label") <- var_labels[["ARM"]]
 #'   attr(ADLB[["ANRHI"]], "label") <- "Analysis Normal Range Upper Limit"
 #'   attr(ADLB[["ANRLO"]], "label") <- "Analysis Normal Range Lower Limit"
@@ -131,19 +131,22 @@
 #' q4@code
 #' q4@code_dependency
 #'
-#' get_code_dependencies(q2, 'ADLB')
-#' get_code_dependencies(q3, 'ADLB')
-#' get_code_dependencies(q4, 'ADLB')
-#' get_code_dependencies(q4, 'var_labels')
-#' get_code_dependencies(q4, 'ADSL')
+#' get_code_dependencies(q2, "ADLB")
+#' get_code_dependencies(q3, "ADLB")
+#' get_code_dependencies(q4, "ADLB")
+#' get_code_dependencies(q4, "var_labels")
+#' get_code_dependencies(q4, "ADSL")
 #'
 #' @keywords internal
-code_dependency <- function(parsed_code, envir = new.env()){
+code_dependency <- function(parsed_code, envir = new.env()) {
   pd <- getParseData(parsed_code)
 
   calls_pd <- lapply(pd[pd$parent == 0, "id"], get_children, pd = pd)
 
-  object_names <- {eval(parsed_code, envir = envir); ls(envir)}
+  object_names <- {
+    eval(parsed_code, envir = envir)
+    ls(envir)
+  }
 
   occurence <- lapply(lapply(object_names, detect_symbol, pd = calls_pd), which)
 
@@ -152,17 +155,16 @@ code_dependency <- function(parsed_code, envir = new.env()){
   cooccurence <- lapply(
     calls_pd,
     function(x) {
-      sym_cond <- which(x$token == 'SYMBOL' & x$text %in% object_names)
+      sym_cond <- which(x$token == "SYMBOL" & x$text %in% object_names)
       if (length(sym_cond) >= 2) {
-        ass_cond <- grep('ASSIGN', x$token)
-        text <- unique(x[sort(c(sym_cond, ass_cond)), 'text'])
+        ass_cond <- grep("ASSIGN", x$token)
+        text <- unique(x[sort(c(sym_cond, ass_cond)), "text"])
 
         if (text[1] == "->") {
           rev(text[-1])
         } else {
           text[-1]
         }
-
       }
     }
   )
@@ -203,7 +205,7 @@ detect_symbol <- function(object, pd = calls_pd) {
     lapply(
       pd,
       function(call) {
-        any(call[call$token == 'SYMBOL', 'text'] == object)
+        any(call[call$token == "SYMBOL", "text"] == object)
       }
     )
   )
@@ -219,20 +221,20 @@ detect_symbol <- function(object, pd = calls_pd) {
 #' omit dependency cycles
 #'
 #' @keywords internal
-return_code <- function(object, pd = calls_pd, occur = occurence, cooccur = cooccurence, parent = NULL){
-
+return_code <- function(object, pd = calls_pd, occur = occurence, cooccur = cooccurence, parent = NULL) {
   influences <-
     lapply(
       cooccur,
-      function(x)
+      function(x) {
         if (!is.null(x) && object %in% x[-1]) {
           TRUE
-        } else if (!is.null(x) && object == x[1]){
+        } else if (!is.null(x) && object == x[1]) {
           FALSE
         }
+      }
     )
 
-  where_influences   <- which(unlist(lapply(influences, isTRUE)))
+  where_influences <- which(unlist(lapply(influences, isTRUE)))
   object_influencers <- which(unlist(lapply(influences, isFALSE)))
 
   object_influencers <- setdiff(object_influencers, parent)
@@ -242,8 +244,7 @@ return_code <- function(object, pd = calls_pd, occur = occurence, cooccur = cooc
   if (length(object_influencers) == 0) {
     return(sort(unique(lines)))
   } else {
-    for(idx in object_influencers){
-
+    for (idx in object_influencers) {
       # TRIM DOWN TO LINES ONLY NEEDED TO CREATE THE INITIAL OBJECT,
       # NOT TO ALL LINES OF THE INFLUENCER OBJECT.
 
@@ -278,7 +279,6 @@ return_code <- function(object, pd = calls_pd, occur = occurence, cooccur = cooc
     }
     sort(unique(lines))
   }
-
 }
 
 #' Return the lines of code needed to reproduce the side-effects having an impact on the object.
@@ -292,14 +292,13 @@ return_code <- function(object, pd = calls_pd, occur = occurence, cooccur = cooc
 #'
 #' @keywords internal
 return_code_for_effects <- function(object, pd = calls_pd, occur = occurence, cooccur = cooccurence) {
-
   symbol_effects_names <-
     unlist(
       lapply(
         pd,
         function(x) {
           com_cond <-
-            x$token == 'COMMENT' & grepl('@effect', x$text) & grepl(paste0('[\\s]*', object, '[\\s$]*'), x$text)
+            x$token == "COMMENT" & grepl("@effect", x$text) & grepl(paste0("[\\s]*", object, "[\\s$]*"), x$text)
 
           # Make sure comment id is not the highest id in the item.
           # For calls like 'options(prompt = ">") # @effect ADLB',
@@ -308,21 +307,21 @@ return_code_for_effects <- function(object, pd = calls_pd, occur = occurence, co
           # This is tackled in B.
 
 
-          if (!com_cond[1] & sum(com_cond) > 0){
+          if (!com_cond[1] & sum(com_cond) > 0) {
             # A.
-            x[x$token == 'SYMBOL', 'text']
+            x[x$token == "SYMBOL", "text"]
           } else if (com_cond[1] & sum(com_cond[-1]) > 0) {
             # B.
             x <- x[-1, ]
-            x[x$token == 'SYMBOL', 'text']
+            x[x$token == "SYMBOL", "text"]
           }
         }
       )
     )
 
   commented_calls <- vapply(pd,
-                            function(x) any(x$token == "COMMENT" & grepl("@effect", x$text)),
-                            FUN.VALUE = logical(1)
+    function(x) any(x$token == "COMMENT" & grepl("@effect", x$text)),
+    FUN.VALUE = logical(1)
   )
 
   symbol_effects_lines <-
@@ -352,7 +351,7 @@ return_code_for_effects <- function(object, pd = calls_pd, occur = occurence, co
         pd,
         function(x) {
           com_cond <-
-            x$token == 'COMMENT' & grepl('@effect', x$text) & grepl(paste0('[\\s]*', object, '[\\s$]*'), x$text)
+            x$token == "COMMENT" & grepl("@effect", x$text) & grepl(paste0("[\\s]*", object, "[\\s$]*"), x$text)
 
           # Work out the situation when comment id is the highest id in the item.
           # For calls like 'options(prompt = ">") # @effect ADLB',
@@ -367,7 +366,6 @@ return_code_for_effects <- function(object, pd = calls_pd, occur = occurence, co
   side_effects_lines <- which(side_effects_names) - 1
 
   sort(unique(c(symbol_effects_lines, side_effects_lines)))
-
 }
 
 #' Return the lines of code (with side-effects) needed to reproduce the object.
@@ -377,8 +375,7 @@ return_code_for_effects <- function(object, pd = calls_pd, occur = occurence, co
 #' @param object `character` with object name
 #' @param parsed_code (`expression`) result of `parse()`
 #' @keywords internal
-get_code_dependencies <- function(qenv, name){
-
+get_code_dependencies <- function(qenv, name) {
   parsed_code <- parse(text = as.character(qenv@code))
   pd <- getParseData(parsed_code)
   calls_pd <- lapply(pd[pd$parent == 0, "id"], get_children, pd = pd)
@@ -399,13 +396,12 @@ get_code_dependencies <- function(qenv, name){
   # or
   # srcref <- attr(parsed_code, 'srcref')
   # unlist(lapply(srcref, as.character))[object_lines_unique]
-
 }
 
 
 #' @param code1,code2 outputs of `code_dependency()`
 #' @keywords internal
-bind_code_dependency <- function(old_code_dep, new_code_dep){
+bind_code_dependency <- function(old_code_dep, new_code_dep) {
   # length(old_code_dep$cooccurence) = lines of code in old_code
   new_code_dep$occurence <- lapply(new_code_dep$occurence, function(x) x + length(old_code_dep$cooccurence))
   new_code_dep$effects <- lapply(
@@ -428,7 +424,7 @@ bind_code_dependency <- function(old_code_dep, new_code_dep){
   )
 }
 
-bind_lists <- function(list1, list2){
+bind_lists <- function(list1, list2) {
   if (length(list1) == 0) {
     return(list2)
   }
