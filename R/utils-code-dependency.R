@@ -130,7 +130,6 @@
 #' q4 <- teal.code::eval_code(q3, code = code3)
 #' q4@code
 #' q4@code_dependency
-#' # TODO: MISSING options(prompt = ">")
 #'
 #' get_code_dependencies(q2, 'ADLB')
 #' get_code_dependencies(q3, 'ADLB')
@@ -407,12 +406,13 @@ get_code_dependencies <- function(qenv, name){
 #' @param code1,code2 outputs of `code_dependency()`
 #' @keywords internal
 bind_code_dependency <- function(old_code_dep, new_code_dep){
+  # length(old_code_dep$cooccurence) = lines of code in old_code
   new_code_dep$occurence <- lapply(new_code_dep$occurence, function(x) x + length(old_code_dep$cooccurence))
   new_code_dep$effects <- lapply(
     new_code_dep$effects,
     function(x) {
       if (!is.null(x)) {
-        x + length(old_code_dep$effects)
+        x + length(old_code_dep$cooccurence)
       }
     }
   )

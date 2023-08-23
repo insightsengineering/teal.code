@@ -144,11 +144,12 @@ q3@code_dependency
 q4 <- teal.code::eval_code(q3, code = code3)
 q4@code
 q4@code_dependency
-# TODO: MISSING options(prompt = ">")
 
 get_code_dependencies(q2, 'ADLB')
 get_code_dependencies(q3, 'ADLB')
 get_code_dependencies(q4, 'ADLB')
+get_code_dependencies(q4, 'var_labels')
+get_code_dependencies(q4, 'ADSL')
 
 }
 \keyword{internal}
