@@ -27,6 +27,7 @@ setGeneric("concat", function(x, y) standardGeneric("concat"))
 #' @export
 setMethod("concat", signature = c("qenv", "qenv"), function(x, y) {
   y@id <- c(x@id, y@id)
+  y@code_dependency <- bind_code_dependency(x@code_dependency, y@code_dependency)
   y@code <- c(x@code, y@code)
   y@warnings <- c(x@warnings, y@warnings)
   y@messages <- c(x@messages, y@messages)
