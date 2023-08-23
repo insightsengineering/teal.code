@@ -19,8 +19,8 @@ return_code(
 
 \item{cooccur}{result of \code{code_dependency()$cooccurrence}}
 
-\item{parent}{\code{NULL} or \code{numeric} vector - in a recursive call, it is possible needed to drop parent object indicator to
-omit dependency cycles}
+\item{parent}{\code{NULL} or \code{numeric} vector - in a recursive call, it is possible needed to drop parent object
+indicator to omit dependency cycles}
 }
 \value{
 \code{numeric} vector indicating which lines of \code{parsed_code} calls are required to build the \code{object}

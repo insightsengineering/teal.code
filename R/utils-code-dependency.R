@@ -10,7 +10,8 @@
 #' @param envir `environment` in which to seek objects created during `eval` of `parsed_code`
 #'
 #' @return A `list` containing 3 elements
-#' - `occurrence` - named `list` by object names with numeric vector as elements indicating calls in which object appears.
+#' - `occurrence` - named `list` by object names with numeric vector as elements indicating calls in which object
+#' appears.
 #' - `cooccurrence` - `list` of the same length as number of calls in `parsed_code`, containing `NULL`s if there is no
 #' co-occurrence between objects, or a `character` vector indicating co-occurrence of objects in specific `parsed_code`
 #' call element. If a character vector, then the first element is the name of the dependent object, and the rest are the
@@ -217,8 +218,8 @@ detect_symbol <- function(object, pd = calls_pd) {
 #' @param object `character` with object name
 #' @param occur result of `code_dependency()$occurrence`
 #' @param cooccur result of `code_dependency()$cooccurrence`
-#' @param parent `NULL` or `numeric` vector - in a recursive call, it is possible needed to drop parent object indicator to
-#' omit dependency cycles
+#' @param parent `NULL` or `numeric` vector - in a recursive call, it is possible needed to drop parent object
+#' indicator to omit dependency cycles
 #'
 #' @keywords internal
 return_code <- function(object, pd = calls_pd, occur = occurrence, cooccur = cooccurrence, parent = NULL) {
@@ -329,7 +330,8 @@ return_code_for_effects <- function(object, pd = calls_pd, occur = occurrence, c
       lapply(
         symbol_effects_names,
         function(x) {
-          code <- return_code(x, pd = pd, occur = occur, cooccur = cooccur) # QUESTION: SHOULD cooccur BE TRIMMED like it happens in return_code()?
+          code <- return_code(x, pd = pd, occur = occur, cooccur = cooccur)
+          # QUESTION: SHOULD cooccur BE TRIMMED like it happens in return_code()?
           if (is.null(code)) {
             # Extract lines for objects that were used, but never created.
             # Some objects like 'iris' or 'mtcars' are pre-assigned in the session.

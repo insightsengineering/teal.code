@@ -14,7 +14,8 @@ code_dependency(parsed_code, envir = new.env())
 \value{
 A \code{list} containing 3 elements
 \itemize{
-\item \code{occurrence} - named \code{list} by object names with numeric vector as elements indicating calls in which object appears.
+\item \code{occurrence} - named \code{list} by object names with numeric vector as elements indicating calls in which object
+appears.
 \item \code{cooccurrence} - \code{list} of the same length as number of calls in \code{parsed_code}, containing \code{NULL}s if there is no
 co-occurrence between objects, or a \code{character} vector indicating co-occurrence of objects in specific \code{parsed_code}
 call element. If a character vector, then the first element is the name of the dependent object, and the rest are the
