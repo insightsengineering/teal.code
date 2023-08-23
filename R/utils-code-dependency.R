@@ -3,7 +3,7 @@
 #' @description Build up ingredients needed to restore the code required to create a specific object.
 #' @details The relation between objects is assumed to be passed by `<-`, `=` or `->` assignment operators. No other
 #' object creation methods (like `assign`, or `<<-` or any non-standard-evaluation method) are supported. To specify
-#' relations between side-effects an objects, use specific comment tag `# @effect object_name` at the end of the line
+#' relations between side-effects and objects, use specific comment tag `# @effect object_name` at the end of the line
 #' in which the side-effect appears. Check examples to see the usage.
 #'
 #' @param parsed_code (`expression`) result of `parse()`

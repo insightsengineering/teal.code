@@ -29,7 +29,7 @@ Build up ingredients needed to restore the code required to create a specific ob
 \details{
 The relation between objects is assumed to be passed by \verb{<-}, \code{=} or \verb{->} assignment operators. No other
 object creation methods (like \code{assign}, or \verb{<<-} or any non-standard-evaluation method) are supported. To specify
-relations between side-effects an objects, use specific comment tag \verb{# @effect object_name} at the end of the line
+relations between side-effects and objects, use specific comment tag \verb{# @effect object_name} at the end of the line
 in which the side-effect appears. Check examples to see the usage.
 }
 \examples{
