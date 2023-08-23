@@ -5,9 +5,9 @@
 #' @rdname qenv-class
 #' @slot code (`expression`) to reproduce the environment
 #' @slot code_dependency A `list` containing 3 elements
-#' - `occurence` - named `list` by object names with numeric vector as elements indicating calls in which object appears.
-#' - `cooccurence` - `list` of the same length as number of calls in `parsed_code`, containing NULLs if there is no
-#' co-ocurence between objects, or a `character` vector indicating co-occurence of objects in specific `parsed_code`
+#' - `occurrence` - named `list` by object names with numeric vector as elements indicating calls in which object appears.
+#' - `cooccurrence` - `list` of the same length as number of calls in `parsed_code`, containing `NULL`s if there is no
+#' co-occurrence between objects, or a `character` vector indicating co-occurrence of objects in specific `parsed_code`
 #' call element. If a character vector, then the first element is the name of the dependent object, and the rest are the
 #' influencing objects
 #' - `effects` - named `list`  by object names with numeric vector as elements indicating which calls has effect on this
@@ -24,7 +24,7 @@ setClass(
   slots = c(env = "environment", code = "expression", code_dependency = "list", id = "integer", warnings = "character", messages = "character"),
   prototype = list(
     env = new.env(parent = parent.env(.GlobalEnv)), code = expression(),
-    code_dependency = list(occurence = list(), cooccurence = list(), effects = list()),
+    code_dependency = list(occurrence = list(), cooccurrence = list(), effects = list()),
     id = integer(0), warnings = character(0), messages = character(0)
   )
 )
@@ -39,8 +39,8 @@ setValidity("qenv", function(object) {
     "@code and @warnings slots must have the same length"
   } else if (length(object@code) != length(object@messages)) {
     "@code and @messages slots must have the same length"
-  } else if (length(object@code) != length(object@code_dependency$cooccurence)) {
-    "@code and @code_dependency$cooccurence slots must have the same length"
+  } else if (length(object@code) != length(object@code_dependency$cooccurrence)) {
+    "@code and @code_dependency$cooccurrence slots must have the same length"
   } else if (any(duplicated(object@id))) {
     "@id contains duplicated values."
   } else {

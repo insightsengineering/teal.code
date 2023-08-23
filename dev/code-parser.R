@@ -137,11 +137,11 @@ detect_symbol <- function(obj, pd = calls_pd) {
   )
 }
 
-occurence <- lapply(lapply(object_names, detect_symbol), which)
+occurrence <- lapply(lapply(object_names, detect_symbol), which)
 
-names(occurence) <- object_names
+names(occurrence) <- object_names
 
-cooccurence <- lapply(
+cooccurrence <- lapply(
   calls_pd,
   function(x) {
     sym_cond <- which(x$token == "SYMBOL" & x$text %in% object_names)
@@ -159,7 +159,7 @@ cooccurence <- lapply(
 )
 # First object in an element of the list is the dependent object, the others are influencers.
 
-return_code <- function(object, occur = occurence, cooccur = cooccurence, parent = NULL) {
+return_code <- function(object, occur = occurrence, cooccur = cooccurrence, parent = NULL) {
   influences <-
     lapply(
       cooccur,
@@ -229,7 +229,7 @@ return_code <- function(object, occur = occurence, cooccur = cooccurence, parent
 
 # DEAL WITH @effects
 
-return_code_for_effects <- function(object, pd = calls_pd, occur = occurence, cooccur = cooccurence) {
+return_code_for_effects <- function(object, pd = calls_pd, occur = occurrence, cooccur = cooccurrence) {
   symbol_effects_names <-
     unlist(
       lapply(

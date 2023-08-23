@@ -7,8 +7,8 @@
 return_code_for_effects(
   object,
   pd = calls_pd,
-  occur = occurence,
-  cooccur = cooccurence
+  occur = occurrence,
+  cooccur = cooccurrence
 )
 }
 \arguments{
@@ -16,9 +16,9 @@ return_code_for_effects(
 
 \item{pd}{\code{list} of data.frames of results of \code{utils::getParseData()} trimmed to unique \code{parsed_code} calls}
 
-\item{occur}{result of \code{code_dependency()$occurence}}
+\item{occur}{result of \code{code_dependency()$occurrence}}
 
-\item{cooccur}{result of \code{code_dependency()$cooccurence}}
+\item{cooccur}{result of \code{code_dependency()$cooccurrence}}
 }
 \value{
 \code{numeric} vector indicating which lines of \code{parsed_code} calls are required to build the side-effects having

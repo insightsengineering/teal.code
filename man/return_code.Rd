@@ -7,17 +7,17 @@
 return_code(
   object,
   pd = calls_pd,
-  occur = occurence,
-  cooccur = cooccurence,
+  occur = occurrence,
+  cooccur = cooccurrence,
   parent = NULL
 )
 }
 \arguments{
 \item{object}{\code{character} with object name}
 
-\item{occur}{result of \code{code_dependency()$occurence}}
+\item{occur}{result of \code{code_dependency()$occurrence}}
 
-\item{cooccur}{result of \code{code_dependency()$cooccurence}}
+\item{cooccur}{result of \code{code_dependency()$cooccurrence}}
 
 \item{parent}{\code{NULL} or \code{numeric} vector - in a recursive call, it is possible needed to drop parent object indicator to
 omit dependency cycles}

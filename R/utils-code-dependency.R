@@ -10,9 +10,9 @@
 #' @param envir `environment` in which to seek objects created during `eval` of `parsed_code`
 #'
 #' @return A `list` containing 3 elements
-#' - `occurence` - named `list` by object names with numeric vector as elements indicating calls in which object appears.
-#' - `cooccurence` - `list` of the same length as number of calls in `parsed_code`, containing NULLs if there is no
-#' co-ocurence between objects, or a `character` vector indicating co-occurence of objects in specific `parsed_code`
+#' - `occurrence` - named `list` by object names with numeric vector as elements indicating calls in which object appears.
+#' - `cooccurrence` - `list` of the same length as number of calls in `parsed_code`, containing `NULL`s if there is no
+#' co-occurrence between objects, or a `character` vector indicating co-occurrence of objects in specific `parsed_code`
 #' call element. If a character vector, then the first element is the name of the dependent object, and the rest are the
 #' influencing objects
 #' - `effects` - named `list`  by object names with numeric vector as elements indicating which calls has effect on this
@@ -148,11 +148,11 @@ code_dependency <- function(parsed_code, envir = new.env()) {
     ls(envir)
   }
 
-  occurence <- lapply(lapply(object_names, detect_symbol, pd = calls_pd), which)
+  occurrence <- lapply(lapply(object_names, detect_symbol, pd = calls_pd), which)
 
-  names(occurence) <- object_names
+  names(occurrence) <- object_names
 
-  cooccurence <- lapply(
+  cooccurrence <- lapply(
     calls_pd,
     function(x) {
       sym_cond <- which(x$token == "SYMBOL" & x$text %in% object_names)
@@ -169,12 +169,12 @@ code_dependency <- function(parsed_code, envir = new.env()) {
     }
   )
 
-  effects <- lapply(object_names, return_code_for_effects, pd = calls_pd, occur = occurence, cooccur = cooccurence)
+  effects <- lapply(object_names, return_code_for_effects, pd = calls_pd, occur = occurrence, cooccur = cooccurrence)
   names(effects) <- object_names
 
   list(
-    occurence = occurence,
-    cooccurence = cooccurence,
+    occurrence = occurrence,
+    cooccurrence = cooccurrence,
     effects = effects
   )
 }
@@ -215,13 +215,13 @@ detect_symbol <- function(object, pd = calls_pd) {
 #' @return `numeric` vector indicating which lines of `parsed_code` calls are required to build the `object`
 #'
 #' @param object `character` with object name
-#' @param occur result of `code_dependency()$occurence`
-#' @param cooccur result of `code_dependency()$cooccurence`
+#' @param occur result of `code_dependency()$occurrence`
+#' @param cooccur result of `code_dependency()$cooccurrence`
 #' @param parent `NULL` or `numeric` vector - in a recursive call, it is possible needed to drop parent object indicator to
 #' omit dependency cycles
 #'
 #' @keywords internal
-return_code <- function(object, pd = calls_pd, occur = occurence, cooccur = cooccurence, parent = NULL) {
+return_code <- function(object, pd = calls_pd, occur = occurrence, cooccur = cooccurrence, parent = NULL) {
   influences <-
     lapply(
       cooccur,
@@ -287,11 +287,11 @@ return_code <- function(object, pd = calls_pd, occur = occurence, cooccur = cooc
 #'
 #' @param object `character` with object name
 #' @param pd `list` of data.frames of results of `utils::getParseData()` trimmed to unique `parsed_code` calls
-#' @param occur result of `code_dependency()$occurence`
-#' @param cooccur result of `code_dependency()$cooccurence`
+#' @param occur result of `code_dependency()$occurrence`
+#' @param cooccur result of `code_dependency()$cooccurrence`
 #'
 #' @keywords internal
-return_code_for_effects <- function(object, pd = calls_pd, occur = occurence, cooccur = cooccurence) {
+return_code_for_effects <- function(object, pd = calls_pd, occur = occurrence, cooccur = cooccurrence) {
   symbol_effects_names <-
     unlist(
       lapply(
@@ -384,8 +384,8 @@ get_code_dependencies <- function(qenv, name) {
     return_code(
       name,
       pd = calls_pd,
-      occur = qenv@code_dependency$occurence,
-      cooccur = qenv@code_dependency$cooccurence
+      occur = qenv@code_dependency$occurrence,
+      cooccur = qenv@code_dependency$cooccurrence
     )
 
   effects_lines <- qenv@code_dependency$effects[[name]]
@@ -402,24 +402,24 @@ get_code_dependencies <- function(qenv, name) {
 #' @param code1,code2 outputs of `code_dependency()`
 #' @keywords internal
 bind_code_dependency <- function(old_code_dep, new_code_dep) {
-  # length(old_code_dep$cooccurence) = lines of code in old_code
-  new_code_dep$occurence <- lapply(new_code_dep$occurence, function(x) x + length(old_code_dep$cooccurence))
+  # length(old_code_dep$cooccurrence) = lines of code in old_code
+  new_code_dep$occurrence <- lapply(new_code_dep$occurrence, function(x) x + length(old_code_dep$cooccurrence))
   new_code_dep$effects <- lapply(
     new_code_dep$effects,
     function(x) {
       if (!is.null(x)) {
-        x + length(old_code_dep$cooccurence)
+        x + length(old_code_dep$cooccurrence)
       }
     }
   )
 
-  occurence <- bind_lists(old_code_dep$occurence, new_code_dep$occurence)
-  cooccurence <- c(old_code_dep$cooccurence, new_code_dep$cooccurence)
+  occurrence <- bind_lists(old_code_dep$occurrence, new_code_dep$occurrence)
+  cooccurrence <- c(old_code_dep$cooccurrence, new_code_dep$cooccurrence)
   effects <- bind_lists(old_code_dep$effects, new_code_dep$effects)
 
   list(
-    occurence = occurence,
-    cooccurence = cooccurence,
+    occurrence = occurrence,
+    cooccurrence = cooccurrence,
     effects = effects
   )
 }
