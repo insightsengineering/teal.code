@@ -1,8 +1,11 @@
 # teal.code 0.4.0.9001
 
+### Miscellaneous
+* Fix NEWS
+
 # teal.code 0.4.0
 
-# Breaking Change
+### Breaking Change
 * `chunks` have been removed. The new `qenv` object should be used instead. See the new `qenv` vignette in the package for further details.
 
 ### Miscellaneous
