@@ -244,7 +244,7 @@ get_conditions <- function(x, condition = c("errors", "warnings", "messages", "a
 #' @export
 .object_info.numeric <- function(x) sprintf("%d item(s)", length(x))                                   # nolint
 #' @export
-.object_info.default <- function(x) NULL                                                               # nolint
+.object_info.default <- function(x) ""                                                                 # nolint
 
 
 #' @keywords internal
@@ -267,7 +267,7 @@ get_conditions <- function(x, condition = c("errors", "warnings", "messages", "a
   }
 
   # Add braces to expressions. Necessary for proper storage of some expressions (e.g. rm(x)).
-  if (!is.null(expr) && identical(expr[[1]], as.symbol("{"))) {
+  if (!is.null(expr) && !grepl("^\\{", deparse1(expr))) {
     expr <- call("{", expr)
   }
 
