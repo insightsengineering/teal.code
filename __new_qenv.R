@@ -72,11 +72,13 @@ format.qenv <- function(x) {
     contents <- if (is.finite(longest_name)) paste(
       sprintf(sprintf("  $ %%-0%is", longest_name), var_names),
       sprintf(sprintf("%%-0%is", longest_class), var_classes),
+      vapply(var_names, function(v) .object_info(get(v, envir = x)), character(1)),
       sep = " : ", collapse = "\n")
 
     contents_hidden <- paste(
       sprintf(sprintf("  $ %%-0%is", longest_name), var_names_hidden),
       sprintf(sprintf("%%-0%is", longest_class), var_classes_hidden),
+      vapply(var_names_hidden, function(v) .object_info(get(v, envir = x)), character(1)),
       sep = " : ", collapse = "\n")
 
     contents_all <- c(
@@ -226,12 +228,23 @@ get_conditions <- function(x, condition = c("errors", "warnings", "messages", "a
 #' with(q, print(dim(subset(i, Species == species))), species = species_external)
 
 
-# internal; work in progress
-object_info <- function(x) UseMethod("object_info")
-object_info.data.frame <- function(x) sprintf("%d x %d", dim(x)[1], dim(x)[2])              # nolint
-object_info.matrix <- function(x) sprintf("%s, %d x %d", typeof(x), dim(x)[1], dim(x)[2])   # nolint
-object_info.factor <- function(x) sprintf("%d levels, [%d]", length(levels(x)), length(x))  # nolint
-object_info.default <- function(x) sprintf("%s, [%d]", typeof(x), length(x))                # nolint
+#' @keywords internal
+#' helper for fotmat.qenv
+#' briefly summarize object
+#' @export
+.object_info <- function(x) UseMethod(".object_info")
+#' @export
+.object_info.data.frame <- function(x) sprintf("%d x %d", dim(x)[1], dim(x)[2])                        # nolint
+#' @export
+.object_info.matrix <- function(x) sprintf("%s, %d x %d", typeof(x), dim(x)[1], dim(x)[2])             # nolint
+#' @export
+.object_info.factor <- function(x) sprintf("%d levels, [%d]", length(levels(x)), length(x))            # nolint
+#' @export
+.object_info.character <- function(x) sprintf("%d item(s), %d value(s)", length(x), length(unique(x))) # nolint
+#' @export
+.object_info.numeric <- function(x) sprintf("%d item(s)", length(x))                                   # nolint
+#' @export
+.object_info.default <- function(x) NULL                                                               # nolint
 
 
 #' @keywords internal
