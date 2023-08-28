@@ -235,31 +235,27 @@ object_info.default <- function(x) sprintf("%s, [%d]", typeof(x), length(x))    
 
 
 #' @keywords internal
-# internal function to prepare expression(s) for evaluation
+#  prepare expression(s) for evaluation
 .prepare_code <- function(expr, text) {
   # This function cannot handle missing arguments, so the caller passes if statements that return NULL if FALSE.
 
   # Get parent call to use in error messages.
-  parent_call <- match.call(definition = sys.function(2), call = sys.call(2))
+  parent_call <- deparse1(match.call(definition = sys.function(2), call = sys.call(2)))
 
   if ((is.null(expr) && is.null(text)) || (!is.null(expr) && !is.null(text))) {
-    stop("specify either \"expr\" or \"text\": ", deparse1(parent_call), call. = FALSE)
+    stop("specify either \"expr\" or \"text\": ", parent_call, call. = FALSE)
   }
 
   if (!is.null(expr) && is.character(expr)) {
-    stop("character vector passed to \"expr\": ", deparse1(parent_call), call. = FALSE)
+    stop(
+      "character vector passed to \"expr\": ", parent_call, "\n  use the \"text\" argument instead",
+      call. = FALSE
+    )
   }
 
   # Add braces to expressions. Necessary for proper storage of some expressions (e.g. rm(x)).
-  if (!is.null(expr) && !grepl("^\\{", deparse1(expr))) {
+  if (!is.null(expr) && identical(expr[[1]], as.symbol("{"))) {
     expr <- call("{", expr)
-  }
-
-  # Process compound expression string: split lines, remove braces and white space, ignore empty strings.
-  if (!is.null(text) && length(text) == 1L && grepl("^\\{", text)) {
-    text <- strsplit(text, split = "\n")[[1]]
-    text <- trimws(text, whitespace = "[ \t\r\n\\{\\}]")
-    text <- Filter(Negate(function(x) identical(x, "")), text)
   }
 
   code <-
@@ -267,7 +263,11 @@ object_info.default <- function(x) sprintf("%s, [%d]", typeof(x), length(x))    
       # Drop strings from compound expressions.
       Filter(Negate(is.character), as.list(expr)[-1])
     } else if (is.null(expr)) {
-      text
+      text <- str2expression(text)
+      if (length(text) == 1L && identical(text[[1L]][[1L]], "{")) {
+        text <- text[[1L]][-1L]
+      }
+      as.character(text)
     }
 
   code
