@@ -34,7 +34,7 @@ with.qenv <- function(data, expr, text, ...) {
 }
 
 
-#' @describeIn qenv create and modify a (deep) copy of a qenv
+#' @describeIn qenv create and modify a (deep) copy of a `qenv`
 #' @export
 within.qenv <- function(data, expr, text, ...) {
   data <- .clone_qenv(data)
@@ -275,7 +275,7 @@ object_info.default <- function(x) sprintf("%s, [%d]", typeof(x), length(x))    
 
 
 #' @keywords internal
-# internal function to evaluate one expression
+# evaluate one expression, log any conditions raised
 .eval_one <- function(expression, envir, enclos, extras) {
   # Add empty string if no condition raised during evaluation.
   on.exit(
