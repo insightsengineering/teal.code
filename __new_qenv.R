@@ -151,6 +151,15 @@ print.qenv <- function(x, ...) {
 }
 
 
+#' @export
+`[[<-.qenv` <- function(x, name, value) {
+  stop(
+    "Direct assignment is forbidden as it cannot be tracked. ",
+    "Use `with( <qenv>, { <name> <- <value> })` instead."
+  )
+}
+
+
 #' @describeIn qenv Returns list of function calls or a data.frame with code and the conditions it raised.
 #' @export
 get_code <- function(x, include_messages = FALSE) {
