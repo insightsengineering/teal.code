@@ -229,25 +229,6 @@ get_conditions <- function(x, condition = c("errors", "warnings", "messages", "a
 
 
 #' @keywords internal
-#' helper for fotmat.qenv
-#' briefly summarize object
-#' @export
-.object_info <- function(x) UseMethod(".object_info")
-#' @export
-.object_info.data.frame <- function(x) sprintf("%d x %d", dim(x)[1], dim(x)[2])                        # nolint
-#' @export
-.object_info.matrix <- function(x) sprintf("%s, %d x %d", typeof(x), dim(x)[1], dim(x)[2])             # nolint
-#' @export
-.object_info.factor <- function(x) sprintf("%d levels, [%d]", length(levels(x)), length(x))            # nolint
-#' @export
-.object_info.character <- function(x) sprintf("%d item(s), %d value(s)", length(x), length(unique(x))) # nolint
-#' @export
-.object_info.numeric <- function(x) sprintf("%d item(s)", length(x))                                   # nolint
-#' @export
-.object_info.default <- function(x) ""                                                                 # nolint
-
-
-#' @keywords internal
 #  prepare expression(s) for evaluation
 .prepare_code <- function(expr, text) {
   # This function cannot handle missing arguments, so the caller passes if statements that return NULL if FALSE.
@@ -327,3 +308,22 @@ get_conditions <- function(x, condition = c("errors", "warnings", "messages", "a
   attributes(ans) <- attributes(x)
   ans
 }
+
+
+#' @keywords internal
+#' helper for format.qenv
+#' briefly summarize object
+#' @export
+.object_info <- function(x) UseMethod(".object_info")
+#' @export
+.object_info.data.frame <- function(x) sprintf("%d x %d", dim(x)[1], dim(x)[2])                        # nolint
+#' @export
+.object_info.matrix <- function(x) sprintf("%s, %d x %d", typeof(x), dim(x)[1], dim(x)[2])             # nolint
+#' @export
+.object_info.factor <- function(x) sprintf("%d levels, [%d]", length(levels(x)), length(x))            # nolint
+#' @export
+.object_info.character <- function(x) sprintf("%d item(s), %d value(s)", length(x), length(unique(x))) # nolint
+#' @export
+.object_info.numeric <- function(x) sprintf("%d item(s)", length(x))                                   # nolint
+#' @export
+.object_info.default <- function(x) ""                                                                 # nolint
