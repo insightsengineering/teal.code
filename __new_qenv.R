@@ -37,12 +37,12 @@ with.qenv <- function(data, expr, text, ...) {
 #' @describeIn qenv create and modify a (deep) copy of a `qenv`
 #' @export
 within.qenv <- function(data, expr, text, ...) {
+  # Force a return even if some evaluation fails.
+  on.exit(return(data))
   data <- .clone_qenv(data)
   code <- .prepare_code(if (!missing(expr)) substitute(expr), if (!missing(text)) text)
   extras <- list(...)
   lapply(code, .eval_one, envir = data, enclos = parent.frame(), extras = extras)
-  # Force a return even if some evaluation fails.
-  on.exit(return(data))
 }
 
 
