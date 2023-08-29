@@ -13,7 +13,7 @@
 #'
 #' @describeIn qenv create `qenv` object
 #' @export
-qenv <- function(file) {
+qenv <- function() {
   ans <- new.env()
   attr(ans, "code") <- list()
   attr(ans, "errors") <- list()
