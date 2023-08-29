@@ -292,12 +292,10 @@ get_conditions <- function(x, condition = c("errors", "warnings", "messages", "a
     })
   )
 
-  expression <-
-    if (is.character(expression)) {
-      str2lang(expression)
-    } else {
-      do.call(substitute, list(expr = expression, env = extras))
-    }
+  if (is.character(expression)) {
+    expression <- str2lang(expression)
+  }
+  expression <- do.call(substitute, list(expr = expression, env = extras))
 
   attr(envir, "code") <- append(attr(envir, "code"), expression)
   tryCatch(
