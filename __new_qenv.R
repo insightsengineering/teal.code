@@ -314,16 +314,30 @@ get_conditions <- function(x, condition = c("errors", "warnings", "messages", "a
 #' helper for format.qenv
 #' briefly summarize object
 #' @export
-.object_info <- function(x) UseMethod(".object_info")
+.object_info <- function(x) {
+  UseMethod(".object_info")
+}
 #' @export
-.object_info.data.frame <- function(x) sprintf("%d x %d", dim(x)[1], dim(x)[2])                        # nolint
+.object_info.data.frame <- function(x) {
+  sprintf("%d x %d", dim(x)[1], dim(x)[2])
+}
 #' @export
-.object_info.matrix <- function(x) sprintf("%s, %d x %d", typeof(x), dim(x)[1], dim(x)[2])             # nolint
+.object_info.matrix <- function(x) {
+  sprintf("%s, %d x %d", typeof(x), dim(x)[1], dim(x)[2])
+}
 #' @export
-.object_info.factor <- function(x) sprintf("%d levels, [%d]", length(levels(x)), length(x))            # nolint
+.object_info.factor <- function(x) {
+  sprintf("%d levels, [%d]", length(levels(x)), length(x))
+}
 #' @export
-.object_info.character <- function(x) sprintf("%d item(s), %d value(s)", length(x), length(unique(x))) # nolint
+.object_info.character <- function(x) {
+  sprintf("%d item(s), %d value(s)", length(x), length(unique(x)))
+}
 #' @export
-.object_info.numeric <- function(x) sprintf("%d item(s)", length(x))                                   # nolint
+.object_info.numeric <- function(x) {
+  sprintf("%d item(s)", length(x))
+}
 #' @export
-.object_info.default <- function(x) ""                                                                 # nolint
+.object_info.default <- function(x) {
+  ""
+}
