@@ -97,7 +97,7 @@ format.qenv <- function(x) {
     } else {
       paste(
         "  {",
-        paste(sprintf("      %s", lapply(code, deparse)), collapse = "\n"),
+        paste(sprintf("      %s", lapply(code, deparse1)), collapse = "\n"),
         "  }",
         sep = "\n"
       )
