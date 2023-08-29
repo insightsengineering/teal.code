@@ -277,7 +277,7 @@ get_conditions <- function(x, condition = c("errors", "warnings", "messages", "a
       Filter(Negate(is.character), as.list(expr)[-1])
     } else if (is.null(expr)) {
       text <- str2expression(text)
-      if (length(text) == 1L && identical(text[[1L]][[1L]], "{")) {
+      if (length(text) == 1L && identical(text[[1L]][[1L]], as.symbol("{"))) {
         text <- text[[1L]][-1L]
       }
       as.character(text)
