@@ -266,15 +266,15 @@ get_conditions <- function(x, condition = c("errors", "warnings", "messages", "a
       # Drop strings from compound expressions.
       Filter(Negate(is.character), as.list(expr)[-1])
     } else if (is.null(expr)) {
-      unlist(
-        lapply(text, function(x) {
-          expr <- str2expression(x)
-          if (length(expr) == 1L && identical(expr[[1L]][[1L]], as.symbol("{"))) {
-            expr <- expr[[1L]][-1L]
-          }
-          as.character(expr)
-        })
-      )
+      expr <- as.list(str2expression(text))
+      disarm <- function(x) {
+        if (identical(expr[[1L]][[1L]], as.symbol("{"))) {
+          as.character(expr[[1L]][-1L])
+        } else {
+          deparse1(x)
+        }
+      }
+      unlist(lapply(expr, disarm))
     }
   code
 }
