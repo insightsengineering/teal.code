@@ -1,31 +1,31 @@
-#' qenv refactor prototype
+#' quenv refactor prototype
 #'
 #' Simple to use environment with history tracking.
 #'
 #' @details
-#' Create a `qenv` object, which is an environment, and execute code inside.
+#' Create a `quenv` object, which is an environment, and execute code inside.
 #' Code can be supplied as expressions, literal character vectors, as well as name-bound character vectors.
 #' External values can be injected into the code with the ellipsis.
 #'
-#' `qenv` creates `qenv` object.
-#' `with` acts in `qenv` object.
-#' `within` creates and modifies a (deep) copy of `qenv` object.
+#' `quenv` creates `quenv` object.
+#' `with` acts in `quenv` object.
+#' `within` creates and modifies a (deep) copy of `quenv` object.
 #' `get_code` returns list of function calls or a data.frame with code and the conditions it raised.
 #' `get_conditions` returns list of condition messages (character strings).
 #'
-#' @param data,x (`qenv`)
+#' @param data,x (`quenv`)
 #' @param expr (`language`) simple or compound expression to evaluate in `data`
 #' @param text (`character`) character vector of expressions to evaluate in `data`
 #' @param ... `name:value` pairs to inject values into `expr`
 #'
 #' @return
-#' `qenv` returns a `qenv` object. `with` returns NULL invisibly. `within` returns a modified deep copy of `data`.
+#' `quenv` returns a `quenv` object. `with` returns NULL invisibly. `within` returns a modified deep copy of `data`.
 #'
-#' @name qenv
+#' @name quenv
 #'
 #' @examples
 #'
-#' q <- qenv()
+#' q <- quenv()
 #'
 #' # execute code
 #' with(q, {
@@ -35,7 +35,7 @@
 #' q
 #'
 #' # supply code as strings
-#' q <- qenv()
+#' q <- quenv()
 #' with(q, text = "c <- cars")
 #' code_as_text <- "w <- warpbreaks"
 #' with(q, text = code_as_text)
@@ -64,7 +64,7 @@
 #' get_conditions(q, "error")
 #'
 #' # inject values into code
-#' q <- qenv()
+#' q <- quenv()
 #' with(q, i <- iris)
 #' with(q, print(dim(subset(i, Species == "virginica"))))
 #' try(
@@ -74,28 +74,28 @@
 #' species_external <- "versicolor"
 #' with(q, print(dim(subset(i, Species == species))), species = species_external)
 #'
-#' # execute code in copy of `qenv` and return modified copy
-#' q <- qenv()
+#' # execute code in copy of `quenv` and return modified copy
+#' q <- quenv()
 #' with(q, i <- iris)
 #' qq <- within(q, m <- mtcars)
 #'
 
-#' @rdname qenv
+#' @rdname quenv
 #' @export
-qenv <- function() {
+quenv <- function() {
   ans <- new.env()
   attr(ans, "code") <- list()
   attr(ans, "errors") <- list()
   attr(ans, "warnings") <- list()
   attr(ans, "messages") <- list()
-  class(ans) <- c("qenv", class(ans))
+  class(ans) <- c("quenv", class(ans))
   ans
 }
 
 
-#' @rdname qenv
+#' @rdname quenv
 #' @export
-with.qenv <- function(data, expr, text, ...) {
+with.quenv <- function(data, expr, text, ...) {
   code <- .prepare_code(if (!missing(expr)) substitute(expr), if (!missing(text)) text)
   extras <- list(...)
   lapply(code, .eval_one, envir = data, enclos = parent.frame(), extras = extras)
@@ -103,28 +103,28 @@ with.qenv <- function(data, expr, text, ...) {
 }
 
 
-#' @rdname qenv
+#' @rdname quenv
 #' @export
-within.qenv <- function(data, expr, text, ...) {
+within.quenv <- function(data, expr, text, ...) {
   # Force a return even if some evaluation fails.
   on.exit(return(data))
-  data <- .clone_qenv(data)
+  data <- .clone_quenv(data)
   code <- .prepare_code(if (!missing(expr)) substitute(expr), if (!missing(text)) text)
   extras <- list(...)
   lapply(code, .eval_one, envir = data, enclos = parent.frame(), extras = extras)
 }
 
 
-#' @rdname qenv
+#' @rdname quenv
 #' @export
 #' @keywords internal
-format.qenv <- function(x) {
+format.quenv <- function(x) {
   # opening message
   header <- paste(
-    "`qenv` object (environment)",
-    "  Use `with(qenv, { <code> })` to evaluate code in the qenv.",
-    "  Use `get_code(qenv)` to access all code run in the qenv since instantiation.",
-    "  Use `qenv$<variable>` or `qenv[[\"<variable>\"]]`to access variables.",
+    "`quenv` object (environment)",
+    "  Use `with(quenv, { <code> })` to evaluate code in the quenv.",
+    "  Use `get_code(quenv)` to access all code run in the quenv since instantiation.",
+    "  Use `quenv$<variable>` or `quenv[[\"<variable>\"]]`to access variables.",
     sep = "\n"
   )
 
@@ -161,7 +161,7 @@ format.qenv <- function(x) {
       if (!identical(contents_hidden, "")) sprintf("hidden bindings:\n%s", contents_hidden)
     )
   } else {
-    contents_all <- "This qenv is empty."
+    contents_all <- "This quenv is empty."
   }
 
   # code
@@ -206,46 +206,46 @@ format.qenv <- function(x) {
 }
 
 
-#' @rdname qenv
+#' @rdname quenv
 #' @export
 #' @keywords internal
-print.qenv <- function(x, ...) {
+print.quenv <- function(x, ...) {
   cat(format(x, ...), sep = "\n")
 }
 
 
 #' @export
 #' @keywords internal
-`[.qenv` <- function(x, ...) { # nolint
-  stop("Use `qenv$<variable>` or `qenv[[\"<variable>\"]]`to access variables.")
+`[.quenv` <- function(x, ...) { # nolint
+  stop("Use `quenv$<variable>` or `quenv[[\"<variable>\"]]`to access variables.")
 }
 
 
 #' @export
 #' @keywords internal
-`$<-.qenv` <- function(x, name, value) { # nolint
+`$<-.quenv` <- function(x, name, value) { # nolint
   stop(
     "Direct assignment is forbidden as it cannot be tracked. ",
-    "Use `with( <qenv>, { <name> <- <value> })` instead."
+    "Use `with( <quenv>, { <name> <- <value> })` instead."
   )
 }
 
 
 #' @export
 #' @keywords internal
-`[[<-.qenv` <- function(x, name, value) { # nolint
+`[[<-.quenv` <- function(x, name, value) { # nolint
   stop(
     "Direct assignment is forbidden as it cannot be tracked. ",
-    "Use `with( <qenv>, { <name> <- <value> })` instead."
+    "Use `with( <quenv>, { <name> <- <value> })` instead."
   )
 }
 
 
-#' @rdname qenv
+#' @rdname quenv
 #' @export
 #' @keywords internal
-get_code <- function(x, include_messages = FALSE) {
-  checkmate::assert_class(x, "qenv")
+get_code_quenv <- function(x, include_messages = FALSE) {
+  checkmate::assert_class(x, "quenv")
   if (include_messages) {
     collected <- list(
       code = lapply(attr(x, "code"), deparse1),
@@ -260,11 +260,11 @@ get_code <- function(x, include_messages = FALSE) {
 }
 
 
-#' @rdname qenv
+#' @rdname quenv
 #' @export
 #' @keywords internal
 get_conditions <- function(x, condition = c("errors", "warnings", "messages", "all")) {
-  checkmate::assert_class(x, "qenv")
+  checkmate::assert_class(x, "quenv")
   condition <- match.arg(condition)
 
   if (condition == "all") {
@@ -355,49 +355,57 @@ get_conditions <- function(x, condition = c("errors", "warnings", "messages", "a
 
 
 #' @keywords internal
-# deep copy a `qenv`
-.clone_qenv <- function(x) {
-  if (!inherits(x, "qenv")) stop("\"x\" must be a qenv object")
+# deep copy a `quenv`
+.clone_quenv <- function(x) {
+  if (!inherits(x, "quenv")) stop("\"x\" must be a quenv object")
   ans <- list2env(mget(ls(envir = x, all.names = TRUE, sorted = FALSE), envir = x), parent = parent.env(x))
   attributes(ans) <- attributes(x)
   ans
 }
 
 
-# helper for `format.qenv`
+
+# helper for `format.quenv`
 # briefly summarize object
 #' @export
 #' @keywords internal
-.object_info <- function(x) { # nolint
+.object_info <- function(x) {
+  # nolint
   UseMethod(".object_info")
 }
 #' @export
 #' @keywords internal
-.object_info.data.frame <- function(x) { # nolint
+.object_info.data.frame <- function(x) {
+  # nolint
   sprintf("%d x %d", dim(x)[1], dim(x)[2])
 }
 #' @export
 #' @keywords internal
-.object_info.matrix <- function(x) { # nolint
+.object_info.matrix <- function(x) {
+  # nolint
   sprintf("%s, %d x %d", typeof(x), dim(x)[1], dim(x)[2])
 }
 #' @export
 #' @keywords internal
-.object_info.factor <- function(x) { # nolint
+.object_info.factor <- function(x) {
+  # nolint
   sprintf("%d levels, [%d]", length(levels(x)), length(x))
 }
 #' @export
 #' @keywords internal
-.object_info.character <- function(x) { # nolint
+.object_info.character <- function(x) {
+  # nolint
   sprintf("%d item(s), %d value(s)", length(x), length(unique(x)))
 }
 #' @export
 #' @keywords internal
-.object_info.numeric <- function(x) { # nolint
+.object_info.numeric <- function(x) {
+  # nolint
   sprintf("%d item(s)", length(x))
 }
 #' @export
 #' @keywords internal
-.object_info.default <- function(x) { # nolint
+.object_info.default <- function(x) {
+  # nolint
   ""
 }
