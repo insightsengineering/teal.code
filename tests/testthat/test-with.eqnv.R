@@ -2,9 +2,9 @@
 # nolint start
 
 # creation ----
-testthat::test_that("qenv is created empty with attributes as empty lists", {
-  testthat::expect_no_error(q <- qenv())
-  testthat::expect_s3_class(q, "qenv")
+testthat::test_that("quenv is created empty with attributes as empty lists", {
+  testthat::expect_no_error(q <- quenv())
+  testthat::expect_s3_class(q, "quenv")
   testthat::expect_identical(
     attributes(q),
     list(
@@ -12,7 +12,7 @@ testthat::test_that("qenv is created empty with attributes as empty lists", {
       errors = list(),
       warnings = list(),
       messages = list(),
-      class = c("qenv", "environment")
+      class = c("quenv", "environment")
     )
   )
 })
@@ -22,13 +22,13 @@ testthat::test_that("qenv is created empty with attributes as empty lists", {
 ## code acceptance ----
 # internal functions .prepare_code and .eval_one are tested by running `with`
 testthat::test_that("simple expressions passed `expr` are evaluated", {
-  q <- qenv()
+  q <- quenv()
   testthat::expect_no_error(with(q, 1 + 1))
   testthat::expect_no_error(with(q, iris))
 })
 
 testthat::test_that("compound expressions passed to `expr` are evaluated", {
-  q <- qenv()
+  q <- quenv()
   testthat::expect_no_error(
     with(q, {
       1 + 1
@@ -54,12 +54,12 @@ testthat::test_that("compound expressions passed to `expr` are evaluated", {
 })
 
 testthat::test_that("sipmle expressions as literal strings passed to `text` are evaluated", {
-  q <- qenv()
+  q <- quenv()
   testthat::expect_no_error(with(q, text = "1 + 1"))
 })
 
 testthat::test_that("compound expressions as literal strings passed to `text` are evaluated", {
-  q <- qenv()
+  q <- quenv()
   testthat::expect_no_error(
     with(q, text = "{
       1 + 1
@@ -85,7 +85,7 @@ testthat::test_that("compound expressions as literal strings passed to `text` ar
 })
 
 testthat::test_that("simple expressions as character vectors passed to `text` are evaluated", {
-  q <- qenv()
+  q <- quenv()
   expressions <- c(
     "1 + 1",
     "1 + 1
@@ -100,7 +100,7 @@ testthat::test_that("simple expressions as character vectors passed to `text` ar
 })
 
 testthat::test_that("compound expressions as character vectors passed to `text` are evaluated", {
-  q <- qenv()
+  q <- quenv()
   expressions <- c(
     "{1 + 1}",
     "{1 + 1
@@ -120,7 +120,7 @@ testthat::test_that("compound expressions as character vectors passed to `text` 
 })
 
 testthat::test_that("sipmle expressions from file passed to `text` are evaluated", {
-  q <- qenv()
+  q <- quenv()
   expressions <- c(
     "1 + 1",
     "1 + 1
@@ -138,7 +138,7 @@ testthat::test_that("sipmle expressions from file passed to `text` are evaluated
 })
 
 testthat::test_that("compound expressions from file passed to `text` are evaluated", {
-  q <- qenv()
+  q <- quenv()
   expressions <- c(
     "{1 + 1}",
     "{1 + 1
@@ -161,20 +161,20 @@ testthat::test_that("compound expressions from file passed to `text` are evaluat
 })
 
 testthat::test_that("characters passed to `expr` raise errors", {
-  q <- qenv()
+  q <- quenv()
   testthat::expect_error(with(q, "1 + 1"), "character vector passed to \"expr\":.+use the \"text\" argument instead")
 })
 
 testthat::test_that("character-only compound expressions passed `expr` are ignored", {
-  q <- qenv()
+  q <- quenv()
   with(q, {"1 + 1"})
-  testthat::expect_identical(attributes(q), attributes(qenv()))
+  testthat::expect_identical(attributes(q), attributes(quenv()))
 })
 
 
 # variable assignment ----
-testthat::test_that("direct assignment to qenv is forbidden", {
-  q <- qenv()
+testthat::test_that("direct assignment to quenv is forbidden", {
+  q <- quenv()
   testthat::expect_error(q$i <- iris, regexp = "Direct assignment is forbidden")
   testthat::expect_error(q[["i"]] <- iris, regexp = "Direct assignment is forbidden")
   testthat::expect_no_error(with(q, i <- iris))
@@ -182,8 +182,8 @@ testthat::test_that("direct assignment to qenv is forbidden", {
 
 
 # variable access ----
-testthat::test_that("variables in qenv can be accessed", {
-  q <- qenv()
+testthat::test_that("variables in quenv can be accessed", {
+  q <- quenv()
   with(q, i <- iris)
   testthat::expect_no_error(q$i)
   testthat::expect_no_error(q[["i"]])
@@ -195,7 +195,7 @@ testthat::test_that("variables in qenv can be accessed", {
 
 # extracting conditions ----
 testthat::test_that("get_conditions extracts requested conditions as lists of strings", {
-  q <- qenv()
+  q <- quenv()
   testthat::expect_error({
     with(q, {
       i <- iris
@@ -243,8 +243,8 @@ testthat::test_that("get_conditions extracts requested conditions as lists of st
 
 
 # extracting code ----
-testthat::test_that("get_code extracts code identical to the evaluated one", {
-  q <- qenv()
+testthat::test_that("get_code_quenv extracts code identical to the evaluated one", {
+  q <- quenv()
   with(q, {
     i <- iris
     m <- mtcars
@@ -252,7 +252,7 @@ testthat::test_that("get_code extracts code identical to the evaluated one", {
   })
 
   testthat::expect_identical(
-    get_code(q),
+    get_code_quenv(q),
     list(
       quote(i <- iris),
       quote(m <- mtcars),
@@ -261,8 +261,8 @@ testthat::test_that("get_code extracts code identical to the evaluated one", {
   )
 })
 
-testthat::test_that("get_code juxtaposes expressions with their respective conditions", {
-  q <- qenv()
+testthat::test_that("get_code_quenv juxtaposes expressions with their respective conditions", {
+  q <- quenv()
   testthat::expect_error({
     with(q, {
       i <- iris
@@ -274,7 +274,7 @@ testthat::test_that("get_code juxtaposes expressions with their respective condi
     })
   })
 
-  summary <- get_code(q, include_messages = TRUE)
+  summary <- get_code_quenv(q, include_messages = TRUE)
   testthat::expect_s3_class(summary, "data.frame")
   testthat::expect_named(summary, c("code", "error", "warning", "message"))
   lapply(summary, testthat::expect_type, type = "character")
@@ -307,7 +307,7 @@ testthat::test_that("get_code juxtaposes expressions with their respective condi
 # evaluation, ctd. ----
 ## code identity ----
 testthat::test_that("code passed as expression or character is evaluated as identical", {
-  q1 <- qenv()
+  q1 <- quenv()
   with(q1, 1 + 1)
   with(q1, {
     1 + 1
@@ -331,7 +331,7 @@ testthat::test_that("code passed as expression or character is evaluated as iden
     }
   })
 
-  q2 <- qenv()
+  q2 <- quenv()
   with(q2, text = "1 + 1")
   with(q2, text = "{
     1 + 1
@@ -379,20 +379,20 @@ testthat::test_that("code passed as expression or character is evaluated as iden
        }
      }"
   )
-  q3 <- qenv()
+  q3 <- quenv()
   with(q3, text = expressions)
   testthat::expect_identical(
-    get_code(q1),
-    get_code(q2)
+    get_code_quenv(q1),
+    get_code_quenv(q2)
   )
   testthat::expect_identical(
-    get_code(q2),
-    get_code(q3)
+    get_code_quenv(q2),
+    get_code_quenv(q3)
   )
 })
 
 testthat::test_that("differently formulated expressions yield the same code", {
-  q <- qenv()
+  q <- quenv()
   with(q, 1 + 1)
   with(q, {1 + 1})
   with(q, {
@@ -402,13 +402,13 @@ testthat::test_that("differently formulated expressions yield the same code", {
     1 +
       1
   })
-  all_code <- get_code(q)
+  all_code <- get_code_quenv(q)
   testthat::expect_identical(
     all_code,
     rep(list(quote(1 + 1)), 4L)
   )
 
-  q <- qenv()
+  q <- quenv()
   with(q, {1 + 1; 2 + 2})
   with(q, {
     1 + 1; 2 + 2
@@ -421,7 +421,7 @@ testthat::test_that("differently formulated expressions yield the same code", {
     1 + 1;
     2 + 2
   })
-  all_code <- get_code(q)
+  all_code <- get_code_quenv(q)
   all_code_pairs <- lapply(seq_len(4L), function(x) all_code[((x - 1L) * 2L) + 1:2])
   testthat::expect_identical(
     all_code,
@@ -431,7 +431,7 @@ testthat::test_that("differently formulated expressions yield the same code", {
 
 ## injecting values ----
 testthat::test_that("external values can be injected into native expressions through `...`", {
-  q <- qenv()
+  q <- quenv()
 
   with(q, {
     i <- subset(iris, Species == "setosa")
@@ -462,7 +462,7 @@ testthat::test_that("external values can be injected into native expressions thr
   species = external_value)
 
   testthat::expect_identical(
-    get_code(q),
+    get_code_quenv(q),
     list(
       quote(i <- subset(iris, Species == "setosa")),
       quote(ii <- subset(iris, Species == species)),
@@ -473,7 +473,7 @@ testthat::test_that("external values can be injected into native expressions thr
 })
 
 testthat::test_that("external values can be injected into (literal) character expressions through `...`", {
-  q <- qenv()
+  q <- quenv()
 
   with(q, text = "i <- subset(iris, Species == \"setosa\")")
 
@@ -494,7 +494,7 @@ testthat::test_that("external values can be injected into (literal) character ex
   with(q, text = "iiii <- subset(iris, Species == species)", species = external_value)
 
   testthat::expect_identical(
-    get_code(q),
+    get_code_quenv(q),
     list(
       quote(i <- subset(iris, Species == "setosa")),
       quote(ii <- subset(iris, Species == species)),
@@ -505,7 +505,7 @@ testthat::test_that("external values can be injected into (literal) character ex
 })
 
 testthat::test_that("external values can be injected into (value) character expressions through `...`", {
-  q <- qenv()
+  q <- quenv()
 
   expression <- "i <- subset(iris, Species == \"setosa\")"
   with(q, text = expression)
@@ -530,7 +530,7 @@ testthat::test_that("external values can be injected into (value) character expr
   with(q, text = expression, species = external_value)
 
   testthat::expect_identical(
-    get_code(q),
+    get_code_quenv(q),
     list(
       quote(i <- subset(iris, Species == "setosa")),
       quote(ii <- subset(iris, Species == species)),
@@ -545,13 +545,13 @@ testthat::test_that("external values can be injected into (value) character expr
 # no tests for format method yet
 
 # within ----
-testthat::test_that("within.qenv renturns a deep copy of `data`", {
-  q <- qenv()
+testthat::test_that("within.quenv renturns a deep copy of `data`", {
+  q <- quenv()
   with(q, i <- iris)
   qq <- within(q, text = "")
   testthat::expect_equal(q, qq)
 
-  q <- qenv()
+  q <- quenv()
   with(q, i <- iris)
   qq <- within(q, m <- mtcars)
   testthat::expect_failure(
@@ -559,8 +559,8 @@ testthat::test_that("within.qenv renturns a deep copy of `data`", {
   )
 })
 
-testthat::test_that("within.qenv renturns even if evaluation raises error", {
-  q <- qenv()
+testthat::test_that("within.quenv renturns even if evaluation raises error", {
+  q <- quenv()
   with(q, i <- iris)
   try(qq <- within(q, stop("right there")))
   testthat::expect_true(
