@@ -3,6 +3,17 @@
 #'
 #' Simple to use environment with history tracking.
 #'
+#' @details
+#' Create a `qenv` object, which is an environment, and execute code inside.
+#' Code can be supplied as expressions, literal character vectors, as well as name-bound character vectors.
+#' External values can be injected into the code with the ellipsis.
+#'
+#' `qenv` creates `qenv` object.
+#' `with` acts in `qenv` object.
+#' `within` creates and modifies a (deep) copy of `qenv` object.
+#' `get_code` returns list of function calls or a data.frame with code and the conditions it raised.
+#' `get_conditions` returns list of condition messages (character strings).
+#'
 #' @param data,x (`qenv`)
 #' @param expr (`language`) simple or compound expression to evaluate in `data`
 #' @param text (`character`) character vector of expressions to evaluate in `data`
@@ -11,7 +22,67 @@
 #' @return
 #' `qenv` returns a `qenv` object. `with` returns NULL invisibly. `within` returns a modified deep copy of `data`.
 #'
-#' @describeIn qenv create `qenv` object
+#' @name qenv
+#'
+#' @examples
+#'
+#' q <- qenv()
+#'
+#' # execute code
+#' with(q, {
+#'   i <- iris
+#'   m <- mtcars
+#' })
+#' q
+#'
+#' # supply code as strings
+#' q <- qenv()
+#' with(q, text = "c <- cars")
+#' code_as_text <- "w <- warpbreaks"
+#' with(q, text = code_as_text)
+#'
+#' # error messages are stored
+#' try(
+#'   with(q, {
+#'     subset(i, Species == species) # raises error and stops evaluation
+#'     ms <- subset(m, cyl == 4) # not evaluated
+#'   })
+#' )
+#' q
+#'
+#' # warnings and messages are also stored
+#' with(q, {
+#'   warning("this is a warning")
+#' })
+#' with(q, {
+#'   message("this is a message")
+#' })
+#' q
+#'
+#' # access variables and environment history
+#' q$m
+#' get_code(q)
+#' get_conditions(q, "error")
+#'
+#' # inject values into code
+#' q <- qenv()
+#' with(q, i <- iris)
+#' with(q, print(dim(subset(i, Species == "virginica"))))
+#' try(
+#'   with(q, print(dim(subset(i, Species == species)))) # fails
+#' )
+#' with(q, print(dim(subset(i, Species == species))), species = "versicolor")
+#' species_external <- "versicolor"
+#' with(q, print(dim(subset(i, Species == species))), species = species_external)
+#'
+#' # execute code in copy of `qenv` and return modified copy
+#' q <- qenv()
+#' with(q, i <- iris)
+#' qq <- within(q, m <- mtcars)
+#'
+
+
+#' @rdname qenv
 #' @export
 qenv <- function() {
   ans <- new.env()
@@ -24,7 +95,7 @@ qenv <- function() {
 }
 
 
-#' @describeIn qenv act in `qenv` object
+#' @rdname qenv
 #' @export
 with.qenv <- function(data, expr, text, ...) {
   code <- .prepare_code(if (!missing(expr)) substitute(expr), if (!missing(text)) text)
@@ -34,7 +105,7 @@ with.qenv <- function(data, expr, text, ...) {
 }
 
 
-#' @describeIn qenv create and modify a (deep) copy of a `qenv`
+#' @rdname qenv
 #' @export
 within.qenv <- function(data, expr, text, ...) {
   # Force a return even if some evaluation fails.
@@ -46,7 +117,9 @@ within.qenv <- function(data, expr, text, ...) {
 }
 
 
+#' @rdname qenv
 #' @export
+#' @keywords internal
 format.qenv <- function(x) {
   # opening message
   header <- paste(
@@ -131,19 +204,23 @@ format.qenv <- function(x) {
 }
 
 
+#' @rdname qenv
 #' @export
+#' @keywords internal
 print.qenv <- function(x, ...) {
   cat(format(x, ...), sep = "\n")
 }
 
 
 #' @export
+#' @keywords internal
 `[.qenv` <- function(x, ...) {
   stop("Use `qenv$<variable>` or `qenv[[\"<variable>\"]]`to access variables.")
 }
 
 
 #' @export
+#' @keywords internal
 `$<-.qenv` <- function(x, name, value) {
   stop(
     "Direct assignment is forbidden as it cannot be tracked. ",
@@ -153,6 +230,7 @@ print.qenv <- function(x, ...) {
 
 
 #' @export
+#' @keywords internal
 `[[<-.qenv` <- function(x, name, value) {
   stop(
     "Direct assignment is forbidden as it cannot be tracked. ",
@@ -161,8 +239,9 @@ print.qenv <- function(x, ...) {
 }
 
 
-#' @describeIn qenv Returns list of function calls or a data.frame with code and the conditions it raised.
+#' @rdname qenv
 #' @export
+#' @keywords internal
 get_code <- function(x, include_messages = FALSE) {
   checkmate::assert_class(x, "qenv")
   if (include_messages) {
@@ -179,8 +258,9 @@ get_code <- function(x, include_messages = FALSE) {
 }
 
 
-#' @describeIn qenv Returns list of condition messages (character strings).
+#' @rdname qenv
 #' @export
+#' @keywords internal
 get_conditions <- function(x, condition = c("errors", "warnings", "messages", "all")) {
   checkmate::assert_class(x, "qenv")
   condition <- match.arg(condition)
@@ -197,47 +277,6 @@ get_conditions <- function(x, condition = c("errors", "warnings", "messages", "a
     Filter(function(x) !identical(x, ""), attr(x, condition))
   }
 }
-
-
-#' @examples
-#'
-#' q <- qenv()
-#' # execute code
-#' with(q, {
-#'   i <- iris
-#'   m <- mtcars
-#' })
-#' q
-#' # error messages are stored
-#' with(q, {
-#'   subset(i, Species == species) # raises error and stops evaluation
-#'   ms <- subset(m, cyl == 4) # not evaluated
-#' })
-#' q
-#' # warnings and messages are also stored
-#' with(q, {
-#'   warning("this is a warning")
-#' })
-#' with(q, {
-#'   message("this is a message")
-#' })
-#' q
-#'
-#' access variables and environment history
-#' q$m
-#' get_code(q)
-#' get_conditions(q, "error")
-#'
-#' # injecting values into code
-#' q <- qenv()
-#' with(q, i <- iris)
-#' with(q, print(dim(subset(i, Species == "virginica"))))
-#' \dontrun{
-#' with(q, print(dim(subset(i, Species == species)))) # fails
-#' }
-#' with(q, print(dim(subset(i, Species == species))), species = "versicolor")
-#' species_external <- "versicolor"
-#' with(q, print(dim(subset(i, Species == species))), species = species_external)
 
 
 #' @keywords internal
@@ -314,7 +353,7 @@ get_conditions <- function(x, condition = c("errors", "warnings", "messages", "a
 
 
 #' @keywords internal
-# deep copy a qenv
+# deep copy a `qenv`
 .clone_qenv <- function(x) {
   if (!inherits(x, "qenv")) stop("\"x\" must be a qenv object")
   ans <- list2env(mget(ls(envir = x, all.names = TRUE, sorted = FALSE), envir = x), parent = parent.env(x))
@@ -323,34 +362,40 @@ get_conditions <- function(x, condition = c("errors", "warnings", "messages", "a
 }
 
 
-#' @keywords internal
-#' helper for format.qenv
-#' briefly summarize object
+# helper for `format.qenv`
+# briefly summarize object
 #' @export
-.object_info <- function(x) {
+#' @keywords internal
+.object_info <- function(x) { # nolint
   UseMethod(".object_info")
 }
 #' @export
-.object_info.data.frame <- function(x) {
+#' @keywords internal
+.object_info.data.frame <- function(x) { # nolint
   sprintf("%d x %d", dim(x)[1], dim(x)[2])
 }
 #' @export
-.object_info.matrix <- function(x) {
+#' @keywords internal
+.object_info.matrix <- function(x) { # nolint
   sprintf("%s, %d x %d", typeof(x), dim(x)[1], dim(x)[2])
 }
 #' @export
-.object_info.factor <- function(x) {
+#' @keywords internal
+.object_info.factor <- function(x) { # nolint
   sprintf("%d levels, [%d]", length(levels(x)), length(x))
 }
 #' @export
-.object_info.character <- function(x) {
+#' @keywords internal
+.object_info.character <- function(x) { # nolint
   sprintf("%d item(s), %d value(s)", length(x), length(unique(x)))
 }
 #' @export
-.object_info.numeric <- function(x) {
+#' @keywords internal
+.object_info.numeric <- function(x) { # nolint
   sprintf("%d item(s)", length(x))
 }
 #' @export
-.object_info.default <- function(x) {
+#' @keywords internal
+.object_info.default <- function(x) { # nolint
   ""
 }
