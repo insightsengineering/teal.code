@@ -163,6 +163,7 @@ print.qenv <- function(x, ...) {
 #' @describeIn qenv Returns list of function calls or a data.frame with code and the conditions it raised.
 #' @export
 get_code <- function(x, include_messages = FALSE) {
+  checkmate::assert_class(x, "qenv")
   if (include_messages) {
     collected <- list(
       code = lapply(attr(x, "code"), deparse1),
@@ -180,6 +181,7 @@ get_code <- function(x, include_messages = FALSE) {
 #' @describeIn qenv Returns list of condition messages (character strings).
 #' @export
 get_conditions <- function(x, condition = c("errors", "warnings", "messages", "all")) {
+  checkmate::assert_class(x, "qenv")
   condition <- match.arg(condition)
 
   if (condition == "all") {
