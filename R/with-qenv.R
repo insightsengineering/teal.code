@@ -1,4 +1,4 @@
-#' quenv refactor prototype
+#' qenv refactor prototype
 #'
 #' Simple to use environment with history tracking.
 #'
@@ -369,43 +369,43 @@ get_conditions <- function(x, condition = c("errors", "warnings", "messages", "a
 # briefly summarize object
 #' @export
 #' @keywords internal
-.object_info <- function(x) {
+.object_info <- function(x) { # nolint
   # nolint
   UseMethod(".object_info")
 }
 #' @export
 #' @keywords internal
-.object_info.data.frame <- function(x) {
+.object_info.data.frame <- function(x) { # nolint
   # nolint
   sprintf("%d x %d", dim(x)[1], dim(x)[2])
 }
 #' @export
 #' @keywords internal
-.object_info.matrix <- function(x) {
+.object_info.matrix <- function(x) { # nolint
   # nolint
   sprintf("%s, %d x %d", typeof(x), dim(x)[1], dim(x)[2])
 }
 #' @export
 #' @keywords internal
-.object_info.factor <- function(x) {
+.object_info.factor <- function(x) { # nolint
   # nolint
   sprintf("%d levels, [%d]", length(levels(x)), length(x))
 }
 #' @export
 #' @keywords internal
-.object_info.character <- function(x) {
+.object_info.character <- function(x) { # nolint
   # nolint
   sprintf("%d item(s), %d value(s)", length(x), length(unique(x)))
 }
 #' @export
 #' @keywords internal
-.object_info.numeric <- function(x) {
+.object_info.numeric <- function(x) { # nolint
   # nolint
   sprintf("%d item(s)", length(x))
 }
 #' @export
 #' @keywords internal
-.object_info.default <- function(x) {
+.object_info.default <- function(x) { # nolint
   # nolint
   ""
 }
