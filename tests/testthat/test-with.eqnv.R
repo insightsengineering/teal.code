@@ -568,5 +568,5 @@ testthat::test_that("within.qenv renturns even if evaluation raises error", {
   )
 })
 
-# nolint start
+# nolint end
 # styler: on

@@ -216,14 +216,14 @@ print.qenv <- function(x, ...) {
 
 #' @export
 #' @keywords internal
-`[.qenv` <- function(x, ...) {
+`[.qenv` <- function(x, ...) { # nolint
   stop("Use `qenv$<variable>` or `qenv[[\"<variable>\"]]`to access variables.")
 }
 
 
 #' @export
 #' @keywords internal
-`$<-.qenv` <- function(x, name, value) {
+`$<-.qenv` <- function(x, name, value) { # nolint
   stop(
     "Direct assignment is forbidden as it cannot be tracked. ",
     "Use `with( <qenv>, { <name> <- <value> })` instead."
@@ -233,7 +233,7 @@ print.qenv <- function(x, ...) {
 
 #' @export
 #' @keywords internal
-`[[<-.qenv` <- function(x, name, value) {
+`[[<-.qenv` <- function(x, name, value) { # nolint
   stop(
     "Direct assignment is forbidden as it cannot be tracked. ",
     "Use `with( <qenv>, { <name> <- <value> })` instead."
