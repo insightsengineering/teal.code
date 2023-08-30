@@ -8,7 +8,7 @@
 \alias{print.quenv}
 \alias{get_code_quenv}
 \alias{get_conditions}
-\title{quenv refactor prototype}
+\title{qenv refactor prototype}
 \usage{
 quenv()
 
