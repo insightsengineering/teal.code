@@ -268,8 +268,8 @@ get_conditions <- function(x, condition = c("errors", "warnings", "messages", "a
     } else if (is.null(expr)) {
       expr <- as.list(str2expression(text))
       disarm <- function(x) {
-        if (identical(expr[[1L]][[1L]], as.symbol("{"))) {
-          as.character(expr[[1L]][-1L])
+        if (identical(x[[1L]], as.symbol("{"))) {
+          as.character(x[-1L])
         } else {
           deparse1(x)
         }
