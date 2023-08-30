@@ -1,4 +1,3 @@
-
 #' qenv refactor prototype
 #'
 #' Simple to use environment with history tracking.
@@ -81,7 +80,6 @@
 #' qq <- within(q, m <- mtcars)
 #'
 
-
 #' @rdname qenv
 #' @export
 qenv <- function() {
@@ -142,17 +140,21 @@ format.qenv <- function(x) {
     longest_name <- max(nchar(c(var_names, var_names_hidden)))
     longest_class <- max(nchar(c(var_classes, var_classes_hidden)))
 
-    contents <- if (is.finite(longest_name)) paste(
-      sprintf(sprintf("  $ %%-0%is", longest_name), var_names),
-      sprintf(sprintf("%%-0%is", longest_class), var_classes),
-      vapply(var_names, function(v) .object_info(get(v, envir = x)), character(1)),
-      sep = " : ", collapse = "\n")
+    contents <- if (is.finite(longest_name)) {
+      paste(
+        sprintf(sprintf("  $ %%-0%is", longest_name), var_names),
+        sprintf(sprintf("%%-0%is", longest_class), var_classes),
+        vapply(var_names, function(v) .object_info(get(v, envir = x)), character(1)),
+        sep = " : ", collapse = "\n"
+      )
+    }
 
     contents_hidden <- paste(
       sprintf(sprintf("  $ %%-0%is", longest_name), var_names_hidden),
       sprintf(sprintf("%%-0%is", longest_class), var_classes_hidden),
       vapply(var_names_hidden, function(v) .object_info(get(v, envir = x)), character(1)),
-      sep = " : ", collapse = "\n")
+      sep = " : ", collapse = "\n"
+    )
 
     contents_all <- c(
       if (!identical(contents, "")) sprintf("bindings:\n%s", contents),
