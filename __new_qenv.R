@@ -95,9 +95,10 @@ format.qenv <- function(x) {
     if (identical(code, list())) {
       ""
     } else {
+      expressions <- vapply(code, function(x) paste(sprintf("      %s", deparse(x)), collapse = "\n"), character(1L))
       paste(
         "  {",
-        paste(sprintf("      %s", lapply(code, deparse1)), collapse = "\n"),
+        paste(expressions, collapse = "\n"),
         "  }",
         sep = "\n"
       )
