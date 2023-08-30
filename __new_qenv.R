@@ -270,14 +270,14 @@ get_conditions <- function(x, condition = c("errors", "warnings", "messages", "a
       Filter(Negate(is.character), as.list(expr)[-1])
     } else if (is.null(expr)) {
       expr <- as.list(str2expression(text))
-      disarm <- function(x) {
+      unpack <- function(x) {
         if (identical(x[[1L]], as.symbol("{"))) {
           as.character(x[-1L])
         } else {
           deparse1(x)
         }
       }
-      unlist(lapply(expr, disarm))
+      unlist(lapply(expr, unpack))
     }
   code
 }
