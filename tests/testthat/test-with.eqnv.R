@@ -1,4 +1,3 @@
-
 # creation ----
 testthat::test_that("qenv is created empty with attributes as empty lists", {
   testthat::expect_no_error(q <- qenv())
@@ -40,7 +39,8 @@ testthat::test_that("compound expressions passed to `expr` are evaluated", {
   )
   testthat::expect_no_error(
     with(q, {
-      1 + 1; 2 + 2
+      1 + 1
+      2 + 2
     })
   )
   testthat::expect_no_error(
@@ -165,7 +165,9 @@ testthat::test_that("characters passed to `expr` raise errors", {
 
 testthat::test_that("character-only compound expressions passed `expr` are ignored", {
   q <- qenv()
-  with(q, {"1 + 1"})
+  with(q, {
+    "1 + 1"
+  })
   testthat::expect_identical(attributes(q), attributes(qenv()))
 })
 
@@ -237,7 +239,6 @@ testthat::test_that("get_conditions extracts requested conditions as lists of st
       )
     )
   )
-
 })
 
 
@@ -316,7 +317,8 @@ testthat::test_that("code passed as expression or character is evaluated as iden
     2 + 2
   })
   with(q1, {
-    1 + 1; 2 + 2
+    1 + 1
+    2 + 2
   })
   with(q1, {
     1 +
@@ -393,7 +395,9 @@ testthat::test_that("code passed as expression or character is evaluated as iden
 testthat::test_that("differently formulated expressions yield the same code", {
   q <- qenv()
   with(q, 1 + 1)
-  with(q, {1 + 1})
+  with(q, {
+    1 + 1
+  })
   with(q, {
     1 + 1
   })
@@ -408,16 +412,20 @@ testthat::test_that("differently formulated expressions yield the same code", {
   )
 
   q <- qenv()
-  with(q, {1 + 1; 2 + 2})
   with(q, {
-    1 + 1; 2 + 2
+    1 + 1
+    2 + 2
   })
   with(q, {
     1 + 1
     2 + 2
   })
   with(q, {
-    1 + 1;
+    1 + 1
+    2 + 2
+  })
+  with(q, {
+    1 + 1
     2 + 2
   })
   all_code <- get_code(q)
@@ -449,16 +457,20 @@ testthat::test_that("external values can be injected into native expressions thr
     )
   )
 
-  with(q, {
-    iii <- subset(iris, Species == species)
-  },
-  species = "virginica")
+  with(q,
+    {
+      iii <- subset(iris, Species == species)
+    },
+    species = "virginica"
+  )
 
   external_value <- "versicolor"
-  with(q, {
-    iiii <- subset(iris, Species == species)
-  },
-  species = external_value)
+  with(q,
+    {
+      iiii <- subset(iris, Species == species)
+    },
+    species = external_value
+  )
 
   testthat::expect_identical(
     get_code(q),
