@@ -128,7 +128,7 @@ format.qenv <- function(x) {
     sep = "\n"
   )
 
-  # contents/bindings
+  # contents/bindings # nolint
   var_names <- ls(x)
   var_names_hidden <- setdiff(ls(x, all.names = TRUE), var_names)
 
