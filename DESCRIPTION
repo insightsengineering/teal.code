@@ -61,3 +61,4 @@ Collate:
     'qenv-show.R'
     'teal.code-package.R'
     'utils.R'
+    'with-qenv.R'
