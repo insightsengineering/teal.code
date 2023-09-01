@@ -2,12 +2,12 @@
 
 ### Miscellaneous
 * Fix NEWS
+* Specify minimal version of dependent packages.
 
 # teal.code 0.4.0
 
 ### Breaking Change
 * `chunks` have been removed. The new `qenv` object should be used instead. See the new `qenv` vignette in the package for further details.
-* Specify minimal version of dependent packages.
 
 ### Miscellaneous
 * `dev_suppress` has been added to suppress rendering of plots on IDE.
