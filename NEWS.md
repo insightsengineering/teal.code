@@ -2,6 +2,8 @@
 
 ### Miscellaneous
 * Fix NEWS
+* Updated usage and installation instructions in `README`.
+* Updated phrasing of the `qenv` vignette.
 
 # teal.code 0.4.0
 

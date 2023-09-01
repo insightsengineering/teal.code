@@ -1,7 +1,6 @@
 ---
 title: "Reproducibility"
 author: "NEST coreDev"
-date: "2022-04-22"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Reproducibility}
@@ -9,17 +8,15 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+Reproducibility stands as a pivotal feature within the realm of data analysis for several compelling reasons:
 
-Reproducibility is an important feature when it comes to data analysis for the following reasons:
+- It empowers users to recreate outputs effortlessly within a standard R console, independent of a reactive shiny app.
+- It fosters transparency, elucidating the analytical process for both users and stakeholders.
 
-- Enables users to reproduce the outputs at any moment in a simple R console outside of a reactive shiny app.
-- Provides transparency where it helps users and others understand what happened during the analysis.
+In this context, the `qenv` object within the `teal.code` package emerges as a pivotal tool, facilitating the development of reproducible `shiny/teal` modules.
 
-This is where the `qenv` object of the`teal.code` package comes into play. It provides a mechanism to develop reproducible shiny/teal modules. 
+It's worth noting that there exists a public [`shinymeta`](https://github.com/rstudio/shinymeta) R package by `RStudio`, offering similar functionality. However, integrating `shinymeta` into `teal` modules poses challenges. Consequently, we recommend the use of qenv for teal-based applications. 
 
-Note that there is a public [`shinymeta`](https://github.com/rstudio/shinymeta) R package from `RStudio` that offers similar functionality. However, currently, `shinymeta` can not be easily integrated into `teal` modules and hence we recommend using `qenv` for `teal` based apps.
+For comprehensive insights, please refer to the [`qenv` vignette](https://insightsengineering.github.io/teal.code/latest-tag/articles/qenv.html).
 
-For further details see the [`qenv` vignette](https://insightsengineering.github.io/teal.code/articles/qenv.html).
-
-Note: the older method of handling reproducibility, `chunks`, have now been deleted and `qenv` should be used instead.
-
+Important Note: The legacy approach to handling reproducibility, known as `chunks`, has been deprecated. We strongly advocate for the adoption of `qenv` as its successor.

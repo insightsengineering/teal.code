@@ -1,6 +1,12 @@
 # teal.code
 
 <!-- start badges -->
+
+[![CRAN Version](https://www.r-pkg.org/badges/version/teal.code?color=green)](https://cran.r-project.org/package=teal.code)
+[![Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/teal.code?color=green)](https://cran.r-project.org/package=teal.code)
+[![Last Month Downloads](http://cranlogs.r-pkg.org/badges/last-month/teal.code?color=green)](https://cran.r-project.org/package=teal.code)
+[![Last Week Downloads](http://cranlogs.r-pkg.org/badges/last-week/teal.code?color=green)](https://cran.r-project.org/package=teal.code)
+
 [![Check 🛠](https://github.com/insightsengineering/teal.code/actions/workflows/check.yaml/badge.svg)](https://insightsengineering.github.io/teal.code/main/unit-test-report/)
 [![Docs 📚](https://github.com/insightsengineering/teal.code/actions/workflows/docs.yaml/badge.svg)](https://insightsengineering.github.io/teal.code/)
 [![Code Coverage 📔](https://raw.githubusercontent.com/insightsengineering/teal.code/_xml_coverage_reports/data/main/badge.svg)](https://insightsengineering.github.io/teal.code/main/coverage-report/)
@@ -32,18 +38,69 @@ include:
 
 ## Installation
 
-For releases from August 2022 it is recommended that you [create and use a Github PAT](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token) to install the latest version of this package. Once you have the PAT, run the following:
+From July 2023 `insightsengineering` packages are available on [r-universe](https://r-universe.dev/).
 
 ```r
-Sys.setenv(GITHUB_PAT = "your_access_token_here")
-if (!require("remotes")) install.packages("remotes")
-remotes::install_github("insightsengineering/teal.code@*release")
+# stable versions
+install.packages('teal.code', repos = c('https://insightsengineering.r-universe.dev', 'https://cloud.r-project.org'))
+
+# install.packages("pak")
+pak::pak("insightsengineering/teal.code@*release")
 ```
 
-A stable release of all `NEST` packages from June 2022 is also available [here](https://github.com/insightsengineering/depository#readme).
+Alternatively, you might also use the development version.
 
-You might need to manually install all of the package dependencies before installing this package as without
-the `dependencies = FALSE` argument to `install_github` it may produce an error.
+```r
+# beta versions
+install.packages('teal.code', repos = c('https://pharmaverse.r-universe.dev', 'https://cloud.r-project.org'))
+
+# install.packages("pak")
+pak::pak("insightsengineering/teal.code")
+```
+
+## Usage
+
+To understand how to use this package, please refer to the [Getting Started](https://insightsengineering.github.io/teal.code/latest-tag/articles/teal-code.html) article, which provides multiple examples of code implementation.
+
+Below is the showcase of the example usage
+
+```r
+library(teal.code)
+my_qenv <- new_qenv(env = list2env(list(x = 5)), code = "x <- 5")
+my_qenv
+Parent: <environment: package:teal.code>
+Bindings:
+• x: <dbl> [L]
+```
+
+```r
+qenv_2 <- eval_code(my_qenv, "y <- x * 2") |> eval_code("z <- y * 2")
+qenv_2
+<environment: 0x00000135b544cfe8> [L]
+Parent: <environment: package:teal.code>
+Bindings:
+• x: <dbl> [L]
+• y: <dbl> [L]
+• z: <dbl> [L]
+```
+
+```r
+qenv_2[["y"]]
+[1] 10
+```
+
+```r
+cat(paste(get_code(qenv_2), collapse = "\n"))
+x <- 5
+y <- x * 2
+z <- y * 2
+```
+
+
+## Getting help
+
+If you encounter a bug or you have a feature request - please file an issue. For questions, discussions and staying up to date, please use the "teal" channel in the [`pharmaverse` slack workspace](https://pharmaverse.slack.com).
+
 
 ## Stargazers and Forkers
 

@@ -1,7 +1,6 @@
 ---
 title: "`qenv`"
 author: "NEST coreDev"
-date: "2022-11-03"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{qenv}
@@ -15,7 +14,7 @@ A `qenv` is an R object which contains code and an environment and can be used t
 
 ### Initialization
 
-The `new_qenv()` function is used to create an initial `qenv` object:
+The `new_qenv()` function serves as the gateway to create an initial `qenv` object:
 
 ```{r}
 library(teal.code)
@@ -29,11 +28,11 @@ my_qenv <- new_qenv(env = list2env(list(x = 5)), code = "x <- 5")
 print(my_qenv)
 ```
 
-If the `qenv` is created with objects inside the environment then to ensure reproducibility the code used to generate those objects should be provided. It is the users responsibility to ensure this is the case.
+For enhanced reproducibility, it's crucial to provide the code used to generate objects when creating a `qenv` with objects inside the environment. This responsibility falls upon the user.
 
 ### `qenv` basic usage
 
-The `eval_code()` function can be used to run code inside a `qenv` environment returning a new `qenv` object.  
+The `eval_code()` function executes code within a `qenv` environment, yielding a new `qenv` object as the output. 
 
 ```{r}
 library(magrittr)
@@ -47,16 +46,16 @@ print(my_qenv)
 print(q2)
 ```
 
-Objects can be extracted from a `qenv` using `[[` for example in order for them to be displayed in a shiny app. The code used to generate the `qenv` is obtained using the `get_code()` function.
+To extract objects from a `qenv`, use `[[`; this is particularly useful for displaying them in a `shiny` app. You can retrieve the code used to generate the `qenv` using the `get_code()` function.
 
 ```{r}
 print(q2[["y"]])
 
 cat(paste(get_code(q2), collapse = "\n"))
 ```
-### Joining `qenv` objects
+### Combining `qenv` objects
 
-Given a pair of `qenv` objects it might be possible to "join" them together creating a new `qenv` object containing the union of both environments together with the code needed to reproduce it:
+Given a pair of `qenv` objects, you may be able to "join" them, creating a new `qenv` object encompassing the union of both environments, along with the requisite code for reproduction:
 
 ```{r}
 common_q <- eval_code(new_qenv(), quote(x <- 1))
@@ -69,11 +68,11 @@ join_q <- join(x_q, y_q)
 print(join_q)
 ```
 
-Dependent on the contents of the environments and order of code it may not be possible to join `qenv` objects. See the function documentation for more details.
+The feasibility of joining `qenv` objects hinges on the contents of the environments and the code's order. Refer to the function documentation for further details..
 
 ### Warnings and messages in `qenv` objects
 
-If warnings or messages are thrown when evaluating code in a `qenv` environment, they are captured and stored in the  `qenv` object. These messages and warnings can be accessed with the `@` operator.
+In cases where warnings or messages arise while evaluating code within a `qenv` environment, these are captured and stored within the `qenv` object. Access these messages and warnings using the `@` operator.
 
 ```{r}
 q_message <- eval_code(new_qenv(), quote(message("this is a message")))
@@ -83,19 +82,20 @@ q_warning <- eval_code(new_qenv(), quote(warning("and this is a warning")))
 q_warning@warnings
 ```
 
-If no warning or message occurs on a particular line of code, the corresponding message/warning value will be an empty string.
+If a particular line of code doesn't trigger any warnings or messages, the corresponding message/warning value will be an empty string.
 
 ```{r}
 q_message@warnings
 q_warning@messages
 ```
 
-A helper function `get_warnings()` is also available to produce a formatted string containing the warnings and the code used to produce them - it returns NULL when there are no warnings.
+Additionally, a helper function, `get_warnings()`, is available to generate a formatted string comprising the warnings and the code responsible for generating them. It returns `NULL` when no warnings are present.
 
-## Using `qenv` inside `shiny` applications
+## Utilizing `qenv` inside `shiny` applications
 
-The functions above can be combined into a `shiny` application generating reproducible outputs. In the example below the `rcode` is used to show the code used to generate the output.
-When using a `qenv` to evaluate code, if an error occurs then an object of type `qenv.error` is created. This object can be used in all the same places a `qenv` object is used and means you do not need to change your code to handle these errors - select `error_option` in the example below to see `qenv` error handling in action. 
+These functions can be seamlessly integrated into `shiny` applications to produce reproducible outputs. In the example below, the `rcode` section showcases the code employed for generating the output.
+
+When employing a `qenv` to evaluate code, should an error occur, an object of type `qenv.error` is generated. This object can be utilized wherever a `qenv` object is used, alleviating the need for code alterations to handle these errors. Select the `error_option` in the example below to witness `qenv` error handling in action.
 
 ```{r}
 library(shiny)
@@ -136,4 +136,4 @@ if (interactive()) {
 
 ## `qenv` and `teal` applications
 
-The `qenv` object can easily be incorporated into `teal` modules. See the `teal` vignette [Creating Custom Modules](https://insightsengineering.github.io/teal/main/articles/creating-custom-modules.html) for further details.
+The versatile qenv object can seamlessly integrate into teal modules. Explore the teal vignette [Creating Custom Modules](https://insightsengineering.github.io/teal/latest-tag/articles/creating-custom-modules.html) for detailed guidance.
