@@ -2,6 +2,7 @@
 
 ### Miscellaneous
 * Fix NEWS
+* Specified minimal version of package dependencies.
 
 # teal.code 0.4.0
 
