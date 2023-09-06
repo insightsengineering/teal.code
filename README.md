@@ -34,7 +34,7 @@ include:
 * ability to chain and join `qenv` objects together to provide fine-grained control over executed code
 * automatic error and warning handling for executed code
 
-`teal.code` also ships a [`shiny`](https://shiny.rstudio.com/) module that helps inspect the stored code as well as messages, warnings and error messages resulting from evaluation via `shiny` web application.
+`teal.code` also ships a [`shiny`](https://shiny.posit.co/) module that helps inspect the stored code as well as messages, warnings and error messages resulting from evaluation via `shiny` web application.
 
 ## Installation
 
