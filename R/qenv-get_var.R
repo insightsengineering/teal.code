@@ -4,6 +4,7 @@
 #' @param object (`qenv`)
 #' @param var (`character(1)`) name of the variable to pull from the environment.
 #' @name get_var
+#' @return The value of required variable (`var`) within `qenv` object.
 #' @examples
 #' q1 <- new_qenv(env = list2env(list(a = 1)), code = quote(a <- 1))
 #' q2 <- eval_code(q1, code = "b <- a")

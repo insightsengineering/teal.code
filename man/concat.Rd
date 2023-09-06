@@ -20,6 +20,9 @@ concat(x, y)
 
 \item{y}{(\code{qenv})}
 }
+\value{
+\code{qenv} object.
+}
 \description{
 Combine two \code{qenv} objects by simple concatenate their environments and the code.
 We recommend to use the \code{join} method to have a stricter control
