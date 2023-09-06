@@ -1,6 +1,6 @@
 Type: Package
 Package: teal.code
-Title: Code Storage and Execution Class for `teal` Applications
+Title: Code Storage and Execution Class for 'teal' Applications
 Version: 0.4.1
 Date: 2023-09-06
 Authors@R: c(
