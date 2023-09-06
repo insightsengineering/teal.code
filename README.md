@@ -68,32 +68,32 @@ Below is the showcase of the example usage
 library(teal.code)
 my_qenv <- new_qenv(env = list2env(list(x = 5)), code = "x <- 5")
 my_qenv
-Parent: <environment: package:teal.code>
-Bindings:
-• x: <dbl> [L]
+#> Parent: <environment: package:teal.code>
+#> Bindings:
+#> • x: <dbl> [L]
 ```
 
 ```r
 qenv_2 <- eval_code(my_qenv, "y <- x * 2") |> eval_code("z <- y * 2")
 qenv_2
-<environment: 0x00000135b544cfe8> [L]
-Parent: <environment: package:teal.code>
-Bindings:
-• x: <dbl> [L]
-• y: <dbl> [L]
-• z: <dbl> [L]
+#> <environment: 0x00000135b544cfe8> [L]
+#> Parent: <environment: package:teal.code>
+#> Bindings:
+#> • x: <dbl> [L]
+#> • y: <dbl> [L]
+#> • z: <dbl> [L]
 ```
 
 ```r
 qenv_2[["y"]]
-[1] 10
+#> [1] 10
 ```
 
 ```r
 cat(paste(get_code(qenv_2), collapse = "\n"))
-x <- 5
-y <- x * 2
-z <- y * 2
+#> x <- 5
+#> y <- x * 2
+#> z <- y * 2
 ```
 
 ## Getting help
