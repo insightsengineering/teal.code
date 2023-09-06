@@ -16,6 +16,8 @@ Authors@R: c(
 Description: 
     Introduction of 'qenv' S4 class, that facilitates code execution and reproducibility in 'teal' applications.
 License: Apache License 2.0
+URL: https://insightsengineering.github.io/teal.code/latest-tag/, https://github.com/insightsengineering/teal.code
+BugReports: https://github.com/insightsengineering/teal.code/issues
 Depends:
     R (>= 4.0)
 Imports:
