@@ -10,6 +10,15 @@ The \code{teal.code} package contains functionalities that can be used
 to store and execute R calls. \code{qenv} class allows to create a \code{teal}
 module which returns code to reproduce application outputs.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://insightsengineering.github.io/teal.code/latest-tag/}
+  \item \url{https://github.com/insightsengineering/teal.code}
+  \item Report bugs at \url{https://github.com/insightsengineering/teal.code/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Dawid Kaledkowski \email{dawid.kaledkowski@roche.com}
 

@@ -13,8 +13,11 @@ Authors@R: c(
     person("Junlue", "Zhao", , "zhaoj88@gene.com", role = "aut"),
     person("F. Hoffmann-La Roche AG", role = c("cph", "fnd"))
   )
-Description: Code storage and execution class for `teal` applications.
-License: Apache License 2.0 | file LICENSE
+Description: 
+    Introduction of 'qenv' S4 class, that facilitates code execution and reproducibility in 'teal' applications.
+License: Apache License 2.0
+URL: https://insightsengineering.github.io/teal.code/latest-tag/, https://github.com/insightsengineering/teal.code
+BugReports: https://github.com/insightsengineering/teal.code/issues
 Depends:
     R (>= 4.0)
 Imports:

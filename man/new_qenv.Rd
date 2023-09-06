@@ -23,6 +23,9 @@ new_qenv(env = new.env(parent = parent.env(.GlobalEnv)), code = expression())
 
 \item{code}{(\code{character(1)} or \code{language}) code to evaluate. Accepts and stores comments also.}
 }
+\value{
+\code{qenv} object.
+}
 \description{
 Initialize \code{qenv} object with \code{code} and \code{env}. In order to have \code{qenv} reproducible
 one needs to initialize with \code{env} which can be reproduced by the \code{code}. Alternatively, one
