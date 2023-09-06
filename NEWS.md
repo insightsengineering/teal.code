@@ -1,9 +1,10 @@
-# teal.code 0.4.0.9004
+# teal.code 0.4.0.9005
 
 ### Miscellaneous
 * Fix NEWS
 * Updated usage and installation instructions in `README`.
 * Updated phrasing of the `qenv` vignette.
+* Specified minimal version of package dependencies.
 
 # teal.code 0.4.0
 
