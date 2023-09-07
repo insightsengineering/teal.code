@@ -300,13 +300,12 @@ get_conditions <- function(x, condition = c("errors", "warnings", "messages", "a
     )
   }
 
-  # Add braces to expressions. Necessary for proper storage of some expressions (e.g. rm(x)).
-  if (!is.null(expr) && !grepl("^\\{", deparse1(expr))) {
-    expr <- call("{", expr)
-  }
-
   code <-
     if (is.null(text)) {
+      # Add braces to expressions. Necessary for proper storage of some expressions (e.g. rm(x)).
+      if (!grepl("^\\{", deparse1(expr))) {
+        expr <- call("{", expr)
+      }
       # Drop strings from compound expressions.
       Filter(Negate(is.character), as.list(expr)[-1])
     } else if (is.null(expr)) {
