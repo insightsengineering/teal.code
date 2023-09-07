@@ -3,6 +3,7 @@
 #' @name get_code
 #' @param object (`qenv`)
 #' @param deparse (`logical(1)`) if the returned code should be converted to character.
+#' @param name (`character(1)`) if provided, returns the code only for the object specified in `name`.
 #' @return named `character` with the reproducible code.
 #' @examples
 #' q1 <- new_qenv(env = list2env(list(a = 1)), code = quote(a <- 1))

@@ -16,6 +16,8 @@ get_code(object, deparse = TRUE, name = NULL)
 \item{object}{(\code{qenv})}
 
 \item{deparse}{(\code{logical(1)}) if the returned code should be converted to character.}
+
+\item{name}{(\code{character(1)}) if provided, returns the code only for the object specified in \code{name}.}
 }
 \value{
 named \code{character} with the reproducible code.
