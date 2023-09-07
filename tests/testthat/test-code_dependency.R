@@ -60,4 +60,3 @@ testthat::test_that("can't determine effect when using eval", {
 testthat::test_that("@effect cause to return this line for affected binding", {
 
 })
-
