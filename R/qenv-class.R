@@ -5,7 +5,8 @@
 #' @rdname qenv-class
 #' @slot code (`expression`) to reproduce the environment
 #' @slot code_dependency A `list` equal to the length of `id`, where each element is a list containing 3 elements
-#' - `occurrence` - named `list` by object names with numeric vector as elements indicating calls in which object appears.
+#' - `occurrence` - named `list` by object names with numeric vector as elements indicating calls in which object
+#' appears.
 #' - `cooccurrence` - `list` of the same length as number of calls in `parsed_code`, containing `NULL`s if there is no
 #' co-occurrence between objects, or a `character` vector indicating co-occurrence of objects in specific `parsed_code`
 #' call element. If a character vector, then the first element is the name of the dependent object, and the rest are the
@@ -21,7 +22,11 @@
 #' @keywords internal
 setClass(
   "qenv",
-  slots = c(env = "environment", code = "expression", code_dependency = "list", id = "integer", warnings = "character", messages = "character"),
+  slots = c(
+    env = "environment", code = "expression",
+    code_dependency = "list", id = "integer",
+    warnings = "character", messages = "character"
+  ),
   prototype = list(
     env = new.env(parent = parent.env(.GlobalEnv)), code = expression(),
     code_dependency = list(), id = integer(0),
