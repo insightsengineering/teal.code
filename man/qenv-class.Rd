@@ -12,7 +12,7 @@ Reproducible class with environment and code.
 \describe{
 \item{\code{code}}{(\code{expression}) to reproduce the environment}
 
-\item{\code{code_dependency}}{A \code{list} containing 3 elements
+\item{\code{code_dependency}}{A \code{list} equal to the length of \code{id}, where each element is a list containing 3 elements
 \itemize{
 \item \code{occurrence} - named \code{list} by object names with numeric vector as elements indicating calls in which object appears.
 \item \code{cooccurrence} - \code{list} of the same length as number of calls in \code{parsed_code}, containing \code{NULL}s if there is no

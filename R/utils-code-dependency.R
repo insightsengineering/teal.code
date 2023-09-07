@@ -378,7 +378,7 @@ return_code_for_effects <- function(object, pd = calls_pd, occur = occurrence, c
 #' @param qenv `qenv` object
 #' @param name `character` with object name
 #' @keywords internal
-get_code_dependencies <- function(qenv, name) {
+get_code_dependency <- function(qenv, name) {
 
   code_dependency <- Reduce(bind_code_dependency, qenv@code_dependency)
 
