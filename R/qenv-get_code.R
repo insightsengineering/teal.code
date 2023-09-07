@@ -31,7 +31,7 @@ setMethod("get_code", signature = "qenv", function(object, deparse = TRUE, name 
   } else if (is.null(name)) {
     object@code
   } else {
-    get_code_dependencies(object, name)
+    get_code_dependency(object, name)
   }
 })
 
