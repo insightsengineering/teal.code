@@ -68,6 +68,9 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
     object@warnings <- c(object@warnings, current_warnings)
     object@messages <- c(object@messages, current_messages)
   }
+
+  if (length(code) > 0) object@code_dependency[[length(object@code_dependency) + 1]] <- code_dependency(code, object@env)
+
   lockEnvironment(object@env, bindings = TRUE)
   object
 })
@@ -82,7 +85,7 @@ setMethod("eval_code", signature = c("qenv", "language"), function(object, code)
 #' @rdname eval_code
 #' @export
 setMethod("eval_code", signature = c("qenv", "character"), function(object, code) {
-  eval_code(object, code = parse(text = code, keep.source = FALSE))
+  eval_code(object, code = parse(text = code))
 })
 
 #' @rdname eval_code
