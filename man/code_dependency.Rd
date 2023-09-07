@@ -146,11 +146,12 @@ q4 <- teal.code::eval_code(q3, code = code3)
 q4@code
 q4@code_dependency
 
-get_code_dependencies(q2, "ADLB")
-get_code_dependencies(q3, "ADLB")
-get_code_dependencies(q4, "ADLB")
-get_code_dependencies(q4, "var_labels")
-get_code_dependencies(q4, "ADSL")
+get_code(q2, name = "ADLB")
+get_code(q3, name = "ADLB")
+get_code(q4, name = "ADLB")
+get_code(q4, name = "var_labels")
+get_code(q4, name = "ADSL")
+get_code(q4)
 
 }
 \keyword{internal}

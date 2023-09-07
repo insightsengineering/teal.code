@@ -6,9 +6,9 @@
 \alias{get_code,qenv.error-method}
 \title{Get code from \code{qenv}}
 \usage{
-get_code(object, deparse = TRUE)
+get_code(object, deparse = TRUE, name = NULL)
 
-\S4method{get_code}{qenv}(object, deparse = TRUE)
+\S4method{get_code}{qenv}(object, deparse = TRUE, name = NULL)
 
 \S4method{get_code}{qenv.error}(object)
 }

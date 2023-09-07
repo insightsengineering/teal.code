@@ -132,11 +132,12 @@
 #' q4@code
 #' q4@code_dependency
 #'
-#' get_code_dependencies(q2, "ADLB")
-#' get_code_dependencies(q3, "ADLB")
-#' get_code_dependencies(q4, "ADLB")
-#' get_code_dependencies(q4, "var_labels")
-#' get_code_dependencies(q4, "ADSL")
+#' get_code(q2, name = "ADLB")
+#' get_code(q3, name = "ADLB")
+#' get_code(q4, name = "ADLB")
+#' get_code(q4, name = "var_labels")
+#' get_code(q4, name = "ADSL")
+#' get_code(q4)
 #'
 #' @keywords internal
 code_dependency <- function(parsed_code, envir = new.env()) {
@@ -374,8 +375,8 @@ return_code_for_effects <- function(object, pd = calls_pd, occur = occurrence, c
 #' @return `character` vector of elements of `parsed_code` calls that were required to build the side-effects and
 #' influencing objects having and impact on the `object`
 #'
-#' @param object `character` with object name
-#' @param parsed_code (`expression`) result of `parse()`
+#' @param qenv `qenv` object
+#' @param name `character` with object name
 #' @keywords internal
 get_code_dependencies <- function(qenv, name) {
   parsed_code <- parse(text = as.character(qenv@code))

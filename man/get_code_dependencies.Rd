@@ -7,9 +7,9 @@
 get_code_dependencies(qenv, name)
 }
 \arguments{
-\item{object}{\code{character} with object name}
+\item{qenv}{\code{qenv} object}
 
-\item{parsed_code}{(\code{expression}) result of \code{parse()}}
+\item{name}{\code{character} with object name}
 }
 \value{
 \code{character} vector of elements of \code{parsed_code} calls that were required to build the side-effects and
