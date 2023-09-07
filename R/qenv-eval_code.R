@@ -69,7 +69,9 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
     object@messages <- c(object@messages, current_messages)
   }
 
-  if (length(code) > 0) object@code_dependency[[length(object@code_dependency) + 1]] <- code_dependency(code, object@env)
+  if (length(code) > 0) {
+    object@code_dependency[[length(object@code_dependency) + 1]] <- code_dependency(code, object@env)
+  }
 
   lockEnvironment(object@env, bindings = TRUE)
   object
