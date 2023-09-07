@@ -145,10 +145,7 @@ code_dependency <- function(parsed_code, envir = new.env()) {
 
   calls_pd <- lapply(pd[pd$parent == 0, "id"], get_children, pd = pd)
 
-  object_names <- {
-    eval(parsed_code, envir = envir)
-    ls(envir)
-  }
+  object_names <- ls(envir)
 
   occurrence <- lapply(lapply(object_names, detect_symbol, pd = calls_pd), which)
 

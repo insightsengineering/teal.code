@@ -24,11 +24,7 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
 
   object@id <- c(object@id, id)
   object@env <- rlang::env_clone(object@env, parent = parent.env(.GlobalEnv))
-  object@code_dependency <- bind_code_dependency(object@code_dependency, code_dependency(code, object@env))
-  # code_dependency needs to be analyzed before we hit c(object@code, code) because this looses
-  # attr('srcref') attribute, that is needed for getParseData() in code_dependency().
   object@code <- c(object@code, code)
-
 
   current_warnings <- ""
   current_messages <- ""
@@ -70,6 +66,9 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
     object@warnings <- c(object@warnings, current_warnings)
     object@messages <- c(object@messages, current_messages)
   }
+
+  object@code_dependency <- bind_code_dependency(object@code_dependency, code_dependency(code, object@env))
+
   lockEnvironment(object@env, bindings = TRUE)
   object
 })
