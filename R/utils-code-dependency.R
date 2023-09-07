@@ -132,11 +132,11 @@
 #' q4@code
 #' q4@code_dependency
 #'
-#' get_code(q2, name = "ADLB")
-#' get_code(q3, name = "ADLB")
-#' get_code(q4, name = "ADLB")
-#' get_code(q4, name = "var_labels")
-#' get_code(q4, name = "ADSL")
+#' get_code(q2, deparse = FALSE, name = "ADLB")
+#' get_code(q3, deparse = FALSE, name = "ADLB")
+#' get_code(q4, deparse = FALSE, name = "ADLB")
+#' get_code(q4, deparse = FALSE, name = "var_labels")
+#' get_code(q4, deparse = FALSE, name = "ADSL")
 #' get_code(q4)
 #'
 #' @keywords internal
