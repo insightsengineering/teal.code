@@ -3,6 +3,7 @@
 #' @name get_code
 #' @param object (`qenv`)
 #' @param deparse (`logical(1)`) if the returned code should be converted to character.
+#' @param name (`character(1)`) if provided, returns the code only for the object specified in `name`.
 #' @return named `character` with the reproducible code.
 #' @examples
 #' q1 <- new_qenv(env = list2env(list(a = 1)), code = quote(a <- 1))
@@ -11,7 +12,7 @@
 #' get_code(q3)
 #' get_code(q3, deparse = FALSE)
 #' @export
-setGeneric("get_code", function(object, deparse = TRUE) {
+setGeneric("get_code", function(object, deparse = TRUE, name = NULL) {
   # this line forces evaluation of object before passing to the generic
   # needed for error handling to work properly
   grDevices::pdf(nullfile())
@@ -23,12 +24,14 @@ setGeneric("get_code", function(object, deparse = TRUE) {
 
 #' @rdname get_code
 #' @export
-setMethod("get_code", signature = "qenv", function(object, deparse = TRUE) {
+setMethod("get_code", signature = "qenv", function(object, deparse = TRUE, name = NULL) {
   checkmate::assert_flag(deparse)
   if (deparse) {
     format_expression(object@code)
-  } else {
+  } else if (is.null(name)) {
     object@code
+  } else {
+    get_code_dependency(object, name)
   }
 })
 
