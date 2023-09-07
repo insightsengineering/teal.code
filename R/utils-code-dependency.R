@@ -181,6 +181,7 @@ code_dependency <- function(parsed_code, envir = new.env()) {
   )
 }
 
+#' @title Get children calls within `getParseData()` object
 #' @param pd `list` of data.frames of results of `utils::getParseData()` trimmed to unique `parsed_code` calls
 #' @param parent parent id in `utils::getParseData()`
 #' @keywords internal
@@ -199,6 +200,7 @@ get_children <- function(pd, parent) {
   }
 }
 
+#' @title Detects `"SYMBOL"` tokens for rbinded `getParseData()` structure
 #' @param object `character` containing the name of the object
 #' @param pd `list` of data.frames of results of `utils::getParseData()` trimmed to unique `parsed_code` calls
 #' @keywords internal
@@ -404,7 +406,7 @@ get_code_dependency <- function(qenv, name) {
   # unlist(lapply(srcref, as.character))[object_lines_unique]
 }
 
-
+#' @title Bind two `code_dependency()` lists
 #' @param code1,code2 outputs of `code_dependency()`
 #' @keywords internal
 bind_code_dependency <- function(old_code_dep, new_code_dep) {
