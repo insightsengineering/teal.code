@@ -7,6 +7,7 @@
 #' @param x (`qenv`)
 #' @param y (`qenv`)
 #' @include qenv-errors.R
+#' @return `qenv` object.
 #' @examples
 #' q1 <- new_qenv(
 #'   code = c(iris1 = "iris1 <- iris", mtcars1 = "mtcars1 <- mtcars"),

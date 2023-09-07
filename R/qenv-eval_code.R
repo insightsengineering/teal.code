@@ -14,6 +14,8 @@
 #' q2 <- eval_code(q1, quote(library(checkmate)))
 #' q3 <- eval_code(q2, quote(assert_number(a)))
 #'
+#' @return `qenv` object.
+#'
 #' @export
 setGeneric("eval_code", function(object, code) standardGeneric("eval_code"))
 

@@ -141,8 +141,9 @@
 #'
 #' @keywords internal
 code_dependency <- function(parsed_code, envir = new.env()) {
-
-  if (identical(parsed_code, expression())) return(list())
+  if (identical(parsed_code, expression())) {
+    return(list())
+  }
 
   pd <- getParseData(parsed_code)
 
@@ -381,7 +382,6 @@ return_code_for_effects <- function(object, pd = calls_pd, occur = occurrence, c
 #' @param name `character` with object name
 #' @keywords internal
 get_code_dependency <- function(qenv, name) {
-
   code_dependency <- Reduce(bind_code_dependency, qenv@code_dependency)
 
   parsed_code <- parse(text = as.character(qenv@code))
