@@ -141,6 +141,9 @@
 #'
 #' @keywords internal
 code_dependency <- function(parsed_code, envir = new.env()) {
+
+  if (identical(parsed_code, expression())) return(list())
+
   pd <- getParseData(parsed_code)
 
   calls_pd <- lapply(pd[pd$parent == 0, "id"], get_children, pd = pd)
@@ -376,6 +379,9 @@ return_code_for_effects <- function(object, pd = calls_pd, occur = occurrence, c
 #' @param name `character` with object name
 #' @keywords internal
 get_code_dependencies <- function(qenv, name) {
+
+  code_dependency <- Reduce(bind_code_dependency, qenv@code_dependency)
+
   parsed_code <- parse(text = as.character(qenv@code))
   pd <- getParseData(parsed_code)
   calls_pd <- lapply(pd[pd$parent == 0, "id"], get_children, pd = pd)
@@ -384,11 +390,11 @@ get_code_dependencies <- function(qenv, name) {
     return_code(
       name,
       pd = calls_pd,
-      occur = qenv@code_dependency$occurrence,
-      cooccur = qenv@code_dependency$cooccurrence
+      occur = code_dependency$occurrence,
+      cooccur = code_dependency$cooccurrence
     )
 
-  effects_lines <- qenv@code_dependency$effects[[name]]
+  effects_lines <- code_dependency$effects[[name]]
 
   object_lines_unique <- sort(unique(c(object_lines, effects_lines)))
 

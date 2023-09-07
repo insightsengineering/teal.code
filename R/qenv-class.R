@@ -4,7 +4,7 @@
 #' @name qenv-class
 #' @rdname qenv-class
 #' @slot code (`expression`) to reproduce the environment
-#' @slot code_dependency A `list` containing 3 elements
+#' @slot code_dependency A `list` equal to the length of `id`, where each element is a list containing 3 elements
 #' - `occurrence` - named `list` by object names with numeric vector as elements indicating calls in which object appears.
 #' - `cooccurrence` - `list` of the same length as number of calls in `parsed_code`, containing `NULL`s if there is no
 #' co-occurrence between objects, or a `character` vector indicating co-occurrence of objects in specific `parsed_code`
@@ -24,8 +24,8 @@ setClass(
   slots = c(env = "environment", code = "expression", code_dependency = "list", id = "integer", warnings = "character", messages = "character"),
   prototype = list(
     env = new.env(parent = parent.env(.GlobalEnv)), code = expression(),
-    code_dependency = list(occurrence = list(), cooccurrence = list(), effects = list()),
-    id = integer(0), warnings = character(0), messages = character(0)
+    code_dependency = list(), id = integer(0),
+    warnings = character(0), messages = character(0)
   )
 )
 
@@ -39,8 +39,8 @@ setValidity("qenv", function(object) {
     "@code and @warnings slots must have the same length"
   } else if (length(object@code) != length(object@messages)) {
     "@code and @messages slots must have the same length"
-  } else if (length(object@code) != length(object@code_dependency$cooccurrence)) {
-    "@code and @code_dependency$cooccurrence slots must have the same length"
+  } else if (length(object@code) != length(object@code_dependency)) {
+    "@code and @code_dependency slots must have the same length"
   } else if (any(duplicated(object@id))) {
     "@id contains duplicated values."
   } else {
