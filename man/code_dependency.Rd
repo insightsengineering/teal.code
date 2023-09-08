@@ -35,6 +35,7 @@ in which the side-effect appears. Check examples to see the usage.
 }
 \examples{
 
+\donttest{
 library(dplyr)
 code <- '
   arm_mapping <- list(
@@ -154,6 +155,7 @@ get_code(q4, deparse = FALSE, names = "ADSL")
 get_code(q4, deparse = FALSE, names = c("ADSL", "ADS", "C"))
 get_code(q4, deparse = FALSE, names = c("var_labels", "ADSL"))
 get_code(q4)
+}
 
 }
 \keyword{internal}

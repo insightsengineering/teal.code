@@ -21,6 +21,7 @@
 #'
 #' @examples
 #'
+#' \donttest{
 #' library(dplyr)
 #' code <- '
 #'   arm_mapping <- list(
@@ -140,6 +141,7 @@
 #' get_code(q4, deparse = FALSE, names = c("ADSL", "ADS", "C"))
 #' get_code(q4, deparse = FALSE, names = c("var_labels", "ADSL"))
 #' get_code(q4)
+#' }
 #'
 #' @keywords internal
 code_dependency <- function(parsed_code, envir = new.env()) {
