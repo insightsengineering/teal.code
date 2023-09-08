@@ -151,6 +151,7 @@ get_code(q3, deparse = FALSE, names = "ADLB")
 get_code(q4, deparse = FALSE, names = "ADLB")
 get_code(q4, deparse = FALSE, names = "var_labels")
 get_code(q4, deparse = FALSE, names = "ADSL")
+get_code(q4, deparse = FALSE, names = c("var_labels", "ADSL"))
 get_code(q4)
 
 }
