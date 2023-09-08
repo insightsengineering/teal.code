@@ -12,7 +12,7 @@ get_children(pd, parent)
 \item{parent}{parent id in \code{utils::getParseData()}}
 }
 \value{
-Row binded \code{utils::getParseData()} of all calls.
+Row \code{binded} \code{utils::getParseData()} of all calls.
 }
 \description{
 Get children calls within \code{getParseData()} object

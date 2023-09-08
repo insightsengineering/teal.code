@@ -187,7 +187,7 @@ code_dependency <- function(parsed_code, envir = new.env()) {
 #' @title Get children calls within `getParseData()` object
 #' @param pd `list` of data.frames of results of `utils::getParseData()` trimmed to unique `parsed_code` calls
 #' @param parent parent id in `utils::getParseData()`
-#' @return Row binded `utils::getParseData()` of all calls.
+#' @return Row `binded` `utils::getParseData()` of all calls.
 #' @keywords internal
 get_children <- function(pd, parent) {
   idx_children <- abs(pd$parent) == parent
@@ -204,7 +204,7 @@ get_children <- function(pd, parent) {
   }
 }
 
-#' @title Detects `"SYMBOL"` tokens for rbinded `getParseData()` structure
+#' @title Detects `"SYMBOL"` tokens for row `binded` `getParseData()` structure
 #' @param object `character` containing the name of the object
 #' @param pd `list` of data.frames of results of `utils::getParseData()` trimmed to unique `parsed_code` calls
 #' @keywords internal

@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-code-dependency.R
 \name{detect_symbol}
 \alias{detect_symbol}
-\title{Detects \code{"SYMBOL"} tokens for rbinded \code{getParseData()} structure}
+\title{Detects \code{"SYMBOL"} tokens for row \code{binded} \code{getParseData()} structure}
 \usage{
 detect_symbol(object, pd = calls_pd)
 }
@@ -12,6 +12,6 @@ detect_symbol(object, pd = calls_pd)
 \item{pd}{\code{list} of data.frames of results of \code{utils::getParseData()} trimmed to unique \code{parsed_code} calls}
 }
 \description{
-Detects \code{"SYMBOL"} tokens for rbinded \code{getParseData()} structure
+Detects \code{"SYMBOL"} tokens for row \code{binded} \code{getParseData()} structure
 }
 \keyword{internal}
