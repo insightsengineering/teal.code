@@ -23,6 +23,8 @@ return_code_for_effects(
 \value{
 \code{numeric} vector indicating which lines of \code{parsed_code} calls are required to build the side-effects having
 and impact on the \code{object}
+
+A \code{numeric} vector with number of lines of input \code{pd} to be returned for effects.
 }
 \description{
 Return the lines of code needed to reproduce the side-effects having an impact on the object.

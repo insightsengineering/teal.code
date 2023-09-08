@@ -15,6 +15,8 @@ return_code(
 \arguments{
 \item{object}{\code{character} with object name}
 
+\item{pd}{\code{list} of data.frames of results of \code{utils::getParseData()} trimmed to unique \code{parsed_code} calls}
+
 \item{occur}{result of \code{code_dependency()$occurrence}}
 
 \item{cooccur}{result of \code{code_dependency()$cooccurrence}}
@@ -24,6 +26,8 @@ indicator to omit dependency cycles}
 }
 \value{
 \code{numeric} vector indicating which lines of \code{parsed_code} calls are required to build the \code{object}
+
+A \code{numeric} vector with number of lines of input \code{pd} to be returned.
 }
 \description{
 Return the lines of code needed to reproduce the object.

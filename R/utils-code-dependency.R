@@ -186,6 +186,7 @@ code_dependency <- function(parsed_code, envir = new.env()) {
 #' @title Get children calls within `getParseData()` object
 #' @param pd `list` of data.frames of results of `utils::getParseData()` trimmed to unique `parsed_code` calls
 #' @param parent parent id in `utils::getParseData()`
+#' @return Row binded `utils::getParseData()` of all calls.
 #' @keywords internal
 get_children <- function(pd, parent) {
   idx_children <- abs(pd$parent) == parent
@@ -221,10 +222,13 @@ detect_symbol <- function(object, pd = calls_pd) {
 #' @return `numeric` vector indicating which lines of `parsed_code` calls are required to build the `object`
 #'
 #' @param object `character` with object name
+#' @param pd `list` of data.frames of results of `utils::getParseData()` trimmed to unique `parsed_code` calls
 #' @param occur result of `code_dependency()$occurrence`
 #' @param cooccur result of `code_dependency()$cooccurrence`
 #' @param parent `NULL` or `numeric` vector - in a recursive call, it is possible needed to drop parent object
 #' indicator to omit dependency cycles
+#'
+#' @return A `numeric` vector with number of lines of input `pd` to be returned.
 #'
 #' @keywords internal
 return_code <- function(object, pd = calls_pd, occur = occurrence, cooccur = cooccurrence, parent = NULL) {
@@ -295,6 +299,8 @@ return_code <- function(object, pd = calls_pd, occur = occurrence, cooccur = coo
 #' @param pd `list` of data.frames of results of `utils::getParseData()` trimmed to unique `parsed_code` calls
 #' @param occur result of `code_dependency()$occurrence`
 #' @param cooccur result of `code_dependency()$cooccurrence`
+#'
+#' @return A `numeric` vector with number of lines of input `pd` to be returned for effects.
 #'
 #' @keywords internal
 return_code_for_effects <- function(object, pd = calls_pd, occur = occurrence, cooccur = cooccurrence) {

@@ -4,12 +4,12 @@
 \alias{get_code_dependency}
 \title{Return the lines of code (with side-effects) needed to reproduce the object.}
 \usage{
-get_code_dependency(qenv, name)
+get_code_dependency(qenv, names)
 }
 \arguments{
 \item{qenv}{\code{qenv} object}
 
-\item{name}{\code{character} with object name}
+\item{names}{\code{character} with object names}
 }
 \value{
 \code{character} vector of elements of \code{parsed_code} calls that were required to build the side-effects and
