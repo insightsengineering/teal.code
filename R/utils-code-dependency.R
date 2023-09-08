@@ -20,7 +20,6 @@
 #' object, or NULL if there are no side-effects pointing at this object.
 #'
 #' @examples
-#'
 #' \donttest{
 #' library(dplyr)
 #' code <- '
