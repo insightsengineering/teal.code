@@ -137,12 +137,13 @@
 #' get_code(q4, deparse = FALSE, names = "ADLB")
 #' get_code(q4, deparse = FALSE, names = "var_labels")
 #' get_code(q4, deparse = FALSE, names = "ADSL")
+#' get_code(q4, deparse = FALSE, names = c("ADSL", "ADS", "C"))
 #' get_code(q4, deparse = FALSE, names = c("var_labels", "ADSL"))
 #' get_code(q4)
 #'
 #' @keywords internal
 code_dependency <- function(parsed_code, envir = new.env()) {
-  if (identical(parsed_code, expression())) {
+  if (identical(parsed_code, expression()) || is.null(attr(parsed_code, 'srcref'))) {
     return(list())
   }
 
@@ -389,6 +390,14 @@ return_code_for_effects <- function(object, pd = calls_pd, occur = occurrence, c
 #' @param names `character` with object names
 #' @keywords internal
 get_code_dependency <- function(qenv, names) {
+
+  if (!all(names %in% ls(qenv@env))) {
+    warning(
+      "Objects not found in 'qenv' environment: ",
+      paste(names[!(names %in% ls(qenv@env))], collapse = ", ")
+    )
+  }
+
   code_dependency <- Reduce(bind_code_dependency, qenv@code_dependency)
 
   parsed_code <- parse(text = as.character(qenv@code))
