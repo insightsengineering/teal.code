@@ -430,16 +430,12 @@ get_code_dependency <- function(qenv, names) {
   object_lines_unique <- sort(unique(unlist(lines)))
 
   as.character(parsed_code)[object_lines_unique]
-  # or
-  # srcref <- attr(parsed_code, 'srcref')
-  # unlist(lapply(srcref, as.character))[object_lines_unique]
 }
 
 #' @title Bind two `code_dependency()` lists
 #' @param code1,code2 outputs of `code_dependency()`
 #' @keywords internal
 bind_code_dependency <- function(old_code_dep, new_code_dep) {
-  # length(old_code_dep$cooccurrence) = lines of code in old_code
   new_code_dep$occurrence <- lapply(new_code_dep$occurrence, function(x) x + length(old_code_dep$cooccurrence))
   new_code_dep$effects <- lapply(
     new_code_dep$effects,
