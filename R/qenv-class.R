@@ -44,8 +44,6 @@ setValidity("qenv", function(object) {
     "@code and @warnings slots must have the same length"
   } else if (length(object@code) != length(object@messages)) {
     "@code and @messages slots must have the same length"
-  } else if (length(object@code) != length(object@code_dependency)) {
-    "@code and @code_dependency slots must have the same length"
   } else if (any(duplicated(object@id))) {
     "@id contains duplicated values."
   } else {
