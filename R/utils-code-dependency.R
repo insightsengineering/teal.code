@@ -390,7 +390,7 @@ get_code_dependency <- function(qenv, names) {
   calls_pd <- lapply(pd[pd$parent == 0, "id"], get_children, pd = pd)
 
   lines <- list()
-  for(name in names) {
+  for (name in names) {
     object_lines <-
       return_code(
         name,
