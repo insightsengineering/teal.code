@@ -390,6 +390,15 @@ return_code_for_effects <- function(object, pd = calls_pd, occur = occurrence, c
 #' @param names `character` with object names
 #' @keywords internal
 get_code_dependency <- function(qenv, names) {
+
+  filtered_cd <- Filter(function(x) length(x) > 1, qenv@code_dependency)
+  if (identical(filtered_cd, list())){
+    message(
+      "Code dependency is supported only for the code provided as a character in new_env()/eval_code()."
+    )
+    return(NULL)
+  }
+
   if (!all(names %in% ls(qenv@env))) {
     warning(
       "Objects not found in 'qenv' environment: ",
