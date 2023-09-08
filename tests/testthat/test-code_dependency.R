@@ -4,11 +4,11 @@ testthat::test_that("get_code extract code of a binding from a 'simplest' code",
   q <- eval_code(q, "b <- 2")
 
   testthat::expect_identical(
-    get_code(q, deparse = FALSE, name = "a"),
+    get_code(q, deparse = FALSE, names = "a"),
     "a <- 1"
   )
   testthat::expect_identical(
-    get_code(q, deparse = FALSE, name = "b"),
+    get_code(q, deparse = FALSE, names = "b"),
     "b <- 2"
   )
 })
@@ -20,7 +20,7 @@ testthat::test_that("get_code warns if binding doesn't exist in a code", {
 
   testthat::expect_warning(
     # TODO: throw a warning if name is missing
-    get_code(q, deparse = FALSE, name = "c")
+    get_code(q, deparse = FALSE, names = "c")
   )
 })
 
@@ -32,7 +32,7 @@ testthat::test_that("get_code extract code of a parent binding but only those ev
   q <- eval_code(q, "a <- 2")
 
   testthat::expect_identical(
-    get_code(q, deparse = FALSE, name = "b"),
+    get_code(q, deparse = FALSE, names = "b"),
     c("a <- 1", "b <- a")
   )
 })
@@ -44,7 +44,7 @@ testthat::test_that("get_code extract code of a parent binding if used in a func
   q <- eval_code(q, "a <- 2")
 
   testthat::expect_identical(
-    get_code(q, deparse = FALSE, name = "b"),
+    get_code(q, deparse = FALSE, names = "b"),
     c("a <- 1", "b <- identity(x = a)")
   )
 })
