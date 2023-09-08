@@ -137,6 +137,7 @@
 #' get_code(q4, deparse = FALSE, names = "ADLB")
 #' get_code(q4, deparse = FALSE, names = "var_labels")
 #' get_code(q4, deparse = FALSE, names = "ADSL")
+#' get_code(q4, deparse = FALSE, names = c("var_labels", "ADSL"))
 #' get_code(q4)
 #'
 #' @keywords internal
@@ -380,26 +381,31 @@ return_code_for_effects <- function(object, pd = calls_pd, occur = occurrence, c
 #' influencing objects having and impact on the `object`
 #'
 #' @param qenv `qenv` object
-#' @param name `character` with object name
+#' @param names `character` with object names
 #' @keywords internal
-get_code_dependency <- function(qenv, name) {
+get_code_dependency <- function(qenv, names) {
   code_dependency <- Reduce(bind_code_dependency, qenv@code_dependency)
 
   parsed_code <- parse(text = as.character(qenv@code))
   pd <- getParseData(parsed_code)
   calls_pd <- lapply(pd[pd$parent == 0, "id"], get_children, pd = pd)
 
-  object_lines <-
-    return_code(
-      name,
-      pd = calls_pd,
-      occur = code_dependency$occurrence,
-      cooccur = code_dependency$cooccurrence
-    )
+  lines <- list()
+  for(name in names) {
+    object_lines <-
+      return_code(
+        name,
+        pd = calls_pd,
+        occur = code_dependency$occurrence,
+        cooccur = code_dependency$cooccurrence
+      )
 
-  effects_lines <- code_dependency$effects[[name]]
+    effects_lines <- code_dependency$effects[[name]]
 
-  object_lines_unique <- sort(unique(c(object_lines, effects_lines)))
+    lines[[name]] <- c(object_lines, effects_lines)
+  }
+
+  object_lines_unique <- sort(unique(unlist(lines)))
 
   as.character(parsed_code)[object_lines_unique]
   # or
