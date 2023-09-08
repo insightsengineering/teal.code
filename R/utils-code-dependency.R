@@ -143,7 +143,7 @@
 #'
 #' @keywords internal
 code_dependency <- function(parsed_code, envir = new.env()) {
-  if (identical(parsed_code, expression()) || is.null(attr(parsed_code, 'srcref'))) {
+  if (identical(parsed_code, expression()) || is.null(attr(parsed_code, "srcref"))) {
     return(list())
   }
 
@@ -390,7 +390,6 @@ return_code_for_effects <- function(object, pd = calls_pd, occur = occurrence, c
 #' @param names `character` with object names
 #' @keywords internal
 get_code_dependency <- function(qenv, names) {
-
   if (!all(names %in% ls(qenv@env))) {
     warning(
       "Objects not found in 'qenv' environment: ",
