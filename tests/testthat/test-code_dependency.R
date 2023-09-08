@@ -128,8 +128,9 @@ testthat::test_that("get_code extracts the code when using eval with object", {
 
 testthat::test_that("@effect cause to return this line for affected binding", {
   q <- new_qenv()
-  q <- eval_code(q,
-  "
+  q <- eval_code(
+    q,
+    "
   a <- 1 # @effect b
   b <- 2
   "
@@ -143,21 +144,24 @@ testthat::test_that("@effect cause to return this line for affected binding", {
 
 testthat::test_that(
   "@effect does not return this line for affected binding
-  if object is not specificed in the same eval_code", {
-  q <- new_qenv()
-  q <- eval_code(q, "a <- 1 # @effect b")
-  q <- eval_code(q, "b <- 2")
+  if object is not specificed in the same eval_code",
+  {
+    q <- new_qenv()
+    q <- eval_code(q, "a <- 1 # @effect b")
+    q <- eval_code(q, "b <- 2")
 
-  testthat::expect_identical(
-    get_code(q, deparse = FALSE, names = "b"),
-    c("b <- 2")
-  )
-})
+    testthat::expect_identical(
+      get_code(q, deparse = FALSE, names = "b"),
+      c("b <- 2")
+    )
+  }
+)
 
 testthat::test_that(
   "@effect returns this line for affected binding
   if object is not specificed in the same eval_code
-  but it existed already in the qenv@env", {
+  but it existed already in the qenv@env",
+  {
     q <- new_qenv()
     q <- eval_code(q, "a <- 1 ")
     q <- eval_code(q, "b <- 2 # @effect a")
@@ -166,4 +170,5 @@ testthat::test_that(
       get_code(q, deparse = FALSE, names = "a"),
       c("a <- 1", "b <- 2")
     )
-  })
+  }
+)
