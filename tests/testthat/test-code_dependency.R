@@ -19,7 +19,6 @@ testthat::test_that("get_code warns if binding doesn't exist in a code", {
   q <- eval_code(q, "b <- 2")
 
   testthat::expect_warning(
-    # TODO: throw a warning if name is missing
     get_code(q, deparse = FALSE, names = "c")
   )
 })
@@ -46,6 +45,18 @@ testthat::test_that("get_code extract code of a parent binding if used in a func
   testthat::expect_identical(
     get_code(q, deparse = FALSE, names = "b"),
     c("a <- 1", "b <- identity(x = a)")
+  )
+})
+
+testthat("get_code is possible to output the code for multiple objects", {
+  q <- new_qenv()
+  q <- eval_code(q, "a <- 1")
+  q <- eval_code(q, "b <- 2")
+  q <- eval_code(q, "c <- 3")
+
+  testthat::expect_identical(
+    get_code(q, deparse = FALSE, names = c("a", "b")),
+    c("a <- 1", "b <- 2")
   )
 })
 
