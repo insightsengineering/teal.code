@@ -6,9 +6,9 @@
 \alias{get_code,qenv.error-method}
 \title{Get code from \code{qenv}}
 \usage{
-get_code(object, deparse = TRUE)
+get_code(object, deparse = TRUE, names = NULL)
 
-\S4method{get_code}{qenv}(object, deparse = TRUE)
+\S4method{get_code}{qenv}(object, deparse = TRUE, names = NULL)
 
 \S4method{get_code}{qenv.error}(object)
 }
@@ -16,6 +16,8 @@ get_code(object, deparse = TRUE)
 \item{object}{(\code{qenv})}
 
 \item{deparse}{(\code{logical(1)}) if the returned code should be converted to character.}
+
+\item{names}{(\code{character(n)}) if provided, returns the code only for objects specified in \code{names}.}
 }
 \value{
 named \code{character} with the reproducible code.
