@@ -141,7 +141,6 @@
 #'
 #' @keywords internal
 code_dependency <- function(parsed_code, envir = new.env()) {
-
   if (identical(parsed_code, expression())) {
     return(list())
   }
