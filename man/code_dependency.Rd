@@ -34,7 +34,6 @@ relations between side-effects and objects, use specific comment tag \verb{# @ef
 in which the side-effect appears. Check examples to see the usage.
 }
 \examples{
-
 \donttest{
 library(dplyr)
 code <- '
