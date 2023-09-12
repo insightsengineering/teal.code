@@ -1,7 +1,7 @@
 Type: Package
 Package: teal.code
-Title: Code Storage and Execution Class for `teal` Applications
-Version: 0.4.0.9006
+Title: Code Storage and Execution Class for 'teal' Applications
+Version: 0.4.1
 Date: 2023-09-06
 Authors@R: c(
     person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = c("aut", "cre")),
@@ -16,7 +16,7 @@ Authors@R: c(
 Description: Introduction of 'qenv' S4 class, that facilitates code
     execution and reproducibility in 'teal' applications.
 License: Apache License 2.0
-URL: https://insightsengineering.github.io/teal.code/latest-tag/,
+URL: https://insightsengineering.github.io/teal.code/,
     https://github.com/insightsengineering/teal.code
 BugReports: https://github.com/insightsengineering/teal.code/issues
 Depends:
