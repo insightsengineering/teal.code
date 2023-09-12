@@ -50,7 +50,7 @@ Alternatively, you might want to use the development version available on [r-uni
 
 ```r
 # beta versions
-install.packages('teal.code', repos = c('https://pharmaverse.r-universe.dev', 'https://cloud.r-project.org'))
+install.packages('teal.code', repos = c('https://pharmaverse.r-universe.dev', getOption('repos')))
 
 # install.packages("pak")
 pak::pak("insightsengineering/teal.code")
