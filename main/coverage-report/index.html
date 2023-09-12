@@ -106,8 +106,8 @@ table.table-condensed {
       </ul>
       <div class="tab-content" data-tabsetid="covr">
         <div class="tab-pane active" title="Files" data-value="Files" id="tab-covr-1">
-          <div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-8e7d0a508a1abff3bd1b" style="width:100%;height:500px;"></div>
-          <script type="application/json" data-for="htmlwidget-8e7d0a508a1abff3bd1b">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["<a href=\"#\">R/include_css_js.R<\/a>","<a href=\"#\">R/qenv-show.R<\/a>","<a href=\"#\">R/qenv-eval_code.R<\/a>","<a href=\"#\">R/qenv-join.R<\/a>","<a href=\"#\">R/qenv-get_warnings.R<\/a>","<a href=\"#\">R/utils.R<\/a>","<a href=\"#\">R/qenv-get_code.R<\/a>","<a href=\"#\">R/qenv-get_var.R<\/a>","<a href=\"#\">R/qenv-constructor.R<\/a>","<a href=\"#\">R/qenv-concat.R<\/a>"],[21,17,102,218,63,67,48,61,66,51],[6,1,39,42,20,19,15,15,11,10],[0,0,37,42,20,19,15,15,11,10],[6,1,2,0,0,0,0,0,0,0],["0","0","41","13","4","27","4","5","61","5"],["0.00%","0.00%","94.87%","100.00%","100.00%","100.00%","100.00%","100.00%","100.00%","100.00%"]],"container":"<table class=\"row-border\">\n  <thead>\n    <tr>\n      <th>File<\/th>\n      <th>Lines<\/th>\n      <th>Relevant<\/th>\n      <th>Covered<\/th>\n      <th>Missed<\/th>\n      <th>Hits / Line<\/th>\n      <th>Coverage<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"searching":false,"dom":"t","paging":false,"columnDefs":[{"targets":6,"createdCell":"function(td, cellData, rowData, row, col) {\n  var percent = cellData.replace(\"%\", \"\");\n  if (percent > 90) {\n    var grad = \"linear-gradient(90deg, #edfde7 \" + cellData + \", white \" + cellData + \")\";\n  } else if (percent > 75) {\n    var grad = \"linear-gradient(90deg, #f9ffe5 \" + cellData + \", white \" + cellData + \")\";\n  } else {\n    var grad = \"linear-gradient(90deg, #fcece9 \" + cellData + \", white \" + cellData + \")\";\n  }\n  $(td).css(\"background\", grad);\n}\n"},{"className":"dt-right","targets":[1,2,3,4]}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\ntable.on('click.dt', 'a', function() {\n  files = $('div#files div');\n  files.not('div.hidden').addClass('hidden');\n  id = $(this).text();\n  files.filter('div[id=\\'' + id + '\\']').removeClass('hidden');\n  $('ul.nav a[data-value=Source]').text(id).tab('show');\n});\n}"},"evals":["options.columnDefs.0.createdCell","callback"],"jsHooks":[]}</script>
+          <div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-d80a47c0207439bada9c" style="width:100%;height:500px;"></div>
+          <script type="application/json" data-for="htmlwidget-d80a47c0207439bada9c">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["<a href=\"#\">R/include_css_js.R<\/a>","<a href=\"#\">R/qenv-show.R<\/a>","<a href=\"#\">R/qenv-eval_code.R<\/a>","<a href=\"#\">R/qenv-join.R<\/a>","<a href=\"#\">R/qenv-get_warnings.R<\/a>","<a href=\"#\">R/utils.R<\/a>","<a href=\"#\">R/qenv-get_code.R<\/a>","<a href=\"#\">R/qenv-get_var.R<\/a>","<a href=\"#\">R/qenv-constructor.R<\/a>","<a href=\"#\">R/qenv-concat.R<\/a>"],[21,17,102,218,63,68,48,61,66,51],[6,1,39,42,20,19,15,15,11,10],[0,0,37,42,20,19,15,15,11,10],[6,1,2,0,0,0,0,0,0,0],["0","0","41","13","4","27","4","5","61","5"],["0.00%","0.00%","94.87%","100.00%","100.00%","100.00%","100.00%","100.00%","100.00%","100.00%"]],"container":"<table class=\"row-border\">\n  <thead>\n    <tr>\n      <th>File<\/th>\n      <th>Lines<\/th>\n      <th>Relevant<\/th>\n      <th>Covered<\/th>\n      <th>Missed<\/th>\n      <th>Hits / Line<\/th>\n      <th>Coverage<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"searching":false,"dom":"t","paging":false,"columnDefs":[{"targets":6,"createdCell":"function(td, cellData, rowData, row, col) {\n  var percent = cellData.replace(\"%\", \"\");\n  if (percent > 90) {\n    var grad = \"linear-gradient(90deg, #edfde7 \" + cellData + \", white \" + cellData + \")\";\n  } else if (percent > 75) {\n    var grad = \"linear-gradient(90deg, #f9ffe5 \" + cellData + \", white \" + cellData + \")\";\n  } else {\n    var grad = \"linear-gradient(90deg, #fcece9 \" + cellData + \", white \" + cellData + \")\";\n  }\n  $(td).css(\"background\", grad);\n}\n"},{"className":"dt-right","targets":[1,2,3,4]}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\ntable.on('click.dt', 'a', function() {\n  files = $('div#files div');\n  files.not('div.hidden').addClass('hidden');\n  id = $(this).text();\n  files.filter('div[id=\\'' + id + '\\']').removeClass('hidden');\n  $('ul.nav a[data-value=Source]').text(id).tab('show');\n});\n}"},"evals":["options.columnDefs.0.createdCell","callback"],"jsHooks":[]}</script>
         </div>
         <div class="tab-pane" title="Source" data-value="Source" id="tab-covr-2">
           <div id="files">
@@ -3551,95 +3551,102 @@ table.table-condensed {
                     <td class="num">54</td>
                     <td class="coverage"></td>
                     <td class="col-sm-12">
-                      <pre class="language-r">#'</pre>
+                      <pre class="language-r">#' @return No return value, called for side effects.</pre>
                     </td>
                   </tr>
                   <tr class="never">
                     <td class="num">55</td>
                     <td class="coverage"></td>
                     <td class="col-sm-12">
-                      <pre class="language-r">#' @examples</pre>
+                      <pre class="language-r">#'</pre>
                     </td>
                   </tr>
                   <tr class="never">
                     <td class="num">56</td>
                     <td class="coverage"></td>
                     <td class="col-sm-12">
-                      <pre class="language-r">#' dev_suppress(plot(1:10))</pre>
+                      <pre class="language-r">#' @examples</pre>
                     </td>
                   </tr>
                   <tr class="never">
                     <td class="num">57</td>
                     <td class="coverage"></td>
                     <td class="col-sm-12">
-                      <pre class="language-r">#' @export</pre>
+                      <pre class="language-r">#' dev_suppress(plot(1:10))</pre>
                     </td>
                   </tr>
                   <tr class="never">
                     <td class="num">58</td>
                     <td class="coverage"></td>
                     <td class="col-sm-12">
-                      <pre class="language-r">dev_suppress &lt;- function(x) {</pre>
+                      <pre class="language-r">#' @export</pre>
                     </td>
                   </tr>
-                  <tr class="covered">
+                  <tr class="never">
                     <td class="num">59</td>
-                    <td class="coverage">2<em>x</em></td>
+                    <td class="coverage"></td>
                     <td class="col-sm-12">
-                      <pre class="language-r">  grDevices::pdf(nullfile())</pre>
+                      <pre class="language-r">dev_suppress &lt;- function(x) {</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">60</td>
                     <td class="coverage">2<em>x</em></td>
                     <td class="col-sm-12">
-                      <pre class="language-r">  on.exit(grDevices::dev.off())</pre>
+                      <pre class="language-r">  grDevices::pdf(nullfile())</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">61</td>
                     <td class="coverage">2<em>x</em></td>
                     <td class="col-sm-12">
-                      <pre class="language-r">  force(x)</pre>
+                      <pre class="language-r">  on.exit(grDevices::dev.off())</pre>
                     </td>
                   </tr>
-                  <tr class="never">
+                  <tr class="covered">
                     <td class="num">62</td>
-                    <td class="coverage"></td>
+                    <td class="coverage">2<em>x</em></td>
                     <td class="col-sm-12">
-                      <pre class="language-r">}</pre>
+                      <pre class="language-r">  force(x)</pre>
                     </td>
                   </tr>
                   <tr class="never">
                     <td class="num">63</td>
                     <td class="coverage"></td>
                     <td class="col-sm-12">
-                      <pre class="language-r"></pre>
+                      <pre class="language-r">}</pre>
                     </td>
                   </tr>
                   <tr class="never">
                     <td class="num">64</td>
                     <td class="coverage"></td>
                     <td class="col-sm-12">
-                      <pre class="language-r"># converts vector of expressions to character</pre>
+                      <pre class="language-r"></pre>
                     </td>
                   </tr>
                   <tr class="never">
                     <td class="num">65</td>
                     <td class="coverage"></td>
                     <td class="col-sm-12">
+                      <pre class="language-r"># converts vector of expressions to character</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">66</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
                       <pre class="language-r">format_expression &lt;- function(code) {</pre>
                     </td>
                   </tr>
                   <tr class="covered">
-                    <td class="num">66</td>
+                    <td class="num">67</td>
                     <td class="coverage">23<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">  as.character(styler::style_text(unlist(lapply(as.character(code), remove_enclosing_curly_braces))))</pre>
                     </td>
                   </tr>
                   <tr class="never">
-                    <td class="num">67</td>
+                    <td class="num">68</td>
                     <td class="coverage"></td>
                     <td class="col-sm-12">
                       <pre class="language-r">}</pre>
