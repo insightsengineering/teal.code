@@ -181,7 +181,7 @@ testthat::test_that(
     q <- eval_code(q, "a <- 1")
     q <- eval_code(q, "b <- a")
     q <- eval_code(q, "a <- 3")
-    
+
     testthat::expect_identical(
       get_code(q, deparse = FALSE, names = "b"),
       c("a <- 1", "b <- a")
