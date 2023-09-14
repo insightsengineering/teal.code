@@ -147,7 +147,7 @@ testthat::test_that(
   if object is not specificed in the same eval_code",
   {
     q <- new_qenv()
-    q <- eval_code(q, "a <- 1 # @effect b")
+    q <- eval_code(q, "a <- 1 # @effect b") # IT WOULD BE GREAT IF IT DID
     q <- eval_code(q, "b <- 2")
 
     testthat::expect_identical(
@@ -185,6 +185,26 @@ testthat::test_that(
     testthat::expect_identical(
       get_code(q, deparse = FALSE, names = "b"),
       c("a <- 1", "b <- a")
+    )
+  }
+)
+
+testthat::test_that(
+  "lines affecting parent evaluated after co-occurrence are not included in get_code output when using @effect",
+  {
+    q <- new_qenv()
+    q <- eval_code(q, "a <- 1 ")
+    q <- eval_code(q, "b <- 2 # @effect a")
+    q <- eval_code(q, "a <- a + 1")
+    q <- eval_code(q, "b <- b + 1")
+
+    testthat::expect_identical(
+      get_code(q, deparse = FALSE, names = "a"),
+      c("a <- 1", "b <- 2", "a <- a + 1")
+    )
+    testthat::expect_identical(
+      get_code(q, deparse = FALSE, names = "b"),
+      c("b <- 2", "b <- b + 1")
     )
   }
 )
