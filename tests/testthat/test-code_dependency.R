@@ -172,3 +172,19 @@ testthat::test_that(
     )
   }
 )
+
+
+testthat::test_that(
+  "lines affecting parent evaluated after co-occurrence are not included in get_code output",
+  {
+    q <- new_qenv()
+    q <- eval_code(q, "a <- 1")
+    q <- eval_code(q, "b <- a")
+    q <- eval_code(q, "a <- 3")
+    
+    testthat::expect_identical(
+      get_code(q, deparse = FALSE, names = "b"),
+      c("a <- 1", "b <- a")
+    )
+  }
+)
