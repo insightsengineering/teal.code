@@ -208,3 +208,23 @@ testthat::test_that(
     )
   }
 )
+
+testthat::test_that(
+  "@effect gets extracted if it's a side-effect on a dependent object",
+  {
+    skip("Does not extract second line yet.")
+    q <- new_qenv()
+    q <- eval_code(q,
+    code = "
+      iris[1:5, ] -> iris2
+      iris_head <- head(iris) # @effect iris2
+      classes <- lapply(iris2, class)
+    "
+    )
+
+    testthat::expect_identical(
+      get_code(q, deparse = FALSE, names = "classes"),
+      "iris2 <- iris[1:5, ]", "iris_head <- head(iris)", "classes <- lapply(iris2, class)"
+    )
+  }
+)
