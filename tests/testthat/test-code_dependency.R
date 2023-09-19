@@ -215,7 +215,7 @@ testthat::test_that(
     skip("Does not extract second line yet.")
     q <- new_qenv()
     q <- eval_code(q,
-    code = "
+      code = "
       iris[1:5, ] -> iris2
       iris_head <- head(iris) # @effect iris2
       classes <- lapply(iris2, class)
