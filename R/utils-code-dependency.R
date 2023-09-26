@@ -175,7 +175,7 @@ code_dependency <- function(parsed_code, envir = new.env()) {
     }
   )
 
-  side_effects <- grep('@effect', pd[pd$token == 'COMMENT', 'text'], value = TRUE)
+  side_effects <- grep("@effect", pd[pd$token == "COMMENT", "text"], value = TRUE)
   check_effects <-
     if (length(side_effects) > 0) {
       affected <-
@@ -186,13 +186,13 @@ code_dependency <- function(parsed_code, envir = new.env()) {
                 lapply(
                   strsplit(
                     side_effects,
-                    split = '@effect',
+                    split = "@effect",
                     fixed = TRUE
                   ),
                   function(x) x[-1]
                 )
               ),
-              split = ' ',
+              split = " ",
               fixed = TRUE
             )
           ),
