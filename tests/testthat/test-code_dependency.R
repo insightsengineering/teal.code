@@ -256,6 +256,5 @@ testthat::test_that(
       get_code(q, deparse = FALSE, names = "a"),
       get_code(q, deparse = TRUE)
     )
-
   }
 )
