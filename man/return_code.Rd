@@ -9,6 +9,7 @@ return_code(
   pd = calls_pd,
   occur = occurrence,
   cooccur = cooccurrence,
+  eff = effects,
   parent = NULL
 )
 }
@@ -20,6 +21,8 @@ return_code(
 \item{occur}{result of \code{code_dependency()$occurrence}}
 
 \item{cooccur}{result of \code{code_dependency()$cooccurrence}}
+
+\item{eff}{result of \code{code_dependency()$effects}}
 
 \item{parent}{\code{NULL} or \code{numeric} vector - in a recursive call, it is possible needed to drop parent object
 indicator to omit dependency cycles}
