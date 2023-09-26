@@ -233,7 +233,7 @@ testthat::test_that(
   {
     q <- new_qenv()
     q <- eval_code(q,
-                   code = "
+      code = "
       iris[1:5, ] -> iris2
       iris_head <- head(iris) # @effect iris3
       iris3 <- iris_head[1, ] # @effect iris2
