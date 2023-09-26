@@ -307,15 +307,15 @@ return_code <- function(object, pd = calls_pd, occur = occurrence, cooccur = coo
 
       # If there is an @effect on the influencer.
       influencer_effects_lines <- unlist(eff[influencer_names])
-        # unlist(
-        #   lapply(
-        #     influencer_names,
-        #     return_code_for_effects,
-        #     pd = pd,
-        #     occur = occur,
-        #     cooccur = cooccur # Do not trim to idx.
-        #   )
-        # )
+      # unlist(
+      #   lapply(
+      #     influencer_names,
+      #     return_code_for_effects,
+      #     pd = pd,
+      #     occur = occur,
+      #     cooccur = cooccur # Do not trim to idx.
+      #   )
+      # )
       lines <- c(lines, influencer_lines, influencer_effects_lines)
     }
     sort(unique(lines))
