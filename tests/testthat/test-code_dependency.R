@@ -229,6 +229,26 @@ testthat::test_that(
 )
 
 testthat::test_that(
+  "@effect gets extracted if it's a side-effect on a dependent object of a dependent object",
+  {
+    q <- new_qenv()
+    q <- eval_code(q,
+                   code = "
+      iris[1:5, ] -> iris2
+      iris_head <- head(iris) # @effect iris3
+      iris3 <- iris_head[1, ] # @effect iris2
+      classes <- lapply(iris2, class)
+    "
+    )
+
+    testthat::expect_identical(
+      get_code(q, deparse = FALSE, names = "classes"),
+      c("iris2 <- iris[1:5, ]", "iris_head <- head(iris)", "iris3 <- iris_head[1, ]", "classes <- lapply(iris2, class)")
+    )
+  }
+)
+
+testthat::test_that(
   "get_code returns the same class when names is specified and when not",
   {
     q <- eval_code(new_qenv(), "a <- 1")
