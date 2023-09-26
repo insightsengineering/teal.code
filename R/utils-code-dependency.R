@@ -175,8 +175,36 @@ code_dependency <- function(parsed_code, envir = new.env()) {
     }
   )
 
-  effects <- lapply(object_names, return_code_for_effects, pd = calls_pd, occur = occurrence, cooccur = cooccurrence)
-  names(effects) <- object_names
+  side_effects <- grep('@effect', pd[pd$token == 'COMMENT', 'text'], value = TRUE)
+  check_effects <-
+    if (length(side_effects) > 0) {
+      affected <-
+        setdiff(
+          unlist(
+            strsplit(
+              unlist(
+                lapply(
+                  strsplit(
+                    side_effects,
+                    split = '@effect',
+                    fixed = TRUE
+                  ),
+                  function(x) x[-1]
+                )
+              ),
+              split = ' ',
+              fixed = TRUE
+            )
+          ),
+          ""
+        )
+      unique(c(object_names, affected))
+    } else {
+      object_names
+    }
+
+  effects <- lapply(check_effects, return_code_for_effects, pd = calls_pd, occur = occurrence, cooccur = cooccurrence)
+  names(effects) <- check_effects
 
   list(
     occurrence = occurrence,

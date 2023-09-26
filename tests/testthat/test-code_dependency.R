@@ -143,16 +143,16 @@ testthat::test_that("@effect cause to return this line for affected binding", {
 })
 
 testthat::test_that(
-  "@effect does not return this line for affected binding
-  if object is not specificed in the same eval_code",
+  "@effect returns this line for affected binding
+  even if object is not specificed/created in the same eval_code",
   {
     q <- new_qenv()
-    q <- eval_code(q, "a <- 1 # @effect b") # IT WOULD BE GREAT IF IT DID
+    q <- eval_code(q, "a <- 1 # @effect b")
     q <- eval_code(q, "b <- 2")
 
     testthat::expect_identical(
       get_code(q, deparse = FALSE, names = "b"),
-      c("b <- 2")
+      c("a <- 1", "b <- 2")
     )
   }
 )
