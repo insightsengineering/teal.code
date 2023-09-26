@@ -255,13 +255,14 @@ detect_symbol <- function(object, pd = calls_pd) {
 #' @param pd `list` of data.frames of results of `utils::getParseData()` trimmed to unique `parsed_code` calls
 #' @param occur result of `code_dependency()$occurrence`
 #' @param cooccur result of `code_dependency()$cooccurrence`
+#' @param eff result of `code_dependency()$effects`
 #' @param parent `NULL` or `numeric` vector - in a recursive call, it is possible needed to drop parent object
 #' indicator to omit dependency cycles
 #'
 #' @return A `numeric` vector with number of lines of input `pd` to be returned.
 #'
 #' @keywords internal
-return_code <- function(object, pd = calls_pd, occur = occurrence, cooccur = cooccurrence, parent = NULL) {
+return_code <- function(object, pd = calls_pd, occur = occurrence, cooccur = cooccurrence, eff = effects, parent = NULL) {
   influences <-
     lapply(
       cooccur,
@@ -305,16 +306,16 @@ return_code <- function(object, pd = calls_pd, occur = occurrence, cooccur = coo
         )
 
       # If there is an @effect on the influencer.
-      influencer_effects_lines <-
-        unlist(
-          lapply(
-            influencer_names,
-            return_code_for_effects,
-            pd = pd,
-            occur = occur,
-            cooccur = cooccur # Do not trim to idx.
-          )
-        )
+      influencer_effects_lines <- unlist(eff[influencer_names])
+        # unlist(
+        #   lapply(
+        #     influencer_names,
+        #     return_code_for_effects,
+        #     pd = pd,
+        #     occur = occur,
+        #     cooccur = cooccur # Do not trim to idx.
+        #   )
+        # )
       lines <- c(lines, influencer_lines, influencer_effects_lines)
     }
     sort(unique(lines))
@@ -447,7 +448,8 @@ get_code_dependency <- function(qenv, names) {
         name,
         pd = calls_pd,
         occur = code_dependency$occurrence,
-        cooccur = code_dependency$cooccurrence
+        cooccur = code_dependency$cooccurrence,
+        eff = code_dependency$effects
       )
 
     effects_lines <- code_dependency$effects[[name]]
