@@ -9,6 +9,9 @@ dev_suppress(x)
 \arguments{
 \item{x}{lazy binding which generates the plot(s)}
 }
+\value{
+No return value, called for side effects.
+}
 \description{
 This function opens a PDF graphics device using \code{\link[grDevices]{pdf}} to suppress
 the plot display in the IDE. The purpose of this function is to avoid opening graphic devices

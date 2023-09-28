@@ -31,6 +31,9 @@ get_var(object, var)
 
 \item{...}{not used}
 }
+\value{
+The value of required variable (\code{var}) within \code{qenv} object.
+}
 \description{
 Get object from the \code{qenv} environment.
 }

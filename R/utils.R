@@ -51,6 +51,7 @@ remove_enclosing_curly_braces <- function(x) {
 #'
 #' @import grDevices
 #'
+#' @return No return value, called for side effects.
 #'
 #' @examples
 #' dev_suppress(plot(1:10))

@@ -20,6 +20,9 @@ join(x, y)
 
 \item{y}{(\code{qenv})}
 }
+\value{
+\code{qenv} object.
+}
 \description{
 \code{join()} perform checks and merges two \code{qenv} objects into one \code{qenv} object.
 Any common code at the start of the \code{qenvs} is only placed once at the start of the joined \code{qenv}.

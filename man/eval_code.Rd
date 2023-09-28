@@ -23,6 +23,9 @@ eval_code(object, code)
 
 \item{code}{(\code{character} or \code{language}) code to evaluate. Also accepts and stores comments}
 }
+\value{
+\code{qenv} object.
+}
 \description{
 Given code is evaluated in the \code{qenv} environment and appended to the \code{code} slot. This means
 that state of the environment is always a result of the stored code (if \code{qenv} was initialized)
