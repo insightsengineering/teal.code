@@ -24,7 +24,7 @@ setMethod(
   "new_qenv",
   signature = c(env = "environment", code = "expression"),
   function(env, code) {
-    new_qenv(env, as.character(code))
+    new_qenv(env, format_expression(code))
   }
 )
 
