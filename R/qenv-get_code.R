@@ -2,7 +2,8 @@
 #'
 #' @name get_code
 #' @param object (`qenv`)
-#' @param deparse (`logical(1)`) if the returned code should be converted to character.
+#' @param parse (`logical(1)`) if the returned code should be converted to expression.
+#' @param names (`character(n)`) if provided, returns the code only for objects specified in `names`.
 #' @return named `character` with the reproducible code.
 #' @examples
 #' q1 <- new_qenv(env = list2env(list(a = 1)), code = quote(a <- 1))
@@ -11,7 +12,7 @@
 #' get_code(q3)
 #' get_code(q3, deparse = FALSE)
 #' @export
-setGeneric("get_code", function(object, deparse = TRUE) {
+setGeneric("get_code", function(object, parse = FALSE, names = NULL) {
   # this line forces evaluation of object before passing to the generic
   # needed for error handling to work properly
   grDevices::pdf(nullfile())
@@ -23,12 +24,17 @@ setGeneric("get_code", function(object, deparse = TRUE) {
 
 #' @rdname get_code
 #' @export
-setMethod("get_code", signature = "qenv", function(object, deparse = TRUE) {
-  checkmate::assert_flag(deparse)
-  if (deparse) {
-    format_expression(object@code)
+setMethod("get_code", signature = "qenv", function(object, parse = FALSE, names = NULL) {
+  checkmate::assert_flag(parse)
+  code <- if (!is.null(names)) {
+    get_code_dependency(object, names)
   } else {
     object@code
+  }
+  if (parse) {
+    parse(text = code)
+  } else {
+    code
   }
 })
 
@@ -40,7 +46,7 @@ setMethod("get_code", signature = "qenv.error", function(object) {
       sprintf(
         "%s\n\ntrace: \n %s\n",
         conditionMessage(object),
-        paste(format_expression(object$trace), collapse = "\n ")
+        paste(object$trace, collapse = "\n ")
       ),
       class = c("validation", "try-error", "simpleError")
     )

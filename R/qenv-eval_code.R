@@ -21,7 +21,7 @@ setGeneric("eval_code", function(object, code) standardGeneric("eval_code"))
 
 #' @rdname eval_code
 #' @export
-setMethod("eval_code", signature = c("qenv", "expression"), function(object, code) {
+setMethod("eval_code", signature = c("qenv", "character"), function(object, code) {
   id <- sample.int(.Machine$integer.max, size = length(code))
 
   object@id <- c(object@id, id)
@@ -37,7 +37,7 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
     x <- withCallingHandlers(
       tryCatch(
         {
-          eval(code_line, envir = object@env)
+          eval(parse(text = code_line), envir = object@env)
           NULL
         },
         error = function(e) {
@@ -45,7 +45,7 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
             message = sprintf(
               "%s \n when evaluating qenv code:\n%s",
               .ansi_strip(conditionMessage(e)),
-              paste(format_expression(code), collapse = "\n")
+              paste(code, collapse = "\n")
             ),
             class = c("qenv.error", "try-error", "simpleError"),
             trace = object@code
@@ -75,14 +75,13 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
 #' @rdname eval_code
 #' @export
 setMethod("eval_code", signature = c("qenv", "language"), function(object, code) {
-  code_char <- as.expression(code)
-  eval_code(object, code_char)
+  eval_code(object, code = format_expression(as.expression(code)))
 })
 
 #' @rdname eval_code
 #' @export
-setMethod("eval_code", signature = c("qenv", "character"), function(object, code) {
-  eval_code(object, code = parse(text = code, keep.source = FALSE))
+setMethod("eval_code", signature = c("qenv", "expression"), function(object, code) {
+  eval_code(object, code = format_expression(code))
 })
 
 #' @rdname eval_code
