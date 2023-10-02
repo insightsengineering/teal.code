@@ -124,9 +124,13 @@ within.qenv <- function(data, expr, code, ...) {
     }
     calls <- unlist(lapply(str2expression(code), unpack))
     attr(calls, "code") <- paste(code, collapse = "\n")
+  } else  if (is.expression(code)) {
+    # Expressions are converted to a list of calls.
+    calls <- as.list(code)
+    attr(calls, "code") <- paste(code, collapse = "\n")
   } else if (is.language(code)) {
     calls <-
-      if (as.list(code)[[1L]] == as.name("{")) {
+     if (as.list(code)[[1L]] == as.name("{")) {
         # Compound calls are disassembled into a list of single calls.
         calls <- as.list(code)[-1L]
       } else {
@@ -134,8 +138,12 @@ within.qenv <- function(data, expr, code, ...) {
         list(code)
       }
     attr(calls, "code") <- paste(deparse(code), collapse = "\n")
+  } else if (is.list(code) && all(vapply(code, is.expression, logical(1L)))) {
+    # Lists of expressions are Converted into a list of calls.
+    calls <- unlist(code)
+    attr(calls, "code") <- paste(unlist(code), collapse = "\n")
   } else if (is.list(code) && all(vapply(code, is.call, logical(1L)))) {
-    # Lists of language objects are passed on as is.
+    # Lists of calls are passed on as is.
     calls <- code
     attr(calls, "code") <- paste(code, collapse = "\n")
   } else {
