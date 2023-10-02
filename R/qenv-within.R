@@ -130,7 +130,7 @@ within.qenv <- function(data, expr, code, ...) {
     attr(calls, "code") <- paste(code, collapse = "\n")
   } else if (is.language(code)) {
     calls <-
-     if (as.list(code)[[1L]] == as.name("{")) {
+     if (as.list(code)[[1L]] == as.symbol("{")) {
         # Compound calls are disassembled into a list of single calls.
         calls <- as.list(code)[-1L]
       } else {
