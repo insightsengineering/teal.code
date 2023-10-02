@@ -34,36 +34,41 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
 
   # Using withCallingHandlers to capture warnings and messages.
   # Using tryCatch to capture the error and abort further evaluation.
-  x <- withCallingHandlers(
-    tryCatch(
-      {
-        eval(parse(text = code), envir = object@env)
-        NULL
+  parsed_code <- parse(text = code)
+  for (single_call in parsed_code) {
+    x <- withCallingHandlers(
+      tryCatch(
+        {
+          eval(single_call, envir = object@env)
+          NULL
+        },
+        error = function(e) {
+          errorCondition(
+            message = sprintf(
+              "%s \n when evaluating qenv code:\n%s",
+              .ansi_strip(conditionMessage(e)),
+              deparse(single_call)
+            ),
+            class = c("qenv.error", "try-error", "simpleError"),
+            trace = object@code
+          )
+        }
+      ),
+      warning = function(w) {
+        current_warnings <<- paste0(current_warnings, .ansi_strip(sprintf("> %s\n", conditionMessage(w))))
+        invokeRestart("muffleWarning")
       },
-      error = function(e) {
-        errorCondition(
-          message = sprintf(
-            "%s \n when evaluating qenv code:\n%s",
-            .ansi_strip(conditionMessage(e)),
-            code
-          ),
-          class = c("qenv.error", "try-error", "simpleError"),
-          trace = object@code
-        )
+      message = function(m) {
+        current_messages <<- paste0(current_messages, .ansi_strip(sprintf("> %s", conditionMessage(m))))
+        invokeRestart("muffleMessage")
       }
-    ),
-    warning = function(w) {
-      current_warnings <<- paste0(current_warnings, .ansi_strip(sprintf("> %s\n", conditionMessage(w))))
-      invokeRestart("muffleWarning")
-    },
-    message = function(m) {
-      current_messages <<- paste0(current_messages, .ansi_strip(sprintf("> %s", conditionMessage(m))))
-      invokeRestart("muffleMessage")
+    )
+
+    if (!is.null(x)) {
+      return(x)
     }
-  )
-  if (!is.null(x)) {
-    return(x)
   }
+
 
   object@warnings <- c(object@warnings, current_warnings)
   object@messages <- c(object@messages, current_messages)
