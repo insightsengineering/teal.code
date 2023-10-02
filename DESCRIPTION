@@ -59,5 +59,6 @@ Collate:
     'qenv-get_warnings.R'
     'qenv-join.R'
     'qenv-show.R'
+    'qenv-within.R'
     'teal.code-package.R'
     'utils.R'
