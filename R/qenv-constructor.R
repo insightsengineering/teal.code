@@ -24,7 +24,7 @@ setMethod(
   "new_qenv",
   signature = c(env = "environment", code = "expression"),
   function(env, code) {
-    new_qenv(env, format_expression(code))
+    new_qenv(env, as.character(code))
   }
 )
 
@@ -36,11 +36,9 @@ setMethod(
   function(env, code) {
     new_env <- rlang::env_clone(env, parent = parent.env(.GlobalEnv))
     lockEnvironment(new_env, bindings = TRUE)
-    id <- sample.int(.Machine$integer.max, size = length(code))
-    methods::new(
-      "qenv",
-      env = new_env, code = code, warnings = rep("", length(code)), messages = rep("", length(code)), id = id
-    )
+    code <- paste(code, collapse = "\n")
+    id <- sample.int(.Machine$integer.max, size = 1)
+    methods::new("qenv", env = new_env, code = code, warnings = "", messages = "", id = id)
   }
 
 )
@@ -51,7 +49,7 @@ setMethod(
   "new_qenv",
   signature = c(env = "environment", code = "language"),
   function(env, code) {
-    new_qenv(env = env, code = format_expression(as.expression(code)))
+    new_qenv(env = env, code = as.character(as.expression(code)))
   }
 )
 

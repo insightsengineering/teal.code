@@ -175,7 +175,7 @@ code_dependency <- function(parsed_code, object_names) {
       object_names
     }
 
-  effects <- lapply(check_effects, return_code_for_effects, pd = calls_pd, occur = occurrence, cooccur = cooccurrence)
+  effects <- lapply(check_effects, return_code_for_effects, pd = calls_pd, occur = occurrence, cooccur = cooccurrence, eff = NULL)
   names(effects) <- check_effects
 
   list(
@@ -293,7 +293,8 @@ return_code <- function(object, pd = calls_pd, occur = occurrence, cooccur = coo
 #' @return A `numeric` vector with number of lines of input `pd` to be returned for effects.
 #'
 #' @keywords internal
-return_code_for_effects <- function(object, pd, occur, cooccur) {
+return_code_for_effects <- function(object, pd, occur, cooccur, eff) {
+
   symbol_effects_names <-
     unlist(
       lapply(
@@ -332,8 +333,9 @@ return_code_for_effects <- function(object, pd, occur, cooccur) {
       lapply(
         symbol_effects_names,
         function(x) {
-          code <- return_code(x, pd = pd, occur = occur, cooccur = cooccur)
+          code <- return_code(x, pd = pd, occur = occur, cooccur = cooccur, eff = eff)
           # QUESTION: SHOULD cooccur BE TRIMMED like it happens in return_code()?
+          # YES IT SHOULD
           if (is.null(code)) {
             # Extract lines for objects that were used, but never created.
             # Some objects like 'iris' or 'mtcars' are pre-assigned in the session.
@@ -388,11 +390,11 @@ get_code_dependency <- function(qenv, names) {
     )
   }
 
-  code_dependency <- code_dependency(qenv@code, ls(qenv@env))
-
   parsed_code <- parse(text = as.character(qenv@code))
   pd <- utils::getParseData(parsed_code)
   calls_pd <- lapply(pd[pd$parent == 0, "id"], get_children, pd = pd)
+
+  code_dependency <- code_dependency(parsed_code, ls(qenv@env))
 
   lines <-
     sapply(names, function(name) {
@@ -411,7 +413,7 @@ get_code_dependency <- function(qenv, names) {
       simplify = FALSE
     )
 
-  object_lines_unique <- sort(unique(lines))
+  object_lines_unique <- sort(unique(unlist(lines)))
 
   as.character(parsed_code)[object_lines_unique]
 }
