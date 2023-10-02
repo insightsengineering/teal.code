@@ -1,5 +1,3 @@
-
-
 #' @export
 within.qenv <- function(data, expr, code, ...) {
   extras <- list(...)
@@ -124,13 +122,13 @@ within.qenv <- function(data, expr, code, ...) {
     }
     calls <- unlist(lapply(str2expression(code), unpack))
     attr(calls, "code") <- paste(code, collapse = "\n")
-  } else  if (is.expression(code)) {
+  } else if (is.expression(code)) {
     # Expressions are converted to a list of calls.
     calls <- as.list(code)
     attr(calls, "code") <- paste(code, collapse = "\n")
   } else if (is.language(code)) {
     calls <-
-     if (as.list(code)[[1L]] == as.symbol("{")) {
+      if (as.list(code)[[1L]] == as.symbol("{")) {
         # Compound calls are disassembled into a list of single calls.
         calls <- as.list(code)[-1L]
       } else {
