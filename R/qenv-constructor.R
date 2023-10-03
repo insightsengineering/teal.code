@@ -36,9 +36,11 @@ setMethod(
   function(env, code) {
     new_env <- rlang::env_clone(env, parent = parent.env(.GlobalEnv))
     lockEnvironment(new_env, bindings = TRUE)
-    code <- paste(code, collapse = "\n")
-    id <- sample.int(.Machine$integer.max, size = 1)
-    methods::new("qenv", env = new_env, code = code, warnings = "", messages = "", id = id)
+    if (length(code) > 0) code <- paste(code, collapse = "\n")
+    id <- sample.int(.Machine$integer.max, size = length(code))
+    methods::new(
+      "qenv", env = new_env, code = code, warnings = rep("", length(code)), messages = rep("", length(code)), id = id
+    )
   }
 
 )

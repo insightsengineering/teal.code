@@ -33,7 +33,6 @@ setMethod("get_code", signature = "qenv", function(object, deparse = TRUE, names
   } else {
     object@code
   }
-  if (identical(code[1], "")) code <- code[-1]
   if (deparse) {
     format_expression(code)
   } else {
