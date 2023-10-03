@@ -1,5 +1,12 @@
 # teal.code 0.4.1.9000
 
+* `qenv` object now returns `@code` field as `character` (previously it was `expression`)
+* `get_code()` is extended by `names` parameter that allows to extract the code just for a
+specific object
+* you can now specify `# @effect object_name` comment tag at the end of the line for the `character` code input in
+`new_qenv()` and `eval_code()` to specify lines having side-effects on objects, so that they are also returned in 
+`get_code()` (when `names` is used)
+
 # teal.code 0.4.1
 
 ### Miscellaneous
