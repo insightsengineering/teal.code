@@ -151,25 +151,8 @@ code_dependency <- function(parsed_code, object_names) {
   check_effects <-
     if (length(side_effects) > 0) {
       affected <-
-        setdiff(
-          unlist(
-            strsplit(
-              unlist(
-                lapply(
-                  strsplit(
-                    side_effects,
-                    split = "@effect",
-                    fixed = TRUE
-                  ),
-                  function(x) x[-1]
-                )
-              ),
-              split = " ",
-              fixed = TRUE
-            )
-          ),
-          ""
-        )
+        unlist(strsplit(sub("\\s*#\\s*@effect\\s+", "", side_effects), "\\s+"))
+
       unique(c(object_names, affected))
     } else {
       object_names
