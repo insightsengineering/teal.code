@@ -81,7 +81,7 @@ testthat::test_that("get_code is possible to output the code for multiple object
   )
 })
 
-testthat::test_that("get_code can't extract the code when using assign", {
+testthat::test_that("get_code can't extract the code when no assign operator", {
   q <- new_qenv()
   q <- eval_code(q, "a <- 1")
   q <- eval_code(q, "assign('b', 5)")
