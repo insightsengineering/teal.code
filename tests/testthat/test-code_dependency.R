@@ -279,7 +279,6 @@ testthat::test_that(
 
 testthat::test_that(
   "get_code returns single lines for code put in {} inside expressions",
-  # DOES NOT WORK YET
   {
     q <- new_qenv()
     q <- eval_code(q, expression({

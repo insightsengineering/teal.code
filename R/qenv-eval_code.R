@@ -86,7 +86,7 @@ setMethod("eval_code", signature = c("qenv", "language"), function(object, code)
 #' @rdname eval_code
 #' @export
 setMethod("eval_code", signature = c("qenv", "expression"), function(object, code) {
-  eval_code(object, code = as.character(code))
+  eval_code(object, code = remove_enclosing_curly_braces(as.character(code)))
 })
 
 #' @rdname eval_code
