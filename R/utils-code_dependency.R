@@ -121,7 +121,6 @@
 #'
 #' @keywords internal
 code_dependency <- function(parsed_code, object_names) {
-
   pd <- utils::getParseData(parsed_code)
 
   calls_pd <- lapply(pd[pd$parent == 0, "id"], get_children, pd = pd)
@@ -240,7 +239,6 @@ return_code <- function(object, pd = calls_pd, occur = occurrence, cooccur = coo
     return(sort(unique(lines)))
   } else {
     for (idx in object_influencers) {
-
       influencer_names <- cooccur[[idx]][-1]
 
       influencer_lines <-
@@ -277,7 +275,6 @@ return_code <- function(object, pd = calls_pd, occur = occurrence, cooccur = coo
 #'
 #' @keywords internal
 return_code_for_effects <- function(object, pd, occur, cooccur, eff) {
-
   symbol_effects_names <-
     unlist(
       lapply(
@@ -365,7 +362,6 @@ return_code_for_effects <- function(object, pd, occur, cooccur, eff) {
 #' @param names `character` with object names
 #' @keywords internal
 get_code_dependency <- function(qenv, names) {
-
   if (!all(names %in% ls(qenv@env))) {
     warning(
       "Objects not found in 'qenv' environment: ",
@@ -393,7 +389,7 @@ get_code_dependency <- function(qenv, names) {
       effects_lines <- code_dependency$effects[[name]]
       c(object_lines, effects_lines)
     },
-      simplify = FALSE
+    simplify = FALSE
     )
 
   object_lines_unique <- sort(unique(unlist(lines)))

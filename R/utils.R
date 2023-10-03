@@ -21,7 +21,7 @@ remove_enclosing_curly_braces <- function(x) {
 
   # if text begins with "{   \n" and ends with "\n}   "
   if (grepl(open_bracket_and_spaces, utils::head(split_text, 1)) &&
-      grepl(close_bracket_and_spaces, utils::tail(split_text, 1))) {
+    grepl(close_bracket_and_spaces, utils::tail(split_text, 1))) {
     # remove the first and last line
     split_text <- split_text[-c(1, length(split_text))]
 
