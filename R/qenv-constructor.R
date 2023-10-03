@@ -16,7 +16,7 @@
 #' @return `qenv` object.
 #'
 #' @export
-setGeneric("new_qenv", function(env = new.env(parent = parent.env(.GlobalEnv)), code = expression()) standardGeneric("new_qenv")) # nolint
+setGeneric("new_qenv", function(env = new.env(parent = parent.env(.GlobalEnv)), code = character()) standardGeneric("new_qenv")) # nolint
 
 #' @rdname new_qenv
 #' @export
@@ -24,13 +24,7 @@ setMethod(
   "new_qenv",
   signature = c(env = "environment", code = "expression"),
   function(env, code) {
-    new_env <- rlang::env_clone(env, parent = parent.env(.GlobalEnv))
-    lockEnvironment(new_env, bindings = TRUE)
-    id <- sample.int(.Machine$integer.max, size = length(code))
-    methods::new(
-      "qenv",
-      env = new_env, code = code, warnings = rep("", length(code)), messages = rep("", length(code)), id = id
-    )
+    new_qenv(env, remove_enclosing_curly_braces(as.character(code)))
   }
 )
 
@@ -40,8 +34,15 @@ setMethod(
   "new_qenv",
   signature = c(env = "environment", code = "character"),
   function(env, code) {
-    new_qenv(env, code = parse(text = code, keep.source = FALSE))
+    new_env <- rlang::env_clone(env, parent = parent.env(.GlobalEnv))
+    lockEnvironment(new_env, bindings = TRUE)
+    if (length(code) > 0) code <- paste(code, collapse = "\n")
+    id <- sample.int(.Machine$integer.max, size = length(code))
+    methods::new(
+      "qenv", env = new_env, code = code, warnings = rep("", length(code)), messages = rep("", length(code)), id = id
+    )
   }
+
 )
 
 #' @rdname new_qenv
@@ -50,8 +51,7 @@ setMethod(
   "new_qenv",
   signature = c(env = "environment", code = "language"),
   function(env, code) {
-    code_expr <- as.expression(code)
-    new_qenv(env = env, code = code_expr)
+    new_qenv(env = env, code = remove_enclosing_curly_braces(as.character(as.expression(code))))
   }
 )
 
