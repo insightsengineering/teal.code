@@ -19,106 +19,6 @@
 #' - `effects` - named `list`  by object names with numeric vector as elements indicating which calls has effect on this
 #' object, or NULL if there are no side-effects pointing at this object.
 #'
-#' @examples
-#' \donttest{
-#' library(dplyr)
-#' code <- '
-#'   arm_mapping <- list(
-#'     "A: Drug X" = "150mg QD",
-#'     "B: Placebo" = "Placebo",
-#'     "C: Combination" = "Combination"
-#'   )
-#'   color_manual <- c("150mg QD" = "#000000", "Placebo" = "#3498DB", "Combination" = "#E74C3C")
-#'   # assign LOQ flag symbols: circles for "N" and triangles for "Y", squares for "NA"
-#'   shape_manual <- c("N" = 1, "Y" = 2, "NA" = 0)
-#'   ADSL <- goshawk::rADSL
-#'   goshawk::rADLB-> ADLB
-#'   iris2 <- iris # @effect ADLB ADSL
-#'   var_labels <- lapply(ADLB, function(x) attributes(x)$label)
-#'   iris3 <- iris'
-#' code2 <- '
-#'   ADLB <- ADLB %>%
-#'     dplyr::mutate(AVISITCD = dplyr::case_when(
-#'       AVISIT == "SCREENING" ~ "SCR",
-#'       AVISIT == "BASELINE" ~ "BL",
-#'       grepl("WEEK", AVISIT) ~
-#'         paste(
-#'           "W",
-#'           trimws(
-#'             substr(
-#'               AVISIT,
-#'               start = 6,
-#'               stop = stringr::str_locate(AVISIT, "DAY") - 1
-#'             )
-#'           )
-#'         ),
-#'       TRUE ~ NA_character_
-#'     )) %>%
-#'     dplyr::mutate(AVISITCDN = dplyr::case_when(
-#'       AVISITCD == "SCR" ~ -2,
-#'       AVISITCD == "BL" ~ 0,
-#'       grepl("W", AVISITCD) ~ as.numeric(gsub("[^0-9]*", "", AVISITCD)),
-#'       TRUE ~ NA_real_
-#'     )) %>%
-#'     # use ARMCD values to order treatment in visualization legend
-#'     dplyr::mutate(TRTORD = ifelse(grepl("C", ARMCD), 1,
-#'                                   ifelse(grepl("B", ARMCD), 2,
-#'                                          ifelse(grepl("A", ARMCD), 3, NA)
-#'                                   )
-#'     )) %>%
-#'     dplyr::mutate(ARM = as.character(arm_mapping[match(ARM, names(arm_mapping))])) %>%
-#'     dplyr::mutate(ARM = factor(ARM) %>%
-#'                     reorder(TRTORD)) %>%
-#'     dplyr::mutate(
-#'       ANRHI = dplyr::case_when(
-#'         PARAMCD == "ALT" ~ 60,
-#'         PARAMCD == "CRP" ~ 70,
-#'         PARAMCD == "IGA" ~ 80,
-#'         TRUE ~ NA_real_
-#'       ),
-#'       ANRLO = dplyr::case_when(
-#'         PARAMCD == "ALT" ~ 20,
-#'         PARAMCD == "CRP" ~ 30,
-#'         PARAMCD == "IGA" ~ 40,
-#'         TRUE ~ NA_real_
-#'       )
-#'     ) %>%
-#'     dplyr::rowwise() %>%
-#'     dplyr::group_by(PARAMCD) %>%
-#'     dplyr::mutate(LBSTRESC = ifelse(
-#'       USUBJID %in% sample(USUBJID, 1, replace = TRUE),
-#'       paste("<", round(runif(1, min = 25, max = 30))), LBSTRESC
-#'     )) %>%
-#'     dplyr::mutate(LBSTRESC = ifelse(
-#'       USUBJID %in% sample(USUBJID, 1, replace = TRUE),
-#'       paste(">", round(runif(1, min = 70, max = 75))), LBSTRESC
-#'     )) %>%
-#'     ungroup()'
-#'
-#' code3 <- '
-#'   attr(ADLB[["ARM"]], "label") <- var_labels[["ARM"]]
-#'   attr(ADLB[["ANRHI"]], "label") <- "Analysis Normal Range Upper Limit"
-#'   attr(ADLB[["ANRLO"]], "label") <- "Analysis Normal Range Lower Limit"
-#'   mtcars # @effect ADLB
-#'   options(prompt = ">") # @effect ADLB
-#'
-#'   # add LLOQ and ULOQ variables
-#'   ADLB_LOQS<-goshawk:::h_identify_loq_values(ADLB)
-#'   goshawk:::h_identify_loq_values(ADLB)->ADLB_LOQS
-#'   ADLB = dplyr::left_join(ADLB, ADLB_LOQS, by = "PARAM")
-#'   iris6 <- list(ADLB, ADLB_LOQS, ADSL)
-#'   iris5 <- iris'
-#'
-#' get_code(q2, names = "ADLB")
-#' get_code(q3, names = "ADLB")
-#' get_code(q4, names = "ADLB")
-#' get_code(q4, names = "var_labels")
-#' get_code(q4, names = "ADSL")
-#' get_code(q4, names = c("ADSL", "ADS", "C"))
-#' get_code(q4, names = c("var_labels", "ADSL"))
-#' get_code(q4)
-#' }
-#'
 #' @keywords internal
 code_dependency <- function(parsed_code, object_names) {
   pd <- utils::getParseData(parsed_code)
@@ -249,9 +149,6 @@ return_code <- function(object, pd = calls_pd, occur = occurrence, cooccur = coo
             occur = lapply(occur, function(x) setdiff(x, idx:max(x))),
             cooccur = cooccur[1:idx],
             parent = where_influences
-            # We need to skip parent_object so that we do not end up in a hole,
-            # where e.g. in line 7 'A' gets influenced by 'B'
-            # and in line 10 'B' gets influenced by 'A'.
           )
         )
 
