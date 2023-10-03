@@ -4,7 +4,7 @@
 \alias{return_code_for_effects}
 \title{Return the lines of code needed to reproduce the side-effects having an impact on the object.}
 \usage{
-return_code_for_effects(object, pd, occur, cooccur)
+return_code_for_effects(object, pd, occur, cooccur, eff)
 }
 \arguments{
 \item{object}{\code{character} with object name}
