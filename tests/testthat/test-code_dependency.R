@@ -92,7 +92,7 @@ testthat::test_that("get_code can't extract the code when using assign", {
   )
 })
 
-testthat::test_that("get_code can't extract the code when using assign, so use @effect tag", {
+testthat::test_that("@effect tag indicate affected object if object is assigned anywhere in a code", {
   q <- new_qenv()
   q <- eval_code(q, "a <- 1")
   q <- eval_code(q, "assign('b', 5) # @effect b")
