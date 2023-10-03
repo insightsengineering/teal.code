@@ -57,7 +57,7 @@ testthat::test_that("get_code extracts code of a parent binding but only those e
   )
 })
 
-testthat::test_that("get_code extracts code of a parent binding if used in a function", {
+testthat::test_that("get_code extracts code of a parent binding if used as an arg in fun call", {
   q <- new_qenv()
   q <- eval_code(q, "a <- 1")
   q <- eval_code(q, "b <- identity(x = a)")
