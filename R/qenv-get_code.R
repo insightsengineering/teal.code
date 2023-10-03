@@ -24,7 +24,8 @@ setGeneric("get_code", function(object, deparse = TRUE, names = NULL) {
 
 #' @rdname get_code
 #' @export
-setMethod("get_code", signature = "qenv", function(object, deparse = TRUE, names = NULL) {
+setMethod("get_code", signature = "qenv", function(object, deparse = TRUE, names = character(0)) {
+  checkmate::assert_character(names)
   checkmate::assert_flag(deparse)
   code <- if (!is.null(names)) {
     get_code_dependency(object, names)
