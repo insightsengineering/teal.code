@@ -104,7 +104,7 @@ testthat::test_that("@effect tag indicate affected object if object is assigned 
 })
 
 
-testthat::test_that("get_code can't extract the code when using data, so use @effect tag", {
+testthat::test_that("get_code can't extract the code when function creates an object which is used only on rhs", {
   skip("Does not work yet!")
   q <- new_qenv()
   q <- eval_code(q, "data(iris) # @effect iris")
