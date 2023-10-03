@@ -4,7 +4,8 @@
 #' @param object (`qenv`)
 #' @param deparse (`logical(1)`) if the returned code should be converted to character
 #' @param names (`character(n)`) if provided, returns the code only for objects specified in `names`.
-#' @return named `character` with the reproducible code.
+#' @return If `deparse = TRUE`, a `character` with the reproducible code. For `deparse = FALSE`, an expression with the
+#' code.
 #' @examples
 #' q1 <- new_qenv(env = list2env(list(a = 1)), code = quote(a <- 1))
 #' q2 <- eval_code(q1, code = quote(b <- a))
