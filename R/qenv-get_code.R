@@ -12,7 +12,7 @@
 #' get_code(q3)
 #' get_code(q3, deparse = FALSE)
 #' @export
-setGeneric("get_code", function(object, deparse = TRUE, names = NULL) {
+setGeneric("get_code", function(object, deparse = TRUE, names = character(0)) {
   # this line forces evaluation of object before passing to the generic
   # needed for error handling to work properly
   grDevices::pdf(nullfile())
@@ -27,7 +27,7 @@ setGeneric("get_code", function(object, deparse = TRUE, names = NULL) {
 setMethod("get_code", signature = "qenv", function(object, deparse = TRUE, names = character(0)) {
   checkmate::assert_character(names)
   checkmate::assert_flag(deparse)
-  code <- if (!is.null(names)) {
+  code <- if (length(names) > 0) {
     get_code_dependency(object, names)
   } else {
     object@code
