@@ -16,6 +16,7 @@ testthat::test_that("get_code extract code of a binding from a simple code put i
 testthat::test_that("get_code extracts the code of a binding from a code put in an expression", {
   q <- new_qenv()
   q <- eval_code(q, expression(a <- 1))
+  q <- eval_code(q, expression(b <- 2))
 
 
   testthat::expect_identical(
