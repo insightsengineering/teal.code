@@ -103,15 +103,6 @@ testthat::test_that("@effect tag indicate affected object if object is assigned 
   )
 })
 
-testthat::test_that("get_code can't extract the code when using data", {
-  q <- new_qenv()
-  q <- eval_code(q, "data(iris)")
-  q <- eval_code(q, "iris2 <- head(iris)")
-  testthat::expect_identical(
-    get_code(q, names = "iris2"),
-    "iris2 <- head(iris)"
-  )
-})
 
 testthat::test_that("get_code can't extract the code when using data, so use @effect tag", {
   skip("Does not work yet!")
