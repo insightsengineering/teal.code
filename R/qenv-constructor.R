@@ -16,7 +16,7 @@
 #' @return `qenv` object.
 #'
 #' @export
-setGeneric("new_qenv", function(env = new.env(parent = parent.env(.GlobalEnv)), code = expression()) standardGeneric("new_qenv")) # nolint
+setGeneric("new_qenv", function(env = new.env(parent = parent.env(.GlobalEnv)), code = character()) standardGeneric("new_qenv")) # nolint
 
 #' @rdname new_qenv
 #' @export
