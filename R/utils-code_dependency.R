@@ -116,8 +116,9 @@ detect_symbol <- function(object, pd) {
 #'
 #' @keywords internal
 return_code <- function(object, pd = calls_pd, occur = occurrence, cooccur = cooccurrence, eff = effects, parent = NULL) {
-
-  if (all(unlist(lapply(occur, length)) == 0)) {return(NULL)}
+  if (all(unlist(lapply(occur, length)) == 0)) {
+    return(NULL)
+  }
 
   influences <-
     lapply(
@@ -263,12 +264,11 @@ return_code_for_effects <- function(object, pd, occur, cooccur, eff) {
 #' @param names `character` with object names
 #' @keywords internal
 get_code_dependency <- function(qenv, names) {
-
   parsed_code <- parse(text = as.character(qenv@code))
   pd <- utils::getParseData(parsed_code)
   calls_pd <- lapply(pd[pd$parent == 0, "id"], get_children, pd = pd)
 
-  symbols <- unique(pd[pd$token == 'SYMBOL', 'text'])
+  symbols <- unique(pd[pd$token == "SYMBOL", "text"])
 
   if (!all(names %in% symbols)) {
     warning(
