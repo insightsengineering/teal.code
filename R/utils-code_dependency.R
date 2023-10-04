@@ -53,6 +53,9 @@ code_dependency <- function(code, object_names) {
     calls_pd,
     function(x) {
       sym_cond <- which(x$token == "SYMBOL" & x$text %in% object_names)
+      sym_form_cond <- which(x$token == "SYMBOL_FORMALS" & x$text %in% object_names)
+      sym_cond <- sym_cond[!x[sym_cond, 'text'] %in% x[sym_form_cond, 'text']]
+
       if (length(sym_cond) >= 2) {
         ass_cond <- grep("ASSIGN", x$token)
         text <- unique(x[sort(c(sym_cond, ass_cond)), "text"])
@@ -126,7 +129,8 @@ detect_symbol <- function(object, pd) {
     vapply(
       pd,
       function(call) {
-        any(call[call$token == "SYMBOL", "text"] == object)
+        any(call[call$token == "SYMBOL", "text"] == object) &&
+          !any(call[call$token == "SYMBOL_FORMALS", "text"] == object)
       },
       logical(1)
     )

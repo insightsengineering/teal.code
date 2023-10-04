@@ -295,7 +295,6 @@ testthat::test_that(
 
 # functions -------------------------------------------------------------------------------------------------------
 
-# FAILS
 testthat::test_that("get_code ignores occurrence in function definition", {
   q <- new_qenv()
   q <- eval_code(q, "b <- 2")
@@ -303,7 +302,7 @@ testthat::test_that("get_code ignores occurrence in function definition", {
 
   testthat::expect_identical(
     get_code(q, names = "foo"),
-    "foo <- function(b) {b <- b + 2}"
+    c("foo <- function(b) {", "  b <- b + 2", "}")
   )
 })
 
