@@ -61,12 +61,12 @@ Consider a case when a subset of `iris` defined by an input value.
 q <- new_qenv()
 q <- eval_code(q, quote(i <- subset(iris, Species == "setosa")))
 q <- eval_code(q, substitute(
-  ii <- subset(iris, Species == species), 
+  ii <- subset(iris, Species == species),
   env = list(species = "versicolor")
 ))
 input_value <- "virginica"
 q <- eval_code(q, substitute(
-  iii <- subset(iris, Species == species), 
+  iii <- subset(iris, Species == species),
   env = list(species = input_value)
 ))
 
