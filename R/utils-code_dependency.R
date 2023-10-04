@@ -26,18 +26,18 @@
 #' @keywords internal
 #'
 code_dependency <- function(code, object_names) {
-  checkmate::assert_multi_class(code, classes = c('character', 'expression'))
+  checkmate::assert_multi_class(code, classes = c("character", "expression"))
   checkmate::assert_character(object_names)
 
-  if (class(code) == 'expression') {
-    if (!is.null(attr(code, 'srcref'))) {
+  if (class(code) == "expression") {
+    if (!is.null(attr(code, "srcref"))) {
       parsed_code <- code
     } else {
-     stop("The 'expression' code input does not contain 'srcref' attribute.")
+      stop("The 'expression' code input does not contain 'srcref' attribute.")
     }
   }
 
-  if (class(code) == 'character') {
+  if (class(code) == "character") {
     parsed_code <- parse(text = code)
   }
 
