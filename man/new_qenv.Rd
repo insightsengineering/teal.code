@@ -8,15 +8,15 @@
 \alias{new_qenv,missing,missing-method}
 \title{Initialize \code{qenv} object}
 \usage{
-new_qenv(env = new.env(parent = parent.env(.GlobalEnv)), code = expression())
+new_qenv(env = new.env(parent = parent.env(.GlobalEnv)), code = character())
 
-\S4method{new_qenv}{environment,expression}(env = new.env(parent = parent.env(.GlobalEnv)), code = expression())
+\S4method{new_qenv}{environment,expression}(env = new.env(parent = parent.env(.GlobalEnv)), code = character())
 
-\S4method{new_qenv}{environment,character}(env = new.env(parent = parent.env(.GlobalEnv)), code = expression())
+\S4method{new_qenv}{environment,character}(env = new.env(parent = parent.env(.GlobalEnv)), code = character())
 
-\S4method{new_qenv}{environment,language}(env = new.env(parent = parent.env(.GlobalEnv)), code = expression())
+\S4method{new_qenv}{environment,language}(env = new.env(parent = parent.env(.GlobalEnv)), code = character())
 
-\S4method{new_qenv}{missing,missing}(env = new.env(parent = parent.env(.GlobalEnv)), code = expression())
+\S4method{new_qenv}{missing,missing}(env = new.env(parent = parent.env(.GlobalEnv)), code = character())
 }
 \arguments{
 \item{env}{(\code{environment}) Environment being a result of the \code{code} evaluation.}
