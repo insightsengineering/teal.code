@@ -54,7 +54,7 @@ code_dependency <- function(code, object_names) {
     function(x) {
       sym_cond <- which(x$token == "SYMBOL" & x$text %in% object_names)
       sym_form_cond <- which(x$token == "SYMBOL_FORMALS" & x$text %in% object_names)
-      sym_cond <- sym_cond[!x[sym_cond, 'text'] %in% x[sym_form_cond, 'text']]
+      sym_cond <- sym_cond[!x[sym_cond, "text"] %in% x[sym_form_cond, "text"]]
 
       if (length(sym_cond) >= 2) {
         ass_cond <- grep("ASSIGN", x$token)
