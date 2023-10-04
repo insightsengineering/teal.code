@@ -106,14 +106,13 @@ testthat::test_that("@effect tag indicate affected object if object is assigned 
 })
 
 
-testthat::test_that("get_code can't extract the code when function creates an object which is used only on rhs", {
-  skip("Does not work yet!")
+testthat::test_that("get_code can extract the code when function creates an object which is used only on rhs", {
   q <- new_qenv()
-  q <- eval_code(q, "data(iris) # @effect iris")
+  q <- eval_code(q, "data(iris)")
   q <- eval_code(q, "iris2 <- head(iris)")
   testthat::expect_identical(
     get_code(q, names = "iris2"),
-    "iris2 <- head(iris)"
+    c("data(iris)", "iris2 <- head(iris)")
   )
 })
 
@@ -297,7 +296,7 @@ testthat::test_that(
 
 # functions -------------------------------------------------------------------------------------------------------
 
-
+# FAILS
 testthat::test_that("get_code ignores occurrence in function definition", {
   q <- new_qenv()
   q <- eval_code(q, "b <- 2")
@@ -321,7 +320,7 @@ testthat::test_that("get_code ignores effect of the object which occurs in a fun
   )
 })
 
-
+# FAILS
 testthat::test_that("get_code detects occurrence of the function object", {
   q <- new_qenv()
   q <- eval_code(q, "a <- 1")

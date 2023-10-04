@@ -116,6 +116,9 @@ detect_symbol <- function(object, pd) {
 #'
 #' @keywords internal
 return_code <- function(object, pd = calls_pd, occur = occurrence, cooccur = cooccurrence, eff = effects, parent = NULL) {
+
+  if (all(unlist(lapply(occur, length)) == 0)) {return(NULL)}
+
   influences <-
     lapply(
       cooccur,
@@ -146,9 +149,10 @@ return_code <- function(object, pd = calls_pd, occur = occurrence, cooccur = coo
           lapply(
             influencer_names,
             return_code,
-            occur = lapply(occur, function(x) setdiff(x, idx:max(x))),
+            occur = suppressWarnings(lapply(occur, function(x) setdiff(x, idx:max(idx, max(x))))),
             cooccur = cooccur[1:idx],
-            parent = where_influences
+            parent = where_influences,
+            eff = eff
           )
         )
 
@@ -259,18 +263,21 @@ return_code_for_effects <- function(object, pd, occur, cooccur, eff) {
 #' @param names `character` with object names
 #' @keywords internal
 get_code_dependency <- function(qenv, names) {
-  if (!all(names %in% ls(qenv@env))) {
-    warning(
-      "Objects not found in 'qenv' environment: ",
-      toString(setdiff(names, ls(qenv@env)))
-    )
-  }
 
   parsed_code <- parse(text = as.character(qenv@code))
   pd <- utils::getParseData(parsed_code)
   calls_pd <- lapply(pd[pd$parent == 0, "id"], get_children, pd = pd)
 
-  code_dependency <- code_dependency(parsed_code, ls(qenv@env))
+  symbols <- unique(pd[pd$token == 'SYMBOL', 'text'])
+
+  if (!all(names %in% symbols)) {
+    warning(
+      "Objects not found in 'qenv' environment: ",
+      toString(setdiff(names, symbols))
+    )
+  }
+
+  code_dependency <- code_dependency(parsed_code, symbols)
 
   lines <-
     sapply(names, function(name) {
