@@ -44,7 +44,7 @@ get_code(q)
 q <- new_qenv()
 q <- within(q, i <- iris)
 within(q, print(dim(subset(i, Species == "virginica"))))
-within(q, print(dim(subset(i, Species == species))))                              # fails
+within(q, print(dim(subset(i, Species == species)))) # fails
 within(q, print(dim(subset(i, Species == species))), species = "versicolor")
 species_external <- "versicolor"
 within(q, print(dim(subset(i, Species == species))), species = species_external)
