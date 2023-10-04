@@ -8,7 +8,7 @@
 #' methods. To specify relationships between side-effects and objects, you can use the comment tag
 #' `# @effect object_name` at the end of a line where the side-effect occurs.
 #'
-#' @param parsed_code (`expression`) The result of the `parse()` function.
+#' @param code An `expression` with `srcref` attribute or a `character` with the code.
 #' @param object_names (`character(n)`) A vector containing the names of existing objects.
 #'
 #' @return A `list` with three components:
@@ -24,7 +24,23 @@
 #'
 #'
 #' @keywords internal
-code_dependency <- function(parsed_code, object_names) {
+#'
+code_dependency <- function(code, object_names) {
+  checkmate::assert_multi_class(code, classes = c('character', 'expression'))
+  checkmate::assert_character(object_names)
+
+  if (class(code) == 'expression') {
+    if (!is.null(attr(code, 'srcref'))) {
+      parsed_code <- code
+    } else {
+     stop("The 'expression' code input does not contain 'srcref' attribute.")
+    }
+  }
+
+  if (class(code) == 'character') {
+    parsed_code <- parse(text = code)
+  }
+
   pd <- utils::getParseData(parsed_code)
 
   calls_pd <- lapply(pd[pd$parent == 0, "id"], get_children, pd = pd)
