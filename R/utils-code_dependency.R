@@ -27,7 +27,7 @@
 #'
 code_dependency <- function(code, object_names) {
   checkmate::assert_multi_class(code, classes = c("character", "expression"))
-  checkmate::assert_character(object_names)
+  checkmate::assert_character(object_names, null.ok = TRUE)
 
   if (class(code) == "expression") {
     if (!is.null(attr(code, "srcref"))) {
