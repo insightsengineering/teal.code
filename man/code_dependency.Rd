@@ -7,30 +7,32 @@
 code_dependency(parsed_code, object_names)
 }
 \arguments{
-\item{parsed_code}{(\code{expression}) result of \code{parse()}}
+\item{parsed_code}{(\code{expression}) The result of the \code{parse()} function.}
 
-\item{object_names}{(\code{character(n)}) vector of names of existing objects}
+\item{object_names}{(\code{character(n)}) A vector containing the names of existing objects.}
 }
 \value{
-A \code{list} containing 3 elements
+A \code{list} with three components:
 \itemize{
-\item \code{occurrence} - named \code{list} by object names with numeric vector as elements indicating calls in which object
-appears.
-\item \code{cooccurrence} - \code{list} of the same length as number of calls in \code{parsed_code}, containing \code{NULL}s if there is no
-co-occurrence between objects, or a \code{character} vector indicating co-occurrence of objects in specific \code{parsed_code}
-call element. If a character vector, then the first element is the name of the dependent object, and the rest are the
-influencing objects
-\item \code{effects} - named \code{list}  by object names with numeric vector as elements indicating which calls has effect on this
-object, or NULL if there are no side-effects pointing at this object.
+\item \code{occurrence}: A named \code{list} where object names are the names of existing objects, and each element is a numeric
+vector indicating the calls in which the object appears.
+\item \code{cooccurrence}: A \code{list} of the same length as the number of calls in \code{parsed_code}. It contains \code{NULL} values if
+there is no co-occurrence between objects or a \code{character} vector indicating the co-occurrence of objects in a
+specific \code{parsed_code} call element. If it's a character vector, the first element is the name of the dependent
+object, and the rest are the influencing objects.
+\item \code{effects}: A named \code{list} where object names are the names of existing objects, and each element is a numeric
+vector indicating which calls have an effect on that object. If there are no side-effects pointing at an object,
+the element is \code{NULL}.
 }
 }
 \description{
-Build up ingredients needed to restore the code required to create a specific object.
+This function constructs a dependency structure that identifies the relationships between objects in
+parsed code. It helps you understand which objects are needed to recreate a specific object.
 }
 \details{
-The relation between objects is assumed to be passed by \verb{<-}, \code{=} or \verb{->} assignment operators. No other
-object creation methods (like \code{assign}, or \verb{<<-} or any non-standard-evaluation method) are supported. To specify
-relations between side-effects and objects, use specific comment tag \verb{# @effect object_name} at the end of the line
-in which the side-effect appears. Check examples to see the usage.
+This function assumes that object relationships are established using the \verb{<-}, \code{=}, or \verb{->} assignment
+operators. It does not support other object creation methods like \code{assign} or \verb{<<-}, nor non-standard-evaluation
+methods. To specify relationships between side-effects and objects, you can use the comment tag
+\verb{# @effect object_name} at the end of a line where the side-effect occurs.
 }
 \keyword{internal}

@@ -1,23 +1,27 @@
 #' Create Object Dependencies Structure Within Parsed Code
 #'
-#' @description Build up ingredients needed to restore the code required to create a specific object.
-#' @details The relation between objects is assumed to be passed by `<-`, `=` or `->` assignment operators. No other
-#' object creation methods (like `assign`, or `<<-` or any non-standard-evaluation method) are supported. To specify
-#' relations between side-effects and objects, use specific comment tag `# @effect object_name` at the end of the line
-#' in which the side-effect appears. Check examples to see the usage.
+#' @description This function constructs a dependency structure that identifies the relationships between objects in
+#' parsed code. It helps you understand which objects are needed to recreate a specific object.
 #'
-#' @param parsed_code (`expression`) result of `parse()`
-#' @param object_names (`character(n)`) vector of names of existing objects
+#' @details This function assumes that object relationships are established using the `<-`, `=`, or `->` assignment
+#' operators. It does not support other object creation methods like `assign` or `<<-`, nor non-standard-evaluation
+#' methods. To specify relationships between side-effects and objects, you can use the comment tag
+#' `# @effect object_name` at the end of a line where the side-effect occurs.
 #'
-#' @return A `list` containing 3 elements
-#' - `occurrence` - named `list` by object names with numeric vector as elements indicating calls in which object
-#' appears.
-#' - `cooccurrence` - `list` of the same length as number of calls in `parsed_code`, containing `NULL`s if there is no
-#' co-occurrence between objects, or a `character` vector indicating co-occurrence of objects in specific `parsed_code`
-#' call element. If a character vector, then the first element is the name of the dependent object, and the rest are the
-#' influencing objects
-#' - `effects` - named `list`  by object names with numeric vector as elements indicating which calls has effect on this
-#' object, or NULL if there are no side-effects pointing at this object.
+#' @param parsed_code (`expression`) The result of the `parse()` function.
+#' @param object_names (`character(n)`) A vector containing the names of existing objects.
+#'
+#' @return A `list` with three components:
+#' - `occurrence`: A named `list` where object names are the names of existing objects, and each element is a numeric
+#' vector indicating the calls in which the object appears.
+#' - `cooccurrence`: A `list` of the same length as the number of calls in `parsed_code`. It contains `NULL` values if
+#' there is no co-occurrence between objects or a `character` vector indicating the co-occurrence of objects in a
+#' specific `parsed_code` call element. If it's a character vector, the first element is the name of the dependent
+#' object, and the rest are the influencing objects.
+#' - `effects`: A named `list` where object names are the names of existing objects, and each element is a numeric
+#' vector indicating which calls have an effect on that object. If there are no side-effects pointing at an object,
+#' the element is `NULL`.
+#'
 #'
 #' @keywords internal
 code_dependency <- function(parsed_code, object_names) {
