@@ -57,7 +57,18 @@ code_dependency <- function(parsed_code, object_names) {
       object_names
     }
 
-  effects <- lapply(check_effects, return_code_for_effects, pd = calls_pd, occur = occurrence, cooccur = cooccurrence, eff = NULL)
+  effects <- lapply(check_effects,
+    function(x) {
+      maxid <- max(occurrence[[x]])
+      return_code_for_effects(
+        x,
+        pd = calls_pd,
+        occur = suppressWarnings(lapply(occurrence, function(x) setdiff(x, maxid:max(maxid, max(x))))),
+        cooccur = cooccurrence,
+        eff = NULL
+      )
+    }
+  )
   names(effects) <- check_effects
 
   list(
@@ -215,9 +226,8 @@ return_code_for_effects <- function(object, pd, occur, cooccur, eff) {
         symbol_effects_names,
         function(x) {
           code <- return_code(x, pd = pd, occur = occur, cooccur = cooccur, eff = eff)
-          # QUESTION: SHOULD cooccur BE TRIMMED like it happens in return_code()?
-          # YES IT SHOULD
-          if (is.null(code)) {
+           if (is.null(code)) {
+            # NOT SURE IF BELOW IS NEEDED ANYMORE ONCE WE MOVE TO SYMBOLS
             # Extract lines for objects that were used, but never created.
             # Some objects like 'iris' or 'mtcars' are pre-assigned in the session.
             # Below is just used for comments with @effect.

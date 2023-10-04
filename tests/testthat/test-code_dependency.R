@@ -208,7 +208,6 @@ testthat::test_that(
 testthat::test_that(
   "lines affecting parent evaluated after co-occurrence are not included in get_code output when using @effect",
   {
-    skip("This needs to be fixed!")
     q <- new_qenv()
     q <- eval_code(q, "a <- 1 ")
     q <- eval_code(q, "b <- 2 # @effect a")
