@@ -1,5 +1,5 @@
 ---
-title: "`qenv`"
+title: "qenv"
 author: "NEST coreDev"
 output: rmarkdown::html_vignette
 vignette: >
@@ -53,6 +53,43 @@ print(q2[["y"]])
 
 cat(paste(get_code(q2), collapse = "\n"))
 ```
+
+### Substitutions
+In some cases one may want to substitute some elements of the code before evaluation. 
+Consider a case when a subset of `iris` defined by an input value.
+```{r}
+q <- new_qenv()
+q <- eval_code(q, quote(i <- subset(iris, Species == "setosa")))
+q <- eval_code(q, substitute(
+  ii <- subset(iris, Species == species), 
+  env = list(species = "versicolor")
+))
+input_value <- "virginica"
+q <- eval_code(q, substitute(
+  iii <- subset(iris, Species == species), 
+  env = list(species = input_value)
+))
+
+summary(q[["i"]]$Species)
+summary(q[["ii"]]$Species)
+summary(q[["iii"]]$Species)
+```
+
+A more convenient way to pass code with substitution is to use the `within` method.
+```{r}
+qq <- new_qenv()
+qq <- within(qq, i <- subset(iris, Species == "setosa"))
+qq <- within(qq, ii <- subset(iris, Species == species), species = "versicolor")
+input_value <- "virginica"
+qq <- within(qq, iii <- subset(iris, Species == species), species = input_value)
+
+summary(qq[["i"]]$Species)
+summary(qq[["ii"]]$Species)
+summary(qq[["iii"]]$Species)
+```
+
+
+
 ### Combining `qenv` objects
 
 Given a pair of `qenv` objects, you may be able to "join" them, creating a new `qenv` object encompassing the union of both environments, along with the requisite code for reproduction:
