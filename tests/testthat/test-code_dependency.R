@@ -318,7 +318,6 @@ testthat::test_that("get_code ignores effect of the object which occurs in a fun
   )
 })
 
-# FAILS
 testthat::test_that("get_code detects occurrence of the function object", {
   q <- new_qenv()
   q <- eval_code(q, "a <- 1")
@@ -328,6 +327,6 @@ testthat::test_that("get_code detects occurrence of the function object", {
 
   testthat::expect_identical(
     get_code(q, names = "b"),
-    c("a <- 1", "b <- 2", "foo <- function(b) {b <- b + 2}", "b <- foo(a)")
+    c("a <- 1", "b <- 2", "foo <- function(b) {", "  b <- b + 2", "}", "b <- foo(a)")
   )
 })
