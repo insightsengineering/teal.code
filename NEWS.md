@@ -7,6 +7,7 @@
 * Updated usage and installation instructions in `README`.
 * Updated phrasing of the `qenv` vignette.
 * Specified minimal version of package dependencies.
+* Added `within` method for `qenv` for cenvenient passing of inline code to `eval_code`.
 
 # teal.code 0.4.0
 
