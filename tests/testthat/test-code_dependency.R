@@ -292,3 +292,45 @@ testthat::test_that(
     )
   }
 )
+
+
+
+# functions -------------------------------------------------------------------------------------------------------
+
+
+testthat::test_that("get_code ignores occurrence in function definition", {
+  q <- new_qenv()
+  q <- eval_code(q, "b <- 2")
+  q <- eval_code(q, "foo <- function(b) { b <- b + 2 }")
+
+  testthat::expect_identical(
+    get_code(q, names = "foo"),
+    "foo <- function(b) {b <- b + 2}"
+  )
+})
+
+
+testthat::test_that("get_code ignores effect of the object which occurs in a function definition", {
+  q <- new_qenv()
+  q <- eval_code(q, "b <- 2")
+  q <- eval_code(q, "foo <- function(b) { b <- b + 2 }")
+
+  testthat::expect_identical(
+    get_code(q, names = "b"),
+    c("b <- 2")
+  )
+})
+
+
+testthat::test_that("get_code detects occurrence of the function object", {
+  q <- new_qenv()
+  q <- eval_code(q, "a <- 1")
+  q <- eval_code(q, "b <- 2")
+  q <- eval_code(q, "foo <- function(b) { b <- b + 2 }")
+  q <- eval_code(q, "b <- foo(a)")
+
+  testthat::expect_identical(
+    get_code(q, names = "b"),
+    c("a <- 1", "b <- 2", "foo <- function(b) {b <- b + 2}", "b <- foo(a)")
+  )
+})
