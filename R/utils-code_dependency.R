@@ -57,7 +57,8 @@ code_dependency <- function(parsed_code, object_names) {
       object_names
     }
 
-  effects <- lapply(check_effects,
+  effects <- lapply(
+    check_effects,
     function(x) {
       maxid <- max(occurrence[[x]])
       return_code_for_effects(
@@ -227,7 +228,7 @@ return_code_for_effects <- function(object, pd, occur, cooccur, eff) {
         symbol_effects_names,
         function(x) {
           code <- return_code(x, pd = pd, occur = occur, cooccur = cooccur, eff = eff)
-           if (is.null(code)) {
+          if (is.null(code)) {
             # NOT SURE IF BELOW IS NEEDED ANYMORE ONCE WE MOVE TO SYMBOLS
             # Extract lines for objects that were used, but never created.
             # Some objects like 'iris' or 'mtcars' are pre-assigned in the session.
