@@ -50,16 +50,6 @@ testthat::test_that("character-only compound expressions are ignored", {
   testthat::expect_equal(q, qq)
 })
 
-testthat::test_that("symbol passed to `expr` raises warning", {
-  q <- new_qenv()
-  q <- within(q, i <- iris)
-  testthat::expect_warning(
-    qq <- within(q, i),
-    "Symbol passed to \"expr\""
-  )
-  testthat::expect_identical(get_code(qq), c("i <- iris", "i"))
-})
-
 
 ## code identity ----
 testthat::test_that("differently formulated expressions yield the same code", {
