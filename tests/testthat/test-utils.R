@@ -60,5 +60,5 @@ testthat::test_that("format expression concatenates results of remove_enclosing_
       z <- 1
     })
   )
-  expect_equal(format_expression(code_list), c("x <- 1", "y <- 1", "z <- 1"))
+  expect_equal(format_expression(code_list), c("x <- 1", "y <- 1\nz <- 1"))
 })

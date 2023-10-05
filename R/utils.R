@@ -64,5 +64,5 @@ dev_suppress <- function(x) {
 
 # converts vector of expressions to character
 format_expression <- function(code) {
-  as.character(styler::style_text(unlist(lapply(as.character(code), remove_enclosing_curly_braces))))
+  unlist(lapply(as.character(code), function(x) paste(remove_enclosing_curly_braces(x), collapse = "\n")))
 }
