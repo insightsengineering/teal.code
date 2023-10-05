@@ -1,8 +1,7 @@
 # styler: off
 # nolint start
 
-# evaluation ----
-## code acceptance ----
+# code acceptance ----
 testthat::test_that("simple and compound expressions are evaluated", {
   q <- new_qenv()
   testthat::expect_no_error(
@@ -15,7 +14,7 @@ testthat::test_that("simple and compound expressions are evaluated", {
   )
 })
 
-## code identity ----
+# code identity ----
 testthat::test_that("styling of input code does not impact evaluation results", {
   q <- new_qenv()
   q <- within(q, 1 + 1)
@@ -54,7 +53,27 @@ testthat::test_that("styling of input code does not impact evaluation results", 
 })
 
 
-## injecting values ----
+# return value ----
+testthat::test_that("within.qenv renturns a deep copy of `data`", {
+  q <- new_qenv()
+  q <- within(new_qenv(), i <- iris)
+  qq <- within(q, {})
+  testthat::expect_equal(q, qq)
+  testthat::expect_false(identical(q, qq))
+})
+
+testthat::test_that("within.qenv renturns qenv.error even if evaluation raises error", {
+  q <- new_qenv()
+  q <- within(q, i <- iris)
+  qq <- within(q, stop("right there"))
+  testthat::expect_true(
+    exists("qq", inherits = FALSE)
+  )
+  testthat::expect_s3_class(qq, "qenv.error")
+})
+
+
+# injecting values ----
 testthat::test_that("external values can be injected into expressions through `...`", {
   q <- new_qenv()
 
@@ -92,31 +111,6 @@ testthat::test_that("external values are not taken from calling frame", {
   species = species)
   testthat::expect_s4_class(qq, "qenv")
   testthat::expect_identical(get_code(qq), "i <- subset(iris, Species == \"setosa\")")
-})
-
-# return value ----
-testthat::test_that("within.qenv renturns a deep copy of `data`", {
-  q <- new_qenv()
-  q <- within(new_qenv(), i <- iris)
-  qq <- within(q, {})
-  testthat::expect_equal(q, qq)
-
-  q <- new_qenv()
-  q <- within(q, i <- iris)
-  qq <- within(q, m <- mtcars)
-  testthat::expect_failure(
-    testthat::expect_equal(q, qq)
-  )
-})
-
-testthat::test_that("within.qenv renturns qenv.error even if evaluation raises error", {
-  q <- new_qenv()
-  q <- within(q, i <- iris)
-  qq <- within(q, stop("right there"))
-  testthat::expect_true(
-    exists("qq", inherits = FALSE)
-  )
-  testthat::expect_s3_class(qq, "qenv.error")
 })
 
 # nolint end
