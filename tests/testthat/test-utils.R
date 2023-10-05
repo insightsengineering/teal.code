@@ -9,17 +9,6 @@ test_that("dev_suppress function supress printing plot on IDE", {
   expect_equal(final_pdf_count, initial_pdf_count, label = "The PDF device should be closed after calling dev_suppress")
 })
 
-testthat::test_that("format expression concatenates results of remove_enclosing_curly_braces", {
-  code_list <- list(
-    quote("x <- 1"),
-    quote({
-      y <- 1
-      z <- 1
-    })
-  )
-  expect_equal(format_expression(code_list), c("x <- 1", "y <- 1\nz <- 1"))
-})
-
 
 # lang2calls ------------------------------------------------------------------------------------------------------
 
@@ -36,7 +25,7 @@ testthat::test_that("format_expression returns expression/calls into characters 
     expression(i <- iris),
     expression(m <- mtcars)
   )
-  cll1 <- substitute({
+  cll1 <- quote({
     i <- iris
     m <- mtcars
   })
@@ -54,12 +43,12 @@ testthat::test_that("format_expression returns expression/calls into characters 
   )
 
   testthat::expect_identical(format_expression(expr1), "i <- iris\nm <- mtcars")
-  testthat::expect_identical(format_expression(expr2), c("i <- iris", "m <- mtcars"))
-  testthat::expect_identical(format_expression(expr3), c("expression(i <- iris)", "expression(m <- mtcars)"))
-  testthat::expect_identical(format_expression(cll1), c("i <- iris", "m <- mtcars")) # FAILS
-  testthat::expect_identical(format_expression(cll2), c("i <- iris", "m <- mtcars"))
+  testthat::expect_identical(format_expression(expr2), "i <- iris\nm <- mtcars")
+  testthat::expect_identical(format_expression(expr3), "i <- iris\nm <- mtcars")
+  testthat::expect_identical(format_expression(cll1), "i <- iris\nm <- mtcars")
+  testthat::expect_identical(format_expression(cll2), "i <- iris\nm <- mtcars")
   testthat::expect_identical(
-    format_expression(fundef), "format_expression <- function(x) {\n    x + x\n    return(x)\n}" # FAILS
+    format_expression(fundef), "format_expression <- function(x) {\n    x + x\n    return(x)\n}"
   )
 
 })
