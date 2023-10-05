@@ -126,6 +126,7 @@ testthat::test_that("get_code can extract the code when using <<-", {
     c("a <- 1", "b <- a", "b <<- b + 2")
   )
 })
+rm(list = "b", envir = .GlobalEnv)
 
 testthat::test_that("get_code detects every assign calls even if not evaluated", {
   q <- new_qenv()
