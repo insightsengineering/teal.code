@@ -56,6 +56,11 @@ code_dependency <- function(code, object_names) {
       sym_form_cond <- which(x$token == "SYMBOL_FORMALS" & x$text %in% object_names)
       sym_cond <- sym_cond[!x[sym_cond, "text"] %in% x[sym_form_cond, "text"]]
 
+      object_ids <- x[sym_cond, 'id']
+      dollar_ids <- x[x$'token' == "'$'", 'id']
+      after_dollar <- object_ids[(object_ids - 2) %in% dollar_ids]
+      sym_cond <- setdiff(sym_cond, which(x$id %in% after_dollar))
+
       if (length(sym_cond) >= 2) {
         ass_cond <- grep("ASSIGN", x$token)
         text <- unique(x[sort(c(sym_cond, ass_cond)), "text"])
@@ -83,7 +88,7 @@ code_dependency <- function(code, object_names) {
   effects <- lapply(
     check_effects,
     function(x) {
-      maxid <- max(occurrence[[x]])
+      maxid <- suppressWarnings(max(occurrence[[x]]))
       return_code_for_effects(
         x,
         pd = calls_pd,
@@ -129,8 +134,17 @@ detect_symbol <- function(object, pd) {
     vapply(
       pd,
       function(call) {
-        any(call[call$token %in% c("SYMBOL", "SYMBOL_FUNCTION_CALL"), "text"] == object) &&
+        is_symbol <-
+          any(call[call$token %in% c("SYMBOL", "SYMBOL_FUNCTION_CALL"), "text"] == object) &&
           !any(call[call$token == "SYMBOL_FORMALS", "text"] == object)
+
+        object_ids <- call[call$text == object, 'id']
+        dollar_ids <- call[call$'token' == "'$'", 'id']
+        after_dollar <- object_ids[(object_ids - 2) %in% dollar_ids]
+        object_ids <- setdiff(object_ids, after_dollar)
+
+        is_symbol & length(object_ids) > 0
+
       },
       logical(1)
     )

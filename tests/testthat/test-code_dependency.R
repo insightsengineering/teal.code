@@ -349,7 +349,7 @@ testthat::test_that(
 # $ ---------------------------------------------------------------------------------------------------------------
 
 
-testthat::test_that("$", {
+testthat::test_that("get_code understands $ usage and do not treat rhs of $ as objects (only lhs)", {
   q <- new_qenv()
   q <- eval_code(q, "x <- data.frame(a = 1:3)")
   q <- eval_code(q, "a <- data.frame(y = 1:3)")
