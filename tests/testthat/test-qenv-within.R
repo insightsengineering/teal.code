@@ -34,22 +34,6 @@ testthat::test_that("compound expressions are evaluated", {
   )
 })
 
-testthat::test_that("characters in compound expressions are omitted", {
-  q <- new_qenv()
-  qq <- within(q, {
-    i <- iris
-    "1 + 1"
-    m <- mtcars
-  })
-  testthat::expect_identical(get_code(qq), c("i <- iris", "m <- mtcars"))
-})
-
-testthat::test_that("character-only compound expressions are ignored", {
-  q <- new_qenv()
-  qq <- within(q, {"1 + 1"})
-  testthat::expect_equal(q, qq)
-})
-
 
 ## code identity ----
 testthat::test_that("differently formulated expressions yield the same code", {

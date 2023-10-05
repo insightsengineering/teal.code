@@ -65,8 +65,8 @@ within.qenv <- function(data, expr, ...) {
   if (!identical(as.list(expr)[[1L]], as.symbol("{"))) {
     expr <- call("{", expr)
   }
-  # Drop strings from compound expressions.
-  calls <- Filter(Negate(is.character), as.list(expr)[-1])
+
+  calls <- as.list(expr)[-1]
 
   # Inject extra values into expressions.
   calls <- lapply(calls, function(x) do.call(substitute, list(x, env = extras)))
