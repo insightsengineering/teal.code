@@ -330,3 +330,39 @@ testthat::test_that("get_code detects occurrence of the function object", {
     c("a <- 1", "b <- 2", "foo <- function(b) {", "  b <- b + 2", "}", "b <- foo(a)")
   )
 })
+
+testthat::test_that(
+  "Can't detect occurrence of function definition when a formal is named the same as a function",
+  {
+    skip('This does not return foo definition YET!')
+    q <- new_qenv()
+    q <- eval_code(q, "x <- 1")
+    q <- eval_code(q, "foo <- function(foo = 1) 'text'")
+    q <- eval_code(q, "a <- foo(x)")
+
+    testthat::expect_identical(
+      get_code(q, names = "a"),
+      c("x <- 1", "foo <- function(foo = 1) 'text'", "a <- foo(x)")
+    )
+})
+
+# $ ---------------------------------------------------------------------------------------------------------------
+
+
+testthat::test_that("$", {
+  q <- new_qenv()
+  q <- eval_code(q, "x <- data.frame(a = 1:3)")
+  q <- eval_code(q, "a <- data.frame(y = 1:3)")
+  q <- eval_code(q, "a$x <- a$y")
+  q <- eval_code(q, "a$x <- a$x + 2")
+  q <- eval_code(q, "a$x <- x$a")
+
+  testthat::expect_identical(
+    get_code(q, names = "x"),
+    c("x <- data.frame(a = 1:3)")
+  )
+  testthat::expect_identical(
+    get_code(q, names = "a"),
+    c("x <- data.frame(a = 1:3)", "a <- data.frame(y = 1:3)", "a$x <- a$y", "a$x <- a$x + 2", "a$x <- x$a")
+  )
+})
