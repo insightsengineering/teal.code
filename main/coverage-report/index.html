@@ -5,7 +5,7 @@
 <style>body{background-color:white;}</style>
 <script src="lib/htmlwidgets-1.6.2/htmlwidgets.js"></script>
 <link href="lib/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="lib/datatables-binding-0.28/datatables.js"></script>
+<script src="lib/datatables-binding-0.29/datatables.js"></script>
 <script src="lib/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="lib/dt-core-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
 <link href="lib/dt-core-1.13.4/css/jquery.dataTables.extra.css" rel="stylesheet" />
@@ -94,7 +94,7 @@ table.table-condensed {
   font-size: 11px;
 }</style>
   <div class="col-md-8 col-md-offset-2">
-    <h2>teal.code coverage - 95.10%</h2>
+    <h2>teal.code coverage - 95.26%</h2>
     <div class="tabbable">
       <ul class="nav nav-tabs" data-tabsetid="covr">
         <li class="active">
@@ -106,8 +106,8 @@ table.table-condensed {
       </ul>
       <div class="tab-content" data-tabsetid="covr">
         <div class="tab-pane active" title="Files" data-value="Files" id="tab-covr-1">
-          <div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-d80a47c0207439bada9c" style="width:100%;height:500px;"></div>
-          <script type="application/json" data-for="htmlwidget-d80a47c0207439bada9c">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["<a href=\"#\">R/include_css_js.R<\/a>","<a href=\"#\">R/qenv-show.R<\/a>","<a href=\"#\">R/qenv-eval_code.R<\/a>","<a href=\"#\">R/qenv-join.R<\/a>","<a href=\"#\">R/qenv-get_warnings.R<\/a>","<a href=\"#\">R/utils.R<\/a>","<a href=\"#\">R/qenv-get_code.R<\/a>","<a href=\"#\">R/qenv-get_var.R<\/a>","<a href=\"#\">R/qenv-constructor.R<\/a>","<a href=\"#\">R/qenv-concat.R<\/a>"],[21,17,102,218,63,68,48,61,66,51],[6,1,39,42,20,19,15,15,11,10],[0,0,37,42,20,19,15,15,11,10],[6,1,2,0,0,0,0,0,0,0],["0","0","41","13","4","27","4","5","61","5"],["0.00%","0.00%","94.87%","100.00%","100.00%","100.00%","100.00%","100.00%","100.00%","100.00%"]],"container":"<table class=\"row-border\">\n  <thead>\n    <tr>\n      <th>File<\/th>\n      <th>Lines<\/th>\n      <th>Relevant<\/th>\n      <th>Covered<\/th>\n      <th>Missed<\/th>\n      <th>Hits / Line<\/th>\n      <th>Coverage<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"searching":false,"dom":"t","paging":false,"columnDefs":[{"targets":6,"createdCell":"function(td, cellData, rowData, row, col) {\n  var percent = cellData.replace(\"%\", \"\");\n  if (percent > 90) {\n    var grad = \"linear-gradient(90deg, #edfde7 \" + cellData + \", white \" + cellData + \")\";\n  } else if (percent > 75) {\n    var grad = \"linear-gradient(90deg, #f9ffe5 \" + cellData + \", white \" + cellData + \")\";\n  } else {\n    var grad = \"linear-gradient(90deg, #fcece9 \" + cellData + \", white \" + cellData + \")\";\n  }\n  $(td).css(\"background\", grad);\n}\n"},{"className":"dt-right","targets":[1,2,3,4]}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\ntable.on('click.dt', 'a', function() {\n  files = $('div#files div');\n  files.not('div.hidden').addClass('hidden');\n  id = $(this).text();\n  files.filter('div[id=\\'' + id + '\\']').removeClass('hidden');\n  $('ul.nav a[data-value=Source]').text(id).tab('show');\n});\n}"},"evals":["options.columnDefs.0.createdCell","callback"],"jsHooks":[]}</script>
+          <div class="datatables html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-8725bf283ac336a14e09" style="width:100%;height:500px;"></div>
+          <script type="application/json" data-for="htmlwidget-8725bf283ac336a14e09">{"x":{"filter":"none","vertical":false,"fillContainer":false,"data":[["<a href=\"#\">R/include_css_js.R<\/a>","<a href=\"#\">R/qenv-show.R<\/a>","<a href=\"#\">R/qenv-eval_code.R<\/a>","<a href=\"#\">R/qenv-join.R<\/a>","<a href=\"#\">R/qenv-get_warnings.R<\/a>","<a href=\"#\">R/utils.R<\/a>","<a href=\"#\">R/qenv-get_code.R<\/a>","<a href=\"#\">R/qenv-get_var.R<\/a>","<a href=\"#\">R/qenv-constructor.R<\/a>","<a href=\"#\">R/qenv-concat.R<\/a>","<a href=\"#\">R/qenv-within.R<\/a>"],[21,17,102,218,63,68,48,61,66,51,75],[6,1,39,42,20,19,15,15,11,10,7],[0,0,37,42,20,19,15,15,11,10,7],[6,1,2,0,0,0,0,0,0,0,0],["0","0","50","13","4","37","7","5","68","5","15"],["0.00%","0.00%","94.87%","100.00%","100.00%","100.00%","100.00%","100.00%","100.00%","100.00%","100.00%"]],"container":"<table class=\"row-border\">\n  <thead>\n    <tr>\n      <th>File<\/th>\n      <th>Lines<\/th>\n      <th>Relevant<\/th>\n      <th>Covered<\/th>\n      <th>Missed<\/th>\n      <th>Hits / Line<\/th>\n      <th>Coverage<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"searching":false,"dom":"t","paging":false,"columnDefs":[{"targets":6,"createdCell":"function(td, cellData, rowData, row, col) {\n  var percent = cellData.replace(\"%\", \"\");\n  if (percent > 90) {\n    var grad = \"linear-gradient(90deg, #edfde7 \" + cellData + \", white \" + cellData + \")\";\n  } else if (percent > 75) {\n    var grad = \"linear-gradient(90deg, #f9ffe5 \" + cellData + \", white \" + cellData + \")\";\n  } else {\n    var grad = \"linear-gradient(90deg, #fcece9 \" + cellData + \", white \" + cellData + \")\";\n  }\n  $(td).css(\"background\", grad);\n}\n"},{"className":"dt-right","targets":[1,2,3,4]}],"order":[],"autoWidth":false,"orderClasses":false},"callback":"function(table) {\ntable.on('click.dt', 'a', function() {\n  files = $('div#files div');\n  files.not('div.hidden').addClass('hidden');\n  id = $(this).text();\n  files.filter('div[id=\\'' + id + '\\']').removeClass('hidden');\n  $('ul.nav a[data-value=Source]').text(id).tab('show');\n});\n}"},"evals":["options.columnDefs.0.createdCell","callback"],"jsHooks":[]}</script>
         </div>
         <div class="tab-pane" title="Source" data-value="Source" id="tab-covr-2">
           <div id="files">
@@ -612,7 +612,7 @@ table.table-condensed {
                   </tr>
                   <tr class="covered">
                     <td class="num">20</td>
-                    <td class="coverage">125<em>x</em></td>
+                    <td class="coverage">142<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">setGeneric("eval_code", function(object, code) standardGeneric("eval_code"))</pre>
                     </td>
@@ -647,7 +647,7 @@ table.table-condensed {
                   </tr>
                   <tr class="covered">
                     <td class="num">25</td>
-                    <td class="coverage">63<em>x</em></td>
+                    <td class="coverage">80<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">  id &lt;- sample.int(.Machine$integer.max, size = length(code))</pre>
                     </td>
@@ -661,21 +661,21 @@ table.table-condensed {
                   </tr>
                   <tr class="covered">
                     <td class="num">27</td>
-                    <td class="coverage">63<em>x</em></td>
+                    <td class="coverage">80<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">  object@id &lt;- c(object@id, id)</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">28</td>
-                    <td class="coverage">63<em>x</em></td>
+                    <td class="coverage">80<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">  object@env &lt;- rlang::env_clone(object@env, parent = parent.env(.GlobalEnv))</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">29</td>
-                    <td class="coverage">63<em>x</em></td>
+                    <td class="coverage">80<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">  object@code &lt;- c(object@code, code)</pre>
                     </td>
@@ -689,14 +689,14 @@ table.table-condensed {
                   </tr>
                   <tr class="covered">
                     <td class="num">31</td>
-                    <td class="coverage">63<em>x</em></td>
+                    <td class="coverage">80<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">  current_warnings &lt;- ""</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">32</td>
-                    <td class="coverage">63<em>x</em></td>
+                    <td class="coverage">80<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">  current_messages &lt;- ""</pre>
                     </td>
@@ -710,7 +710,7 @@ table.table-condensed {
                   </tr>
                   <tr class="covered">
                     <td class="num">34</td>
-                    <td class="coverage">63<em>x</em></td>
+                    <td class="coverage">80<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">  for (code_line in code) {</pre>
                     </td>
@@ -731,14 +731,14 @@ table.table-condensed {
                   </tr>
                   <tr class="covered">
                     <td class="num">37</td>
-                    <td class="coverage">66<em>x</em></td>
+                    <td class="coverage">86<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">    x &lt;- withCallingHandlers(</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">38</td>
-                    <td class="coverage">66<em>x</em></td>
+                    <td class="coverage">86<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">      tryCatch(</pre>
                     </td>
@@ -752,14 +752,14 @@ table.table-condensed {
                   </tr>
                   <tr class="covered">
                     <td class="num">40</td>
-                    <td class="coverage">66<em>x</em></td>
+                    <td class="coverage">86<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">          eval(code_line, envir = object@env)</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">41</td>
-                    <td class="coverage">56<em>x</em></td>
+                    <td class="coverage">74<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">          NULL</pre>
                     </td>
@@ -773,42 +773,42 @@ table.table-condensed {
                   </tr>
                   <tr class="covered">
                     <td class="num">43</td>
-                    <td class="coverage">66<em>x</em></td>
+                    <td class="coverage">86<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">        error = function(e) {</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">44</td>
-                    <td class="coverage">10<em>x</em></td>
+                    <td class="coverage">12<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">          errorCondition(</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">45</td>
-                    <td class="coverage">10<em>x</em></td>
+                    <td class="coverage">12<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">            message = sprintf(</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">46</td>
-                    <td class="coverage">10<em>x</em></td>
+                    <td class="coverage">12<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">              "%s \n when evaluating qenv code:\n%s",</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">47</td>
-                    <td class="coverage">10<em>x</em></td>
+                    <td class="coverage">12<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">              .ansi_strip(conditionMessage(e)),</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">48</td>
-                    <td class="coverage">10<em>x</em></td>
+                    <td class="coverage">12<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">              paste(format_expression(code), collapse = "\n")</pre>
                     </td>
@@ -822,14 +822,14 @@ table.table-condensed {
                   </tr>
                   <tr class="covered">
                     <td class="num">50</td>
-                    <td class="coverage">10<em>x</em></td>
+                    <td class="coverage">12<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">            class = c("qenv.error", "try-error", "simpleError"),</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">51</td>
-                    <td class="coverage">10<em>x</em></td>
+                    <td class="coverage">12<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">            trace = object@code</pre>
                     </td>
@@ -857,7 +857,7 @@ table.table-condensed {
                   </tr>
                   <tr class="covered">
                     <td class="num">55</td>
-                    <td class="coverage">66<em>x</em></td>
+                    <td class="coverage">86<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">      warning = function(w) {</pre>
                     </td>
@@ -885,7 +885,7 @@ table.table-condensed {
                   </tr>
                   <tr class="covered">
                     <td class="num">59</td>
-                    <td class="coverage">66<em>x</em></td>
+                    <td class="coverage">86<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">      message = function(m) {</pre>
                     </td>
@@ -920,14 +920,14 @@ table.table-condensed {
                   </tr>
                   <tr class="covered">
                     <td class="num">64</td>
-                    <td class="coverage">66<em>x</em></td>
+                    <td class="coverage">86<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">    if (!is.null(x)) {</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">65</td>
-                    <td class="coverage">10<em>x</em></td>
+                    <td class="coverage">12<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">      return(x)</pre>
                     </td>
@@ -948,14 +948,14 @@ table.table-condensed {
                   </tr>
                   <tr class="covered">
                     <td class="num">68</td>
-                    <td class="coverage">56<em>x</em></td>
+                    <td class="coverage">74<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">    object@warnings &lt;- c(object@warnings, current_warnings)</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">69</td>
-                    <td class="coverage">56<em>x</em></td>
+                    <td class="coverage">74<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">    object@messages &lt;- c(object@messages, current_messages)</pre>
                     </td>
@@ -969,14 +969,14 @@ table.table-condensed {
                   </tr>
                   <tr class="covered">
                     <td class="num">71</td>
-                    <td class="coverage">53<em>x</em></td>
+                    <td class="coverage">68<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">  lockEnvironment(object@env, bindings = TRUE)</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">72</td>
-                    <td class="coverage">53<em>x</em></td>
+                    <td class="coverage">68<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">  object</pre>
                     </td>
@@ -1151,14 +1151,14 @@ table.table-condensed {
                   </tr>
                   <tr class="covered">
                     <td class="num">97</td>
-                    <td class="coverage">30<em>x</em></td>
+                    <td class="coverage">32<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">  if (requireNamespace("cli", quietly = TRUE)) {</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">98</td>
-                    <td class="coverage">30<em>x</em></td>
+                    <td class="coverage">32<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">    cli::ansi_strip(chr)</pre>
                     </td>
@@ -2726,6 +2726,488 @@ table.table-condensed {
                 </tbody>
               </table>
             </div>
+            <div id="R/utils.R" class="hidden">
+              <table class="table-condensed">
+                <tbody>
+                  <tr class="never">
+                    <td class="num">1</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' Removes leading and trailing curly brackets from character</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">2</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' string and removes indentation of remaining contents</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">3</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">4</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @description `r lifecycle::badge("stable")`</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">5</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @param x (`character`)\cr</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">6</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">7</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @return character string without curly braces</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">8</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @keywords internal</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">9</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">remove_enclosing_curly_braces &lt;- function(x) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">10</td>
+                    <td class="coverage">65<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  checkmate::assert_character(x)</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">11</td>
+                    <td class="coverage">64<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  if (length(x) == 0) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">12</td>
+                    <td class="coverage">1<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    return(x)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">13</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  }</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">14</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">15</td>
+                    <td class="coverage">63<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  open_bracket_and_spaces &lt;- "^[[:blank:]]*\\{[[:blank:]]*$"</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">16</td>
+                    <td class="coverage">63<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  close_bracket_and_spaces &lt;- "^[[:blank:]]*\\}[[:blank:]]*$"</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">17</td>
+                    <td class="coverage">63<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  blank_line &lt;- "^[[:blank:]]*$"</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">18</td>
+                    <td class="coverage">63<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  four_spaces_at_start_of_line &lt;- "^[[:blank:]]{4}"</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">19</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">20</td>
+                    <td class="coverage">63<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  split_text &lt;- unlist(strsplit(x, "\n", fixed = TRUE))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">21</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">22</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  # if text begins with "{   \n" and ends with "\n}   "</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">23</td>
+                    <td class="coverage">63<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  if (grepl(open_bracket_and_spaces, utils::head(split_text, 1)) &amp;&amp;</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">24</td>
+                    <td class="coverage">63<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    grepl(close_bracket_and_spaces, utils::tail(split_text, 1))) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">25</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    # remove the first and last line</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">26</td>
+                    <td class="coverage">13<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    split_text &lt;- split_text[-c(1, length(split_text))]</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">27</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">28</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    # if any line is not blank then indent</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">29</td>
+                    <td class="coverage">13<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    if (!all(grepl(blank_line, split_text))) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">30</td>
+                    <td class="coverage">11<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">      return(gsub(four_spaces_at_start_of_line, "", split_text))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">31</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    } else {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">32</td>
+                    <td class="coverage">2<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">      return(split_text)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">33</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    }</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">34</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  } else {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">35</td>
+                    <td class="coverage">50<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    return(split_text)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">36</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  }</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">37</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">}</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">38</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">39</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' Suppresses plot display in the IDE by opening a PDF graphics device</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">40</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">41</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' This function opens a PDF graphics device using \code{\link[grDevices]{pdf}} to suppress</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">42</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' the plot display in the IDE. The purpose of this function is to avoid opening graphic devices</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">43</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' directly in the IDE.</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">44</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">45</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @param x lazy binding which generates the plot(s)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">46</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">47</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @details The function uses \code{\link[base]{on.exit}} to ensure that the PDF graphics</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">48</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'          device is closed (using \code{\link[grDevices]{dev.off}}) when the function exits,</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">49</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'          regardless of whether it exits normally or due to an error. This is necessary to</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">50</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'          clean up the graphics device properly and avoid any potential issues.</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">51</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">52</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @import grDevices</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">53</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">54</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @return No return value, called for side effects.</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">55</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">56</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @examples</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">57</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' dev_suppress(plot(1:10))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">58</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @export</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">59</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">dev_suppress &lt;- function(x) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">60</td>
+                    <td class="coverage">2<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  grDevices::pdf(nullfile())</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">61</td>
+                    <td class="coverage">2<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  on.exit(grDevices::dev.off())</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">62</td>
+                    <td class="coverage">2<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  force(x)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">63</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">}</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">64</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">65</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"># converts vector of expressions to character</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">66</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">format_expression &lt;- function(code) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">67</td>
+                    <td class="coverage">30<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  as.character(styler::style_text(unlist(lapply(as.character(code), remove_enclosing_curly_braces))))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">68</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">}</pre>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
             <div id="R/qenv-get_warnings.R" class="hidden">
               <table class="table-condensed">
                 <tbody>
@@ -3173,488 +3655,6 @@ table.table-condensed {
                 </tbody>
               </table>
             </div>
-            <div id="R/utils.R" class="hidden">
-              <table class="table-condensed">
-                <tbody>
-                  <tr class="never">
-                    <td class="num">1</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' Removes leading and trailing curly brackets from character</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">2</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' string and removes indentation of remaining contents</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">3</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">4</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @description `r lifecycle::badge("stable")`</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">5</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @param x (`character`)\cr</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">6</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">7</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @return character string without curly braces</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">8</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @keywords internal</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">9</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">remove_enclosing_curly_braces &lt;- function(x) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">10</td>
-                    <td class="coverage">48<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  checkmate::assert_character(x)</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">11</td>
-                    <td class="coverage">47<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  if (length(x) == 0) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">12</td>
-                    <td class="coverage">1<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    return(x)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">13</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  }</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">14</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">15</td>
-                    <td class="coverage">46<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  open_bracket_and_spaces &lt;- "^[[:blank:]]*\\{[[:blank:]]*$"</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">16</td>
-                    <td class="coverage">46<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  close_bracket_and_spaces &lt;- "^[[:blank:]]*\\}[[:blank:]]*$"</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">17</td>
-                    <td class="coverage">46<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  blank_line &lt;- "^[[:blank:]]*$"</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">18</td>
-                    <td class="coverage">46<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  four_spaces_at_start_of_line &lt;- "^[[:blank:]]{4}"</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">19</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">20</td>
-                    <td class="coverage">46<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  split_text &lt;- unlist(strsplit(x, "\n", fixed = TRUE))</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">21</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">22</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  # if text begins with "{   \n" and ends with "\n}   "</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">23</td>
-                    <td class="coverage">46<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  if (grepl(open_bracket_and_spaces, utils::head(split_text, 1)) &amp;&amp;</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">24</td>
-                    <td class="coverage">46<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    grepl(close_bracket_and_spaces, utils::tail(split_text, 1))) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">25</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    # remove the first and last line</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">26</td>
-                    <td class="coverage">13<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    split_text &lt;- split_text[-c(1, length(split_text))]</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">27</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">28</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    # if any line is not blank then indent</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">29</td>
-                    <td class="coverage">13<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    if (!all(grepl(blank_line, split_text))) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">30</td>
-                    <td class="coverage">11<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">      return(gsub(four_spaces_at_start_of_line, "", split_text))</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">31</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    } else {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">32</td>
-                    <td class="coverage">2<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">      return(split_text)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">33</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    }</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">34</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  } else {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">35</td>
-                    <td class="coverage">33<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">    return(split_text)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">36</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  }</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">37</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">}</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">38</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">39</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' Suppresses plot display in the IDE by opening a PDF graphics device</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">40</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">41</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' This function opens a PDF graphics device using \code{\link[grDevices]{pdf}} to suppress</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">42</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' the plot display in the IDE. The purpose of this function is to avoid opening graphic devices</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">43</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' directly in the IDE.</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">44</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">45</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @param x lazy binding which generates the plot(s)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">46</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">47</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @details The function uses \code{\link[base]{on.exit}} to ensure that the PDF graphics</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">48</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'          device is closed (using \code{\link[grDevices]{dev.off}}) when the function exits,</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">49</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'          regardless of whether it exits normally or due to an error. This is necessary to</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">50</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'          clean up the graphics device properly and avoid any potential issues.</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">51</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">52</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @import grDevices</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">53</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">54</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @return No return value, called for side effects.</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">55</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#'</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">56</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @examples</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">57</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' dev_suppress(plot(1:10))</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">58</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">#' @export</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">59</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">dev_suppress &lt;- function(x) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">60</td>
-                    <td class="coverage">2<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  grDevices::pdf(nullfile())</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">61</td>
-                    <td class="coverage">2<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  on.exit(grDevices::dev.off())</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">62</td>
-                    <td class="coverage">2<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  force(x)</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">63</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">}</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">64</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"></pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">65</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r"># converts vector of expressions to character</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">66</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">format_expression &lt;- function(code) {</pre>
-                    </td>
-                  </tr>
-                  <tr class="covered">
-                    <td class="num">67</td>
-                    <td class="coverage">23<em>x</em></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">  as.character(styler::style_text(unlist(lapply(as.character(code), remove_enclosing_curly_braces))))</pre>
-                    </td>
-                  </tr>
-                  <tr class="never">
-                    <td class="num">68</td>
-                    <td class="coverage"></td>
-                    <td class="col-sm-12">
-                      <pre class="language-r">}</pre>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
             <div id="R/include_css_js.R" class="hidden">
               <table class="table-condensed">
                 <tbody>
@@ -3925,21 +3925,21 @@ table.table-condensed {
                   </tr>
                   <tr class="covered">
                     <td class="num">17</td>
-                    <td class="coverage">8<em>x</em></td>
+                    <td class="coverage">13<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">  grDevices::pdf(nullfile())</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">18</td>
-                    <td class="coverage">8<em>x</em></td>
+                    <td class="coverage">13<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">  on.exit(grDevices::dev.off())</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">19</td>
-                    <td class="coverage">8<em>x</em></td>
+                    <td class="coverage">13<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">  object</pre>
                     </td>
@@ -3953,7 +3953,7 @@ table.table-condensed {
                   </tr>
                   <tr class="covered">
                     <td class="num">21</td>
-                    <td class="coverage">8<em>x</em></td>
+                    <td class="coverage">13<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">  standardGeneric("get_code")</pre>
                     </td>
@@ -3995,21 +3995,21 @@ table.table-condensed {
                   </tr>
                   <tr class="covered">
                     <td class="num">27</td>
-                    <td class="coverage">7<em>x</em></td>
+                    <td class="coverage">11<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">  checkmate::assert_flag(deparse)</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">28</td>
-                    <td class="coverage">7<em>x</em></td>
+                    <td class="coverage">11<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">  if (deparse) {</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">29</td>
-                    <td class="coverage">6<em>x</em></td>
+                    <td class="coverage">10<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">    format_expression(object@code)</pre>
                     </td>
@@ -4072,42 +4072,42 @@ table.table-condensed {
                   </tr>
                   <tr class="covered">
                     <td class="num">38</td>
-                    <td class="coverage">1<em>x</em></td>
+                    <td class="coverage">2<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">  stop(</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">39</td>
-                    <td class="coverage">1<em>x</em></td>
+                    <td class="coverage">2<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">    errorCondition(</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">40</td>
-                    <td class="coverage">1<em>x</em></td>
+                    <td class="coverage">2<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">      sprintf(</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">41</td>
-                    <td class="coverage">1<em>x</em></td>
+                    <td class="coverage">2<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">        "%s\n\ntrace: \n %s\n",</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">42</td>
-                    <td class="coverage">1<em>x</em></td>
+                    <td class="coverage">2<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">        conditionMessage(object),</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">43</td>
-                    <td class="coverage">1<em>x</em></td>
+                    <td class="coverage">2<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">        paste(format_expression(object$trace), collapse = "\n ")</pre>
                     </td>
@@ -4121,7 +4121,7 @@ table.table-condensed {
                   </tr>
                   <tr class="covered">
                     <td class="num">45</td>
-                    <td class="coverage">1<em>x</em></td>
+                    <td class="coverage">2<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">      class = c("validation", "try-error", "simpleError")</pre>
                     </td>
@@ -4714,7 +4714,7 @@ table.table-condensed {
                   </tr>
                   <tr class="covered">
                     <td class="num">19</td>
-                    <td class="coverage">143<em>x</em></td>
+                    <td class="coverage">159<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">setGeneric("new_qenv", function(env = new.env(parent = parent.env(.GlobalEnv)), code = expression()) standardGeneric("new_qenv")) # nolint</pre>
                     </td>
@@ -4770,42 +4770,42 @@ table.table-condensed {
                   </tr>
                   <tr class="covered">
                     <td class="num">27</td>
-                    <td class="coverage">73<em>x</em></td>
+                    <td class="coverage">81<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">    new_env &lt;- rlang::env_clone(env, parent = parent.env(.GlobalEnv))</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">28</td>
-                    <td class="coverage">73<em>x</em></td>
+                    <td class="coverage">81<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">    lockEnvironment(new_env, bindings = TRUE)</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">29</td>
-                    <td class="coverage">73<em>x</em></td>
+                    <td class="coverage">81<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">    id &lt;- sample.int(.Machine$integer.max, size = length(code))</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">30</td>
-                    <td class="coverage">73<em>x</em></td>
+                    <td class="coverage">81<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">    methods::new(</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">31</td>
-                    <td class="coverage">73<em>x</em></td>
+                    <td class="coverage">81<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">      "qenv",</pre>
                     </td>
                   </tr>
                   <tr class="covered">
                     <td class="num">32</td>
-                    <td class="coverage">73<em>x</em></td>
+                    <td class="coverage">81<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">      env = new_env, code = code, warnings = rep("", length(code)), messages = rep("", length(code)), id = id</pre>
                     </td>
@@ -5029,7 +5029,7 @@ table.table-condensed {
                   </tr>
                   <tr class="covered">
                     <td class="num">64</td>
-                    <td class="coverage">40<em>x</em></td>
+                    <td class="coverage">48<em>x</em></td>
                     <td class="col-sm-12">
                       <pre class="language-r">    new_qenv(env = env, code = code)</pre>
                     </td>
@@ -5046,6 +5046,537 @@ table.table-condensed {
                     <td class="coverage"></td>
                     <td class="col-sm-12">
                       <pre class="language-r">)</pre>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div id="R/qenv-within.R" class="hidden">
+              <table class="table-condensed">
+                <tbody>
+                  <tr class="never">
+                    <td class="num">1</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' Evaluate expression in `qenv` object.</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">2</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">3</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' Convenience function for evaluating inline code inside the environment of a `qenv`.</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">4</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">5</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' This is a wrapper for `eval_code` that provides a simplified way of passing code for evaluation.</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">6</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' It accepts only inline expressions (both simple and compound) and allows for injecting values into `expr`</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">7</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' through the `...` argument: as `name:value` pairs are passed to `...`,</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">8</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' `name` in `expr` will be replaced with `value`.</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">9</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">10</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @section Using language objects:</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">11</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' Passing language objects to `expr` is generally not intended but can be achieved with `do.call`.</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">12</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' Only single `expression`s will work and substitution is not available. See examples.</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">13</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">14</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @param data `qenv` object</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">15</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @param expr `expression` to evaluate</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">16</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @param ... `name:value` pairs to inject values into `expr`</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">17</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">18</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @return</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">19</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' Returns a `qenv` object with `expr` evaluated. If evaluation raises an error, a `qenv.error` is returned.</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">20</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">21</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @seealso [`eval_code`], [`base::within`]</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">22</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">23</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @export</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">24</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">25</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @rdname within</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">26</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">27</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' @examples</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">28</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">29</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' q &lt;- new_qenv()</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">30</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">31</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' # execute code</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">32</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' q &lt;- within(q, {</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">33</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'   i &lt;- iris</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">34</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' })</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">35</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' q &lt;- within(q, {</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">36</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'   m &lt;- mtcars</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">37</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'   f &lt;- faithful</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">38</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' })</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">39</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' q</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">40</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' get_code(q)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">41</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">42</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' # inject values into code</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">43</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' q &lt;- new_qenv()</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">44</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' q &lt;- within(q, i &lt;- iris)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">45</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' within(q, print(dim(subset(i, Species == "virginica"))))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">46</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' within(q, print(dim(subset(i, Species == species)))) # fails</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">47</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' within(q, print(dim(subset(i, Species == species))), species = "versicolor")</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">48</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' species_external &lt;- "versicolor"</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">49</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' within(q, print(dim(subset(i, Species == species))), species = species_external)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">50</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">51</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' # pass language objects</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">52</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' expr &lt;- expression(i &lt;- iris, m &lt;- mtcars)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">53</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' within(q, expr) # fails</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">54</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' do.call(within, list(q, expr))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">55</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">56</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' exprlist &lt;- list(expression(i &lt;- iris), expression(m &lt;- mtcars))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">57</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' within(q, exprlist) # fails</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">58</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#' do.call(within, list(q, do.call(c, exprlist)))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">59</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">#'</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">60</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">within.qenv &lt;- function(data, expr, ...) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">61</td>
+                    <td class="coverage">17<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  expr &lt;- substitute(expr)</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">62</td>
+                    <td class="coverage">17<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  extras &lt;- list(...)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">63</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">64</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  # Add braces for consistency.</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">65</td>
+                    <td class="coverage">17<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  if (!identical(as.list(expr)[[1L]], as.symbol("{"))) {</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">66</td>
+                    <td class="coverage">5<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">    expr &lt;- call("{", expr)</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">67</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  }</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">68</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">69</td>
+                    <td class="coverage">17<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  calls &lt;- as.list(expr)[-1]</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">70</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">71</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  # Inject extra values into expressions.</pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">72</td>
+                    <td class="coverage">17<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  calls &lt;- lapply(calls, function(x) do.call(substitute, list(x, env = extras)))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">73</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r"></pre>
+                    </td>
+                  </tr>
+                  <tr class="covered">
+                    <td class="num">74</td>
+                    <td class="coverage">17<em>x</em></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">  eval_code(object = data, code = as.expression(calls))</pre>
+                    </td>
+                  </tr>
+                  <tr class="never">
+                    <td class="num">75</td>
+                    <td class="coverage"></td>
+                    <td class="col-sm-12">
+                      <pre class="language-r">}</pre>
                     </td>
                   </tr>
                 </tbody>
