@@ -28,6 +28,10 @@ expr2 <- expression(
   i <- iris,
   m <- mtcars
 )
+expr3 <- list(
+  expression(i <- iris),
+  expression(m <- mtcars)
+)
 cll1 <- substitute({
   i <- iris
   m <- mtcars
@@ -47,6 +51,7 @@ fundef <- quote(
 
 format_expression(expr1)
 format_expression(expr2)
+format_expression(expr3)
 format_expression(cll1)
 format_expression(cll2)
 format_expression(fundef)
