@@ -3,40 +3,20 @@
 
 # evaluation ----
 ## code acceptance ----
-testthat::test_that("simple expressions are evaluated", {
+testthat::test_that("simple and compound expressions are evaluated", {
   q <- new_qenv()
-  testthat::expect_no_error(within(q, 1 + 1))
-})
-
-testthat::test_that("compound expressions are evaluated", {
-  q <- new_qenv()
+  testthat::expect_no_error(
+    within(q, 1 + 1)
+  )
   testthat::expect_no_error(
     within(q, {
       1 + 1
     })
   )
-  testthat::expect_no_error(
-    within(q, {
-      1 + 1
-      2 + 2
-    })
-  )
-  testthat::expect_no_error(
-    within(q, {
-      1 + 1; 2 + 2
-    })
-  )
-  testthat::expect_no_error(
-    within(q, {
-      1 +
-        1
-    })
-  )
 })
-
 
 ## code identity ----
-testthat::test_that("differently formulated expressions yield the same code", {
+testthat::test_that("styling of input code does not impact evaluation results", {
   q <- new_qenv()
   q <- within(q, 1 + 1)
   q <- within(q, {1 + 1})
@@ -67,7 +47,6 @@ testthat::test_that("differently formulated expressions yield the same code", {
     2 + 2
   })
   all_code <- get_code(q)
-  all_code_pairs <- lapply(seq_len(4L), function(x) all_code[((x - 1L) * 2L) + 1:2])
   testthat::expect_identical(
     all_code,
     rep(c("1 + 1", "2 + 2"), 4L)
