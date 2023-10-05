@@ -1,46 +1,3 @@
-testthat::test_that("remove_enclosing_curly_braces errors if argument is not character", {
-  testthat::expect_error(remove_enclosing_curly_braces(quote(x <- 1)), "Must be of type 'character")
-})
-
-testthat::test_that("remove_enclosing_curly_braces returns argument if it has length 0", {
-  testthat::expect_equal(remove_enclosing_curly_braces(character(0)), character(0))
-})
-
-testthat::test_that("remove_enclosing_curly_braces only splits string on \n if no enclosing curly brackets", {
-  testthat::expect_equal(remove_enclosing_curly_braces("abc"), "abc")
-  testthat::expect_equal(remove_enclosing_curly_braces("abc\n    def\n "), c("abc", "    def", " "))
-  testthat::expect_equal(remove_enclosing_curly_braces("{\nABC\n}A"), c("{", "ABC", "}A"))
-  testthat::expect_equal(remove_enclosing_curly_braces("{\nABC\nDEF\n A  }"), c("{", "ABC", "DEF", " A  }"))
-})
-
-testthat::test_that("remove_enclosing_curly_braces removes enclosing curly brackets", {
-  testthat::expect_equal(remove_enclosing_curly_braces("{\nA\n}"), "A")
-  testthat::expect_equal(remove_enclosing_curly_braces("{  \nA\n}"), "A")
-  testthat::expect_equal(remove_enclosing_curly_braces("{\nA\n}  "), "A")
-  testthat::expect_equal(remove_enclosing_curly_braces("  {  \nA\n  }"), "A")
-})
-
-testthat::test_that("remove_enclosing_curly_braces concatenates input character vector", {
-  testthat::expect_equal(remove_enclosing_curly_braces(c("ABC", "DEF")), c("ABC", "DEF"))
-  testthat::expect_equal(remove_enclosing_curly_braces(c("{\n    ABC", "    DEF\n}")), c("ABC", "DEF"))
-  testthat::expect_equal(remove_enclosing_curly_braces(c("{\n    ABC\n}", " DEF")), c("{", "    ABC", "}", " DEF"))
-})
-
-testthat::test_that(
-  desc = "remove_enclosing_curly_braces containing enclosing brackets and only blank lines returns blank lines",
-  code = {
-    testthat::expect_equal(remove_enclosing_curly_braces("{\n\n\n}"), c("", ""))
-    testthat::expect_equal(remove_enclosing_curly_braces(" {  \n\n  }  "), "")
-  }
-)
-
-testthat::test_that("remove_enclosing_curly_braces removes 4 spaces from lines enclosed by brackets if they exist", {
-  testthat::expect_equal(remove_enclosing_curly_braces("{\n    A\n}"), "A")
-  testthat::expect_equal(
-    remove_enclosing_curly_braces("{\nA\n B\n  C\n   D\n    E \n    F\n    \n}"),
-    c("A", " B", "  C", "   D", "E ", "F", "")
-  )
-})
 
 test_that("dev_suppress function supress printing plot on IDE", {
   expect_no_error(dev_suppress(plot(1:10)))
@@ -61,4 +18,48 @@ testthat::test_that("format expression concatenates results of remove_enclosing_
     })
   )
   expect_equal(format_expression(code_list), c("x <- 1", "y <- 1\nz <- 1"))
+})
+
+
+# lang2calls ------------------------------------------------------------------------------------------------------
+
+testthat::test_that("format_expression returns expression/calls into characters without curly brackets", {
+  expr1 <- expression({
+    i <- iris
+    m <- mtcars
+  })
+  expr2 <- expression(
+    i <- iris,
+    m <- mtcars
+  )
+  expr3 <- list(
+    expression(i <- iris),
+    expression(m <- mtcars)
+  )
+  cll1 <- substitute({
+    i <- iris
+    m <- mtcars
+  })
+  cll2 <- list(
+    quote(i <- iris),
+    quote(m <- mtcars)
+  )
+
+  # function definition
+  fundef <- quote(
+    format_expression <- function(x) {
+      x + x
+      return(x)
+    }
+  )
+
+  testthat::expect_identical(format_expression(expr1), "i <- iris\nm <- mtcars")
+  testthat::expect_identical(format_expression(expr2), c("i <- iris", "m <- mtcars"))
+  testthat::expect_identical(format_expression(expr3), c("expression(i <- iris)", "expression(m <- mtcars)"))
+  testthat::expect_identical(format_expression(cll1), c("i <- iris", "m <- mtcars")) # FAILS
+  testthat::expect_identical(format_expression(cll2), c("i <- iris", "m <- mtcars"))
+  testthat::expect_identical(
+    format_expression(fundef), "format_expression <- function(x) {\n    x + x\n    return(x)\n}" # FAILS
+  )
+
 })

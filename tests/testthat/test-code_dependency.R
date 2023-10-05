@@ -367,3 +367,4 @@ testthat::test_that("get_code understands $ usage and do not treat rhs of $ as o
     c("x <- data.frame(a = 1:3)", "a <- data.frame(y = 1:3)", "a$x <- a$y", "a$x <- a$x + 2", "a$x <- x$a")
   )
 })
+
