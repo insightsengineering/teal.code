@@ -367,3 +367,26 @@ testthat::test_that("get_code understands $ usage and do not treat rhs of $ as o
     c("x <- data.frame(a = 1:3)", "a <- data.frame(y = 1:3)", "a$x <- a$y", "a$x <- a$x + 2", "a$x <- x$a")
   )
 })
+
+
+# @ ---------------------------------------------------------------------------------------------------------------
+
+testthat::test_that("get_code understands $ usage and do not treat rhs of $ as objects (only lhs)", {
+  testthat::skip("Due ot the error: cannot add bindings to a locked environment when evaluating qenv code")
+  q <- new_qenv()
+  q <- eval_code(q, "setClass('aclass', representation(a = 'numeric', x = 'numeric', y = 'numeric')) # @effect a x")
+  q <- eval_code(q, "x <- new('aclass', a = 1:3, x = 1:3, y = 1:3)")
+  q <- eval_code(q, "a <- new('aclass', a = 1:3, x = 1:3, y = 1:3)")
+  q <- eval_code(q, "a@x <- a@y")
+  q <- eval_code(q, "a@x <- a@x + 2")
+  q <- eval_code(q, "a@x <- x@a")
+
+  testthat::expect_identical(
+    get_code(q, names = "x"),
+    c("x <- data.frame(a = 1:3)")
+  )
+  testthat::expect_identical(
+    get_code(q, names = "a"),
+    c("x <- data.frame(a = 1:3)", "a <- data.frame(y = 1:3)", "a@x <- a@y", "a@x <- a@x + 2", "a@x <- x@a")
+  )
+})
