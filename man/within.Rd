@@ -25,6 +25,12 @@ It accepts only inline expressions (both simple and compound) and allows for inj
 through the \code{...} argument: as \code{name:value} pairs are passed to \code{...},
 \code{name} in \code{expr} will be replaced with \code{value}.
 }
+\section{Using language objects}{
+
+Passing language objects to \code{expr} is generally not intended but can be achieved with \code{do.call}.
+Only single \code{expression}s will work and substitution is not available. See examples.
+}
+
 \examples{
 
 q <- new_qenv()
@@ -48,6 +54,15 @@ within(q, print(dim(subset(i, Species == species)))) # fails
 within(q, print(dim(subset(i, Species == species))), species = "versicolor")
 species_external <- "versicolor"
 within(q, print(dim(subset(i, Species == species))), species = species_external)
+
+# pass language objects
+expr <- expression(i <- iris, m <- mtcars)
+within(q, expr) # fails
+do.call(within, list(q, expr))
+
+exprlist <- list(expression(i <- iris), expression(m <- mtcars))
+within(q, exprlist) # fails
+do.call(within, list(q, do.call(c, exprlist)))
 
 }
 \seealso{

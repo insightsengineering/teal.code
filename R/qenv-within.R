@@ -7,6 +7,9 @@
 #' through the `...` argument: as `name:value` pairs are passed to `...`,
 #' `name` in `expr` will be replaced with `value`.
 #'
+#' @section Using language objects:
+#' Passing language objects to `expr` is generally not intended but can be achieved with `do.call`.
+#' Only single `expression`s will work and substitution is not available. See examples.
 #'
 #' @param data `qenv` object
 #' @param expr `expression` to evaluate
@@ -44,6 +47,15 @@
 #' within(q, print(dim(subset(i, Species == species))), species = "versicolor")
 #' species_external <- "versicolor"
 #' within(q, print(dim(subset(i, Species == species))), species = species_external)
+#'
+#' # pass language objects
+#' expr <- expression(i <- iris, m <- mtcars)
+#' within(q, expr) # fails
+#' do.call(within, list(q, expr))
+#'
+#' exprlist <- list(expression(i <- iris), expression(m <- mtcars))
+#' within(q, exprlist) # fails
+#' do.call(within, list(q, do.call(c, exprlist)))
 #'
 within.qenv <- function(data, expr, ...) {
   expr <- substitute(expr)
