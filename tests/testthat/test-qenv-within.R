@@ -77,23 +77,13 @@ testthat::test_that("within.qenv renturns qenv.error even if evaluation raises e
 testthat::test_that("external values can be injected into expressions through `...`", {
   q <- new_qenv()
 
-  q1 <- within(q, {
-    i <- subset(iris, Species == "virginica")
-  })
-
-  q2 <- within(q, {
-    i <- subset(iris, Species == species)
-  },
-  species = "virginica")
-
   external_value <- "virginica"
-  q3 <- within(q, {
+  q <- within(q, {
     i <- subset(iris, Species == species)
   },
   species = external_value)
 
-  testthat::expect_identical(get_code(q1), get_code(q2))
-  testthat::expect_identical(get_code(q1), get_code(q3))
+  testthat::expect_identical(get_code(q), "i <- subset(iris, Species == \"virginica\")")
 })
 
 testthat::test_that("external values are not taken from calling frame", {
