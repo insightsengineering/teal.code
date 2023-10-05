@@ -41,8 +41,7 @@ lang2calls <- function(x) {
     } else {
       list(x)
     }
-  }
-  else {
+  } else {
     unlist(lapply(x, lang2calls))
   }
 }
