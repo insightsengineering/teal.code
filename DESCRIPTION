@@ -60,4 +60,5 @@ Collate:
     'qenv-join.R'
     'qenv-show.R'
     'teal.code-package.R'
+    'utils-code_dependency.R'
     'utils.R'

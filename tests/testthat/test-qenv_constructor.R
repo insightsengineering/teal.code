@@ -2,7 +2,7 @@ testthat::test_that("constructor returns qenv if nothing is specified", {
   q <- new_qenv()
   testthat::expect_s4_class(q, "qenv")
   testthat::expect_identical(ls(q@env), character(0))
-  testthat::expect_identical(q@code, expression())
+  testthat::expect_identical(q@code, character(0))
   testthat::expect_identical(q@id, integer(0))
   testthat::expect_identical(q@warnings, character(0))
   testthat::expect_identical(q@messages, character(0))
@@ -34,7 +34,7 @@ testthat::test_that("new_qenv works with code being character", {
   env$iris1 <- iris
   q <- new_qenv("iris1 <- iris", env = env)
   testthat::expect_equal(q@env, env)
-  testthat::expect_identical(q@code, as.expression(quote(iris1 <- iris)))
+  testthat::expect_identical(q@code, "iris1 <- iris")
   testthat::expect_true(checkmate::test_int(q@id))
 })
 
@@ -43,7 +43,7 @@ testthat::test_that("new_qenv works with code being expression", {
   env$iris1 <- iris
   q <- new_qenv(as.expression(quote(iris1 <- iris)), env = env)
   testthat::expect_equal(q@env, env)
-  testthat::expect_identical(q@code, as.expression(quote(iris1 <- iris)))
+  testthat::expect_identical(q@code, "iris1 <- iris")
   testthat::expect_true(checkmate::test_int(q@id))
 })
 
@@ -52,7 +52,7 @@ testthat::test_that("new_qenv works with code being quoted expression", {
   env$iris1 <- iris
   q <- new_qenv(quote(iris1 <- iris), env = env)
   testthat::expect_equal(q@env, env)
-  testthat::expect_identical(q@code, as.expression(quote(iris1 <- iris)))
+  testthat::expect_identical(q@code, "iris1 <- iris")
   testthat::expect_true(checkmate::test_int(q@id))
 })
 
@@ -66,7 +66,7 @@ testthat::test_that("new_qenv works with code being length > 1", {
   )
   testthat::expect_identical(
     q@code,
-    as.expression(c(quote(iris1 <- iris), quote(iris1$new <- 1L)))
+    "iris1 <- iris\niris1$new <- 1"
   )
   testthat::expect_equal(q@env, env)
 })
