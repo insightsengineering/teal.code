@@ -7,12 +7,12 @@
 get_children(pd, parent)
 }
 \arguments{
-\item{pd}{\code{list} of \code{data.frame}s of results of \code{utils::getParseData()} trimmed to unique \code{parsed_code} calls}
+\item{pd}{(\code{data.frame}) A result of \code{utils::getParseData()}.}
 
-\item{parent}{parent id in \code{utils::getParseData()}}
+\item{parent}{Object parent id in \code{utils::getParseData()}.}
 }
 \value{
-Row \code{bounded} \code{utils::getParseData()} of all calls.
+Row \code{bounded} \code{utils::getParseData()} of all elements of a call pointing to a \code{parent} id.
 }
 \description{
 Get child calls within \code{getParseData()} object
