@@ -169,20 +169,9 @@ return_code <- function(object, pd, occur, cooccur, eff, parent = NULL) {
     return(NULL)
   }
 
-  influences <-
-    lapply(
-      cooccur,
-      function(x) {
-        if (!is.null(x) && object %in% x[-1]) {
-          TRUE
-        } else if (!is.null(x) && object == x[1]) {
-          FALSE
-        }
-      }
-    )
-
-  where_influences <- which(unlist(lapply(influences, isTRUE)))
-  object_influencers <- which(unlist(lapply(influences, isFALSE)))
+  influences <- vapply(cooccur, match, integer(1L), x = object)
+  where_influences <- which(influences > 1L)
+  object_influencers <- which(influences == 1L)
 
   object_influencers <- setdiff(object_influencers, parent)
 
