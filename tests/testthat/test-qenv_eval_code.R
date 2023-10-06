@@ -48,21 +48,21 @@ testthat::test_that("library have to be called separately before using function 
 testthat::test_that("eval_code works with character", {
   q1 <- eval_code(new_qenv(), "a <- 1")
 
-  testthat::expect_identical(q1@code, as.expression(quote(a <- 1)))
+  testthat::expect_identical(q1@code, "a <- 1")
   testthat::expect_equal(q1@env, list2env(list(a = 1)))
 })
 
 testthat::test_that("eval_code works with expression", {
   q1 <- eval_code(new_qenv(), as.expression(quote(a <- 1)))
 
-  testthat::expect_identical(q1@code, as.expression(quote(a <- 1)))
+  testthat::expect_identical(q1@code, "a <- 1")
   testthat::expect_equal(q1@env, list2env(list(a = 1)))
 })
 
 testthat::test_that("eval_code works with quoted", {
   q1 <- eval_code(new_qenv(), quote(a <- 1))
 
-  testthat::expect_identical(q1@code, as.expression(quote(a <- 1)))
+  testthat::expect_identical(q1@code, "a <- 1")
   testthat::expect_equal(q1@env, list2env(list(a = 1)))
 })
 
@@ -77,12 +77,7 @@ testthat::test_that("eval_code works with quoted code block", {
 
   testthat::expect_equal(
     q1@code,
-    as.expression(
-      quote({
-        a <- 1
-        b <- 2
-      })
-    )
+    "a <- 1\nb <- 2"
   )
   testthat::expect_equal(q1@env, list2env(list(a = 1, b = 2)))
 })
@@ -98,13 +93,7 @@ testthat::test_that("an error when calling eval_code returns a qenv.error object
   testthat::expect_s3_class(q, "qenv.error")
   testthat::expect_equal(
     unname(q$trace),
-    as.expression(
-      c(
-        quote(x <- 1),
-        quote(y <- 2),
-        quote(z <- w * x)
-      )
-    )
+    c("x <- 1", "y <- 2", "z <- w * x")
   )
   testthat::expect_equal(q$message, "object 'w' not found \n when evaluating qenv code:\nz <- w * x")
 })
@@ -129,7 +118,7 @@ testthat::test_that("a warning when calling eval_code returns a qenv object whic
 
 testthat::test_that("eval_code with a vector of code produces one warning element per code element", {
   q <- eval_code(new_qenv(), c("x <- 1", "y <- 1", "warning('warn1')"))
-  testthat::expect_equal(c("", "", "> warn1\n"), q@warnings)
+  testthat::expect_equal(c("> warn1\n"), q@warnings)
 })
 
 
