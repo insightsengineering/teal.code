@@ -37,7 +37,9 @@ format_expression <- function(code) {
 # returns a list of `calls`. Symbols and atomic vectors (which may get mixed up in a list) are returned as is.
 #' @keywords internal
 lang2calls <- function(x) {
-  if (is.atomic(x) || is.symbol(x)) return(x)
+  if (is.atomic(x) || is.symbol(x)) {
+    return(x)
+  }
   if (is.call(x)) {
     if (identical(as.list(x)[[1L]], as.symbol("{"))) {
       as.list(x)[-1L]
