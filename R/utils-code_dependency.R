@@ -83,7 +83,7 @@ code_dependency <- function(code, object_names) {
       object_names
     }
 
-  effects <- lapply(
+  effects <- sapply(
     check_effects,
     function(x) {
       maxid <- suppressWarnings(max(occurrence[[x]]))
@@ -94,9 +94,9 @@ code_dependency <- function(code, object_names) {
         cooccur = cooccurrence,
         eff = NULL
       )
-    }
+    },
+    simplify = FALSE
   )
-  names(effects) <- check_effects
 
   list(
     occurrence = occurrence,
