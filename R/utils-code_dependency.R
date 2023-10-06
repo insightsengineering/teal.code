@@ -107,7 +107,7 @@ code_dependency <- function(code, object_names) {
   )
 }
 
-#' @title Get children calls within `getParseData()` object
+#' @title Get child calls within `getParseData()` object
 #' @param pd `list` of `data.frame`s of results of `utils::getParseData()` trimmed to unique `parsed_code` calls
 #' @param parent parent id in `utils::getParseData()`
 #' @return Row `binded` `utils::getParseData()` of all calls.
