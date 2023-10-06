@@ -78,7 +78,7 @@ code_dependency <- function(code, object_names) {
       affected <-
         unlist(strsplit(sub("\\s*#\\s*@linksto\\s+", "", side_effects), "\\s+"))
 
-      unique(c(object_names, affected))
+      union(object_names, affected)
     } else {
       object_names
     }
