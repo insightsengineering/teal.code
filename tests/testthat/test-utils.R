@@ -53,13 +53,12 @@ testthat::test_that("lang2calls returns list of calls given a list of language o
   testthat::expect_true(is.list(lang2calls(calllist)) && all(vapply(lang2calls(calllist), is.call, logical(1L))))
 })
 
-testthat::test_that("lang2calls returns atomics and symbols as is", {
-  testthat::expect_identical(lang2calls("x"), "x")
-  testthat::expect_identical(lang2calls(as.symbol("x")), as.symbol("x"))
+testthat::test_that("lang2calls returns atomics and symbols wrapped in list", {
+  testthat::expect_identical(lang2calls("x"), list("x"))
+  testthat::expect_identical(lang2calls(as.symbol("x")), list(as.symbol("x")))
 
-  testthat::skip(message = "unexplained behavior")
-  testthat::expect_identical(lang2calls(list("x")), "x")
-  testthat::expect_identical(lang2calls(list(as.symbol("x"))), as.symbol("x"))
+  testthat::expect_identical(lang2calls(list("x")), list("x"))
+  testthat::expect_identical(lang2calls(list(as.symbol("x"))), list(as.symbol("x")))
 })
 
 
