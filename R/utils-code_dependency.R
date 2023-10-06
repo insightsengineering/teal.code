@@ -295,11 +295,14 @@ return_code_for_effects <- function(object, calls_pd, occur, cooccur, eff) {
 #' @return `character` vector of elements of `parsed_code` calls that were required to build the side-effects and
 #' influencing objects having and impact on the `object`
 #'
-#' @param qenv `qenv` object
+#' @param code `character` object
 #' @param names `character` with object names
 #' @keywords internal
-get_code_dependency <- function(qenv, names) {
-  parsed_code <- parse(text = as.character(qenv@code), keep.source = TRUE)
+get_code_dependency <- function(code, names) {
+  checkmate::assert_character(code)
+  checkmate::assert_character(names)
+
+  parsed_code <- parse(text = as.character(code), keep.source = TRUE)
   pd <- utils::getParseData(parsed_code)
 
   symbols <- unique(pd[pd$token == "SYMBOL", "text"])

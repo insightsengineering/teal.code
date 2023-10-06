@@ -4,10 +4,10 @@
 \alias{get_code_dependency}
 \title{Return the lines of code (with side-effects) needed to reproduce the object.}
 \usage{
-get_code_dependency(qenv, names)
+get_code_dependency(code, names)
 }
 \arguments{
-\item{qenv}{\code{qenv} object}
+\item{code}{\code{character} object}
 
 \item{names}{\code{character} with object names}
 }

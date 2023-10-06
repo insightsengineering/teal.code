@@ -29,7 +29,7 @@ setMethod("get_code", signature = "qenv", function(object, deparse = TRUE, names
   checkmate::assert_character(names)
   checkmate::assert_flag(deparse)
   code <- if (length(names) > 0) {
-    get_code_dependency(object, names)
+    get_code_dependency(object@code, names)
   } else {
     object@code
   }
