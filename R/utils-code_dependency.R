@@ -164,7 +164,7 @@ detect_symbol <- function(object, pd) {
 #' @return A `numeric` vector with number of lines of input `pd` to be returned.
 #'
 #' @keywords internal
-return_code <- function(object, pd = calls_pd, occur = occurrence, cooccur = cooccurrence, eff = effects, parent = NULL) {
+return_code <- function(object, pd, occur, cooccur, eff, parent = NULL) {
   if (all(unlist(lapply(occur, length)) == 0)) {
     return(NULL)
   }

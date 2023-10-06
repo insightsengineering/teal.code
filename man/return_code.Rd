@@ -4,14 +4,7 @@
 \alias{return_code}
 \title{Return the lines of code needed to reproduce the object.}
 \usage{
-return_code(
-  object,
-  pd = calls_pd,
-  occur = occurrence,
-  cooccur = cooccurrence,
-  eff = effects,
-  parent = NULL
-)
+return_code(object, pd, occur, cooccur, eff, parent = NULL)
 }
 \arguments{
 \item{object}{\code{character} with object name}
