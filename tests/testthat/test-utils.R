@@ -50,4 +50,3 @@ testthat::test_that("format_expression turns expression/calls or lists thereof i
     format_expression(fundef), "format_expression <- function(x) {\n    x + x\n    return(x)\n}"
   )
 })
-
