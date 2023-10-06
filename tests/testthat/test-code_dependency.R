@@ -396,10 +396,20 @@ testthat::test_that("get_code understands $ usage and do not treat rhs of $ as o
 
   testthat::expect_identical(
     get_code(q, names = "x"),
-    c("x <- data.frame(a = 1:3)")
+    c(
+      'setClass("aclass", representation(a = "numeric", x = "numeric", y = "numeric"))',
+      'x <- new("aclass", a = 1:3, x = 1:3, y = 1:3)'
+    )
   )
   testthat::expect_identical(
     get_code(q, names = "a"),
-    c("x <- data.frame(a = 1:3)", "a <- data.frame(y = 1:3)", "a@x <- a@y", "a@x <- a@x + 2", "a@x <- x@a")
+    c(
+      'setClass("aclass", representation(a = "numeric", x = "numeric", y = "numeric"))',
+      'x <- new("aclass", a = 1:3, x = 1:3, y = 1:3)',
+      'a <- new("aclass", a = 1:3, x = 1:3, y = 1:3)',
+      "a@x <- a@y",
+      "a@x <- a@x + 2",
+      "a@x <- x@a"
+    )
   )
 })
