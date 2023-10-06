@@ -369,6 +369,18 @@ testthat::test_that("get_code understands $ usage and do not treat rhs of $ as o
   )
 })
 
+testthat::test_that("get_code detects cooccurrence properly even if all objects are on rhs", {
+  q <- new_qenv()
+  q <- eval_code(q, "a <- 1")
+  q <- eval_code(q, "b <- list(c = 2)")
+  q <- eval_code(q, "b[[a]] <- 3")
+
+  testthat::expect_identical(
+    get_code(q, names = "b"),
+    c("a <- 1", "b <- list(c = 2)", "b[[a]] <- 3")
+  )
+})
+
 
 # @ ---------------------------------------------------------------------------------------------------------------
 
