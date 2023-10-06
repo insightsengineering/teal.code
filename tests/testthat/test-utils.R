@@ -11,10 +11,9 @@ test_that("dev_suppress function supress printing plot on IDE", {
 
 # lang2calls ------------------------------------------------------------------------------------------------------
 testthat::test_that("lang2calls returns list of calls given a language object", {
-  expr1 <- expression({
+  expr1 <- expression(
     i <- iris
-    m <- mtcars
-  })
+  )
   expr2 <- expression(
     i <- iris,
     m <- mtcars
