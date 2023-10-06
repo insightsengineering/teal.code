@@ -1,4 +1,3 @@
-
 test_that("dev_suppress function supress printing plot on IDE", {
   expect_no_error(dev_suppress(plot(1:10)))
 
@@ -50,5 +49,4 @@ testthat::test_that("format_expression turns expression/calls or lists thereof i
   testthat::expect_identical(
     format_expression(fundef), "format_expression <- function(x) {\n    x + x\n    return(x)\n}"
   )
-
 })

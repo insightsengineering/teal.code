@@ -1,4 +1,3 @@
-
 #' Suppresses plot display in the IDE by opening a PDF graphics device
 #'
 #' This function opens a PDF graphics device using \code{\link[grDevices]{pdf}} to suppress
