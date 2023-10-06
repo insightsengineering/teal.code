@@ -12,42 +12,44 @@ test_that("dev_suppress function supress printing plot on IDE", {
 # lang2calls ------------------------------------------------------------------------------------------------------
 
 testthat::test_that(
-  "format_expression turns expression/calls or lists thereof into character strings without curly brackets", {
-  expr1 <- expression({
-    i <- iris
-    m <- mtcars
-  })
-  expr2 <- expression(
-    i <- iris,
-    m <- mtcars
-  )
-  expr3 <- list(
-    expression(i <- iris),
-    expression(m <- mtcars)
-  )
-  cll1 <- quote({
-    i <- iris
-    m <- mtcars
-  })
-  cll2 <- list(
-    quote(i <- iris),
-    quote(m <- mtcars)
-  )
+  "format_expression turns expression/calls or lists thereof into character strings without curly brackets",
+  {
+    expr1 <- expression({
+      i <- iris
+      m <- mtcars
+    })
+    expr2 <- expression(
+      i <- iris,
+      m <- mtcars
+    )
+    expr3 <- list(
+      expression(i <- iris),
+      expression(m <- mtcars)
+    )
+    cll1 <- quote({
+      i <- iris
+      m <- mtcars
+    })
+    cll2 <- list(
+      quote(i <- iris),
+      quote(m <- mtcars)
+    )
 
-  # function definition
-  fundef <- quote(
-    format_expression <- function(x) {
-      x + x
-      return(x)
-    }
-  )
+    # function definition
+    fundef <- quote(
+      format_expression <- function(x) {
+        x + x
+        return(x)
+      }
+    )
 
-  testthat::expect_identical(format_expression(expr1), "i <- iris\nm <- mtcars")
-  testthat::expect_identical(format_expression(expr2), "i <- iris\nm <- mtcars")
-  testthat::expect_identical(format_expression(expr3), "i <- iris\nm <- mtcars")
-  testthat::expect_identical(format_expression(cll1), "i <- iris\nm <- mtcars")
-  testthat::expect_identical(format_expression(cll2), "i <- iris\nm <- mtcars")
-  testthat::expect_identical(
-    format_expression(fundef), "format_expression <- function(x) {\n    x + x\n    return(x)\n}"
-  )
-})
+    testthat::expect_identical(format_expression(expr1), "i <- iris\nm <- mtcars")
+    testthat::expect_identical(format_expression(expr2), "i <- iris\nm <- mtcars")
+    testthat::expect_identical(format_expression(expr3), "i <- iris\nm <- mtcars")
+    testthat::expect_identical(format_expression(cll1), "i <- iris\nm <- mtcars")
+    testthat::expect_identical(format_expression(cll2), "i <- iris\nm <- mtcars")
+    testthat::expect_identical(
+      format_expression(fundef), "format_expression <- function(x) {\n    x + x\n    return(x)\n}"
+    )
+  }
+)
