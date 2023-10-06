@@ -406,7 +406,7 @@ testthat::test_that("get_code detects cooccurrence properly even if all objects 
 
 testthat::test_that("get_code understands @ usage and do not treat rhs of @ as objects (only lhs)", {
   q <- new_qenv()
-  q <- eval_code(q, "setClass('aclass', representation(a = 'numeric', x = 'numeric', y = 'numeric')) # @linksto a x")
+  q <- eval_code(q, "setClass('aclass', slots = c(a = 'numeric', x = 'numeric', y = 'numeric')) # @linksto a x")
   q <- eval_code(q, "x <- new('aclass', a = 1:3, x = 1:3, y = 1:3)")
   q <- eval_code(q, "a <- new('aclass', a = 1:3, x = 1:3, y = 1:3)")
   q <- eval_code(q, "a@x <- a@y")
@@ -416,14 +416,14 @@ testthat::test_that("get_code understands @ usage and do not treat rhs of @ as o
   testthat::expect_identical(
     get_code(q, names = "x"),
     c(
-      'setClass("aclass", representation(a = "numeric", x = "numeric", y = "numeric"))',
+      'setClass("aclass", slots = c(a = "numeric", x = "numeric", y = "numeric"))',
       'x <- new("aclass", a = 1:3, x = 1:3, y = 1:3)'
     )
   )
   testthat::expect_identical(
     get_code(q, names = "a"),
     c(
-      'setClass("aclass", representation(a = "numeric", x = "numeric", y = "numeric"))',
+      'setClass("aclass", slots = c(a = "numeric", x = "numeric", y = "numeric"))',
       'x <- new("aclass", a = 1:3, x = 1:3, y = 1:3)',
       'a <- new("aclass", a = 1:3, x = 1:3, y = 1:3)',
       "a@x <- a@y",
