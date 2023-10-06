@@ -21,23 +21,25 @@ setGeneric("eval_code", function(object, code) standardGeneric("eval_code"))
 
 #' @rdname eval_code
 #' @export
-setMethod("eval_code", signature = c("qenv", "expression"), function(object, code) {
-  id <- sample.int(.Machine$integer.max, size = length(code))
+setMethod("eval_code", signature = c("qenv", "character"), function(object, code) {
+  id <- sample.int(.Machine$integer.max, size = 1)
 
   object@id <- c(object@id, id)
   object@env <- rlang::env_clone(object@env, parent = parent.env(.GlobalEnv))
+  code <- paste(code, collapse = "\n")
   object@code <- c(object@code, code)
 
   current_warnings <- ""
   current_messages <- ""
 
-  for (code_line in code) {
-    # Using withCallingHandlers to capture ALL warnings and messages.
-    # Using tryCatch to capture the FIRST error and abort further evaluation.
+  parsed_code <- parse(text = code, keep.source = TRUE)
+  for (single_call in parsed_code) {
+    # Using withCallingHandlers to capture warnings and messages.
+    # Using tryCatch to capture the error and abort further evaluation.
     x <- withCallingHandlers(
       tryCatch(
         {
-          eval(code_line, envir = object@env)
+          eval(single_call, envir = object@env)
           NULL
         },
         error = function(e) {
@@ -45,7 +47,7 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
             message = sprintf(
               "%s \n when evaluating qenv code:\n%s",
               .ansi_strip(conditionMessage(e)),
-              paste(format_expression(code), collapse = "\n")
+              deparse1(single_call)
             ),
             class = c("qenv.error", "try-error", "simpleError"),
             trace = object@code
@@ -61,13 +63,16 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
         invokeRestart("muffleMessage")
       }
     )
+
     if (!is.null(x)) {
       return(x)
     }
-
-    object@warnings <- c(object@warnings, current_warnings)
-    object@messages <- c(object@messages, current_messages)
   }
+
+
+  object@warnings <- c(object@warnings, current_warnings)
+  object@messages <- c(object@messages, current_messages)
+
   lockEnvironment(object@env, bindings = TRUE)
   object
 })
@@ -75,14 +80,13 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
 #' @rdname eval_code
 #' @export
 setMethod("eval_code", signature = c("qenv", "language"), function(object, code) {
-  code_char <- as.expression(code)
-  eval_code(object, code_char)
+  eval_code(object, code = format_expression(code))
 })
 
 #' @rdname eval_code
 #' @export
-setMethod("eval_code", signature = c("qenv", "character"), function(object, code) {
-  eval_code(object, code = parse(text = code, keep.source = FALSE))
+setMethod("eval_code", signature = c("qenv", "expression"), function(object, code) {
+  eval_code(object, code = format_expression(code))
 })
 
 #' @rdname eval_code

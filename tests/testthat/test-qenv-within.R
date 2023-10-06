@@ -48,18 +48,18 @@ testthat::test_that("styling of input code does not impact evaluation results", 
   all_code <- get_code(q)
   testthat::expect_identical(
     all_code,
-    rep(c("1 + 1", "2 + 2"), 4L)
+    rep("1 + 1\n2 + 2", 4L)
   )
 })
 
 
 # return value ----
-testthat::test_that("within.qenv renturns a deep copy of `data`", {
+testthat::test_that("within.qenv renturns a `qenv` where `@env` is a deep copy of that in `data`", {
   q <- new_qenv()
   q <- within(new_qenv(), i <- iris)
   qq <- within(q, {})
-  testthat::expect_equal(q, qq)
-  testthat::expect_false(identical(q, qq))
+  testthat::expect_equal(q@env, qq@env)
+  testthat::expect_false(identical(q@env, qq@env))
 })
 
 testthat::test_that("within.qenv renturns qenv.error even if evaluation raises error", {

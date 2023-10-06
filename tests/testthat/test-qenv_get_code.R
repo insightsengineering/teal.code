@@ -13,13 +13,16 @@ testthat::test_that("get_code returns code elements being code-blocks as charact
       z <- 5
     })
   )
-  testthat::expect_equal(get_code(q), c("x <- 1", "y <- x", "z <- 5"))
+  testthat::expect_equal(get_code(q), c("x <- 1", "y <- x\nz <- 5"))
 })
 
-testthat::test_that("get_code returns code (unparsed) of qenv object if deparse = FALSE", {
+testthat::test_that("get_code returns expression of qenv object if deparse = FALSE", {
   q <- new_qenv(list2env(list(x = 1)), code = quote(x <- 1))
   q <- eval_code(q, quote(y <- x))
-  testthat::expect_equal(get_code(q, deparse = FALSE), q@code)
+  testthat::expect_equivalent(
+    toString(get_code(q, deparse = FALSE)),
+    toString(parse(text = q@code, keep.source = TRUE))
+  )
 })
 
 testthat::test_that("get_code called with qenv.error returns error with trace in error message", {
