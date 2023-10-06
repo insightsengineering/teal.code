@@ -11,7 +11,8 @@ test_that("dev_suppress function supress printing plot on IDE", {
 
 # lang2calls ------------------------------------------------------------------------------------------------------
 
-testthat::test_that("format_expression turns expression/calls or lists thereof into character strings without curly brackets", {
+testthat::test_that(
+  "format_expression turns expression/calls or lists thereof into character strings without curly brackets", {
   expr1 <- expression({
     i <- iris
     m <- mtcars
