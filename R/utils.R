@@ -35,6 +35,9 @@ format_expression <- function(code) {
 #' @param x a call or a list of calls
 #' @keywords internal
 lang2calls <- function(x) {
+  if (is.atomic(x)) {
+    return(x)
+  }
   if (is.call(x)) {
     if (identical(as.list(x)[[1L]], as.symbol("{"))) {
       as.list(x)[-1L]
