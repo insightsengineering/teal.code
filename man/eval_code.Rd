@@ -2,19 +2,19 @@
 % Please edit documentation in R/qenv-eval_code.R
 \name{eval_code}
 \alias{eval_code}
-\alias{eval_code,qenv,expression-method}
-\alias{eval_code,qenv,language-method}
 \alias{eval_code,qenv,character-method}
+\alias{eval_code,qenv,language-method}
+\alias{eval_code,qenv,expression-method}
 \alias{eval_code,qenv.error,ANY-method}
 \title{Evaluate the code in the \code{qenv} environment}
 \usage{
 eval_code(object, code)
 
-\S4method{eval_code}{qenv,expression}(object, code)
+\S4method{eval_code}{qenv,character}(object, code)
 
 \S4method{eval_code}{qenv,language}(object, code)
 
-\S4method{eval_code}{qenv,character}(object, code)
+\S4method{eval_code}{qenv,expression}(object, code)
 
 \S4method{eval_code}{qenv.error,ANY}(object, code)
 }
