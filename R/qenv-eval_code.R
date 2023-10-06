@@ -32,7 +32,7 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
   current_warnings <- ""
   current_messages <- ""
 
-  parsed_code <- parse(text = code)
+  parsed_code <- parse(text = code, keep.source = TRUE)
   for (single_call in parsed_code) {
     # Using withCallingHandlers to capture warnings and messages.
     # Using tryCatch to capture the error and abort further evaluation.

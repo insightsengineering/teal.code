@@ -36,7 +36,7 @@ setMethod("get_code", signature = "qenv", function(object, deparse = TRUE, names
   if (deparse) {
     code
   } else {
-    parse(text = code)
+    parse(text = code, keep.source = TRUE)
   }
 })
 

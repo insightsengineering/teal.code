@@ -33,7 +33,7 @@ can create an empty \code{qenv} and evaluate the expressions in this object usin
 }
 \examples{
 new_qenv(env = list2env(list(a = 1)), code = quote(a <- 1))
-new_qenv(env = list2env(list(a = 1)), code = parse(text = "a <- 1"))
+new_qenv(env = list2env(list(a = 1)), code = parse(text = "a <- 1", keep.source = TRUE))
 new_qenv(env = list2env(list(a = 1)), code = "a <- 1")
 
 }

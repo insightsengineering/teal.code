@@ -38,7 +38,7 @@ code_dependency <- function(code, object_names) {
   }
 
   if (class(code) == "character") {
-    parsed_code <- parse(text = code)
+    parsed_code <- parse(text = code, keep.source = TRUE)
   }
 
   pd <- utils::getParseData(parsed_code)
@@ -312,7 +312,8 @@ return_code_for_effects <- function(object, pd, occur, cooccur, eff) {
 #' @param names `character` with object names
 #' @keywords internal
 get_code_dependency <- function(qenv, names) {
-  parsed_code <- parse(text = as.character(qenv@code))
+  browser()
+  parsed_code <- parse(text = as.character(qenv@code), keep.source = TRUE)
   pd <- utils::getParseData(parsed_code)
   calls_pd <- lapply(pd[pd$parent == 0, "id"], get_children, pd = pd)
 
