@@ -384,8 +384,7 @@ testthat::test_that("get_code detects cooccurrence properly even if all objects 
 
 # @ ---------------------------------------------------------------------------------------------------------------
 
-testthat::test_that("get_code understands $ usage and do not treat rhs of $ as objects (only lhs)", {
-  testthat::skip("Due ot the error: cannot add bindings to a locked environment when evaluating qenv code")
+testthat::test_that("get_code understands @ usage and do not treat rhs of @ as objects (only lhs)", {
   q <- new_qenv()
   q <- eval_code(q, "setClass('aclass', representation(a = 'numeric', x = 'numeric', y = 'numeric')) # @linksto a x")
   q <- eval_code(q, "x <- new('aclass', a = 1:3, x = 1:3, y = 1:3)")

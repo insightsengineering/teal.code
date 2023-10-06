@@ -6,7 +6,7 @@
 #' @details This function assumes that object relationships are established using the `<-`, `=`, or `->` assignment
 #' operators. It does not support other object creation methods like `assign` or `<<-`, nor non-standard-evaluation
 #' methods. To specify relationships between side-effects and objects, you can use the comment tag
-#' `# @linktso object_name` at the end of a line where the side-effect occurs.
+#' `# @linksto object_name` at the end of a line where the side-effect occurs.
 #'
 #' @param code An `expression` with `srcref` attribute or a `character` with the code.
 #' @param object_names (`character(n)`) A vector containing the names of existing objects.
@@ -74,11 +74,11 @@ code_dependency <- function(code, object_names) {
     }
   )
 
-  side_effects <- grep("@linktso", pd[pd$token == "COMMENT", "text"], value = TRUE)
+  side_effects <- grep("@linksto", pd[pd$token == "COMMENT", "text"], value = TRUE)
   check_effects <-
     if (length(side_effects) > 0) {
       affected <-
-        unlist(strsplit(sub("\\s*#\\s*@linktso\\s+", "", side_effects), "\\s+"))
+        unlist(strsplit(sub("\\s*#\\s*@linksto\\s+", "", side_effects), "\\s+"))
 
       unique(c(object_names, affected))
     } else {
@@ -232,12 +232,12 @@ return_code_for_effects <- function(object, pd, occur, cooccur, eff) {
         pd,
         function(x) {
           com_cond <-
-            x$token == "COMMENT" & grepl("@linktso", x$text) & grepl(paste0("[\\s]*", object, "[\\s$]*"), x$text)
+            x$token == "COMMENT" & grepl("@linksto", x$text) & grepl(paste0("[\\s]*", object, "[\\s$]*"), x$text)
 
           # Make sure comment id is not the highest id in the item.
-          # For calls like 'options(prompt = ">") # @linktso ADLB',
+          # For calls like 'options(prompt = ">") # @linksto ADLB',
           # 'options(prompt = ">")' is put in a one item
-          # and '# @linktso ADLB' is the first element of the next item.
+          # and '# @linksto ADLB' is the first element of the next item.
           # This is tackled in B.
 
 
@@ -255,7 +255,7 @@ return_code_for_effects <- function(object, pd, occur, cooccur, eff) {
 
   commented_calls <- vapply(
     pd,
-    function(x) any(x$token == "COMMENT" & grepl("@linktso", x$text)),
+    function(x) any(x$token == "COMMENT" & grepl("@linksto", x$text)),
     logical(1)
   )
 
@@ -269,7 +269,7 @@ return_code_for_effects <- function(object, pd, occur, cooccur, eff) {
             # NOT SURE IF BELOW IS NEEDED ANYMORE ONCE WE MOVE TO SYMBOLS
             # Extract lines for objects that were used, but never created.
             # Some objects like 'iris' or 'mtcars' are pre-assigned in the session.
-            # Below is just used for comments with @linktso.
+            # Below is just used for comments with @linksto.
             # if (!object %in% names(occur)) {
             intersect(which(detect_symbol(x, pd)), which(commented_calls))
             # }
@@ -287,12 +287,12 @@ return_code_for_effects <- function(object, pd, occur, cooccur, eff) {
         pd,
         function(x) {
           com_cond <-
-            x$token == "COMMENT" & grepl("@linktso", x$text) & grepl(paste0("[\\s]*", object, "[\\s$]*"), x$text)
+            x$token == "COMMENT" & grepl("@linksto", x$text) & grepl(paste0("[\\s]*", object, "[\\s$]*"), x$text)
 
           # Work out the situation when comment id is the highest id in the item.
-          # For calls like 'options(prompt = ">") # @linktso ADLB',
+          # For calls like 'options(prompt = ">") # @linksto ADLB',
           # 'options(prompt = ">")' is put in a one item
-          # and '# @linktso ADLB' is the first element of the next item.
+          # and '# @linksto ADLB' is the first element of the next item.
 
           com_cond[1]
         }
