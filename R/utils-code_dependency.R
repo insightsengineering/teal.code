@@ -130,23 +130,21 @@ get_children <- function(pd, parent) {
 #' @return A `logical` vector pointing in which elements of `pd` the `SYMBOL` token row has `object` in text column
 #' @keywords internal
 detect_symbol <- function(object, calls_pd) {
-  unlist(
-    vapply(
-      calls_pd,
-      function(call) {
-        is_symbol <-
-          any(call[call$token %in% c("SYMBOL", "SYMBOL_FUNCTION_CALL"), "text"] == object) &&
-            !any(call[call$token == "SYMBOL_FORMALS", "text"] == object)
+  vapply(
+    calls_pd,
+    function(call) {
+      is_symbol <-
+        any(call[call$token %in% c("SYMBOL", "SYMBOL_FUNCTION_CALL"), "text"] == object) &&
+          !any(call[call$token == "SYMBOL_FORMALS", "text"] == object)
 
-        object_ids <- call[call$text == object, "id"]
-        dollar_ids <- call[call$"token" %in% c("'$'", "'@'"), "id"]
-        after_dollar <- object_ids[(object_ids - 2) %in% dollar_ids]
-        object_ids <- setdiff(object_ids, after_dollar)
+      object_ids <- call[call$text == object, "id"]
+      dollar_ids <- call[call$"token" %in% c("'$'", "'@'"), "id"]
+      after_dollar <- object_ids[(object_ids - 2) %in% dollar_ids]
+      object_ids <- setdiff(object_ids, after_dollar)
 
-        is_symbol & length(object_ids) > 0
-      },
-      logical(1)
-    )
+      is_symbol & length(object_ids) > 0
+    },
+    logical(1)
   )
 }
 
