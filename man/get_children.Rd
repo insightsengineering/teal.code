@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-code_dependency.R
 \name{get_children}
 \alias{get_children}
-\title{Get children calls within \code{getParseData()} object}
+\title{Get child calls within \code{getParseData()} object}
 \usage{
 get_children(pd, parent)
 }
@@ -12,9 +12,9 @@ get_children(pd, parent)
 \item{parent}{parent id in \code{utils::getParseData()}}
 }
 \value{
-Row \code{binded} \code{utils::getParseData()} of all calls.
+Row \code{bounded} \code{utils::getParseData()} of all calls.
 }
 \description{
-Get children calls within \code{getParseData()} object
+Get child calls within \code{getParseData()} object
 }
 \keyword{internal}

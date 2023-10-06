@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils-code_dependency.R
 \name{detect_symbol}
 \alias{detect_symbol}
-\title{Detects \code{"SYMBOL"} tokens for row \code{binded} \code{getParseData()} structure}
+\title{Detects \code{"SYMBOL"} tokens for row \code{bounded} \code{getParseData()} structure}
 \usage{
 detect_symbol(object, pd)
 }
@@ -15,6 +15,6 @@ detect_symbol(object, pd)
 A \code{logical} vector pointing in which elements of \code{pd} the \code{SYMBOL} token row has \code{object} in text column
 }
 \description{
-Detects \code{"SYMBOL"} tokens for row \code{binded} \code{getParseData()} structure
+Detects \code{"SYMBOL"} tokens for row \code{bounded} \code{getParseData()} structure
 }
 \keyword{internal}

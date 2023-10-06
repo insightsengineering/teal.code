@@ -110,7 +110,7 @@ code_dependency <- function(code, object_names) {
 #' @title Get child calls within `getParseData()` object
 #' @param pd `list` of `data.frame`s of results of `utils::getParseData()` trimmed to unique `parsed_code` calls
 #' @param parent parent id in `utils::getParseData()`
-#' @return Row `binded` `utils::getParseData()` of all calls.
+#' @return Row `bounded` `utils::getParseData()` of all calls.
 #' @keywords internal
 get_children <- function(pd, parent) {
   idx_children <- abs(pd$parent) == parent
@@ -124,7 +124,7 @@ get_children <- function(pd, parent) {
   }
 }
 
-#' @title Detects `"SYMBOL"` tokens for row `binded` `getParseData()` structure
+#' @title Detects `"SYMBOL"` tokens for row `bounded` `getParseData()` structure
 #' @param object `character` containing the name of the object
 #' @param pd `list` of `data.frame`s of results of `utils::getParseData()` trimmed to unique `parsed_code` calls
 #' @return A `logical` vector pointing in which elements of `pd` the `SYMBOL` token row has `object` in text column
