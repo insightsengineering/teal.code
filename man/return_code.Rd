@@ -4,12 +4,10 @@
 \alias{return_code}
 \title{Return the lines of code needed to reproduce the object.}
 \usage{
-return_code(object, pd, occur, cooccur, eff, parent = NULL)
+return_code(object, occur, cooccur, eff, parent = NULL)
 }
 \arguments{
 \item{object}{\code{character} with object name}
-
-\item{pd}{\code{list} of data.frames of results of \code{utils::getParseData()} trimmed to unique \code{parsed_code} calls}
 
 \item{occur}{result of \code{code_dependency()$occurrence}}
 

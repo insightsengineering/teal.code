@@ -4,12 +4,13 @@
 \alias{return_code_for_effects}
 \title{Return the lines of code needed to reproduce the side-effects having an impact on the object.}
 \usage{
-return_code_for_effects(object, pd, occur, cooccur, eff)
+return_code_for_effects(object, calls_pd, occur, cooccur, eff)
 }
 \arguments{
 \item{object}{\code{character} with object name}
 
-\item{pd}{\code{list} of data.frames of results of \code{utils::getParseData()} trimmed to unique \code{parsed_code} calls}
+\item{calls_pd}{A \code{list} of \code{data.frame}s, which is a result of \code{get_children(utils::getParseData(), parent = 0)}
+applied on \code{parse(text = code, keep.source = TRUE)} at \code{code_dependency(code)}.}
 
 \item{occur}{result of \code{code_dependency()$occurrence}}
 

@@ -4,12 +4,13 @@
 \alias{detect_symbol}
 \title{Detects \code{"SYMBOL"} tokens for row \code{bounded} \code{getParseData()} structure}
 \usage{
-detect_symbol(object, pd)
+detect_symbol(object, calls_pd)
 }
 \arguments{
 \item{object}{\code{character} containing the name of the object}
 
-\item{pd}{\code{list} of \code{data.frame}s of results of \code{utils::getParseData()} trimmed to unique \code{parsed_code} calls}
+\item{calls_pd}{A \code{list} of \code{data.frame}s, which is a result of \code{get_children(utils::getParseData(), parent = 0)}
+applied on \code{parse(text = code, keep.source = TRUE)} at \code{code_dependency(code)}.}
 }
 \value{
 A \code{logical} vector pointing in which elements of \code{pd} the \code{SYMBOL} token row has \code{object} in text column

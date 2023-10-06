@@ -45,7 +45,7 @@ code_dependency <- function(code, object_names) {
 
   calls_pd <- lapply(pd[pd$parent == 0, "id"], get_children, pd = pd)
 
-  occurrence <- lapply(sapply(object_names, detect_symbol, pd = calls_pd, simplify = FALSE), which)
+  occurrence <- lapply(sapply(object_names, detect_symbol, calls_pd = calls_pd, simplify = FALSE), which)
 
   cooccurrence <- lapply(
     calls_pd,
@@ -89,7 +89,7 @@ code_dependency <- function(code, object_names) {
       maxid <- suppressWarnings(max(occurrence[[x]]))
       return_code_for_effects(
         x,
-        pd = calls_pd,
+        calls_pd = calls_pd,
         occur = suppressWarnings(lapply(occurrence, function(x) setdiff(x, maxid:max(maxid, max(x))))),
         cooccur = cooccurrence,
         eff = NULL
@@ -124,13 +124,14 @@ get_children <- function(pd, parent) {
 
 #' @title Detects `"SYMBOL"` tokens for row `bounded` `getParseData()` structure
 #' @param object `character` containing the name of the object
-#' @param pd `list` of `data.frame`s of results of `utils::getParseData()` trimmed to unique `parsed_code` calls
+#' @param calls_pd A `list` of `data.frame`s, which is a result of `get_children(utils::getParseData(), parent = 0)`
+#' applied on `parse(text = code, keep.source = TRUE)` at `code_dependency(code)`.
 #' @return A `logical` vector pointing in which elements of `pd` the `SYMBOL` token row has `object` in text column
 #' @keywords internal
-detect_symbol <- function(object, pd) {
+detect_symbol <- function(object, calls_pd) {
   unlist(
     vapply(
-      pd,
+      calls_pd,
       function(call) {
         is_symbol <-
           any(call[call$token %in% c("SYMBOL", "SYMBOL_FUNCTION_CALL"), "text"] == object) &&
@@ -152,7 +153,6 @@ detect_symbol <- function(object, pd) {
 #' @return `numeric` vector indicating which lines of `parsed_code` calls are required to build the `object`
 #'
 #' @param object `character` with object name
-#' @param pd `list` of data.frames of results of `utils::getParseData()` trimmed to unique `parsed_code` calls
 #' @param occur result of `code_dependency()$occurrence`
 #' @param cooccur result of `code_dependency()$cooccurrence`
 #' @param eff result of `code_dependency()$effects`
@@ -162,7 +162,7 @@ detect_symbol <- function(object, pd) {
 #' @return A `numeric` vector with number of lines of input `pd` to be returned.
 #'
 #' @keywords internal
-return_code <- function(object, pd, occur, cooccur, eff, parent = NULL) {
+return_code <- function(object, occur, cooccur, eff, parent = NULL) {
   if (all(unlist(lapply(occur, length)) == 0)) {
     return(NULL)
   }
@@ -205,18 +205,19 @@ return_code <- function(object, pd, occur, cooccur, eff, parent = NULL) {
 #' and impact on the `object`
 #'
 #' @param object `character` with object name
-#' @param pd `list` of data.frames of results of `utils::getParseData()` trimmed to unique `parsed_code` calls
+#' @param calls_pd A `list` of `data.frame`s, which is a result of `get_children(utils::getParseData(), parent = 0)`
+#' applied on `parse(text = code, keep.source = TRUE)` at `code_dependency(code)`.
 #' @param occur result of `code_dependency()$occurrence`
 #' @param cooccur result of `code_dependency()$cooccurrence`
 #'
 #' @return A `numeric` vector with number of lines of input `pd` to be returned for effects.
 #'
 #' @keywords internal
-return_code_for_effects <- function(object, pd, occur, cooccur, eff) {
+return_code_for_effects <- function(object, calls_pd, occur, cooccur, eff) {
   symbol_effects_names <-
     unlist(
       lapply(
-        pd,
+        calls_pd,
         function(x) {
           com_cond <-
             x$token == "COMMENT" & grepl("@linksto", x$text) & grepl(paste0("[\\s]*", object, "[\\s$]*"), x$text)
@@ -241,7 +242,7 @@ return_code_for_effects <- function(object, pd, occur, cooccur, eff) {
     )
 
   commented_calls <- vapply(
-    pd,
+    calls_pd,
     function(x) any(x$token == "COMMENT" & grepl("@linksto", x$text)),
     logical(1)
   )
@@ -251,14 +252,14 @@ return_code_for_effects <- function(object, pd, occur, cooccur, eff) {
       lapply(
         symbol_effects_names,
         function(x) {
-          code <- return_code(x, pd = pd, occur = occur, cooccur = cooccur, eff = eff)
+          code <- return_code(x, occur = occur, cooccur = cooccur, eff = eff)
           if (is.null(code)) {
             # NOT SURE IF BELOW IS NEEDED ANYMORE ONCE WE MOVE TO SYMBOLS
             # Extract lines for objects that were used, but never created.
             # Some objects like 'iris' or 'mtcars' are pre-assigned in the session.
             # Below is just used for comments with @linksto.
             # if (!object %in% names(occur)) {
-            intersect(which(detect_symbol(x, pd)), which(commented_calls))
+            intersect(which(detect_symbol(x, calls_pd)), which(commented_calls))
             # }
           } else {
             code
@@ -271,7 +272,7 @@ return_code_for_effects <- function(object, pd, occur, cooccur, eff) {
   side_effects_names <-
     unlist(
       lapply(
-        pd,
+        calls_pd,
         function(x) {
           com_cond <-
             x$token == "COMMENT" & grepl("@linksto", x$text) & grepl(paste0("[\\s]*", object, "[\\s$]*"), x$text)
@@ -301,7 +302,6 @@ return_code_for_effects <- function(object, pd, occur, cooccur, eff) {
 get_code_dependency <- function(qenv, names) {
   parsed_code <- parse(text = as.character(qenv@code), keep.source = TRUE)
   pd <- utils::getParseData(parsed_code)
-  calls_pd <- lapply(pd[pd$parent == 0, "id"], get_children, pd = pd)
 
   symbols <- unique(pd[pd$token == "SYMBOL", "text"])
 
@@ -319,7 +319,6 @@ get_code_dependency <- function(qenv, names) {
       object_lines <-
         return_code(
           name,
-          pd = calls_pd,
           occur = code_dependency$occurrence,
           cooccur = code_dependency$cooccurrence,
           eff = code_dependency$effects
