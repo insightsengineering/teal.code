@@ -45,9 +45,7 @@ code_dependency <- function(code, object_names) {
 
   calls_pd <- lapply(pd[pd$parent == 0, "id"], get_children, pd = pd)
 
-  occurrence <- lapply(lapply(object_names, detect_symbol, pd = calls_pd), which)
-
-  names(occurrence) <- object_names
+  occurrence <- lapply(sapply(object_names, detect_symbol, pd = calls_pd, simplify = FALSE), which)
 
   cooccurrence <- lapply(
     calls_pd,
