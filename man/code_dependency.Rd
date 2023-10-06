@@ -33,6 +33,6 @@ parsed code. It helps you understand which objects are needed to recreate a spec
 This function assumes that object relationships are established using the \verb{<-}, \code{=}, or \verb{->} assignment
 operators. It does not support other object creation methods like \code{assign} or \verb{<<-}, nor non-standard-evaluation
 methods. To specify relationships between side-effects and objects, you can use the comment tag
-\verb{# @effect object_name} at the end of a line where the side-effect occurs.
+\verb{# @linktso object_name} at the end of a line where the side-effect occurs.
 }
 \keyword{internal}

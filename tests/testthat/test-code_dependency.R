@@ -94,10 +94,10 @@ testthat::test_that("get_code can't extract the code when no assign operator", {
   )
 })
 
-testthat::test_that("@effect tag indicate affected object if object is assigned anywhere in a code", {
+testthat::test_that("@linksto tag indicate affected object if object is assigned anywhere in a code", {
   q <- new_qenv()
   q <- eval_code(q, "a <- 1")
-  q <- eval_code(q, "assign('b', 5) # @effect b")
+  q <- eval_code(q, "assign('b', 5) # @linksto b")
   q <- eval_code(q, "b <- b + 2")
   testthat::expect_identical(
     get_code(q, names = "b"),
@@ -140,15 +140,15 @@ testthat::test_that("get_code detects every assign calls even if not evaluated",
 })
 
 
-# @effect ---------------------------------------------------------------------------------------------------------
+# @linksto ---------------------------------------------------------------------------------------------------------
 
 
-testthat::test_that("@effect cause to return this line for affected binding", {
+testthat::test_that("@linksto cause to return this line for affected binding", {
   q <- new_qenv()
   q <- eval_code(
     q,
     "
-  a <- 1 # @effect b
+  a <- 1 # @linksto b
   b <- 2
   "
   )
@@ -160,11 +160,11 @@ testthat::test_that("@effect cause to return this line for affected binding", {
 })
 
 testthat::test_that(
-  "@effect returns this line for affected binding
+  "@linksto returns this line for affected binding
   even if object is not specificed/created in the same eval_code",
   {
     q <- new_qenv()
-    q <- eval_code(q, "a <- 1 # @effect b")
+    q <- eval_code(q, "a <- 1 # @linksto b")
     q <- eval_code(q, "b <- 2")
 
     testthat::expect_identical(
@@ -175,13 +175,13 @@ testthat::test_that(
 )
 
 testthat::test_that(
-  "@effect returns this line for affected binding
+  "@linksto returns this line for affected binding
   if object is not specificed in the same eval_code
   but it existed already in the qenv@env",
   {
     q <- new_qenv()
     q <- eval_code(q, "a <- 1 ")
-    q <- eval_code(q, "b <- 2 # @effect a")
+    q <- eval_code(q, "b <- 2 # @linksto a")
 
     testthat::expect_identical(
       get_code(q, names = "a"),
@@ -207,11 +207,11 @@ testthat::test_that(
 )
 
 testthat::test_that(
-  "lines affecting parent evaluated after co-occurrence are not included in get_code output when using @effect",
+  "lines affecting parent evaluated after co-occurrence are not included in get_code output when using @linksto",
   {
     q <- new_qenv()
     q <- eval_code(q, "a <- 1 ")
-    q <- eval_code(q, "b <- 2 # @effect a")
+    q <- eval_code(q, "b <- 2 # @linksto a")
     q <- eval_code(q, "a <- a + 1")
     q <- eval_code(q, "b <- b + 1")
 
@@ -227,13 +227,13 @@ testthat::test_that(
 )
 
 testthat::test_that(
-  "@effect gets extracted if it's a side-effect on a dependent object",
+  "@linksto gets extracted if it's a side-effect on a dependent object",
   {
     q <- new_qenv()
     q <- eval_code(q,
       code = "
       iris[1:5, ] -> iris2
-      iris_head <- head(iris) # @effect iris2
+      iris_head <- head(iris) # @linksto iris2
       classes <- lapply(iris2, class)
     "
     )
@@ -246,14 +246,14 @@ testthat::test_that(
 )
 
 testthat::test_that(
-  "@effect gets extracted if it's a side-effect on a dependent object of a dependent object",
+  "@linksto gets extracted if it's a side-effect on a dependent object of a dependent object",
   {
     q <- new_qenv()
     q <- eval_code(q,
       code = "
       iris[1:5, ] -> iris2
-      iris_head <- head(iris) # @effect iris3
-      iris3 <- iris_head[1, ] # @effect iris2
+      iris_head <- head(iris) # @linksto iris3
+      iris3 <- iris_head[1, ] # @linksto iris2
       classes <- lapply(iris2, class)
     "
     )
@@ -387,7 +387,7 @@ testthat::test_that("get_code detects cooccurrence properly even if all objects 
 testthat::test_that("get_code understands $ usage and do not treat rhs of $ as objects (only lhs)", {
   testthat::skip("Due ot the error: cannot add bindings to a locked environment when evaluating qenv code")
   q <- new_qenv()
-  q <- eval_code(q, "setClass('aclass', representation(a = 'numeric', x = 'numeric', y = 'numeric')) # @effect a x")
+  q <- eval_code(q, "setClass('aclass', representation(a = 'numeric', x = 'numeric', y = 'numeric')) # @linksto a x")
   q <- eval_code(q, "x <- new('aclass', a = 1:3, x = 1:3, y = 1:3)")
   q <- eval_code(q, "a <- new('aclass', a = 1:3, x = 1:3, y = 1:3)")
   q <- eval_code(q, "a@x <- a@y")
