@@ -302,8 +302,29 @@ testthat::test_that("get_code ignores occurrence in function definition", {
   q <- eval_code(q, "foo <- function(b) { b <- b + 2 }")
 
   testthat::expect_identical(
+    get_code(q, names = "b"),
+    "b <- 2"
+  )
+
+  testthat::expect_identical(
     get_code(q, names = "foo"),
     "foo <- function(b) {\n    b <- b + 2\n}"
+  )
+})
+
+testthat::test_that("get_code ignores occurrence in function definition without { curly brackets", {
+  q <- new_qenv()
+  q <- eval_code(q, "b <- 2")
+  q <- eval_code(q, "foo <- function(b) b <- b + 2 ")
+
+  testthat::expect_identical(
+    get_code(q, names = "foo"),
+    "foo <- function(b) b <- b + 2"
+  )
+
+  testthat::expect_identical(
+    get_code(q, names = "b"),
+    "b <- 2"
   )
 })
 
@@ -335,7 +356,6 @@ testthat::test_that("get_code detects occurrence of the function object", {
 testthat::test_that(
   "Can't detect occurrence of function definition when a formal is named the same as a function",
   {
-    testthat::skip("This does not return foo definition YET!")
     q <- new_qenv()
     q <- eval_code(q, "x <- 1")
     q <- eval_code(q, "foo <- function(foo = 1) 'text'")
@@ -343,7 +363,7 @@ testthat::test_that(
 
     testthat::expect_identical(
       get_code(q, names = "a"),
-      c("x <- 1", "foo <- function(foo = 1) 'text'", "a <- foo(x)")
+      c("x <- 1", "foo <- function(foo = 1) \"text\"", "a <- foo(x)")
     )
   }
 )

@@ -134,18 +134,33 @@ detect_symbol <- function(object, calls_pd) {
     calls_pd,
     function(call) {
       is_symbol <-
-        any(call[call$token %in% c("SYMBOL", "SYMBOL_FUNCTION_CALL"), "text"] == object) &&
-          !any(call[call$token == "SYMBOL_FORMALS", "text"] == object)
+        any(call[call$token %in% c("SYMBOL", "SYMBOL_FUNCTION_CALL"), "text"] == object)
+
+      is_formal <- used_in_function(call, object)
 
       object_ids <- call[call$text == object, "id"]
       dollar_ids <- call[call$"token" %in% c("'$'", "'@'"), "id"]
       after_dollar <- object_ids[(object_ids - 2) %in% dollar_ids]
       object_ids <- setdiff(object_ids, after_dollar)
 
-      is_symbol & length(object_ids) > 0
+      is_symbol & !is_formal & length(object_ids) > 0
     },
     logical(1)
   )
+}
+
+#' @title Whether an object is used inside a function within a call
+#' @param call An element of `calls_pd` list used in `detect_symbol`.
+#' @param object A character with object name.
+#' @return A `logical(1)`.
+used_in_function <- function(call, object) {
+  if (any(call[call$token == "SYMBOL_FORMALS", "text"] == object) && any(call$token == 'FUNCTION')) {
+    object_sf_ids <- call[call$text == object & call$token == 'SYMBOL', 'id']
+    function_start_id <- call[call$token == 'FUNCTION', 'id']
+    all(object_sf_ids > function_start_id)
+  } else {
+    FALSE
+  }
 }
 
 #' Return the lines of code needed to reproduce the object.
