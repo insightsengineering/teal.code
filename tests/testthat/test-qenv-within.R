@@ -48,7 +48,7 @@ testthat::test_that("styling of input code does not impact evaluation results", 
   all_code <- get_code(q)
   testthat::expect_identical(
     all_code,
-    rep(c("1 + 1\n2 + 2"), 4L)
+    rep("1 + 1\n2 + 2", 4L)
   )
 })
 
