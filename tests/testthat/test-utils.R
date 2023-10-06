@@ -1,4 +1,4 @@
-test_that("dev_suppress function supress printing plot on IDE", {
+testthat::test_that("dev_suppress function supress printing plot on IDE", {
   expect_no_error(dev_suppress(plot(1:10)))
 
   initial_pdf_count <- sum(dev.list())
