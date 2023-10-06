@@ -36,10 +36,10 @@ testthat::test_that("lang2calls returns list of calls given a language object", 
 testthat::test_that("lang2calls returns list of calls given a list of language objects", {
   exprlist <- list(
     expression(i <- iris),
-    expression({
-      i <- iris
+    expression(
+      i <- iris,
       m <- mtcars
-    })
+    )
   )
   calllist <- list(
     quote(i <- iris),
