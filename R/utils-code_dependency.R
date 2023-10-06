@@ -14,10 +14,11 @@
 #' @return A `list` with three components:
 #' - `occurrence`: A named `list` where object names are the names of existing objects, and each element is a numeric
 #' vector indicating the calls in which the object appears.
-#' - `cooccurrence`: A `list` of the same length as the number of calls in `parsed_code`. It contains `NULL` values if
-#' there is no co-occurrence between objects or a `character` vector indicating the co-occurrence of objects in a
-#' specific `parsed_code` call element. If it's a character vector, the first element is the name of the dependent
-#' object, and the rest are the influencing objects.
+#' - `cooccurrence`: A `list` of the same length as the number of calls in `parsed_code`
+#' (`parsed_code = parse(text = code)` for code input as `character` and `parsed_code = code` for expression input.
+#' It contains `NULL` values if there is no co-occurrence between objects or a `character` vector indicating the
+#' co-occurrence of objects in a specific `parsed_code` call element. If it's a character vector, the first element is
+#' the name of the dependent object, and the rest are the influencing objects.
 #' - `effects`: A named `list` where object names are the names of existing objects, and each element is a numeric
 #' vector indicating which calls have an effect on that object. If there are no side-effects pointing at an object,
 #' the element is `NULL`.

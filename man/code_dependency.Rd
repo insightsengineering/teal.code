@@ -16,10 +16,11 @@ A \code{list} with three components:
 \itemize{
 \item \code{occurrence}: A named \code{list} where object names are the names of existing objects, and each element is a numeric
 vector indicating the calls in which the object appears.
-\item \code{cooccurrence}: A \code{list} of the same length as the number of calls in \code{parsed_code}. It contains \code{NULL} values if
-there is no co-occurrence between objects or a \code{character} vector indicating the co-occurrence of objects in a
-specific \code{parsed_code} call element. If it's a character vector, the first element is the name of the dependent
-object, and the rest are the influencing objects.
+\item \code{cooccurrence}: A \code{list} of the same length as the number of calls in \code{parsed_code}
+(\code{parsed_code = parse(text = code)} for code input as \code{character} and \code{parsed_code = code} for expression input.
+It contains \code{NULL} values if there is no co-occurrence between objects or a \code{character} vector indicating the
+co-occurrence of objects in a specific \code{parsed_code} call element. If it's a character vector, the first element is
+the name of the dependent object, and the rest are the influencing objects.
 \item \code{effects}: A named \code{list} where object names are the names of existing objects, and each element is a numeric
 vector indicating which calls have an effect on that object. If there are no side-effects pointing at an object,
 the element is \code{NULL}.
