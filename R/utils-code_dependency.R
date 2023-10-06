@@ -154,9 +154,9 @@ detect_symbol <- function(object, calls_pd) {
 #' @param object A character with object name.
 #' @return A `logical(1)`.
 used_in_function <- function(call, object) {
-  if (any(call[call$token == "SYMBOL_FORMALS", "text"] == object) && any(call$token == 'FUNCTION')) {
-    object_sf_ids <- call[call$text == object & call$token == 'SYMBOL', 'id']
-    function_start_id <- call[call$token == 'FUNCTION', 'id']
+  if (any(call[call$token == "SYMBOL_FORMALS", "text"] == object) && any(call$token == "FUNCTION")) {
+    object_sf_ids <- call[call$text == object & call$token == "SYMBOL", "id"]
+    function_start_id <- call[call$token == "FUNCTION", "id"]
     all(object_sf_ids > function_start_id)
   } else {
     FALSE
