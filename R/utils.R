@@ -30,13 +30,14 @@ format_expression <- function(code) {
 }
 
 
-#' recursively convert language object to list of simple calls
-#' @param x a call or a list of calls
+# recursively convert language object to list of simple calls
+# @param x `language` object or a list of thereof
+# @return
+# Given a `call`, an `expression`, a list of `call`s or a list of `expression`s,
+# returns a list of `calls`. Symbols and atomic vectors (which may get mixed up in a list) are returned as is.
 #' @keywords internal
 lang2calls <- function(x) {
-  if (is.atomic(x)) {
-    return(x)
-  }
+  if (is.atomic(x) || is.symbol(x)) return(x)
   if (is.call(x)) {
     if (identical(as.list(x)[[1L]], as.symbol("{"))) {
       as.list(x)[-1L]
