@@ -34,7 +34,7 @@ setMethod("get_code", signature = "qenv", function(object, deparse = TRUE, names
     object@code
   }
   if (deparse) {
-    format_expression(code)
+    code
   } else {
     parse(text = code)
   }

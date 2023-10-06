@@ -135,7 +135,7 @@ testthat::test_that("get_code detects every assign calls even if not evaluated",
   q <- eval_code(q, "eval(expression({b <- b + 2}))")
   testthat::expect_identical(
     get_code(q, names = "b"),
-    c("b <- 2", "eval(expression({", "  b <- b + 2", "}))")
+    c("b <- 2", "eval(expression({\n    b <- b + 2\n}))")
   )
 })
 
@@ -303,7 +303,7 @@ testthat::test_that("get_code ignores occurrence in function definition", {
 
   testthat::expect_identical(
     get_code(q, names = "foo"),
-    c("foo <- function(b) {", "  b <- b + 2", "}")
+    "foo <- function(b) {\n    b <- b + 2\n}"
   )
 })
 
@@ -328,14 +328,14 @@ testthat::test_that("get_code detects occurrence of the function object", {
 
   testthat::expect_identical(
     get_code(q, names = "b"),
-    c("a <- 1", "b <- 2", "foo <- function(b) {", "  b <- b + 2", "}", "b <- foo(a)")
+    c("a <- 1", "b <- 2", "foo <- function(b) {\n    b <- b + 2\n}", "b <- foo(a)")
   )
 })
 
 testthat::test_that(
   "Can't detect occurrence of function definition when a formal is named the same as a function",
   {
-    skip("This does not return foo definition YET!")
+    testthat::skip("This does not return foo definition YET!")
     q <- new_qenv()
     q <- eval_code(q, "x <- 1")
     q <- eval_code(q, "foo <- function(foo = 1) 'text'")
