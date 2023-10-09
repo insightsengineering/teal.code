@@ -306,18 +306,29 @@ return_code_for_effects <- function(object, calls_pd, occur, cooccur, eff) {
   sort(unique(c(symbol_effects_lines, side_effects_lines)))
 }
 
-#' Return the lines of code (with side-effects) needed to reproduce the object.
-#' @return `character` vector of elements of `parsed_code` calls that were required to build the side-effects and
+#' Return the lines of code (with side-effects) needed to reproduce the object
+#' @return `character` vector of elements of `code` calls that were required to build the side-effects and
 #' influencing objects having and impact on the `object`
 #'
-#' @param code `character` object
-#' @param names `character` with object names
+#' @param code An `expression` with `srcref` attribute or a `character` with the code.
+#' @param names A `character(n)` with object names.
 #' @keywords internal
 get_code_dependency <- function(code, names) {
-  checkmate::assert_character(code)
+  checkmate::assert_multi_class(code, classes = c("character", "expression"))
   checkmate::assert_character(names)
 
-  parsed_code <- parse(text = as.character(code), keep.source = TRUE)
+  if (class(code) == "expression") {
+    if (!is.null(attr(code, "srcref"))) {
+      parsed_code <- code
+    } else {
+      stop("The 'expression' code input does not contain 'srcref' attribute.")
+    }
+  }
+
+  if (class(code) == "character") {
+    parsed_code <- parse(text = code, keep.source = TRUE)
+  }
+
   pd <- utils::getParseData(parsed_code)
 
   symbols <- unique(pd[pd$token == "SYMBOL", "text"])

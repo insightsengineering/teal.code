@@ -2,11 +2,7 @@
 
 # New features
 
-* Code lines passed to `new_qenv()` and `eval_code()` are now assigned to respective objects that they build, so code reproducibility is improved.
-* The `@code` field in the `qenv` class now holds `character` rather than `expression`.
-* `get_code()` is extended by `names` parameter that allows to extract the code just for a
-specific object.
-* Introduced `# @linksto` comment-tag in `code` argument of `eval_code` and `new_qenv` functions to support code relationship detection. See more in functions documentation.
+* The `@code` field in the `qenv` class now holds `character`, not `expression`.
 
 # teal.code 0.4.1
 
