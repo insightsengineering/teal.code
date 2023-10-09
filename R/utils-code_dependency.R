@@ -269,8 +269,8 @@ return_code_for_effects <- function(object, calls_pd, occur, cooccur, eff) {
         function(x) {
           code <- return_code(x, occur = occur, cooccur = cooccur, eff = eff)
           if (is.null(code)) {
-          # Below is just used for comments with @linksto.
-             intersect(which(detect_symbol(x, calls_pd)), which(commented_calls))
+            # Below is just used for comments with @linksto.
+            intersect(which(detect_symbol(x, calls_pd)), which(commented_calls))
           } else {
             code
           }
