@@ -268,13 +268,8 @@ return_code_for_effects <- function(object, calls_pd, occur, cooccur, eff) {
         function(x) {
           code <- return_code(x, occur = occur, cooccur = cooccur, eff = eff)
           if (is.null(code)) {
-            # NOT SURE IF BELOW IS NEEDED ANYMORE ONCE WE MOVE TO SYMBOLS
-            # Extract lines for objects that were used, but never created.
-            # Some objects like 'iris' or 'mtcars' are pre-assigned in the session.
-            # Below is just used for comments with @linksto.
-            # if (!object %in% names(occur)) {
-            intersect(which(detect_symbol(x, calls_pd)), which(commented_calls))
-            # }
+          # Below is just used for comments with @linksto.
+             intersect(which(detect_symbol(x, calls_pd)), which(commented_calls))
           } else {
             code
           }

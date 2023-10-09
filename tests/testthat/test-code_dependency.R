@@ -159,8 +159,7 @@ testthat::test_that(
 
 testthat::test_that(
   "@linksto returns this line for affected binding
-  if object is not specificed in the same eval_code
-  but it existed already in the qenv@env",
+  if object is not specificed in the same element of code",
   {
     q <- c(
       "a <- 1 ",
