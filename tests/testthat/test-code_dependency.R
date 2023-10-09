@@ -24,7 +24,8 @@ testthat::test_that("get_code_dependency warns if binding doesn't exist in a cod
 })
 
 
-testthat::test_that("get_code_dependency extracts code of a parent binding but only those evaluated before coocurence", {
+testthat::test_that(
+  "get_code_dependency extracts code of a parent binding but only those evaluated before coocurence", {
   q <- c(
     "a <- 1",
     "b <- a",
@@ -85,7 +86,8 @@ testthat::test_that("@linksto tag indicate affected object if object is assigned
 })
 
 
-testthat::test_that("get_code_dependency can extract the code when function creates an object which is used only on rhs", {
+testthat::test_that(
+  "get_code_dependency can extract the code when function creates an object which is used only on rhs", {
   q <- c(
     "data(iris)",
     "iris2 <- head(iris)"
@@ -183,7 +185,8 @@ testthat::test_that(
 )
 
 testthat::test_that(
-  "lines affecting parent evaluated after co-occurrence are not included in get_code_dependency output when using @linksto",
+  "lines affecting parent evaluated after co-occurrence are not included in get_code_dependency output
+  when using @linksto",
   {
     q <- c(
       "a <- 1 ",
