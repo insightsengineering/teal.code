@@ -25,17 +25,19 @@ testthat::test_that("get_code_dependency warns if binding doesn't exist in a cod
 
 
 testthat::test_that(
-  "get_code_dependency extracts code of a parent binding but only those evaluated before coocurence", {
-  q <- c(
-    "a <- 1",
-    "b <- a",
-    "a <- 2"
-  )
-  testthat::expect_identical(
-    get_code_dependency(q, names = "b"),
-    c("a <- 1", "b <- a")
-  )
-})
+  "get_code_dependency extracts code of a parent binding but only those evaluated before coocurence",
+  {
+    q <- c(
+      "a <- 1",
+      "b <- a",
+      "a <- 2"
+    )
+    testthat::expect_identical(
+      get_code_dependency(q, names = "b"),
+      c("a <- 1", "b <- a")
+    )
+  }
+)
 
 testthat::test_that("get_code_dependency extracts code of a parent binding if used as an arg in fun call", {
   q <- c(
@@ -87,16 +89,18 @@ testthat::test_that("@linksto tag indicate affected object if object is assigned
 
 
 testthat::test_that(
-  "get_code_dependency can extract the code when function creates an object which is used only on rhs", {
-  q <- c(
-    "data(iris)",
-    "iris2 <- head(iris)"
-  )
-  testthat::expect_identical(
-    get_code_dependency(q, names = "iris2"),
-    c("data(iris)", "iris2 <- head(iris)")
-  )
-})
+  "get_code_dependency can extract the code when function creates an object which is used only on rhs",
+  {
+    q <- c(
+      "data(iris)",
+      "iris2 <- head(iris)"
+    )
+    testthat::expect_identical(
+      get_code_dependency(q, names = "iris2"),
+      c("data(iris)", "iris2 <- head(iris)")
+    )
+  }
+)
 
 testthat::test_that("get_code_dependency can extract the code when using <<-", {
   q <- c(
