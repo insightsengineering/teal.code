@@ -30,7 +30,7 @@ code_dependency <- function(code, object_names) {
   checkmate::assert_multi_class(code, classes = c("character", "expression"))
   checkmate::assert_character(object_names, null.ok = TRUE)
 
-  if (class(code) == "expression") {
+  if (is.expression(code)) {
     if (!is.null(attr(code, "srcref"))) {
       parsed_code <- code
     } else {
@@ -38,7 +38,7 @@ code_dependency <- function(code, object_names) {
     }
   }
 
-  if (class(code) == "character") {
+  if (is.character(code)) {
     parsed_code <- parse(text = code, keep.source = TRUE)
   }
 
@@ -313,7 +313,7 @@ get_code_dependency <- function(code, names) {
   checkmate::assert_multi_class(code, classes = c("character", "expression"))
   checkmate::assert_character(names)
 
-  if (class(code) == "expression") {
+  if (is.expression(code)) {
     if (!is.null(attr(code, "srcref"))) {
       parsed_code <- code
     } else {
@@ -321,7 +321,7 @@ get_code_dependency <- function(code, names) {
     }
   }
 
-  if (class(code) == "character") {
+  if (is.character(code)) {
     parsed_code <- parse(text = code, keep.source = TRUE)
   }
 

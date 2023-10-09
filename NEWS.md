@@ -1,7 +1,5 @@
 # teal.code 0.4.1.9001
 
-# New features
-
 * The `@code` field in the `qenv` class now holds `character`, not `expression`.
 
 # teal.code 0.4.1
