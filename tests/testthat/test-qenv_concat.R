@@ -9,7 +9,7 @@ testthat::test_that("Concatenate two identical qenvs outputs", {
   testthat::expect_equal(q@env, env)
   testthat::expect_identical(
     q@code,
-    as.expression(list(quote(iris1 <- iris), quote(iris1 <- iris)))
+    c("iris1 <- iris", "iris1 <- iris")
   )
 })
 
@@ -22,7 +22,7 @@ testthat::test_that("Concatenate two independent qenvs results in object having 
   testthat::expect_equal(q@env, list2env(list(iris1 = iris, mtcars1 = mtcars)))
   testthat::expect_identical(
     q@code,
-    as.expression(c(quote(iris1 <- iris), quote(mtcars1 <- mtcars)))
+    c("iris1 <- iris", "mtcars1 <- mtcars")
   )
   testthat::expect_identical(q@id, c(q1@id, q2@id))
 })
