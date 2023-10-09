@@ -17,3 +17,4 @@ A \code{logical(1)}.
 \description{
 Whether an object is used inside a function within a call
 }
+\keyword{internal}

@@ -153,6 +153,7 @@ detect_symbol <- function(object, calls_pd) {
 #' @param call An element of `calls_pd` list used in `detect_symbol`.
 #' @param object A character with object name.
 #' @return A `logical(1)`.
+#' @keywords internal
 used_in_function <- function(call, object) {
   if (any(call[call$token == "SYMBOL_FORMALS", "text"] == object) && any(call$token == "FUNCTION")) {
     object_sf_ids <- call[call$text == object & call$token == "SYMBOL", "id"]
