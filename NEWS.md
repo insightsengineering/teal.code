@@ -1,4 +1,4 @@
-# teal.code 0.4.1.9002
+# teal.code 0.4.1.9003
 
 * The `@code` field in the `qenv` class now holds `character`, not `expression`.
 
