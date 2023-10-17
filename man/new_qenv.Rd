@@ -8,15 +8,15 @@
 \alias{new_qenv,missing,missing-method}
 \title{Initialize \code{qenv} object}
 \usage{
-new_qenv(env = new.env(parent = parent.env(.GlobalEnv)), code = expression())
+new_qenv(env = new.env(parent = parent.env(.GlobalEnv)), code = character())
 
-\S4method{new_qenv}{environment,expression}(env = new.env(parent = parent.env(.GlobalEnv)), code = expression())
+\S4method{new_qenv}{environment,expression}(env = new.env(parent = parent.env(.GlobalEnv)), code = character())
 
-\S4method{new_qenv}{environment,character}(env = new.env(parent = parent.env(.GlobalEnv)), code = expression())
+\S4method{new_qenv}{environment,character}(env = new.env(parent = parent.env(.GlobalEnv)), code = character())
 
-\S4method{new_qenv}{environment,language}(env = new.env(parent = parent.env(.GlobalEnv)), code = expression())
+\S4method{new_qenv}{environment,language}(env = new.env(parent = parent.env(.GlobalEnv)), code = character())
 
-\S4method{new_qenv}{missing,missing}(env = new.env(parent = parent.env(.GlobalEnv)), code = expression())
+\S4method{new_qenv}{missing,missing}(env = new.env(parent = parent.env(.GlobalEnv)), code = character())
 }
 \arguments{
 \item{env}{(\code{environment}) Environment being a result of the \code{code} evaluation.}
@@ -33,7 +33,7 @@ can create an empty \code{qenv} and evaluate the expressions in this object usin
 }
 \examples{
 new_qenv(env = list2env(list(a = 1)), code = quote(a <- 1))
-new_qenv(env = list2env(list(a = 1)), code = parse(text = "a <- 1"))
+new_qenv(env = list2env(list(a = 1)), code = parse(text = "a <- 1", keep.source = TRUE))
 new_qenv(env = list2env(list(a = 1)), code = "a <- 1")
 
 }
