@@ -11,6 +11,7 @@
 #' @slot warnings (`character`) the warnings output when evaluating the code
 #' @slot messages (`character`) the messages output when evaluating the code
 #' @keywords internal
+#' @exportClass qenv
 setClass(
   "qenv",
   slots = c(env = "environment", code = "character", id = "integer", warnings = "character", messages = "character"),
