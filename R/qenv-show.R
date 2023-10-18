@@ -4,7 +4,7 @@
 #' @param object (`qenv`)
 #' @return nothing
 #' @importFrom methods show
-#' @exportMethod show
+#' @export
 #' @examples
 #' q1 <- new_qenv(
 #'   code = "a <- 5
