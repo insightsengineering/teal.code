@@ -1,8 +1,8 @@
 Type: Package
 Package: teal.code
 Title: Code Storage and Execution Class for 'teal' Applications
-Version: 0.4.1.9003
-Date: 2023-10-11
+Version: 0.4.1.9004
+Date: 2023-10-18
 Authors@R: c(
     person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = c("aut", "cre")),
     person("Pawel", "Rucki", , "pawel.rucki@roche.com", role = "aut"),
@@ -20,8 +20,8 @@ URL: https://insightsengineering.github.io/teal.code/,
     https://github.com/insightsengineering/teal.code
 BugReports: https://github.com/insightsengineering/teal.code/issues
 Depends:
-    R (>= 4.0),
-    methods
+    methods,
+    R (>= 4.0)
 Imports:
     checkmate (>= 2.1.0),
     grDevices,
