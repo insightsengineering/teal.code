@@ -1,12 +1,13 @@
 testthat::test_that("eval_code evaluates the code in the qenvs environment", {
-  q1 <- new_qenv(quote(iris1 <- iris), env = list2env(list(iris1 = iris)))
+  q <- new_qenv()
+  q1 <- eval_code(q, quote(iris1 <- iris))
   q2 <- eval_code(q1, quote(b <- nrow(iris1)))
   testthat::expect_identical(get_var(q2, "b"), 150L)
 })
 
 testthat::test_that("eval_code doesn't have access to environment where it's called", {
-  a <- 1L
-  q1 <- new_qenv(quote(a <- 1), env = environment())
+  q <- new_qenv()
+  q1 <- eval_code(q, quote(a <- 1))
   b <- 2L
   testthat::expect_s3_class(
     eval_code(q1, quote(d <- b)),
@@ -104,15 +105,7 @@ testthat::test_that("a warning when calling eval_code returns a qenv object whic
   testthat::expect_s4_class(q, "qenv")
   testthat::expect_equal(
     q@warnings,
-    c(
-      "",
-      paste0(
-        "> \"ff\" is not a graphical parameter\n",
-        "> \"ff\" is not a graphical parameter\n",
-        "> \"ff\" is not a graphical parameter\n",
-        "> \"ff\" is not a graphical parameter\n"
-      )
-    )
+    c("", paste(rep("> \"ff\" is not a graphical parameter\n", 4), collapse = ""))
   )
 })
 

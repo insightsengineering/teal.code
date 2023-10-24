@@ -1,20 +1,18 @@
 testthat::test_that("Joining two identical qenvs outputs the same object", {
-  env <- new.env()
-  env$iris1 <- iris
-  q1 <- new_qenv(quote(iris1 <- iris), env = env)
+  q1 <- eval_code(new_qenv(), quote(iris1 <- iris))
   q2 <- q1
 
   testthat::expect_true(.check_joinable(q1, q2))
   q <- join(q1, q2)
 
-  testthat::expect_equal(q@env, env)
+  testthat::expect_equal(q@env, q1@env)
   testthat::expect_identical(q@code, "iris1 <- iris")
   testthat::expect_identical(q@id, q1@id)
 })
 
 testthat::test_that("Joining two independent qenvs results in object having combined code and environments", {
-  q1 <- new_qenv(quote(iris1 <- iris), env = list2env(list(iris1 = iris)))
-  q2 <- new_qenv(quote(mtcars1 <- mtcars), env = list2env(list(mtcars1 = mtcars)))
+  q1 <- eval_code(new_qenv(), quote(iris1 <- iris))
+  q2 <- eval_code(new_qenv(), quote(mtcars1 <- mtcars))
 
   testthat::expect_true(.check_joinable(q1, q2))
   q <- join(q1, q2)
@@ -33,7 +31,7 @@ testthat::test_that("Joined qenv does not duplicate common code", {
     mtcars1 = mtcars
   ))
 
-  q1 <- new_qenv(code = as.expression(c(quote(iris1 <- iris), quote(mtcars1 <- mtcars))), env = env)
+  q1 <- eval_code(new_qenv(), code = as.expression(c(quote(iris1 <- iris), quote(mtcars1 <- mtcars))))
   q2 <- q1
   q2 <- eval_code(q2, quote(mtcars2 <- mtcars))
 
@@ -48,26 +46,15 @@ testthat::test_that("Joined qenv does not duplicate common code", {
 })
 
 testthat::test_that("Not able to join two qenvs if any of the shared objects changed", {
-  env1 <- list2env(list(
-    iris1 = iris,
-    iris2 = iris
-  ))
-  env2 <- list2env(list(iris1 = head(iris)))
-
-  q1 <- new_qenv(quote(iris1 <- iris), env = env1)
-  q2 <- new_qenv(quote(iris1 <- head(iris)), env = env2)
+  q1 <- eval_code(new_qenv(), expression(iris1 <- iris, iris2 <- iris))
+  q2 <- eval_code(new_qenv(), quote(iris1 <- head(iris)))
 
   testthat::expect_match(.check_joinable(q1, q2), "Not possible to join qenv objects")
   testthat::expect_error(join(q1, q2), "Not possible to join qenv objects")
 })
 
 testthat::test_that("join does not duplicate code but adds only extra code", {
-  env <- list2env(list(
-    iris1 = iris,
-    mtcars1 = mtcars
-  ))
-
-  q1 <- new_qenv(code = as.expression(c(quote(iris1 <- iris), quote(mtcars1 <- mtcars))), env = env)
+  q1 <- eval_code(new_qenv(), expression(iris1 <- iris, mtcars1 <- mtcars))
   q2 <- q1
   q1 <- eval_code(q1, quote(iris2 <- iris))
   q2 <- eval_code(q2, quote(mtcars2 <- mtcars))
@@ -93,7 +80,7 @@ testthat::test_that("Not possible to join qenvs which share some code when one o
   env$iris1 <- iris
   env$mtcars1 <- mtcars
 
-  q1 <- new_qenv(code = as.expression(c(quote(iris1 <- iris), quote(mtcars1 <- mtcars))), env = env)
+  q1 <- eval_code(new_qenv(), code = expression(iris1 <- iris, mtcars1 <- mtcars))
   q2 <- q1
   q1 <- eval_code(q1, quote(iris2 <- iris))
   q2 <- eval_code(q2, quote(mtcars1 <- head(mtcars)))
@@ -102,8 +89,8 @@ testthat::test_that("Not possible to join qenvs which share some code when one o
 })
 
 testthat::test_that("qenv objects are mergeable if they don't share any code (identified by id)", {
-  q1 <- new_qenv(code = quote(a1 <- 1), env = list2env(list(a1 = 1)))
-  q2 <- new_qenv(code = quote(a1 <- 1), env = list2env(list(a1 = 1)))
+  q1 <- eval_code(new_qenv(), code = quote(a1 <- 1))
+  q2 <- eval_code(new_qenv(), code = quote(a1 <- 1))
   testthat::expect_true(.check_joinable(q1, q2))
 
   cq <- join(q1, q2)
@@ -114,7 +101,7 @@ testthat::test_that("qenv objects are mergeable if they don't share any code (id
 })
 
 testthat::test_that("qenv objects are mergeable if they share common initial qenv elements", {
-  q1 <- new_qenv(code = quote(a1 <- 1), env = list2env(list(a1 = 1)))
+  q1 <- eval_code(new_qenv(), code = quote(a1 <- 1))
   q2 <- eval_code(q1, quote(b1 <- 2))
   q1 <- eval_code(q1, quote(a2 <- 3))
   testthat::expect_true(.check_joinable(q1, q2))
@@ -132,9 +119,9 @@ testthat::test_that("qenv objects are mergeable if they share common initial qen
 testthat::test_that(
   "qenv objects aren't mergeable if they share common qenv elements proceeded with some other code",
   {
-    q1 <- new_qenv(code = quote(a1 <- 1), env = list2env(list(a1 = 1)))
-    q2 <- new_qenv(code = quote(b1 <- 2), env = list2env(list(b1 = 2)))
-    q_common <- new_qenv(quote(c1 <- 3), env = list2env(list(c1 = 3)))
+    q1 <- eval_code(new_qenv(), code = quote(a1 <- 1))
+    q2 <- eval_code(new_qenv(), code = quote(b1 <- 2))
+    q_common <- eval_code(new_qenv(), quote(c1 <- 3))
     q1 <- join(q1, q_common)
     q2 <- join(q2, q_common)
     testthat::expect_match(.check_joinable(q1, q2), "these objects cannot be joined")
@@ -143,8 +130,8 @@ testthat::test_that(
 )
 
 testthat::test_that("qenv objects are not mergable if they have multiple common streaks", {
-  q_common1 <- new_qenv(code = quote(c1 <- 1), env = list2env(list(c1 = 1)))
-  q_common2 <- new_qenv(code = quote(c2 <- 2), env = list2env(list(c2 = 2)))
+  q_common1 <- eval_code(new_qenv(), code = quote(c1 <- 1))
+  q_common2 <- eval_code(new_qenv(), code = quote(c2 <- 2))
 
   q1 <- eval_code(q_common1, quote(a1 <- 3))
   q1 <- join(q1, q_common2) # c1, a1, c2
@@ -169,8 +156,8 @@ testthat::test_that("joining with a qenv.error object returns the qenv.error obj
 })
 
 testthat::test_that("Joining two independent qenvs with warnings results in object having combined warnings", {
-  q1 <- new_qenv() %>% eval_code("warning('This is warning 1')")
-  q2 <- new_qenv() %>% eval_code("warning('This is warning 2')")
+  q1 <- eval_code(new_qenv(), "warning('This is warning 1')")
+  q2 <- eval_code(new_qenv(), "warning('This is warning 2')")
 
   testthat::expect_true(.check_joinable(q1, q2))
   q <- join(q1, q2)
@@ -185,8 +172,8 @@ testthat::test_that("Joining two independent qenvs with warnings results in obje
 })
 
 testthat::test_that("Joining two independent qenvs with messages results in object having combined messages", {
-  q1 <- new_qenv() %>% eval_code("message('This is message 1')")
-  q2 <- new_qenv() %>% eval_code("message('This is message 2')")
+  q1 <- eval_code(new_qenv(), "message('This is message 1')")
+  q2 <- eval_code(new_qenv(), "message('This is message 2')")
 
   testthat::expect_true(.check_joinable(q1, q2))
   q <- join(q1, q2)

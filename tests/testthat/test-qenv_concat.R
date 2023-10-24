@@ -1,12 +1,11 @@
 testthat::test_that("Concatenate two identical qenvs outputs", {
-  env <- new.env()
-  env$iris1 <- iris
-  q1 <- new_qenv(quote(iris1 <- iris), env = env)
+  q <- new_qenv()
+  q1 <- eval_code(q, quote(iris1 <- iris))
   q2 <- q1
 
   q <- concat(q1, q2)
 
-  testthat::expect_equal(q@env, env)
+  testthat::expect_equal(q@env, q1@env)
   testthat::expect_identical(
     q@code,
     c("iris1 <- iris", "iris1 <- iris")
@@ -14,8 +13,11 @@ testthat::test_that("Concatenate two identical qenvs outputs", {
 })
 
 testthat::test_that("Concatenate two independent qenvs results in object having combined code and environments", {
-  q1 <- new_qenv(quote(iris1 <- iris), env = list2env(list(iris1 = iris)))
-  q2 <- new_qenv(quote(mtcars1 <- mtcars), env = list2env(list(mtcars1 = mtcars)))
+  q1 <- new_qenv()
+  q2 <- new_qenv()
+
+  q1 <- eval_code(q1, quote(iris1 <- iris))
+  q2 <- eval_code(q2, quote(mtcars1 <- mtcars))
 
   q <- concat(q1, q2)
 
@@ -28,8 +30,8 @@ testthat::test_that("Concatenate two independent qenvs results in object having 
 })
 
 testthat::test_that("Concatenate qenvs results with the same variable, the RHS has priority", {
-  q1 <- new_qenv() |> eval_code(quote(a <- data.frame(1)))
-  q2 <- new_qenv() |> eval_code(quote(a <- data.frame(2)))
+  q1 <- eval_code(new_qenv(), quote(a <- data.frame(1)))
+  q2 <- eval_code(new_qenv(), quote(a <- data.frame(2)))
 
   qenv <- concat(q1, q2)
   testthat::expect_identical(qenv[["a"]], data.frame(2))
@@ -49,8 +51,8 @@ testthat::test_that("Concatenate with a qenv.error object returns the qenv.error
 })
 
 testthat::test_that("Concatenate two independent qenvs with warnings results in object having combined warnings", {
-  q1 <- new_qenv() %>% eval_code("warning('This is warning 1')")
-  q2 <- new_qenv() %>% eval_code("warning('This is warning 2')")
+  q1 <- eval_code(new_qenv(), "warning('This is warning 1')")
+  q2 <- eval_code(new_qenv(), "warning('This is warning 2')")
 
   q <- concat(q1, q2)
 
@@ -64,8 +66,8 @@ testthat::test_that("Concatenate two independent qenvs with warnings results in 
 })
 
 testthat::test_that("Concatenate two independent qenvs with messages results in object having combined messages", {
-  q1 <- new_qenv() %>% eval_code("message('This is message 1')")
-  q2 <- new_qenv() %>% eval_code("message('This is message 2')")
+  q1 <- eval_code(new_qenv(), "message('This is message 1')")
+  q2 <- eval_code(new_qenv(), "message('This is message 2')")
 
   q <- concat(q1, q2)
 
