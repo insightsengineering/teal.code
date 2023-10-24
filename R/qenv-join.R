@@ -108,20 +108,15 @@
 #' @include qenv-errors.R
 #' @return `qenv` object.
 #' @examples
-#' q1 <- new_qenv(
-#'   code = c(iris1 = "iris1 <- iris", mtcars1 = "mtcars1 <- mtcars"),
-#'   env = list2env(list(
-#'     iris1 = iris,
-#'     mtcars1 = mtcars
-#'   ))
-#' )
+#' q <- new_qenv()
+#' q1 <- eval_code(q, expression(iris1 <- iris, mtcars1 <- mtcars))
 #' q2 <- q1
 #' q1 <- eval_code(q1, "iris2 <- iris")
 #' q2 <- eval_code(q2, "mtcars2 <- mtcars")
 #' qq <- join(q1, q2)
 #' get_code(qq)
 #'
-#' common_q <- new_qenv(list2env(list(x = 1)), quote(x <- 1))
+#' common_q <- eval_code(q, quote(x <- 1))
 #' y_q <- eval_code(common_q, quote(y <- x * 2))
 #' z_q <- eval_code(common_q, quote(z <- x * 3))
 #' join_q <- join(y_q, z_q)

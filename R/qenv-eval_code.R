@@ -10,7 +10,8 @@
 #' @param code (`character` or `language`) code to evaluate. Also accepts and stores comments
 #'
 #' @examples
-#' q1 <- new_qenv(env = list2env(list(a = 1)), code = quote(a <- 1))
+#' q <- new_qenv()
+#' q1 <- eval_code(q, quote(a <- 1))
 #' q2 <- eval_code(q1, quote(library(checkmate)))
 #' q3 <- eval_code(q2, quote(assert_number(a)))
 #'

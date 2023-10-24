@@ -9,13 +9,8 @@
 #' @include qenv-errors.R
 #' @return `qenv` object.
 #' @examples
-#' q1 <- new_qenv(
-#'   code = c(iris1 = "iris1 <- iris", mtcars1 = "mtcars1 <- mtcars"),
-#'   env = list2env(list(
-#'     iris1 = iris,
-#'     mtcars1 = mtcars
-#'   ))
-#' )
+#' q <- new_qenv()
+#' q1 <- eval_code(q, expression(iris1 <- iris, mtcars1 <- mtcars))
 #' q2 <- q1
 #' q1 <- eval_code(q1, "iris2 <- iris")
 #' q2 <- eval_code(q2, "mtcars2 <- mtcars")

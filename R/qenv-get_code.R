@@ -5,7 +5,8 @@
 #' @param deparse (`logical(1)`) if the returned code should be converted to character.
 #' @return named `character` with the reproducible code.
 #' @examples
-#' q1 <- new_qenv(env = list2env(list(a = 1)), code = quote(a <- 1))
+#' q <- new_qenv()
+#' q1 <- eval_code(q, code = quote(a <- 1))
 #' q2 <- eval_code(q1, code = quote(b <- a))
 #' q3 <- eval_code(q2, code = quote(d <- 2))
 #' get_code(q3)
