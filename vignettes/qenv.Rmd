@@ -19,16 +19,10 @@ The `new_qenv()` function serves as the gateway to create an initial `qenv` obje
 ```{r}
 library(teal.code)
 
-# can be created without any code/environment
+# create a new qenv object
 empty_qenv <- new_qenv()
 print(empty_qenv)
-
-# or can be created with objects inside the environment
-my_qenv <- new_qenv(env = list2env(list(x = 5)), code = "x <- 5")
-print(my_qenv)
 ```
-
-For enhanced reproducibility, it's crucial to provide the code used to generate objects when creating a `qenv` with objects inside the environment. This responsibility falls upon the user.
 
 ### `qenv` basic usage
 
@@ -37,14 +31,28 @@ The `eval_code()` function executes code within a `qenv` environment, yielding a
 ```{r}
 library(magrittr)
 
-q2 <- eval_code(my_qenv, "y <- x * 2") %>% eval_code("z <- y * 2")
+# evaluate code in qenv
+my_qenv <- eval_code(empty_qenv, "x <- 2")
+print(my_qenv)
+
+
+q1 <- eval_code(my_qenv, "y <- x * 2") %>% eval_code("z <- y * 2")
 
 # my_qenv still contains only x
 print(my_qenv)
 
-# q2 contains x, y and z
+# q1 contains x, y and z
+print(q1)
+```
+
+The same result can be achieved with the `within` method for the `qenv` class.
+```{r}
+q2 <- within(my_qenv, y <- x * 2) %>% within(z <- y * 2)
 print(q2)
 ```
+
+
+
 
 To extract objects from a `qenv`, use `[[`; this is particularly useful for displaying them in a `shiny` app. You can retrieve the code used to generate the `qenv` using the `get_code()` function.
 
