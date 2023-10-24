@@ -1,66 +1,21 @@
 #' Initialize `qenv` object
 #'
-#' Initialize `qenv` object with `code` and `env`. In order to have `qenv` reproducible
-#' one needs to initialize with `env` which can be reproduced by the `code`. Alternatively, one
-#' can create an empty `qenv` and evaluate the expressions in this object using `eval_code`.
+#' Create an empty `qenv` object.
+#'
+#' Instantiates a `qenv` with an empty environment.
+#' Any changes must be made by evaluating code in it with `eval_code` or `within`,
+#' thereby ensuring reproducibility.
+#'
 #' @name new_qenv
 #'
-#' @param code (`character(1)` or `language`) code to evaluate. Accepts and stores comments also.
-#' @param env (`environment`) Environment being a result of the `code` evaluation.
-#'
 #' @examples
-#' new_qenv(env = list2env(list(a = 1)), code = quote(a <- 1))
-#' new_qenv(env = list2env(list(a = 1)), code = parse(text = "a <- 1", keep.source = TRUE))
-#' new_qenv(env = list2env(list(a = 1)), code = "a <- 1")
+#' new_qenv()
 #'
 #' @return `qenv` object.
 #'
 #' @export
-setGeneric("new_qenv", function(env = new.env(parent = parent.env(.GlobalEnv)), code = character()) standardGeneric("new_qenv")) # nolint
-
-#' @rdname new_qenv
-#' @export
-setMethod(
-  "new_qenv",
-  signature = c(env = "environment", code = "expression"),
-  function(env, code) {
-    new_qenv(env, format_expression(code))
-  }
-)
-
-#' @rdname new_qenv
-#' @export
-setMethod(
-  "new_qenv",
-  signature = c(env = "environment", code = "character"),
-  function(env, code) {
-    new_env <- rlang::env_clone(env, parent = parent.env(.GlobalEnv))
-    lockEnvironment(new_env, bindings = TRUE)
-    if (length(code) > 0) code <- paste(code, collapse = "\n")
-    id <- sample.int(.Machine$integer.max, size = length(code))
-    methods::new(
-      "qenv",
-      env = new_env, code = code, warnings = rep("", length(code)), messages = rep("", length(code)), id = id
-    )
-  }
-)
-
-#' @rdname new_qenv
-#' @export
-setMethod(
-  "new_qenv",
-  signature = c(env = "environment", code = "language"),
-  function(env, code) {
-    new_qenv(env = env, code = format_expression(code))
-  }
-)
-
-#' @rdname new_qenv
-#' @export
-setMethod(
-  "new_qenv",
-  signature = c(code = "missing", env = "missing"),
-  function(env, code) {
-    new_qenv(env = env, code = code)
-  }
-)
+new_qenv <- function() {
+  q_env <- new.env(parent = parent.env(.GlobalEnv))
+  lockEnvironment(q_env, bindings = TRUE)
+  methods::new("qenv", env = q_env)
+}
