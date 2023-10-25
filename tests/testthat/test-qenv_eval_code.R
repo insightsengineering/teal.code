@@ -25,16 +25,8 @@ testthat::test_that("@env in qenv is always a sibling of .GlobalEnv", {
   testthat::expect_identical(parent.env(q3@env), parent.env(.GlobalEnv))
 })
 
-testthat::test_that("library have to be called separately before using function from package", {
-  q1 <- eval_code(new_qenv(), quote(library(checkmate)))
-  # library call adds package env in the search path just over .GlobalEnv
-  #   it means that q3@env before the call was a parent of .GlobalEnv but not after the call
-
-  q2 <- eval_code(q1, quote(assert_number(1)))
-  testthat::expect_identical(parent.env(q2@env), parent.env(.GlobalEnv))
-
-  detach("package:checkmate", unload = TRUE)
-  testthat::expect_s3_class(
+testthat::test_that("getting object from the package namespace works even if library in the same call", {
+  testthat::expect_s4_class(
     eval_code(
       new_qenv(),
       as.expression(c(
@@ -42,7 +34,7 @@ testthat::test_that("library have to be called separately before using function 
         quote(assert_number(1))
       ))
     ),
-    "qenv.error"
+    "qenv"
   )
 })
 
