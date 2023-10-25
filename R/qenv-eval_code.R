@@ -40,6 +40,11 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
       tryCatch(
         {
           eval(single_call, envir = object@env)
+          if (!identical(parent.env(object@env), parent.env(.GlobalEnv))) {
+            # needed to make sure that @env is always a sibling of .GlobalEnv
+            # could be changed when any new package is added to search path (through library or require call)
+            parent.env(object@env) <- parent.env(.GlobalEnv)
+          }
           NULL
         },
         error = function(e) {
