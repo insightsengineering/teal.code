@@ -40,6 +40,9 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
       tryCatch(
         {
           eval(single_call, envir = object@env)
+          if (!identical(parent.env(object@env), parent.env(.GlobalEnv))) {
+            parent.env(object@env) <- parent.env(.GlobalEnv)
+          }
           NULL
         },
         error = function(e) {
