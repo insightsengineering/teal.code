@@ -24,8 +24,10 @@ qenv <- function() {
 }
 
 
-#' @param code (`character(1)` or `language`) code to evaluate. Accepts and stores comments also.
-#' @param env (`environment`) Environment being a result of the `code` evaluation.
+#' @param code `r badge("deprecated")`
+#'  (`character(1)` or `language`) code to evaluate. Accepts and stores comments also.
+#' @param env `r badge("deprecated")` (`environment`)
+#'  Environment being a result of the `code` evaluation.
 #'
 #' @examples
 #' # create qenv with data and code (deprecated)
@@ -40,7 +42,10 @@ qenv <- function() {
 #' @aliases new_qenv,environment,missing-method
 #' @aliases new_qenv,missing,missing-method
 #' @export
-setGeneric("new_qenv", function(env = new.env(parent = parent.env(.GlobalEnv)), code = character()) standardGeneric("new_qenv")) # nolint
+setGeneric("new_qenv", function(env = new.env(parent = parent.env(.GlobalEnv)), code = character()) {
+  lifecycle::deprecate_warn(when = " 0.4.2", what = "new_qenv()", with = "qenv()", always = TRUE)
+  standardGeneric("new_qenv")
+})
 
 #' @export
 setMethod(

@@ -15,9 +15,11 @@ qenv()
 new_qenv(env = new.env(parent = parent.env(.GlobalEnv)), code = character())
 }
 \arguments{
-\item{env}{(\code{environment}) Environment being a result of the \code{code} evaluation.}
+\item{env}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} (\code{environment})
+Environment being a result of the \code{code} evaluation.}
 
-\item{code}{(\code{character(1)} or \code{language}) code to evaluate. Accepts and stores comments also.}
+\item{code}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+(\code{character(1)} or \code{language}) code to evaluate. Accepts and stores comments also.}
 }
 \value{
 \code{qenv} object.
