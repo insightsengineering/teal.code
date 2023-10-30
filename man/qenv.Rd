@@ -2,9 +2,22 @@
 % Please edit documentation in R/qenv-constructor.R
 \name{qenv}
 \alias{qenv}
+\alias{new_qenv}
+\alias{new_qenv,environment,expression-method}
+\alias{new_qenv,environment,character-method}
+\alias{new_qenv,environment,language-method}
+\alias{new_qenv,environment,missing-method}
+\alias{new_qenv,missing,missing-method}
 \title{Initialize \code{qenv} object}
 \usage{
 qenv()
+
+new_qenv(env = new.env(parent = parent.env(.GlobalEnv)), code = character())
+}
+\arguments{
+\item{env}{(\code{environment}) Environment being a result of the \code{code} evaluation.}
+
+\item{code}{(\code{character(1)} or \code{language}) code to evaluate. Accepts and stores comments also.}
 }
 \value{
 \code{qenv} object.
@@ -13,11 +26,19 @@ qenv()
 Create an empty \code{qenv} object.
 }
 \details{
-Instantiates a \code{qenv} with an empty environment.
-Any changes must be made by evaluating code in it with \code{eval_code} or \code{within},
-thereby ensuring reproducibility.
+\code{qenv()} instantiates a \code{qenv} with an empty environment.
+Any changes must be made by evaluating code in it with \code{eval_code} or \code{within}, thereby ensuring reproducibility.
+
+\code{new_qenv()} can instantiate a \code{qenv} object with data in the environment and code registered.
+This method is deprecated.
 }
 \examples{
+# create empty qenv
 qenv()
+
+# create qenv with data and code (deprecated)
+new_qenv(env = list2env(list(a = 1)), code = quote(a <- 1))
+new_qenv(env = list2env(list(a = 1)), code = parse(text = "a <- 1", keep.source = TRUE))
+new_qenv(env = list2env(list(a = 1)), code = "a <- 1")
 
 }

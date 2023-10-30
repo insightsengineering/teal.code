@@ -2,13 +2,16 @@
 #'
 #' Create an empty `qenv` object.
 #'
-#' Instantiates a `qenv` with an empty environment.
-#' Any changes must be made by evaluating code in it with `eval_code` or `within`,
-#' thereby ensuring reproducibility.
+#' `qenv()` instantiates a `qenv` with an empty environment.
+#' Any changes must be made by evaluating code in it with `eval_code` or `within`, thereby ensuring reproducibility.
+#'
+#' `new_qenv()` can instantiate a `qenv` object with data in the environment and code registered.
+#' This method is deprecated.
 #'
 #' @name qenv
 #'
 #' @examples
+#' # create empty qenv
 #' qenv()
 #'
 #' @return `qenv` object.
@@ -19,3 +22,65 @@ qenv <- function() {
   lockEnvironment(q_env, bindings = TRUE)
   methods::new("qenv", env = q_env)
 }
+
+
+#' @param code (`character(1)` or `language`) code to evaluate. Accepts and stores comments also.
+#' @param env (`environment`) Environment being a result of the `code` evaluation.
+#'
+#' @examples
+#' # create qenv with data and code (deprecated)
+#' new_qenv(env = list2env(list(a = 1)), code = quote(a <- 1))
+#' new_qenv(env = list2env(list(a = 1)), code = parse(text = "a <- 1", keep.source = TRUE))
+#' new_qenv(env = list2env(list(a = 1)), code = "a <- 1")
+#'
+#' @rdname qenv
+#' @aliases new_qenv,environment,expression-method
+#' @aliases new_qenv,environment,character-method
+#' @aliases new_qenv,environment,language-method
+#' @aliases new_qenv,environment,missing-method
+#' @aliases new_qenv,missing,missing-method
+#' @export
+setGeneric("new_qenv", function(env = new.env(parent = parent.env(.GlobalEnv)), code = character()) standardGeneric("new_qenv")) # nolint
+
+#' @export
+setMethod(
+  "new_qenv",
+  signature = c(env = "environment", code = "expression"),
+  function(env, code) {
+    new_qenv(env, format_expression(code))
+  }
+)
+
+#' @export
+setMethod(
+  "new_qenv",
+  signature = c(env = "environment", code = "character"),
+  function(env, code) {
+    new_env <- rlang::env_clone(env, parent = parent.env(.GlobalEnv))
+    lockEnvironment(new_env, bindings = TRUE)
+    if (length(code) > 0) code <- paste(code, collapse = "\n")
+    id <- sample.int(.Machine$integer.max, size = length(code))
+    methods::new(
+      "qenv",
+      env = new_env, code = code, warnings = rep("", length(code)), messages = rep("", length(code)), id = id
+    )
+  }
+)
+
+#' @export
+setMethod(
+  "new_qenv",
+  signature = c(env = "environment", code = "language"),
+  function(env, code) {
+    new_qenv(env = env, code = format_expression(code))
+  }
+)
+
+#' @export
+setMethod(
+  "new_qenv",
+  signature = c(code = "missing", env = "missing"),
+  function(env, code) {
+    new_qenv(env = env, code = code)
+  }
+)
