@@ -10,11 +10,11 @@
 #'   \item Both `qenv` objects contain an object of the same name but are not identical. \cr\cr
 #'   Example:
 #'   \preformatted{
-#'   x <- new_qenv(
+#'   x <- qenv(
 #'     code = c(mtcars1 = "mtcars1 <- mtcars"),
 #'     env = list2env(list(mtcars1 = mtcars))
 #'   )
-#'   y <- new_qenv(
+#'   y <- qenv(
 #'     code = c(mtcars1 = "mtcars1 <- mtcars['wt']"),
 #'     env = list2env(list(mtcars1 = mtcars['wt']))
 #'   )
@@ -28,7 +28,7 @@
 #'   Otherwise, `join()` will throw an error message.\cr\cr
 #'   Example:
 #'   \preformatted{
-#'   common_q <- new_qenv(code = "v <- 1", env = list2env(list(v = 1)))
+#'   common_q <- qenv(code = "v <- 1", env = list2env(list(v = 1)))
 #'   x <- eval_code(
 #'     common_q,
 #'     "x <- v"
@@ -54,7 +54,7 @@
 #'   \item The usage of temporary variable in the code expression could cause `join()` to fail. \cr\cr
 #'   Example:
 #'   \preformatted{
-#'   common_q <- new_qenv()
+#'   common_q <- qenv()
 #'   x <- eval_code(
 #'     common_q,
 #'     "x <- numeric(0)
@@ -80,7 +80,7 @@
 #'   in both objects but has different value.\cr
 #'   To fix this, we can set `i <- NULL` in the code expression for both objects.
 #'   \preformatted{
-#'   common_q <- new_qenv()
+#'   common_q <- qenv()
 #'   x <- eval_code(
 #'     common_q,
 #'     "x <- numeric(0)
@@ -108,7 +108,7 @@
 #' @include qenv-errors.R
 #' @return `qenv` object.
 #' @examples
-#' q <- new_qenv()
+#' q <- qenv()
 #' q1 <- eval_code(q, expression(iris1 <- iris, mtcars1 <- mtcars))
 #' q2 <- q1
 #' q1 <- eval_code(q1, "iris2 <- iris")

@@ -24,7 +24,7 @@ named \code{character} with the reproducible code.
 Get code from \code{qenv}
 }
 \examples{
-q <- new_qenv()
+q <- qenv()
 q1 <- eval_code(q, code = quote(a <- 1))
 q2 <- eval_code(q1, code = quote(b <- a))
 q3 <- eval_code(q2, code = quote(d <- 2))

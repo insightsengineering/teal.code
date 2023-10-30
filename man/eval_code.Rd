@@ -32,7 +32,7 @@ that state of the environment is always a result of the stored code (if \code{qe
 with reproducible code.
 }
 \examples{
-q <- new_qenv()
+q <- qenv()
 q1 <- eval_code(q, quote(a <- 1))
 q2 <- eval_code(q1, quote(library(checkmate)))
 q3 <- eval_code(q2, quote(assert_number(a)))

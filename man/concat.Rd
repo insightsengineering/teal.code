@@ -30,7 +30,7 @@ in case \code{x} and \code{y} contain duplicated bindings and code.
 RHS argument content has priority over the LHS one.
 }
 \examples{
-q <- new_qenv()
+q <- qenv()
 q1 <- eval_code(q, expression(iris1 <- iris, mtcars1 <- mtcars))
 q2 <- q1
 q1 <- eval_code(q1, "iris2 <- iris")

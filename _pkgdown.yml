@@ -32,5 +32,6 @@ reference:
       - get_warnings
       - join
       - new_qenv
+      - qenv
       - show,qenv-method
       - within.qenv

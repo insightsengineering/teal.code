@@ -6,7 +6,7 @@
 #' @name get_var
 #' @return The value of required variable (`var`) within `qenv` object.
 #' @examples
-#' q <- new_qenv()
+#' q <- qenv()
 #' q1 <- eval_code(q, code = quote(a <- 1))
 #' q2 <- eval_code(q1, code = "b <- a")
 #' get_var(q2, "b")

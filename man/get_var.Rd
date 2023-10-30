@@ -38,7 +38,7 @@ The value of required variable (\code{var}) within \code{qenv} object.
 Get object from the \code{qenv} environment.
 }
 \examples{
-q <- new_qenv()
+q <- qenv()
 q1 <- eval_code(q, code = quote(a <- 1))
 q2 <- eval_code(q1, code = "b <- a")
 get_var(q2, "b")

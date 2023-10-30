@@ -16,7 +16,7 @@ nothing
 Prints the \code{qenv} object
 }
 \examples{
-q <- new_qenv()
+q <- qenv()
 q1 <- eval_code(q, expression(a <- 5, b <- data.frame(x = 1:10)))
 q1
 }
