@@ -1,4 +1,4 @@
-#' Replace Code
+#' Replace code
 #'
 #' Replace last element of code stored in `qenv`.
 #'

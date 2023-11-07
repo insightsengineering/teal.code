@@ -6,7 +6,7 @@
 \alias{replace_code,qenv,language-method}
 \alias{replace_code,qenv,expression-method}
 \alias{replace_code,qenv.error,ANY-method}
-\title{Replace Code}
+\title{Replace code}
 \usage{
 replace_code(object, code)
 }
