@@ -142,11 +142,11 @@ q_connector <- eval_code(new_qenv(), quote(
     } else {
       stop("invalid credentials")
     }
-  } 
+  }
 ))
 # connect with tracking
 q_sensitive <- eval_code(q_connector, quote(connect("user", "pass")))
-get_code(q_sensitive, deparse = TRUE)   # credentials exposed
+get_code(q_sensitive, deparse = TRUE) # credentials exposed
 # replace connection code
 q_masked <- replace_code(q_sensitive, quote(connect(readline("enter user name: "), readline("enter password: "))))
 get_code(q_masked)
