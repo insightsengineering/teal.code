@@ -24,36 +24,13 @@ test_that("code argument accepts expression", {
 })
 
 # code replacement ----
-testthat::test_that("length of @code is unchanged", {
-  qr <- replace_code(qq, "i <- mtcars")
-  testthat::expect_identical(length(get_code(qq)), length(get_code(qr)))
-})
-
-testthat::test_that("contents of @code are changed", {
-  qr <- replace_code(qq, "i <- mtcars")
-  testthat::expect_failure(testthat::expect_identical(get_code(qq), get_code(qr)))
-})
-
-testthat::test_that("code passed to replace_code is placed in @code", {
-  replacement <- "i <- mtcars"
-  qr <- replace_code(qq, replacement)
-  testthat::expect_true(replacement %in% get_code(qr))
-})
-
-testthat::test_that("code passed to replace_code is replaces last element of @code", {
+testthat::test_that("code_replace replaces last element of the code", {
   qq <- within(qq, m <- mtcars)
   replacement <- "i <- mtcars"
   qr <- replace_code(qq, replacement)
-  testthat::expect_identical(replacement, get_code(qr)[length(get_code(qr))])
-})
-
-testthat::test_that("non-last elements of @code are unaffected", {
-  qq <- within(qq, m <- mtcars)
-  replacement <- "i <- mtcars"
-  qr <- replace_code(qq, replacement)
-  before <- get_code(qq)[-length(get_code(qq))]
-  after <- get_code(qr)[-length(get_code(qr))]
-  testthat::expect_identical(before, after)
+  previous <- get_code(qq)
+  current <- get_code(qr)
+  testthat::expect_identical(current, c(head(previous, -1), replacement)
 })
 
 # edge cases ----
