@@ -27,6 +27,7 @@ reference:
       - concat
       - dev_suppress
       - eval_code
+      - replace_code
       - get_code
       - get_var
       - get_warnings
