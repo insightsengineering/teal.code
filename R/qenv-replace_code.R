@@ -12,12 +12,12 @@
 #'
 #' @seealso [`qenv-class`], [`eval_code`]
 #'
-#' @examples
-#' q <- new_qenv()
-#' q <- eval_code(q, expression(i <- iris, ii <- subset(i, Species == "virginica")))
-#' get_code(q)
-#' q <- replace_code(q, expression(i <- iris, ii <- subset(i, Species != "virginica")))
-#' get_code(q)
+#' @section Examples:
+#' `q <- new_qenv()` \cr
+#' `q <- eval_code(q, expression(i <- iris, ii <- subset(i, Species == "virginica")))` \cr
+#' `get_code(q)` \cr
+#' `q <- replace_code(q, expression(i <- iris, ii <- subset(i, Species != "virginica")))` \cr
+#' `get_code(q)` \cr
 
 #' @name replace_code
 #' @rdname replace_code
@@ -26,10 +26,10 @@
 #' @aliases replace_code,qenv,expression-method
 #' @aliases replace_code,qenv.error,ANY-method
 
-#' @export
+#' @keywords internal
 setGeneric("replace_code", function(object, code) standardGeneric("replace_code"))
 
-#' @export
+#' @keywords internal
 setMethod("replace_code", signature = c("qenv", "character"), function(object, code) {
   masked_code <- get_code(object)
   masked_code[length(masked_code)] <- code
@@ -37,17 +37,17 @@ setMethod("replace_code", signature = c("qenv", "character"), function(object, c
   object
 })
 
-#' @export
+#' @keywords internal
 setMethod("replace_code", signature = c("qenv", "language"), function(object, code) {
   replace_code(object, code = format_expression(code))
 })
 
-#' @export
+#' @keywords internal
 setMethod("replace_code", signature = c("qenv", "expression"), function(object, code) {
   replace_code(object, code = format_expression(code))
 })
 
-#' @export
+#' @keywords internal
 setMethod("replace_code", signature = c("qenv.error", "ANY"), function(object, code) {
   object
 })

@@ -4,7 +4,6 @@
 
 * Exported the `qenv` class from the package.
 * The `@code` field in the `qenv` class now holds `character`, not `expression`.
-* Added function `replace_code` to allow for modification of the `@code` slot.
 
 # teal.code 0.4.1
 

@@ -129,30 +129,6 @@ q_warning@messages
 
 Additionally, a helper function, `get_warnings()`, is available to generate a formatted string comprising the warnings and the code responsible for generating them. It returns `NULL` when no warnings are present.
 
-## Replacing code
-
-The code tracked by `qenv` may contain sensitive information that you may want to mask or replace with safe information before publishing. This can be achieved with the `replace_code` function that replaces the most recent code block stored in a `qenv` with supplied code.
-
-```{r}
-# simulate a data base connection
-q_connector <- eval_code(new_qenv(), quote(
-  connect <- function(username, password) {
-    if (username == "user" && password == "pass") {
-      message("connection established")
-    } else {
-      stop("invalid credentials")
-    }
-  }
-))
-# connect with tracking
-q_sensitive <- eval_code(q_connector, quote(connect("user", "pass")))
-get_code(q_sensitive, deparse = TRUE) # credentials exposed
-# replace connection code
-q_masked <- replace_code(q_sensitive, quote(connect(readline("enter user name: "), readline("enter password: "))))
-get_code(q_masked)
-```
-
-
 ## Utilizing `qenv` inside `shiny` applications
 
 These functions can be seamlessly integrated into `shiny` applications to produce reproducible outputs. In the example below, the `rcode` section showcases the code employed for generating the output.

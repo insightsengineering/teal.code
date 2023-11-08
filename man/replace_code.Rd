@@ -25,13 +25,16 @@ Replace last element of code stored in \code{qenv}.
 Replace the last element of the character vector stored in \verb{@code} with provided \code{code}.
 This can be used to mask sensitive information, e.g. credentials.
 }
-\examples{
-q <- new_qenv()
-q <- eval_code(q, expression(i <- iris, ii <- subset(i, Species == "virginica")))
-get_code(q)
-q <- replace_code(q, expression(i <- iris, ii <- subset(i, Species != "virginica")))
-get_code(q)
+\section{Examples}{
+
+\code{q <- new_qenv()} \cr
+\code{q <- eval_code(q, expression(i <- iris, ii <- subset(i, Species == "virginica")))} \cr
+\code{get_code(q)} \cr
+\code{q <- replace_code(q, expression(i <- iris, ii <- subset(i, Species != "virginica")))} \cr
+\code{get_code(q)} \cr
 }
+
 \seealso{
 \code{\linkS4class{qenv}}, \code{\link{eval_code}}
 }
+\keyword{internal}
