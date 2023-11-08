@@ -30,7 +30,7 @@ testthat::test_that("code_replace replaces last element of the code", {
   qr <- replace_code(qq, replacement)
   previous <- get_code(qq)
   current <- get_code(qr)
-  testthat::expect_identical(current, c(head(previous, -1), replacement)
+  testthat::expect_identical(current, c(head(previous, -1), replacement))
 })
 
 # edge cases ----
