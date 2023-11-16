@@ -1,6 +1,7 @@
-#' Join two `qenv` objects
+#' Join `qenv` Objects
 #'
-#' `join()` perform checks and merges two `qenv` objects into one `qenv` object.
+#' Checks and merges two `qenv` objects into one `qenv` object.
+#'
 #' Any common code at the start of the `qenvs` is only placed once at the start of the joined `qenv`.
 #' This allows consistent behavior when joining `qenvs` which share a common ancestor.
 #' See below for an example.
@@ -105,8 +106,9 @@
 #'
 #' @param x (`qenv`)
 #' @param y (`qenv`)
-#' @include qenv-errors.R
+#'
 #' @return `qenv` object.
+#'
 #' @examples
 #' q <- qenv()
 #' q1 <- eval_code(q, expression(iris1 <- iris, mtcars1 <- mtcars))
@@ -123,11 +125,17 @@
 #' # get_code only has "x <- 1" occurring once
 #' get_code(join_q)
 #'
+#' @include qenv-errors.R
+#'
+#' @name join
+#' @rdname join
+#' @aliases join,qenv,qenv-method
+#' @aliases join,qenv,qenv.error-method
+#' @aliases join,qenv.error,ANY-method
+#'
 #' @export
 setGeneric("join", function(x, y) standardGeneric("join"))
 
-#' @rdname join
-#' @export
 setMethod("join", signature = c("qenv", "qenv"), function(x, y) {
   join_validation <- .check_joinable(x, y)
 
@@ -148,16 +156,12 @@ setMethod("join", signature = c("qenv", "qenv"), function(x, y) {
   x
 })
 
-#' @rdname join
-#' @export
-setMethod("join", signature = "qenv.error", function(x, y) {
-  x
-})
-
-#' @rdname join
-#' @export
 setMethod("join", signature = c("qenv", "qenv.error"), function(x, y) {
   y
+})
+
+setMethod("join", signature = c("qenv.error", "ANY"), function(x, y) {
+  x
 })
 
 #' If two `qenv` can be joined
