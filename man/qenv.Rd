@@ -13,7 +13,7 @@
 \alias{eval_code,qenv,character-method}
 \alias{eval_code,qenv,language-method}
 \alias{eval_code,qenv,expression-method}
-\alias{eval_code,qenv,qenv.error-method}
+\alias{eval_code,qenv.error,ANY-method}
 \alias{get_code}
 \alias{get_code,qenv-method}
 \alias{get_code,qenv.error-method}

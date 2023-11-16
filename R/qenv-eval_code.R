@@ -22,7 +22,7 @@
 #' @aliases eval_code,qenv,character-method
 #' @aliases eval_code,qenv,language-method
 #' @aliases eval_code,qenv,expression-method
-#' @aliases eval_code,qenv,qenv.error-method
+#' @aliases eval_code,qenv.error,ANY-method
 #'
 #' @export
 setGeneric("eval_code", function(object, code) standardGeneric("eval_code"))
@@ -96,7 +96,7 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
   eval_code(object, code = format_expression(code))
 })
 
-setMethod("eval_code", signature = "qenv.error", function(object, code) {
+setMethod("eval_code", signature = c("qenv.error", "ANY"), function(object, code) {
   object
 })
 
