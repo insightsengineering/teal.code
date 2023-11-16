@@ -1,34 +1,29 @@
-#' Evaluate expression in `qenv` object.
+#' Evaluate Expression in `qenv`
 #'
-#' Convenience function for evaluating inline code inside the environment of a `qenv`.
-#'
-#' This is a wrapper for `eval_code` that provides a simplified way of passing code for evaluation.
-#' It accepts only inline expressions (both simple and compound) and allows for injecting values into `expr`
+#' @details
+#' `within` is a convenience function for evaluating inline code inside the environment of a `qenv`.
+#' It is method for the `base` generic that wraps `eval_code` to provide a simplified way of passing code.
+#' `within` accepts only inline expressions (both simple and compound) and allows for injecting values into `expr`
 #' through the `...` argument: as `name:value` pairs are passed to `...`,
 #' `name` in `expr` will be replaced with `value`.
 #'
-#' @section Using language objects:
+#' @section Using language objects with `within`:
 #' Passing language objects to `expr` is generally not intended but can be achieved with `do.call`.
 #' Only single `expression`s will work and substitution is not available. See examples.
 #'
-#' @param data `qenv` object
-#' @param expr `expression` to evaluate
+#' @param data (`qenv`)
+#' @param expr (`expression`) to evaluate. Must be inline code, see `Using language objects...`
 #' @param ... `name:value` pairs to inject values into `expr`
 #'
 #' @return
-#' Returns a `qenv` object with `expr` evaluated. If evaluation raises an error, a `qenv.error` is returned.
+#' `within` returns a `qenv` object with `expr` evaluated or `qenv.error` if evaluation fails.
 #'
-#' @seealso [`eval_code`], [`base::within`]
-#'
-#' @export
-#'
-#' @rdname within
+#' @seealso [`base::within`]
 #'
 #' @examples
 #'
+#' # evaluate code using within
 #' q <- qenv()
-#'
-#' # execute code
 #' q <- within(q, {
 #'   i <- iris
 #' })
@@ -56,6 +51,10 @@
 #' exprlist <- list(expression(i <- iris), expression(m <- mtcars))
 #' within(q, exprlist) # fails
 #' do.call(within, list(q, do.call(c, exprlist)))
+#'
+#' @rdname qenv
+#'
+#' @export
 #'
 within.qenv <- function(data, expr, ...) {
   expr <- substitute(expr)

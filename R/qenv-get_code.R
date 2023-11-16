@@ -1,16 +1,24 @@
-#' Get code from `qenv`
+#' Get Code From `qenv`
+#'
+#' @details
+#' `get_code` retrieves the code stored in the `qenv`.
+#'
+#' @param object (`qenv`)
+#' @param deparse (`logical(1)`) specifying whether to return code as `character` or `expression`.
+#'
+#' @return
+#' `get_code` returns the traced code (from `@code` slot) in the form specified by `deparse`.
+#'
+#' @examples
+#' # retrieve code
+#' get_code(q)
+#' get_code(q, deparse = FALSE)
 #'
 #' @name get_code
-#' @param object (`qenv`)
-#' @param deparse (`logical(1)`) if the returned code should be converted to character.
-#' @return named `character` with the reproducible code.
-#' @examples
-#' q <- qenv()
-#' q1 <- eval_code(q, code = quote(a <- 1))
-#' q2 <- eval_code(q1, code = quote(b <- a))
-#' q3 <- eval_code(q2, code = quote(d <- 2))
-#' get_code(q3)
-#' get_code(q3, deparse = FALSE)
+#' @rdname qenv
+#' @aliases get_code,qenv-method
+#' @aliases get_code,qenv.error-method
+#'
 #' @export
 setGeneric("get_code", function(object, deparse = TRUE) {
   # this line forces evaluation of object before passing to the generic
@@ -22,8 +30,6 @@ setGeneric("get_code", function(object, deparse = TRUE) {
   standardGeneric("get_code")
 })
 
-#' @rdname get_code
-#' @export
 setMethod("get_code", signature = "qenv", function(object, deparse = TRUE) {
   checkmate::assert_flag(deparse)
   if (deparse) {
@@ -33,8 +39,6 @@ setMethod("get_code", signature = "qenv", function(object, deparse = TRUE) {
   }
 })
 
-#' @rdname get_code
-#' @export
 setMethod("get_code", signature = "qenv.error", function(object) {
   stop(
     errorCondition(
