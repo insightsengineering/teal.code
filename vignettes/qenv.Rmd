@@ -3,7 +3,7 @@ title: "qenv"
 author: "NEST coreDev"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{`qenv`}
+  %\VignetteIndexEntry{qenv}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
