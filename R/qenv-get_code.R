@@ -3,6 +3,7 @@
 #' @name get_code
 #' @param object (`qenv`)
 #' @param deparse (`logical(1)`) if the returned code should be converted to character.
+#' @param ... arguments passed to methods.
 #' @return named `character` with the reproducible code.
 #' @examples
 #' q1 <- new_qenv(env = list2env(list(a = 1)), code = quote(a <- 1))
@@ -11,7 +12,7 @@
 #' get_code(q3)
 #' get_code(q3, deparse = FALSE)
 #' @export
-setGeneric("get_code", function(object, deparse = TRUE) {
+setGeneric("get_code", function(object, deparse = TRUE, ...) {
   # this line forces evaluation of object before passing to the generic
   # needed for error handling to work properly
   grDevices::pdf(nullfile())
