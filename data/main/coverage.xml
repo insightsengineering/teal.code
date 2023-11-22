@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.953703703703704" branch-rate="0" lines-covered="206" lines-valid="216" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2023-11-22 09:20:12.283549">
+<coverage line-rate="0.953703703703704" branch-rate="0" lines-covered="206" lines-valid="216" branches-covered="0" branches-valid="0" complexity="0" version="3.6.3" timestamp="2023-11-22 13:03:34.313719">
   <sources>
     <source>/__w/teal.code/teal.code/teal.code</source>
   </sources>
@@ -300,18 +300,18 @@
           <methods>
             <method name="get_code" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="17" hits="22" branch="false"/>
                 <line number="18" hits="22" branch="false"/>
                 <line number="19" hits="22" branch="false"/>
-                <line number="21" hits="22" branch="false"/>
+                <line number="20" hits="22" branch="false"/>
+                <line number="22" hits="22" branch="false"/>
               </lines>
             </method>
             <method name="qenv" signature="" line-rate="0.956521739130435" branch-rate="0" complexity="0">
               <lines>
-                <line number="27" hits="20" branch="false"/>
                 <line number="28" hits="20" branch="false"/>
-                <line number="29" hits="19" branch="false"/>
-                <line number="31" hits="1" branch="false"/>
+                <line number="29" hits="20" branch="false"/>
+                <line number="30" hits="19" branch="false"/>
+                <line number="32" hits="1" branch="false"/>
                 <line number="36" hits="5" branch="false"/>
                 <line number="37" hits="1" branch="false"/>
                 <line number="40" hits="4" branch="false"/>
@@ -335,7 +335,6 @@
             </method>
             <method name="qenv.error" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="38" hits="2" branch="false"/>
                 <line number="39" hits="2" branch="false"/>
                 <line number="40" hits="2" branch="false"/>
                 <line number="41" hits="2" branch="false"/>
@@ -345,20 +344,20 @@
                 <line number="45" hits="2" branch="false"/>
                 <line number="46" hits="2" branch="false"/>
                 <line number="47" hits="2" branch="false"/>
+                <line number="48" hits="2" branch="false"/>
                 <line number="30" hits="1" branch="false"/>
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="17" hits="22" branch="false"/>
             <line number="18" hits="22" branch="false"/>
             <line number="19" hits="22" branch="false"/>
-            <line number="21" hits="22" branch="false"/>
-            <line number="27" hits="20" branch="false"/>
+            <line number="20" hits="22" branch="false"/>
+            <line number="22" hits="22" branch="false"/>
             <line number="28" hits="20" branch="false"/>
-            <line number="29" hits="19" branch="false"/>
-            <line number="31" hits="1" branch="false"/>
-            <line number="38" hits="2" branch="false"/>
+            <line number="29" hits="20" branch="false"/>
+            <line number="30" hits="19" branch="false"/>
+            <line number="32" hits="1" branch="false"/>
             <line number="39" hits="2" branch="false"/>
             <line number="40" hits="2" branch="false"/>
             <line number="41" hits="2" branch="false"/>
@@ -368,6 +367,7 @@
             <line number="45" hits="2" branch="false"/>
             <line number="46" hits="2" branch="false"/>
             <line number="47" hits="2" branch="false"/>
+            <line number="48" hits="2" branch="false"/>
           </lines>
         </class>
         <class name="qenv-get_var.R" filename="R/qenv-get_var.R" line-rate="1" branch-rate="0" complexity="0">
@@ -499,7 +499,6 @@
             </method>
             <method name="qenv.error" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="38" hits="2" branch="false"/>
                 <line number="39" hits="2" branch="false"/>
                 <line number="40" hits="2" branch="false"/>
                 <line number="41" hits="2" branch="false"/>
@@ -509,15 +508,16 @@
                 <line number="45" hits="2" branch="false"/>
                 <line number="46" hits="2" branch="false"/>
                 <line number="47" hits="2" branch="false"/>
+                <line number="48" hits="2" branch="false"/>
                 <line number="30" hits="1" branch="false"/>
               </lines>
             </method>
             <method name="qenv" signature="" line-rate="0.956521739130435" branch-rate="0" complexity="0">
               <lines>
-                <line number="27" hits="20" branch="false"/>
                 <line number="28" hits="20" branch="false"/>
-                <line number="29" hits="19" branch="false"/>
-                <line number="31" hits="1" branch="false"/>
+                <line number="29" hits="20" branch="false"/>
+                <line number="30" hits="19" branch="false"/>
+                <line number="32" hits="1" branch="false"/>
                 <line number="36" hits="5" branch="false"/>
                 <line number="37" hits="1" branch="false"/>
                 <line number="40" hits="4" branch="false"/>
@@ -812,10 +812,10 @@
           <methods>
             <method name="qenv" signature="" line-rate="0.956521739130435" branch-rate="0" complexity="0">
               <lines>
-                <line number="27" hits="20" branch="false"/>
                 <line number="28" hits="20" branch="false"/>
-                <line number="29" hits="19" branch="false"/>
-                <line number="31" hits="1" branch="false"/>
+                <line number="29" hits="20" branch="false"/>
+                <line number="30" hits="19" branch="false"/>
+                <line number="32" hits="1" branch="false"/>
                 <line number="36" hits="5" branch="false"/>
                 <line number="37" hits="1" branch="false"/>
                 <line number="40" hits="4" branch="false"/>
