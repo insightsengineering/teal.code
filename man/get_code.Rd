@@ -17,7 +17,7 @@ get_code(object, deparse = TRUE, ...)
 
 \item{deparse}{(\code{logical(1)}) if the returned code should be converted to character.}
 
-\item{...}{extra parameters required by potential future methods.}
+\item{...}{arguments passed to methods.}
 }
 \value{
 named \code{character} with the reproducible code.
