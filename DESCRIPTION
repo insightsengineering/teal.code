@@ -1,8 +1,8 @@
 Type: Package
 Package: teal.code
 Title: Code Storage and Execution Class for 'teal' Applications
-Version: 0.4.1.9007
-Date: 2023-11-09
+Version: 0.4.1.9009
+Date: 2023-11-22
 Authors@R: c(
     person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = c("aut", "cre")),
     person("Pawel", "Rucki", , "pawel.rucki@roche.com", role = "aut"),
@@ -61,5 +61,4 @@ Collate:
     'qenv-show.R'
     'qenv-within.R'
     'teal.code-package.R'
-    'utils-code_dependency.R'
     'utils.R'
