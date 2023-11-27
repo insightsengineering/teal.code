@@ -45,7 +45,7 @@ setMethod("get_code", signature = "qenv.error", function(object) {
       sprintf(
         "%s\n\ntrace: \n %s\n",
         conditionMessage(object),
-        paste(format_expression(object$trace), collapse = "\n ")
+        paste(lang2calls(object$trace), collapse = "\n ")
       ),
       class = c("validation", "try-error", "simpleError")
     )

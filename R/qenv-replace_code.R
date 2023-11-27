@@ -44,12 +44,12 @@ setMethod("replace_code", signature = c("qenv", "character"), function(object, c
 
 #' @keywords internal
 setMethod("replace_code", signature = c("qenv", "language"), function(object, code) {
-  replace_code(object, code = format_expression(code))
+  replace_code(object, code = paste(lang2calls(code), collapse = "\n"))
 })
 
 #' @keywords internal
 setMethod("replace_code", signature = c("qenv", "expression"), function(object, code) {
-  replace_code(object, code = format_expression(code))
+  replace_code(object, code = paste(lang2calls(code), collapse = "\n"))
 })
 
 #' @keywords internal
