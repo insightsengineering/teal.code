@@ -34,7 +34,7 @@ setMethod("replace_code", signature = c("qenv", "character"), function(object, c
   masked_code <- get_code(object)
   code_lines <- unlist(strsplit(masked_code, "\n"))
 
-  if(!is.null(code_lines)) {
+  if (!is.null(code_lines)) {
     code_lines[length(code_lines)] <- code
     object@code <- paste(code_lines, collapse = "\n")
   }
