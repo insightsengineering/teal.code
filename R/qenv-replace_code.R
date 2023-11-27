@@ -32,8 +32,13 @@ setGeneric("replace_code", function(object, code) standardGeneric("replace_code"
 #' @keywords internal
 setMethod("replace_code", signature = c("qenv", "character"), function(object, code) {
   masked_code <- get_code(object)
-  masked_code[length(masked_code)] <- code
-  object@code <- masked_code
+  code_lines <- unlist(strsplit(masked_code, "\n"))
+
+  if(!is.null(code_lines)) {
+    code_lines[length(code_lines)] <- code
+    object@code <- paste(code_lines, collapse = "\n")
+  }
+
   object
 })
 

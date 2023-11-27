@@ -29,7 +29,7 @@ testthat::test_that("styling of input code does not impact evaluation results", 
   all_code <- get_code(q)
   testthat::expect_identical(
     all_code,
-    rep("1 + 1", 4L)
+    paste(rep("1 + 1", 4L), collapse = "\n")
   )
 
   q <- new_qenv()
@@ -48,7 +48,7 @@ testthat::test_that("styling of input code does not impact evaluation results", 
   all_code <- get_code(q)
   testthat::expect_identical(
     all_code,
-    rep("1 + 1\n2 + 2", 4L)
+    paste(rep("1 + 1\n2 + 2", 4L), collapse = "\n")
   )
 })
 

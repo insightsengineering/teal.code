@@ -1,7 +1,7 @@
 testthat::test_that("get_code returns code (character by default) of qenv object", {
   q <- new_qenv(list2env(list(x = 1)), code = quote(x <- 1))
   q <- eval_code(q, quote(y <- x))
-  testthat::expect_equal(get_code(q), c("x <- 1", "y <- x"))
+  testthat::expect_equal(get_code(q), paste(c("x <- 1", "y <- x"), collapse = "\n"))
 })
 
 testthat::test_that("get_code returns code elements being code-blocks as character(1)", {
@@ -13,7 +13,7 @@ testthat::test_that("get_code returns code elements being code-blocks as charact
       z <- 5
     })
   )
-  testthat::expect_equal(get_code(q), c("x <- 1", "y <- x\nz <- 5"))
+  testthat::expect_equal(get_code(q), paste(c("x <- 1", "y <- x\nz <- 5"), collapse = "\n"))
 })
 
 testthat::test_that("get_code returns expression of qenv object if deparse = FALSE", {

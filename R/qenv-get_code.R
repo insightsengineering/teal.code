@@ -27,7 +27,11 @@ setGeneric("get_code", function(object, deparse = TRUE, ...) {
 setMethod("get_code", signature = "qenv", function(object, deparse = TRUE) {
   checkmate::assert_flag(deparse)
   if (deparse) {
-    object@code
+    if(length(object@code) == 0 || identical(object@code, "")) {
+      character(0)
+    } else {
+      paste(object@code, collapse = "\n")
+    }
   } else {
     parse(text = object@code, keep.source = TRUE)
   }
