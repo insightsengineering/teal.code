@@ -35,7 +35,7 @@ setMethod("get_code", signature = "qenv", function(object, deparse = TRUE) {
 
 #' @rdname get_code
 #' @export
-setMethod("get_code", signature = "qenv.error", function(object) {
+setMethod("get_code", signature = "qenv.error", function(object, ...) {
   stop(
     errorCondition(
       sprintf(
