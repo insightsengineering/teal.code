@@ -10,7 +10,7 @@ get_code(object, deparse = TRUE, ...)
 
 \S4method{get_code}{qenv}(object, deparse = TRUE)
 
-\S4method{get_code}{qenv.error}(object)
+\S4method{get_code}{qenv.error}(object, deparse = TRUE, ...)
 }
 \arguments{
 \item{object}{(\code{qenv})}
