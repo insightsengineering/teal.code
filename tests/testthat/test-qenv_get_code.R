@@ -21,7 +21,7 @@ testthat::test_that("get_code returns expression of qenv object if deparse = FAL
   q <- eval_code(q, quote(y <- x))
   testthat::expect_equivalent(
     toString(get_code(q, deparse = FALSE)),
-    toString(parse(text = q@code, keep.source = TRUE))
+    toString(parse(text = paste(c("{", q@code, "}"), collapse = "\n"), keep.source = TRUE))
   )
 })
 

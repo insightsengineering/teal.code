@@ -33,7 +33,7 @@ setMethod("get_code", signature = "qenv", function(object, deparse = TRUE) {
       paste(object@code, collapse = "\n")
     }
   } else {
-    parse(text = object@code, keep.source = TRUE)
+    parse(text = paste(c("{", object@code, "}"), collapse = "\n"), keep.source = TRUE)
   }
 })
 
