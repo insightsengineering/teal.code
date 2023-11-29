@@ -85,13 +85,13 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
 #' @rdname eval_code
 #' @export
 setMethod("eval_code", signature = c("qenv", "language"), function(object, code) {
-  eval_code(object, code = format_expression(code))
+  eval_code(object, code = paste(lang2calls(code), collapse = "\n"))
 })
 
 #' @rdname eval_code
 #' @export
 setMethod("eval_code", signature = c("qenv", "expression"), function(object, code) {
-  eval_code(object, code = format_expression(code))
+  eval_code(object, code = paste(lang2calls(code), collapse = "\n"))
 })
 
 #' @rdname eval_code

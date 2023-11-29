@@ -27,9 +27,13 @@ setGeneric("get_code", function(object, deparse = TRUE, ...) {
 setMethod("get_code", signature = "qenv", function(object, deparse = TRUE) {
   checkmate::assert_flag(deparse)
   if (deparse) {
-    object@code
+    if (length(object@code) == 0) {
+      object@code
+    } else {
+      paste(object@code, collapse = "\n")
+    }
   } else {
-    parse(text = object@code, keep.source = TRUE)
+    parse(text = paste(c("{", object@code, "}"), collapse = "\n"), keep.source = TRUE)
   }
 })
 
@@ -41,7 +45,7 @@ setMethod("get_code", signature = "qenv.error", function(object, ...) {
       sprintf(
         "%s\n\ntrace: \n %s\n",
         conditionMessage(object),
-        paste(format_expression(object$trace), collapse = "\n ")
+        paste(lang2calls(object$trace), collapse = "\n ")
       ),
       class = c("validation", "try-error", "simpleError")
     )

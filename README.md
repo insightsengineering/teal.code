@@ -88,7 +88,7 @@ qenv_2[["y"]]
 ```
 
 ```r
-cat(paste(get_code(qenv_2), collapse = "\n"))
+cat(get_code(qenv_2))
 #> x <- 5
 #> y <- x * 2
 #> z <- y * 2

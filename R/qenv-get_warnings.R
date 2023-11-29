@@ -42,7 +42,7 @@ setMethod("get_warnings", signature = c("qenv"), function(object) {
       if (warn == "") {
         return(NULL)
       }
-      sprintf("%swhen running code:\n%s", warn, paste(format_expression(expr), collapse = "\n"))
+      sprintf("%swhen running code:\n%s", warn, paste(lang2calls(expr), collapse = "\n"))
     },
     warn = as.list(object@warnings),
     expr = as.list(as.character(object@code))
@@ -52,7 +52,7 @@ setMethod("get_warnings", signature = c("qenv"), function(object) {
   sprintf(
     "~~~ Warnings ~~~\n\n%s\n\n~~~ Trace ~~~\n\n%s",
     paste(lines, collapse = "\n\n"),
-    paste(get_code(object), collapse = "\n")
+    get_code(object)
   )
 })
 
