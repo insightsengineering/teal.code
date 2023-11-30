@@ -13,7 +13,7 @@
 #'
 #' @param data (`qenv`)
 #' @param expr (`expression`) to evaluate. Must be inline code, see `Using language objects...`
-#' @param ... `name:value` pairs to inject values into `expr`
+#' @param ... see `Details`
 #'
 #' @return
 #' `within` returns a `qenv` object with `expr` evaluated or `qenv.error` if evaluation fails.

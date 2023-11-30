@@ -4,12 +4,12 @@
 \alias{get_var}
 \alias{get_var,qenv,character-method}
 \alias{get_var,qenv.error,ANY-method}
-\alias{[[,qenv,ANY,ANY-method}
+\alias{[[,qenv-method}
 \title{Get Object From \code{qenv}}
 \usage{
 get_var(object, var)
 
-\S4method{[[}{qenv,ANY,ANY}(x, i)
+\S4method{[[}{qenv}(x, i)
 }
 \arguments{
 \item{object, x}{(\code{qenv})}

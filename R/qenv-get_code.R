@@ -1,10 +1,11 @@
 #' Get Code From `qenv`
 #'
 #' @details
-#' `get_code` retrieves the code stored in the `qenv`.
+#' `get_code` retrieves the code stored in the `qenv`. `...` passes arguments passed to methods.
 #'
 #' @param object (`qenv`)
-#' @param deparse (`logical(1)`) specifying whether to return code as `character` or `expression`.
+#' @param deparse (`logical(1)`) flag specifying whether to return code as `character` or `expression`.
+#' @param ... see `Details`
 #'
 #' @return
 #' `get_code` returns the traced code (from `@code` slot) in the form specified by `deparse`.
@@ -20,7 +21,7 @@
 #' @aliases get_code,qenv.error-method
 #'
 #' @export
-setGeneric("get_code", function(object, deparse = TRUE) {
+setGeneric("get_code", function(object, deparse = TRUE, ...) {
   # this line forces evaluation of object before passing to the generic
   # needed for error handling to work properly
   grDevices::pdf(nullfile())
@@ -39,7 +40,7 @@ setMethod("get_code", signature = "qenv", function(object, deparse = TRUE) {
   }
 })
 
-setMethod("get_code", signature = "qenv.error", function(object) {
+setMethod("get_code", signature = "qenv.error", function(object, ...) {
   stop(
     errorCondition(
       sprintf(

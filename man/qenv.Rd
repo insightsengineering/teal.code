@@ -26,7 +26,7 @@ new_qenv(env = new.env(parent = parent.env(.GlobalEnv)), code = character())
 
 eval_code(object, code)
 
-get_code(object, deparse = TRUE)
+get_code(object, deparse = TRUE, ...)
 
 \method{within}{qenv}(data, expr, ...)
 }
@@ -38,13 +38,13 @@ Environment being a result of the \code{code} evaluation.}
 
 \item{object}{(\code{qenv})}
 
-\item{deparse}{(\code{logical(1)}) specifying whether to return code as \code{character} or \code{expression}.}
+\item{deparse}{(\code{logical(1)}) flag specifying whether to return code as \code{character} or \code{expression}.}
+
+\item{...}{see \code{Details}}
 
 \item{data}{(\code{qenv})}
 
 \item{expr}{(\code{expression}) to evaluate. Must be inline code, see \verb{Using language objects...}}
-
-\item{...}{\code{name:value} pairs to inject values into \code{expr}}
 }
 \value{
 \code{qenv} and \code{new_qenv} return a \code{qenv} object.
@@ -68,7 +68,7 @@ This method is deprecated.
 \code{eval_code} evaluates given code in the \code{qenv} environment and appends it to the \code{code} slot.
 Thus, if the \code{qenv} had been instantiated empty, contents of the environment are always a result of the stored code.
 
-\code{get_code} retrieves the code stored in the \code{qenv}.
+\code{get_code} retrieves the code stored in the \code{qenv}. \code{...} passes arguments passed to methods.
 
 \code{within} is a convenience function for evaluating inline code inside the environment of a \code{qenv}.
 It is method for the \code{base} generic that wraps \code{eval_code} to provide a simplified way of passing code.
