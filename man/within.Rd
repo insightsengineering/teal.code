@@ -33,7 +33,7 @@ Only single \code{expression}s will work and substitution is not available. See 
 
 \examples{
 
-q <- new_qenv()
+q <- qenv()
 
 # execute code
 q <- within(q, {
@@ -47,7 +47,7 @@ q
 get_code(q)
 
 # inject values into code
-q <- new_qenv()
+q <- qenv()
 q <- within(q, i <- iris)
 within(q, print(dim(subset(i, Species == "virginica"))))
 within(q, print(dim(subset(i, Species == species)))) # fails
