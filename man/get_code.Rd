@@ -6,16 +6,18 @@
 \alias{get_code,qenv.error-method}
 \title{Get code from \code{qenv}}
 \usage{
-get_code(object, deparse = TRUE)
+get_code(object, deparse = TRUE, ...)
 
 \S4method{get_code}{qenv}(object, deparse = TRUE)
 
-\S4method{get_code}{qenv.error}(object)
+\S4method{get_code}{qenv.error}(object, deparse = TRUE, ...)
 }
 \arguments{
 \item{object}{(\code{qenv})}
 
 \item{deparse}{(\code{logical(1)}) if the returned code should be converted to character.}
+
+\item{...}{arguments passed to methods.}
 }
 \value{
 named \code{character} with the reproducible code.
