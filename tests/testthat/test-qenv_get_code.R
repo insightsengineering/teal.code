@@ -1,5 +1,7 @@
 testthat::test_that("get_code returns code (character by default) of qenv object", {
-  q <- qenv() |> eval_code(quote(x <- 1)) |> eval_code(quote(y <- x))
+  q <- qenv() |>
+    eval_code(quote(x <- 1)) |>
+    eval_code(quote(y <- x))
   testthat::expect_equal(get_code(q), c("x <- 1", "y <- x"))
 })
 
