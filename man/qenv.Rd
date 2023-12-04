@@ -31,8 +31,8 @@ Create an empty \code{qenv} object.
 \code{qenv()} instantiates a \code{qenv} with an empty environment.
 Any changes must be made by evaluating code in it with \code{eval_code} or \code{within}, thereby ensuring reproducibility.
 
-\code{new_qenv()} can instantiate a \code{qenv} object with data in the environment and code registered.
-This method is deprecated.
+\code{new_qenv()} (deprecated and not recommended)
+can instantiate a \code{qenv} object with data in the environment and code registered.
 }
 \examples{
 # create empty qenv
