@@ -64,7 +64,7 @@ Below is the showcase of the example usage
 
 ```r
 library(teal.code)
-my_qenv <- new_qenv(env = list2env(list(x = 5)), code = "x <- 5")
+my_qenv <- qenv(env = list2env(list(x = 5)), code = "x <- 5")
 my_qenv
 #> Parent: <environment: package:teal.code>
 #> Bindings:

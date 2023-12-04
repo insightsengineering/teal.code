@@ -13,7 +13,7 @@
 #' @seealso [`qenv-class`], [`eval_code`]
 #'
 #' @section Examples:
-#' `q <- new_qenv()` \cr
+#' `q <- qenv()` \cr
 #' `q <- eval_code(q, expression(i <- iris, ii <- subset(i, Species == "virginica")))` \cr
 #' `get_code(q)` \cr
 #' `q <- replace_code(q, expression(i <- iris, ii <- subset(i, Species != "virginica")))` \cr

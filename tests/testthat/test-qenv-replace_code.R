@@ -1,4 +1,4 @@
-q <- new_qenv()
+q <- qenv()
 qq <- within(q, i <- iris)
 
 # argument checks ----

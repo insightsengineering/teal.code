@@ -1,44 +1,46 @@
 testthat::test_that("Concatenate two identical qenvs outputs", {
-  env <- new.env()
-  env$iris1 <- iris
-  q1 <- new_qenv(quote(iris1 <- iris), env = env)
+  q <- qenv()
+  q1 <- eval_code(q, quote(iris1 <- iris))
   q2 <- q1
 
-  q <- concat(q1, q2)
+  q12 <- concat(q1, q2)
 
-  testthat::expect_equal(q@env, env)
+  testthat::expect_equal(q12@env, q1@env)
   testthat::expect_identical(
-    q@code,
+    q12@code,
     c("iris1 <- iris", "iris1 <- iris")
   )
 })
 
 testthat::test_that("Concatenate two independent qenvs results in object having combined code and environments", {
-  q1 <- new_qenv(quote(iris1 <- iris), env = list2env(list(iris1 = iris)))
-  q2 <- new_qenv(quote(mtcars1 <- mtcars), env = list2env(list(mtcars1 = mtcars)))
+  q1 <- qenv()
+  q2 <- qenv()
 
-  q <- concat(q1, q2)
+  q1 <- eval_code(q1, quote(iris1 <- iris))
+  q2 <- eval_code(q2, quote(mtcars1 <- mtcars))
 
-  testthat::expect_equal(q@env, list2env(list(iris1 = iris, mtcars1 = mtcars)))
+  q12 <- concat(q1, q2)
+
+  testthat::expect_equal(q12@env, list2env(list(iris1 = iris, mtcars1 = mtcars)))
   testthat::expect_identical(
-    q@code,
+    q12@code,
     c("iris1 <- iris", "mtcars1 <- mtcars")
   )
-  testthat::expect_identical(q@id, c(q1@id, q2@id))
+  testthat::expect_identical(q12@id, c(q1@id, q2@id))
 })
 
 testthat::test_that("Concatenate qenvs results with the same variable, the RHS has priority", {
-  q1 <- new_qenv() |> eval_code(quote(a <- data.frame(1)))
-  q2 <- new_qenv() |> eval_code(quote(a <- data.frame(2)))
+  q1 <- eval_code(qenv(), quote(a <- data.frame(1)))
+  q2 <- eval_code(qenv(), quote(a <- data.frame(2)))
 
-  qenv <- concat(q1, q2)
-  testthat::expect_identical(qenv[["a"]], data.frame(2))
+  q12 <- concat(q1, q2)
+  testthat::expect_identical(q12[["a"]], data.frame(2))
 })
 
 testthat::test_that("Concatenate with a qenv.error object returns the qenv.error object", {
-  q1 <- eval_code(new_qenv(), quote(x <- 1))
-  error_q <- eval_code(new_qenv(), quote(y <- w))
-  error_q2 <- eval_code(new_qenv(), quote(z <- w))
+  q1 <- eval_code(qenv(), quote(x <- 1))
+  error_q <- eval_code(qenv(), quote(y <- w))
+  error_q2 <- eval_code(qenv(), quote(z <- w))
 
   testthat::expect_s3_class(concat(q1, error_q), "qenv.error")
   testthat::expect_s3_class(concat(error_q, error_q2), "qenv.error")
@@ -49,13 +51,13 @@ testthat::test_that("Concatenate with a qenv.error object returns the qenv.error
 })
 
 testthat::test_that("Concatenate two independent qenvs with warnings results in object having combined warnings", {
-  q1 <- new_qenv() %>% eval_code("warning('This is warning 1')")
-  q2 <- new_qenv() %>% eval_code("warning('This is warning 2')")
+  q1 <- eval_code(qenv(), "warning('This is warning 1')")
+  q2 <- eval_code(qenv(), "warning('This is warning 2')")
 
-  q <- concat(q1, q2)
+  q12 <- concat(q1, q2)
 
   testthat::expect_equal(
-    q@warnings,
+    q12@warnings,
     c(
       "> This is warning 1\n",
       "> This is warning 2\n"
@@ -64,13 +66,13 @@ testthat::test_that("Concatenate two independent qenvs with warnings results in 
 })
 
 testthat::test_that("Concatenate two independent qenvs with messages results in object having combined messages", {
-  q1 <- new_qenv() %>% eval_code("message('This is message 1')")
-  q2 <- new_qenv() %>% eval_code("message('This is message 2')")
+  q1 <- eval_code(qenv(), "message('This is message 1')")
+  q2 <- eval_code(qenv(), "message('This is message 2')")
 
-  q <- concat(q1, q2)
+  q12 <- concat(q1, q2)
 
   testthat::expect_equal(
-    q@messages,
+    q12@messages,
     c(
       "> This is message 1\n",
       "> This is message 2\n"

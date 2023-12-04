@@ -1,5 +1,9 @@
 # teal.code 0.4.1.9012
 
+### Breaking Change
+
+* `qenv` objects should now be created with `qenv()` rather than `new_qenv()`. The new constructor always creates an empty object. `new_qenv` is now deprecated.
+
 ### Miscellaneous
 
 * Exported the `qenv` class from the package.

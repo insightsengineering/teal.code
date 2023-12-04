@@ -14,21 +14,15 @@ A `qenv` is an R object which contains code and an environment and can be used t
 
 ### Initialization
 
-The `new_qenv()` function serves as the gateway to create an initial `qenv` object:
+The `qenv()` function serves as the gateway to create an initial `qenv` object:
 
 ```{r}
 library(teal.code)
 
-# can be created without any code/environment
-empty_qenv <- new_qenv()
+# create a new qenv object
+empty_qenv <- qenv()
 print(empty_qenv)
-
-# or can be created with objects inside the environment
-my_qenv <- new_qenv(env = list2env(list(x = 5)), code = "x <- 5")
-print(my_qenv)
 ```
-
-For enhanced reproducibility, it's crucial to provide the code used to generate objects when creating a `qenv` with objects inside the environment. This responsibility falls upon the user.
 
 ### `qenv` basic usage
 
@@ -37,14 +31,28 @@ The `eval_code()` function executes code within a `qenv` environment, yielding a
 ```{r}
 library(magrittr)
 
-q2 <- eval_code(my_qenv, "y <- x * 2") %>% eval_code("z <- y * 2")
+# evaluate code in qenv
+my_qenv <- eval_code(empty_qenv, "x <- 2")
+print(my_qenv)
+
+
+q1 <- eval_code(my_qenv, "y <- x * 2") %>% eval_code("z <- y * 2")
 
 # my_qenv still contains only x
 print(my_qenv)
 
-# q2 contains x, y and z
+# q1 contains x, y and z
+print(q1)
+```
+
+The same result can be achieved with the `within` method for the `qenv` class.
+```{r}
+q2 <- within(my_qenv, y <- x * 2) %>% within(z <- y * 2)
 print(q2)
 ```
+
+
+
 
 To extract objects from a `qenv`, use `[[`; this is particularly useful for displaying them in a `shiny` app. You can retrieve the code used to generate the `qenv` using the `get_code()` function.
 
@@ -58,7 +66,7 @@ cat(paste(get_code(q2), collapse = "\n"))
 In some cases one may want to substitute some elements of the code before evaluation. 
 Consider a case when a subset of `iris` defined by an input value.
 ```{r}
-q <- new_qenv()
+q <- qenv()
 q <- eval_code(q, quote(i <- subset(iris, Species == "setosa")))
 q <- eval_code(q, substitute(
   ii <- subset(iris, Species == species),
@@ -77,7 +85,7 @@ summary(q[["iii"]]$Species)
 
 A more convenient way to pass code with substitution is to use the `within` method.
 ```{r}
-qq <- new_qenv()
+qq <- qenv()
 qq <- within(qq, i <- subset(iris, Species == "setosa"))
 qq <- within(qq, ii <- subset(iris, Species == species), species = "versicolor")
 input_value <- "virginica"
@@ -96,7 +104,7 @@ See `?within.qenv` for more details.
 Given a pair of `qenv` objects, you may be able to "join" them, creating a new `qenv` object encompassing the union of both environments, along with the requisite code for reproduction:
 
 ```{r}
-common_q <- eval_code(new_qenv(), quote(x <- 1))
+common_q <- eval_code(qenv(), quote(x <- 1))
 
 x_q <- eval_code(common_q, quote(y <- 5))
 y_q <- eval_code(common_q, quote(z <- 5))
@@ -113,10 +121,10 @@ The feasibility of joining `qenv` objects hinges on the contents of the environm
 In cases where warnings or messages arise while evaluating code within a `qenv` environment, these are captured and stored within the `qenv` object. Access these messages and warnings using the `@` operator.
 
 ```{r}
-q_message <- eval_code(new_qenv(), quote(message("this is a message")))
+q_message <- eval_code(qenv(), quote(message("this is a message")))
 q_message@messages
 
-q_warning <- eval_code(new_qenv(), quote(warning("and this is a warning")))
+q_warning <- eval_code(qenv(), quote(warning("and this is a warning")))
 q_warning@warnings
 ```
 
@@ -139,7 +147,7 @@ When employing a `qenv` to evaluate code, should an error occur, an object of ty
 library(shiny)
 library(magrittr)
 # create an initial qenv with the data in
-data_q <- new_qenv() %>% eval_code("iris_data <- iris")
+data_q <- qenv() %>% eval_code("iris_data <- iris")
 
 ui <- fluidPage(
   radioButtons(
