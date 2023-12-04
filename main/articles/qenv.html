@@ -27,7 +27,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">teal.code</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9011</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9012</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -101,27 +101,16 @@ environment and can be used to create reproducible outputs.</p>
 <div class="section level3">
 <h3 id="initialization">Initialization<a class="anchor" aria-label="anchor" href="#initialization"></a>
 </h3>
-<p>The <code><a href="../reference/new_qenv.html">new_qenv()</a></code> function serves as the gateway to create
-an initial <code>qenv</code> object:</p>
+<p>The <code><a href="../reference/qenv.html">qenv()</a></code> function serves as the gateway to create an
+initial <code>qenv</code> object:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://insightsengineering.github.io/teal.code/">teal.code</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># can be created without any code/environment</span></span>
-<span><span class="va">empty_qenv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_qenv.html">new_qenv</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># create a new qenv object</span></span>
+<span><span class="va">empty_qenv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/qenv.html">qenv</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">empty_qenv</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x55ed019067e0&gt;</span><span style="font-weight: bold;"> [L]</span></span></span>
+<pre><code><span><span class="co">## <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x563d5097fd88&gt;</span><span style="font-weight: bold;"> [L]</span></span></span>
 <span><span class="co">## Parent: &lt;environment: package:teal.code&gt;</span></span></code></pre>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># or can be created with objects inside the environment</span></span>
-<span><span class="va">my_qenv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_qenv.html">new_qenv</a></span><span class="op">(</span>env <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list2env.html" class="external-link">list2env</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span>, code <span class="op">=</span> <span class="st">"x &lt;- 5"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">my_qenv</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x55ed0236e698&gt;</span><span style="font-weight: bold;"> [L]</span></span></span>
-<span><span class="co">## Parent: &lt;environment: package:teal.code&gt;</span></span>
-<span><span class="co">## Bindings:</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">•</span> x: &lt;dbl&gt; [L]</span></span></code></pre>
-<p>For enhanced reproducibility, it’s crucial to provide the code used
-to generate objects when creating a <code>qenv</code> with objects
-inside the environment. This responsibility falls upon the user.</p>
 </div>
 <div class="section level3">
 <h3 id="qenv-basic-usage">
@@ -130,21 +119,40 @@ inside the environment. This responsibility falls upon the user.</p>
 <p>The <code><a href="../reference/eval_code.html">eval_code()</a></code> function executes code within a
 <code>qenv</code> environment, yielding a new <code>qenv</code> object
 as the output.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">q2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_code.html">eval_code</a></span><span class="op">(</span><span class="va">my_qenv</span>, <span class="st">"y &lt;- x * 2"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/eval_code.html">eval_code</a></span><span class="op">(</span><span class="st">"z &lt;- y * 2"</span><span class="op">)</span></span>
+<span><span class="co"># evaluate code in qenv</span></span>
+<span><span class="va">my_qenv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_code.html">eval_code</a></span><span class="op">(</span><span class="va">empty_qenv</span>, <span class="st">"x &lt;- 2"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">my_qenv</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x563d51c86830&gt;</span><span style="font-weight: bold;"> [L]</span></span></span>
+<span><span class="co">## Parent: &lt;environment: package:magrittr&gt;</span></span>
+<span><span class="co">## Bindings:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">•</span> x: &lt;dbl&gt; [L]</span></span></code></pre>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">q1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_code.html">eval_code</a></span><span class="op">(</span><span class="va">my_qenv</span>, <span class="st">"y &lt;- x * 2"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/eval_code.html">eval_code</a></span><span class="op">(</span><span class="st">"z &lt;- y * 2"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># my_qenv still contains only x</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">my_qenv</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x55ed0236e698&gt;</span><span style="font-weight: bold;"> [L]</span></span></span>
-<span><span class="co">## Parent: &lt;environment: package:teal.code&gt;</span></span>
+<pre><code><span><span class="co">## <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x563d51c86830&gt;</span><span style="font-weight: bold;"> [L]</span></span></span>
+<span><span class="co">## Parent: &lt;environment: package:magrittr&gt;</span></span>
 <span><span class="co">## Bindings:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">•</span> x: &lt;dbl&gt; [L]</span></span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># q2 contains x, y and z</span></span>
+<code class="sourceCode R"><span><span class="co"># q1 contains x, y and z</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">q1</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x563d5085a340&gt;</span><span style="font-weight: bold;"> [L]</span></span></span>
+<span><span class="co">## Parent: &lt;environment: package:magrittr&gt;</span></span>
+<span><span class="co">## Bindings:</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">•</span> x: &lt;dbl&gt; [L]</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">•</span> y: &lt;dbl&gt; [L]</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">•</span> z: &lt;dbl&gt; [L]</span></span></code></pre>
+<p>The same result can be achieved with the <code>within</code> method
+for the <code>qenv</code> class.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">q2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">within</a></span><span class="op">(</span><span class="va">my_qenv</span>, <span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">within</a></span><span class="op">(</span><span class="va">z</span> <span class="op">&lt;-</span> <span class="va">y</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">q2</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x55ecfe7c5f50&gt;</span><span style="font-weight: bold;"> [L]</span></span></span>
+<pre><code><span><span class="co">## <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x563d513c4318&gt;</span><span style="font-weight: bold;"> [L]</span></span></span>
 <span><span class="co">## Parent: &lt;environment: package:magrittr&gt;</span></span>
 <span><span class="co">## Bindings:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">•</span> x: &lt;dbl&gt; [L]</span></span>
@@ -154,12 +162,12 @@ as the output.</p>
 this is particularly useful for displaying them in a <code>shiny</code>
 app. You can retrieve the code used to generate the <code>qenv</code>
 using the <code><a href="../reference/get_code.html">get_code()</a></code> function.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">q2</span><span class="op">[[</span><span class="st">"y"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## [1] 10</span></span></code></pre>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">q2</span><span class="op">[[</span><span class="st">"y"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## [1] 4</span></span></code></pre>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="../reference/get_code.html">get_code</a></span><span class="op">(</span><span class="va">q2</span><span class="op">)</span>, collapse <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## x &lt;- 5</span></span>
+<pre><code><span><span class="co">## x &lt;- 2</span></span>
 <span><span class="co">## y &lt;- x * 2</span></span>
 <span><span class="co">## z &lt;- y * 2</span></span></code></pre>
 </div>
@@ -169,8 +177,8 @@ using the <code><a href="../reference/get_code.html">get_code()</a></code> funct
 <p>In some cases one may want to substitute some elements of the code
 before evaluation. Consider a case when a subset of <code>iris</code>
 defined by an input value.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_qenv.html">new_qenv</a></span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/qenv.html">qenv</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_code.html">eval_code</a></span><span class="op">(</span><span class="va">q</span>, <span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">quote</a></span><span class="op">(</span><span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">iris</span>, <span class="va">Species</span> <span class="op">==</span> <span class="st">"setosa"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_code.html">eval_code</a></span><span class="op">(</span><span class="va">q</span>, <span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">substitute</a></span><span class="op">(</span></span>
 <span>  <span class="va">ii</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">iris</span>, <span class="va">Species</span> <span class="op">==</span> <span class="va">species</span><span class="op">)</span>,</span>
@@ -185,18 +193,18 @@ defined by an input value.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">q</span><span class="op">[[</span><span class="st">"i"</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##     setosa versicolor  virginica </span></span>
 <span><span class="co">##         50          0          0</span></span></code></pre>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">q</span><span class="op">[[</span><span class="st">"ii"</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##     setosa versicolor  virginica </span></span>
 <span><span class="co">##          0         50          0</span></span></code></pre>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">q</span><span class="op">[[</span><span class="st">"iii"</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##     setosa versicolor  virginica </span></span>
 <span><span class="co">##          0          0         50</span></span></code></pre>
 <p>A more convenient way to pass code with substitution is to use the
 <code>within</code> method.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">qq</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_qenv.html">new_qenv</a></span><span class="op">(</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">qq</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/qenv.html">qenv</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">qq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">within</a></span><span class="op">(</span><span class="va">qq</span>, <span class="va">i</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">iris</span>, <span class="va">Species</span> <span class="op">==</span> <span class="st">"setosa"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">qq</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">within</a></span><span class="op">(</span><span class="va">qq</span>, <span class="va">ii</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">iris</span>, <span class="va">Species</span> <span class="op">==</span> <span class="va">species</span><span class="op">)</span>, species <span class="op">=</span> <span class="st">"versicolor"</span><span class="op">)</span></span>
 <span><span class="va">input_value</span> <span class="op">&lt;-</span> <span class="st">"virginica"</span></span>
@@ -205,11 +213,11 @@ defined by an input value.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">qq</span><span class="op">[[</span><span class="st">"i"</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##     setosa versicolor  virginica </span></span>
 <span><span class="co">##         50          0          0</span></span></code></pre>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">qq</span><span class="op">[[</span><span class="st">"ii"</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##     setosa versicolor  virginica </span></span>
 <span><span class="co">##          0         50          0</span></span></code></pre>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">qq</span><span class="op">[[</span><span class="st">"iii"</span><span class="op">]</span><span class="op">]</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##     setosa versicolor  virginica </span></span>
 <span><span class="co">##          0          0         50</span></span></code></pre>
@@ -221,8 +229,8 @@ defined by an input value.</p>
 <p>Given a pair of <code>qenv</code> objects, you may be able to “join”
 them, creating a new <code>qenv</code> object encompassing the union of
 both environments, along with the requisite code for reproduction:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">common_q</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_code.html">eval_code</a></span><span class="op">(</span><span class="fu"><a href="../reference/new_qenv.html">new_qenv</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">quote</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">common_q</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_code.html">eval_code</a></span><span class="op">(</span><span class="fu"><a href="../reference/qenv.html">qenv</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">quote</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">x_q</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_code.html">eval_code</a></span><span class="op">(</span><span class="va">common_q</span>, <span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">quote</a></span><span class="op">(</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">y_q</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_code.html">eval_code</a></span><span class="op">(</span><span class="va">common_q</span>, <span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">quote</a></span><span class="op">(</span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
@@ -230,7 +238,7 @@ both environments, along with the requisite code for reproduction:</p>
 <span><span class="va">join_q</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/join.html">join</a></span><span class="op">(</span><span class="va">x_q</span>, <span class="va">y_q</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">join_q</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x55ed040cb058&gt;</span></span></span>
+<pre><code><span><span class="co">## <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x563d4f4446e8&gt;</span></span></span>
 <span><span class="co">## Parent: &lt;environment: package:magrittr&gt;</span></span>
 <span><span class="co">## Bindings:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">•</span> x: &lt;dbl&gt;</span></span>
@@ -247,21 +255,21 @@ documentation for further details..</p>
 within a <code>qenv</code> environment, these are captured and stored
 within the <code>qenv</code> object. Access these messages and warnings
 using the <code>@</code> operator.</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">q_message</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_code.html">eval_code</a></span><span class="op">(</span><span class="fu"><a href="../reference/new_qenv.html">new_qenv</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">quote</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"this is a message"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">q_message</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_code.html">eval_code</a></span><span class="op">(</span><span class="fu"><a href="../reference/qenv.html">qenv</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">quote</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/message.html" class="external-link">message</a></span><span class="op">(</span><span class="st">"this is a message"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">q_message</span><span class="op">@</span><span class="va">messages</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "&gt; this is a message\n"</span></span></code></pre>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">q_warning</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_code.html">eval_code</a></span><span class="op">(</span><span class="fu"><a href="../reference/new_qenv.html">new_qenv</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">quote</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/warning.html" class="external-link">warning</a></span><span class="op">(</span><span class="st">"and this is a warning"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">q_warning</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/eval_code.html">eval_code</a></span><span class="op">(</span><span class="fu"><a href="../reference/qenv.html">qenv</a></span><span class="op">(</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">quote</a></span><span class="op">(</span><span class="kw"><a href="https://rdrr.io/r/base/warning.html" class="external-link">warning</a></span><span class="op">(</span><span class="st">"and this is a warning"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">q_warning</span><span class="op">@</span><span class="va">warnings</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] "&gt; and this is a warning\n"</span></span></code></pre>
 <p>If a particular line of code doesn’t trigger any warnings or
 messages, the corresponding message/warning value will be an empty
 string.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">q_message</span><span class="op">@</span><span class="va">warnings</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] ""</span></span></code></pre>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">q_warning</span><span class="op">@</span><span class="va">messages</span></span></code></pre></div>
 <pre><code><span><span class="co">## [1] ""</span></span></code></pre>
 <p>Additionally, a helper function, <code><a href="../reference/get_warnings.html">get_warnings()</a></code>, is
@@ -284,11 +292,11 @@ object can be utilized wherever a <code>qenv</code> object is used,
 alleviating the need for code alterations to handle these errors. Select
 the <code>error_option</code> in the example below to witness
 <code>qenv</code> error handling in action.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://magrittr.tidyverse.org" class="external-link">magrittr</a></span><span class="op">)</span></span>
 <span><span class="co"># create an initial qenv with the data in</span></span>
-<span><span class="va">data_q</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/new_qenv.html">new_qenv</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/eval_code.html">eval_code</a></span><span class="op">(</span><span class="st">"iris_data &lt;- iris"</span><span class="op">)</span></span>
+<span><span class="va">data_q</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/qenv.html">qenv</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="../reference/eval_code.html">eval_code</a></span><span class="op">(</span><span class="st">"iris_data &lt;- iris"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/radioButtons.html" class="external-link">radioButtons</a></span><span class="op">(</span></span>

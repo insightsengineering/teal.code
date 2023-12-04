@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">teal.code</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9011</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9012</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -113,7 +113,7 @@ Only single <code>expression</code>s will work and substitution is not available
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu"><a href="new_qenv.html">new_qenv</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu"><a href="qenv.html">qenv</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># execute code</span></span></span>
 <span class="r-in"><span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">within</a></span><span class="op">(</span><span class="va">q</span>, <span class="op">{</span></span></span>
@@ -124,7 +124,7 @@ Only single <code>expression</code>s will work and substitution is not available
 <span class="r-in"><span>  <span class="va">f</span> <span class="op">&lt;-</span> <span class="va">faithful</span></span></span>
 <span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">q</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x55604f045530&gt;</span><span style="font-weight: bold;"> [L]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x563029851f78&gt;</span><span style="font-weight: bold;"> [L]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parent: &lt;environment: package:checkmate&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Bindings:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> f: &lt;df[,2]&gt; [L]</span>
@@ -134,11 +134,11 @@ Only single <code>expression</code>s will work and substitution is not available
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "i &lt;- iris"                  "m &lt;- mtcars\nf &lt;- faithful"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># inject values into code</span></span></span>
-<span class="r-in"><span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu"><a href="new_qenv.html">new_qenv</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu"><a href="qenv.html">qenv</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">within</a></span><span class="op">(</span><span class="va">q</span>, <span class="va">i</span> <span class="op">&lt;-</span> <span class="va">iris</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">within</a></span><span class="op">(</span><span class="va">q</span>, <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">i</span>, <span class="va">Species</span> <span class="op">==</span> <span class="st">"virginica"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 50  5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x55604f584118&gt;</span><span style="font-weight: bold;"> [L]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x563026bd15f0&gt;</span><span style="font-weight: bold;"> [L]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parent: &lt;environment: package:checkmate&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Bindings:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> i: &lt;df[,5]&gt; [L]</span>
@@ -148,14 +148,14 @@ Only single <code>expression</code>s will work and substitution is not available
 <span class="r-out co"><span class="r-pr">#&gt;</span> print(dim(subset(i, Species == species)))&gt;</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">within</a></span><span class="op">(</span><span class="va">q</span>, <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">i</span>, <span class="va">Species</span> <span class="op">==</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, species <span class="op">=</span> <span class="st">"versicolor"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 50  5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x55604f889f10&gt;</span><span style="font-weight: bold;"> [L]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x56302c42c4e8&gt;</span><span style="font-weight: bold;"> [L]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parent: &lt;environment: package:checkmate&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Bindings:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> i: &lt;df[,5]&gt; [L]</span>
 <span class="r-in"><span><span class="va">species_external</span> <span class="op">&lt;-</span> <span class="st">"versicolor"</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">within</a></span><span class="op">(</span><span class="va">q</span>, <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">i</span>, <span class="va">Species</span> <span class="op">==</span> <span class="va">species</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, species <span class="op">=</span> <span class="va">species_external</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 50  5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x55604fb73d20&gt;</span><span style="font-weight: bold;"> [L]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x56302c7733c8&gt;</span><span style="font-weight: bold;"> [L]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parent: &lt;environment: package:checkmate&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Bindings:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> i: &lt;df[,5]&gt; [L]</span>
@@ -167,7 +167,7 @@ Only single <code>expression</code>s will work and substitution is not available
 <span class="r-out co"><span class="r-pr">#&gt;</span>  when evaluating qenv code:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> expr&gt;</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">within</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">q</span>, <span class="va">expr</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x55604fec6608&gt;</span><span style="font-weight: bold;"> [L]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x56302cacb630&gt;</span><span style="font-weight: bold;"> [L]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parent: &lt;environment: package:checkmate&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Bindings:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> i: &lt;df[,5]&gt; [L]</span>
@@ -179,7 +179,7 @@ Only single <code>expression</code>s will work and substitution is not available
 <span class="r-out co"><span class="r-pr">#&gt;</span>  when evaluating qenv code:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> exprlist&gt;</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">within</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">q</span>, <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">c</span>, <span class="va">exprlist</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x556050294f40&gt;</span><span style="font-weight: bold;"> [L]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x56302cec9ef0&gt;</span><span style="font-weight: bold;"> [L]</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Parent: &lt;environment: package:checkmate&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Bindings:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> i: &lt;df[,5]&gt; [L]</span>
