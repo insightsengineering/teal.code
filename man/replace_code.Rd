@@ -27,7 +27,7 @@ This can be used to mask sensitive information, e.g. credentials.
 }
 \section{Examples}{
 
-\code{q <- new_qenv()} \cr
+\code{q <- qenv()} \cr
 \code{q <- eval_code(q, expression(i <- iris, ii <- subset(i, Species == "virginica")))} \cr
 \code{get_code(q)} \cr
 \code{q <- replace_code(q, expression(i <- iris, ii <- subset(i, Species != "virginica")))} \cr
