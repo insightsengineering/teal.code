@@ -12,3 +12,8 @@ testthat::test_that("parent of qenv environment is the parent of .GlobalEnv", {
   q <- qenv()
   testthat::expect_identical(parent.env(q@env), parent.env(.GlobalEnv))
 })
+
+testthat::test_that("parent of qenv environment is locked", {
+  q <- qenv()
+  testthat::expect_error(q@env$x <- 1, "cannot add bindings to a locked environment")
+})
