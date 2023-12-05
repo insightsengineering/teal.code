@@ -46,12 +46,6 @@
     <loc>https://insightsengineering.github.io/teal.code/reference/dot-check_joinable.html</loc>
   </url>
   <url>
-    <loc>https://insightsengineering.github.io/teal.code/reference/eval_code.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/reference/get_code.html</loc>
-  </url>
-  <url>
     <loc>https://insightsengineering.github.io/teal.code/reference/get_var.html</loc>
   </url>
   <url>
@@ -77,8 +71,5 @@
   </url>
   <url>
     <loc>https://insightsengineering.github.io/teal.code/reference/teal.code-package.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/reference/within.html</loc>
   </url>
 </urlset>
