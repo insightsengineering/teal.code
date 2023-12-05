@@ -2,10 +2,10 @@
 #'
 #' @details
 #' `within` is a convenience function for evaluating inline code inside the environment of a `qenv`.
-#' It is method for the `base` generic that wraps `eval_code` to provide a simplified way of passing code.
+#' It is a method for the `base` generic that wraps `eval_code` to provide a simplified way of passing code.
 #' `within` accepts only inline expressions (both simple and compound) and allows for injecting values into `expr`
-#' through the `...` argument: as `name:value` pairs are passed to `...`,
-#' `name` in `expr` will be replaced with `value`.
+#' through the `...` argument:
+#' as `name:value` pairs are passed to `...`, `name` in `expr` will be replaced with `value`.
 #'
 #' @section Using language objects with `within`:
 #' Passing language objects to `expr` is generally not intended but can be achieved with `do.call`.
@@ -21,7 +21,6 @@
 #' @seealso [`base::within`]
 #'
 #' @examples
-#'
 #' # evaluate code using within
 #' q <- qenv()
 #' q <- within(q, {

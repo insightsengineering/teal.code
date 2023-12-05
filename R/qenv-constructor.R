@@ -6,7 +6,7 @@
 #' `qenv()` instantiates a `qenv` with an empty environment.
 #' Any changes must be made by evaluating code in it with `eval_code` or `within`, thereby ensuring reproducibility.
 #'
-#' `new_qenv()` (deprecated and not recommended)
+#' `new_qenv()` (`r badge("deprecated")` and not recommended)
 #' can instantiate a `qenv` object with data in the environment and code registered.
 #'
 #' @name qenv

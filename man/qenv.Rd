@@ -62,19 +62,19 @@ Create a \code{qenv} object and evaluate code in it to track code history.
 \code{qenv()} instantiates a \code{qenv} with an empty environment.
 Any changes must be made by evaluating code in it with \code{eval_code} or \code{within}, thereby ensuring reproducibility.
 
-\code{new_qenv()} (deprecated and not recommended)
+\code{new_qenv()} (\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} and not recommended)
 can instantiate a \code{qenv} object with data in the environment and code registered.
 
 \code{eval_code} evaluates given code in the \code{qenv} environment and appends it to the \code{code} slot.
 Thus, if the \code{qenv} had been instantiated empty, contents of the environment are always a result of the stored code.
 
-\code{get_code} retrieves the code stored in the \code{qenv}. \code{...} passes arguments passed to methods.
+\code{get_code} retrieves the code stored in the \code{qenv}. \code{...} passes arguments to methods.
 
 \code{within} is a convenience function for evaluating inline code inside the environment of a \code{qenv}.
-It is method for the \code{base} generic that wraps \code{eval_code} to provide a simplified way of passing code.
+It is a method for the \code{base} generic that wraps \code{eval_code} to provide a simplified way of passing code.
 \code{within} accepts only inline expressions (both simple and compound) and allows for injecting values into \code{expr}
-through the \code{...} argument: as \code{name:value} pairs are passed to \code{...},
-\code{name} in \code{expr} will be replaced with \code{value}.
+through the \code{...} argument:
+as \code{name:value} pairs are passed to \code{...}, \code{name} in \code{expr} will be replaced with \code{value}.
 }
 \section{Using language objects with \code{within}}{
 
@@ -100,7 +100,6 @@ q <- eval_code(q, expression(assert_number(a)))
 # retrieve code
 get_code(q)
 get_code(q, deparse = FALSE)
-
 
 # evaluate code using within
 q <- qenv()
