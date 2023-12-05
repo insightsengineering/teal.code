@@ -2,7 +2,7 @@ testthat::test_that("get_code returns code (character by default) of qenv object
   q <- qenv() |>
     eval_code(quote(x <- 1)) |>
     eval_code(quote(y <- x))
-  testthat::expect_equal(get_code(q), c("x <- 1", "y <- x"))
+  testthat::expect_equal(get_code(q), paste(c("x <- 1", "y <- x"), collapse = "\n"))
 })
 
 testthat::test_that("get_code returns code elements being code-blocks as character(1)", {
