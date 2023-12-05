@@ -1,9 +1,10 @@
-#' Get the warnings of `qenv` object
+#' Get Warnings From `qenv` Object
+#'
+#' Retrieve all warnings raised during code evaluation in a `qenv`.
 #'
 #' @param object (`qenv`)
 #'
-#' @return `character` containing warning information or `NULL` if no warnings
-#' @export
+#' @return `character` containing warning information or `NULL` if no warnings.
 #'
 #' @examples
 #' data_q <- qenv()
@@ -13,6 +14,13 @@
 #'   bquote(p <- hist(iris_data[, .("Sepal.Length")], ff = ""))
 #' )
 #' cat(get_warnings(warning_qenv))
+#'
+#' @name get_warnings
+#' @rdname get_warnings
+#' @aliases get_warnings,qenv-method
+#' @aliases get_warnings,qenv.error-method
+#' @aliases get_warnings,NULL-method
+#'
 #' @export
 setGeneric("get_warnings", function(object) {
   # this line forces evaluation of object before passing to the generic
@@ -24,14 +32,6 @@ setGeneric("get_warnings", function(object) {
   standardGeneric("get_warnings")
 })
 
-#' @rdname get_warnings
-#' @export
-setMethod("get_warnings", signature = c("qenv.error"), function(object) {
-  NULL
-})
-
-#' @rdname get_warnings
-#' @export
 setMethod("get_warnings", signature = c("qenv"), function(object) {
   if (all(object@warnings == "")) {
     return(NULL)
@@ -56,8 +56,10 @@ setMethod("get_warnings", signature = c("qenv"), function(object) {
   )
 })
 
-#' @rdname get_warnings
-#' @export
+setMethod("get_warnings", signature = c("qenv.error"), function(object) {
+  NULL
+})
+
 setMethod("get_warnings", "NULL", function(object) {
   NULL
 })

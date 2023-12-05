@@ -1,27 +1,32 @@
-#' Evaluate the code in the `qenv` environment
+#' Evaluate Code in `qenv`
 #'
-#' Given code is evaluated in the `qenv` environment and appended to the `code` slot. This means
-#' that state of the environment is always a result of the stored code (if `qenv` was initialized)
-#' with reproducible code.
-#'
-#' @name eval_code
+#' @details
+#' `eval_code` evaluates given code in the `qenv` environment and appends it to the `code` slot.
+#' Thus, if the `qenv` had been instantiated empty, contents of the environment are always a result of the stored code.
 #'
 #' @param object (`qenv`)
-#' @param code (`character` or `language`) code to evaluate. Also accepts and stores comments
+#' @param code (`character` or `language`) code to evaluate. If `character`, comments are retained.
+#'
+#' @return
+#' `eval_code` returns a `qenv` object with `expr` evaluated or `qenv.error` if evaluation fails.
 #'
 #' @examples
+#' # evaluate code in qenv
 #' q <- qenv()
-#' q1 <- eval_code(q, quote(a <- 1))
-#' q2 <- eval_code(q1, quote(library(checkmate)))
-#' q3 <- eval_code(q2, quote(assert_number(a)))
+#' q <- eval_code(q, "a <- 1")
+#' q <- eval_code(q, quote(library(checkmate)))
+#' q <- eval_code(q, expression(assert_number(a)))
 #'
-#' @return `qenv` object.
+#' @name eval_code
+#' @rdname qenv
+#' @aliases eval_code,qenv,character-method
+#' @aliases eval_code,qenv,language-method
+#' @aliases eval_code,qenv,expression-method
+#' @aliases eval_code,qenv.error,ANY-method
 #'
 #' @export
 setGeneric("eval_code", function(object, code) standardGeneric("eval_code"))
 
-#' @rdname eval_code
-#' @export
 setMethod("eval_code", signature = c("qenv", "character"), function(object, code) {
   id <- sample.int(.Machine$integer.max, size = 1)
 
@@ -83,21 +88,15 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
   object
 })
 
-#' @rdname eval_code
-#' @export
 setMethod("eval_code", signature = c("qenv", "language"), function(object, code) {
   eval_code(object, code = paste(lang2calls(code), collapse = "\n"))
 })
 
-#' @rdname eval_code
-#' @export
 setMethod("eval_code", signature = c("qenv", "expression"), function(object, code) {
   eval_code(object, code = paste(lang2calls(code), collapse = "\n"))
 })
 
-#' @rdname eval_code
-#' @export
-setMethod("eval_code", signature = "qenv.error", function(object, code) {
+setMethod("eval_code", signature = c("qenv.error", "ANY"), function(object, code) {
   object
 })
 
