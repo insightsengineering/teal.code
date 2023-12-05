@@ -1,11 +1,12 @@
-#' Initialize `qenv` object
+#' Code Tracking With `qenv` Object
 #'
-#' Create an empty `qenv` object.
+#' Create a `qenv` object and evaluate code in it to track code history.
 #'
+#' @details
 #' `qenv()` instantiates a `qenv` with an empty environment.
 #' Any changes must be made by evaluating code in it with `eval_code` or `within`, thereby ensuring reproducibility.
 #'
-#' `new_qenv()` (deprecated and not recommended)
+#' `new_qenv()` (`r badge("deprecated")` and not recommended)
 #' can instantiate a `qenv` object with data in the environment and code registered.
 #'
 #' @name qenv
@@ -14,7 +15,7 @@
 #' # create empty qenv
 #' qenv()
 #'
-#' @return `qenv` object.
+#' @return `qenv` and `new_qenv` return a `qenv` object.
 #'
 #' @export
 qenv <- function() {
@@ -41,13 +42,13 @@ qenv <- function() {
 #' @aliases new_qenv,environment,language-method
 #' @aliases new_qenv,environment,missing-method
 #' @aliases new_qenv,missing,missing-method
+
 #' @export
 setGeneric("new_qenv", function(env = new.env(parent = parent.env(.GlobalEnv)), code = character()) {
   lifecycle::deprecate_warn(when = " 0.4.2", what = "new_qenv()", with = "qenv()", always = TRUE)
   standardGeneric("new_qenv")
 })
 
-#' @export
 setMethod(
   "new_qenv",
   signature = c(env = "environment", code = "expression"),
@@ -56,7 +57,6 @@ setMethod(
   }
 )
 
-#' @export
 setMethod(
   "new_qenv",
   signature = c(env = "environment", code = "character"),
@@ -72,7 +72,6 @@ setMethod(
   }
 )
 
-#' @export
 setMethod(
   "new_qenv",
   signature = c(env = "environment", code = "language"),
@@ -81,7 +80,6 @@ setMethod(
   }
 )
 
-#' @export
 setMethod(
   "new_qenv",
   signature = c(code = "missing", env = "missing"),

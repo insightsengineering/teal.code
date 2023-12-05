@@ -4,38 +4,23 @@
 \alias{get_var}
 \alias{get_var,qenv,character-method}
 \alias{get_var,qenv.error,ANY-method}
-\alias{[[,qenv,ANY,missing-method}
-\alias{[[.qenv.error}
-\title{Get object from the \code{qenv} environment}
+\alias{[[,qenv-method}
+\title{Get Object From \code{qenv}}
 \usage{
 get_var(object, var)
 
-\S4method{get_var}{qenv,character}(object, var)
-
-\S4method{get_var}{qenv.error,ANY}(object, var)
-
-\S4method{[[}{qenv,ANY,missing}(x, i, j, ...)
-
-\method{[[}{qenv.error}(x, i, j, ...)
+\S4method{[[}{qenv}(x, i)
 }
 \arguments{
-\item{object}{(\code{qenv})}
+\item{object, x}{(\code{qenv})}
 
-\item{var}{(\code{character(1)}) name of the variable to pull from the environment.}
-
-\item{x}{(\code{qenv})}
-
-\item{i}{(\code{character}) name of the binding in environment (name of the variable)}
-
-\item{j}{not used}
-
-\item{...}{not used}
+\item{var, i}{(\code{character(1)}) variable name.}
 }
 \value{
 The value of required variable (\code{var}) within \code{qenv} object.
 }
 \description{
-Get object from the \code{qenv} environment.
+Retrieve variables from the \code{qenv} environment.
 }
 \examples{
 q <- qenv()

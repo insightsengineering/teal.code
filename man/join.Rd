@@ -3,17 +3,11 @@
 \name{join}
 \alias{join}
 \alias{join,qenv,qenv-method}
-\alias{join,qenv.error,ANY-method}
 \alias{join,qenv,qenv.error-method}
-\title{Join two \code{qenv} objects}
+\alias{join,qenv.error,ANY-method}
+\title{Join \code{qenv} Objects}
 \usage{
 join(x, y)
-
-\S4method{join}{qenv,qenv}(x, y)
-
-\S4method{join}{qenv.error,ANY}(x, y)
-
-\S4method{join}{qenv,qenv.error}(x, y)
 }
 \arguments{
 \item{x}{(\code{qenv})}
@@ -24,12 +18,13 @@ join(x, y)
 \code{qenv} object.
 }
 \description{
-\code{join()} perform checks and merges two \code{qenv} objects into one \code{qenv} object.
+Checks and merges two \code{qenv} objects into one \code{qenv} object.
+}
+\details{
 Any common code at the start of the \code{qenvs} is only placed once at the start of the joined \code{qenv}.
 This allows consistent behavior when joining \code{qenvs} which share a common ancestor.
 See below for an example.
-}
-\details{
+
 There are some situations where \code{join()} cannot be properly performed, such as these three scenarios:
 \enumerate{
 \item Both \code{qenv} objects contain an object of the same name but are not identical. \cr\cr
