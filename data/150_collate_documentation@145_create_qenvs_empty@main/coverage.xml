@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.924882629107981" branch-rate="0" lines-covered="197" lines-valid="213" branches-covered="0" branches-valid="0" complexity="0" version="3.6.3" timestamp="2023-12-05 08:46:16.144139">
+<coverage line-rate="0.924882629107981" branch-rate="0" lines-covered="197" lines-valid="213" branches-covered="0" branches-valid="0" complexity="0" version="3.6.3" timestamp="2023-12-05 11:19:59.880729">
   <sources>
     <source>/__w/teal.code/teal.code/teal.code</source>
   </sources>
@@ -72,9 +72,9 @@
           <methods>
             <method name="qenv" signature="" line-rate="0.962962962962963" branch-rate="0" complexity="0">
               <lines>
-                <line number="22" hits="75" branch="false"/>
-                <line number="23" hits="75" branch="false"/>
-                <line number="24" hits="75" branch="false"/>
+                <line number="26" hits="75" branch="false"/>
+                <line number="27" hits="75" branch="false"/>
+                <line number="28" hits="75" branch="false"/>
                 <line number="35" hits="20" branch="false"/>
                 <line number="36" hits="20" branch="false"/>
                 <line number="37" hits="19" branch="false"/>
@@ -103,55 +103,55 @@
             </method>
             <method name="new_qenv" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="48" hits="0" branch="false"/>
-                <line number="49" hits="0" branch="false"/>
+                <line number="54" hits="0" branch="false"/>
+                <line number="55" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="environment#expression" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="56" hits="0" branch="false"/>
+                <line number="62" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="environment#character" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="64" hits="0" branch="false"/>
-                <line number="65" hits="0" branch="false"/>
-                <line number="66" hits="0" branch="false"/>
-                <line number="67" hits="0" branch="false"/>
-                <line number="68" hits="0" branch="false"/>
-                <line number="69" hits="0" branch="false"/>
                 <line number="70" hits="0" branch="false"/>
                 <line number="71" hits="0" branch="false"/>
+                <line number="72" hits="0" branch="false"/>
+                <line number="73" hits="0" branch="false"/>
+                <line number="74" hits="0" branch="false"/>
+                <line number="75" hits="0" branch="false"/>
+                <line number="76" hits="0" branch="false"/>
+                <line number="77" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="environment#language" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="79" hits="0" branch="false"/>
+                <line number="85" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="missing#missing" signature="" line-rate="0" branch-rate="0" complexity="0">
               <lines>
-                <line number="87" hits="0" branch="false"/>
+                <line number="93" hits="0" branch="false"/>
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="22" hits="75" branch="false"/>
-            <line number="23" hits="75" branch="false"/>
-            <line number="24" hits="75" branch="false"/>
-            <line number="48" hits="0" branch="false"/>
-            <line number="49" hits="0" branch="false"/>
-            <line number="56" hits="0" branch="false"/>
-            <line number="64" hits="0" branch="false"/>
-            <line number="65" hits="0" branch="false"/>
-            <line number="66" hits="0" branch="false"/>
-            <line number="67" hits="0" branch="false"/>
-            <line number="68" hits="0" branch="false"/>
-            <line number="69" hits="0" branch="false"/>
+            <line number="26" hits="75" branch="false"/>
+            <line number="27" hits="75" branch="false"/>
+            <line number="28" hits="75" branch="false"/>
+            <line number="54" hits="0" branch="false"/>
+            <line number="55" hits="0" branch="false"/>
+            <line number="62" hits="0" branch="false"/>
             <line number="70" hits="0" branch="false"/>
             <line number="71" hits="0" branch="false"/>
-            <line number="79" hits="0" branch="false"/>
-            <line number="87" hits="0" branch="false"/>
+            <line number="72" hits="0" branch="false"/>
+            <line number="73" hits="0" branch="false"/>
+            <line number="74" hits="0" branch="false"/>
+            <line number="75" hits="0" branch="false"/>
+            <line number="76" hits="0" branch="false"/>
+            <line number="77" hits="0" branch="false"/>
+            <line number="85" hits="0" branch="false"/>
+            <line number="93" hits="0" branch="false"/>
           </lines>
         </class>
         <class name="qenv-eval_code.R" filename="R/qenv-eval_code.R" line-rate="0.961538461538462" branch-rate="0" complexity="0">
@@ -320,9 +320,9 @@
             </method>
             <method name="qenv" signature="" line-rate="0.962962962962963" branch-rate="0" complexity="0">
               <lines>
-                <line number="22" hits="75" branch="false"/>
-                <line number="23" hits="75" branch="false"/>
-                <line number="24" hits="75" branch="false"/>
+                <line number="26" hits="75" branch="false"/>
+                <line number="27" hits="75" branch="false"/>
+                <line number="28" hits="75" branch="false"/>
                 <line number="35" hits="20" branch="false"/>
                 <line number="36" hits="20" branch="false"/>
                 <line number="37" hits="19" branch="false"/>
@@ -469,9 +469,9 @@
             </method>
             <method name="qenv" signature="" line-rate="0.962962962962963" branch-rate="0" complexity="0">
               <lines>
-                <line number="22" hits="75" branch="false"/>
-                <line number="23" hits="75" branch="false"/>
-                <line number="24" hits="75" branch="false"/>
+                <line number="26" hits="75" branch="false"/>
+                <line number="27" hits="75" branch="false"/>
+                <line number="28" hits="75" branch="false"/>
                 <line number="35" hits="20" branch="false"/>
                 <line number="36" hits="20" branch="false"/>
                 <line number="37" hits="19" branch="false"/>
@@ -541,9 +541,9 @@
             </method>
             <method name="qenv" signature="" line-rate="0.962962962962963" branch-rate="0" complexity="0">
               <lines>
-                <line number="22" hits="75" branch="false"/>
-                <line number="23" hits="75" branch="false"/>
-                <line number="24" hits="75" branch="false"/>
+                <line number="26" hits="75" branch="false"/>
+                <line number="27" hits="75" branch="false"/>
+                <line number="28" hits="75" branch="false"/>
                 <line number="35" hits="20" branch="false"/>
                 <line number="36" hits="20" branch="false"/>
                 <line number="37" hits="19" branch="false"/>
@@ -858,9 +858,9 @@
           <methods>
             <method name="qenv" signature="" line-rate="0.962962962962963" branch-rate="0" complexity="0">
               <lines>
-                <line number="22" hits="75" branch="false"/>
-                <line number="23" hits="75" branch="false"/>
-                <line number="24" hits="75" branch="false"/>
+                <line number="26" hits="75" branch="false"/>
+                <line number="27" hits="75" branch="false"/>
+                <line number="28" hits="75" branch="false"/>
                 <line number="35" hits="20" branch="false"/>
                 <line number="36" hits="20" branch="false"/>
                 <line number="37" hits="19" branch="false"/>
