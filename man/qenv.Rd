@@ -56,6 +56,8 @@ Environment being a result of the \code{code} evaluation.}
 \code{within} returns a \code{qenv} object with \code{expr} evaluated or \code{qenv.error} if evaluation fails.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
+
 Create a \code{qenv} object and evaluate code in it to track code history.
 }
 \details{
@@ -133,5 +135,7 @@ do.call(within, list(q, do.call(c, exprlist)))
 
 }
 \seealso{
+\code{\link[=get_var]{get_var()}}, \code{\link[=get_warnings]{get_warnings()}}, \code{\link[=join]{join()}}, \code{\link[=concat]{concat()}}
+
 \code{\link[base:with]{base::within}}
 }

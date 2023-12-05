@@ -1,8 +1,12 @@
 #' Code Tracking With `qenv` Object
 #'
+#' @description
+#' `r badge("stable")`
+#'
 #' Create a `qenv` object and evaluate code in it to track code history.
 #'
 #' @details
+#'
 #' `qenv()` instantiates a `qenv` with an empty environment.
 #' Any changes must be made by evaluating code in it with `eval_code` or `within`, thereby ensuring reproducibility.
 #'
@@ -42,7 +46,9 @@ qenv <- function() {
 #' @aliases new_qenv,environment,language-method
 #' @aliases new_qenv,environment,missing-method
 #' @aliases new_qenv,missing,missing-method
-
+#'
+#' @seealso [`get_var()`], [`get_warnings()`], [`join()`], [`concat()`]
+#'
 #' @export
 setGeneric("new_qenv", function(env = new.env(parent = parent.env(.GlobalEnv)), code = character()) {
   lifecycle::deprecate_warn(when = " 0.4.2", what = "new_qenv()", with = "qenv()", always = TRUE)
