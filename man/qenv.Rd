@@ -62,8 +62,8 @@ Create a \code{qenv} object and evaluate code in it to track code history.
 \code{qenv()} instantiates a \code{qenv} with an empty environment.
 Any changes must be made by evaluating code in it with \code{eval_code} or \code{within}, thereby ensuring reproducibility.
 
-\code{new_qenv()} can instantiate a \code{qenv} object with data in the environment and code registered.
-This method is deprecated.
+\code{new_qenv()} (deprecated and not recommended)
+can instantiate a \code{qenv} object with data in the environment and code registered.
 
 \code{eval_code} evaluates given code in the \code{qenv} environment and appends it to the \code{code} slot.
 Thus, if the \code{qenv} had been instantiated empty, contents of the environment are always a result of the stored code.
