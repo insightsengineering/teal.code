@@ -71,3 +71,11 @@ within.qenv <- function(data, expr, ...) {
 
   eval_code(object = data, code = as.expression(calls))
 }
+
+
+#' @keywords internal
+#'
+#' @export
+within.qenv.error <- function(data, expr, ...) {
+  data
+}

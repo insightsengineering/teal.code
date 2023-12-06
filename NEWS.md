@@ -8,6 +8,7 @@
 
 * Exported the `qenv` class from the package.
 * The `@code` field in the `qenv` class now holds `character`, not `expression`.
+* Added `within` support for `qenv.error` class.
 
 # teal.code 0.4.1
 
