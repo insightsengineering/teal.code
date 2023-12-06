@@ -105,3 +105,12 @@ testthat::test_that("external values are not taken from calling frame", {
 
 # nolint end
 # styler: on
+
+testthat::test_that("within run on qenv.error returns the qenv.error as is", {
+  q <- qenv()
+  q <- within(q, i <- iris)
+  qe <- within(q, stop("right there"))
+  qee <- within(qe, m <- mtcars)
+
+  testthat::expect_identical(qe, qee)
+})
