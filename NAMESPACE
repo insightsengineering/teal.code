@@ -2,6 +2,7 @@
 
 S3method("[[",qenv.error)
 S3method(within,qenv)
+S3method(within,qenv.error)
 export(concat)
 export(dev_suppress)
 export(eval_code)
