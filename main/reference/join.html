@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">teal.code</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9014</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9015</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,18 +33,6 @@
 <li class="nav-item">
   <a class="nav-link" href="../news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/release-candidate">release-candidate</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/v0.4.1-rc1">v0.4.1-rc1</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/v0.4.0">v0.4.0</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/v0.3.0">v0.3.0</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/v0.2.0">v0.2.0</a> </div></li>
-<!-- end dropdown for versions -->
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-reports">Reports</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-reports">
@@ -200,8 +188,7 @@ To fix this, we can set <code>i &lt;- NULL</code> in the code expression for bot
 <span class="r-in"><span><span class="va">q2</span> <span class="op">&lt;-</span> <span class="fu"><a href="qenv.html">eval_code</a></span><span class="op">(</span><span class="va">q2</span>, <span class="st">"mtcars2 &lt;- mtcars"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">qq</span> <span class="op">&lt;-</span> <span class="fu">join</span><span class="op">(</span><span class="va">q1</span>, <span class="va">q2</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="qenv.html">get_code</a></span><span class="op">(</span><span class="va">qq</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "iris1 &lt;- iris\nmtcars1 &lt;- mtcars" "iris2 &lt;- iris"                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3] "mtcars2 &lt;- mtcars"               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "iris1 &lt;- iris\nmtcars1 &lt;- mtcars\niris2 &lt;- iris\nmtcars2 &lt;- mtcars"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">common_q</span> <span class="op">&lt;-</span> <span class="fu"><a href="qenv.html">eval_code</a></span><span class="op">(</span><span class="va">q</span>, <span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">quote</a></span><span class="op">(</span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">y_q</span> <span class="op">&lt;-</span> <span class="fu"><a href="qenv.html">eval_code</a></span><span class="op">(</span><span class="va">common_q</span>, <span class="fu"><a href="https://rdrr.io/r/base/substitute.html" class="external-link">quote</a></span><span class="op">(</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -209,7 +196,7 @@ To fix this, we can set <code>i &lt;- NULL</code> in the code expression for bot
 <span class="r-in"><span><span class="va">join_q</span> <span class="op">&lt;-</span> <span class="fu">join</span><span class="op">(</span><span class="va">y_q</span>, <span class="va">z_q</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># get_code only has "x &lt;- 1" occurring once</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="qenv.html">get_code</a></span><span class="op">(</span><span class="va">join_q</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "x &lt;- 1"     "y &lt;- x * 2" "z &lt;- x * 3"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "x &lt;- 1\ny &lt;- x * 2\nz &lt;- x * 3"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
