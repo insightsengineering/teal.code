@@ -59,7 +59,7 @@ To extract objects from a `qenv`, use `[[`; this is particularly useful for disp
 ```{r}
 print(q2[["y"]])
 
-cat(paste(get_code(q2), collapse = "\n"))
+cat(get_code(q2))
 ```
 
 ### Substitutions

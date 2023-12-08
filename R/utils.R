@@ -24,12 +24,6 @@ dev_suppress <- function(x) {
   force(x)
 }
 
-format_expression <- function(code) {
-  code <- lang2calls(code)
-  paste(code, collapse = "\n")
-}
-
-
 # convert language object or lists of language objects to list of simple calls
 # @param x `language` object or a list of thereof
 # @return

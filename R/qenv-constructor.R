@@ -59,7 +59,7 @@ setMethod(
   "new_qenv",
   signature = c(env = "environment", code = "expression"),
   function(env, code) {
-    new_qenv(env, format_expression(code))
+    new_qenv(env, paste(lang2calls(code), collapse = "\n"))
   }
 )
 
@@ -82,7 +82,7 @@ setMethod(
   "new_qenv",
   signature = c(env = "environment", code = "language"),
   function(env, code) {
-    new_qenv(env = env, code = format_expression(code))
+    new_qenv(env = env, code = paste(lang2calls(code), collapse = "\n"))
   }
 )
 

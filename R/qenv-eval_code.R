@@ -89,11 +89,11 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
 })
 
 setMethod("eval_code", signature = c("qenv", "language"), function(object, code) {
-  eval_code(object, code = format_expression(code))
+  eval_code(object, code = paste(lang2calls(code), collapse = "\n"))
 })
 
 setMethod("eval_code", signature = c("qenv", "expression"), function(object, code) {
-  eval_code(object, code = format_expression(code))
+  eval_code(object, code = paste(lang2calls(code), collapse = "\n"))
 })
 
 setMethod("eval_code", signature = c("qenv.error", "ANY"), function(object, code) {
