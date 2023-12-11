@@ -61,7 +61,7 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
               deparse1(single_call)
             ),
             class = c("qenv.error", "try-error", "simpleError"),
-            trace = object@code
+            trace = single_call
           )
         }
       ),
