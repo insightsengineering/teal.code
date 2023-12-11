@@ -2,34 +2,29 @@
 % Please edit documentation in R/qenv-get_warnings.R
 \name{get_warnings}
 \alias{get_warnings}
-\alias{get_warnings,qenv.error-method}
 \alias{get_warnings,qenv-method}
+\alias{get_warnings,qenv.error-method}
 \alias{get_warnings,NULL-method}
-\title{Get the warnings of \code{qenv} object}
+\title{Get Warnings From \code{qenv} Object}
 \usage{
 get_warnings(object)
-
-\S4method{get_warnings}{qenv.error}(object)
-
-\S4method{get_warnings}{qenv}(object)
-
-\S4method{get_warnings}{`NULL`}(object)
 }
 \arguments{
 \item{object}{(\code{qenv})}
 }
 \value{
-\code{character} containing warning information or \code{NULL} if no warnings
+\code{character} containing warning information or \code{NULL} if no warnings.
 }
 \description{
-Get the warnings of \code{qenv} object
+Retrieve all warnings raised during code evaluation in a \code{qenv}.
 }
 \examples{
-data_q <- new_qenv()
-data_q <- eval_code(new_qenv(), "iris_data <- iris")
+data_q <- qenv()
+data_q <- eval_code(data_q, "iris_data <- iris")
 warning_qenv <- eval_code(
   data_q,
   bquote(p <- hist(iris_data[, .("Sepal.Length")], ff = ""))
 )
 cat(get_warnings(warning_qenv))
+
 }

@@ -1,35 +1,68 @@
-#' Initialize `qenv` object
+#' Code Tracking With `qenv` Object
 #'
-#' Initialize `qenv` object with `code` and `env`. In order to have `qenv` reproducible
-#' one needs to initialize with `env` which can be reproduced by the `code`. Alternatively, one
-#' can create an empty `qenv` and evaluate the expressions in this object using `eval_code`.
-#' @name new_qenv
+#' @description
+#' `r badge("stable")`
 #'
-#' @param code (`character(1)` or `language`) code to evaluate. Accepts and stores comments also.
-#' @param env (`environment`) Environment being a result of the `code` evaluation.
+#' Create a `qenv` object and evaluate code in it to track code history.
+#'
+#' @details
+#'
+#' `qenv()` instantiates a `qenv` with an empty environment.
+#' Any changes must be made by evaluating code in it with `eval_code` or `within`, thereby ensuring reproducibility.
+#'
+#' `new_qenv()` (`r badge("deprecated")` and not recommended)
+#' can instantiate a `qenv` object with data in the environment and code registered.
+#'
+#' @name qenv
 #'
 #' @examples
+#' # create empty qenv
+#' qenv()
+#'
+#' @return `qenv` and `new_qenv` return a `qenv` object.
+#'
+#' @export
+qenv <- function() {
+  q_env <- new.env(parent = parent.env(.GlobalEnv))
+  lockEnvironment(q_env, bindings = TRUE)
+  methods::new("qenv", env = q_env)
+}
+
+
+#' @param code `r badge("deprecated")`
+#'  (`character(1)` or `language`) code to evaluate. Accepts and stores comments also.
+#' @param env `r badge("deprecated")` (`environment`)
+#'  Environment being a result of the `code` evaluation.
+#'
+#' @examples
+#' # create qenv with data and code (deprecated)
 #' new_qenv(env = list2env(list(a = 1)), code = quote(a <- 1))
 #' new_qenv(env = list2env(list(a = 1)), code = parse(text = "a <- 1", keep.source = TRUE))
 #' new_qenv(env = list2env(list(a = 1)), code = "a <- 1")
 #'
-#' @return `qenv` object.
+#' @rdname qenv
+#' @aliases new_qenv,environment,expression-method
+#' @aliases new_qenv,environment,character-method
+#' @aliases new_qenv,environment,language-method
+#' @aliases new_qenv,environment,missing-method
+#' @aliases new_qenv,missing,missing-method
+#'
+#' @seealso [`get_var()`], [`get_warnings()`], [`join()`], [`concat()`]
 #'
 #' @export
-setGeneric("new_qenv", function(env = new.env(parent = parent.env(.GlobalEnv)), code = character()) standardGeneric("new_qenv")) # nolint
+setGeneric("new_qenv", function(env = new.env(parent = parent.env(.GlobalEnv)), code = character()) {
+  lifecycle::deprecate_warn(when = " 0.4.2", what = "new_qenv()", with = "qenv()", always = TRUE)
+  standardGeneric("new_qenv")
+})
 
-#' @rdname new_qenv
-#' @export
 setMethod(
   "new_qenv",
   signature = c(env = "environment", code = "expression"),
   function(env, code) {
-    new_qenv(env, format_expression(code))
+    new_qenv(env, paste(lang2calls(code), collapse = "\n"))
   }
 )
 
-#' @rdname new_qenv
-#' @export
 setMethod(
   "new_qenv",
   signature = c(env = "environment", code = "character"),
@@ -45,18 +78,14 @@ setMethod(
   }
 )
 
-#' @rdname new_qenv
-#' @export
 setMethod(
   "new_qenv",
   signature = c(env = "environment", code = "language"),
   function(env, code) {
-    new_qenv(env = env, code = format_expression(code))
+    new_qenv(env = env, code = paste(lang2calls(code), collapse = "\n"))
   }
 )
 
-#' @rdname new_qenv
-#' @export
 setMethod(
   "new_qenv",
   signature = c(code = "missing", env = "missing"),

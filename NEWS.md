@@ -1,9 +1,15 @@
-# teal.code 0.4.1.9009
+# teal.code 0.4.1.9016
+
+### Breaking Change
+
+* `qenv` objects should now be created with `qenv()` rather than `new_qenv()`. The new constructor always creates an empty object. `new_qenv` is now deprecated.
 
 ### Miscellaneous
 
 * Exported the `qenv` class from the package.
 * The `@code` field in the `qenv` class now holds `character`, not `expression`.
+* The `get_code` method  returns a single concatenated string of the code.
+* Added `within` support for `qenv.error` class.
 
 # teal.code 0.4.1
 

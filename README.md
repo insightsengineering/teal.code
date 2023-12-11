@@ -64,7 +64,7 @@ Below is the showcase of the example usage
 
 ```r
 library(teal.code)
-my_qenv <- new_qenv(env = list2env(list(x = 5)), code = "x <- 5")
+my_qenv <- qenv(env = list2env(list(x = 5)), code = "x <- 5")
 my_qenv
 #> Parent: <environment: package:teal.code>
 #> Bindings:
@@ -88,7 +88,7 @@ qenv_2[["y"]]
 ```
 
 ```r
-cat(paste(get_code(qenv_2), collapse = "\n"))
+cat(get_code(qenv_2))
 #> x <- 5
 #> y <- x * 2
 #> z <- y * 2
@@ -106,8 +106,8 @@ If you encounter a bug or you have a feature request - please file an issue. For
 
 ### Stargazers
 
-[![Stargazers repo roster for @insightsengineering/teal.code](https://reporoster.com/stars/insightsengineering/teal.code)](https://github.com/insightsengineering/teal.code/stargazers)
+[![Stargazers repo roster for @insightsengineering/teal.code](http://reporoster.com/stars/insightsengineering/teal.code)](https://github.com/insightsengineering/teal.code/stargazers)
 
 ### Forkers
 
-[![Forkers repo roster for @insightsengineering/teal.code](https://reporoster.com/forks/insightsengineering/teal.code)](https://github.com/insightsengineering/teal.code/network/members)
+[![Forkers repo roster for @insightsengineering/teal.code](http://reporoster.com/forks/insightsengineering/teal.code)](https://github.com/insightsengineering/teal.code/network/members)

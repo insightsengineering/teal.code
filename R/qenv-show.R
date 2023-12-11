@@ -1,16 +1,19 @@
-#' Show the `qenv` object
+#' Display `qenv` Object
 #'
-#' Prints the `qenv` object
+#' Prints the `qenv` object.
+#'
 #' @param object (`qenv`)
-#' @return nothing
-#' @importFrom methods show
+#'
+#' @return `object`, invisibly.
+#'
 #' @examples
-#' q1 <- new_qenv(
-#'   code = "a <- 5
-#'     b <- data.frame(x = 1:10)",
-#'   env = list2env(list(a = 5, b = data.frame(x = 1:10)))
-#' )
+#' q <- qenv()
+#' q1 <- eval_code(q, expression(a <- 5, b <- data.frame(x = 1:10)))
 #' q1
+#'
+#' @aliases show-qenv
+#'
+#' @importFrom methods show
 #' @export
 setMethod("show", "qenv", function(object) {
   rlang::env_print(object@env)

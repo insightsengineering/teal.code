@@ -5,15 +5,9 @@
 \alias{concat,qenv,qenv-method}
 \alias{concat,qenv.error,ANY-method}
 \alias{concat,qenv,qenv.error-method}
-\title{Concatenate two \code{qenv} objects}
+\title{Concatenate Two \code{qenv} Objects}
 \usage{
 concat(x, y)
-
-\S4method{concat}{qenv,qenv}(x, y)
-
-\S4method{concat}{qenv.error,ANY}(x, y)
-
-\S4method{concat}{qenv,qenv.error}(x, y)
 }
 \arguments{
 \item{x}{(\code{qenv})}
@@ -25,21 +19,19 @@ concat(x, y)
 }
 \description{
 Combine two \code{qenv} objects by simple concatenate their environments and the code.
+}
+\details{
 We recommend to use the \code{join} method to have a stricter control
 in case \code{x} and \code{y} contain duplicated bindings and code.
 RHS argument content has priority over the LHS one.
 }
 \examples{
-q1 <- new_qenv(
-  code = c(iris1 = "iris1 <- iris", mtcars1 = "mtcars1 <- mtcars"),
-  env = list2env(list(
-    iris1 = iris,
-    mtcars1 = mtcars
-  ))
-)
+q <- qenv()
+q1 <- eval_code(q, expression(iris1 <- iris, mtcars1 <- mtcars))
 q2 <- q1
 q1 <- eval_code(q1, "iris2 <- iris")
 q2 <- eval_code(q2, "mtcars2 <- mtcars")
 qq <- concat(q1, q2)
 get_code(qq)
+
 }
