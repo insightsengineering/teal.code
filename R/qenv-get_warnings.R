@@ -1,18 +1,26 @@
-#' Get the warnings of `qenv` object
+#' Get Warnings From `qenv` Object
+#'
+#' Retrieve all warnings raised during code evaluation in a `qenv`.
 #'
 #' @param object (`qenv`)
 #'
-#' @return `character` containing warning information or `NULL` if no warnings
-#' @export
+#' @return `character` containing warning information or `NULL` if no warnings.
 #'
 #' @examples
-#' data_q <- new_qenv()
-#' data_q <- eval_code(new_qenv(), "iris_data <- iris")
+#' data_q <- qenv()
+#' data_q <- eval_code(data_q, "iris_data <- iris")
 #' warning_qenv <- eval_code(
 #'   data_q,
 #'   bquote(p <- hist(iris_data[, .("Sepal.Length")], ff = ""))
 #' )
 #' cat(get_warnings(warning_qenv))
+#'
+#' @name get_warnings
+#' @rdname get_warnings
+#' @aliases get_warnings,qenv-method
+#' @aliases get_warnings,qenv.error-method
+#' @aliases get_warnings,NULL-method
+#'
 #' @export
 setGeneric("get_warnings", function(object) {
   # this line forces evaluation of object before passing to the generic
@@ -24,14 +32,6 @@ setGeneric("get_warnings", function(object) {
   standardGeneric("get_warnings")
 })
 
-#' @rdname get_warnings
-#' @export
-setMethod("get_warnings", signature = c("qenv.error"), function(object) {
-  NULL
-})
-
-#' @rdname get_warnings
-#' @export
 setMethod("get_warnings", signature = c("qenv"), function(object) {
   if (all(object@warnings == "")) {
     return(NULL)
@@ -42,7 +42,7 @@ setMethod("get_warnings", signature = c("qenv"), function(object) {
       if (warn == "") {
         return(NULL)
       }
-      sprintf("%swhen running code:\n%s", warn, paste(format_expression(expr), collapse = "\n"))
+      sprintf("%swhen running code:\n%s", warn, paste(lang2calls(expr), collapse = "\n"))
     },
     warn = as.list(object@warnings),
     expr = as.list(as.character(object@code))
@@ -52,12 +52,14 @@ setMethod("get_warnings", signature = c("qenv"), function(object) {
   sprintf(
     "~~~ Warnings ~~~\n\n%s\n\n~~~ Trace ~~~\n\n%s",
     paste(lines, collapse = "\n\n"),
-    paste(get_code(object), collapse = "\n")
+    get_code(object)
   )
 })
 
-#' @rdname get_warnings
-#' @export
+setMethod("get_warnings", signature = c("qenv.error"), function(object) {
+  NULL
+})
+
 setMethod("get_warnings", "NULL", function(object) {
   NULL
 })

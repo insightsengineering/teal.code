@@ -7,7 +7,5 @@
 #' @keywords internal
 "_PACKAGE"
 
-#' @import shiny
 #' @importFrom lifecycle badge
-#' @importFrom styler style_text
 NULL

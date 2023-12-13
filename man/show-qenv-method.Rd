@@ -2,7 +2,8 @@
 % Please edit documentation in R/qenv-show.R
 \name{show,qenv-method}
 \alias{show,qenv-method}
-\title{Show the \code{qenv} object}
+\alias{show-qenv}
+\title{Display \code{qenv} Object}
 \usage{
 \S4method{show}{qenv}(object)
 }
@@ -10,16 +11,14 @@
 \item{object}{(\code{qenv})}
 }
 \value{
-nothing
+\code{object}, invisibly.
 }
 \description{
-Prints the \code{qenv} object
+Prints the \code{qenv} object.
 }
 \examples{
-q1 <- new_qenv(
-  code = "a <- 5
-    b <- data.frame(x = 1:10)",
-  env = list2env(list(a = 5, b = data.frame(x = 1:10)))
-)
+q <- qenv()
+q1 <- eval_code(q, expression(a <- 5, b <- data.frame(x = 1:10)))
 q1
+
 }
