@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.91747572815534" branch-rate="0" lines-covered="189" lines-valid="206" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2023-12-14 12:05:59.376794">
+<coverage line-rate="0.91747572815534" branch-rate="0" lines-covered="189" lines-valid="206" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2023-12-14 12:12:48.025142">
   <sources>
     <source>/__w/teal.code/teal.code/teal.code</source>
   </sources>
@@ -791,30 +791,30 @@
           <methods>
             <method name="within.qenv" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="59" hits="19" branch="false"/>
-                <line number="60" hits="19" branch="false"/>
-                <line number="63" hits="19" branch="false"/>
-                <line number="64" hits="7" branch="false"/>
-                <line number="67" hits="19" branch="false"/>
+                <line number="57" hits="19" branch="false"/>
+                <line number="58" hits="19" branch="false"/>
+                <line number="61" hits="19" branch="false"/>
+                <line number="62" hits="7" branch="false"/>
+                <line number="65" hits="19" branch="false"/>
+                <line number="68" hits="19" branch="false"/>
                 <line number="70" hits="19" branch="false"/>
-                <line number="72" hits="19" branch="false"/>
               </lines>
             </method>
             <method name="within.qenv.error" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="80" hits="1" branch="false"/>
+                <line number="78" hits="1" branch="false"/>
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="59" hits="19" branch="false"/>
-            <line number="60" hits="19" branch="false"/>
-            <line number="63" hits="19" branch="false"/>
-            <line number="64" hits="7" branch="false"/>
-            <line number="67" hits="19" branch="false"/>
+            <line number="57" hits="19" branch="false"/>
+            <line number="58" hits="19" branch="false"/>
+            <line number="61" hits="19" branch="false"/>
+            <line number="62" hits="7" branch="false"/>
+            <line number="65" hits="19" branch="false"/>
+            <line number="68" hits="19" branch="false"/>
             <line number="70" hits="19" branch="false"/>
-            <line number="72" hits="19" branch="false"/>
-            <line number="80" hits="1" branch="false"/>
+            <line number="78" hits="1" branch="false"/>
           </lines>
         </class>
         <class name="utils.R" filename="R/utils.R" line-rate="1" branch-rate="0" complexity="0">
