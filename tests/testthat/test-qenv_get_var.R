@@ -24,3 +24,15 @@ testthat::test_that("get_var and `[[` return NULL if object not in qenv environm
   testthat::expect_null(q[["w"]])
   testthat::expect_message(q[["w"]], "object 'w' not found")
 })
+
+testthat::test_that("get_var and `[[` only returns objects from qenv, not parent environment(s)", {
+  q <- qenv()
+
+  testthat::expect_null(get_var(q, "iris"))
+  testthat::expect_null(q[["iris"]])
+
+  qq <- within(q, iris <- head(iris))
+
+  testthat::expect_s3_class(get_var(qq, "iris"), "data.frame")
+  testthat::expect_identical(dim(get_var(qq, "iris")), c(6L, 5L))
+})
