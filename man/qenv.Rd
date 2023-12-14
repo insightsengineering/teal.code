@@ -135,7 +135,5 @@ do.call(within, list(q, do.call(c, exprlist)))
 
 }
 \seealso{
-\code{\link[=get_var]{get_var()}}, \code{\link[=get_warnings]{get_warnings()}}, \code{\link[=join]{join()}}, \code{\link[=concat]{concat()}}
-
-\code{\link[base:with]{base::within}}
+\code{\link[base:with]{base::within()}}, \code{\link[=get_var]{get_var()}}, \code{\link[=get_warnings]{get_warnings()}}, \code{\link[=join]{join()}}, \code{\link[=concat]{concat()}}
 }
