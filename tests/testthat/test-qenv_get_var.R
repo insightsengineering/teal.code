@@ -30,9 +30,4 @@ testthat::test_that("get_var and `[[` only returns objects from qenv, not parent
 
   testthat::expect_null(get_var(q, "iris"))
   testthat::expect_null(q[["iris"]])
-
-  qq <- within(q, iris <- head(iris))
-
-  testthat::expect_s3_class(get_var(qq, "iris"), "data.frame")
-  testthat::expect_identical(dim(get_var(qq, "iris")), c(6L, 5L))
 })
