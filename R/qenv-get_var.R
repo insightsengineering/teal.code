@@ -28,7 +28,7 @@ setGeneric("get_var", function(object, var) {
 
 setMethod("get_var", signature = c("qenv", "character"), function(object, var) {
   tryCatch(
-    get(var, envir = object@env),
+    get(var, envir = object@env, inherits = FALSE),
     error = function(e) {
       message(conditionMessage(e))
       NULL
