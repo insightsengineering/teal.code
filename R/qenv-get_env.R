@@ -16,7 +16,7 @@
 #' @aliases get_env,qenv.error-method
 #'
 #' @export
-setGeneric("get_env", function(object, ...) {
+setGeneric("get_env", function(object) {
   standardGeneric("get_env")
 })
 

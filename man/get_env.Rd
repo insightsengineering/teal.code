@@ -6,7 +6,7 @@
 \alias{get_env,qenv.error-method}
 \title{Extract Environment Included in \code{qenv}}
 \usage{
-get_env(object, ...)
+get_env(object)
 }
 \arguments{
 \item{object}{(\code{qenv})}
