@@ -12,14 +12,17 @@ get_env(object)
 \item{object}{(\code{qenv})}
 }
 \value{
-A \code{character} vector with names of objects.
+An \code{environment} stored in \code{qenv@env} slot.
 }
 \description{
 The extraction of environment included in \code{qenv@env} allows to list object names included in \code{qenv@env} slot.
 }
 \examples{
 q <- qenv()
-q1 <- within(q, {a <- 5; b <- data.frame(x = 1:10)})
+q1 <- within(q, {
+  a <- 5
+  b <- data.frame(x = 1:10)
+})
 get_env(q1)
 ls(get_env(q1))
 

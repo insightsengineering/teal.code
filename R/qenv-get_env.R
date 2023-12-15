@@ -4,7 +4,7 @@
 #'
 #' @param object (`qenv`)
 #'
-#' @return A `character` vector with names of objects.
+#' @return An `environment` stored in `qenv@env` slot.
 #'
 #' @examples
 #' q <- qenv()
