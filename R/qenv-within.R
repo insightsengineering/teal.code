@@ -18,8 +18,6 @@
 #' @return
 #' `within` returns a `qenv` object with `expr` evaluated or `qenv.error` if evaluation fails.
 #'
-#' @seealso [`base::within`]
-#'
 #' @examples
 #' # evaluate code using within
 #' q <- qenv()

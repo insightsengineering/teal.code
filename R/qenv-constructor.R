@@ -47,7 +47,7 @@ qenv <- function() {
 #' @aliases new_qenv,environment,missing-method
 #' @aliases new_qenv,missing,missing-method
 #'
-#' @seealso [`get_var()`], [`get_warnings()`], [`join()`], [`concat()`]
+#' @seealso [`base::within()`], [`get_var()`], [`get_warnings()`], [`join()`], [`concat()`]
 #'
 #' @export
 setGeneric("new_qenv", function(env = new.env(parent = parent.env(.GlobalEnv)), code = character()) {
