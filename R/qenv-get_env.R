@@ -1,6 +1,6 @@
-#' Extract Environment Included in `qenv`
+#' Access Environment Included in `qenv`
 #'
-#' The extraction of environment included in `qenv@env` allows to list object names included in `qenv@env` slot.
+#' The access of environment included in `qenv@env` allows to e.g. list object names included in `qenv@env` slot.
 #'
 #' @param object (`qenv`)
 #'

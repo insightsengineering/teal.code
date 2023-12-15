@@ -4,7 +4,7 @@
 \alias{get_env}
 \alias{get_env,qenv-method}
 \alias{get_env,qenv.error-method}
-\title{Extract Environment Included in \code{qenv}}
+\title{Access Environment Included in \code{qenv}}
 \usage{
 get_env(object)
 }
@@ -15,7 +15,7 @@ get_env(object)
 An \code{environment} stored in \code{qenv@env} slot.
 }
 \description{
-The extraction of environment included in \code{qenv@env} allows to list object names included in \code{qenv@env} slot.
+The access of environment included in \code{qenv@env} allows to e.g. list object names included in \code{qenv@env} slot.
 }
 \examples{
 q <- qenv()
