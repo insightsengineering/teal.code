@@ -64,22 +64,31 @@ Below is the showcase of the example usage
 
 ```r
 library(teal.code)
-my_qenv <- qenv(env = list2env(list(x = 5)), code = "x <- 5")
+my_qenv <- qenv() |> eval_code("x <- 5")
 my_qenv
+#> <environment: 0x00000225cc85c7a0> [L]
 #> Parent: <environment: package:teal.code>
 #> Bindings:
 #> • x: <dbl> [L]
+get_env(my_qenv)
+#> <environment: 0x00000225cc85c7a0>
+ls(get_env(my_qenv))
+#> [1] "x"
 ```
 
 ```r
 qenv_2 <- eval_code(my_qenv, "y <- x * 2") |> eval_code("z <- y * 2")
 qenv_2
-#> <environment: 0x00000135b544cfe8> [L]
+#> <environment: 0x00000225ca866d68> [L]
 #> Parent: <environment: package:teal.code>
 #> Bindings:
 #> • x: <dbl> [L]
 #> • y: <dbl> [L]
 #> • z: <dbl> [L]
+get_env(qenv_2)
+#> <environment: 0x00000225ca866d68>
+ls(get_env(qenv_2))
+#> [1] "x" "y" "z"
 ```
 
 ```r

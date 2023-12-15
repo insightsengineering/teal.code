@@ -34,15 +34,18 @@ library(magrittr)
 # evaluate code in qenv
 my_qenv <- eval_code(empty_qenv, "x <- 2")
 print(my_qenv)
+get_env(my_qenv)
 
 
 q1 <- eval_code(my_qenv, "y <- x * 2") %>% eval_code("z <- y * 2")
 
 # my_qenv still contains only x
 print(my_qenv)
+ls(get_env(my_qenv))
 
 # q1 contains x, y and z
 print(q1)
+ls(get_env(q1))
 ```
 
 The same result can be achieved with the `within` method for the `qenv` class.
@@ -112,6 +115,7 @@ y_q <- eval_code(common_q, quote(z <- 5))
 join_q <- join(x_q, y_q)
 
 print(join_q)
+ls(get_env(join_q))
 ```
 
 The feasibility of joining `qenv` objects hinges on the contents of the environments and the code's order. Refer to the function documentation for further details..
