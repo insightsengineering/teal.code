@@ -41,6 +41,6 @@ testthat::test_that("get_code called with qenv.error returns error with trace in
   testthat::expect_equal(class(code), c("validation", "try-error", "simpleError", "error", "condition"))
   testthat::expect_equal(
     code$message,
-    "object 'v' not found \n when evaluating qenv code:\nw <- v\n\ntrace: \n c(\"x <- 1\", \"y <- x\", \"w <- v\")\n"
+    "object 'v' not found \n when evaluating qenv code:\nw <- v\n\ntrace: \n x <- 1\n y <- x\n w <- v\n"
   )
 })
