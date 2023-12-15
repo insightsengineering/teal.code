@@ -28,6 +28,7 @@ reference:
       - dev_suppress
       - eval_code
       - get_code
+      - get_env
       - get_var
       - get_warnings
       - join
