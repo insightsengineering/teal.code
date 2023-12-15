@@ -53,6 +53,7 @@ Collate:
     'qenv-constructor.R'
     'qenv-eval_code.R'
     'qenv-get_code.R'
+    'qenv-get_env.R'
     'qenv-get_var.R'
     'qenv-get_warnings.R'
     'qenv-join.R'
