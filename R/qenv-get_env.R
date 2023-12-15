@@ -8,7 +8,10 @@
 #'
 #' @examples
 #' q <- qenv()
-#' q1 <- within(q, {a <- 5; b <- data.frame(x = 1:10)})
+#' q1 <- within(q, {
+#'   a <- 5
+#'   b <- data.frame(x = 1:10)
+#' })
 #' get_env(q1)
 #' ls(get_env(q1))
 #'
