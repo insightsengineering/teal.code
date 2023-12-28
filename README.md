@@ -7,9 +7,9 @@
 [![Last Month Downloads](http://cranlogs.r-pkg.org/badges/last-month/teal.code?color=green)](https://cran.r-project.org/package=teal.code)
 [![Last Week Downloads](http://cranlogs.r-pkg.org/badges/last-week/teal.code?color=green)](https://cran.r-project.org/package=teal.code)
 
-[![Check 🛠](https://github.com/insightsengineering/teal.code/actions/workflows/check.yaml/badge.svg)](https://insightsengineering.github.io/teal.code/main/unit-test-report/)
+[![Check 🛠](https://github.com/insightsengineering/teal.code/actions/workflows/check.yaml/badge.svg)](https://insightsengineering.github.io/teal.code/latest-tag/unit-test-report/)
 [![Docs 📚](https://github.com/insightsengineering/teal.code/actions/workflows/docs.yaml/badge.svg)](https://insightsengineering.github.io/teal.code/)
-[![Code Coverage 📔](https://raw.githubusercontent.com/insightsengineering/teal.code/_xml_coverage_reports/data/main/badge.svg)](https://insightsengineering.github.io/teal.code/main/coverage-report/)
+[![Code Coverage 📔](https://raw.githubusercontent.com/insightsengineering/teal.code/_xml_coverage_reports/data/main/badge.svg)](https://insightsengineering.github.io/teal.code/latest-tag/coverage-report/)
 
 ![GitHub forks](https://img.shields.io/github/forks/insightsengineering/teal.code?style=social)
 ![GitHub repo stars](https://img.shields.io/github/stars/insightsengineering/teal.code?style=social)
