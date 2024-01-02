@@ -32,7 +32,7 @@ The features include:
 
 * the `qenv` class for tracking code and storing variables that integrates well with `shiny` reactive expressions for use in `shiny` applications whose outputs require reproducibility (_i.e._ the code used in the application can be retrieved and rerun)
 * ability to chain and join `qenv` objects together to provide fine-grained control over executed code
-* automatic error and warning handling for executed code
+* automatic handling of errors and warnings encountered when executed code
 
 `teal.code` also ships a [`shiny`](https://shiny.posit.co/) module that helps inspect the stored code as well as messages, warnings, and error messages resulting from evaluation via `shiny` web application.
 
