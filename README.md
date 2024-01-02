@@ -27,8 +27,8 @@
 
 ## Overview
 
-`teal.code` is an R library providing tools to store code and an execution environment associated with it. The features
-include:
+`teal.code` is an R library providing tools to store code and an execution environment associated with it.
+The features include:
 
 * an object `qenv` for storing code and an execution environment that integrates well with `shiny reactives` for use in `shiny` applications whose outputs require reproducibility (i.e. the code used to generate them)
 * ability to chain and join `qenv` objects together to provide fine-grained control over executed code
