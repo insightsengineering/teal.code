@@ -11,8 +11,6 @@
 #'          regardless of whether it exits normally or due to an error. This is necessary to
 #'          clean up the graphics device properly and avoid any potential issues.
 #'
-#' @import grDevices
-#'
 #' @return No return value, called for side effects.
 #'
 #' @examples
@@ -31,6 +29,7 @@ dev_suppress <- function(x) {
 #' returns a list of `calls`.
 #' Symbols and atomic vectors (which may get mixed up in a list) are returned wrapped in list.
 #' @keywords internal
+#' @noRd
 lang2calls <- function(x) {
   if (is.atomic(x) || is.symbol(x)) {
     return(list(x))
