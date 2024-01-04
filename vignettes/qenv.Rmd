@@ -99,7 +99,7 @@ summary(qq[["ii"]]$Species)
 summary(qq[["iii"]]$Species)
 ```
 
-See `?within.qenv` for more details.
+See `?qenv` for more details.
 
 
 ### Combining `qenv` objects
