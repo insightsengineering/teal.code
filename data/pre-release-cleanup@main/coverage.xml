@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.904306220095694" branch-rate="0" lines-covered="189" lines-valid="209" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-01-09 08:42:16.309014">
+<coverage line-rate="0.904306220095694" branch-rate="0" lines-covered="189" lines-valid="209" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-01-09 12:08:03.831072">
   <sources>
     <source>/__w/teal.code/teal.code/teal.code</source>
   </sources>
@@ -899,13 +899,13 @@
             </method>
             <method name="lang2calls" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="44" hits="167" branch="false"/>
-                <line number="45" hits="9" branch="false"/>
-                <line number="47" hits="158" branch="false"/>
-                <line number="48" hits="118" branch="false"/>
-                <line number="49" hits="7" branch="false"/>
-                <line number="51" hits="111" branch="false"/>
-                <line number="54" hits="40" branch="false"/>
+                <line number="43" hits="167" branch="false"/>
+                <line number="44" hits="9" branch="false"/>
+                <line number="46" hits="158" branch="false"/>
+                <line number="47" hits="118" branch="false"/>
+                <line number="48" hits="7" branch="false"/>
+                <line number="50" hits="111" branch="false"/>
+                <line number="53" hits="40" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -913,13 +913,13 @@
             <line number="20" hits="2" branch="false"/>
             <line number="21" hits="2" branch="false"/>
             <line number="22" hits="2" branch="false"/>
-            <line number="44" hits="167" branch="false"/>
-            <line number="45" hits="9" branch="false"/>
-            <line number="47" hits="158" branch="false"/>
-            <line number="48" hits="118" branch="false"/>
-            <line number="49" hits="7" branch="false"/>
-            <line number="51" hits="111" branch="false"/>
-            <line number="54" hits="40" branch="false"/>
+            <line number="43" hits="167" branch="false"/>
+            <line number="44" hits="9" branch="false"/>
+            <line number="46" hits="158" branch="false"/>
+            <line number="47" hits="118" branch="false"/>
+            <line number="48" hits="7" branch="false"/>
+            <line number="50" hits="111" branch="false"/>
+            <line number="53" hits="40" branch="false"/>
           </lines>
         </class>
       </classes>
