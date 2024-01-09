@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{lang2calls}
 \alias{lang2calls}
-\title{Convert Language Objects to List of Calls}
+\title{Separate Calls}
 \usage{
 lang2calls(x)
 }
@@ -10,12 +10,10 @@ lang2calls(x)
 \item{x}{\code{language} object or a list of thereof}
 }
 \value{
-a \code{list} of \code{call}s or \code{expression}s,
+Given a \code{call}, an \code{expression}, a list of \code{call}s or a list of \code{expression}s, returns a list of \code{calls}.
 Symbols and atomic vectors (which may get mixed up in a list) are returned wrapped in list.
 }
 \description{
-Function take \code{language} objects (such as \code{expressions} or \code{calls})
-and convert them into a list of \code{calls}. It's particularly useful for handling complex
-\code{language} structures.
+Converts language object or lists of language objects to list of simple calls.
 }
 \keyword{internal}
