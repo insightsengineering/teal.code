@@ -26,9 +26,6 @@ dev_suppress <- function(x) {
 #'
 #' Converts language object or lists of language objects to list of simple calls.
 #'
-#' Function take `language` objects (such as `expressions` or `calls`)
-#' and convert them into a list of `calls`. It's particularly useful for handling complex
-#' `language` structures.
 #'
 #' @param x `language` object or a list of thereof
 #' @return
