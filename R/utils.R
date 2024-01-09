@@ -29,7 +29,8 @@ dev_suppress <- function(x) {
 #' `language` structures.
 #'
 #' @param x `language` object or a list of thereof
-#' @return a `list` of `call`s or `expression`s,
+#' @return
+#' Given a `call`, an `expression`, a list of `call`s or a list of `expression`s, returns a list of `calls`.
 #' Symbols and atomic vectors (which may get mixed up in a list) are returned wrapped in list.
 #' @example
 #' # use non-exported function from teal.code
