@@ -22,14 +22,24 @@ dev_suppress <- function(x) {
   force(x)
 }
 
-#' convert language object or lists of language objects to list of simple calls
+#' Convert Language Objects to List of Calls
+#'
+#' Function take `language` objects (such as `expressions` or `calls`)
+#' and convert them into a list of `calls`. It's particularly useful for handling complex
+#' `language` structures.
+#'
 #' @param x `language` object or a list of thereof
-#' @return
-#' Given a `call`, an `expression`, a list of `call`s or a list of `expression`s,
-#' returns a list of `calls`.
+#' @return a `list` of `call`s or `expression`s,
 #' Symbols and atomic vectors (which may get mixed up in a list) are returned wrapped in list.
+#' @example
+#' # use non-exported function from teal.code
+#' lang2calls <- getFromNamespace("lang2calls", "teal.code")
+#' expr <- expression(
+#'   i <- iris,
+#'   m <- mtcars
+#' )
+#' lang2calls(expr)
 #' @keywords internal
-#' @noRd
 lang2calls <- function(x) {
   if (is.atomic(x) || is.symbol(x)) {
     return(list(x))
