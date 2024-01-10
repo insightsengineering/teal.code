@@ -1,4 +1,4 @@
-#' Access Environment Included in `qenv`
+#' Access environment included in `qenv`
 #'
 #' The access of environment included in `qenv@env` allows to e.g. list object names included in `qenv@env` slot.
 #'

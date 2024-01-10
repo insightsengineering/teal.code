@@ -5,7 +5,7 @@
 \alias{concat,qenv,qenv-method}
 \alias{concat,qenv.error,ANY-method}
 \alias{concat,qenv,qenv.error-method}
-\title{Concatenate Two \code{qenv} Objects}
+\title{Concatenate two \code{qenv} objects}
 \usage{
 concat(x, y)
 }

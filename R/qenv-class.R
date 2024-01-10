@@ -1,4 +1,4 @@
-#' Reproducible class with environment and code.
+#' Reproducible class with environment and code
 #'
 #' Reproducible class with environment and code.
 #' @name qenv-class

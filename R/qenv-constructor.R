@@ -1,4 +1,4 @@
-#' Code Tracking With `qenv` Object
+#' Code tracking with `qenv` object
 #'
 #' @description
 #' `r badge("stable")`

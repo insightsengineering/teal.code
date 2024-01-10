@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{lang2calls}
 \alias{lang2calls}
-\title{Separate Calls}
+\title{Separate calls}
 \usage{
 lang2calls(x)
 }

@@ -4,7 +4,7 @@
 \name{teal.code-package}
 \alias{teal.code}
 \alias{teal.code-package}
-\title{teal.code: Code storage and execution class for teal applications}
+\title{\code{teal.code}: Code storage and execution class for teal applications}
 \description{
 The \code{teal.code} package contains functionalities that can be used
 to store and execute R calls. \code{qenv} class allows to create a \code{teal}

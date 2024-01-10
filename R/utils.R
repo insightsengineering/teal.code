@@ -22,7 +22,7 @@ dev_suppress <- function(x) {
   force(x)
 }
 
-#' Separate Calls
+#' Separate calls
 #'
 #' Converts language object or lists of language objects to list of simple calls.
 #'

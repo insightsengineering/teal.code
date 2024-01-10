@@ -4,7 +4,7 @@
 \alias{get_env}
 \alias{get_env,qenv-method}
 \alias{get_env,qenv.error-method}
-\title{Access Environment Included in \code{qenv}}
+\title{Access environment included in \code{qenv}}
 \usage{
 get_env(object)
 }
