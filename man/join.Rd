@@ -27,7 +27,8 @@ See below for an example.
 
 There are some situations where \code{join()} cannot be properly performed, such as these three scenarios:
 \enumerate{
-\item Both \code{qenv} objects contain an object of the same name but are not identical.\cr\cr
+\item Both \code{qenv} objects contain an object of the same name but are not identical.
+
 Example:
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- qenv(
