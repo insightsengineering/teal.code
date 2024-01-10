@@ -7,8 +7,10 @@
 #' See below for an example.
 #'
 #' There are some situations where `join()` cannot be properly performed, such as these three scenarios:
-#' 1. Both `qenv` objects contain an object of the same name but are not identical.\cr\cr
+#' 1. Both `qenv` objects contain an object of the same name but are not identical.
+#'
 #'    Example:
+#'
 #'    ```r
 #'    x <- qenv(
 #'      code = c(mtcars1 = "mtcars1 <- mtcars"),
