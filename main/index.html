@@ -29,7 +29,7 @@
     
     <a class="navbar-brand me-2" href="index.html">teal.code</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9021</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.1.9022</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,18 +53,6 @@
 <li class="nav-item">
   <a class="nav-link" href="news/index.html">Changelog</a>
 </li>
-<!-- start dropdown for versions --> <li class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle"
-          data-bs-toggle="dropdown" role="button"
-          aria-expanded="false" aria-haspopup="true"
-          id="dropdown-versions">Versions</a> <div class="dropdown-menu" aria-labelledby="dropdown-versions"> <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/main">main</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/latest-tag">latest-tag</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/release-candidate">release-candidate</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/v0.4.1-rc1">v0.4.1-rc1</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/v0.4.0">v0.4.0</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/v0.3.0">v0.3.0</a>
-<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/v0.2.0">v0.2.0</a> </div></li>
-<!-- end dropdown for versions -->
 <li class="nav-item dropdown">
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-reports">Reports</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-reports">
@@ -104,11 +92,10 @@
 </h2>
 <p><code>teal.code</code> is an R library providing tools to store code and an execution environment associated with it. The features include:</p>
 <ul>
-<li>an object <code>qenv</code> for storing code and an execution environment which integrates well with <code>shiny reactives</code> for use in <code>shiny</code> applications whose outputs require reproducibility (i.e. the code used to generate them)</li>
+<li>the <code>qenv</code> class for tracking code and storing variables that integrates well with <code>shiny</code> reactive expressions for use in <code>shiny</code> applications whose outputs require reproducibility (<em>i.e.</em> the code used in the application can be retrieved and rerun)</li>
 <li>ability to chain and join <code>qenv</code> objects together to provide fine-grained control over executed code</li>
-<li>automatic error and warning handling for executed code</li>
+<li>automatic handling of errors and warnings encountered when executed code</li>
 </ul>
-<p><code>teal.code</code> also ships a <a href="https://shiny.posit.co/" class="external-link"><code>shiny</code></a> module that helps inspect the stored code as well as messages, warnings and error messages resulting from evaluation via <code>shiny</code> web application.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -169,7 +156,7 @@
 <div class="section level2">
 <h2 id="getting-help">Getting help<a class="anchor" aria-label="anchor" href="#getting-help"></a>
 </h2>
-<p>If you encounter a bug or you have a feature request - please file an issue. For questions, discussions and staying up to date, please use the “teal” channel in the <a href="https://pharmaverse.slack.com" class="external-link"><code>pharmaverse</code> slack workspace</a>.</p>
+<p>If you encounter a bug or have a feature request, please file an issue. For questions, discussions, and updates, use the <code>teal</code> channel in the <a href="https://pharmaverse.slack.com" class="external-link"><code>pharmaverse</code> slack workspace</a>.</p>
 </div>
 <div class="section level2">
 <h2 id="stargazers-and-forkers">Stargazers and Forkers<a class="anchor" aria-label="anchor" href="#stargazers-and-forkers"></a>
@@ -226,6 +213,8 @@
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
 <li>Dawid Kaledkowski <br><small class="roles"> Author, maintainer </small>  </li>
+<li>Aleksander Chlebowski <br><small class="roles"> Author </small>  </li>
+<li>Marcin Kosinski <br><small class="roles"> Author </small>  </li>
 <li>Pawel Rucki <br><small class="roles"> Author </small>  </li>
 <li>Nikolas Burkoff <br><small class="roles"> Author </small>  </li>
 <li>Mahmoud Hallal <br><small class="roles"> Author </small>  </li>
@@ -233,6 +222,7 @@
 <li>Konrad Pagacz <br><small class="roles"> Author </small>  </li>
 <li>Junlue Zhao <br><small class="roles"> Author </small>  </li>
 <li>F. Hoffmann-La Roche AG <br><small class="roles"> Copyright holder, funder </small>  </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
 
