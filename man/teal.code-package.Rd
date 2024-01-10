@@ -24,6 +24,8 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Aleksander Chlebowski \email{aleksander.chlebowski@contractors.roche.com}
+  \item Marcin Kosinski \email{marcin.kosinski.mk1@roche.com}
   \item Pawel Rucki \email{pawel.rucki@roche.com}
   \item Nikolas Burkoff \email{nikolas.burkoff@roche.com}
   \item Mahmoud Hallal \email{mahmoud.hallal@roche.com}
@@ -34,6 +36,8 @@ Authors:
 
 Other contributors:
 \itemize{
+  \item Chendi Liao \email{chendi.liao@roche.com} [reviewer]
+  \item Dony Unardi \email{unardid@gene.com} [reviewer]
   \item F. Hoffmann-La Roche AG [copyright holder, funder]
 }
 
