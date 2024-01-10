@@ -28,7 +28,8 @@
 #'
 #' 2. `join()` will look for identical `@id` values in both `qenv` objects.
 #'    The index position of these `@id`s must be the same to determine the evaluation order.
-#'    Otherwise, `join()` will throw an error message.\cr\cr
+#'    Otherwise, `join()` will throw an error message.
+#'
 #'    Example:
 #'    ```r
 #'    common_q <- qenv(code = "v <- 1", env = list2env(list(v = 1)))
@@ -55,7 +56,8 @@
 #'    ```
 #'    The error occurs because the index position of identical `@id` between the two objects is not the same.
 #'
-#' 3. The usage of temporary variable in the code expression could cause `join()` to fail.\cr\cr
+#' 3. The usage of temporary variable in the code expression could cause `join()` to fail.
+#'
 #'    Example:
 #'    ```r
 #'    common_q <- qenv()
@@ -76,7 +78,7 @@
 #'    q <- join(x,y)
 #'    # Error message will occur
 #'
-#'    # Check the value of temporary variable i in both objects\cr
+#'    # Check the value of temporary variable i in both objects
 #'    x@env$i # Output: 2
 #'    y@env$i # Output: 3
 #'    ```
