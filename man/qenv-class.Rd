@@ -3,7 +3,7 @@
 \docType{class}
 \name{qenv-class}
 \alias{qenv-class}
-\title{Reproducible class with environment and code.}
+\title{Reproducible class with environment and code}
 \description{
 Reproducible class with environment and code.
 }

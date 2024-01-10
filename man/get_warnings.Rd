@@ -5,7 +5,7 @@
 \alias{get_warnings,qenv-method}
 \alias{get_warnings,qenv.error-method}
 \alias{get_warnings,NULL-method}
-\title{Get Warnings From \code{qenv} Object}
+\title{Get warnings from \code{qenv} object}
 \usage{
 get_warnings(object)
 }

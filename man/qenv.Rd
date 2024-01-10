@@ -18,7 +18,7 @@
 \alias{get_code,qenv-method}
 \alias{get_code,qenv.error-method}
 \alias{within.qenv}
-\title{Code Tracking With \code{qenv} Object}
+\title{Code tracking with \code{qenv} object}
 \usage{
 qenv()
 

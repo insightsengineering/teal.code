@@ -1,4 +1,4 @@
-#' Code Tracking With `qenv` Object
+#' Code tracking with `qenv` object
 #'
 #' @description
 #' `r badge("stable")`
@@ -15,11 +15,11 @@
 #'
 #' @name qenv
 #'
+#' @return `qenv` and `new_qenv` return a `qenv` object.
+#'
 #' @examples
 #' # create empty qenv
 #' qenv()
-#'
-#' @return `qenv` and `new_qenv` return a `qenv` object.
 #'
 #' @export
 qenv <- function() {

@@ -1,4 +1,4 @@
-#' Display `qenv` Object
+#' Display `qenv` object
 #'
 #' Prints the `qenv` object.
 #'

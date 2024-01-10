@@ -1,4 +1,4 @@
-#' Join `qenv` Objects
+#' Join `qenv` objects
 #'
 #' Checks and merges two `qenv` objects into one `qenv` object.
 #'

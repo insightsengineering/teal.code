@@ -3,7 +3,7 @@
 \name{show,qenv-method}
 \alias{show,qenv-method}
 \alias{show-qenv}
-\title{Display \code{qenv} Object}
+\title{Display \code{qenv} object}
 \usage{
 \S4method{show}{qenv}(object)
 }

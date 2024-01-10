@@ -5,7 +5,7 @@
 \alias{join,qenv,qenv-method}
 \alias{join,qenv,qenv.error-method}
 \alias{join,qenv.error,ANY-method}
-\title{Join \code{qenv} Objects}
+\title{Join \code{qenv} objects}
 \usage{
 join(x, y)
 }

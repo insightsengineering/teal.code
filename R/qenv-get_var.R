@@ -1,4 +1,4 @@
-#' Get Object From `qenv`
+#' Get object from `qenv`
 #'
 #' Retrieve variables from the `qenv` environment.
 #'

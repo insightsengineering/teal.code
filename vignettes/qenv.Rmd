@@ -66,8 +66,8 @@ cat(get_code(q2))
 ```
 
 ### Substitutions
-In some cases one may want to substitute some elements of the code before evaluation. 
-Consider a case when a subset of `iris` defined by an input value.
+In some cases, one may want to substitute some elements of the code before evaluation. 
+Consider a case when a subset of `iris` is defined by an input value.
 ```{r}
 q <- qenv()
 q <- eval_code(q, quote(i <- subset(iris, Species == "setosa")))
@@ -99,7 +99,7 @@ summary(qq[["ii"]]$Species)
 summary(qq[["iii"]]$Species)
 ```
 
-See `?within.qenv` for more details.
+See `?qenv` for more details.
 
 
 ### Combining `qenv` objects
@@ -118,7 +118,7 @@ print(join_q)
 ls(get_env(join_q))
 ```
 
-The feasibility of joining `qenv` objects hinges on the contents of the environments and the code's order. Refer to the function documentation for further details..
+The feasibility of joining `qenv` objects hinges on the contents of the environments and the code's order. Refer to the function documentation for further details.
 
 ### Warnings and messages in `qenv` objects
 

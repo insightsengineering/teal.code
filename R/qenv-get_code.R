@@ -1,4 +1,4 @@
-#' Get Code From `qenv`
+#' Get code from `qenv`
 #'
 #' @details
 #' `get_code` retrieves the code stored in the `qenv`. `...` passes arguments to methods.
