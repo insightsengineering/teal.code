@@ -31,14 +31,9 @@ There are some situations where \code{join()} cannot be properly performed, such
 
 Example:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- qenv(
-  code = c(mtcars1 = "mtcars1 <- mtcars"),
-  env = list2env(list(mtcars1 = mtcars))
-)
-y <- qenv(
-  code = c(mtcars1 = "mtcars1 <- mtcars['wt']"),
-  env = list2env(list(mtcars1 = mtcars['wt']))
-)
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{x <- eval_code(qenv(), expression(mtcars1 <- mtcars))
+y <- eval_code(qenv(), expression(mtcars1 <- mtcars['wt']))
+
 z <- join(x, y)
 # Error message will occur
 }\if{html}{\out{</div>}}
@@ -51,7 +46,7 @@ Otherwise, \code{join()} will throw an error message.
 
 Example:
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{common_q <- qenv(code = "v <- 1", env = list2env(list(v = 1)))
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{common_q <- eval_code(qenv(), expression(v <- 1))
 x <- eval_code(
   common_q,
   "x <- v"
