@@ -16,4 +16,13 @@ Symbols and atomic vectors (which may get mixed up in a list) are returned wrapp
 \description{
 Converts language object or lists of language objects to list of simple calls.
 }
+\examples{
+# use non-exported function from teal.code
+lang2calls <- getFromNamespace("lang2calls", "teal.code")
+expr <- expression(
+  i <- iris,
+  m <- mtcars
+)
+lang2calls(expr)
+}
 \keyword{internal}

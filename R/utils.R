@@ -30,7 +30,7 @@ dev_suppress <- function(x) {
 #' @return
 #' Given a `call`, an `expression`, a list of `call`s or a list of `expression`s, returns a list of `calls`.
 #' Symbols and atomic vectors (which may get mixed up in a list) are returned wrapped in list.
-#' @example
+#' @examples
 #' # use non-exported function from teal.code
 #' lang2calls <- getFromNamespace("lang2calls", "teal.code")
 #' expr <- expression(
