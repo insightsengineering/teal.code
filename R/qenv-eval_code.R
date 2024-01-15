@@ -1,4 +1,4 @@
-#' Evaluate Code in `qenv`
+#' Evaluate code in `qenv`
 #'
 #' @details
 #' `eval_code` evaluates given code in the `qenv` environment and appends it to the `code` slot.

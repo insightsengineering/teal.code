@@ -1,4 +1,6 @@
-# teal.code 0.4.1.9020
+# teal.code 0.5.0.9000
+
+# teal.code 0.5.0
 
 ### Breaking Change
 
@@ -10,6 +12,7 @@
 * The `@code` field in the `qenv` class now holds `character`, not `expression`.
 * The `get_code` method  returns a single concatenated string of the code.
 * Added `within` support for `qenv.error` class.
+* Added `get_env` method that allows to extract environment stored in `qenv@env` slot.
 
 # teal.code 0.4.1
 

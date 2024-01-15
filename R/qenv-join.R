@@ -1,4 +1,4 @@
-#' Join `qenv` Objects
+#' Join `qenv` objects
 #'
 #' Checks and merges two `qenv` objects into one `qenv` object.
 #'
@@ -7,102 +7,101 @@
 #' See below for an example.
 #'
 #' There are some situations where `join()` cannot be properly performed, such as these three scenarios:
-#' \enumerate{
-#'   \item Both `qenv` objects contain an object of the same name but are not identical. \cr\cr
-#'   Example:
-#'   \preformatted{
-#'   x <- qenv(
-#'     code = c(mtcars1 = "mtcars1 <- mtcars"),
-#'     env = list2env(list(mtcars1 = mtcars))
-#'   )
-#'   y <- qenv(
-#'     code = c(mtcars1 = "mtcars1 <- mtcars['wt']"),
-#'     env = list2env(list(mtcars1 = mtcars['wt']))
-#'   )
-#'   z <- join(x, y)
-#'   # Error message will occur
-#'   }
-#'   In this example, `mtcars1` object exists in both `x` and `y` objects but the content are not identical.\cr
-#'   `mtcars1` in the `x qenv` object has more columns than `mtcars1` in the `y qenv` object (only has one column).
-#'   \item `join()` will look for identical `@id` values in both `qenv` objects.
-#'   The index position of these `@id`s must be the same to determine the evaluation order.
-#'   Otherwise, `join()` will throw an error message.\cr\cr
-#'   Example:
-#'   \preformatted{
-#'   common_q <- qenv(code = "v <- 1", env = list2env(list(v = 1)))
-#'   x <- eval_code(
-#'     common_q,
-#'     "x <- v"
-#'   )
-#'   y <- eval_code(
-#'     common_q,
-#'     "y <- v"
-#'   )
-#'   z <- eval_code(
-#'     y,
-#'     "z <- v"
-#'   )
-#'   q <- join(x, y)
-#'   join_q <- join(q, z)
-#'   # Error message will occur
+#' 1. Both `qenv` objects contain an object of the same name but are not identical.
 #'
-#'   # Check the order of evaluation based on the id slot
-#'   shared_ids <- intersect(q@id, z@id)
-#'   match(shared_ids, q@id) # Output: 1 3
-#'   match(shared_ids, z@id) # Output: 1 2
-#'   }
-#'   The error occurs because the index position of identical `@id` between the two objects is not the same.
-#'   \item The usage of temporary variable in the code expression could cause `join()` to fail. \cr\cr
-#'   Example:
-#'   \preformatted{
-#'   common_q <- qenv()
-#'   x <- eval_code(
-#'     common_q,
-#'     "x <- numeric(0)
-#'      for (i in 1:2) {
-#'        x <- c(x, i)
-#'      }"
-#'   )
-#'   y <- eval_code(
-#'     common_q,
-#'     "y <- numeric(0)
-#'      for (i in 1:3) {
-#'        y <- c(y, i)
-#'      }"
-#'   )
-#'   q <- join(x,y)
-#'   # Error message will occur
+#'    Example:
 #'
-#'   # Check the value of temporary variable i in both objects
-#'   x@env$i # Output: 2
-#'   y@env$i # Output: 3
-#'   }
-#'   `join()` fails to provide a proper result because of the temporary variable `i` exists
-#'   in both objects but has different value.\cr
-#'   To fix this, we can set `i <- NULL` in the code expression for both objects.
-#'   \preformatted{
-#'   common_q <- qenv()
-#'   x <- eval_code(
-#'     common_q,
-#'     "x <- numeric(0)
-#'      for (i in 1:2) {
-#'        x <- c(x, i)
-#'      }
-#'      # dummy i variable to fix it
-#'      i <- NULL"
-#'   )
-#'   y <- eval_code(
-#'     common_q,
-#'     "y <- numeric(0)
-#'      for (i in 1:3) {
-#'        y <- c(y, i)
-#'      }
-#'      # dummy i variable to fix it
-#'      i <- NULL"
-#'   )
-#'   q <- join(x,y)
-#'   }
-#' }
+#'    ```r
+#'    x <- eval_code(qenv(), expression(mtcars1 <- mtcars))
+#'    y <- eval_code(qenv(), expression(mtcars1 <- mtcars['wt']))
+#'
+#'    z <- join(x, y)
+#'    # Error message will occur
+#'    ```
+#'    In this example, `mtcars1` object exists in both `x` and `y` objects but the content are not identical.
+#'    `mtcars1` in the `x qenv` object has more columns than `mtcars1` in the `y qenv` object (only has one column).
+#'
+#' 2. `join()` will look for identical `@id` values in both `qenv` objects.
+#'    The index position of these `@id`s must be the same to determine the evaluation order.
+#'    Otherwise, `join()` will throw an error message.
+#'
+#'    Example:
+#'    ```r
+#'    common_q <- eval_code(qenv(), expression(v <- 1))
+#'    x <- eval_code(
+#'      common_q,
+#'      "x <- v"
+#'    )
+#'    y <- eval_code(
+#'      common_q,
+#'      "y <- v"
+#'    )
+#'    z <- eval_code(
+#'      y,
+#'      "z <- v"
+#'    )
+#'    q <- join(x, y)
+#'    join_q <- join(q, z)
+#'    # Error message will occur
+#'
+#'    # Check the order of evaluation based on the id slot
+#'    shared_ids <- intersect(q@id, z@id)
+#'    match(shared_ids, q@id) # Output: 1 3
+#'    match(shared_ids, z@id) # Output: 1 2
+#'    ```
+#'    The error occurs because the index position of identical `@id` between the two objects is not the same.
+#'
+#' 3. The usage of temporary variable in the code expression could cause `join()` to fail.
+#'
+#'    Example:
+#'    ```r
+#'    common_q <- qenv()
+#'    x <- eval_code(
+#'      common_q,
+#'      "x <- numeric(0)
+#'       for (i in 1:2) {
+#'         x <- c(x, i)
+#'       }"
+#'    )
+#'    y <- eval_code(
+#'      common_q,
+#'      "y <- numeric(0)
+#'       for (i in 1:3) {
+#'         y <- c(y, i)
+#'       }"
+#'    )
+#'    q <- join(x,y)
+#'    # Error message will occur
+#'
+#'    # Check the value of temporary variable i in both objects
+#'    x@env$i # Output: 2
+#'    y@env$i # Output: 3
+#'    ```
+#'    `join()` fails to provide a proper result because of the temporary variable `i` exists
+#'    in both objects but has different value.
+#'    To fix this, we can set `i <- NULL` in the code expression for both objects.
+#'    ```r
+#'    common_q <- qenv()
+#'    x <- eval_code(
+#'      common_q,
+#'      "x <- numeric(0)
+#'       for (i in 1:2) {
+#'         x <- c(x, i)
+#'       }
+#'       # dummy i variable to fix it
+#'       i <- NULL"
+#'    )
+#'    y <- eval_code(
+#'      common_q,
+#'      "y <- numeric(0)
+#'       for (i in 1:3) {
+#'         y <- c(y, i)
+#'       }
+#'       # dummy i variable to fix it
+#'       i <- NULL"
+#'    )
+#'    q <- join(x,y)
+#'    ```
 #'
 #' @param x (`qenv`)
 #' @param y (`qenv`)
@@ -167,7 +166,7 @@ setMethod("join", signature = c("qenv.error", "ANY"), function(x, y) {
 #' If two `qenv` can be joined
 #'
 #' Checks if two `qenv` objects can be combined.
-#' For more information, please see \code{\link{join}}
+#' For more information, please see [`join`]
 #' @param x (`qenv`)
 #' @param y (`qenv`)
 #' @return `TRUE` if able to join or `character` used to print error message.

@@ -1,4 +1,4 @@
-#' Concatenate Two `qenv` Objects
+#' Concatenate two `qenv` objects
 #'
 #' Combine two `qenv` objects by simple concatenate their environments and the code.
 #'

@@ -1,4 +1,4 @@
-#' Code Tracking With `qenv` Object
+#' Code tracking with `qenv` object
 #'
 #' @description
 #' `r badge("stable")`
@@ -15,11 +15,11 @@
 #'
 #' @name qenv
 #'
+#' @return `qenv` and `new_qenv` return a `qenv` object.
+#'
 #' @examples
 #' # create empty qenv
 #' qenv()
-#'
-#' @return `qenv` and `new_qenv` return a `qenv` object.
 #'
 #' @export
 qenv <- function() {
@@ -47,11 +47,11 @@ qenv <- function() {
 #' @aliases new_qenv,environment,missing-method
 #' @aliases new_qenv,missing,missing-method
 #'
-#' @seealso [`base::within()`], [`get_var()`], [`get_warnings()`], [`join()`], [`concat()`]
+#' @seealso [`base::within()`], [`get_var()`], [`get_env()`], [`get_warnings()`], [`join()`], [`concat()`]
 #'
 #' @export
 setGeneric("new_qenv", function(env = new.env(parent = parent.env(.GlobalEnv)), code = character()) {
-  lifecycle::deprecate_warn(when = " 0.4.2", what = "new_qenv()", with = "qenv()", always = TRUE)
+  lifecycle::deprecate_warn(when = " 0.5.0", what = "new_qenv()", with = "qenv()", always = TRUE)
   standardGeneric("new_qenv")
 })
 

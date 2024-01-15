@@ -1,4 +1,4 @@
-#' Get Code From `qenv`
+#' Get code from `qenv`
 #'
 #' @details
 #' `get_code` retrieves the code stored in the `qenv`. `...` passes arguments to methods.
@@ -50,7 +50,7 @@ setMethod("get_code", signature = "qenv.error", function(object, ...) {
       sprintf(
         "%s\n\ntrace: \n %s\n",
         conditionMessage(object),
-        paste(lang2calls(object$trace), collapse = "\n ")
+        paste(object$trace, collapse = "\n ")
       ),
       class = c("validation", "try-error", "simpleError")
     )

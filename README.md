@@ -27,14 +27,12 @@
 
 ## Overview
 
-`teal.code` is an R library providing tools to store code and an execution environment associated with it. The features
-include:
+`teal.code` is an R library providing tools to store code and an execution environment associated with it.
+The features include:
 
-* an object `qenv` for storing code and an execution environment which integrates well with `shiny reactives` for use in `shiny` applications whose outputs require reproducibility (i.e. the code used to generate them)
+* the `qenv` class for tracking code and storing variables that integrates well with `shiny` reactive expressions for use in `shiny` applications whose outputs require reproducibility (_i.e._ the code used in the application can be retrieved and rerun)
 * ability to chain and join `qenv` objects together to provide fine-grained control over executed code
-* automatic error and warning handling for executed code
-
-`teal.code` also ships a [`shiny`](https://shiny.posit.co/) module that helps inspect the stored code as well as messages, warnings and error messages resulting from evaluation via `shiny` web application.
+* automatic handling of errors and warnings encountered when executed code
 
 ## Installation
 
@@ -64,22 +62,31 @@ Below is the showcase of the example usage
 
 ```r
 library(teal.code)
-my_qenv <- qenv(env = list2env(list(x = 5)), code = "x <- 5")
+my_qenv <- qenv() |> eval_code("x <- 5")
 my_qenv
+#> <environment: 0x00000225cc85c7a0> [L]
 #> Parent: <environment: package:teal.code>
 #> Bindings:
 #> • x: <dbl> [L]
+get_env(my_qenv)
+#> <environment: 0x00000225cc85c7a0>
+ls(get_env(my_qenv))
+#> [1] "x"
 ```
 
 ```r
 qenv_2 <- eval_code(my_qenv, "y <- x * 2") |> eval_code("z <- y * 2")
 qenv_2
-#> <environment: 0x00000135b544cfe8> [L]
+#> <environment: 0x00000225ca866d68> [L]
 #> Parent: <environment: package:teal.code>
 #> Bindings:
 #> • x: <dbl> [L]
 #> • y: <dbl> [L]
 #> • z: <dbl> [L]
+get_env(qenv_2)
+#> <environment: 0x00000225ca866d68>
+ls(get_env(qenv_2))
+#> [1] "x" "y" "z"
 ```
 
 ```r
@@ -96,7 +103,7 @@ cat(get_code(qenv_2))
 
 ## Getting help
 
-If you encounter a bug or you have a feature request - please file an issue. For questions, discussions and staying up to date, please use the "teal" channel in the [`pharmaverse` slack workspace](https://pharmaverse.slack.com).
+If you encounter a bug or have a feature request, please file an issue. For questions, discussions, and updates, use the `teal` channel in the [`pharmaverse` slack workspace](https://pharmaverse.slack.com).
 
 ## Stargazers and Forkers
 

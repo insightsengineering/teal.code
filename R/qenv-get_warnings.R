@@ -1,4 +1,4 @@
-#' Get Warnings From `qenv` Object
+#' Get warnings from `qenv` object
 #'
 #' Retrieve all warnings raised during code evaluation in a `qenv`.
 #'

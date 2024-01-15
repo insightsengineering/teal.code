@@ -5,7 +5,7 @@
 \alias{get_var,qenv,character-method}
 \alias{get_var,qenv.error,ANY-method}
 \alias{[[,qenv-method}
-\title{Get Object From \code{qenv}}
+\title{Get object from \code{qenv}}
 \usage{
 get_var(object, var)
 

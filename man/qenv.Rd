@@ -18,7 +18,7 @@
 \alias{get_code,qenv-method}
 \alias{get_code,qenv.error-method}
 \alias{within.qenv}
-\title{Code Tracking With \code{qenv} Object}
+\title{Code tracking with \code{qenv} object}
 \usage{
 qenv()
 
@@ -135,5 +135,5 @@ do.call(within, list(q, do.call(c, exprlist)))
 
 }
 \seealso{
-\code{\link[base:with]{base::within()}}, \code{\link[=get_var]{get_var()}}, \code{\link[=get_warnings]{get_warnings()}}, \code{\link[=join]{join()}}, \code{\link[=concat]{concat()}}
+\code{\link[base:with]{base::within()}}, \code{\link[=get_var]{get_var()}}, \code{\link[=get_env]{get_env()}}, \code{\link[=get_warnings]{get_warnings()}}, \code{\link[=join]{join()}}, \code{\link[=concat]{concat()}}
 }
