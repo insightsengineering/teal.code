@@ -20,8 +20,6 @@ repos:
           - lifecycle
           - methods
           - rlang
-          - shiny
-          - styler
       - id: spell-check
         name: Check spelling with `spelling`
         exclude: >
