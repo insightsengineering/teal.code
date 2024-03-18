@@ -1,12 +1,11 @@
-pandoc: 2.17.1.1
-pkgdown: 2.0.3
+pandoc: 3.1.1
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
-  advanced_chunks: advanced_chunks.html
-  basic_chunks: basic_chunks.html
+  qenv: qenv.html
   teal-code: teal-code.html
-last_built: 2022-06-14T17:38Z
+last_built: 2024-01-11T22:29Z
 urls:
-  reference: https://insightsengineering.github.io/teal.code/reference
-  article: https://insightsengineering.github.io/teal.code/articles
+  reference: https://insightsengineering.github.io/teal.code/latest-tag/reference
+  article: https://insightsengineering.github.io/teal.code/latest-tag/articles
 
