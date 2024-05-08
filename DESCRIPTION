@@ -1,8 +1,8 @@
 Type: Package
 Package: teal.code
 Title: Code Storage and Execution Class for 'teal' Applications
-Version: 0.5.0.9002
-Date: 2024-02-01
+Version: 0.5.0.9005
+Date: 2024-04-29
 Authors@R: c(
     person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = c("aut", "cre")),
     person("Aleksander", "Chlebowski", , "aleksander.chlebowski@contractors.roche.com", role = "aut"),
@@ -37,14 +37,15 @@ Suggests:
     magrittr (>= 1.5),
     rmarkdown (>= 2.19),
     shiny (>= 1.6.0),
-    testthat (>= 3.1.5)
+    testthat (>= 3.1.5),
+    withr (>= 2.0.0)
 VignetteBuilder:
     knitr
 RdMacros:
     lifecycle
 Config/Needs/verdepcheck: mllg/checkmate, r-lib/lifecycle, r-lib/rlang,
-    rstudio/shiny, r-lib/styler, r-lib/cli, yihui/knitr,
-    tidyverse/magrittr, rstudio/rmarkdown, r-lib/testthat
+    r-lib/cli, yihui/knitr, tidyverse/magrittr, rstudio/rmarkdown,
+    rstudio/shiny, r-lib/testthat, r-lib/withr
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
 Language: en-US
