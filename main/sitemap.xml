@@ -1,75 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/404.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/SECURITY.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/articles/qenv.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/articles/teal-code.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/index.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/reference/concat.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/reference/dev_suppress.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/reference/dot-check_joinable.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/reference/get_env.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/reference/get_var.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/reference/get_warnings.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/reference/join.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/reference/lang2calls.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/reference/qenv-class.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/reference/qenv.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/reference/show-qenv-method.html</loc>
-  </url>
-  <url>
-    <loc>https://insightsengineering.github.io/teal.code/reference/teal.code-package.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://insightsengineering.github.io/teal.code/404.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/CONTRIBUTING.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/LICENSE-text.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/SECURITY.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/articles/index.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/articles/qenv.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/articles/teal-code.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/authors.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/index.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/news/index.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/reference/concat.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/reference/dev_suppress.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/reference/dot-check_joinable.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/reference/get_env.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/reference/get_var.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/reference/get_warnings.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/reference/index.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/reference/join.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/reference/lang2calls.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/reference/qenv-class.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/reference/qenv.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/reference/show-qenv-method.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/reference/teal.code-package.html</loc></url>
 </urlset>
+
