@@ -26,18 +26,16 @@ print(empty_qenv)
 
 ### `qenv` basic usage
 
-The `eval_code()` function executes code within a `qenv` environment, yielding a new `qenv` object as the output. 
+The `eval_code()` function executes code within a `qenv` environment, yielding a new `qenv` object as the output.
 
 ```{r}
-library(magrittr)
-
 # evaluate code in qenv
 my_qenv <- eval_code(empty_qenv, "x <- 2")
 print(my_qenv)
 get_env(my_qenv)
 
 
-q1 <- eval_code(my_qenv, "y <- x * 2") %>% eval_code("z <- y * 2")
+q1 <- eval_code(my_qenv, "y <- x * 2") |> eval_code("z <- y * 2")
 
 # my_qenv still contains only x
 print(my_qenv)
@@ -50,7 +48,7 @@ ls(get_env(q1))
 
 The same result can be achieved with the `within` method for the `qenv` class.
 ```{r}
-q2 <- within(my_qenv, y <- x * 2) %>% within(z <- y * 2)
+q2 <- within(my_qenv, y <- x * 2) |> within(z <- y * 2)
 print(q2)
 ```
 
@@ -66,7 +64,7 @@ cat(get_code(q2))
 ```
 
 ### Substitutions
-In some cases, one may want to substitute some elements of the code before evaluation. 
+In some cases, one may want to substitute some elements of the code before evaluation.
 Consider a case when a subset of `iris` is defined by an input value.
 ```{r}
 q <- qenv()
