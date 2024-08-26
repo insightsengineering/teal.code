@@ -35,7 +35,8 @@ print(my_qenv)
 get_env(my_qenv)
 
 
-q1 <- eval_code(my_qenv, "y <- x * 2") |> eval_code("z <- y * 2")
+q1 <- eval_code(my_qenv, "y <- x * 2")
+q1 <- eval_code(q1, "z <- y * 2")
 
 # my_qenv still contains only x
 print(my_qenv)
@@ -48,7 +49,8 @@ ls(get_env(q1))
 
 The same result can be achieved with the `within` method for the `qenv` class.
 ```{r}
-q2 <- within(my_qenv, y <- x * 2) |> within(z <- y * 2)
+q2 <- within(my_qenv, y <- x * 2)
+q2 <- within(q2, z <- y * 2)
 print(q2)
 ```
 
@@ -148,7 +150,8 @@ When employing a `qenv` to evaluate code, should an error occur, an object of ty
 ```{r, eval=FALSE}
 library(shiny)
 # create an initial qenv with the data in
-data_q <- qenv() |> eval_code("iris_data <- iris")
+data_q <- qenv()
+data_q <- eval_code(data_q, "iris_data <- iris")
 
 ui <- fluidPage(
   radioButtons(
