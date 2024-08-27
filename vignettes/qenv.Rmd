@@ -147,7 +147,7 @@ These functions can be seamlessly integrated into `shiny` applications to produc
 
 When employing a `qenv` to evaluate code, should an error occur, an object of type `qenv.error` is generated. This object can be utilized wherever a `qenv` object is used, alleviating the need for code alterations to handle these errors. Select the `error_option` in the example below to witness `qenv` error handling in action.
 
-```{r, eval=FALSE}
+```{r, eval=requireNamespace("shiny")}
 library(shiny)
 # create an initial qenv with the data in
 data_q <- qenv()
