@@ -40,7 +40,8 @@ Suggests:
     testthat (>= 3.1.5),
     withr (>= 2.0.0)
 VignetteBuilder:
-    knitr
+    knitr,
+    rmarkdown
 RdMacros:
     lifecycle
 Config/Needs/verdepcheck: mllg/checkmate, r-lib/lifecycle, r-lib/rlang,
