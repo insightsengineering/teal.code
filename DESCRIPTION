@@ -1,8 +1,8 @@
 Type: Package
 Package: teal.code
 Title: Code Storage and Execution Class for 'teal' Applications
-Version: 0.5.0.9005
-Date: 2024-04-29
+Version: 0.5.0.9010
+Date: 2024-09-16
 Authors@R: c(
     person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = c("aut", "cre")),
     person("Aleksander", "Chlebowski", , "aleksander.chlebowski@contractors.roche.com", role = "aut"),
@@ -35,12 +35,13 @@ Suggests:
     cli (>= 3.4.0),
     knitr (>= 1.42),
     magrittr (>= 1.5),
-    rmarkdown (>= 2.19),
+    rmarkdown (>= 2.23),
     shiny (>= 1.6.0),
     testthat (>= 3.1.5),
     withr (>= 2.0.0)
 VignetteBuilder:
-    knitr
+    knitr,
+    rmarkdown
 RdMacros:
     lifecycle
 Config/Needs/verdepcheck: mllg/checkmate, r-lib/lifecycle, r-lib/rlang,
@@ -50,7 +51,7 @@ Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Collate:
     'qenv-class.R'
     'qenv-errors.R'
