@@ -116,13 +116,13 @@ setMethod("get_code", signature = "qenv", function(object, deparse = TRUE, names
   }
 
   if (deparse) {
-    if (length(object@code) == 0) {
-      object@code
+    if (length(code) == 0) {
+      code
     } else {
-      paste(object@code, collapse = "\n")
+      paste(code, collapse = "\n")
     }
   } else {
-    parse(text = paste(c("{", object@code, "}"), collapse = "\n"), keep.source = TRUE)
+    parse(text = paste(c("{", code, "}"), collapse = "\n"), keep.source = TRUE)
   }
 })
 
