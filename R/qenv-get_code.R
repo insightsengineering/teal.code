@@ -5,15 +5,89 @@
 #'
 #' @param object (`qenv`)
 #' @param deparse (`logical(1)`) flag specifying whether to return code as `character` or `expression`.
+#' @param names `r lifecycle::badge("experimental")` (`character`) vector of object names to return the code for.
+#' For more details see the "Extracting dataset-specific code" section.
 #' @param ... see `Details`
+#'
+#'
+#' @section Extracting dataset-specific code:
+#' When `names` is specified, the code returned will be limited  to the lines needed to _create_
+#' the requested objects. The code stored in the `@code` slot is analyzed statically to determine
+#' which lines the objects of interest depend upon. The analysis works well when objects are created
+#' with standard infix assignment operators (see `?assignOps`) but it can fail in some situations.
+#'
+#' Consider the following examples:
+#'
+#' _Case 1: Usual assignments._
+#' ```r
+#' q1 <- qenv() |>
+#'   within({
+#'     foo <- function(x) {
+#'       x + 1
+#'     }
+#'     x <- 0
+#'     y <- foo(x)
+#'   })
+#' get_code(q1, names = "y")
+#' ```
+#' `x` has no dependencies, so `get_code(data, names = "x")` will return only the second call.\cr
+#' `y` depends on `x` and `foo`, so `get_code(data, names = "y")` will contain all three calls.
+#'
+#' _Case 2: Some objects are created by a function's side effects._
+#' ```r
+#' q2 <- qenv() |>
+#'   within({
+#'     foo <- function() {
+#'       x <<- x + 1
+#'     }
+#'     x <- 0
+#'     foo()
+#'     y <- x
+#'   })
+#' get_code(q2, names = "y")
+#' ```
+#' Here, `y` depends on `x` but `x` is modified by `foo` as a side effect (not by reassignment)
+#' and so `get_code(data, names = "y")` will not return the `foo()` call.\cr
+#' To overcome this limitation, code dependencies can be specified manually.
+#' Lines where side effects occur can be flagged by adding "`# @linksto <object name>`" at the end.\cr
+#' Note that `within` evaluates code passed to `expr` as is and comments are ignored.
+#' In order to include comments in code one must use the `eval_code` function instead.
+#'
+#' ```r
+#' q3 <- qenv() |>
+#'   eval_code("
+#'     foo <- function() {
+#'       x <<- x + 1
+#'     }
+#'     x <- 0
+#'     foo() # @linksto x
+#'     y <- x
+#'   ")
+#' get_code(q3, names = "y")
+#' ```
+#' Now the `foo()` call will be properly included in the code required to recreate `y`.
+#'
+#' Note that two functions that create objects as side effects, `assign` and `data`, are handled automatically.
+#'
+#' Here are known cases where manual tagging is necessary:
+#' - non-standard assignment operators, _e.g._ `%<>%`
+#' - objects used as conditions in `if` statements: `if (<condition>)`
+#' - objects used to iterate over in `for` loops: `for(i in <sequence>)`
+#' - creating and evaluating language objects, _e.g._ `eval(<call>)`
 #'
 #' @return
 #' `get_code` returns the traced code (from `@code` slot) in the form specified by `deparse`.
 #'
 #' @examples
 #' # retrieve code
+#' q <- within(qenv(), {a <- 1; b <- 2})
 #' get_code(q)
 #' get_code(q, deparse = FALSE)
+#' get_code(q, names = "a")
+#'
+#' q <- qenv()
+#' q <- eval_code(q, code = c("a <- 1", "b <- 2"))
+#' get_code(q, names = "a")
 #'
 #' @name get_code
 #' @rdname qenv
@@ -21,7 +95,7 @@
 #' @aliases get_code,qenv.error-method
 #'
 #' @export
-setGeneric("get_code", function(object, deparse = TRUE, ...) {
+setGeneric("get_code", function(object, deparse = TRUE, names = NULL, ...) {
   # this line forces evaluation of object before passing to the generic
   # needed for error handling to work properly
   grDevices::pdf(nullfile())
@@ -31,8 +105,16 @@ setGeneric("get_code", function(object, deparse = TRUE, ...) {
   standardGeneric("get_code")
 })
 
-setMethod("get_code", signature = "qenv", function(object, deparse = TRUE) {
+setMethod("get_code", signature = "qenv", function(object, deparse = TRUE, names = NULL, ...) {
   checkmate::assert_flag(deparse)
+  checkmate::assert_character(names, min.len = 1L, null.ok = TRUE)
+
+  code <- if (!is.null(names)) {
+    get_code_dependency(object@code, names, ...)
+  } else {
+    object@code
+  }
+
   if (deparse) {
     if (length(object@code) == 0) {
       object@code
