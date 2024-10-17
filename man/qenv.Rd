@@ -26,7 +26,7 @@ new_qenv(env = new.env(parent = parent.env(.GlobalEnv)), code = character())
 
 eval_code(object, code)
 
-get_code(object, deparse = TRUE, ...)
+get_code(object, deparse = TRUE, names = NULL, ...)
 
 \method{within}{qenv}(data, expr, ...)
 }
@@ -39,6 +39,9 @@ Environment being a result of the \code{code} evaluation.}
 \item{object}{(\code{qenv})}
 
 \item{deparse}{(\code{logical(1)}) flag specifying whether to return code as \code{character} or \code{expression}.}
+
+\item{names}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} (\code{character}) vector of object names to return the code for.
+For more details see the "Extracting dataset-specific code" section.}
 
 \item{...}{see \code{Details}}
 
@@ -78,6 +81,77 @@ It is a method for the \code{base} generic that wraps \code{eval_code} to provid
 through the \code{...} argument:
 as \code{name:value} pairs are passed to \code{...}, \code{name} in \code{expr} will be replaced with \code{value}.
 }
+\section{Extracting dataset-specific code}{
+
+When \code{names} is specified, the code returned will be limited  to the lines needed to \emph{create}
+the requested objects. The code stored in the \verb{@code} slot is analyzed statically to determine
+which lines the objects of interest depend upon. The analysis works well when objects are created
+with standard infix assignment operators (see \code{?assignOps}) but it can fail in some situations.
+
+Consider the following examples:
+
+\emph{Case 1: Usual assignments.}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{q1 <- qenv() |>
+  within(\{
+    foo <- function(x) \{
+      x + 1
+    \}
+    x <- 0
+    y <- foo(x)
+  \})
+get_code(q1, names = "y")
+}\if{html}{\out{</div>}}
+
+\code{x} has no dependencies, so \code{get_code(data, names = "x")} will return only the second call.\cr
+\code{y} depends on \code{x} and \code{foo}, so \code{get_code(data, names = "y")} will contain all three calls.
+
+\emph{Case 2: Some objects are created by a function's side effects.}
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{q2 <- qenv() |>
+  within(\{
+    foo <- function() \{
+      x <<- x + 1
+    \}
+    x <- 0
+    foo()
+    y <- x
+  \})
+get_code(q2, names = "y")
+}\if{html}{\out{</div>}}
+
+Here, \code{y} depends on \code{x} but \code{x} is modified by \code{foo} as a side effect (not by reassignment)
+and so \code{get_code(data, names = "y")} will not return the \code{foo()} call.\cr
+To overcome this limitation, code dependencies can be specified manually.
+Lines where side effects occur can be flagged by adding "\verb{# @linksto <object name>}" at the end.\cr
+Note that \code{within} evaluates code passed to \code{expr} as is and comments are ignored.
+In order to include comments in code one must use the \code{eval_code} function instead.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{q3 <- qenv() |>
+  eval_code("
+    foo <- function() \{
+      x <<- x + 1
+    \}
+    x <- 0
+    foo() # @linksto x
+    y <- x
+  ")
+get_code(q3, names = "y")
+}\if{html}{\out{</div>}}
+
+Now the \code{foo()} call will be properly included in the code required to recreate \code{y}.
+
+Note that two functions that create objects as side effects, \code{assign} and \code{data}, are handled automatically.
+
+Here are known cases where manual tagging is necessary:
+\itemize{
+\item non-standard assignment operators, \emph{e.g.} \verb{\%<>\%}
+\item objects used as conditions in \code{if} statements: \verb{if (<condition>)}
+\item objects used to iterate over in \code{for} loops: \verb{for(i in <sequence>)}
+\item creating and evaluating language objects, \emph{e.g.} \verb{eval(<call>)}
+}
+}
+
 \section{Using language objects with \code{within}}{
 
 Passing language objects to \code{expr} is generally not intended but can be achieved with \code{do.call}.
@@ -100,8 +174,14 @@ q <- eval_code(q, quote(library(checkmate)))
 q <- eval_code(q, expression(assert_number(a)))
 
 # retrieve code
+q <- within(qenv(), {a <- 1; b <- 2})
 get_code(q)
 get_code(q, deparse = FALSE)
+get_code(q, names = "a")
+
+q <- qenv()
+q <- eval_code(q, code = c("a <- 1", "b <- 2"))
+get_code(q, names = "a")
 
 # evaluate code using within
 q <- qenv()
