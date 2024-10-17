@@ -93,7 +93,7 @@ testthat::test_that("external values are not taken from calling frame", {
     i <- subset(iris, Species == species)
   })
   testthat::expect_s3_class(qq, "qenv.error")
-  testthat::expect_error(get_code(qq))
+  testthat::expect_error(get_code(qq), "object 'species' not found")
 
   qq <- within(q, {
     i <- subset(iris, Species == species)

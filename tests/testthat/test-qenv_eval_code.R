@@ -76,7 +76,7 @@ testthat::test_that("eval_code works with quoted code block", {
 })
 
 testthat::test_that("eval_code fails with unquoted expression", {
-  testthat::expect_error(eval_code(qenv(), a <- b))
+  testthat::expect_error(eval_code(qenv(), a <- b), "object 'b' not found")
 })
 
 testthat::test_that("an error when calling eval_code returns a qenv.error object which has message and trace", {
