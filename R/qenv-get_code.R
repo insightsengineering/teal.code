@@ -80,7 +80,10 @@
 #'
 #' @examples
 #' # retrieve code
-#' q <- within(qenv(), {a <- 1; b <- 2})
+#' q <- within(qenv(), {
+#'   a <- 1
+#'   b <- 2
+#' })
 #' get_code(q)
 #' get_code(q, deparse = FALSE)
 #' get_code(q, names = "a")
