@@ -679,7 +679,7 @@ testthat::test_that("library() and require() are always returned", {
   code <- c(
     "set.seed(1)",
     "require(dplyr)",
-    "library(MultiAssayExperiment)",
+    "library(lifecycle)",
     "x <- 5",
     "y <- 6"
   )
@@ -688,7 +688,7 @@ testthat::test_that("library() and require() are always returned", {
     get_code(q, names = "x"),
     paste(
       "require(dplyr)",
-      "library(MultiAssayExperiment)",
+      "library(lifecycle)",
       "x <- 5",
       sep = "\n"
     )
@@ -702,7 +702,7 @@ testthat::test_that("data() call is returned when data name is provided as is", 
   code <- c(
     "set.seed(1)",
     "require(dplyr)",
-    "library(MultiAssayExperiment)",
+    "library(lifecycle)",
     "data(miniACC, envir = environment())",
     "x <- miniACC"
   )
@@ -711,7 +711,7 @@ testthat::test_that("data() call is returned when data name is provided as is", 
     get_code(q, names = "x"),
     paste(
       "require(dplyr)",
-      "library(MultiAssayExperiment)",
+      "library(lifecycle)",
       "data(miniACC, envir = environment())",
       "x <- miniACC",
       sep = "\n"
@@ -723,7 +723,7 @@ testthat::test_that("data() call is returned when data name is provided as a cha
   code <- c(
     "set.seed(1)",
     "require(dplyr)",
-    "library(MultiAssayExperiment)",
+    "library(lifecycle)",
     "data('mtcars')",
     "z <- mtcars"
   )
@@ -732,7 +732,7 @@ testthat::test_that("data() call is returned when data name is provided as a cha
     get_code(q, names = "z"),
     paste(
       "require(dplyr)",
-      "library(MultiAssayExperiment)",
+      "library(lifecycle)",
       "data(\"mtcars\")",
       "z <- mtcars",
       sep = "\n"
