@@ -703,8 +703,8 @@ testthat::test_that("data() call is returned when data name is provided as is", 
     "set.seed(1)",
     "require(dplyr)",
     "library(lifecycle)",
-    "data(miniACC, envir = environment())",
-    "x <- miniACC"
+    "data(iris, envir = environment())",
+    "x <- iris"
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
@@ -712,8 +712,8 @@ testthat::test_that("data() call is returned when data name is provided as is", 
     paste(
       "require(dplyr)",
       "library(lifecycle)",
-      "data(miniACC, envir = environment())",
-      "x <- miniACC",
+      "data(iris, envir = environment())",
+      "x <- iris",
       sep = "\n"
     )
   )
