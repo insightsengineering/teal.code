@@ -1,5 +1,10 @@
 # teal.code 0.5.0.9010
 
+### Enhancements
+
+* `get_code()` was extended with `names` parameter and allows the code extraction to be limited to objects stored in
+`qenv` but limited to `names`.
+
 # teal.code 0.5.0
 
 ### Breaking Change
