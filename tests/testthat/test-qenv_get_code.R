@@ -648,7 +648,8 @@ testthat::test_that("understands @ usage and do not treat rhs of @ as objects (o
     "a@x <- a@x + 2",
     "a@x <- x@a"
   )
-  q <- eval_code(qenv(), code)
+  q <- qenv()
+  q@code <- code # we don't use eval_code so the code is not run
   testthat::expect_identical(
     get_code(q, names = "x"),
     paste(
