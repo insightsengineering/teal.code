@@ -740,3 +740,135 @@ testthat::test_that("data() call is returned when data name is provided as a cha
     )
   )
 })
+
+
+testthat::describe("Backticked symbol", {
+  testthat::it("code can be retrieved with get_code", {
+    td <- within(
+      teal_data(),
+      {
+        `%cbind%` <- function(lhs, rhs) cbind(lhs, rhs) # nolint: object_name.
+        iris_ds <- iris %cbind% data.frame(new_col = "new column")
+      }
+    )
+
+    testthat::expect_identical(
+      get_code(td, datanames = "%cbind%"),
+      "`%cbind%` <- function(lhs, rhs) cbind(lhs, rhs)"
+    )
+  })
+
+  testthat::it("code can be retrieved with get_code", {
+    td <- within(
+      teal_data(),
+      {
+        `%cbind%` <- function(lhs, rhs) cbind(lhs, rhs) # nolint: object_name.
+        iris_ds <- iris %cbind% data.frame(new_col = "new column")
+      }
+    )
+
+    testthat::expect_identical(
+      get_code(td, datanames = "`%cbind%`"),
+      "`%cbind%` <- function(lhs, rhs) cbind(lhs, rhs)"
+    )
+  })
+
+  testthat::it("starting with underscore is detected in code dependency", {
+    td <- within(
+      teal_data(),
+      {
+        `_add_column_` <- function(lhs, rhs) cbind(lhs, rhs) # nolint: object_name.
+        iris_ds <- `_add_column_`(iris, data.frame(new_col = "new column"))
+      }
+    )
+
+    testthat::expect_identical(
+      get_code(td, datanames = "iris_ds"),
+      paste(
+        sep = "\n",
+        "`_add_column_` <- function(lhs, rhs) cbind(lhs, rhs)",
+        "iris_ds <- `_add_column_`(iris, data.frame(new_col = \"new column\"))"
+      )
+    )
+  })
+
+  testthat::it("with space character is detected in code dependency", {
+    td <- within(
+      teal_data(),
+      {
+        `add column` <- function(lhs, rhs) cbind(lhs, rhs) # nolint: object_name.
+        iris_ds <- `add column`(iris, data.frame(new_col = "new column"))
+      }
+    )
+
+    testthat::expect_identical(
+      get_code(td, datanames = "iris_ds"),
+      paste(
+        sep = "\n",
+        "`add column` <- function(lhs, rhs) cbind(lhs, rhs)",
+        "iris_ds <- `add column`(iris, data.frame(new_col = \"new column\"))"
+      )
+    )
+  })
+
+  testthat::it("without special characters is cleaned and detected in code dependency", {
+    td <- within(
+      teal_data(),
+      {
+        `add_column` <- function(lhs, rhs) cbind(lhs, rhs)
+        iris_ds <- `add_column`(iris, data.frame(new_col = "new column"))
+      }
+    )
+
+    testthat::expect_identical(
+      get_code(td, datanames = "iris_ds"),
+      paste(
+        sep = "\n",
+        "add_column <- function(lhs, rhs) cbind(lhs, rhs)",
+        "iris_ds <- add_column(iris, data.frame(new_col = \"new column\"))"
+      )
+    )
+  })
+
+  testthat::it("with non-native pipe used as function is detected code dependency", {
+    td <- within(
+      teal_data(),
+      {
+        `%add_column%` <- function(lhs, rhs) cbind(lhs, rhs)
+        iris_ds <- `%add_column%`(iris, data.frame(new_col = "new column"))
+      }
+    )
+
+    # Note that the original code is changed to use the non-native pipe operator
+    # correctly.
+    testthat::expect_identical(
+      get_code(td, datanames = "iris_ds"),
+      paste(
+        sep = "\n",
+        "`%add_column%` <- function(lhs, rhs) cbind(lhs, rhs)",
+        "iris_ds <- iris %add_column% data.frame(new_col = \"new column\")"
+      )
+    )
+  })
+
+  testthat::it("with non-native pipe is detected code dependency", {
+    td <- within(
+      teal_data(),
+      {
+        `%add_column%` <- function(lhs, rhs) cbind(lhs, rhs)
+        iris_ds <- iris %add_column% data.frame(new_col = "new column")
+      }
+    )
+
+    # Note that the original code is changed to use the non-native pipe operator
+    # correctly.
+    testthat::expect_identical(
+      get_code(td, datanames = "iris_ds"),
+      paste(
+        sep = "\n",
+        "`%add_column%` <- function(lhs, rhs) cbind(lhs, rhs)",
+        "iris_ds <- iris %add_column% data.frame(new_col = \"new column\")"
+      )
+    )
+  })
+})

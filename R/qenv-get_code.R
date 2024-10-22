@@ -112,6 +112,11 @@ setMethod("get_code", signature = "qenv", function(object, deparse = TRUE, names
   checkmate::assert_flag(deparse)
   checkmate::assert_character(names, min.len = 1L, null.ok = TRUE)
 
+  # Normalize in case special it is backticked
+  if (!is.null(names)) {
+    names <- gsub("^`(.*)`$", "\\1", names)
+  }
+
   code <- if (!is.null(names)) {
     get_code_dependency(object@code, names, ...)
   } else {
