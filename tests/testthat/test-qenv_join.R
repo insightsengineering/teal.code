@@ -40,9 +40,9 @@ testthat::test_that("Joined qenv does not duplicate common code", {
 
   testthat::expect_identical(
     q@code,
-    c("iris1 <- iris\nmtcars1 <- mtcars", "mtcars2 <- mtcars")
+    c("iris1 <- iris", "mtcars1 <- mtcars", "mtcars2 <- mtcars")
   )
-  testthat::expect_identical(q@id, c(q1@id, q2@id[2]))
+  testthat::expect_identical(q@id, c(q1@id, q2@id[2])) #TODO fix
 })
 
 testthat::test_that("Not able to join two qenvs if any of the shared objects changed", {
@@ -64,7 +64,7 @@ testthat::test_that("join does not duplicate code but adds only extra code", {
 
   testthat::expect_identical(
     q@code,
-    c("iris1 <- iris\nmtcars1 <- mtcars", "iris2 <- iris", "mtcars2 <- mtcars")
+    c("iris1 <- iris", "mtcars1 <- mtcars", "iris2 <- iris", "mtcars2 <- mtcars")
   )
 
   testthat::expect_equal(
@@ -72,7 +72,7 @@ testthat::test_that("join does not duplicate code but adds only extra code", {
     list(iris1 = iris, iris2 = iris, mtcars1 = mtcars, mtcars2 = mtcars)
   )
 
-  testthat::expect_identical(q@id, c(q1@id, q2@id[2]))
+  testthat::expect_identical(q@id, c(q1@id, q2@id[2])) #TODO - fix this
 })
 
 testthat::test_that("Not possible to join qenvs which share some code when one of the shared object was modified", {
