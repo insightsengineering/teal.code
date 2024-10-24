@@ -44,6 +44,7 @@ get_code_dependency <- function(code, names, check_names = TRUE) {
   pd <- utils::getParseData(code)
   pd <- normalize_pd(pd)
   calls_pd <- extract_calls(pd)
+  comments <- extract_comments(code)
 
   if (check_names) {
     # Detect if names are actually in code.
@@ -64,7 +65,8 @@ get_code_dependency <- function(code, names, check_names = TRUE) {
 
   lib_ind <- detect_libraries(calls_pd)
 
-  as.character(code[sort(unique(c(lib_ind, ind)))])
+  code_ids <- sort(unique(c(lib_ind, ind)))
+  trimws(paste(as.character(code[code_ids]), comments[code_ids]))
 }
 
 #' Locate function call token
@@ -451,3 +453,22 @@ normalize_pd <- function(pd) {
 
   pd
 }
+
+#' Extract comments from parsed code
+#'
+#' @param parsed_code `expression`, result of `parse()` function
+#'
+#' @return `character` vector of length of `parsed_code` with comments included in `parsed_code`
+#' @keywords internal
+#' @noRd
+extract_comments <- function(parsed_code) {
+  get_comments <- function(call) {
+    comment <- call[call$token == "COMMENT", "text"]
+    if (length(comment) == 0) "" else comment
+  }
+  unlist(lapply(
+    extract_calls(utils::getParseData(parsed_code)),
+    get_comments
+  ))
+}
+

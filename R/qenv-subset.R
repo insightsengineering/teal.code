@@ -30,21 +30,18 @@ setMethod("subset", signature = c("qenv"), function(object, names) {
     return(qenv())
   }
 
-  new_qenv <- qenv()
-  new_qenv@env <- list2env(mget(x = names_in_env, envir = get_env(object)))
-  new_qenv@code <- get_code(object, names = names_in_env)
-  # Question: what about @id, @warnings, @messages?
-  # Currently:
-  # > new_qenv@id
-  # integer(0)
-  # > new_qenv@warnings
-  # character(0)
-  # > new_qenv@messages
-  # character(0)
-  new_qenv
+  limited_code <- get_code(object, names = names_in_env)
+  indexes <- which(object@code %in% limited_code)
+
+  object@env <- list2env(mget(x = names_in_env, envir = get_env(object)))
+  object@code <- limited_code
+  object@id <- object@id[indexes]
+  object@warnings <- object@warnings[indexes]
+  object@messages <- object@messages[indexes]
+
+  object
 
 })
-
 
 setMethod("subset", signature = c("qenv.error", "ANY"), function(object, names) {
   object

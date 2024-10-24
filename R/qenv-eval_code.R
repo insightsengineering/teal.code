@@ -28,18 +28,20 @@
 setGeneric("eval_code", function(object, code) standardGeneric("eval_code"))
 
 setMethod("eval_code", signature = c("qenv", "character"), function(object, code) {
-  id <- sample.int(.Machine$integer.max, size = 1)
+  parsed_code <- parse(text = code, keep.source = TRUE)
+  comments <- extract_comments(parsed_code)
+  id <- sample.int(.Machine$integer.max, size = length(parsed_code))
 
   object@id <- c(object@id, id)
   object@env <- rlang::env_clone(object@env, parent = parent.env(.GlobalEnv))
-  code <- paste(code, collapse = "\n")
-  object@code <- c(object@code, code)
+  object@code <- c(object@code, trimws(paste(as.character(parsed_code), comments)))
 
-  current_warnings <- ""
-  current_messages <- ""
+  current_warnings <- rep("", length(parsed_code))
+  current_messages <- rep("", length(parsed_code))
 
-  parsed_code <- parse(text = code, keep.source = TRUE)
-  for (single_call in parsed_code) {
+
+  for (i in 1:length(parsed_code)) {
+    single_call <- parsed_code[i]
     # Using withCallingHandlers to capture warnings and messages.
     # Using tryCatch to capture the error and abort further evaluation.
     x <- withCallingHandlers(
@@ -66,11 +68,11 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
         }
       ),
       warning = function(w) {
-        current_warnings <<- paste0(current_warnings, .ansi_strip(sprintf("> %s\n", conditionMessage(w))))
+        current_warnings[i] <<- .ansi_strip(sprintf("> %s\n", conditionMessage(w)))
         invokeRestart("muffleWarning")
       },
       message = function(m) {
-        current_messages <<- paste0(current_messages, .ansi_strip(sprintf("> %s", conditionMessage(m))))
+        current_messages[i] <<- .ansi_strip(sprintf("> %s", conditionMessage(m)))
         invokeRestart("muffleMessage")
       }
     )

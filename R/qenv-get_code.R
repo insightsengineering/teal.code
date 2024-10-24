@@ -124,11 +124,12 @@ setMethod("get_code", signature = "qenv", function(object, deparse = TRUE, names
   }
 
   if (deparse) {
-    if (length(code) == 0) {
-      code
-    } else {
-      paste(code, collapse = "\n")
-    }
+    # if (length(code) == 0) {
+    #   code
+    # } else {
+    #   paste(code, collapse = "\n")
+    # }
+    code
   } else {
     parse(text = paste(c("{", code, "}"), collapse = "\n"), keep.source = TRUE)
   }
