@@ -40,10 +40,8 @@ setMethod("subset", signature = c("qenv"), function(object, names) {
   object@messages <- object@messages[indexes]
 
   object
-
 })
 
 setMethod("subset", signature = c("qenv.error", "ANY"), function(object, names) {
   object
 })
-

@@ -586,8 +586,10 @@ testthat::test_that("detects occurrence of a function definition with a @linksto
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
     get_code(q, names = "x"),
-    c("foo <- function() {\n    env <- parent.frame()\n    env$x <- 0\n}",
-      "foo() # @linksto x")
+    c(
+      "foo <- function() {\n    env <- parent.frame()\n    env$x <- 0\n}",
+      "foo() # @linksto x"
+    )
   )
 })
 # $ ---------------------------------------------------------------------------------------------------------------

@@ -471,4 +471,3 @@ extract_comments <- function(parsed_code) {
     get_comments
   ))
 }
-
