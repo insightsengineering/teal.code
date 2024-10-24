@@ -4,6 +4,8 @@
 
 * `get_code()` was extended with `names` parameter and allows the code extraction to be limited to objects stored in
 `qenv` but limited to `names`.
+* `eval_code(qenv, code)` analyzes code by single calls and returns `@id`, `@code`, `@messages`, `@warnings` fields of
+the length of calls included in `code`.
 
 # teal.code 0.5.0
 

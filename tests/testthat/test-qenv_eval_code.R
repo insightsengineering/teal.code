@@ -70,7 +70,7 @@ testthat::test_that("eval_code works with quoted code block", {
 
   testthat::expect_equal(
     q1@code,
-    "a <- 1\nb <- 2"
+    c("a <- 1", "b <- 2")
   )
   testthat::expect_equal(q1@env, list2env(list(a = 1, b = 2)))
 })
@@ -88,7 +88,7 @@ testthat::test_that("an error when calling eval_code returns a qenv.error object
     unname(q$trace),
     c("x <- 1", "y <- 2", "z <- w * x")
   )
-  testthat::expect_equal(q$message, "object 'w' not found \n when evaluating qenv code:\nz <- w * x")
+  testthat::expect_equal(q$message, "object 'w' not found \n when evaluating qenv code:\nexpression(z <- w * x)")
 })
 
 testthat::test_that("a warning when calling eval_code returns a qenv object which has warnings", {
@@ -97,13 +97,13 @@ testthat::test_that("a warning when calling eval_code returns a qenv object whic
   testthat::expect_s4_class(q, "qenv")
   testthat::expect_equal(
     q@warnings,
-    c("", paste(rep("> \"ff\" is not a graphical parameter\n", 4), collapse = ""))
+    c("", "> \"ff\" is not a graphical parameter\n")
   )
 })
 
 testthat::test_that("eval_code with a vector of code produces one warning element per code element", {
   q <- eval_code(qenv(), c("x <- 1", "y <- 1", "warning('warn1')"))
-  testthat::expect_equal(c("> warn1\n"), q@warnings)
+  testthat::expect_equal(c("", "", "> warn1\n"), q@warnings)
 })
 
 
