@@ -57,7 +57,7 @@ testthat::test_that("get_warnings accepts a qenv object with 1 warning eval_code
     eval_code(bquote("x <- 1")) %>%
     eval_code(bquote(warning("This is a warning 2!")))
   testthat::expect_identical(
-    get_warnings(q), # TODO fix
+    get_warnings(q),
     paste0(
       "~~~ Warnings ~~~\n\n> This is a warning 2!\nwhen running code:\nwarning(\"This is a warning 2!\")\n\n",
       "~~~ Trace ~~~\n\nx <- 1\nwarning(\"This is a warning 2!\")"
