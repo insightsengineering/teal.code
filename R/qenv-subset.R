@@ -23,7 +23,6 @@
 setGeneric("subset", function(object, names) standardGeneric("subset"))
 
 setMethod("subset", signature = c("qenv"), function(object, names) {
-  # based on https://github.com/insightsengineering/teal/blob/a1087d2d3ff0c62393c3d5277cd5f184d543e2d9/R/teal_data_utils.R#L41-L64
   checkmate::assert_class(names, "character")
   names_in_env <- intersect(names, ls(get_env(object)))
   if (!length(names_in_env)) {
