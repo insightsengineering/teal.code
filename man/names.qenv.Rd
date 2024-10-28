@@ -3,27 +3,19 @@
 \name{names.qenv}
 \alias{names.qenv}
 \alias{names.qenv.error}
-\alias{names<-.qenv}
-\alias{names<-.qenv.error}
 \title{The Names of a \code{qenv} or \code{qenv_error} Object}
 \usage{
 \method{names}{qenv}(x, ...)
 
 \method{names}{qenv.error}(x)
-
-\method{names}{qenv}(x) <- value
-
-\method{names}{qenv.error}(x) <- value
 }
 \arguments{
-\item{x}{A (\code{qenv} or \code{qenv_error}) object.}
+\item{x}{(\code{qenv} or \code{qenv_error}) object.}
 
 \item{...}{Additional parameters to this function, allowed parameters:
 \itemize{
 \item \code{all.names}: (\code{logical(1)}) that specifies whether to include hidden objects.
 }}
-
-\item{value}{Does nothing as the names assignment is not supported.}
 }
 \value{
 A character vector of names.
