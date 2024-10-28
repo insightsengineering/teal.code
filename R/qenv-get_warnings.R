@@ -51,7 +51,7 @@ setMethod("get_warnings", signature = c("qenv"), function(object) {
 
   paste0(
     sprintf("~~~ Warnings ~~~\n\n%s\n\n", paste(lines, collapse = "\n\n")),
-    sprintf("~~~ Trace ~~~\n\n%s",paste(get_code(object), collapse = "\n"))
+    sprintf("~~~ Trace ~~~\n\n%s", paste(get_code(object), collapse = "\n"))
   )
 })
 
