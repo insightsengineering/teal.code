@@ -4,7 +4,7 @@
 
 * `get_code()` was extended with `names` parameter and allows the code extraction to be limited to objects stored in
 `qenv` but limited to `names`.
-* Added `names()` support for `qenv` objects that determines dynamically the objects in the environment.
+* Added `names()` function for `qenv` objects, which dynamically determines the visible objects in the environment.
 
 # teal.code 0.5.0
 
