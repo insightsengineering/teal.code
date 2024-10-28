@@ -1,0 +1,36 @@
+#' @rdname qenv
+#' @order 2
+#'
+#' @section Subsetting:
+#' `x[names]` subsets objects in `qenv` environment and limit the code to the necessary to build limited objects.
+#'
+#' @param names (`character`) names of objects included in `qenv` to subset
+#'
+#' @examples
+#'
+#' # Subsetting
+#' q <- qenv()
+#' q <- eval_code(q, "a <- 1;b<-2")
+#' q["a"]
+#' q[c("a", "b")]
+#'
+#' @export
+`[.qenv` <- function(x, names) {
+  checkmate::assert_class(names, "character")
+  names_in_env <- intersect(names, ls(get_env(x)))
+  if (!length(names_in_env)) {
+    return(qenv())
+  }
+
+  limited_code <- get_code(x, names = names_in_env)
+  indexes <- which(x@code %in% limited_code)
+
+  x@env <- list2env(mget(x = names_in_env, envir = get_env(x)))
+  x@code <- limited_code
+  x@id <- x@id[indexes]
+  x@warnings <- x@warnings[indexes]
+  x@messages <- x@messages[indexes]
+
+  x
+}
+
