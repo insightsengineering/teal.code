@@ -120,7 +120,7 @@ testthat::test_that("extracts the code without downstream usage", {
   )
 })
 
-testthat::test_that("works for datanames of length > 1", {
+testthat::test_that("works for names of length > 1", {
   code <- c(
     "a <- 1",
     "b <- 2"
