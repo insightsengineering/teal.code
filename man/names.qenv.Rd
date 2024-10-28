@@ -5,17 +5,12 @@
 \alias{names.qenv.error}
 \title{The Names of a \code{qenv} or \code{qenv_error} Object}
 \usage{
-\method{names}{qenv}(x, ...)
+\method{names}{qenv}(x)
 
 \method{names}{qenv.error}(x)
 }
 \arguments{
 \item{x}{(\code{qenv} or \code{qenv_error}) object.}
-
-\item{...}{Additional parameters to this function, allowed parameters:
-\itemize{
-\item \code{all.names}: (\code{logical(1)}) that specifies whether to include hidden objects.
-}}
 }
 \value{
 A character vector of names.
@@ -26,8 +21,7 @@ The names are extrapolated from the objects in the \code{qenv} environment and
 are not stored statically, unlike the normal behavior of \code{names()} function.
 }
 \details{
-Objects named with a \code{.} (dot) prefix will be ignored and not returned,
-unless \code{all.names} parameter is set to \code{TRUE}.
+Objects named with a \code{.} (dot) prefix will be ignored and not returned.
 }
 \examples{
 q1 <- within(qenv(), iris <- iris)

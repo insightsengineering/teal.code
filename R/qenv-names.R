@@ -4,14 +4,9 @@
 #' The names are extrapolated from the objects in the `qenv` environment and
 #' are not stored statically, unlike the normal behavior of `names()` function.
 #'
-#' Objects named with a `.` (dot) prefix will be ignored and not returned,
-#' unless `all.names` parameter is set to `TRUE`.
+#' Objects named with a `.` (dot) prefix will be ignored and not returned.
 #'
 #' @param x (`qenv` or `qenv_error`) object.
-#' @param ... Additional parameters to this function, allowed parameters:
-#'
-#' - `all.names`: (`logical(1)`) that specifies whether to include hidden objects.
-#'
 #' @return A character vector of names.
 #'
 #' @seealso [base::names()]
@@ -27,14 +22,8 @@
 #' names(q2)
 #'
 #' @export
-names.qenv <- function(x, ...) {
-  dots <- rlang::list2(...)
-  if (length(setdiff(names(dots), "all.names")) > 0) {
-    stop("Only `x` and 'all.names' parameter are allowed")
-  }
-  checkmate::assert_flag(dots[["all.names"]], .var.name = "all.names", null.ok = TRUE)
-  if (is.null(dots[["all.names"]])) dots[["all.names"]] <- FALSE
-  ls(get_env(x), all.names = dots[["all.names"]])
+names.qenv <- function(x) {
+  ls(get_env(x))
 }
 
 #' @rdname names.qenv
