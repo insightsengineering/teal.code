@@ -7,9 +7,9 @@
 \alias{names<-.qenv.error}
 \title{The Names of a \code{qenv} or \code{qenv_error} Object}
 \usage{
-\method{names}{qenv}(x, all.names = FALSE)
+\method{names}{qenv}(x, ...)
 
-\method{names}{qenv.error}(x, all.names = FALSE)
+\method{names}{qenv.error}(x)
 
 \method{names}{qenv}(x) <- value
 
@@ -18,8 +18,10 @@
 \arguments{
 \item{x}{A (\code{qenv} or \code{qenv_error}) object.}
 
-\item{all.names}{(\code{logical(1)}) that specifies whether to include hidden
-objects.}
+\item{...}{Additional parameters to this function, allowed parameters:
+\itemize{
+\item \code{all.names}: (\code{logical(1)})that specifies whether to include hidden objects.
+}}
 
 \item{value}{Does nothing as the names assignment is not supported.}
 }
@@ -34,6 +36,17 @@ are not stored statically, unlike the normal behavior of \code{names()} function
 \details{
 Objects named with a \code{.} (dot) prefix will be ignored and not returned,
 unless \code{all.names} parameter is set to \code{TRUE}.
+}
+\examples{
+q1 <- within(qenv(), iris <- iris)
+names(q1)
+
+q2 <- within(q1, {
+  mtcars <- mtcars
+  CO2 <- CO2
+})
+names(q2)
+
 }
 \seealso{
 \code{\link[base:names]{base::names()}}
