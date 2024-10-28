@@ -10,7 +10,7 @@
 #' @param x A (`qenv` or `qenv_error`) object.
 #' @param ... Additional parameters to this function, allowed parameters:
 #'
-#' - `all.names`: (`logical(1)`)that specifies whether to include hidden objects.
+#' - `all.names`: (`logical(1)`) that specifies whether to include hidden objects.
 #' @param value Does nothing as the names assignment is not supported.
 #'
 #' @return A character vector of names.

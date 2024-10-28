@@ -20,7 +20,7 @@
 
 \item{...}{Additional parameters to this function, allowed parameters:
 \itemize{
-\item \code{all.names}: (\code{logical(1)})that specifies whether to include hidden objects.
+\item \code{all.names}: (\code{logical(1)}) that specifies whether to include hidden objects.
 }}
 
 \item{value}{Does nothing as the names assignment is not supported.}
