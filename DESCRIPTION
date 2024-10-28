@@ -63,6 +63,7 @@ Collate:
     'qenv-get_var.R'
     'qenv-get_warnings.R'
     'qenv-join.R'
+    'qenv-names.R'
     'qenv-show.R'
     'qenv-within.R'
     'teal.code-package.R'

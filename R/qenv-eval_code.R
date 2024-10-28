@@ -80,7 +80,6 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
     }
   }
 
-
   object@warnings <- c(object@warnings, current_warnings)
   object@messages <- c(object@messages, current_messages)
 
