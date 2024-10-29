@@ -448,6 +448,61 @@ testthat::test_that(
   }
 )
 
+
+# comments --------------------------------------------------------------------------------------------------------
+
+testthat::test_that("comments fall into proper calls", {
+
+  # If comment is on top, it gets moved to the first call.
+  # Any other comment gets moved to the call above.
+  code <- "
+    # initial comment
+    a <- 1
+    b <- 2 # inline comment
+    c <- 3
+    # inbetween comment
+    d <- 4
+    # finishing comment
+  "
+
+  q <- qenv() |> eval_code(code)
+  testthat::expect_identical(
+    get_code(q),
+    c("a <- 1 # initial comment",
+      "b <- 2 # inline comment",
+      "c <- 3 # inbetween comment",
+      "d <- 4 # finishing comment")
+  )
+
+})
+
+testthat::test_that("comments get pasted when they fall into calls", {
+
+  # If comment is on top, it gets moved to the first call.
+  # Any other comment gets moved to the call above.
+  # Comments get pasted if there are two assigned to the same call.
+  code <- "
+    # initial comment
+    a <- 1 # A comment
+    b <- 2 # inline comment
+    c <- 3 # C comment
+    # inbetween comment
+    d <- 4
+    # finishing comment
+  "
+
+  q <- qenv() |> eval_code(code)
+  testthat::expect_identical(
+    get_code(q),
+    c("a <- 1 # initial comment # A comment",
+      "b <- 2 # inline comment",
+      "c <- 3 # C comment # inbetween comment",
+      "d <- 4 # finishing comment"
+    )
+  )
+
+})
+
 # functions -------------------------------------------------------------------------------------------------------
 
 testthat::test_that("ignores occurrence in a function definition", {

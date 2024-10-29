@@ -141,12 +141,12 @@ get_children <- function(pd, parent) {
 #' Fixes edge case of comments being shifted to the next call.
 #' @keywords internal
 #' @noRd
-fix_shifted_comments <- function(calls) {
+fix_shifted_comments <- function(calls, pattern = "@linksto") {
   # If the first or the second token is a @linksto COMMENT,
   #  then it belongs to the previous call.
   if (length(calls) >= 2) {
     for (i in 2:length(calls)) {
-      comment_idx <- grep("@linksto", calls[[i]][, "text"])
+      comment_idx <- grep(pattern, calls[[i]][, "text"])
       if (isTRUE(comment_idx[1] <= 2)) {
         calls[[i - 1]] <- rbind(
           calls[[i - 1]],
@@ -156,7 +156,20 @@ fix_shifted_comments <- function(calls) {
       }
     }
   }
-  Filter(nrow, calls)
+  calls <- Filter(nrow, calls)
+  # If, after shifting, there are two COMMENTs in one call, paste them.
+  merge_comments <- function(call) {
+    if (sum(call$token == "COMMENT") >= 2) {
+      comments <- call[call$token == "COMMENT", "text"]
+      first_comment_row <- call[which(call$token == "COMMENT")[1], ]
+      call <- call[call$token != "COMMENT", ]
+      first_comment_row$text <- paste(comments, collapse = " ")
+      rbind(call, first_comment_row)
+    } else {
+      call
+    }
+  }
+  lapply(calls, merge_comments)
 }
 
 #' Fixes edge case of `<-` assignment operator being called as function,
@@ -466,8 +479,8 @@ extract_comments <- function(parsed_code) {
     comment <- call[call$token == "COMMENT", "text"]
     if (length(comment) == 0) "" else comment
   }
-  unlist(lapply(
-    extract_calls(utils::getParseData(parsed_code)),
-    get_comments
-  ))
+  calls <- extract_calls(utils::getParseData(parsed_code))
+  fixed_calls <- fix_shifted_comments(calls, pattern = "#")
+
+  unlist(lapply(fixed_calls, get_comments))
 }
