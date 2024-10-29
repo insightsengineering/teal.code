@@ -29,19 +29,19 @@ setGeneric("eval_code", function(object, code) standardGeneric("eval_code"))
 
 setMethod("eval_code", signature = c("qenv", "character"), function(object, code) {
   parsed_code <- parse(text = code, keep.source = TRUE)
-  comments <- extract_comments(parsed_code)
   id <- sample.int(.Machine$integer.max, size = length(parsed_code))
 
   object@id <- c(object@id, id)
   object@env <- rlang::env_clone(object@env, parent = parent.env(.GlobalEnv))
-  object@code <- c(object@code, trimws(paste(as.character(parsed_code), comments)))
+
+  code_split <- split_code(code, parsed_code)
+  object@code <- c(object@code, unlist(code_split))
 
   current_warnings <- rep("", length(parsed_code))
   current_messages <- rep("", length(parsed_code))
 
-
-  for (i in seq_along(parsed_code)) {
-    single_call <- parsed_code[i]
+  for (i in seq_along(code_split)) {
+    single_call <- parse(text = code_split[[i]], keep.source = FALSE)
     # Using withCallingHandlers to capture warnings and messages.
     # Using tryCatch to capture the error and abort further evaluation.
     x <- withCallingHandlers(

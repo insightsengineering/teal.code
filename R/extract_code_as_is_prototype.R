@@ -45,7 +45,12 @@ get_line_ids <- function(pd) {
   Filter(Negate(is.null), c(list(first_comment_ids), call_ids, list(last_comment_ids)))
 }
 
-split_code <- function(code, lines_ids) {
+split_code <- function(code, parsed_code) {
+
+  pd <- utils::getParseData(parsed_code)
+  pd <- pd[pd$token != "';'", ]
+  lines_ids <- get_line_ids(pd)
+
   code_split <- strsplit(code, split = "\n", fixed = TRUE)[[1]]
   code_split_calls <- list()
 

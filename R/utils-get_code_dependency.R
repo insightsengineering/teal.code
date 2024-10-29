@@ -39,12 +39,12 @@ get_code_dependency <- function(code, names, check_names = TRUE) {
     code <- sub("^\\{(.*)\\}$", "\\1", tcode)
   }
 
-
-  code <- parse(text = code, keep.source = TRUE)
-  pd <- utils::getParseData(code)
+  code <- split_code(code, parsed_code)
+  parsed_code <- parse(text = code, keep.source = TRUE)
+  pd <- utils::getParseData(parsed_code)
   pd <- normalize_pd(pd)
   calls_pd <- extract_calls(pd)
-  comments <- extract_comments(code)
+  comments <- extract_comments(parsed_code)
 
   if (check_names) {
     # Detect if names are actually in code.
@@ -66,7 +66,8 @@ get_code_dependency <- function(code, names, check_names = TRUE) {
   lib_ind <- detect_libraries(calls_pd)
 
   code_ids <- sort(unique(c(lib_ind, ind)))
-  trimws(paste(as.character(code[code_ids]), comments[code_ids]))
+  code[code_ids]
+  #trimws(paste(as.character(code[code_ids]), comments[code_ids]))
 }
 
 #' Locate function call token
@@ -141,12 +142,12 @@ get_children <- function(pd, parent) {
 #' Fixes edge case of comments being shifted to the next call.
 #' @keywords internal
 #' @noRd
-fix_shifted_comments <- function(calls, pattern = "@linksto") {
+fix_shifted_comments <- function(calls) {
   # If the first or the second token is a @linksto COMMENT,
   #  then it belongs to the previous call.
   if (length(calls) >= 2) {
     for (i in 2:length(calls)) {
-      comment_idx <- grep(pattern, calls[[i]][, "text"])
+      comment_idx <- grep("@linksto", calls[[i]][, "text"])
       if (isTRUE(comment_idx[1] <= 2)) {
         calls[[i - 1]] <- rbind(
           calls[[i - 1]],
@@ -156,20 +157,7 @@ fix_shifted_comments <- function(calls, pattern = "@linksto") {
       }
     }
   }
-  calls <- Filter(nrow, calls)
-  # If, after shifting, there are two COMMENTs in one call, paste them.
-  merge_comments <- function(call) {
-    if (sum(call$token == "COMMENT") >= 2) {
-      comments <- call[call$token == "COMMENT", "text"]
-      first_comment_row <- call[which(call$token == "COMMENT")[1], ]
-      call <- call[call$token != "COMMENT", ]
-      first_comment_row$text <- paste(comments, collapse = " ")
-      rbind(call, first_comment_row)
-    } else {
-      call
-    }
-  }
-  lapply(calls, merge_comments)
+  Filter(nrow, calls)
 }
 
 #' Fixes edge case of `<-` assignment operator being called as function,
