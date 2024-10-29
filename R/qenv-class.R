@@ -14,10 +14,19 @@
 #' @exportClass qenv
 setClass(
   "qenv",
-  slots = c(env = "environment", code = "character", id = "integer", warnings = "character", messages = "character"),
+  slots = c(
+    code = "character",
+    id = "integer",
+    warnings = "character",
+    messages = "character"
+  ),
+  contains = "environment",
   prototype = list(
-    env = new.env(parent = parent.env(.GlobalEnv)), code = character(0), id = integer(0),
-    warnings = character(0), messages = character(0)
+    .xData = new.env(parent = parent.env(.GlobalEnv)),
+    code = character(0),
+    id = integer(0),
+    warnings = character(0),
+    messages = character(0)
   )
 )
 

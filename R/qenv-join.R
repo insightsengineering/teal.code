@@ -150,8 +150,8 @@ setMethod("join", signature = c("qenv", "qenv"), function(x, y) {
   x@messages <- c(x@messages, y@messages[id_unique])
 
   # insert (and overwrite) objects from y to x
-  x@env <- rlang::env_clone(x@env, parent = parent.env(.GlobalEnv))
-  rlang::env_coalesce(env = x@env, from = y@env)
+  x@.xData <- rlang::env_clone(x@.xData, parent = parent.env(.GlobalEnv))
+  rlang::env_coalesce(env = x@.xData, from = y@.xData)
   x
 })
 
@@ -175,9 +175,9 @@ setMethod("join", signature = c("qenv.error", "ANY"), function(x, y) {
   checkmate::assert_class(x, "qenv")
   checkmate::assert_class(y, "qenv")
 
-  common_names <- intersect(rlang::env_names(x@env), rlang::env_names(y@env))
+  common_names <- intersect(rlang::env_names(x@.xData), rlang::env_names(y@.xData))
   is_overwritten <- vapply(common_names, function(el) {
-    !identical(get(el, x@env), get(el, y@env))
+    !identical(get(el, x@.xData), get(el, y@.xData))
   }, logical(1))
   if (any(is_overwritten)) {
     return(

@@ -25,7 +25,7 @@
 qenv <- function() {
   q_env <- new.env(parent = parent.env(.GlobalEnv))
   lockEnvironment(q_env, bindings = TRUE)
-  methods::new("qenv", env = q_env)
+  methods::new("qenv", .xData = q_env)
 }
 
 
@@ -73,7 +73,11 @@ setMethod(
     id <- sample.int(.Machine$integer.max, size = length(code))
     methods::new(
       "qenv",
-      env = new_env, code = code, warnings = rep("", length(code)), messages = rep("", length(code)), id = id
+      .xData = new_env,
+      code = code,
+      warnings = rep("", length(code)),
+      messages = rep("", length(code)),
+      id = id
     )
   }
 )

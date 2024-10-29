@@ -24,7 +24,7 @@ setGeneric("get_env", function(object) {
 })
 
 setMethod("get_env", "qenv", function(object) {
-  object@env
+  object@.xData
 })
 
 setMethod("get_env", "qenv.error", function(object) {

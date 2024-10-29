@@ -15,14 +15,14 @@ testthat::test_that("eval_code doesn't have access to environment where it's cal
   )
 })
 
-testthat::test_that("@env in qenv is always a sibling of .GlobalEnv", {
+testthat::test_that("@.xData in qenv is always a sibling of .GlobalEnv", {
   q1 <- qenv()
-  testthat::expect_identical(parent.env(q1@env), parent.env(.GlobalEnv))
+  testthat::expect_identical(parent.env(q1@.xData), parent.env(.GlobalEnv))
 
   q2 <- eval_code(q1, quote(a <- 1L))
-  testthat::expect_identical(parent.env(q2@env), parent.env(.GlobalEnv))
+  testthat::expect_identical(parent.env(q2@.xData), parent.env(.GlobalEnv))
   q3 <- eval_code(q2, quote(b <- 2L))
-  testthat::expect_identical(parent.env(q3@env), parent.env(.GlobalEnv))
+  testthat::expect_identical(parent.env(q3@.xData), parent.env(.GlobalEnv))
 })
 
 testthat::test_that("getting object from the package namespace works even if library in the same call", {
@@ -42,21 +42,21 @@ testthat::test_that("eval_code works with character", {
   q1 <- eval_code(qenv(), "a <- 1")
 
   testthat::expect_identical(q1@code, "a <- 1")
-  testthat::expect_equal(q1@env, list2env(list(a = 1)))
+  testthat::expect_equal(q1@.xData, list2env(list(a = 1)))
 })
 
 testthat::test_that("eval_code works with expression", {
   q1 <- eval_code(qenv(), as.expression(quote(a <- 1)))
 
   testthat::expect_identical(q1@code, "a <- 1")
-  testthat::expect_equal(q1@env, list2env(list(a = 1)))
+  testthat::expect_equal(q1@.xData, list2env(list(a = 1)))
 })
 
 testthat::test_that("eval_code works with quoted", {
   q1 <- eval_code(qenv(), quote(a <- 1))
 
   testthat::expect_identical(q1@code, "a <- 1")
-  testthat::expect_equal(q1@env, list2env(list(a = 1)))
+  testthat::expect_equal(q1@.xData, list2env(list(a = 1)))
 })
 
 testthat::test_that("eval_code works with quoted code block", {
@@ -72,11 +72,14 @@ testthat::test_that("eval_code works with quoted code block", {
     q1@code,
     "a <- 1\nb <- 2"
   )
-  testthat::expect_equal(q1@env, list2env(list(a = 1, b = 2)))
+  testthat::expect_equal(q1@.xData, list2env(list(a = 1, b = 2)))
 })
 
 testthat::test_that("eval_code fails with unquoted expression", {
-  testthat::expect_error(eval_code(qenv(), a <- b), "object 'b' not found")
+  withr::with_environment(
+    env = baseenv(), ,
+    code = testthat::expect_error(eval_code(qenv(), a <- b), "object 'b' not found")
+  )
 })
 
 testthat::test_that("an error when calling eval_code returns a qenv.error object which has message and trace", {
