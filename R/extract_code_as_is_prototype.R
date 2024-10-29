@@ -1,21 +1,3 @@
-code <- "
-  # initial comment line 1
-  # initial comment line 2
-  a <- 1 # A comment
-  b1 <- 2; b2 <- 2;b3 = 3 # inline comment
-  c <- 3 # C comment
-  # inbetween comment
-  d <- 4
-  # finishing comment line 1
-  # finishing comment line 2
-"
-
-parsed_code <- parse(text = code)
-comments <- extract_comments(parsed_code)
-pd <- utils::getParseData(parsed_code)
-
-pd <- pd[pd$token != "';'", ]
-
 get_line_ids <- function(pd) {
   if (pd$token[1] == "COMMENT") {
     first_comment <- 1:(which(pd$parent == 0)[1]-1)
@@ -85,10 +67,27 @@ split_code <- function(code, lines_ids) {
   code_split_calls
 }
 
-lines_ids <- get_line_ids(pd)
+# EXAMPLE
+# code <- "
+#   # initial comment line 1
+#   # initial comment line 2
+#   a <- 1 # A comment
+#   b1 <- 2; b2 <- 2;b3 = 3 # inline comment
+#   c <- 3 # C comment
+#   # inbetween comment
+#   d <- 4
+#   # finishing comment line 1
+#   # finishing comment line 2
+# "
+#
+# parsed_code <- parse(text = code)
+# comments <- extract_comments(parsed_code)
+# pd <- utils::getParseData(parsed_code)
+#
+# pd <- pd[pd$token != "';'", ]
+# lines_ids <- get_line_ids(pd)
+# code_by_calls <- split_code(code, lines_ids)
+# code_by_calls
 
-code_by_calls <- split_code(code, lines_ids)
-
-code_by_calls
 
 
