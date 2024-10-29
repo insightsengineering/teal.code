@@ -44,9 +44,9 @@ testthat::test_that("get_var, `$` and `[[` only returns objects from qenv, not .
     withr::defer(rm("an_object", envir = .GlobalEnv))
   } else {
     old_object <- .GlobalEnv$an_object
-    withr::defer(.GlobalEnv$an_object <- old_object)
+    withr::defer(.GlobalEnv$an_object <- old_object) # nolint: object_name.
   }
-  .GlobalEnv$an_object <- iris
+  .GlobalEnv$an_object <- iris # nolint: object_name.
 
   q <- qenv()
   testthat::expect_null(get_var(q, "iris"))
