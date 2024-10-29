@@ -76,10 +76,8 @@ testthat::test_that("eval_code works with quoted code block", {
 })
 
 testthat::test_that("eval_code fails with unquoted expression", {
-  withr::with_environment(
-    env = baseenv(), ,
-    code = testthat::expect_error(eval_code(qenv(), a <- b), "object 'b' not found")
-  )
+  b <- 3
+  testthat::expect_error(eval_code(qenv(), a <- b), "unable to find an inherited method for function .eval_code. for signature")
 })
 
 testthat::test_that("an error when calling eval_code returns a qenv.error object which has message and trace", {
