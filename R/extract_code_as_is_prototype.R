@@ -86,4 +86,3 @@ split_code <- function(code, lines_ids) {
 # lines_ids <- get_line_ids(pd)
 # code_by_calls <- split_code(code, lines_ids)
 # code_by_calls
-
