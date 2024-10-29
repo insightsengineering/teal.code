@@ -20,6 +20,7 @@
   checkmate::assert_class(names, "character")
   names_in_env <- intersect(names, ls(get_env(x)))
   if (!length(names_in_env)) {
+    warning("None of `names` elements exist in `qenv`. Returning empty `qenv`.")
     return(qenv())
   }
 
