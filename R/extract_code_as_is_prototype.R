@@ -18,7 +18,7 @@ pd <- pd[pd$token != "';'", ]
 
 get_line_ids <- function(pd) {
   if (pd$token[1] == "COMMENT") {
-    first_comment <- 1:(which(pd$parent == 0)[1]-1)
+    first_comment <- 1:(which(pd$parent == 0)[1] - 1)
     pd_first_comment <- pd[first_comment, ]
     pd <- pd[-first_comment, ]
 
@@ -47,15 +47,15 @@ get_line_ids <- function(pd) {
 
 
   calls_start <- which(pd$parent == 0)
-  calls_end   <- c(which(pd$parent == 0)[-1] - 1, nrow(pd))
+  calls_end <- c(which(pd$parent == 0)[-1] - 1, nrow(pd))
 
   call_ids <- list()
-  for(i in seq_along(calls_start)) {
+  for (i in seq_along(calls_start)) {
     call <- pd[c(calls_start[i], calls_end[i]), ]
     call_ids[[i]] <-
       data.frame(
-       lines = c(call[1, "line1"], call[2, "line2"]),
-       cols = c(call[1, "col1"], call[2, "col2"])
+        lines = c(call[1, "line1"], call[2, "line2"]),
+        cols = c(call[1, "col1"], call[2, "col2"])
       )
   }
 
@@ -64,12 +64,10 @@ get_line_ids <- function(pd) {
 }
 
 split_code <- function(code, lines_ids) {
-
   code_split <- strsplit(code, split = "\n", fixed = TRUE)[[1]]
   code_split_calls <- list()
 
-  for(i in seq_along(lines_ids)) {
-
+  for (i in seq_along(lines_ids)) {
     code_lines <- code_split[lines_ids[[i]]$lines[1]:lines_ids[[i]]$lines[2]]
 
     if (length(code_lines) == 1) {
@@ -90,5 +88,3 @@ lines_ids <- get_line_ids(pd)
 code_by_calls <- split_code(code, lines_ids)
 
 code_by_calls
-
-
