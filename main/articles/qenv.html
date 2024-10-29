@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">teal.code</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.9010</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.5.0.9011</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -94,7 +94,7 @@ initial <code>qenv</code> object:</p>
 <span><span class="co"># create a new qenv object</span></span>
 <span><span class="va">empty_qenv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/qenv.html">qenv</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">empty_qenv</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x55b43122d210&gt;</span><span style="font-weight: bold;"> [L]</span></span></span>
+<pre><code><span><span class="co">## <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x560775acf210&gt;</span><span style="font-weight: bold;"> [L]</span></span></span>
 <span><span class="co">## Parent: &lt;environment: package:teal.code&gt;</span></span></code></pre>
 </div>
 <div class="section level3">
@@ -108,20 +108,20 @@ as the output.</p>
 <code class="sourceCode R"><span><span class="co"># evaluate code in qenv</span></span>
 <span><span class="va">my_qenv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/qenv.html">eval_code</a></span><span class="op">(</span><span class="va">empty_qenv</span>, <span class="st">"x &lt;- 2"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">my_qenv</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x55b432141900&gt;</span><span style="font-weight: bold;"> [L]</span></span></span>
+<pre><code><span><span class="co">## <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x5607769e3900&gt;</span><span style="font-weight: bold;"> [L]</span></span></span>
 <span><span class="co">## Parent: &lt;environment: package:teal.code&gt;</span></span>
 <span><span class="co">## Bindings:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">•</span> x: &lt;dbl&gt; [L]</span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/get_env.html">get_env</a></span><span class="op">(</span><span class="va">my_qenv</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## &lt;environment: 0x55b432141900&gt;</span></span></code></pre>
+<pre><code><span><span class="co">## &lt;environment: 0x5607769e3900&gt;</span></span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">q1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/qenv.html">eval_code</a></span><span class="op">(</span><span class="va">my_qenv</span>, <span class="st">"y &lt;- x * 2"</span><span class="op">)</span></span>
 <span><span class="va">q1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/qenv.html">eval_code</a></span><span class="op">(</span><span class="va">q1</span>, <span class="st">"z &lt;- y * 2"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># my_qenv still contains only x</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">my_qenv</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x55b432141900&gt;</span><span style="font-weight: bold;"> [L]</span></span></span>
+<pre><code><span><span class="co">## <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x5607769e3900&gt;</span><span style="font-weight: bold;"> [L]</span></span></span>
 <span><span class="co">## Parent: &lt;environment: package:teal.code&gt;</span></span>
 <span><span class="co">## Bindings:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">•</span> x: &lt;dbl&gt; [L]</span></span></code></pre>
@@ -131,7 +131,7 @@ as the output.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># q1 contains x, y and z</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">q1</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x55b434755130&gt;</span><span style="font-weight: bold;"> [L]</span></span></span>
+<pre><code><span><span class="co">## <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x560778ff7130&gt;</span><span style="font-weight: bold;"> [L]</span></span></span>
 <span><span class="co">## Parent: &lt;environment: package:teal.code&gt;</span></span>
 <span><span class="co">## Bindings:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">•</span> x: &lt;dbl&gt; [L]</span></span>
@@ -146,7 +146,7 @@ for the <code>qenv</code> class.</p>
 <code class="sourceCode R"><span><span class="va">q2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">within</a></span><span class="op">(</span><span class="va">my_qenv</span>, <span class="va">y</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">q2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">within</a></span><span class="op">(</span><span class="va">q2</span>, <span class="va">z</span> <span class="op">&lt;-</span> <span class="va">y</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">q2</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x55b431c701b0&gt;</span><span style="font-weight: bold;"> [L]</span></span></span>
+<pre><code><span><span class="co">## <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x5607765121b0&gt;</span><span style="font-weight: bold;"> [L]</span></span></span>
 <span><span class="co">## Parent: &lt;environment: package:teal.code&gt;</span></span>
 <span><span class="co">## Bindings:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">•</span> x: &lt;dbl&gt; [L]</span></span>
@@ -232,7 +232,7 @@ both environments, along with the requisite code for reproduction:</p>
 <span><span class="va">join_q</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/join.html">join</a></span><span class="op">(</span><span class="va">x_q</span>, <span class="va">y_q</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">join_q</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x55b430f191c8&gt;</span></span></span>
+<pre><code><span><span class="co">## <span style="color: #0000BB; font-weight: bold;">&lt;environment: 0x5607757bb1c8&gt;</span></span></span>
 <span><span class="co">## Parent: &lt;environment: package:teal.code&gt;</span></span>
 <span><span class="co">## Bindings:</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">•</span> x: &lt;dbl&gt;</span></span>
