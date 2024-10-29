@@ -60,15 +60,15 @@ setMethod("[[", signature = c("qenv", "ANY"), function(x, i) {
 `$.qenv.error` <- function(x, name) {
   # Must allow access of elements in qenv.error object (message, call, trace, ...)
   # Otherwise, it will enter an infinite recursion with the `conditionMessage(x)` call.
-  result <- NextMethod("$", x)
-  if (is.null(result)) {
-    class(x) <- setdiff(class(x), "qenv.error")
-    stop(errorCondition(
-      list(message = conditionMessage(x)),
-      class = c("validation", "try-error", "simpleError")
-    ))
+  if (name %in% names(x)) {
+    return(NextMethod("$", x))
   }
-  result
+
+  class(x) <- setdiff(class(x), "qenv.error")
+  stop(errorCondition(
+    list(message = conditionMessage(x)),
+    class = c("validation", "try-error", "simpleError")
+  ))
 }
 
 #' @export
