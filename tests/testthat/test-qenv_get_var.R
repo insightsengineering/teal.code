@@ -1,4 +1,4 @@
-testthat::test_that("get_var, `$` and `[[`return error if object is qenv.error", {
+testthat::test_that("get_var, `$` and `[[` return error if object is qenv.error", {
   q <- eval_code(qenv(), quote(x <- 1))
   q <- eval_code(q, quote(y <- w * x))
 
@@ -52,4 +52,12 @@ testthat::test_that("get_var, `$` and `[[` only returns objects from qenv, not .
   testthat::expect_null(get_var(q, "iris"))
   testthat::expect_null(q[["iris"]])
   testthat::expect_null(q$iris)
+})
+
+testthat::test_that("`$<-` and `[[<-` always return error", {
+  q <- eval_code(qenv(), quote(x <- 1))
+  q <- eval_code(q, quote(y <- w * x))
+
+  testthat::expect_error(q[["x2"]] <- 3, "when evaluating qenv code")
+  testthat::expect_error(q$x2 <- 3, "when evaluating qenv code")
 })
