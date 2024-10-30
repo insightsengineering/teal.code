@@ -39,12 +39,13 @@ get_code_dependency <- function(code, names, check_names = TRUE) {
     code <- sub("^\\{(.*)\\}$", "\\1", tcode)
   }
 
-  code <- split_code(code, parsed_code)
   parsed_code <- parse(text = code, keep.source = TRUE)
+  code_split <- split_code(code, parsed_code)
+
   pd <- utils::getParseData(parsed_code)
   pd <- normalize_pd(pd)
   calls_pd <- extract_calls(pd)
-  comments <- extract_comments(parsed_code)
+  #comments <- extract_comments(parsed_code)
 
   if (check_names) {
     # Detect if names are actually in code.
@@ -66,7 +67,7 @@ get_code_dependency <- function(code, names, check_names = TRUE) {
   lib_ind <- detect_libraries(calls_pd)
 
   code_ids <- sort(unique(c(lib_ind, ind)))
-  code[code_ids]
+  code_split[code_ids]
   #trimws(paste(as.character(code[code_ids]), comments[code_ids]))
 }
 
@@ -455,20 +456,20 @@ normalize_pd <- function(pd) {
   pd
 }
 
-#' Extract comments from parsed code
+#' #' Extract comments from parsed code
+#' #'
+#' #' @param parsed_code `expression`, result of `parse()` function
+#' #'
+#' #' @return `character` vector of length of `parsed_code` with comments included in `parsed_code`
+#' #' @keywords internal
+#' #' @noRd
+#' extract_comments <- function(parsed_code) {
+#'   get_comments <- function(call) {
+#'     comment <- call[call$token == "COMMENT", "text"]
+#'     if (length(comment) == 0) "" else comment
+#'   }
+#'   calls <- extract_calls(utils::getParseData(parsed_code))
+#'   fixed_calls <- fix_shifted_comments(calls, pattern = "#")
 #'
-#' @param parsed_code `expression`, result of `parse()` function
-#'
-#' @return `character` vector of length of `parsed_code` with comments included in `parsed_code`
-#' @keywords internal
-#' @noRd
-extract_comments <- function(parsed_code) {
-  get_comments <- function(call) {
-    comment <- call[call$token == "COMMENT", "text"]
-    if (length(comment) == 0) "" else comment
-  }
-  calls <- extract_calls(utils::getParseData(parsed_code))
-  fixed_calls <- fix_shifted_comments(calls, pattern = "#")
-
-  unlist(lapply(fixed_calls, get_comments))
-}
+#'   unlist(lapply(fixed_calls, get_comments))
+#' }
