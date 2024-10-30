@@ -18,16 +18,27 @@
 #' @export
 `[.qenv` <- function(x, names) {
   checkmate::assert_class(names, "character")
-  names_in_env <- intersect(names, ls(get_env(x)))
-  if (!length(names_in_env)) {
+  possible_names <- ls(get_env(x))
+  names_warn <- setdiff(names, possible_names)
+  names <- intersect(names, possible_names)
+  if (!length(names)) {
     warning("None of `names` elements exist in `qenv`. Returning empty `qenv`.")
     return(qenv())
   }
 
-  limited_code <- get_code(x, names = names_in_env)
+  if (length(names_warn)) {
+    warning(
+      sprintf(
+        "Some elements of `names` do not exist in `qenv`. Skipping those: %s.",
+        paste(names_warn, collapse = ", ")
+      )
+    )
+  }
+
+  limited_code <- get_code(x, names = names)
   indexes <- which(x@code %in% limited_code)
 
-  x@env <- list2env(mget(x = names_in_env, envir = get_env(x)))
+  x@env <- list2env(mget(x = names, envir = get_env(x)))
   x@code <- limited_code
   x@id <- x@id[indexes]
   x@warnings <- x@warnings[indexes]

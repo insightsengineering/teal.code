@@ -1,3 +1,19 @@
+testthat::test_that("`[.` returns empty qenv for names not in qenv", {
+  data <- within(qenv(), {x = 1; a = 2})
+  testthat::expect_warning(
+    testthat::expect_equal(data["y"], qenv()),
+    "None of `names` elements exist in `qenv`. Returning empty `qenv`."
+  )
+})
+
+testthat::test_that("`[.` returns limited qenv for some names not in qenv", {
+  data <- within(qenv(), {x = 1; a = 2})
+  testthat::expect_warning(
+    testthat::expect_equal(data[c("y", "a")], data["a"]),
+    "Some elements of `names` do not exist in `qenv`. Skipping those: y."
+  )
+})
+
 testthat::test_that("`[.` extracts proper objects", {
   q <- qenv()
   code <- c("x<-1", "a<-1;b<-2")
