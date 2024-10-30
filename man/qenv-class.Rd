@@ -4,6 +4,9 @@
 \name{qenv-class}
 \alias{qenv-class}
 \title{Reproducible class with environment and code}
+\usage{
+\S4method{initialize}{qenv}(.Object, .xData = new.env(parent = parent.env(.GlobalEnv)), ...)
+}
 \description{
 Reproducible class with environment and code.
 }
