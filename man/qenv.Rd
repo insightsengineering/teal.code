@@ -81,6 +81,28 @@ It is a method for the \code{base} generic that wraps \code{eval_code} to provid
 through the \code{...} argument:
 as \code{name:value} pairs are passed to \code{...}, \code{name} in \code{expr} will be replaced with \code{value}.
 }
+\section{Environment}{
+
+
+The \code{qenv} object behaves as an environment that is locked and can be used as
+as a argument to with many functions that accept \code{environment}, among the
+most relevant are: \code{names()}, \code{ls()}, \code{get()}, \code{exists()}, \code{parent.env()},
+\verb{\{l,s,v\}apply} family, \code{local}, \code{as.environment()}, \code{is.environment()}, \code{as.list()}, ...
+
+\code{qenv} should not be used with \code{cbind()} and \code{env.profile()} functions as it
+has unexpected behavior.
+Instead, \code{get_env()} or \code{as.environment()} should be used before calling any
+problematic function.
+
+Similarly, \code{rlang} functions related to environments cannot be used directly
+with \code{qenv} and should be used with \code{teal.code::get_env()}/\code{as.environment()}.
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{q <- qenv()
+rlang::env_clone(as.environment(q))
+rlang::env_clone(get_env(q))
+}\if{html}{\out{</div>}}
+}
+
 \section{Extracting dataset-specific code}{
 
 When \code{names} is specified, the code returned will be limited  to the lines needed to \emph{create}
