@@ -114,3 +114,35 @@ testthat::test_that("within run on qenv.error returns the qenv.error as is", {
 
   testthat::expect_identical(qe, qee)
 })
+
+testthat::test_that("within preserves integer definition in code", {
+  q <- within(qenv(), a <- 1L)
+  testthat::expect_identical(get_code(q), "a <- 1L")
+})
+
+testthat::describe("within preserves R primitives shorthands with", {
+  testthat::test_that("integer", {
+    q <- within(qenv(), an_integer <- 1L)
+    testthat::expect_type(q[["an_integer"]], "integer")
+  })
+
+  testthat::test_that("complex", {
+    q <- within(qenv(), a_complex <- 1 + 3i)
+    testthat::expect_type(q[["a_complex"]], "complex")
+  })
+
+  testthat::test_that("double", {
+    q <- within(qenv(), a_double <- 1.0)
+    testthat::expect_type(q[["a_double"]], "double")
+  })
+
+  testthat::test_that("logical", {
+    q <- within(qenv(), a_logical <- TRUE)
+    testthat::expect_type(q[["a_logical"]], "logical")
+  })
+
+  testthat::test_that("logical shorthand", {
+    q <- within(qenv(), a_logical_shorthand <- T)
+    testthat::expect_type(q[["a_logical_shorthand"]], "logical")
+  })
+})
