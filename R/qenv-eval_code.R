@@ -29,12 +29,14 @@ setGeneric("eval_code", function(object, code) standardGeneric("eval_code"))
 
 setMethod("eval_code", signature = c("qenv", "character"), function(object, code) {
   parsed_code <- parse(text = code, keep.source = TRUE)
+  if (length(parsed_code) == 0) return(object)
+
   id <- sample.int(.Machine$integer.max, size = length(parsed_code))
 
   object@id <- c(object@id, id)
   object@env <- rlang::env_clone(object@env, parent = parent.env(.GlobalEnv))
 
-  code_split <- split_code(code)
+  code_split <- split_code(paste(code, collapse = "\n"))
   object@code <- c(object@code, unlist(code_split))
 
   current_warnings <- rep("", length(parsed_code))

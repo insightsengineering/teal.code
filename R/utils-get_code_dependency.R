@@ -491,6 +491,12 @@ get_line_ids <- function(pd) {
     last_comment_ids <- NULL
   }
 
+  # If NUM_CONST is the last element, we need to reorder rows.
+  # Last 2 rows
+  n <- nrow(pd)
+  if (pd$token[n-1] == "NUM_CONST" && pd$parent[n] == 0) {
+    pd <- rbind(pd[-(n-1), ], pd[n-1, ])
+  }
 
   calls_start <- which(pd$parent == 0)
   calls_end <- c(which(pd$parent == 0)[-1] - 1, nrow(pd))
@@ -526,6 +532,7 @@ get_line_ids <- function(pd) {
 split_code <- function(code) {
   parsed_code <- parse(text = code, keep.source = TRUE)
   pd <- utils::getParseData(parsed_code)
+  pd <- normalize_pd(pd)
   pd <- pd[pd$token != "';'", ]
   lines_ids <- get_line_ids(pd)
 
@@ -540,7 +547,11 @@ split_code <- function(code) {
       # in case only indentantion is changed, do not trim the indentation
       if (!identical(code_lines_candidate, trimws(code_lines))) {
         # case of multiple calls in one line, keep the original indentation
-        indentation <- gsub("^(\\s+).*", "\\1", code_lines)
+        indentation <- if (grepl("^\\s+", code_lines)) {
+          gsub("^(\\s+).*", "\\1", code_lines)
+        } else {
+          ""
+        }
         code_lines <- paste0(indentation, code_lines_candidate)
       }
     } else {

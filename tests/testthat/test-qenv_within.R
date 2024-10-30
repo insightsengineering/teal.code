@@ -60,6 +60,8 @@ testthat::test_that("within.qenv renturns a `qenv` where `@env` is a deep copy o
   qq <- within(q, {})
   testthat::expect_equal(q@env, qq@env)
   testthat::expect_false(identical(q@env, qq@env))
+  # TODO: fix
+  # dunno what's going on yet
 })
 
 testthat::test_that("within.qenv renturns qenv.error even if evaluation raises error", {

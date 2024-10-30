@@ -15,7 +15,7 @@ testthat::test_that("`[.` extract proper code", {
   qs <- q[object_names]
   testthat::expect_identical(
     qs@code,
-    c("x <- 1", "a <- 1")
+    c("x<-1", "a<-1")
   )
 })
 
@@ -26,7 +26,7 @@ testthat::test_that("`[.` preservers comments in the code", {
   qs <- q[c("x", "a")]
   testthat::expect_identical(
     qs@code,
-    c("x <- 1 #comment", "a <- 1")
+    c("x<-1 #comment", "a<-1")
   )
 })
 

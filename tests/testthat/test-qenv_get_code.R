@@ -76,6 +76,7 @@ testthat::test_that("handles the code included in curly brackets", {
   code <- "{1 + 1;a <- 5}"
 
   testthat::expect_identical(
+    # TODO: to be fixed
     get_code(eval_code(qenv(), code), names = "a"),
     "a <- 5"
   )
@@ -87,7 +88,7 @@ testthat::test_that("handles the code of length > 1 when at least one is enclose
 
   testthat::expect_identical(
     get_code(q, names = "a"),
-    "a <- 5"
+    "a<-5"
   )
 })
 
@@ -212,7 +213,7 @@ testthat::test_that("detects every assign calls even if not evaluated, if there 
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
     get_code(q, names = "b"),
-    c("b <- 2", "eval(expression({\n    b <- b + 2\n}))")
+    code[2:3]
   )
 })
 
@@ -295,16 +296,11 @@ testthat::test_that("extracts the code for assign() where \"x\" is a literal str
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
     get_code(q, names = "b"),
-    c("assign(\"b\", 5)", "b <- b + 2")
+    code[c(2, 5)]
   )
   testthat::expect_identical(
     get_code(q, names = "c"),
-    c(
-      "assign(\"b\", 5)",
-      "assign(value = 7, x = \"c\")",
-      "b <- b + 2",
-      "c <- b"
-    )
+    code[c(2, 3, 5, 6)]
   )
   testthat::expect_identical(
     get_code(q, names = "d"),
@@ -355,11 +351,11 @@ testthat::test_that("detects function usage of the assignment operator", {
 
   testthat::expect_identical(
     get_code(q, names = "y"),
-    c(code[1], "y <- x")
+    code
   )
   testthat::expect_identical(
     get_code(q2, names = "y"),
-    "y <- x <- 2"
+    code2
   )
 })
 
@@ -390,7 +386,7 @@ testthat::test_that("@linksto makes a line being returned for an affected bindin
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
     get_code(q, names = "b"),
-    c("a <- 1 # @linksto b", "b <- 2")
+    c("  a <- 1 # @linksto b", "  b <- 2")
   )
 })
 
@@ -443,7 +439,7 @@ testthat::test_that(
     q <- eval_code(qenv(), code)
     testthat::expect_identical(
       get_code(q, names = "classes"),
-      c("iris2 <- iris[1:5, ]", code[2:4])
+      code
     )
   }
 )
@@ -467,11 +463,10 @@ testthat::test_that("comments fall into proper calls", {
   q <- qenv() |> eval_code(code)
   testthat::expect_identical(
     get_code(q),
-    c(
-      "a <- 1 # initial comment",
-      "b <- 2 # inline comment",
-      "c <- 3 # inbetween comment",
-      "d <- 4 # finishing comment"
+    c("    # initial comment\n    a <- 1",
+      "    b <- 2 # inline comment",
+      "    c <- 3\n    # inbetween comment",
+      "    d <- 4\n    # finishing comment"
     )
   )
 })
@@ -493,11 +488,10 @@ testthat::test_that("comments get pasted when they fall into calls", {
   q <- qenv() |> eval_code(code)
   testthat::expect_identical(
     get_code(q),
-    c(
-      "a <- 1 # initial comment # A comment",
-      "b <- 2 # inline comment",
-      "c <- 3 # C comment # inbetween comment",
-      "d <- 4 # finishing comment"
+    c("    # initial comment\n    a <- 1 # A comment",
+      "    b <- 2 # inline comment",
+      "    c <- 3 # C comment\n    # inbetween comment",
+      "    d <- 4\n    # finishing comment"
     )
   )
 })
@@ -516,7 +510,7 @@ testthat::test_that("ignores occurrence in a function definition", {
   )
   testthat::expect_identical(
     get_code(q, names = "foo"),
-    "foo <- function(b) {\n    b <- b + 2\n}"
+    code[2]
   )
 })
 
@@ -528,11 +522,11 @@ testthat::test_that("ignores occurrence in a function definition that has functi
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
     get_code(q, names = "b"),
-    "b <- 2"
+    code[1]
   )
   testthat::expect_identical(
     get_code(q, names = "foo"),
-    "foo <- function(b) {\n    function(c) {\n        b <- c + 2\n    }\n}"
+    code[2]
   )
 })
 
@@ -550,7 +544,7 @@ testthat::test_that("ignores occurrence in a function definition if there is mul
   )
   testthat::expect_identical(
     get_code(q, names = "foo"),
-    "foo <- function(b) {\n    function(c) {\n        b <- c + 2\n    }\n}"
+    code[2]
   )
 })
 
@@ -587,7 +581,7 @@ testthat::test_that("does not ignore occurrence in function body if object exsit
 testthat::test_that("ignores occurrence in function definition without { curly brackets", {
   code <- c(
     "b <- 2",
-    "foo <- function(b) b <- b + 2 "
+    "foo <- function(b) b <- b + 2"
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
@@ -610,7 +604,7 @@ testthat::test_that("detects occurrence of the function object", {
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
     get_code(q, names = "b"),
-    c("a <- 1", "b <- 2", "foo <- function(b) {\n    b <- b + 2\n}", "b <- foo(a)")
+    code
   )
 })
 
@@ -623,7 +617,7 @@ testthat::test_that("detects occurrence of a function definition when a formal i
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
     get_code(q, names = "a"),
-    c("x <- 1", "foo <- function(foo = 1) \"text\"", "a <- foo(x)")
+    code
   )
 })
 
@@ -640,10 +634,8 @@ testthat::test_that("detects occurrence of a function definition with a @linksto
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
     get_code(q, names = "x"),
-    c(
-      "foo <- function() {\n    env <- parent.frame()\n    env$x <- 0\n}",
-      "foo() # @linksto x"
-    )
+    c("        foo <- function() {\n          env <- parent.frame()\n          env$x <- 0\n        }",
+      "foo() # @linksto x")
   )
 })
 # $ ---------------------------------------------------------------------------------------------------------------
@@ -696,11 +688,11 @@ testthat::test_that("understands @ usage and do not treat rhs of @ as objects (o
   q@code <- code # we don't use eval_code so the code is not run
   testthat::expect_identical(
     get_code(q, names = "x"),
-    gsub("'", "\"", code[1:2], fixed = TRUE)
+    code[1:2]
   )
   testthat::expect_identical(
     get_code(q, names = "a"),
-    gsub("'", "\"", code, fixed = TRUE)
+    code
   )
 })
 
@@ -752,7 +744,7 @@ testthat::test_that("data() call is returned when data name is provided as a cha
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
     get_code(q, names = "z"),
-    gsub("'", "\"", code[-1], fixed = TRUE)
+    code[-1]
   )
 })
 
