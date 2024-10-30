@@ -69,6 +69,7 @@ get_code_dependency <- function(code, names, check_names = TRUE) {
   code_ids <- sort(unique(c(lib_ind, ind)))
   code_split[code_ids]
   #trimws(paste(as.character(code[code_ids]), comments[code_ids]))
+
 }
 
 #' Locate function call token

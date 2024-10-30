@@ -46,7 +46,6 @@ get_line_ids <- function(pd) {
 }
 
 split_code <- function(code, parsed_code) {
-
   pd <- utils::getParseData(parsed_code)
   pd <- pd[pd$token != "';'", ]
   lines_ids <- get_line_ids(pd)
