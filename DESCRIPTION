@@ -53,7 +53,6 @@ Language: en-US
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Collate:
-    'extract_code_as_is_prototype.R'
     'qenv-class.R'
     'qenv-errors.R'
     'qenv-concat.R'
