@@ -67,7 +67,6 @@ get_code_dependency <- function(code, names, check_names = TRUE) {
 
   code_ids <- sort(unique(c(lib_ind, ind)))
   code[code_ids]
-
 }
 
 #' Locate function call token
