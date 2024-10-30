@@ -142,7 +142,7 @@ testthat::describe("within preserves R primitives shorthands with", {
   })
 
   testthat::test_that("logical shorthand", {
-    q <- within(qenv(), a_logical_shorthand <- T)
+    q <- within(qenv(), a_logical_shorthand <- T) # nolint: T_and_F_symbol.
     testthat::expect_type(q[["a_logical_shorthand"]], "logical")
   })
 })
