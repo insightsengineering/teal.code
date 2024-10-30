@@ -88,11 +88,11 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
 })
 
 setMethod("eval_code", signature = c("qenv", "language"), function(object, code) {
-  eval_code(object, code = paste(lang2calls(code), collapse = "\n"))
+  eval_code(object, code = paste(vapply(lang2calls(code), deparse1, character(1)), collapse = "\n"))
 })
 
 setMethod("eval_code", signature = c("qenv", "expression"), function(object, code) {
-  eval_code(object, code = paste(lang2calls(code), collapse = "\n"))
+  eval_code(object, code = paste(vapply(lang2calls(code), deparse1, character(1)), collapse = "\n"))
 })
 
 setMethod("eval_code", signature = c("qenv.error", "ANY"), function(object, code) {
