@@ -34,18 +34,17 @@ get_code_dependency <- function(code, names, check_names = TRUE) {
   }
 
   # If code is bound in curly brackets, remove them.
+  # TODO: rethink if this is still needed when code is divided by calls?
   tcode <- trimws(code)
   if (any(grepl("^\\{.*\\}$", tcode))) {
     code <- sub("^\\{(.*)\\}$", "\\1", tcode)
   }
 
   parsed_code <- parse(text = code, keep.source = TRUE)
-  code_split <- split_code(code, parsed_code)
 
   pd <- utils::getParseData(parsed_code)
   pd <- normalize_pd(pd)
   calls_pd <- extract_calls(pd)
-  #comments <- extract_comments(parsed_code)
 
   if (check_names) {
     # Detect if names are actually in code.
@@ -67,8 +66,7 @@ get_code_dependency <- function(code, names, check_names = TRUE) {
   lib_ind <- detect_libraries(calls_pd)
 
   code_ids <- sort(unique(c(lib_ind, ind)))
-  code_split[code_ids]
-  #trimws(paste(as.character(code[code_ids]), comments[code_ids]))
+  code[code_ids]
 
 }
 
@@ -457,20 +455,105 @@ normalize_pd <- function(pd) {
   pd
 }
 
-#' #' Extract comments from parsed code
-#' #'
-#' #' @param parsed_code `expression`, result of `parse()` function
-#' #'
-#' #' @return `character` vector of length of `parsed_code` with comments included in `parsed_code`
-#' #' @keywords internal
-#' #' @noRd
-#' extract_comments <- function(parsed_code) {
-#'   get_comments <- function(call) {
-#'     comment <- call[call$token == "COMMENT", "text"]
-#'     if (length(comment) == 0) "" else comment
-#'   }
-#'   calls <- extract_calls(utils::getParseData(parsed_code))
-#'   fixed_calls <- fix_shifted_comments(calls, pattern = "#")
+#' Get line and cols ids of starts and ends of calls
 #'
-#'   unlist(lapply(fixed_calls, get_comments))
-#' }
+#' @param pd `data.frame` resulting from `utils::getParseData()` call.
+#'
+#' @return list of `data.frames` containing number of lines and columns of starts and ends of calls included in `pd`.
+#'
+#' @keywords internal
+#' @noRd
+get_line_ids <- function(pd) {
+  if (pd$token[1] == "COMMENT") {
+    first_comment <- 1:(which(pd$parent == 0)[1] - 1)
+    pd_first_comment <- pd[first_comment, ]
+    pd <- pd[-first_comment, ]
+
+    n <- nrow(pd_first_comment)
+    first_comment_ids <- data.frame(
+      lines = c(pd_first_comment[1, "line1"], pd_first_comment[n, "line2"]),
+      cols = c(pd_first_comment[1, "col1"], pd_first_comment[n, "col2"])
+    )
+  } else {
+    first_comment_ids <- NULL
+  }
+
+  if (pd$token[nrow(pd)] == "COMMENT") {
+    last_comment <- which(pd$parent == 0 & pd$token == "COMMENT")
+    pd_last_comment <- pd[last_comment, ]
+    pd <- pd[-last_comment, ]
+
+    n <- nrow(pd_last_comment)
+    last_comment_ids <- data.frame(
+      lines = c(pd_last_comment[1, "line1"], pd_last_comment[n, "line2"]),
+      cols = c(pd_last_comment[1, "col1"], pd_last_comment[n, "col2"])
+    )
+  } else {
+    last_comment_ids <- NULL
+  }
+
+
+  calls_start <- which(pd$parent == 0)
+  calls_end <- c(which(pd$parent == 0)[-1] - 1, nrow(pd))
+
+  call_ids <- list()
+  for (i in seq_along(calls_start)) {
+    call <- pd[c(calls_start[i], calls_end[i]), ]
+    call_ids[[i]] <-
+      data.frame(
+        lines = c(call[1, "line1"], call[2, "line2"]),
+        cols = c(call[1, "col1"], call[2, "col2"])
+      )
+  }
+
+  if (!is.null(first_comment_ids)) {
+    call_ids[[1]] <- rbind(first_comment_ids[1, ], call_ids[[1]][2, ])
+  }
+  if (!is.null(last_comment_ids)) {
+    n <- length(call_ids)
+    call_ids[[n]] <- rbind(call_ids[[n]][1, ], last_comment_ids[2, ])
+  }
+  call_ids
+}
+
+#' Split code by calls
+#'
+#' @param code `character` with the code.
+#'
+#' @return list of `character`s of the length equal to the number of calls in `code`.
+#'
+#' @keywords internal
+#' @noRd
+split_code <- function(code) {
+  parsed_code <- parse(text = code, keep.source = TRUE)
+  pd <- utils::getParseData(parsed_code)
+  pd <- pd[pd$token != "';'", ]
+  lines_ids <- get_line_ids(pd)
+
+  code_split <- strsplit(code, split = "\n", fixed = TRUE)[[1]]
+  code_split_calls <- list()
+
+  for (i in seq_along(lines_ids)) {
+    code_lines <- code_split[lines_ids[[i]]$lines[1]:lines_ids[[i]]$lines[2]]
+
+    if (length(code_lines) == 1) {
+      code_lines_candidate <- substr(code_lines, lines_ids[[i]]$cols[1], lines_ids[[i]]$cols[2])
+      # in case only indentantion is changed, do not trim the indentation
+      if (!identical(code_lines_candidate, trimws(code_lines))) {
+        # case of multiple calls in one line, keep the original indentation
+        indentation <- gsub("^(\\s+).*", "\\1", code_lines)
+        code_lines <- paste0(indentation, code_lines_candidate)
+      }
+    } else {
+      code_lines_candidate <- substr(code_lines[1], lines_ids[[i]]$cols[1], nchar(code_lines[1]))
+      # in case only indentantion is changed, do not trim the indentation
+      if (!identical(code_lines_candidate, trimws(code_lines[1]))) {
+        code_lines[1] <- code_lines_candidate
+      }
+      code_lines[length(code_lines)] <- substr(code_lines[length(code_lines)], 1, lines_ids[[i]]$cols[2])
+    }
+
+    code_split_calls[[i]] <- paste(code_lines, collapse = "\n")
+  }
+  code_split_calls
+}

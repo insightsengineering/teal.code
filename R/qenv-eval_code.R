@@ -34,7 +34,7 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
   object@id <- c(object@id, id)
   object@env <- rlang::env_clone(object@env, parent = parent.env(.GlobalEnv))
 
-  code_split <- split_code(code, parsed_code)
+  code_split <- split_code(code)
   object@code <- c(object@code, unlist(code_split))
 
   current_warnings <- rep("", length(parsed_code))
