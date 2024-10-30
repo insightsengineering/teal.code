@@ -494,8 +494,8 @@ get_line_ids <- function(pd) {
   # If NUM_CONST is the last element, we need to reorder rows.
   # Last 2 rows
   n <- nrow(pd)
-  if (pd$token[n-1] == "NUM_CONST" && pd$parent[n] == 0) {
-    pd <- rbind(pd[-(n-1), ], pd[n-1, ])
+  if (pd$token[n - 1] == "NUM_CONST" && pd$parent[n] == 0) {
+    pd <- rbind(pd[-(n - 1), ], pd[n - 1, ])
   }
 
   calls_start <- which(pd$parent == 0)

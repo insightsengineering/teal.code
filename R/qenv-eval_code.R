@@ -29,7 +29,9 @@ setGeneric("eval_code", function(object, code) standardGeneric("eval_code"))
 
 setMethod("eval_code", signature = c("qenv", "character"), function(object, code) {
   parsed_code <- parse(text = code, keep.source = TRUE)
-  if (length(parsed_code) == 0) return(object)
+  if (length(parsed_code) == 0) {
+    return(object)
+  }
 
   id <- sample.int(.Machine$integer.max, size = length(parsed_code))
 
