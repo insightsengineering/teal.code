@@ -136,30 +136,17 @@
 setGeneric("join", function(x, y) standardGeneric("join"))
 
 setMethod("join", signature = c("qenv", "qenv"), function(x, y) {
-  join_validation <- .check_joinable(x, y)
-
-  # join expressions
-  if (!isTRUE(join_validation)) {
-    stop(join_validation)
-  }
-
-  id_unique <- !y@id %in% x@id
-  x@id <- c(x@id, y@id[id_unique])
-  x@code <- c(x@code, y@code[id_unique])
-  x@warnings <- c(x@warnings, y@warnings[id_unique])
-  x@messages <- c(x@messages, y@messages[id_unique])
-
-  # insert (and overwrite) objects from y to x
-  x@.xData <- rlang::env_clone(x@.xData, parent = parent.env(.GlobalEnv))
-  rlang::env_coalesce(env = x@.xData, from = y@.xData)
-  x
+  lifecycle::deprecate_soft("0.5.1", "join()", details = "Please use `c()` instead")
+  c(x, y)
 })
 
 setMethod("join", signature = c("qenv", "qenv.error"), function(x, y) {
+  lifecycle::deprecate_soft("0.5.1", "join()", details = "Please use `c()` instead")
   y
 })
 
 setMethod("join", signature = c("qenv.error", "ANY"), function(x, y) {
+  lifecycle::deprecate_soft("0.5.1", "join()", details = "Please use `c()` instead")
   x
 })
 
@@ -213,4 +200,46 @@ setMethod("join", signature = c("qenv.error", "ANY"), function(x, y) {
       collapse = ""
     )
   }
+}
+
+#' @export
+c.qenv.error <- function(...) {
+  rlang::list2(...)[[1]]
+}
+
+#' @export
+c.qenv <- function(...) {
+  dots <- rlang::list2(...)
+  if (!checkmate::test_list(dots[-1], types = c("qenv", "qenv.error"))) {
+    return(NextMethod(c, dots[[1]]))
+  }
+
+  first_non_qenv_ix <- which.min(vapply(dots, inherits, what = "qenv", logical(1)))
+  if (first_non_qenv_ix > 1) {
+    return(dots[[first_non_qenv_ix]])
+  }
+
+  Reduce(
+    x = dots[-1],
+    init = dots[[1]],
+    f = function(x, y) {
+      join_validation <- .check_joinable(x, y)
+
+      # join expressions
+      if (!isTRUE(join_validation)) {
+        stop(join_validation)
+      }
+
+      id_unique <- !y@id %in% x@id
+      x@id <- c(x@id, y@id[id_unique])
+      x@code <- c(x@code, y@code[id_unique])
+      x@warnings <- c(x@warnings, y@warnings[id_unique])
+      x@messages <- c(x@messages, y@messages[id_unique])
+
+      # insert (and overwrite) objects from y to x
+      x@.xData <- rlang::env_clone(x@.xData, parent = parent.env(.GlobalEnv))
+      rlang::env_coalesce(env = x@.xData, from = y@.xData)
+      x
+    }
+  )
 }

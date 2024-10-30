@@ -20,14 +20,21 @@ setClass(
     warnings = "character",
     messages = "character"
   ),
-  contains = "environment",
-  prototype = list(
-    .xData = new.env(parent = parent.env(.GlobalEnv)),
-    code = character(0),
-    id = integer(0),
-    warnings = character(0),
-    messages = character(0)
-  )
+  contains = "environment"
+)
+
+setMethod(
+  "initialize",
+  "qenv",
+  function(.Object, .xData = new.env(parent = parent.env(.GlobalEnv)), ...) { # nolint: object_name.
+    .Object <- callNextMethod(.Object, ...) # nolint: object_name.
+
+    checkmate::assert_environment(.xData)
+    lockEnvironment(.xData)
+    .Object@.xData <- .xData # nolint: object_name.
+
+    .Object
+  }
 )
 
 #' It takes a `qenv` class and returns `TRUE` if the input is valid

@@ -70,14 +70,3 @@ setMethod("[[", signature = c("qenv", "ANY"), function(x, i) {
     class = c("validation", "try-error", "simpleError")
   ))
 }
-
-#' @export
-`[[<-.qenv.error` <- function(x, name, value) {
-  stop(errorCondition(
-    list(message = conditionMessage(x)),
-    class = c("validation", "try-error", "simpleError")
-  ))
-}
-
-#' @export
-`$<-.qenv.error` <- `[[<-.qenv.error`
