@@ -49,6 +49,8 @@ setValidity("qenv", function(object) {
     "@code and @messages slots must have the same length"
   } else if (any(duplicated(object@id))) {
     "@id contains duplicated values."
+  } else if (!environmentIsLocked(object@.xData)) {
+    "@.xData must be locked."
   } else {
     TRUE
   }

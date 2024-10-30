@@ -3,7 +3,7 @@ testthat::test_that("Joining two identical qenvs outputs the same object", {
   q2 <- q1
 
   testthat::expect_true(.check_joinable(q1, q2))
-  q <- join(q1, q2)
+  q <- c(q1, q2)
 
   testthat::expect_equal(q@.xData, q1@.xData)
   testthat::expect_identical(q@code, "iris1 <- iris")
