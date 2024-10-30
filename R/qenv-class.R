@@ -24,19 +24,19 @@ setClass(
 )
 
 #' It initializes the `qenv` class
-#' @name qenv-class
-#' @keywords internal
+#' @noRd
 setMethod(
   "initialize",
   "qenv",
   function(.Object, .xData = new.env(parent = parent.env(.GlobalEnv)), ...) { # nolint: object_name.
+    # .xData needs to be unnamed as the `.environment` constructure requires 1
+    # unnamed formal argument. See methods::findMethods("initialize")$.environment
+    .Object <- methods::callNextMethod(.Object, .xData, ...) # nolint: object_name.
+
     checkmate::assert_environment(.xData)
     lockEnvironment(.xData, bindings = TRUE)
     .Object@.xData <- .xData # nolint: object_name.
 
-    # .xData needs to be unnamed as the `.environment` constructure requires 1
-    # unnamed formal argument. See methods::findMethods("initialize")$.environment
-    .Object <- methods::callNextMethod(.Object, .xData, ...) # nolint: object_name.
     .Object
   }
 )

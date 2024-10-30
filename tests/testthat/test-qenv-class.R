@@ -7,7 +7,7 @@ testthat::describe("methods::new(qenv)", {
     new_env <- new.env()
     expect_false(environmentIsLocked(new_env))
 
-    expect_true(environmentIsLocked(teal.code::get_env(methods::new("qenv"))))
+    expect_true(environmentIsLocked(teal.code::get_env(methods::new("qenv", .xData = new_env))))
   })
 
   testthat::it("throws error when id and code length doesn't match", {

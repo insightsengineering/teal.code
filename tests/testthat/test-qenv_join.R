@@ -15,7 +15,7 @@ testthat::test_that("Joining two independent qenvs results in object having comb
   q2 <- eval_code(qenv(), quote(mtcars1 <- mtcars))
 
   testthat::expect_true(.check_joinable(q1, q2))
-  q <- join(q1, q2)
+  q <- c(q1, q2)
 
   testthat::expect_equal(q@.xData, list2env(list(iris1 = iris, mtcars1 = mtcars)))
   testthat::expect_identical(
