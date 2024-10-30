@@ -45,9 +45,7 @@
 #'
 #' @export
 qenv <- function() {
-  q_env <- new.env(parent = parent.env(.GlobalEnv))
-  lockEnvironment(q_env, bindings = TRUE)
-  methods::new("qenv", .xData = q_env)
+  methods::new("qenv")
 }
 
 

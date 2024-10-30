@@ -30,7 +30,7 @@ setMethod(
     .Object <- callNextMethod(.Object, ...) # nolint: object_name.
 
     checkmate::assert_environment(.xData)
-    lockEnvironment(.xData)
+    lockEnvironment(.xData, bindings = TRUE)
     .Object@.xData <- .xData # nolint: object_name.
 
     .Object
