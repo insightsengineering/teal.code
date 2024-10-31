@@ -473,7 +473,7 @@ get_call_breaks <- function(code) {
       matrix(c(max(x$line2), max(x$col2)))
     }
   ))
-  call_breaks <- call_breaks[-nrow(call_breaks), ] # breaks in between needed only
+  call_breaks <- call_breaks[-nrow(call_breaks), , drop = FALSE] # breaks in between needed only
   colnames(call_breaks) <- c("line", "col")
   call_breaks
 }
@@ -491,7 +491,7 @@ split_code <- function(code) {
   if (nrow(call_breaks) == 0) {
     return(code)
   }
-  call_breaks <- call_breaks[order(call_breaks[, "line"], call_breaks[, "col"]), ]
+  call_breaks <- call_breaks[order(call_breaks[, "line"], call_breaks[, "col"]), , drop = FALSE]
   code_split <- strsplit(code, split = "\n", fixed = TRUE)[[1]]
   char_count_lines <- c(0, cumsum(sapply(code_split, nchar, USE.NAMES = FALSE) + 1), -1)[seq_along(code_split)]
 
