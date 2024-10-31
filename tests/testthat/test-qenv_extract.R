@@ -1,3 +1,4 @@
+
 testthat::test_that("`[.` returns empty qenv for names not in qenv", {
   data <- within(qenv(), {
     x <- 1
@@ -36,7 +37,7 @@ testthat::test_that("`[.` extract proper code", {
   object_names <- c("x", "a")
   qs <- q[object_names]
   testthat::expect_identical(
-    qs@code,
+    unlist(qs@code),
     c("x<-1", "a<-1")
   )
 })
@@ -47,7 +48,7 @@ testthat::test_that("`[.` preservers comments in the code", {
   q <- eval_code(q, code)
   qs <- q[c("x", "a")]
   testthat::expect_identical(
-    qs@code,
+    unlist(qs@code),
     c("x<-1 #comment", "a<-1")
   )
 })
@@ -59,8 +60,9 @@ testthat::test_that("`[.` extract proper elements of @id, @warnings and @message
   q <- eval_code(q, code)
   qs <- q[c("x", "a")]
 
-  testthat::expect_identical(qs@id, q@id[c(1, 3)])
-  testthat::expect_identical(qs@code, q@code[c(1, 3)])
-  testthat::expect_identical(qs@warnings, q@warnings[c(1, 3)])
-  testthat::expect_identical(qs@messages, q@messages[c(1, 3)])
+  testthat::expect_identical(get_code_attr(qs, "id"), get_code_attr(q, "id")[c(1, 3)])
+  testthat::expect_identical(unlist(qs@code), unlist(q@code[c(1, 3)]))
+  testthat::expect_null(get_code_attr(qs, "warning"))
+  testthat::expect_null(get_code_attr(qs, "message"))
 })
+

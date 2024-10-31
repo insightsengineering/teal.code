@@ -37,10 +37,10 @@ get_code_dependency <- function(code, names, check_names = TRUE) {
   # TODO: rethink if this is still needed when code is divided by calls?
   tcode <- trimws(code)
   if (any(grepl("^\\{.*\\}$", tcode))) {
-    code <- sub("^\\{(.*)\\}$", "\\1", tcode)
+    tcode <- sub("^\\{(.*)\\}$", "\\1", tcode)
   }
 
-  parsed_code <- parse(text = code, keep.source = TRUE)
+  parsed_code <- parse(text = tcode, keep.source = TRUE)
 
   pd <- utils::getParseData(parsed_code)
   pd <- normalize_pd(pd)

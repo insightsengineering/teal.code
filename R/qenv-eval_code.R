@@ -39,7 +39,6 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
   for (i in seq_along(code_split)) {
     current_code <- code_split[[i]]
     current_call <- parse(text = current_code, keep.source = FALSE)
-    new_object_code <- c(object@code, list(current_code))
 
     # Using withCallingHandlers to capture warnings and messages.
     # Using tryCatch to capture the error and abort further evaluation.
@@ -62,7 +61,7 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
               deparse1(current_call)
             ),
             class = c("qenv.error", "try-error", "simpleError"),
-            trace = unlist(new_object_code)
+            trace = unlist(c(object@code, list(current_code)))
           )
         }
       ),
@@ -81,7 +80,7 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
     }
 
     attr(current_code, "id") <- sample.int(.Machine$integer.max, size = 1)
-    object@code <- new_object_code
+    object@code <- c(object@code, list(current_code))
   }
 
   lockEnvironment(object@env, bindings = TRUE)
@@ -108,4 +107,9 @@ setMethod("eval_code", signature = c("qenv.error", "ANY"), function(object, code
   } else {
     chr
   }
+}
+
+get_code_attr <- function(qenv, attr){
+  #unlist(lapply(qenv@code, attr, attr)) # somehow doesn't work
+  unlist(lapply(qenv@code, function(x) attr(x, attr)))
 }

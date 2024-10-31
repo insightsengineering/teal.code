@@ -41,21 +41,21 @@ testthat::test_that("getting object from the package namespace works even if lib
 testthat::test_that("eval_code works with character", {
   q1 <- eval_code(qenv(), "a <- 1")
 
-  testthat::expect_identical(q1@code, "a <- 1")
+  testthat::expect_identical(unlist(q1@code), "a <- 1")
   testthat::expect_equal(q1@env, list2env(list(a = 1)))
 })
 
 testthat::test_that("eval_code works with expression", {
   q1 <- eval_code(qenv(), as.expression(quote(a <- 1)))
 
-  testthat::expect_identical(q1@code, "a <- 1")
+  testthat::expect_identical(unlist(q1@code), "a <- 1")
   testthat::expect_equal(q1@env, list2env(list(a = 1)))
 })
 
 testthat::test_that("eval_code works with quoted", {
   q1 <- eval_code(qenv(), quote(a <- 1))
 
-  testthat::expect_identical(q1@code, "a <- 1")
+  testthat::expect_identical(unlist(q1@code), "a <- 1")
   testthat::expect_equal(q1@env, list2env(list(a = 1)))
 })
 
@@ -69,7 +69,7 @@ testthat::test_that("eval_code works with quoted code block", {
   )
 
   testthat::expect_equal(
-    q1@code,
+    unlist(q1@code),
     c("a <- 1", "b <- 2")
   )
   testthat::expect_equal(q1@env, list2env(list(a = 1, b = 2)))
@@ -96,14 +96,17 @@ testthat::test_that("a warning when calling eval_code returns a qenv object whic
   q <- eval_code(q, quote("p <- hist(iris_data[, 'Sepal.Length'], ff = '')"))
   testthat::expect_s4_class(q, "qenv")
   testthat::expect_equal(
-    q@warnings,
-    c("", "> \"ff\" is not a graphical parameter\n")
+    lapply(q@code, attr, "warning"),
+    list(NULL, "> \"ff\" is not a graphical parameter\n")
   )
 })
 
 testthat::test_that("eval_code with a vector of code produces one warning element per code element", {
   q <- eval_code(qenv(), c("x <- 1", "y <- 1", "warning('warn1')"))
-  testthat::expect_equal(c("", "", "> warn1\n"), q@warnings)
+  testthat::expect_equal(
+    lapply(q@code, attr, "warning"),
+    list(NULL, NULL, "> warn1\n")
+  )
 })
 
 
@@ -112,9 +115,9 @@ testthat::test_that("a message when calling eval_code returns a qenv object whic
   q <- eval_code(q, quote("message('This is a message')"))
   testthat::expect_s4_class(q, "qenv")
   testthat::expect_equal(
-    q@messages,
-    c(
-      "",
+    lapply(q@code, attr, "message"),
+    list(
+      NULL,
       "> This is a message\n"
     )
   )
@@ -123,6 +126,6 @@ testthat::test_that("a message when calling eval_code returns a qenv object whic
 testthat::test_that("eval_code returns a qenv object with empty messages and warnings when none are returned", {
   q <- eval_code(qenv(), quote("iris_data <- head(iris)"))
   testthat::expect_s4_class(q, "qenv")
-  testthat::expect_equal(q@messages, "")
-  testthat::expect_equal(q@warnings, "")
+  testthat::expect_null(attr(q@code, "message"))
+  testthat::expect_null(attr(q@code, "warning"))
 })

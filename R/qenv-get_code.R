@@ -125,7 +125,7 @@ setMethod("get_code", signature = "qenv", function(object, deparse = TRUE, names
   }
 
   if (deparse) {
-    unlist(code)
+    code
   } else {
     parse(text = paste(c("{", unlist(code), "}"), collapse = "\n"), keep.source = TRUE)
   }

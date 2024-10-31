@@ -33,7 +33,9 @@ setGeneric("get_warnings", function(object) {
 })
 
 setMethod("get_warnings", signature = c("qenv"), function(object) {
-  if (all(object@warnings == "")) {
+  warnings <- lapply(object@code, "attr", "warning")
+  code <- object@code[unlist(lapply(warnings, Negate(is.null)))]
+  if (length(unlist(warnings)) == 0) {
     return(NULL)
   }
 
@@ -44,8 +46,8 @@ setMethod("get_warnings", signature = c("qenv"), function(object) {
       }
       sprintf("%swhen running code:\n%s", warn, paste(lang2calls(expr), collapse = "\n"))
     },
-    warn = as.list(object@warnings),
-    expr = as.list(as.character(object@code))
+    warn = as.list(unlist(warnings)),
+    expr = as.list(unlist(code))
   )
   lines <- Filter(Negate(is.null), lines)
 

@@ -2,10 +2,10 @@ testthat::test_that("constructor returns qenv", {
   q <- qenv()
   testthat::expect_s4_class(q, "qenv")
   testthat::expect_identical(ls(q@env), character(0))
-  testthat::expect_identical(q@code, character(0))
-  testthat::expect_identical(q@id, integer(0))
-  testthat::expect_identical(q@warnings, character(0))
-  testthat::expect_identical(q@messages, character(0))
+  testthat::expect_null(unlist(q@code), NULL)
+  testthat::expect_null(attr(q@code, "id"))
+  testthat::expect_null(attr(q@code, "warning"))
+  testthat::expect_null(attr(q@code, "message"))
 })
 
 testthat::test_that("parent of qenv environment is the parent of .GlobalEnv", {

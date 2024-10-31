@@ -32,10 +32,7 @@
 setGeneric("concat", function(x, y) standardGeneric("concat"))
 
 setMethod("concat", signature = c("qenv", "qenv"), function(x, y) {
-  y@id <- c(x@id, y@id)
   y@code <- c(x@code, y@code)
-  y@warnings <- c(x@warnings, y@warnings)
-  y@messages <- c(x@messages, y@messages)
 
   # insert (and overwrite) objects from y to x
   y@env <- rlang::env_clone(y@env, parent = parent.env(.GlobalEnv))
