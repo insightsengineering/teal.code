@@ -84,23 +84,13 @@ as \code{name:value} pairs are passed to \code{...}, \code{name} in \code{expr} 
 \section{Environment}{
 
 
-The \code{qenv} object behaves as an environment that is locked and can be used as
-as a argument to with many functions that accept \code{environment}, among the
-most relevant are: \code{names()}, \code{ls()}, \code{get()}, \code{exists()}, \code{parent.env()},
-\verb{\{l,s,v\}apply} family, \code{local}, \code{as.environment()}, \code{is.environment()}, \code{as.list()}, ...
-
-\code{qenv} should not be used with \code{cbind()} and \code{env.profile()} functions as it
-has unexpected behavior.
-Instead, \code{get_env()} or \code{as.environment()} should be used before calling any
-problematic function.
-
-Similarly, \code{rlang} functions related to environments cannot be used directly
-with \code{qenv} and should be used with \code{teal.code::get_env()}/\code{as.environment()}.
-
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{q <- qenv()
-rlang::env_clone(as.environment(q))
-rlang::env_clone(get_env(q))
-}\if{html}{\out{</div>}}
+The \code{qenv} object behaves like an environment that is locked and one can use
+some of the \code{base} functions dedicated to the \code{environment}. List of supported
+functions includes:
+\code{names()}, \code{ls()}, \code{get()}, \code{exists()}, \code{parent.env()}, \code{lapply}, \code{sapply}
+\code{vapply}, \code{local}, \code{as.environment()}, \code{is.environment()}, \code{as.list()}, ...
+We don't recommend using any function outside of the \code{teal.code} exports and these
+mentioned above.
 }
 
 \section{Extracting dataset-specific code}{
