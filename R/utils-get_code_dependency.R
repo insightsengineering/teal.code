@@ -110,17 +110,16 @@ find_call <- function(call_pd, text) {
 #' @noRd
 extract_calls <- function(pd) {
   calls <- lapply(
-    pd[pd$parent == 0, "id"],
+    pd[pd$parent == 0 & pd$token != "COMMENT", "id"],
     function(parent) {
       rbind(
-        pd[pd$id == parent, c("token", "text", "id", "parent")],
+        pd[pd$id == parent, ],
         get_children(pd = pd, parent = parent)
       )
     }
   )
   calls <- Filter(function(call) !(nrow(call) == 1 && call$token == "';'"), calls)
   calls <- Filter(Negate(is.null), calls)
-  calls <- fix_shifted_comments(calls)
   fix_arrows(calls)
 }
 
@@ -128,7 +127,7 @@ extract_calls <- function(pd) {
 #' @noRd
 get_children <- function(pd, parent) {
   idx_children <- abs(pd$parent) == parent
-  children <- pd[idx_children, c("token", "text", "id", "parent")]
+  children <- pd[idx_children, ]
   if (nrow(children) == 0) {
     return(NULL)
   }
@@ -454,71 +453,29 @@ normalize_pd <- function(pd) {
   pd
 }
 
-#' Get line and cols ids of starts and ends of calls
+#' Get line/column in the source where the calls end
 #'
-#' @param pd `data.frame` resulting from `utils::getParseData()` call.
 #'
-#' @return list of `data.frames` containing number of lines and columns of starts and ends of calls included in `pd`.
+#' @param code `character(1)`
+#'
+#' @return `matrix` with `colnames = c("line", "col")`
 #'
 #' @keywords internal
 #' @noRd
-get_line_ids <- function(pd) {
-  if (pd$token[1] == "COMMENT") {
-    first_comment <- 1:(which(pd$parent == 0)[1] - 1)
-    pd_first_comment <- pd[first_comment, ]
-    pd <- pd[-first_comment, ]
-
-    n <- nrow(pd_first_comment)
-    first_comment_ids <- data.frame(
-      lines = c(pd_first_comment[1, "line1"], pd_first_comment[n, "line2"]),
-      cols = c(pd_first_comment[1, "col1"], pd_first_comment[n, "col2"])
-    )
-  } else {
-    first_comment_ids <- NULL
-  }
-
-  if (pd$token[nrow(pd)] == "COMMENT") {
-    last_comment <- which(pd$parent == 0 & pd$token == "COMMENT")
-    pd_last_comment <- pd[last_comment, ]
-    pd <- pd[-last_comment, ]
-
-    n <- nrow(pd_last_comment)
-    last_comment_ids <- data.frame(
-      lines = c(pd_last_comment[1, "line1"], pd_last_comment[n, "line2"]),
-      cols = c(pd_last_comment[1, "col1"], pd_last_comment[n, "col2"])
-    )
-  } else {
-    last_comment_ids <- NULL
-  }
-
-  # If NUM_CONST is the last element, we need to reorder rows.
-  # Last 2 rows
-  n <- nrow(pd)
-  if (pd$token[n - 1] == "NUM_CONST" && pd$parent[n] == 0) {
-    pd <- rbind(pd[-(n - 1), ], pd[n - 1, ])
-  }
-
-  calls_start <- which(pd$parent == 0)
-  calls_end <- c(which(pd$parent == 0)[-1] - 1, nrow(pd))
-
-  call_ids <- list()
-  for (i in seq_along(calls_start)) {
-    call <- pd[c(calls_start[i], calls_end[i]), ]
-    call_ids[[i]] <-
-      data.frame(
-        lines = c(call[1, "line1"], call[2, "line2"]),
-        cols = c(call[1, "col1"], call[2, "col2"])
-      )
-  }
-
-  if (!is.null(first_comment_ids)) {
-    call_ids[[1]] <- rbind(first_comment_ids[1, ], call_ids[[1]][2, ])
-  }
-  if (!is.null(last_comment_ids)) {
-    n <- length(call_ids)
-    call_ids[[n]] <- rbind(call_ids[[n]][1, ], last_comment_ids[2, ])
-  }
-  call_ids
+get_call_breaks <- function(code) {
+  parsed_code <- parse(text = code, keep.source = TRUE)
+  pd <- utils::getParseData(parsed_code)
+  pd <- normalize_pd(pd)
+  pd <- pd[pd$token != "';'", ]
+  call_breaks <- t(sapply(
+    extract_calls(pd),
+    function(x) {
+      matrix(c(max(x$line2), max(x$col2)))
+    }
+  ))
+  if (nrow(call_breaks) > 1) call_breaks <- call_breaks[-nrow(call_breaks), ] # breaks in between needed only
+  colnames(call_breaks) <- c("line", "col")
+  call_breaks
 }
 
 #' Split code by calls
@@ -530,40 +487,23 @@ get_line_ids <- function(pd) {
 #' @keywords internal
 #' @noRd
 split_code <- function(code) {
-  parsed_code <- parse(text = code, keep.source = TRUE)
-  pd <- utils::getParseData(parsed_code)
-  pd <- normalize_pd(pd)
-  pd <- pd[pd$token != "';'", ]
-  lines_ids <- get_line_ids(pd)
-
+  call_breaks <- get_call_breaks(code)
+  call_breaks <- call_breaks[order(call_breaks[, "line"], call_breaks[, "col"]), ]
   code_split <- strsplit(code, split = "\n", fixed = TRUE)[[1]]
-  code_split_calls <- list()
+  char_count_lines <- c(0, cumsum(sapply(code_split, nchar, USE.NAMES = FALSE) + 1), -1)[seq_along(code_split)]
 
-  for (i in seq_along(lines_ids)) {
-    code_lines <- code_split[lines_ids[[i]]$lines[1]:lines_ids[[i]]$lines[2]]
+  idx_start <- c(
+    0, # first call starts in the beginning of src
+    char_count_lines[call_breaks[, "line"]] + call_breaks[, "col"] + 2
+  )
+  idx_end <- c(
+    char_count_lines[call_breaks[, "line"]] + call_breaks[, "col"] + 1,
+    nchar(code) # last call end in the end of src
+  )
+  new_code <- substring(code, idx_start, idx_end)
 
-    if (length(code_lines) == 1) {
-      code_lines_candidate <- substr(code_lines, lines_ids[[i]]$cols[1], lines_ids[[i]]$cols[2])
-      # in case only indentantion is changed, do not trim the indentation
-      if (!identical(code_lines_candidate, trimws(code_lines))) {
-        # case of multiple calls in one line, keep the original indentation
-        indentation <- if (grepl("^\\s+", code_lines)) {
-          gsub("^(\\s+).*", "\\1", code_lines)
-        } else {
-          ""
-        }
-        code_lines <- paste0(indentation, code_lines_candidate)
-      }
-    } else {
-      code_lines_candidate <- substr(code_lines[1], lines_ids[[i]]$cols[1], nchar(code_lines[1]))
-      # in case only indentantion is changed, do not trim the indentation
-      if (!identical(code_lines_candidate, trimws(code_lines[1]))) {
-        code_lines[1] <- code_lines_candidate
-      }
-      code_lines[length(code_lines)] <- substr(code_lines[length(code_lines)], 1, lines_ids[[i]]$cols[2])
-    }
-
-    code_split_calls[[i]] <- paste(code_lines, collapse = "\n")
-  }
-  code_split_calls
+  # we need to remove leading semicolons from the calls and move them to the previous call
+  #  this is a reasult of a wrong split, which ends on the end of call and not on the ;
+  #  semicolon is treated by R parser as a separate call.
+  gsub("^([[:space:]])*;(.+)$", "\\1\\2", new_code, perl = TRUE)
 }

@@ -45,6 +45,19 @@ testthat::test_that("get_code called with qenv.error returns error with trace in
   )
 })
 
+testthat::test_that("get_code returns code with comments and empty spaces", {
+  code <- "
+    # header comment after white space
+
+    a <- 1L; b <- 2 #inline comment
+
+
+    c <- 3
+    # closing comment
+    "
+  q <- eval_code(qenv(), code)
+  testthat::expect_equal(paste(get_code(q), collapse = ""), code)
+})
 
 # names parameter -------------------------------------------------------------------------------------------------
 
@@ -91,7 +104,6 @@ testthat::test_that("handles the code of length > 1 when at least one is enclose
     "{a<-5}"
   )
 })
-
 
 testthat::test_that("extracts the code of a binding from character vector containing simple code", {
   code <- c(
@@ -163,7 +175,6 @@ testthat::test_that("does not fall into a loop", {
     code[1:3]
   )
 })
-
 
 testthat::test_that("extracts code of a parent binding but only those evaluated before coocurence", {
   code <- c(
