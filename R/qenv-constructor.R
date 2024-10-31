@@ -10,13 +10,11 @@
 #' `qenv()` instantiates a `qenv` with an empty environment.
 #' Any changes must be made by evaluating code in it with `eval_code` or `within`, thereby ensuring reproducibility.
 #'
-#' `new_qenv()` (`r badge("deprecated")` and not recommended)
-#' can instantiate a `qenv` object with data in the environment and code registered.
-#'
 #' @name qenv
 #'
-#' @return `qenv` and `new_qenv` return a `qenv` object.
+#' @return `qenv` returns a `qenv` object.
 #'
+#' @seealso [`base::within()`], [`get_var()`], [`get_env()`], [`get_warnings()`], [`join()`], [`concat()`]
 #' @examples
 #' # create empty qenv
 #' qenv()
@@ -29,29 +27,26 @@ qenv <- function() {
 }
 
 
+#' Deprecated function
+#'
+#' The `new_qenv()` function is deprecated use [`qenv()`].
 #' @param code `r badge("deprecated")`
 #'  (`character(1)` or `language`) code to evaluate. Accepts and stores comments also.
 #' @param env `r badge("deprecated")` (`environment`)
 #'  Environment being a result of the `code` evaluation.
-#'
-#' @examples
-#' # create qenv with data and code (deprecated)
-#' new_qenv(env = list2env(list(a = 1)), code = quote(a <- 1))
-#' new_qenv(env = list2env(list(a = 1)), code = parse(text = "a <- 1", keep.source = TRUE))
-#' new_qenv(env = list2env(list(a = 1)), code = "a <- 1")
-#'
-#' @rdname qenv
 #' @aliases new_qenv,environment,expression-method
 #' @aliases new_qenv,environment,character-method
 #' @aliases new_qenv,environment,language-method
 #' @aliases new_qenv,environment,missing-method
 #' @aliases new_qenv,missing,missing-method
-#'
-#' @seealso [`base::within()`], [`get_var()`], [`get_env()`], [`get_warnings()`], [`join()`], [`concat()`]
+#' @return Errors.
+#' @seealso [`qenv()`]
 #'
 #' @export
 setGeneric("new_qenv", function(env = new.env(parent = parent.env(.GlobalEnv)), code = character()) {
-  lifecycle::deprecate_warn(when = " 0.5.0", what = "new_qenv()", with = "qenv()", always = TRUE)
+  lifecycle::deprecate_stop(when = " 0.5.0",
+                            what = "new_qenv()",
+                            with = "qenv()")
   standardGeneric("new_qenv")
 })
 

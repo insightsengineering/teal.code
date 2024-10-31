@@ -3,12 +3,6 @@
 %   R/qenv-get_code.R, R/qenv-within.R
 \name{qenv}
 \alias{qenv}
-\alias{new_qenv}
-\alias{new_qenv,environment,expression-method}
-\alias{new_qenv,environment,character-method}
-\alias{new_qenv,environment,language-method}
-\alias{new_qenv,environment,missing-method}
-\alias{new_qenv,missing,missing-method}
 \alias{eval_code}
 \alias{eval_code,qenv,character-method}
 \alias{eval_code,qenv,language-method}
@@ -22,8 +16,6 @@
 \usage{
 qenv()
 
-new_qenv(env = new.env(parent = parent.env(.GlobalEnv)), code = character())
-
 eval_code(object, code)
 
 get_code(object, deparse = TRUE, names = NULL, ...)
@@ -31,12 +23,9 @@ get_code(object, deparse = TRUE, names = NULL, ...)
 \method{within}{qenv}(data, expr, ...)
 }
 \arguments{
-\item{env}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} (\code{environment})
-Environment being a result of the \code{code} evaluation.}
+\item{object}{(\code{qenv})}
 
 \item{code}{(\code{character} or \code{language}) code to evaluate. If \code{character}, comments are retained.}
-
-\item{object}{(\code{qenv})}
 
 \item{deparse}{(\code{logical(1)}) flag specifying whether to return code as \code{character} or \code{expression}.}
 
@@ -50,7 +39,7 @@ For more details see the "Extracting dataset-specific code" section.}
 \item{expr}{(\code{expression}) to evaluate. Must be inline code, see \verb{Using language objects...}}
 }
 \value{
-\code{qenv} and \code{new_qenv} return a \code{qenv} object.
+\code{qenv} returns a \code{qenv} object.
 
 \code{eval_code} returns a \code{qenv} object with \code{expr} evaluated or \code{qenv.error} if evaluation fails.
 
@@ -66,9 +55,6 @@ Create a \code{qenv} object and evaluate code in it to track code history.
 \details{
 \code{qenv()} instantiates a \code{qenv} with an empty environment.
 Any changes must be made by evaluating code in it with \code{eval_code} or \code{within}, thereby ensuring reproducibility.
-
-\code{new_qenv()} (\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} and not recommended)
-can instantiate a \code{qenv} object with data in the environment and code registered.
 
 \code{eval_code} evaluates given code in the \code{qenv} environment and appends it to the \code{code} slot.
 Thus, if the \code{qenv} had been instantiated empty, contents of the environment are always a result of the stored code.
@@ -161,11 +147,6 @@ Only single \code{expression}s will work and substitution is not available. See 
 \examples{
 # create empty qenv
 qenv()
-
-# create qenv with data and code (deprecated)
-new_qenv(env = list2env(list(a = 1)), code = quote(a <- 1))
-new_qenv(env = list2env(list(a = 1)), code = parse(text = "a <- 1", keep.source = TRUE))
-new_qenv(env = list2env(list(a = 1)), code = "a <- 1")
 
 # evaluate code in qenv
 q <- qenv()
