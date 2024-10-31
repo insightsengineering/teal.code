@@ -35,7 +35,7 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
 
   object@env <- rlang::env_clone(object@env, parent = parent.env(.GlobalEnv))
   code_split <- split_code(paste(code, collapse = "\n"))
-  print(code_split)
+
   for (i in seq_along(code_split)) {
     current_code <- code_split[[i]]
     current_call <- parse(text = current_code, keep.source = FALSE)
