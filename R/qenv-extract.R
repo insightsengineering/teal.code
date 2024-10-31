@@ -22,14 +22,21 @@
   names_warn <- setdiff(names, possible_names)
   names <- intersect(names, possible_names)
   if (!length(names)) {
-    warning("None of `names` elements exist in `qenv`. Returning empty `qenv`.")
+    warning(
+      sprintf(
+        "None of 'names' elements exist in '%s'. Returning empty '%s'.",
+        class(x)[1],
+        class(x)[1]
+      )
+    )
     return(qenv())
   }
 
   if (length(names_warn)) {
     warning(
       sprintf(
-        "Some elements of `names` do not exist in `qenv`. Skipping those: %s.",
+        "Some elements of 'names' do not exist in '%s'. Skipping those: %s.",
+        class(x)[1],
         paste(names_warn, collapse = ", ")
       )
     )
