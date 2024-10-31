@@ -1,5 +1,9 @@
 #' Get object from `qenv`
 #'
+#' @description
+#' `r lifecycle::badge("superseded")` by native \R operators/functions:
+#' `x[[name]]`, `x$name` or `get(name, envir = qenv)`.
+#'
 #' Retrieve variables from the `qenv` environment.
 #'
 #' @param object,x (`qenv`)
@@ -12,7 +16,6 @@
 #' q1 <- eval_code(q, code = quote(a <- 1))
 #' q2 <- eval_code(q1, code = "b <- a")
 #' get_var(q2, "b")
-#' q2[["b"]]
 #'
 #' @name get_var
 #' @rdname get_var
@@ -43,7 +46,6 @@ setMethod("get_var", signature = c("qenv.error", "ANY"), function(object, var) {
   ))
 })
 
-#' @rdname get_var
 setMethod("[[", signature = c("qenv", "ANY"), function(x, i) {
   get_var(x, i)
 })

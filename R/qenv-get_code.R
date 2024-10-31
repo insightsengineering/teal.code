@@ -1,7 +1,7 @@
 #' Get code from `qenv`
 #'
 #' @details
-#' `get_code` retrieves the code stored in the `qenv`. `...` passes arguments to methods.
+#' `get_code()` retrieves the code stored in the `qenv`. `...` passes arguments to methods.
 #'
 #' @param object (`qenv`)
 #' @param deparse (`logical(1)`) flag specifying whether to return code as `character` or `expression`.

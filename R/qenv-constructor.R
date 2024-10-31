@@ -14,6 +14,19 @@
 #' `new_qenv()` (`r badge("deprecated")` and not recommended)
 #' can instantiate a `qenv` object with data in the environment and code registered.
 #'
+#' @section Extracting objects from `qenv`:
+#'
+#' Extracting an object from the `qenv` by name can be done using the following methods:
+#'
+#' - `x[[name]]`
+#' - `x$name`
+#' - `get(name, envir = x)`
+#'
+#' note: `get_var(name)` was superseded by the native \R methods above.
+#'
+#' To list all objects in the environment, use `ls(x)` (which doesn't show
+#' objects that have a dot prefix with default arguments) or `names(x)` (shows all objects).
+#'
 #' @section Environment:
 #'
 #' The `qenv` object behaves like an environment that is locked and one can use
@@ -37,7 +50,6 @@
 qenv <- function() {
   methods::new("qenv")
 }
-
 
 #' @param code `r badge("deprecated")`
 #'  (`character(1)` or `language`) code to evaluate. Accepts and stores comments also.

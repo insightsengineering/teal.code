@@ -1,7 +1,7 @@
 #' Evaluate code in `qenv`
 #'
 #' @details
-#' `eval_code` evaluates given code in the `qenv` environment and appends it to the `code` slot.
+#' `eval_code()` evaluates given code in the `qenv` environment and appends it to the `code` slot.
 #' Thus, if the `qenv` had been instantiated empty, contents of the environment are always a result of the stored code.
 #'
 #' @param object (`qenv`)

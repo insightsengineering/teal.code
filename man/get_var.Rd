@@ -4,12 +4,9 @@
 \alias{get_var}
 \alias{get_var,qenv,character-method}
 \alias{get_var,qenv.error,ANY-method}
-\alias{[[,qenv-method}
 \title{Get object from \code{qenv}}
 \usage{
 get_var(object, var)
-
-\S4method{[[}{qenv}(x, i)
 }
 \arguments{
 \item{object, x}{(\code{qenv})}
@@ -20,6 +17,9 @@ get_var(object, var)
 The value of required variable (\code{var}) within \code{qenv} object.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}} by native \R operators/functions:
+\code{x[[name]]}, \code{x$name} or \code{get(name, envir = qenv)}.
+
 Retrieve variables from the \code{qenv} environment.
 }
 \examples{
@@ -27,6 +27,5 @@ q <- qenv()
 q1 <- eval_code(q, code = quote(a <- 1))
 q2 <- eval_code(q1, code = "b <- a")
 get_var(q2, "b")
-q2[["b"]]
 
 }
