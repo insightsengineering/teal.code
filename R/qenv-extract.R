@@ -35,9 +35,9 @@
     )
   }
 
-  limited_code <- get_code(x, names = names)
   x@env <- list2env(mget(x = names, envir = get_env(x)))
-  x@code <- limited_code
+  names <- gsub("^`(.*)`$", "\\1", names)
+  x@code <- get_code_dependency(x@code, names = names)
 
   x
 }

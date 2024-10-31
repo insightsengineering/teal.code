@@ -26,7 +26,7 @@ testthat::test_that("styling of input code does not impact evaluation results", 
     1 +
       1
   })
-  all_code <- unlist(get_code(q))
+  all_code <- get_code(q)
   testthat::expect_identical(
     all_code,
     rep("1 + 1", 4L)
@@ -45,7 +45,7 @@ testthat::test_that("styling of input code does not impact evaluation results", 
     1 + 1;
     2 + 2
   })
-  all_code <- unlist(get_code(q))
+  all_code <- get_code(q)
   testthat::expect_identical(
     all_code,
     rep(c("1 + 1", "2 + 2"), 4L)
@@ -85,7 +85,7 @@ testthat::test_that("external values can be injected into expressions through `.
   },
   species = external_value)
 
-  testthat::expect_identical(unlist(get_code(q)), "i <- subset(iris, Species == \"virginica\")")
+  testthat::expect_identical(get_code(q), "i <- subset(iris, Species == \"virginica\")")
 })
 
 testthat::test_that("external values are not taken from calling frame", {
@@ -95,14 +95,14 @@ testthat::test_that("external values are not taken from calling frame", {
     i <- subset(iris, Species == species)
   })
   testthat::expect_s3_class(qq, "qenv.error")
-  testthat::expect_error(unlist(get_code(qq)), "object 'species' not found")
+  testthat::expect_error(get_code(qq), "object 'species' not found")
 
   qq <- within(q, {
     i <- subset(iris, Species == species)
   },
   species = species)
   testthat::expect_s4_class(qq, "qenv")
-  testthat::expect_identical(unlist(get_code(qq)), "i <- subset(iris, Species == \"setosa\")")
+  testthat::expect_identical(get_code(qq), "i <- subset(iris, Species == \"setosa\")")
 })
 
 # nolint end
