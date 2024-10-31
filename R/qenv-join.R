@@ -74,8 +74,8 @@
 #'    # Error message will occur
 #'
 #'    # Check the value of temporary variable i in both objects
-#'    x@env$i # Output: 2
-#'    y@env$i # Output: 3
+#'    x@.xData$i # Output: 2
+#'    y@.xData$i # Output: 3
 #'    ```
 #'    `join()` fails to provide a proper result because of the temporary variable `i` exists
 #'    in both objects but has different value.

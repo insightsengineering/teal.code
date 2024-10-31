@@ -47,7 +47,7 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
         {
           eval(single_call, envir = object@.xData)
           if (!identical(parent.env(object@.xData), parent.env(.GlobalEnv))) {
-            # needed to make sure that @env is always a sibling of .GlobalEnv
+            # needed to make sure that @.xData is always a sibling of .GlobalEnv
             # could be changed when any new package is added to search path (through library or require call)
             parent.env(object@.xData) <- parent.env(.GlobalEnv)
           }

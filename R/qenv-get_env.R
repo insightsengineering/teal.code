@@ -1,10 +1,10 @@
 #' Access environment included in `qenv`
 #'
-#' The access of environment included in `qenv@env` allows to e.g. list object names included in `qenv@env` slot.
+#' The access of environment included in the `qenv` that contains all data objects.
 #'
-#' @param object (`qenv`)
+#' @param object (`qenv`).
 #'
-#' @return An `environment` stored in `qenv@env` slot.
+#' @return An `environment` stored in `qenv` slot with all data objects.
 #'
 #' @examples
 #' q <- qenv()
@@ -13,7 +13,8 @@
 #'   b <- data.frame(x = 1:10)
 #' })
 #' get_env(q1)
-#' ls(get_env(q1))
+#'
+#' ls(get_env(q1)) # list objects in the environment
 #'
 #' @aliases get_env,qenv-method
 #' @aliases get_env,qenv.error-method
@@ -23,10 +24,6 @@ setGeneric("get_env", function(object) {
   standardGeneric("get_env")
 })
 
-setMethod("get_env", "qenv", function(object) {
-  object@.xData
-})
+setMethod("get_env", "qenv", function(object) object@.xData)
 
-setMethod("get_env", "qenv.error", function(object) {
-  object
-})
+setMethod("get_env", "qenv.error", function(object) object)

@@ -93,8 +93,8 @@ q <- join(x,y)
 # Error message will occur
 
 # Check the value of temporary variable i in both objects
-x@env$i # Output: 2
-y@env$i # Output: 3
+x@.xData$i # Output: 2
+y@.xData$i # Output: 3
 }\if{html}{\out{</div>}}
 
 \code{join()} fails to provide a proper result because of the temporary variable \code{i} exists
