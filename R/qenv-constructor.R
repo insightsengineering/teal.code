@@ -17,11 +17,11 @@
 #' @section Environment:
 #'
 #' The `qenv` object behaves like an environment that is locked and one can use
-#' some of the `base` functions dedicated to the `environment`. List of supported 
-#' functions includes: 
+#' some of the `base` functions dedicated to the `environment`. List of supported
+#' functions includes:
 #' `names()`, `ls()`, `get()`, `exists()`, `parent.env()`, `lapply`, `sapply`
 #' `vapply`, `local`, `as.environment()`, `is.environment()`, `as.list()`, ...
-#' We don't recommend using any function outside of the `teal.code` exports and these 
+#' We don't recommend using any function outside of the `teal.code` exports and these
 #' mentioned above.
 #'
 #'
