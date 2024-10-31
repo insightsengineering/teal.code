@@ -488,7 +488,7 @@ get_call_breaks <- function(code) {
 #' @noRd
 split_code <- function(code) {
   call_breaks <- get_call_breaks(code)
-  call_breaks <- call_breaks[order(call_breaks[, "line"], call_breaks[, "col"]), ]
+  call_breaks <- call_breaks[order(call_breaks[, "line"], call_breaks[, "col"]), , drop = FALSE]
   code_split <- strsplit(code, split = "\n", fixed = TRUE)[[1]]
   char_count_lines <- c(0, cumsum(sapply(code_split, nchar, USE.NAMES = FALSE) + 1), -1)[seq_along(code_split)]
 
