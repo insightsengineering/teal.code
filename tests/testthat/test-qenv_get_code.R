@@ -460,7 +460,7 @@ testthat::test_that("comments fall into proper calls", {
     # finishing comment
   "
 
-  q <- qenv() |> eval_code(code)
+  q <- eval_code(qenv(), code)
   testthat::expect_identical(
     get_code(q),
     c(

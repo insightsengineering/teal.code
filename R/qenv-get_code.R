@@ -118,15 +118,16 @@ setMethod("get_code", signature = "qenv", function(object, deparse = TRUE, names
   }
 
   code <- if (!is.null(names)) {
+    # todo:
     get_code_dependency(object@code, names, ...)
   } else {
     object@code
   }
 
   if (deparse) {
-    code
+    unlist(code)
   } else {
-    parse(text = paste(c("{", code, "}"), collapse = "\n"), keep.source = TRUE)
+    parse(text = paste(c("{", unlist(code), "}"), collapse = "\n"), keep.source = TRUE)
   }
 })
 

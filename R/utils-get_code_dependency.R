@@ -26,10 +26,10 @@
 #'
 #' @keywords internal
 get_code_dependency <- function(code, names, check_names = TRUE) {
-  checkmate::assert_character(code)
+  checkmate::assert_list(code, "character")
   checkmate::assert_character(names, any.missing = FALSE)
 
-  if (identical(code, character(0)) || identical(trimws(code), "")) {
+  if (length(code) == 0) {
     return(code)
   }
 

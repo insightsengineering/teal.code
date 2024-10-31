@@ -33,25 +33,20 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
     return(object)
   }
 
-  id <- sample.int(.Machine$integer.max, size = length(parsed_code))
-
-  object@id <- c(object@id, id)
   object@env <- rlang::env_clone(object@env, parent = parent.env(.GlobalEnv))
-
   code_split <- split_code(paste(code, collapse = "\n"))
-  object@code <- c(object@code, unlist(code_split))
-
-  current_warnings <- rep("", length(parsed_code))
-  current_messages <- rep("", length(parsed_code))
 
   for (i in seq_along(code_split)) {
-    single_call <- parse(text = code_split[[i]], keep.source = FALSE)
+    current_code <- code_split[[i]]
+    current_call <- parse(text = current_code, keep.source = FALSE)
+    new_object_code <- c(object@code, list(current_code))
+
     # Using withCallingHandlers to capture warnings and messages.
     # Using tryCatch to capture the error and abort further evaluation.
     x <- withCallingHandlers(
       tryCatch(
         {
-          eval(single_call, envir = object@env)
+          eval(current_call, envir = object@env)
           if (!identical(parent.env(object@env), parent.env(.GlobalEnv))) {
             # needed to make sure that @env is always a sibling of .GlobalEnv
             # could be changed when any new package is added to search path (through library or require call)
@@ -64,19 +59,19 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
             message = sprintf(
               "%s \n when evaluating qenv code:\n%s",
               .ansi_strip(conditionMessage(e)),
-              deparse1(single_call)
+              deparse1(current_call)
             ),
             class = c("qenv.error", "try-error", "simpleError"),
-            trace = object@code
+            trace = unlist(new_object_code)
           )
         }
       ),
       warning = function(w) {
-        current_warnings[i] <<- .ansi_strip(sprintf("> %s\n", conditionMessage(w)))
+        attr(current_code, "warning") <<- .ansi_strip(sprintf("> %s\n", conditionMessage(w)))
         invokeRestart("muffleWarning")
       },
       message = function(m) {
-        current_messages[i] <<- .ansi_strip(sprintf("> %s", conditionMessage(m)))
+        attr(current_code, "message") <<- .ansi_strip(sprintf("> %s", conditionMessage(m)))
         invokeRestart("muffleMessage")
       }
     )
@@ -84,11 +79,10 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
     if (!is.null(x)) {
       return(x)
     }
+
+    attr(current_code, "id") <- sample.int(.Machine$integer.max, size = 1)
+    object@code <- new_object_code
   }
-
-
-  object@warnings <- c(object@warnings, current_warnings)
-  object@messages <- c(object@messages, current_messages)
 
   lockEnvironment(object@env, bindings = TRUE)
   object

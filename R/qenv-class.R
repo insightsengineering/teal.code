@@ -14,10 +14,9 @@
 #' @exportClass qenv
 setClass(
   "qenv",
-  slots = c(env = "environment", code = "character", id = "integer", warnings = "character", messages = "character"),
+  slots = c(env = "environment", code = "list"),
   prototype = list(
-    env = new.env(parent = parent.env(.GlobalEnv)), code = character(0), id = integer(0),
-    warnings = character(0), messages = character(0)
+    env = new.env(parent = parent.env(.GlobalEnv)), code = list()
   )
 )
 
@@ -25,15 +24,4 @@ setClass(
 #' @name qenv-class
 #' @keywords internal
 setValidity("qenv", function(object) {
-  if (length(object@code) != length(object@id)) {
-    "@code and @id slots must have the same length."
-  } else if (length(object@code) != length(object@warnings)) {
-    "@code and @warnings slots must have the same length"
-  } else if (length(object@code) != length(object@messages)) {
-    "@code and @messages slots must have the same length"
-  } else if (any(duplicated(object@id))) {
-    "@id contains duplicated values."
-  } else {
-    TRUE
-  }
 })

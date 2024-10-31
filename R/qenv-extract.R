@@ -36,13 +36,8 @@
   }
 
   limited_code <- get_code(x, names = names)
-  indexes <- which(x@code %in% limited_code)
-
   x@env <- list2env(mget(x = names, envir = get_env(x)))
   x@code <- limited_code
-  x@id <- x@id[indexes]
-  x@warnings <- x@warnings[indexes]
-  x@messages <- x@messages[indexes]
 
   x
 }
