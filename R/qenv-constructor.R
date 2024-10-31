@@ -16,24 +16,14 @@
 #'
 #' @section Environment:
 #'
-#' The `qenv` object behaves as an environment that is locked and can be used as
-#' as a argument to with many functions that accept `environment`, among the
-#' most relevant are: `names()`, `ls()`, `get()`, `exists()`, `parent.env()`,
-#' `{l,s,v}apply` family, `local`, `as.environment()`, `is.environment()`, `as.list()`, ...
+#' The `qenv` object behaves like an environment that is locked and one can use
+#' some of the `base` functions dedicated to the `environment`. List of supported 
+#' functions includes: 
+#' `names()`, `ls()`, `get()`, `exists()`, `parent.env()`, `lapply`, `sapply`
+#' `vapply`, `local`, `as.environment()`, `is.environment()`, `as.list()`, ...
+#' We don't recommend using any function outside of the `teal.code` exports and these 
+#' mentioned above.
 #'
-#' `qenv` should not be used with `cbind()` and `env.profile()` functions as it
-#' has unexpected behavior.
-#' Instead, `get_env()` or `as.environment()` should be used before calling any
-#' problematic function.
-#'
-#' Similarly, `rlang` functions related to environments cannot be used directly
-#' with `qenv` and should be used with `teal.code::get_env()`/`as.environment()`.
-#'
-#' ```r
-#' q <- qenv()
-#' rlang::env_clone(as.environment(q))
-#' rlang::env_clone(get_env(q))
-#' ```
 #'
 #' @name qenv
 #'
