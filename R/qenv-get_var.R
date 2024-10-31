@@ -2,7 +2,7 @@
 #'
 #' @description
 #' `r lifecycle::badge("superseded")` by native \R operators/functions:
-#' `x[[name]]`, `x$name` or `get(name, envir = qenv)`.
+#' `x[[name]]`, `x$name` or [get()].
 #'
 #' Retrieve variables from the `qenv` environment.
 #'

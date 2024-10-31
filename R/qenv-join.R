@@ -1,7 +1,11 @@
 #' Join `qenv` objects
 #'
+#' @description
+#' `r lifecycle::badge("superseded")` by [c()].
+#'
 #' Checks and merges two `qenv` objects into one `qenv` object.
 #'
+#' @details
 #' Any common code at the start of the `qenvs` is only placed once at the start of the joined `qenv`.
 #' This allows consistent behavior when joining `qenvs` which share a common ancestor.
 #' See below for an example.

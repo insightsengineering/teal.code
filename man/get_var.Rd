@@ -18,7 +18,7 @@ The value of required variable (\code{var}) within \code{qenv} object.
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}} by native \R operators/functions:
-\code{x[[name]]}, \code{x$name} or \code{get(name, envir = qenv)}.
+\code{x[[name]]}, \code{x$name} or \code{\link[=get]{get()}}.
 
 Retrieve variables from the \code{qenv} environment.
 }

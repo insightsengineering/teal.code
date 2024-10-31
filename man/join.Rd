@@ -18,6 +18,8 @@ join(x, y)
 \code{qenv} object.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}} by \code{\link[=c]{c()}}.
+
 Checks and merges two \code{qenv} objects into one \code{qenv} object.
 }
 \details{
