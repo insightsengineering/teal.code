@@ -35,7 +35,7 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
 
   object@env <- rlang::env_clone(object@env, parent = parent.env(.GlobalEnv))
   code_split <- split_code(paste(code, collapse = "\n"))
-
+  print(code_split)
   for (i in seq_along(code_split)) {
     current_code <- code_split[[i]]
     current_call <- parse(text = current_code, keep.source = FALSE)
@@ -92,6 +92,7 @@ setMethod("eval_code", signature = c("qenv", "language"), function(object, code)
 })
 
 setMethod("eval_code", signature = c("qenv", "expression"), function(object, code) {
+  # todo: if has srcfile then get original text!
   eval_code(object, code = paste(lang2calls(code), collapse = "\n"))
 })
 
@@ -109,7 +110,7 @@ setMethod("eval_code", signature = c("qenv.error", "ANY"), function(object, code
   }
 }
 
-get_code_attr <- function(qenv, attr){
-  #unlist(lapply(qenv@code, attr, attr)) # somehow doesn't work
+get_code_attr <- function(qenv, attr) {
+  # unlist(lapply(qenv@code, attr, attr)) # somehow doesn't work
   unlist(lapply(qenv@code, function(x) attr(x, attr)))
 }
