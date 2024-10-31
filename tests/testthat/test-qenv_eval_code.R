@@ -70,7 +70,7 @@ testthat::test_that("eval_code works with quoted code block", {
 
   testthat::expect_equal(
     unlist(q1@code),
-    c("a <- 1", "b <- 2")
+    c("a <- 1\n", "b <- 2")
   )
   testthat::expect_equal(q1@env, list2env(list(a = 1, b = 2)))
 })

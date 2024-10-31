@@ -1,8 +1,12 @@
+get_code_g <- function(qenv, ...){
+  gsub("\n", "", get_code(qenv, ...), fixed = TRUE)
+}
+
 testthat::test_that("get_code returns code (character by default) of qenv object", {
   q <- qenv() |>
     eval_code(quote(x <- 1)) |>
     eval_code(quote(y <- x))
-  testthat::expect_equal(get_code(q), c("x <- 1", "y <- x"))
+  testthat::expect_equal(get_code_g(q), c("x <- 1", "y <- x"))
 })
 
 testthat::test_that("get_code handles code elements being code-blocks", {
@@ -15,7 +19,7 @@ testthat::test_that("get_code handles code elements being code-blocks", {
       z <- 5
     })
   )
-  testthat::expect_equal(get_code(q), c("x <- 1", "y <- x", "z <- 5"))
+  testthat::expect_equal(get_code_g(q), c("x <- 1", "y <- x", "z <- 5"))
 })
 
 testthat::test_that("get_code returns expression of qenv object if deparse = FALSE", {
@@ -23,8 +27,8 @@ testthat::test_that("get_code returns expression of qenv object if deparse = FAL
   q <- eval_code(q, quote(x <- 1))
   q <- eval_code(q, quote(y <- x))
   testthat::expect_equivalent(
-    toString(get_code(q, deparse = FALSE)),
-    toString(parse(text = paste(c("{", unlist(q@code), "}"), collapse = "\n"), keep.source = TRUE))
+    toString(get_code_g(q, deparse = FALSE)),
+    "{    x <- 1    y <- x}"
   )
 })
 
@@ -35,7 +39,7 @@ testthat::test_that("get_code called with qenv.error returns error with trace in
   q3 <- eval_code(q2, quote(w <- v))
 
   code <- tryCatch(
-    get_code(q3),
+    get_code_g(q3),
     error = function(e) e
   )
   testthat::expect_equal(class(code), c("validation", "try-error", "simpleError", "error", "condition"))
@@ -56,7 +60,7 @@ testthat::test_that("get_code returns code with comments and empty spaces", {
     # closing comment
     "
   q <- eval_code(qenv(), code)
-  testthat::expect_equal(paste(get_code(q), collapse = ""), code)
+  testthat::expect_equal(paste0(get_code(q), collapse = ""), code)
 })
 
 # names parameter -------------------------------------------------------------------------------------------------
@@ -79,7 +83,7 @@ testthat::test_that("handles the code without symbols on rhs", {
 
   testthat::expect_identical(
     get_code(eval_code(qenv(), code), names = "a"),
-    "a <- 5"
+    "a <- 5\n"
   )
 })
 
@@ -98,7 +102,7 @@ testthat::test_that("handles the code of length > 1 when at least one is enclose
   q <- eval_code(eval_code(qenv(), code[1]), code[2])
 
   testthat::expect_identical(
-    get_code(q, names = "a"),
+    get_code_g(q, names = "a"),
     "{a<-5}"
   )
 })
@@ -110,11 +114,11 @@ testthat::test_that("extracts the code of a binding from character vector contai
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "a"),
+    get_code_g(q, names = "a"),
     "a <- 1"
   )
   testthat::expect_identical(
-    get_code(q, names = "b"),
+    get_code_g(q, names = "b"),
     "b <- 2"
   )
 })
@@ -126,7 +130,7 @@ testthat::test_that("extracts the code without downstream usage", {
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "a"),
+    get_code_g(q, names = "a"),
     "a <- 1"
   )
 })
@@ -138,7 +142,7 @@ testthat::test_that("works for names of length > 1", {
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = c("a", "b")),
+    get_code_g(q, names = c("a", "b")),
     code
   )
 })
@@ -147,7 +151,7 @@ testthat::test_that("warns if binding doesn't exist in code", {
   code <- c("a <- 1")
   q <- eval_code(qenv(), code)
   testthat::expect_warning(
-    get_code(q, names = "c"),
+    get_code_g(q, names = "c"),
     "Object\\(s\\) not found in code: c"
   )
 })
@@ -161,15 +165,15 @@ testthat::test_that("does not fall into a loop", {
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "a"),
+    get_code_g(q, names = "a"),
     code
   )
   testthat::expect_identical(
-    get_code(q, names = "b"),
+    get_code_g(q, names = "b"),
     code[1:2]
   )
   testthat::expect_identical(
-    get_code(q, names = "c"),
+    get_code_g(q, names = "c"),
     code[1:3]
   )
 })
@@ -182,7 +186,7 @@ testthat::test_that("extracts code of a parent binding but only those evaluated 
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "b"),
+    get_code_g(q, names = "b"),
     c("a <- 1", "b <- a")
   )
 })
@@ -195,7 +199,7 @@ testthat::test_that("extracts the code of a parent binding if used as an arg in 
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "b"),
+    get_code_g(q, names = "b"),
     c("a <- 1", "b <- identity(x = a)")
   )
 })
@@ -208,7 +212,7 @@ testthat::test_that("extracts the code when using <<-", {
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "b"),
+    get_code_g(q, names = "b"),
     c("a <- 1", "b <- a", "b <<- b + 2")
   )
 })
@@ -221,7 +225,7 @@ testthat::test_that("detects every assign calls even if not evaluated, if there 
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "b"),
+    get_code_g(q, names = "b"),
     code[2:3]
   )
 })
@@ -234,7 +238,7 @@ testthat::test_that("returns result of length 1 for non-empty input and deparse 
     c <- list(x = 2)
   })
 
-  testthat::expect_length(get_code(q1, deparse = FALSE), 1)
+  testthat::expect_length(get_code_g(q1, deparse = FALSE), 1)
 })
 
 testthat::test_that("does not break if code is separated by ;", {
@@ -243,8 +247,8 @@ testthat::test_that("does not break if code is separated by ;", {
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "a"),
-    c("a <- 1", "a <- a + 1")
+    get_code_g(q, names = "a"),
+    c("a <- 1;", "a <- a + 1")
   )
 })
 
@@ -256,7 +260,7 @@ testthat::test_that("does not break if code uses quote()", {
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "x"),
+    get_code_g(q, names = "x"),
     code[2]
   )
 })
@@ -269,7 +273,7 @@ testthat::test_that("does not break if object is used in a function on lhs", {
   )
   q <- eval_code(qenv(), code = code)
   testthat::expect_identical(
-    get_code(q, names = "iris"),
+    get_code_g(q, names = "iris"),
     code[c(1, 3)]
   )
 })
@@ -284,7 +288,7 @@ testthat::test_that(
     )
     q <- eval_code(qenv(), code = code)
     testthat::expect_identical(
-      get_code(q, names = "x"),
+      get_code_g(q, names = "x"),
       code
     )
   }
@@ -304,15 +308,15 @@ testthat::test_that("extracts the code for assign() where \"x\" is a literal str
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "b"),
+    get_code_g(q, names = "b"),
     code[c(2, 5)]
   )
   testthat::expect_identical(
-    get_code(q, names = "c"),
+    get_code_g(q, names = "c"),
     code[c(2, 3, 5, 6)]
   )
   testthat::expect_identical(
-    get_code(q, names = "d"),
+    get_code_g(q, names = "d"),
     c("assign(value = 15, x = \"d\")", "d <- d * 2")
   )
 })
@@ -326,7 +330,7 @@ testthat::test_that("extracts the code for assign() where \"x\" is variable", {
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "b"),
+    get_code_g(q, names = "b"),
     code
   )
 })
@@ -343,7 +347,7 @@ testthat::test_that("works for assign() detection no matter how many parametrers
   q <- eval_code(qenv(), code)
 
   testthat::expect_identical(
-    get_code(q, names = "y"),
+    get_code_g(q, names = "y"),
     code
   )
 })
@@ -359,11 +363,11 @@ testthat::test_that("detects function usage of the assignment operator", {
   q2 <- eval_code(qenv(), code2)
 
   testthat::expect_identical(
-    get_code(q, names = "y"),
+    get_code_g(q, names = "y"),
     code
   )
   testthat::expect_identical(
-    get_code(q2, names = "y"),
+    get_code_g(q2, names = "y"),
     code2
   )
 })
@@ -382,20 +386,19 @@ testthat::test_that("get_code does not break if @linksto is put in the last line
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "x"),
+    get_code_g(q, names = "x"),
     code
   )
 })
 
 testthat::test_that("@linksto makes a line being returned for an affected binding", {
-  code <- "
-  a <- 1 # @linksto b
-  b <- 2
-  "
+  code <-
+  "a <- 1 # @linksto b
+  b <- 2"
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "b"),
-    c("  a <- 1 # @linksto b", "  b <- 2")
+    get_code_g(q, names = "b"),
+    c("a <- 1 # @linksto b", "  b <- 2")
   )
 })
 
@@ -409,7 +412,7 @@ testthat::test_that(
     )
     q <- eval_code(qenv(), code)
     testthat::expect_identical(
-      get_code(q, names = "b"),
+      get_code_g(q, names = "b"),
       code
     )
   }
@@ -426,11 +429,11 @@ testthat::test_that(
     )
     q <- eval_code(qenv(), code)
     testthat::expect_identical(
-      get_code(q, names = "a"),
+      get_code_g(q, names = "a"),
       code[1:3]
     )
     testthat::expect_identical(
-      get_code(q, names = "b"),
+      get_code_g(q, names = "b"),
       code[c(2, 4)]
     )
   }
@@ -447,7 +450,7 @@ testthat::test_that(
     )
     q <- eval_code(qenv(), code)
     testthat::expect_identical(
-      get_code(q, names = "classes"),
+      get_code_g(q, names = "classes"),
       code
     )
   }
@@ -472,11 +475,10 @@ testthat::test_that("comments fall into proper calls", {
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
     get_code(q),
-    c(
-      "    # initial comment\n    a <- 1",
-      "    b <- 2 # inline comment",
-      "    c <- 3\n    # inbetween comment",
-      "    d <- 4\n    # finishing comment"
+    c("\n    # initial comment\n    a <- 1\n    b <- 2 ",
+      "# inline comment\n",
+      "    c <- 3\n",
+      "    # inbetween comment\n    d <- 4\n    # finishing comment\n  "
     )
   )
 })
@@ -498,11 +500,10 @@ testthat::test_that("comments get pasted when they fall into calls", {
   q <- qenv() |> eval_code(code)
   testthat::expect_identical(
     get_code(q),
-    c(
-      "    # initial comment\n    a <- 1 # A comment",
-      "    b <- 2 # inline comment",
-      "    c <- 3 # C comment\n    # inbetween comment",
-      "    d <- 4\n    # finishing comment"
+    c("\n    # initial comment\n    a <- 1 # A comment\n",
+      "    b <- 2 # inline comment\n",
+      "    c <- 3 # C comment\n",
+      "    # inbetween comment\n    d <- 4\n    # finishing comment\n  "
     )
   )
 })
@@ -516,11 +517,11 @@ testthat::test_that("ignores occurrence in a function definition", {
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "b"),
+    get_code_g(q, names = "b"),
     "b <- 2"
   )
   testthat::expect_identical(
-    get_code(q, names = "foo"),
+    get_code_g(q, names = "foo"),
     code[2]
   )
 })
@@ -532,11 +533,11 @@ testthat::test_that("ignores occurrence in a function definition that has functi
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "b"),
+    get_code_g(q, names = "b"),
     code[1]
   )
   testthat::expect_identical(
-    get_code(q, names = "foo"),
+    get_code_g(q, names = "foo"),
     code[2]
   )
 })
@@ -550,11 +551,11 @@ testthat::test_that("ignores occurrence in a function definition if there is mul
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "b"),
+    get_code_g(q, names = "b"),
     code[c(1, 3)]
   )
   testthat::expect_identical(
-    get_code(q, names = "foo"),
+    get_code_g(q, names = "foo"),
     code[2]
   )
 })
@@ -569,7 +570,7 @@ testthat::test_that("ignores occurrence in a function definition in lapply", {
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "x"),
+    get_code_g(q, names = "x"),
     "x <- 1"
   )
 })
@@ -584,7 +585,7 @@ testthat::test_that("does not ignore occurrence in function body if object exsit
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "b"),
+    get_code_g(q, names = "b"),
     code
   )
 })
@@ -596,11 +597,11 @@ testthat::test_that("ignores occurrence in function definition without { curly b
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "foo"),
+    get_code_g(q, names = "foo"),
     "foo <- function(b) b <- b + 2"
   )
   testthat::expect_identical(
-    get_code(q, names = "b"),
+    get_code_g(q, names = "b"),
     "b <- 2"
   )
 })
@@ -614,7 +615,7 @@ testthat::test_that("detects occurrence of the function object", {
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "b"),
+    get_code_g(q, names = "b"),
     code
   )
 })
@@ -627,7 +628,7 @@ testthat::test_that("detects occurrence of a function definition when a formal i
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "a"),
+    get_code_g(q, names = "a"),
     code
   )
 })
@@ -644,7 +645,7 @@ testthat::test_that("detects occurrence of a function definition with a @linksto
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "x"),
+    get_code_g(q, names = "x"),
     c(
       "        foo <- function() {\n          env <- parent.frame()\n          env$x <- 0\n        }",
       "foo() # @linksto x"
@@ -663,11 +664,11 @@ testthat::test_that("understands $ usage and do not treat rhs of $ as objects (o
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "x"),
+    get_code_g(q, names = "x"),
     "x <- data.frame(a = 1:3)"
   )
   testthat::expect_identical(
-    get_code(q, names = "a"),
+    get_code_g(q, names = "a"),
     code
   )
 })
@@ -680,7 +681,7 @@ testthat::test_that("detects cooccurrence properly even if all objects are on lh
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "b"),
+    get_code_g(q, names = "b"),
     code
   )
 })
@@ -700,12 +701,12 @@ testthat::test_that("understands @ usage and do not treat rhs of @ as objects (o
   q <- qenv()
   q@code <- code # we don't use eval_code so the code is not run
   testthat::expect_identical(
-    get_code(q, names = "x"),
+    get_code_g(q, names = "x"),
     unlist(code[1:2])
   )
   testthat::expect_identical(
-    get_code(q, names = "a"),
-    unlist(code)
+    get_code_g(q, names = "a"),
+    unlist(code)[-1]
   )
 })
 
@@ -723,7 +724,7 @@ testthat::test_that("library() and require() are always returned", {
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "x"),
+    get_code_g(q, names = "x"),
     code[c(2, 3, 4)]
   )
 })
@@ -741,7 +742,7 @@ testthat::test_that("data() call is returned when data name is provided as is", 
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "x"),
+    get_code_g(q, names = "x"),
     code[-1]
   )
 })
@@ -756,7 +757,7 @@ testthat::test_that("data() call is returned when data name is provided as a cha
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code(q, names = "z"),
+    get_code_g(q, names = "z"),
     code[-1]
   )
 })
@@ -774,7 +775,7 @@ testthat::describe("Backticked symbol", {
 
     testthat::expect_identical(
       get_code(td, names = "%cbind%"),
-      "`%cbind%` <- function(lhs, rhs) cbind(lhs, rhs)"
+      "`%cbind%` <- function(lhs, rhs) cbind(lhs, rhs)\n"
     )
   })
 
@@ -789,7 +790,7 @@ testthat::describe("Backticked symbol", {
 
     testthat::expect_identical(
       get_code(td, names = "`%cbind%`"),
-      "`%cbind%` <- function(lhs, rhs) cbind(lhs, rhs)"
+      "`%cbind%` <- function(lhs, rhs) cbind(lhs, rhs)\n"
     )
   })
 
@@ -805,7 +806,7 @@ testthat::describe("Backticked symbol", {
     testthat::expect_identical(
       get_code(td, names = "iris_ds"),
       c(
-        "`_add_column_` <- function(lhs, rhs) cbind(lhs, rhs)",
+        "`_add_column_` <- function(lhs, rhs) cbind(lhs, rhs)\n",
         "iris_ds <- `_add_column_`(iris, data.frame(new_col = \"new column\"))"
       )
     )
@@ -823,7 +824,7 @@ testthat::describe("Backticked symbol", {
     testthat::expect_identical(
       get_code(td, names = "iris_ds"),
       c(
-        "`add column` <- function(lhs, rhs) cbind(lhs, rhs)",
+        "`add column` <- function(lhs, rhs) cbind(lhs, rhs)\n",
         "iris_ds <- `add column`(iris, data.frame(new_col = \"new column\"))"
       )
     )
@@ -841,7 +842,7 @@ testthat::describe("Backticked symbol", {
     testthat::expect_identical(
       get_code(td, names = "iris_ds"),
       c(
-        "add_column <- function(lhs, rhs) cbind(lhs, rhs)",
+        "add_column <- function(lhs, rhs) cbind(lhs, rhs)\n",
         "iris_ds <- add_column(iris, data.frame(new_col = \"new column\"))"
       )
     )
@@ -861,7 +862,7 @@ testthat::describe("Backticked symbol", {
     testthat::expect_identical(
       get_code(td, names = "iris_ds"),
       c(
-        "`%add_column%` <- function(lhs, rhs) cbind(lhs, rhs)",
+        "`%add_column%` <- function(lhs, rhs) cbind(lhs, rhs)\n",
         "iris_ds <- iris %add_column% data.frame(new_col = \"new column\")"
       )
     )
@@ -881,7 +882,7 @@ testthat::describe("Backticked symbol", {
     testthat::expect_identical(
       get_code(td, names = "iris_ds"),
       c(
-        "`%add_column%` <- function(lhs, rhs) cbind(lhs, rhs)",
+        "`%add_column%` <- function(lhs, rhs) cbind(lhs, rhs)\n",
         "iris_ds <- iris %add_column% data.frame(new_col = \"new column\")"
       )
     )
