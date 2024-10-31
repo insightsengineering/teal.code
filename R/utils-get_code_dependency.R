@@ -473,7 +473,7 @@ get_call_breaks <- function(code) {
       matrix(c(max(x$line2), max(x$col2)))
     }
   ))
-  if (nrow(call_breaks) > 1) call_breaks <- call_breaks[-nrow(call_breaks), ] # breaks in between needed only
+  call_breaks <- call_breaks[-nrow(call_breaks), ] # breaks in between needed only
   colnames(call_breaks) <- c("line", "col")
   call_breaks
 }
@@ -488,7 +488,7 @@ get_call_breaks <- function(code) {
 #' @noRd
 split_code <- function(code) {
   call_breaks <- get_call_breaks(code)
-  if (nrow(call_breaks) == 1) {
+  if (nrow(call_breaks) == 0) {
     return(code)
   }
   call_breaks <- call_breaks[order(call_breaks[, "line"], call_breaks[, "col"]), ]
