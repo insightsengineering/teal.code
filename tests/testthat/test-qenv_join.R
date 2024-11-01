@@ -36,7 +36,7 @@ testthat::test_that("Joined qenv does not duplicate common code", {
   q2 <- eval_code(q2, quote(mtcars2 <- mtcars))
 
   testthat::expect_true(.check_joinable(q1, q2))
-  q <- join(q1, q2)
+  q <- c(q1, q2)
 
   testthat::expect_identical(
     q@code,

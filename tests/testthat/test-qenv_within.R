@@ -14,6 +14,16 @@ testthat::test_that("simple and compound expressions are evaluated", {
   )
 })
 
+testthat::test_that("multiline expressions are evaluated", {
+  q <- qenv()
+  testthat::expect_no_error(
+    within(q, a <- function(x) {
+      y <- x + 1
+      y + 3
+    })
+  )
+})
+
 # code identity ----
 testthat::test_that("styling of input code does not impact evaluation results", {
   q <- qenv()
@@ -113,6 +123,4 @@ testthat::test_that("within run on qenv.error returns the qenv.error as is", {
   qee <- within(qe, m <- mtcars)
 
   testthat::expect_identical(qe, qee)
-})
-
 })
