@@ -40,7 +40,7 @@ testthat::test_that("Joined qenv does not duplicate common code", {
 
   testthat::expect_identical(
     unlist(q@code),
-    c("iris1 <- iris", "mtcars1 <- mtcars", "mtcars2 <- mtcars")
+    c("iris1 <- iris\n", "mtcars1 <- mtcars", "mtcars2 <- mtcars")
   )
   testthat::expect_identical(get_code_attr(q, "id"), c(get_code_attr(q1, "id"), get_code_attr(q2, "id")[3]))
 })
@@ -64,7 +64,7 @@ testthat::test_that("join does not duplicate code but adds only extra code", {
 
   testthat::expect_identical(
     unlist(q@code),
-    c("iris1 <- iris", "mtcars1 <- mtcars", "iris2 <- iris", "mtcars2 <- mtcars")
+    c("iris1 <- iris\n", "mtcars1 <- mtcars", "iris2 <- iris", "mtcars2 <- mtcars")
   )
 
   testthat::expect_equal(
