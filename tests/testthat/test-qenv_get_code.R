@@ -475,8 +475,8 @@ testthat::test_that("comments fall into proper calls", {
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
     get_code(q),
-    c("\n    # initial comment\n    a <- 1\n    b <- 2 ",
-      "# inline comment\n",
+    c("\n    # initial comment\n    a <- 1\n",
+      "    b <- 2 # inline comment\n",
       "    c <- 3\n",
       "    # inbetween comment\n    d <- 4\n    # finishing comment\n  "
     )
@@ -645,11 +645,9 @@ testthat::test_that("detects occurrence of a function definition with a @linksto
   )
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    get_code_g(q, names = "x"),
-    c(
-      "        foo <- function() {\n          env <- parent.frame()\n          env$x <- 0\n        }",
-      "foo() # @linksto x"
-    )
+    get_code(q, names = "x"),
+    c("\n        foo <- function() {\n          env <- parent.frame()\n          env$x <- 0\n        }\n",
+      "foo() # @linksto x\n")
   )
 })
 # $ ---------------------------------------------------------------------------------------------------------------

@@ -150,9 +150,9 @@ fix_shifted_comments <- function(calls) {
       if (isTRUE(comment_idx[1] <= 2)) {
         calls[[i - 1]] <- rbind(
           calls[[i - 1]],
-          calls[[i]][seq_len(comment_idx[1]), ]
+          calls[[i]][comment_idx[1], ]
         )
-        calls[[i]] <- calls[[i]][-seq_len(comment_idx[1]), ]
+        calls[[i]] <- calls[[i]][-comment_idx[1], ]
       }
     }
   }
@@ -471,7 +471,7 @@ get_call_breaks <- function(code) {
   call_breaks <- t(sapply(
     extract_calls(pd),
     function(x) {
-      matrix(c(max(x$line2), max(x$col2)))
+      matrix(c(max(x$line2), max(x$col2[x$line2 == max(x$line2)])))
     }
   ))
   call_breaks <- call_breaks[-nrow(call_breaks), , drop = FALSE] # breaks in between needed only
