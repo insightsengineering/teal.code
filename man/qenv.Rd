@@ -30,8 +30,6 @@ get_code(object, deparse = TRUE, names = NULL, ...)
 
 \item{code}{(\code{character} or \code{language}) code to evaluate. If \code{character}, comments are retained.}
 
-\item{object}{(\code{qenv})}
-
 \item{x}{(\code{qenv})}
 
 \item{names}{(\code{character}) for \code{x[names]}, names of objects included in \code{qenv} to subset. Names not present in \code{qenv}
