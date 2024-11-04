@@ -110,7 +110,7 @@ find_call <- function(call_pd, text) {
 #' @noRd
 extract_calls <- function(pd) {
   calls <- lapply(
-    pd[pd$parent == 0 & pd$token != "COMMENT", "id"],
+    pd[pd$parent == 0 & (pd$token != "COMMENT" | grepl("@linksto", pd$text, fixed = TRUE)), "id"],
     function(parent) {
       rbind(
         pd[pd$id == parent, ],
@@ -120,6 +120,7 @@ extract_calls <- function(pd) {
   )
   calls <- Filter(function(call) !(nrow(call) == 1 && call$token == "';'"), calls)
   calls <- Filter(Negate(is.null), calls)
+  calls <- fix_shifted_comments(calls)
   fix_arrows(calls)
 }
 
