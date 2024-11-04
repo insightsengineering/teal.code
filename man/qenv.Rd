@@ -39,7 +39,7 @@ For more details see the "Extracting dataset-specific code" section.}
 \item{expr}{(\code{expression}) to evaluate. Must be inline code, see \verb{Using language objects...}}
 }
 \value{
-\code{qenv} returns a \code{qenv} object.
+Returns a \code{qenv} object.
 
 \code{eval_code} returns a \code{qenv} object with \code{expr} evaluated or \code{qenv.error} if evaluation fails.
 

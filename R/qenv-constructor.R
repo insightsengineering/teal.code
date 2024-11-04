@@ -12,7 +12,7 @@
 #'
 #' @name qenv
 #'
-#' @return `qenv` returns a `qenv` object.
+#' @return Returns a `qenv` object.
 #'
 #' @seealso [`base::within()`], [`get_var()`], [`get_env()`], [`get_warnings()`], [`join()`], [`concat()`]
 #' @examples
@@ -25,66 +25,3 @@ qenv <- function() {
   lockEnvironment(q_env, bindings = TRUE)
   methods::new("qenv", env = q_env)
 }
-
-
-#' Deprecated function
-#'
-#' The `new_qenv()` function is deprecated use [`qenv()`].
-#' @param code `r badge("deprecated")`
-#'  (`character(1)` or `language`) code to evaluate. Accepts and stores comments also.
-#' @param env `r badge("deprecated")` (`environment`)
-#'  Environment being a result of the `code` evaluation.
-#' @aliases new_qenv,environment,expression-method
-#' @aliases new_qenv,environment,character-method
-#' @aliases new_qenv,environment,language-method
-#' @aliases new_qenv,environment,missing-method
-#' @aliases new_qenv,missing,missing-method
-#' @return Errors.
-#' @seealso [`qenv()`]
-#'
-#' @export
-setGeneric("new_qenv", function(env = new.env(parent = parent.env(.GlobalEnv)), code = character()) {
-  lifecycle::deprecate_stop(when = " 0.5.0",
-                            what = "new_qenv()",
-                            with = "qenv()")
-  standardGeneric("new_qenv")
-})
-
-setMethod(
-  "new_qenv",
-  signature = c(env = "environment", code = "expression"),
-  function(env, code) {
-    new_qenv(env, paste(lang2calls(code), collapse = "\n"))
-  }
-)
-
-setMethod(
-  "new_qenv",
-  signature = c(env = "environment", code = "character"),
-  function(env, code) {
-    new_env <- rlang::env_clone(env, parent = parent.env(.GlobalEnv))
-    lockEnvironment(new_env, bindings = TRUE)
-    if (length(code) > 0) code <- paste(code, collapse = "\n")
-    id <- sample.int(.Machine$integer.max, size = length(code))
-    methods::new(
-      "qenv",
-      env = new_env, code = code, warnings = rep("", length(code)), messages = rep("", length(code)), id = id
-    )
-  }
-)
-
-setMethod(
-  "new_qenv",
-  signature = c(env = "environment", code = "language"),
-  function(env, code) {
-    new_qenv(env = env, code = paste(lang2calls(code), collapse = "\n"))
-  }
-)
-
-setMethod(
-  "new_qenv",
-  signature = c(code = "missing", env = "missing"),
-  function(env, code) {
-    new_qenv(env = env, code = code)
-  }
-)
