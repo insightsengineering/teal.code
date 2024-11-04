@@ -706,7 +706,7 @@ testthat::test_that("understands @ usage and do not treat rhs of @ as objects (o
   )
   testthat::expect_identical(
     get_code_g(q, names = "a"),
-    unlist(code)[-1]
+    unlist(code)
   )
 })
 
