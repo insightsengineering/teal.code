@@ -11,7 +11,7 @@ the length of calls included in `code`.
 
 ### Breaking Change
 
-* `qenv` objects should now be created with `qenv()` rather than `new_qenv()`. The new constructor always creates an empty object. `new_qenv` is now deprecated.
+* `qenv` objects should now be created with `qenv()` rather than `new_qenv()` (which has been removed). The new constructor always creates an empty object.
 
 ### Miscellaneous
 
