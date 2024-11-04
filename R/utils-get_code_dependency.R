@@ -44,7 +44,7 @@ get_code_dependency <- function(code, names, check_names = TRUE) {
 
   pd <- utils::getParseData(parsed_code)
   pd <- normalize_pd(pd)
-  calls_pd <- extract_calls(pd)
+  calls_pd <- extract_calls(pd) # STILL NEEDED for check_names
 
   if (check_names) {
     # Detect if names are actually in code.
@@ -60,10 +60,10 @@ get_code_dependency <- function(code, names, check_names = TRUE) {
     }
   }
 
-  graph <- code_graph(calls_pd)
+  graph <- extract_code_graph(code)
   ind <- unlist(lapply(names, function(x) graph_parser(x, graph)))
 
-  lib_ind <- detect_libraries(calls_pd)
+  lib_ind <- detect_libraries(calls_pd) # SHOULD BE REWRITTEN TO WORK ON code
 
   code_ids <- sort(unique(c(lib_ind, ind)))
   code[code_ids]
@@ -208,10 +208,10 @@ sub_arrows <- function(call) {
 #'
 #' @keywords internal
 #' @noRd
-code_graph <- function(calls_pd) {
-  cooccurrence <- extract_occurrence(calls_pd)
+extract_code_graph <- function(code) {
+  cooccurrence <- lapply(code, attr, "occurrence")
 
-  side_effects <- extract_side_effects(calls_pd)
+  side_effects <- lapply(code, attr, "side_effects")
 
   mapply(c, side_effects, cooccurrence, SIMPLIFY = FALSE)
 }

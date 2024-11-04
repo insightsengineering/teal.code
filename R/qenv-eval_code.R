@@ -79,6 +79,20 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
     }
 
     attr(current_code, "id") <- sample.int(.Machine$integer.max, size = 1)
+
+    # UNSURE if the removal of curly brackets is still needed.
+    tcode <- trimws(current_code)
+    if (any(grepl("^\\{.*\\}$", tcode))) {
+      tcode <- sub("^\\{(.*)\\}$", "\\1", tcode)
+    }
+
+    parsed_code <- parse(text = tcode, keep.source = TRUE)
+    pd <- utils::getParseData(parsed_code)
+    pd <- normalize_pd(pd)
+    calls_pd <- extract_calls(pd)
+
+    attr(current_code, "side_effects") <- extract_side_effects(calls_pd)[[1]]
+    attr(current_code, "occurrence") <- extract_occurrence(calls_pd)[[1]]
     object@code <- c(object@code, list(current_code))
   }
 
