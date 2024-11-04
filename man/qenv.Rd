@@ -43,8 +43,8 @@ Environment being a result of the \code{code} evaluation.}
 
 \item{x}{(\code{qenv})}
 
-\item{names}{(\code{character}) for \verb{[.}, names of objects included in \code{qenv} to subset.
-For \code{get_code} \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} vector of object names to return the code for.
+\item{names}{(\code{character}) for \code{x[names]}, names of objects included in \code{qenv} to subset. Names not present in \code{qenv}
+are skipped. For \code{get_code} \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} vector of object names to return the code for.
 For more details see the "Extracting dataset-specific code" section.}
 
 \item{deparse}{(\code{logical(1)}) flag specifying whether to return code as \code{character} or \code{expression}.}
@@ -94,7 +94,7 @@ as \code{name:value} pairs are passed to \code{...}, \code{name} in \code{expr} 
 
 \section{Extracting dataset-specific code}{
 
-When \code{names} is specified, the code returned will be limited  to the lines needed to \emph{create}
+When \code{names} for \code{get_code} is specified, the code returned will be limited  to the lines needed to \emph{create}
 the requested objects. The code stored in the \verb{@code} slot is analyzed statically to determine
 which lines the objects of interest depend upon. The analysis works well when objects are created
 with standard infix assignment operators (see \code{?assignOps}) but it can fail in some situations.
