@@ -43,7 +43,8 @@ Environment being a result of the \code{code} evaluation.}
 
 \item{x}{(\code{qenv})}
 
-\item{names}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} (\code{character}) vector of object names to return the code for.
+\item{names}{(\code{character}) for \verb{[.}, names of objects included in \code{qenv} to subset.
+For \code{get_code} \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} vector of object names to return the code for.
 For more details see the "Extracting dataset-specific code" section.}
 
 \item{deparse}{(\code{logical(1)}) flag specifying whether to return code as \code{character} or \code{expression}.}

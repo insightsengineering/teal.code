@@ -2,7 +2,6 @@
 #' @section Subsetting:
 #' `x[names]` subsets objects in `qenv` environment and limit the code to the necessary needed to build limited objects.
 #'
-#' @param names (`character`) names of objects included in `qenv` to subset
 #' @param x (`qenv`)
 #'
 #' @examples

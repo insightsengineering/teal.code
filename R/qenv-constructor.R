@@ -33,6 +33,9 @@ qenv <- function() {
 #'  (`character(1)` or `language`) code to evaluate. Accepts and stores comments also.
 #' @param env `r badge("deprecated")` (`environment`)
 #'  Environment being a result of the `code` evaluation.
+#' @param names (`character`) for `x[names]`, names of objects included in `qenv` to subset. Names not present in `qenv`
+#' are skipped. For `get_code` `r lifecycle::badge("experimental")` vector of object names to return the code for.
+#' For more details see the "Extracting dataset-specific code" section.
 #'
 #' @examples
 #' # create qenv with data and code (deprecated)

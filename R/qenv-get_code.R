@@ -5,13 +5,11 @@
 #'
 #' @param object (`qenv`)
 #' @param deparse (`logical(1)`) flag specifying whether to return code as `character` or `expression`.
-#' @param names `r lifecycle::badge("experimental")` (`character`) vector of object names to return the code for.
-#' For more details see the "Extracting dataset-specific code" section.
 #' @param ... see `Details`
 #'
 #'
 #' @section Extracting dataset-specific code:
-#' When `names` is specified, the code returned will be limited  to the lines needed to _create_
+#' When `names` for `get_code` is specified, the code returned will be limited  to the lines needed to _create_
 #' the requested objects. The code stored in the `@code` slot is analyzed statically to determine
 #' which lines the objects of interest depend upon. The analysis works well when objects are created
 #' with standard infix assignment operators (see `?assignOps`) but it can fail in some situations.
