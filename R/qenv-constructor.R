@@ -10,38 +10,11 @@
 #' `qenv()` instantiates a `qenv` with an empty environment.
 #' Any changes must be made by evaluating code in it with `eval_code` or `within`, thereby ensuring reproducibility.
 #'
-#'
-#' `new_qenv()` (`r badge("deprecated")` and not recommended)
-#' can instantiate a `qenv` object with data in the environment and code registered.
-#'
-#' @section Extracting objects from `qenv`:
-#'
-#' Extracting an object from the `qenv` by name can be done using the following methods:
-#'
-#' - `x[[name]]`
-#' - `x$name`
-#' - `get(name, envir = x)`
-#'
-#' note: `get_var(name)` was superseded by the native \R methods above.
-#'
-#' To list all objects in the environment, use `ls(x)` (which doesn't show
-#' objects that have a dot prefix with default arguments) or `names(x)` (shows all objects).
-#'
-#' @section Environment:
-#'
-#' The `qenv` object behaves like an environment that is locked and one can use
-#' some of the `base` functions dedicated to the `environment`. List of supported
-#' functions includes:
-#' `names()`, `ls()`, `get()`, `exists()`, `parent.env()`, `lapply`, `sapply`
-#' `vapply`, `local`, `as.environment()`, `is.environment()`, `as.list()`, ...
-#' We don't recommend using any function outside of the `teal.code` exports and these
-#' mentioned above.
-#'
-#'
 #' @name qenv
 #'
-#' @return `qenv` and `new_qenv` return a `qenv` object.
+#' @return Returns a `qenv` object.
 #'
+#' @seealso [`base::within()`], [`get_var()`], [`get_env()`], [`get_warnings()`], [`join()`], [`concat()`]
 #' @examples
 #' # create empty qenv
 #' qenv()
@@ -50,72 +23,3 @@
 qenv <- function() {
   methods::new("qenv")
 }
-
-#' @param code `r badge("deprecated")`
-#'  (`character(1)` or `language`) code to evaluate. Accepts and stores comments also.
-#' @param env `r badge("deprecated")` (`environment`)
-#'  Environment being a result of the `code` evaluation.
-#'
-#' @examples
-#' # create qenv with data and code (deprecated)
-#' new_qenv(env = list2env(list(a = 1)), code = quote(a <- 1))
-#' new_qenv(env = list2env(list(a = 1)), code = parse(text = "a <- 1", keep.source = TRUE))
-#' new_qenv(env = list2env(list(a = 1)), code = "a <- 1")
-#'
-#' @rdname qenv
-#' @aliases new_qenv,environment,expression-method
-#' @aliases new_qenv,environment,character-method
-#' @aliases new_qenv,environment,language-method
-#' @aliases new_qenv,environment,missing-method
-#' @aliases new_qenv,missing,missing-method
-#'
-#' @seealso [`base::within()`], [`get_var()`], [`get_env()`], [`get_warnings()`], [`join()`], [`concat()`]
-#'
-#' @export
-setGeneric("new_qenv", function(env = new.env(parent = parent.env(.GlobalEnv)), code = character()) {
-  lifecycle::deprecate_warn(when = " 0.5.0", what = "new_qenv()", with = "qenv()", always = TRUE)
-  standardGeneric("new_qenv")
-})
-
-setMethod(
-  "new_qenv",
-  signature = c(env = "environment", code = "expression"),
-  function(env, code) {
-    new_qenv(env, paste(lang2calls(code), collapse = "\n"))
-  }
-)
-
-setMethod(
-  "new_qenv",
-  signature = c(env = "environment", code = "character"),
-  function(env, code) {
-    new_env <- rlang::env_clone(env, parent = parent.env(.GlobalEnv))
-    lockEnvironment(new_env, bindings = TRUE)
-    if (length(code) > 0) code <- paste(code, collapse = "\n")
-    id <- sample.int(.Machine$integer.max, size = length(code))
-    methods::new(
-      "qenv",
-      .xData = new_env,
-      code = code,
-      warnings = rep("", length(code)),
-      messages = rep("", length(code)),
-      id = id
-    )
-  }
-)
-
-setMethod(
-  "new_qenv",
-  signature = c(env = "environment", code = "language"),
-  function(env, code) {
-    new_qenv(env = env, code = paste(lang2calls(code), collapse = "\n"))
-  }
-)
-
-setMethod(
-  "new_qenv",
-  signature = c(code = "missing", env = "missing"),
-  function(env, code) {
-    new_qenv(env = env, code = code)
-  }
-)
