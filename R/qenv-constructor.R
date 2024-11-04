@@ -44,9 +44,11 @@ qenv <- function() {
 #'
 #' @export
 setGeneric("new_qenv", function(env = new.env(parent = parent.env(.GlobalEnv)), code = character()) {
-  lifecycle::deprecate_stop(when = " 0.5.0",
-                            what = "new_qenv()",
-                            with = "qenv()")
+  lifecycle::deprecate_stop(
+    when = " 0.5.0",
+    what = "new_qenv()",
+    with = "qenv()"
+  )
   standardGeneric("new_qenv")
 })
 
