@@ -46,10 +46,7 @@ setMethod("get_var", signature = c("qenv.error", "ANY"), function(object, var) {
   ))
 })
 
-setMethod("[[", signature = c("qenv", "ANY"), function(x, i) {
-  get_var(x, i)
-})
-
+#' @rdname get_var
 #' @export
 `[[.qenv.error` <- function(x, i) {
   stop(errorCondition(

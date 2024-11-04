@@ -16,6 +16,7 @@ testthat::test_that("get_var, `$` and `[[` return object from qenv environment",
   testthat::expect_equal(q$x, 1)
 })
 
+
 testthat::test_that("get_var, `$` and `[[` return NULL if object not in qenv environment", {
   q <- eval_code(qenv(), quote(x <- 1))
   q <- eval_code(q, quote(y <- 5 * x))
@@ -24,7 +25,6 @@ testthat::test_that("get_var, `$` and `[[` return NULL if object not in qenv env
   testthat::expect_message(get_var(q, "z"), "object 'z' not found")
 
   testthat::expect_null(q[["w"]])
-  testthat::expect_message(q[["w"]], "object 'w' not found")
   testthat::expect_null(q$w)
 })
 

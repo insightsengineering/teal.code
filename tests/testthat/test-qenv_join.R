@@ -50,7 +50,7 @@ testthat::test_that("Not able to join two qenvs if any of the shared objects cha
   q2 <- eval_code(qenv(), quote(iris1 <- head(iris)))
 
   testthat::expect_match(.check_joinable(q1, q2), "Not possible to join qenv objects")
-  testthat::expect_error(join(q1, q2), "Not possible to join qenv objects")
+  testthat::expect_error(c(q1, q2), "Not possible to join qenv objects")
 })
 
 testthat::test_that("join does not duplicate code but adds only extra code", {
@@ -60,7 +60,7 @@ testthat::test_that("join does not duplicate code but adds only extra code", {
   q2 <- eval_code(q2, quote(mtcars2 <- mtcars))
 
   testthat::expect_true(.check_joinable(q1, q2))
-  q <- join(q1, q2)
+  q <- c(q1, q2)
 
   testthat::expect_identical(
     q@code,

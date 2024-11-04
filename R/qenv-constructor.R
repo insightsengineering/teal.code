@@ -12,7 +12,7 @@
 #'
 #' @name qenv
 #'
-#' @return Returns a `qenv` object.
+#' @return `qenv` returns a `qenv` object.
 #'
 #' @seealso [`base::within()`], [`get_var()`], [`get_env()`], [`get_warnings()`], [`join()`], [`concat()`]
 #' @examples

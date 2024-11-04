@@ -19,12 +19,6 @@ qenv()
 
 eval_code(object, code)
 
-x[[name]]
-x$name
-names(x)
-ls(name, pos = -1L, envir = as.environment(pos),
-   all.names = FALSE, pattern, sorted = TRUE)
-
 get_code(object, deparse = TRUE, names = NULL, ...)
 
 \method{within}{qenv}(data, expr, ...)
@@ -44,15 +38,9 @@ For more details see the "Extracting dataset-specific code" section.}
 \item{data}{(\code{qenv})}
 
 \item{expr}{(\code{expression}) to evaluate. Must be inline code, see \verb{Using language objects...}}
-
-\item{x}{(\code{qenv}) object.}
-
-\item{name}{(\code{character}) name of object.}
-
-\item{pos, envir, all.names, pattern, sorted}{see \code{\link[=ls]{ls()}} function for details.}
 }
 \value{
-Returns a \code{qenv} object.
+\code{qenv} returns a \code{qenv} object.
 
 \code{eval_code} returns a \code{qenv} object with \code{expr} evaluated or \code{qenv.error} if evaluation fails.
 
@@ -77,12 +65,12 @@ Create a \code{qenv} object and evaluate code in it to track code history.
 \code{qenv()} instantiates a \code{qenv} with an empty environment.
 Any changes must be made by evaluating code in it with \code{eval_code} or \code{within}, thereby ensuring reproducibility.
 
-\code{eval_code} evaluates given code in the \code{qenv} environment and appends it to the \code{code} slot.
+\code{eval_code()} evaluates given code in the \code{qenv} environment and appends it to the \code{code} slot.
 Thus, if the \code{qenv} had been instantiated empty, contents of the environment are always a result of the stored code.
 
 \code{x[[name]]}, \code{x$name} and \code{get(name, x)} are generic \R operators to access the objects in the environment.
 See [\code{[[}] for more details.
-\code{names(x)} and \code{ls(x)} calls on the \code{qenv} object and will list all objects in the environment.
+\code{names(x)} calls on the \code{qenv} object and will list all objects in the environment.
 
 \code{get_code()} retrieves the code stored in the \code{qenv}. \code{...} passes arguments to methods.
 
@@ -92,34 +80,6 @@ It is a method for the \code{base} generic that wraps \code{eval_code} to provid
 through the \code{...} argument:
 as \code{name:value} pairs are passed to \code{...}, \code{name} in \code{expr} will be replaced with \code{value}.
 }
-\section{Extracting objects from \code{qenv}}{
-
-
-Extracting an object from the \code{qenv} by name can be done using the following methods:
-\itemize{
-\item \code{x[[name]]}
-\item \code{x$name}
-\item \code{get(name, envir = x)}
-}
-
-note: \code{get_var(name)} was superseded by the native \R methods above.
-
-To list all objects in the environment, use \code{ls(x)} (which doesn't show
-objects that have a dot prefix with default arguments) or \code{names(x)} (shows all objects).
-}
-
-\section{Environment}{
-
-
-The \code{qenv} object behaves like an environment that is locked and one can use
-some of the \code{base} functions dedicated to the \code{environment}. List of supported
-functions includes:
-\code{names()}, \code{ls()}, \code{get()}, \code{exists()}, \code{parent.env()}, \code{lapply}, \code{sapply}
-\code{vapply}, \code{local}, \code{as.environment()}, \code{is.environment()}, \code{as.list()}, ...
-We don't recommend using any function outside of the \code{teal.code} exports and these
-mentioned above.
-}
-
 \section{Extracting dataset-specific code}{
 
 When \code{names} is specified, the code returned will be limited  to the lines needed to \emph{create}

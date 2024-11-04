@@ -1,0 +1,93 @@
+#' If two `qenv` can be joined
+#'
+#' Checks if two `qenv` objects can be combined.
+#' For more information, please see [`join`]
+#' @param x (`qenv`)
+#' @param y (`qenv`)
+#' @return `TRUE` if able to join or `character` used to print error message.
+#' @keywords internal
+.check_joinable <- function(x, y) {
+  checkmate::assert_class(x, "qenv")
+  checkmate::assert_class(y, "qenv")
+
+  common_names <- intersect(rlang::env_names(x@.xData), rlang::env_names(y@.xData))
+  is_overwritten <- vapply(common_names, function(el) {
+    !identical(get(el, x@.xData), get(el, y@.xData))
+  }, logical(1))
+  if (any(is_overwritten)) {
+    return(
+      paste(
+        "Not possible to join qenv objects if anything in their environment has been modified.\n",
+        "Following object(s) have been modified:\n - ",
+        paste(common_names[is_overwritten], collapse = "\n - ")
+      )
+    )
+  }
+
+  shared_ids <- intersect(x@id, y@id)
+  if (length(shared_ids) == 0) {
+    return(TRUE)
+  }
+
+  shared_in_x <- match(shared_ids, x@id)
+  shared_in_y <- match(shared_ids, y@id)
+
+  # indices of shared ids should be 1:n in both slots
+  if (identical(shared_in_x, shared_in_y) && identical(shared_in_x, seq_along(shared_ids))) {
+    TRUE
+  } else if (!identical(shared_in_x, shared_in_y)) {
+    paste(
+      "The common shared code of the qenvs does not occur in the same position in both qenv objects",
+      "so they cannot be joined together as it's impossible to determine the evaluation's order.",
+      collapse = ""
+    )
+  } else {
+    paste(
+      "There is code in the qenv objects before their common shared code",
+      "which means these objects cannot be joined.",
+      collapse = ""
+    )
+  }
+}
+
+#' @export
+c.qenv.error <- function(...) {
+  rlang::list2(...)[[1]]
+}
+
+#' @export
+c.qenv <- function(...) {
+  dots <- rlang::list2(...)
+  if (!checkmate::test_list(dots[-1], types = c("qenv", "qenv.error"))) {
+    return(NextMethod(c, dots[[1]]))
+  }
+
+  first_non_qenv_ix <- which.min(vapply(dots, inherits, what = "qenv", logical(1)))
+  if (first_non_qenv_ix > 1) {
+    return(dots[[first_non_qenv_ix]])
+  }
+
+  Reduce(
+    x = dots[-1],
+    init = dots[[1]],
+    f = function(x, y) {
+      join_validation <- .check_joinable(x, y)
+
+      # join expressions
+      if (!isTRUE(join_validation)) {
+        stop(join_validation)
+      }
+
+      id_unique <- !y@id %in% x@id
+      x@id <- c(x@id, y@id[id_unique])
+      x@code <- c(x@code, y@code[id_unique])
+      x@warnings <- c(x@warnings, y@warnings[id_unique])
+      x@messages <- c(x@messages, y@messages[id_unique])
+
+      # insert (and overwrite) objects from y to x
+      x@.xData <- rlang::env_clone(x@.xData, parent = parent.env(.GlobalEnv))
+      rlang::env_coalesce(env = x@.xData, from = y@.xData)
+      x
+    }
+  )
+}
