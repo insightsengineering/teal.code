@@ -20,7 +20,7 @@ get_var(object, var)
 The value of required variable (\code{var}) within \code{qenv} object.
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#superseded}{\figure{lifecycle-superseded.svg}{options: alt='[Superseded]'}}}{\strong{[Superseded]}} by native \R operators/functions:
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} by native \R operators/functions:
 \code{x[[name]]}, \code{x$name} or \code{\link[=get]{get()}}.
 
 Retrieve variables from the \code{qenv} environment.

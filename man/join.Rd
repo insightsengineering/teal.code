@@ -107,7 +107,7 @@ x$i # Output: 2
 y$i # Output: 3
 }\if{html}{\out{</div>}}
 
-\code{c()} and \code{join()} fails to provide a proper result because of the temporary variable \code{i} exists
+\code{c()} fails to provide a proper result because of the temporary variable \code{i} exists
 in both objects but has different value.
 To fix this, we can set \code{i <- NULL} in the code expression for both objects.
 
