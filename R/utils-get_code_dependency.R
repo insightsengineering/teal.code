@@ -33,15 +33,11 @@ get_code_dependency <- function(code, names, check_names = TRUE) {
     return(code)
   }
 
-  parsed_code <- parse(text = trimws(code), keep.source = TRUE)
-
-  pd <- utils::getParseData(parsed_code)
-  pd <- normalize_pd(pd)
-  calls_pd <- extract_calls(pd) # STILL NEEDED for check_names
-
   if (check_names) {
     # Detect if names are actually in code.
-    symbols <- unlist(lapply(calls_pd, function(call) call[call$token == "SYMBOL", "text"]))
+    parsed_code <- parse(text = trimws(code), keep.source = TRUE)
+    pd <- normalize_pd(utils::getParseData(parsed_code))
+    symbols <- pd[pd$token == "SYMBOL", "text"]
     if (any(pd$text == "assign")) {
       assign_calls <- Filter(function(call) find_call(call, "assign"), calls_pd)
       ass_str <- unlist(lapply(assign_calls, function(call) call[call$token == "STR_CONST", "text"]))
