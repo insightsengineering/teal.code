@@ -4,7 +4,7 @@ testthat::describe("qenv inherits from environment: ", {
   })
 
   testthat::it("names() shows nothing on empty environment", {
-    testthat::expect_identical(names(qenv(), all.names = TRUE), character(0))
+    testthat::expect_identical(names(qenv()), character(0))
   })
 
   testthat::it("names() shows available objets", {
@@ -12,12 +12,20 @@ testthat::describe("qenv inherits from environment: ", {
     testthat::expect_setequal(names(q), "iris")
   })
 
-  testthat::it("names() does not show hidden objects", {
+  testthat::it("names() shows hidden objects", {
     q <- within(qenv(), {
       iris <- iris
       .hidden <- 2
     })
-    testthat::expect_setequal(names(q), "iris")
+    testthat::expect_setequal(names(q), c("iris", ".hidden"))
+  })
+
+  testthat::it("ls() does not show hidden objects", {
+    q <- within(qenv(), {
+      iris <- iris
+      .hidden <- 2
+    })
+    testthat::expect_setequal(ls(q), c("iris"))
   })
 
   testthat::it("ls(all.names = TRUE) show all objects", {
