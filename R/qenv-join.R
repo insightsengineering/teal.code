@@ -81,7 +81,7 @@
 #'    x$i # Output: 2
 #'    y$i # Output: 3
 #'    ```
-#'    `c()` and `join()` fails to provide a proper result because of the temporary variable `i` exists
+#'    `c()` fails to provide a proper result because of the temporary variable `i` exists
 #'    in both objects but has different value.
 #'    To fix this, we can set `i <- NULL` in the code expression for both objects.
 #'    ```r
