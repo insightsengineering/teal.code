@@ -122,19 +122,17 @@ The feasibility of joining `qenv` objects hinges on the contents of the environm
 
 ### Warnings and messages in `qenv` objects
 
-In cases where warnings or messages arise while evaluating code within a `qenv` environment, these are captured and stored within the `qenv` object. Access these messages and warnings using attributes of `@code` slot
+In cases where warnings or messages arise while evaluating code within a `qenv` environment, these are captured and stored within the `qenv` object. Access these messages and warnings using below
 
 ```{r}
 q_message <- eval_code(qenv(), quote(message("this is a message")))
-lapply(q_message@code, "attr", "messages")
+# get_messages(q_message) # TODO - this function does not exist
 
 q_warning <- eval_code(qenv(), quote(warning("and this is a warning")))
-lapply(q_warning@code, "attr", "warnings")
+get_warnings(q_warning)
 ```
 
-If a particular line of code doesn't trigger any warnings or messages, the corresponding message/warning value will be `NULL`.
-
-Additionally, a helper function, `get_warnings()`, is available to generate a formatted string comprising the warnings and the code responsible for generating them. It returns `NULL` when no warnings are present.
+If any of above returns `NULL`m then no warnings nor messages were present.
 
 ## Utilizing `qenv` inside `shiny` applications
 
