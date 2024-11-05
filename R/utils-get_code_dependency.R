@@ -182,17 +182,16 @@ sub_arrows <- function(call) {
 
 # code_graph ----
 
-#' Create object dependencies graph within parsed code
+#' Create object dependencies graph based on code
 #'
-#' Builds dependency graph that identifies dependencies between objects in parsed code.
+#' Builds dependency graph that identifies dependencies between objects in code.
 #' Helps understand which objects depend on which.
 #'
-#' @param calls_pd `list` of `data.frame`s;
-#'  result of `utils::getParseData()` split into subsets representing individual calls;
-#'  created by `extract_calls()` function
+#' @param code (`list`) result of `get_code(eval_code(qenv()))`.
+#' List containing calls as characters in each element, extended with attributes `occurrence` and `side_effects`.
 #'
 #' @return
-#' A list (of length of input `calls_pd`) where each element represents one call.
+#' A list (of length of input `code`) where each element represents one call.
 #' Each element is a character vector listing names of objects that depend on this call
 #' and names of objects that this call depends on.
 #' Dependencies are listed after the `"<-"` string, e.g. `c("a", "<-", "b", "c")` means that in this call object `a`
