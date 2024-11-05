@@ -33,14 +33,7 @@ get_code_dependency <- function(code, names, check_names = TRUE) {
     return(code)
   }
 
-  # If code is bound in curly brackets, remove them.
-  # TODO: rethink if this is still needed when code is divided by calls?
-  tcode <- trimws(code)
-  if (any(grepl("^\\{.*\\}$", tcode))) {
-    tcode <- sub("^\\{(.*)\\}$", "\\1", tcode)
-  }
-
-  parsed_code <- parse(text = tcode, keep.source = TRUE)
+  parsed_code <- parse(text = trimws(code), keep.source = TRUE)
 
   pd <- utils::getParseData(parsed_code)
   pd <- normalize_pd(pd)

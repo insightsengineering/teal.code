@@ -37,7 +37,7 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
 
   for (i in seq_along(code_split)) {
     current_code <- code_split[[i]]
-    current_call <- parse(text = current_code, keep.source = FALSE)
+    current_call <- parse(text = trimws(current_code), keep.source = TRUE)
 
     # Using withCallingHandlers to capture warnings and messages.
     # Using tryCatch to capture the error and abort further evaluation.
@@ -80,14 +80,7 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
 
     attr(current_code, "id") <- sample.int(.Machine$integer.max, size = 1)
 
-    # UNSURE if the removal of curly brackets is still needed.
-    tcode <- trimws(current_code)
-    if (any(grepl("^\\{.*\\}$", tcode))) {
-      tcode <- sub("^\\{(.*)\\}$", "\\1", tcode)
-    }
-
-    parsed_code <- parse(text = tcode, keep.source = TRUE)
-    pd <- utils::getParseData(parsed_code)
+    pd <- utils::getParseData(current_call)
     pd <- normalize_pd(pd)
     calls_pd <- extract_calls(pd)
 
