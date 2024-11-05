@@ -25,9 +25,8 @@ Each code element is a character representing one call. Each element has possibl
 \item \code{warnings} (\code{character}) the warnings output when evaluating the code element
 \item \code{messages} (\code{character}) the messages output when evaluating the code element
 \item \verb{id (}integer`) random identifier of the code element to make sure uniqueness when joining
-\item \code{side_effects} (\code{character}) names of objects that gets affected by this code call
-\item \code{occurrence} (\code{character}) names of objects that appear in this call, separated by \verb{<-}
-(objects on LHS of \verb{<-} are affected by this line, and objects on RHS are affecting)
+\item \code{dependency} (\code{character}) names of objects that appear in this call and gets affected by this call,
+separated by \verb{<-} (objects on LHS of \verb{<-} are affected by this line, and objects on RHS are affecting this line)
 }
 }
 

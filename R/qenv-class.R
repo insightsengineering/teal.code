@@ -14,9 +14,8 @@
 #' - `warnings` (`character`) the warnings output when evaluating the code element
 #' - `messages` (`character`) the messages output when evaluating the code element
 #' - `id (`integer`) random identifier of the code element to make sure uniqueness when joining
-#' - `side_effects` (`character`) names of objects that gets affected by this code call
-#' - `occurrence` (`character`) names of objects that appear in this call, separated by `<-`
-#' (objects on LHS of `<-` are affected by this line, and objects on RHS are affecting)
+#' - `dependency` (`character`) names of objects that appear in this call and gets affected by this call,
+#' separated by `<-` (objects on LHS of `<-` are affected by this line, and objects on RHS are affecting this line)
 #'
 #' @keywords internal
 #' @exportClass qenv

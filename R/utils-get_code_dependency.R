@@ -53,7 +53,7 @@ get_code_dependency <- function(code, names, check_names = TRUE) {
     }
   }
 
-  graph <- extract_code_graph(code)
+  graph <- lapply(code, attr, "dependency")
   ind <- unlist(lapply(names, function(x) graph_parser(x, graph)))
 
   lib_ind <- detect_libraries(calls_pd) # SHOULD BE REWRITTEN TO WORK ON code
@@ -182,44 +182,17 @@ sub_arrows <- function(call) {
 
 # code_graph ----
 
-#' Create object dependencies graph based on code
-#'
-#' Builds dependency graph that identifies dependencies between objects in code.
-#' Helps understand which objects depend on which.
-#'
-#' @param code (`list`) result of `get_code(eval_code(qenv()))`.
-#' List containing calls as characters in each element, extended with attributes `occurrence` and `side_effects`.
-#'
-#' @return
-#' A list (of length of input `code`) where each element represents one call.
-#' Each element is a character vector listing names of objects that depend on this call
-#' and names of objects that this call depends on.
-#' Dependencies are listed after the `"<-"` string, e.g. `c("a", "<-", "b", "c")` means that in this call object `a`
-#' depends on objects `b` and `c`.
-#' If a call is tagged with `@linksto a`, then object `a` is understood to depend on that call.
-#'
-#' @keywords internal
-#' @noRd
-extract_code_graph <- function(code) {
-  cooccurrence <- lapply(code, attr, "occurrence")
-
-  side_effects <- lapply(code, attr, "side_effects")
-
-  mapply(c, side_effects, cooccurrence, SIMPLIFY = FALSE)
-}
-
 #' Extract object occurrence
 #'
-#' Extracts objects occurrence within calls passed by `calls_pd`.
+#' Extracts objects occurrence within calls passed by `pd`.
 #' Also detects which objects depend on which within a call.
 #'
-#' @param calls_pd `list` of `data.frame`s;
-#'  result of `utils::getParseData()` split into subsets representing individual calls;
+#' @param pd `data.frame`;
+#'  one of the results of `utils::getParseData()` split into subsets representing individual calls;
 #'  created by `extract_calls()` function
 #'
 #' @return
-#' A list (of length of input `calls_pd`) where each element represents one call.
-#' Each element is a character vector listing names of objects that depend on this call
+#' A character vector listing names of objects that depend on this call
 #' and names of objects that this call depends on.
 #' Dependencies are listed after the `"<-"` string, e.g. `c("a", "<-", "b", "c")` means that in this call object `a`
 #' depends on objects `b` and `c`.
@@ -227,7 +200,7 @@ extract_code_graph <- function(code) {
 #'
 #' @keywords internal
 #' @noRd
-extract_occurrence <- function(calls_pd) {
+extract_occurrence <- function(pd) {
   is_in_function <- function(x) {
     # If an object is a function parameter,
     # then in calls_pd there is a `SYMBOL_FORMALS` entry for that object.
@@ -245,23 +218,21 @@ extract_occurrence <- function(calls_pd) {
       x$text[x$token == "SYMBOL" & x$id > id_start & x$id < id_end]
     }
   }
-  lapply(
-    calls_pd,
-    function(call_pd) {
+
       # Handle data(object)/data("object")/data(object, envir = ) independently.
-      data_call <- find_call(call_pd, "data")
+      data_call <- find_call(pd, "data")
       if (data_call) {
-        sym <- call_pd[data_call + 1, "text"]
+        sym <- pd[data_call + 1, "text"]
         return(c(gsub("^['\"]|['\"]$", "", sym), "<-"))
       }
       # Handle assign(x = ).
-      assign_call <- find_call(call_pd, "assign")
+      assign_call <- find_call(pd, "assign")
       if (assign_call) {
         # Check if parameters were named.
         # "','" is for unnamed parameters, where "SYMBOL_SUB" is for named.
         # "EQ_SUB" is for `=` appearing after the name of the named parameter.
-        if (any(call_pd$token == "SYMBOL_SUB")) {
-          params <- call_pd[call_pd$token %in% c("SYMBOL_SUB", "','", "EQ_SUB"), "text"]
+        if (any(pd$token == "SYMBOL_SUB")) {
+          params <- pd[pd$token %in% c("SYMBOL_SUB", "','", "EQ_SUB"), "text"]
           # Remove sequence of "=", ",".
           if (length(params > 1)) {
             remove <- integer(0)
@@ -286,12 +257,12 @@ extract_occurrence <- function(calls_pd) {
           # Object is the first entry after 'assign'.
           pos <- 1
         }
-        sym <- call_pd[assign_call + pos, "text"]
+        sym <- pd[assign_call + pos, "text"]
         return(c(gsub("^['\"]|['\"]$", "", sym), "<-"))
       }
 
       # What occurs in a function body is not tracked.
-      x <- call_pd[!is_in_function(call_pd), ]
+      x <- pd[!is_in_function(pd), ]
       sym_cond <- which(x$token %in% c("SPECIAL", "SYMBOL", "SYMBOL_FUNCTION_CALL"))
 
       if (length(sym_cond) == 0) {
@@ -319,7 +290,7 @@ extract_occurrence <- function(calls_pd) {
 
       after <- match(min(x$id[ass_cond]), sort(x$id[c(min(ass_cond), sym_cond)])) - 1
       ans <- append(x[sym_cond, "text"], "<-", after = max(1, after))
-      roll <- in_parenthesis(call_pd)
+      roll <- in_parenthesis(pd)
       if (length(roll)) {
         c(setdiff(ans, roll), roll)
       } else {
@@ -328,8 +299,6 @@ extract_occurrence <- function(calls_pd) {
 
       ### NOTE 2: What if there are 2 assignments: e.g. a <- b -> c.
       ### NOTE 1: For cases like 'eval(expression(b <- b + 2))' removes 'eval(expression('.
-    }
-  )
 }
 
 #' Extract side effects
@@ -342,24 +311,19 @@ extract_occurrence <- function(calls_pd) {
 #' With this tag a complete object dependency structure can be established.
 #' Read more about side effects and the usage of `@linksto` tag in [`get_code_dependencies()`] function.
 #'
-#' @param calls_pd `list` of `data.frame`s;
-#'  result of `utils::getParseData()` split into subsets representing individual calls;
+#' @param pd `data.frame`;
+#'  one of the results of `utils::getParseData()` split into subsets representing individual calls;
 #'  created by `extract_calls()` function
 #'
 #' @return
-#' A list of length equal to that of `calls_pd`, where each element is a character vector of names of objects
-#' depending a call tagged with `@linksto` in a corresponding element of `calls_pd`.
+#' A character vector of names of objects
+#' depending a call tagged with `@linksto` in a corresponding element of `pd`.
 #'
 #' @keywords internal
 #' @noRd
-extract_side_effects <- function(calls_pd) {
-  lapply(
-    calls_pd,
-    function(x) {
-      linksto <- grep("@linksto", x[x$token == "COMMENT", "text"], value = TRUE)
-      unlist(strsplit(sub("\\s*#\\s*@linksto\\s+", "", linksto), "\\s+"))
-    }
-  )
+extract_side_effects <- function(pd) {
+  linksto <- grep("@linksto", pd[pd$token == "COMMENT", "text"], value = TRUE)
+  unlist(strsplit(sub("\\s*#\\s*@linksto\\s+", "", linksto), "\\s+"))
 }
 
 # graph_parser ----
