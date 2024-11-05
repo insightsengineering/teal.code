@@ -4,7 +4,7 @@
 
 * `get_code()` was extended with `names` parameter and allows the code extraction to be limited to objects stored in
 `qenv` but limited to `names`.
-* `qenv` inherits from the `environment` class, allowing to use `ls()`, `names()`, `as.environment()` and other functions on `qenv` objects.
+* `qenv` inherits from the `environment` class, allowing to use `names()`, `as.environment()`, R operators (`[[` and `$`) and other functions on `qenv` objects.
 
 # teal.code 0.5.0
 

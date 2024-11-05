@@ -3,29 +3,29 @@ testthat::describe("qenv inherits from environment: ", {
     testthat::expect_true(is.environment(qenv()))
   })
 
-  testthat::it("ls() shows nothing on empty environment", {
-    testthat::expect_identical(ls(qenv(), all.names = TRUE), character(0))
+  testthat::it("names() shows nothing on empty environment", {
+    testthat::expect_identical(names(qenv(), all.names = TRUE), character(0))
   })
 
-  testthat::it("ls() shows available objets", {
+  testthat::it("names() shows available objets", {
     q <- within(qenv(), iris <- iris)
-    testthat::expect_setequal(ls(q), "iris")
+    testthat::expect_setequal(names(q), "iris")
   })
 
-  testthat::it("ls() does not show hidden objects", {
+  testthat::it("names() does not show hidden objects", {
     q <- within(qenv(), {
       iris <- iris
       .hidden <- 2
     })
-    testthat::expect_setequal(ls(q), "iris")
+    testthat::expect_setequal(names(q), "iris")
   })
 
-  testthat::it("names() show all objects", {
+  testthat::it("ls(all.names = TRUE) show all objects", {
     q <- eval_code(qenv(), "
       iris <- iris
       .hidden <- 2
     ")
-    testthat::expect_setequal(names(q), c("iris", ".hidden"))
+    testthat::expect_setequal(ls(q, all.names = TRUE), c("iris", ".hidden"))
   })
 
   testthat::it("does not allow binding to be added", {
@@ -42,7 +42,7 @@ testthat::describe("qenv inherits from environment: ", {
 testthat::test_that("constructor returns qenv", {
   q <- qenv()
   testthat::expect_s4_class(q, "qenv")
-  testthat::expect_identical(ls(q@.xData, all.names = TRUE), character(0))
+  testthat::expect_identical(names(q), character(0))
   testthat::expect_identical(q@code, character(0))
   testthat::expect_identical(q@id, integer(0))
   testthat::expect_identical(q@warnings, character(0))
