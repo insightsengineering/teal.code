@@ -112,7 +112,7 @@ common_q <- eval_code(qenv(), quote(x <- 1))
 x_q <- eval_code(common_q, quote(y <- 5))
 y_q <- eval_code(common_q, quote(z <- 5))
 
-join_q <- join(x_q, y_q)
+join_q <- c(x_q, y_q)
 
 print(join_q)
 names(join_q)
