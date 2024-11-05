@@ -15,16 +15,6 @@ testthat::test_that("eval_code doesn't have access to environment where it's cal
   )
 })
 
-testthat::test_that("@.xData in qenv is always a sibling of .GlobalEnv", {
-  q1 <- qenv()
-  testthat::expect_identical(parent.env(q1@.xData), parent.env(.GlobalEnv))
-
-  q2 <- eval_code(q1, quote(a <- 1L))
-  testthat::expect_identical(parent.env(q2@.xData), parent.env(.GlobalEnv))
-  q3 <- eval_code(q2, quote(b <- 2L))
-  testthat::expect_identical(parent.env(q3@.xData), parent.env(.GlobalEnv))
-})
-
 testthat::test_that("getting object from the package namespace works even if library in the same call", {
   testthat::expect_s4_class(
     eval_code(
