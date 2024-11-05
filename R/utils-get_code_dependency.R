@@ -39,6 +39,7 @@ get_code_dependency <- function(code, names, check_names = TRUE) {
     pd <- normalize_pd(utils::getParseData(parsed_code))
     symbols <- pd[pd$token == "SYMBOL", "text"]
     if (any(pd$text == "assign")) {
+      calls_pd <- extract_calls(pd)
       assign_calls <- Filter(function(call) find_call(call, "assign"), calls_pd)
       ass_str <- unlist(lapply(assign_calls, function(call) call[call$token == "STR_CONST", "text"]))
       ass_str <- gsub("^['\"]|['\"]$", "", ass_str)
