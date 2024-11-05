@@ -50,11 +50,19 @@
   }
 }
 
-#' @export
-c.qenv.error <- function(...) {
-  rlang::list2(...)[[1]]
-}
-
+#' @rdname join
+#' @param ... (`qenv` or `qenv.error`).
+#' @examples
+#' q <- qenv()
+#' q1 <- within(q, {
+#'   iris1 <- iris
+#'   mtcars1 <- mtcars
+#' })
+#' q1 <- within(q1, iris2 <- iris)
+#' q2 <- within(q1, mtcars2 <- mtcars)
+#' qq <- c(q1, q2)
+#' cat(get_code(qq))
+#'
 #' @export
 c.qenv <- function(...) {
   dots <- rlang::list2(...)
@@ -90,4 +98,10 @@ c.qenv <- function(...) {
       x
     }
   )
+}
+
+#' @rdname join
+#' @export
+c.qenv.error <- function(...) {
+  rlang::list2(...)[[1]]
 }
