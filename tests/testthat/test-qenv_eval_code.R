@@ -129,3 +129,18 @@ testthat::test_that("eval_code returns a qenv object with empty messages and war
   testthat::expect_null(attr(q@code, "message"))
   testthat::expect_null(attr(q@code, "warning"))
 })
+
+testthat::test_that("eval_code returns a qenv object with dependency attribute", {
+  q <- eval_code(qenv(), "iris_data <- head(iris)")
+  testthat::expect_identical(get_code_attr(q, "dependency"), c("iris_data", "<-", "head", "iris"))
+
+  q2 <- eval_code(qenv(), c("x <- 5", "iris_data <- head(iris)", "nrow(iris_data) #@linksto x"))
+  testthat::expect_identical(
+    lapply(q2@code, attr, "dependency"),
+    list(
+      c("x", "<-"),
+      c("iris_data", "<-", "head", "iris"),
+      c("x", "<-", "nrow", "iris_data")
+    )
+  )
+})
