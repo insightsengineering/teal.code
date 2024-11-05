@@ -56,7 +56,7 @@ get_code_dependency <- function(code, names, check_names = TRUE) {
   graph <- lapply(code, attr, "dependency")
   ind <- unlist(lapply(names, function(x) graph_parser(x, graph)))
 
-  lib_ind <- detect_libraries(calls_pd) # SHOULD BE REWRITTEN TO WORK ON code
+  lib_ind <- detect_libraries(graph)
 
   code_ids <- sort(unique(c(lib_ind, ind)))
   code[code_ids]
@@ -370,26 +370,24 @@ graph_parser <- function(x, graph) {
 #'
 #' Detects `library()` and `require()` function calls.
 #'
-#' @param calls_pd `list` of `data.frame`s;
-#'  result of `utils::getParseData()` split into subsets representing individual calls;
-#'  created by `extract_calls()` function
+#' @param `graph` the dependency graph, result of `lapply(code, attr, "dependency")`
 #'
 #' @return
-#' Integer vector of indices that can be applied to `graph` (result of `code_graph()`) to obtain all calls containing
+#' Integer vector of indices that can be applied to `graph` to obtain all calls containing
 #' `library()` or `require()` calls that are always returned for reproducibility.
 #'
 #' @keywords internal
 #' @noRd
-detect_libraries <- function(calls_pd) {
+detect_libraries <- function(graph) {
   defaults <- c("library", "require")
 
   which(
-    vapply(
-      calls_pd,
-      function(call) {
-        any(call$token == "SYMBOL_FUNCTION_CALL" & call$text %in% defaults)
-      },
-      logical(1)
+    unlist(
+      lapply(
+        graph, function(x){
+          any(grepl(pattern = paste(defaults, collapse = "|"), x = x))
+        }
+      )
     )
   )
 }

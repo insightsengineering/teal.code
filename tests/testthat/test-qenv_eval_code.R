@@ -143,4 +143,7 @@ testthat::test_that("eval_code returns a qenv object with dependency attribute",
       c("x", "<-", "nrow", "iris_data")
     )
   )
+
+  q3 <- eval_code(qenv(), c("library(survival)", "library(utils)", "x <- 5"))
+  lapply(q3@code, attr, "dependency")
 })
