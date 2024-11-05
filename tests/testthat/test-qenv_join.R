@@ -68,8 +68,8 @@ testthat::test_that("join does not duplicate code but adds only extra code", {
   )
 
   testthat::expect_equal(
-    as.list(q@.xData),
-    list(iris1 = iris, iris2 = iris, mtcars1 = mtcars, mtcars2 = mtcars)
+    q@.xData,
+    list2env(list(iris1 = iris, iris2 = iris, mtcars1 = mtcars, mtcars2 = mtcars))
   )
 
   testthat::expect_identical(q@id, c(q1@id, q2@id[2]))

@@ -1,7 +1,7 @@
 #' Get object from `qenv`
 #'
 #' @description
-#' `r lifecycle::badge("superseded")` by native \R operators/functions:
+#' `r lifecycle::badge("deprecated")` by native \R operators/functions:
 #' `x[[name]]`, `x$name` or [get()].
 #'
 #' Retrieve variables from the `qenv` environment.
@@ -31,6 +31,7 @@ setGeneric("get_var", function(object, var) {
 
 setMethod("get_var", signature = c("qenv", "character"), function(object, var) {
   tryCatch(
+   lifecycle::deprecate_soft("0.5.1", "get_var()", "get()")
     get(var, envir = object@.xData, inherits = FALSE),
     error = function(e) {
       message(conditionMessage(e))
