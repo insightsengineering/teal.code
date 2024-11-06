@@ -33,24 +33,19 @@ get_code_dependency <- function(code, names, check_names = TRUE) {
     return(code)
   }
 
+  graph <- lapply(code, attr, "dependency")
+
   if (check_names) {
-    # Detect if names are actually in code.
-    parsed_code <- parse(text = trimws(code), keep.source = TRUE)
-    pd <- normalize_pd(utils::getParseData(parsed_code))
-    symbols <- pd[pd$token == "SYMBOL", "text"]
-    if (any(pd$text == "assign")) {
-      calls_pd <- extract_calls(pd)
-      assign_calls <- Filter(function(call) find_call(call, "assign"), calls_pd)
-      ass_str <- unlist(lapply(assign_calls, function(call) call[call$token == "STR_CONST", "text"]))
-      ass_str <- gsub("^['\"]|['\"]$", "", ass_str)
-      symbols <- c(ass_str, symbols)
-    }
+    symbols <- unlist(lapply(graph, function(call) {
+      ind <- match("<-", call, nomatch = length(call) + 1L)
+      call[seq_len(ind - 1L)]
+    }))
+
     if (!all(names %in% unique(symbols))) {
       warning("Object(s) not found in code: ", toString(setdiff(names, symbols)))
     }
   }
 
-  graph <- lapply(code, attr, "dependency")
   ind <- unlist(lapply(names, function(x) graph_parser(x, graph)))
 
   lib_ind <- detect_libraries(graph)

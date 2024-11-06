@@ -886,3 +886,12 @@ testthat::describe("Backticked symbol", {
     )
   })
 })
+
+
+# missing objects -------------------------------------------------------------------------------------------------
+
+testthat::test_that("get_code raises warning for missing names", {
+  q <- eval_code(qenv(), code = c("a<-1;b<-2"))
+  testthat::expect_null(get_code(q, names = 'c'))
+  testthat::expect_warning(get_code(q, names = 'c'), " not found in code: c")
+})
