@@ -30,7 +30,7 @@ testthat::test_that("`[.` subsets environment and code to specified object names
   testthat::expect_true(all(ls(get_env(qs)) %in% object_names))
 })
 
-testthat::test_that("`[.` extract proper code", {
+testthat::test_that("`[.` extracts the code only needed to recreate objects passed through 'names'", {
   q <- qenv()
   code <- c("x<-1", "a<-1;b<-2")
   q <- eval_code(q, code)
