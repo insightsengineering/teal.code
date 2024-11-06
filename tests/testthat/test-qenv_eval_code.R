@@ -133,7 +133,8 @@ testthat::test_that("eval_code returns a qenv object with empty messages and war
 testthat::test_that("eval_code returns a qenv object with dependency attribute", {
   q <- eval_code(qenv(), "iris_data <- head(iris)")
   testthat::expect_identical(get_code_attr(q, "dependency"), c("iris_data", "<-", "head", "iris"))
-
+})
+testthat::test_that("eval_code returns a qenv object with dependency attribute that contains linksto information", {
   q2 <- eval_code(qenv(), c("x <- 5", "iris_data <- head(iris)", "nrow(iris_data) #@linksto x"))
   testthat::expect_identical(
     lapply(q2@code, attr, "dependency"),
@@ -143,7 +144,15 @@ testthat::test_that("eval_code returns a qenv object with dependency attribute",
       c("x", "<-", "nrow", "iris_data")
     )
   )
-
-  q3 <- eval_code(qenv(), c("library(survival)", "library(utils)", "x <- 5"))
-  lapply(q3@code, attr, "dependency")
+})
+testthat::test_that(
+  "eval_code returns a qenv object with dependency attribute that extracts functions after '<-' part", {
+  q3 <- eval_code(qenv(), c("library(survival)", "head(iris)"))
+  testthat::expect_identical(
+    lapply(q3@code, attr, "dependency"),
+    list(
+      c("<-", "library", "survival"),
+      c("<-", "head", "iris")
+    )
+  )
 })
