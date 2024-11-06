@@ -37,7 +37,7 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
 
   for (i in seq_along(code_split)) {
     current_code <- code_split[[i]]
-    current_call <- parse(text = current_code, keep.source = FALSE)
+    current_call <- parse(text = current_code, keep.source = TRUE)
 
     # Using withCallingHandlers to capture warnings and messages.
     # Using tryCatch to capture the error and abort further evaluation.
@@ -79,6 +79,7 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
     }
 
     attr(current_code, "id") <- sample.int(.Machine$integer.max, size = 1)
+    attr(current_code, "dependency") <- extract_dependency(current_call)
     object@code <- c(object@code, list(current_code))
   }
 

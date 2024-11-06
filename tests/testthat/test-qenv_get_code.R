@@ -688,7 +688,7 @@ testthat::test_that("detects cooccurrence properly even if all objects are on lh
 # @ ---------------------------------------------------------------------------------------------------------------
 
 testthat::test_that("understands @ usage and do not treat rhs of @ as objects (only lhs)", {
-  code <- list(
+  code <- c(
     "setClass('aclass', slots = c(a = 'numeric', x = 'numeric', y = 'numeric')) # @linksto a x",
     "x <- new('aclass', a = 1:3, x = 1:3, y = 1:3)",
     "a <- new('aclass', a = 1:3, x = 1:3, y = 1:3)",
@@ -697,14 +697,14 @@ testthat::test_that("understands @ usage and do not treat rhs of @ as objects (o
     "a@x <- x@a"
   )
   q <- qenv()
-  q@code <- code # we don't use eval_code so the code is not run
+  q <- eval_code(q, code)
   testthat::expect_identical(
     get_code_g(q, names = "x"),
-    unlist(code[1:2])
+    code[1:2]
   )
   testthat::expect_identical(
     get_code_g(q, names = "a"),
-    unlist(code)
+    code
   )
 })
 
@@ -885,4 +885,13 @@ testthat::describe("Backticked symbol", {
       )
     )
   })
+})
+
+
+# missing objects -------------------------------------------------------------------------------------------------
+
+testthat::test_that("get_code raises warning for missing names", {
+  q <- eval_code(qenv(), code = c("a<-1;b<-2"))
+  testthat::expect_null(get_code(q, names = 'c'))
+  testthat::expect_warning(get_code(q, names = 'c'), " not found in code: c")
 })
