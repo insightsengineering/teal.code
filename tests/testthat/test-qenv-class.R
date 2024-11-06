@@ -17,4 +17,8 @@ testthat::describe("methods::new(qenv)", {
   testthat::it("throws error when .xData is not an environment", {
     expect_error(methods::new("qenv", .xData = 2), "Must be an environment, not 'double'\\.")
   })
+
+  testthat::it("throws error when code is not language or character object", {
+    expect_error(methods::new("qenv", code = 2), "`code` must be a character or language object\\.")
+  })
 })

@@ -2,7 +2,7 @@ testthat::test_that("eval_code evaluates the code in the qenvs environment", {
   q <- qenv()
   q1 <- eval_code(q, quote(iris1 <- iris))
   q2 <- eval_code(q1, quote(b <- nrow(iris1)))
-  testthat::expect_identical(get_var(q2, "b"), 150L)
+  testthat::expect_identical(q2$b, 150L)
 })
 
 testthat::test_that("eval_code doesn't have access to environment where it's called", {

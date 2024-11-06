@@ -28,14 +28,43 @@ setClass(
 setMethod(
   "initialize",
   "qenv",
-  function(.Object, .xData = new.env(parent = parent.env(.GlobalEnv)), ...) { # nolint: object_name.
-    # .xData needs to be unnamed as the `.environment` constructure requires 1
-    # unnamed formal argument. See methods::findMethods("initialize")$.environment
-    .Object <- methods::callNextMethod(.Object, .xData, ...) # nolint: object_name.
+  function(.Object, # nolint: object_name.
+           .xData, # nolint: object_name.
+           code = character(0L),
+           warnings = rep("", length(code)),
+           messages = rep("", length(code)),
+           id = integer(0L),
+           ...) {
+    # # Pre-process parameters to ensure they are ready to be used by parent constructors
+    stopifnot("`code` must be a character or language object." = any(is.language(code), is.character(code)))
 
-    checkmate::assert_environment(.xData)
-    lockEnvironment(.xData, bindings = TRUE)
-    .Object@.xData <- .xData # nolint: object_name.
+    if (is.language(code)) {
+      code <- paste(lang2calls(code), collapse = "\n")
+    }
+    if (length(code)) {
+      code <- paste(code, collapse = "\n")
+    }
+
+    if (length(id) == 0L) {
+      id <- sample.int(.Machine$integer.max, size = length(code))
+    }
+
+    new_xdata <- if (rlang::is_missing(.xData)) {
+      new.env(parent = parent.env(.GlobalEnv))
+    } else {
+      checkmate::assert_environment(.xData)
+      rlang::env_clone(.xData, parent = parent.env(.GlobalEnv))
+    }
+    lockEnvironment(new_xdata, bindings = TRUE)
+
+    # .xData needs to be unnamed as the `.environment` constructor allows at
+    # most 1 unnamed formal argument of class `environment`.
+    # See methods::findMethods("initialize")$.environment
+    .Object <- methods::callNextMethod( # nolint: object_name.
+      # Mandatory use of `xData` to build a correct .Object@.xData
+      .Object, new_xdata,
+      code = code, messages = messages, warnings = warnings, id = id, ...
+    )
 
     .Object
   }
