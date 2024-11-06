@@ -1,4 +1,3 @@
-
 testthat::test_that("`[.` returns empty qenv for names not in qenv", {
   data <- within(qenv(), {
     x <- 1
@@ -65,4 +64,3 @@ testthat::test_that("`[.` extract proper elements of @id, @warnings and @message
   testthat::expect_null(get_code_attr(qs, "warning"))
   testthat::expect_null(get_code_attr(qs, "message"))
 })
-

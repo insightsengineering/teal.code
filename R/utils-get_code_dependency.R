@@ -211,86 +211,86 @@ extract_occurrence <- function(pd) {
     }
   }
 
-      # Handle data(object)/data("object")/data(object, envir = ) independently.
-      data_call <- find_call(pd, "data")
-      if (data_call) {
-        sym <- pd[data_call + 1, "text"]
-        return(c(gsub("^['\"]|['\"]$", "", sym), "<-"))
-      }
-      # Handle assign(x = ).
-      assign_call <- find_call(pd, "assign")
-      if (assign_call) {
-        # Check if parameters were named.
-        # "','" is for unnamed parameters, where "SYMBOL_SUB" is for named.
-        # "EQ_SUB" is for `=` appearing after the name of the named parameter.
-        if (any(pd$token == "SYMBOL_SUB")) {
-          params <- pd[pd$token %in% c("SYMBOL_SUB", "','", "EQ_SUB"), "text"]
-          # Remove sequence of "=", ",".
-          if (length(params > 1)) {
-            remove <- integer(0)
-            for (i in 2:length(params)) {
-              if (params[i - 1] == "=" & params[i] == ",") {
-                remove <- c(remove, i - 1, i)
-              }
-            }
-            if (length(remove)) params <- params[-remove]
+  # Handle data(object)/data("object")/data(object, envir = ) independently.
+  data_call <- find_call(pd, "data")
+  if (data_call) {
+    sym <- pd[data_call + 1, "text"]
+    return(c(gsub("^['\"]|['\"]$", "", sym), "<-"))
+  }
+  # Handle assign(x = ).
+  assign_call <- find_call(pd, "assign")
+  if (assign_call) {
+    # Check if parameters were named.
+    # "','" is for unnamed parameters, where "SYMBOL_SUB" is for named.
+    # "EQ_SUB" is for `=` appearing after the name of the named parameter.
+    if (any(pd$token == "SYMBOL_SUB")) {
+      params <- pd[pd$token %in% c("SYMBOL_SUB", "','", "EQ_SUB"), "text"]
+      # Remove sequence of "=", ",".
+      if (length(params > 1)) {
+        remove <- integer(0)
+        for (i in 2:length(params)) {
+          if (params[i - 1] == "=" & params[i] == ",") {
+            remove <- c(remove, i - 1, i)
           }
-          pos <- match("x", setdiff(params, ","), nomatch = match(",", params, nomatch = 0))
-          if (!pos) {
-            return(character(0L))
-          }
-          # pos is indicator of the place of 'x'
-          # 1. All parameters are named, but none is 'x' - return(character(0L))
-          # 2. Some parameters are named, 'x' is in named parameters: match("x", setdiff(params, ","))
-          # - check "x" in params being just a vector of named parameters.
-          # 3. Some parameters are named, 'x' is not in named parameters
-          # - check first appearance of "," (unnamed parameter) in vector parameters.
-        } else {
-          # Object is the first entry after 'assign'.
-          pos <- 1
         }
-        sym <- pd[assign_call + pos, "text"]
-        return(c(gsub("^['\"]|['\"]$", "", sym), "<-"))
+        if (length(remove)) params <- params[-remove]
       }
-
-      # What occurs in a function body is not tracked.
-      x <- pd[!is_in_function(pd), ]
-      sym_cond <- which(x$token %in% c("SPECIAL", "SYMBOL", "SYMBOL_FUNCTION_CALL"))
-
-      if (length(sym_cond) == 0) {
+      pos <- match("x", setdiff(params, ","), nomatch = match(",", params, nomatch = 0))
+      if (!pos) {
         return(character(0L))
       }
-      # Watch out for SYMBOLS after $ and @. For x$a x@a: x is object, a is not.
-      # For x$a, a's ID is $'s ID-2 so we need to remove all IDs that have ID = $ID - 2.
-      dollar_ids <- x[x$token %in% c("'$'", "'@'"), "id"]
-      if (length(dollar_ids)) {
-        object_ids <- x[sym_cond, "id"]
-        after_dollar <- object_ids[(object_ids - 2) %in% dollar_ids]
-        sym_cond <- setdiff(sym_cond, which(x$id %in% after_dollar))
-      }
+      # pos is indicator of the place of 'x'
+      # 1. All parameters are named, but none is 'x' - return(character(0L))
+      # 2. Some parameters are named, 'x' is in named parameters: match("x", setdiff(params, ","))
+      # - check "x" in params being just a vector of named parameters.
+      # 3. Some parameters are named, 'x' is not in named parameters
+      # - check first appearance of "," (unnamed parameter) in vector parameters.
+    } else {
+      # Object is the first entry after 'assign'.
+      pos <- 1
+    }
+    sym <- pd[assign_call + pos, "text"]
+    return(c(gsub("^['\"]|['\"]$", "", sym), "<-"))
+  }
 
-      ass_cond <- grep("ASSIGN", x$token)
-      if (!length(ass_cond)) {
-        return(c("<-", unique(x[sym_cond, "text"])))
-      }
+  # What occurs in a function body is not tracked.
+  x <- pd[!is_in_function(pd), ]
+  sym_cond <- which(x$token %in% c("SPECIAL", "SYMBOL", "SYMBOL_FUNCTION_CALL"))
 
-      sym_cond <- sym_cond[sym_cond > ass_cond] # NOTE 1
-      # If there was an assignment operation detect direction of it.
-      if (unique(x$text[ass_cond]) == "->") { # NOTE 2
-        sym_cond <- rev(sym_cond)
-      }
+  if (length(sym_cond) == 0) {
+    return(character(0L))
+  }
+  # Watch out for SYMBOLS after $ and @. For x$a x@a: x is object, a is not.
+  # For x$a, a's ID is $'s ID-2 so we need to remove all IDs that have ID = $ID - 2.
+  dollar_ids <- x[x$token %in% c("'$'", "'@'"), "id"]
+  if (length(dollar_ids)) {
+    object_ids <- x[sym_cond, "id"]
+    after_dollar <- object_ids[(object_ids - 2) %in% dollar_ids]
+    sym_cond <- setdiff(sym_cond, which(x$id %in% after_dollar))
+  }
 
-      after <- match(min(x$id[ass_cond]), sort(x$id[c(min(ass_cond), sym_cond)])) - 1
-      ans <- append(x[sym_cond, "text"], "<-", after = max(1, after))
-      roll <- in_parenthesis(pd)
-      if (length(roll)) {
-        c(setdiff(ans, roll), roll)
-      } else {
-        ans
-      }
+  ass_cond <- grep("ASSIGN", x$token)
+  if (!length(ass_cond)) {
+    return(c("<-", unique(x[sym_cond, "text"])))
+  }
 
-      ### NOTE 2: What if there are 2 assignments: e.g. a <- b -> c.
-      ### NOTE 1: For cases like 'eval(expression(b <- b + 2))' removes 'eval(expression('.
+  sym_cond <- sym_cond[sym_cond > ass_cond] # NOTE 1
+  # If there was an assignment operation detect direction of it.
+  if (unique(x$text[ass_cond]) == "->") { # NOTE 2
+    sym_cond <- rev(sym_cond)
+  }
+
+  after <- match(min(x$id[ass_cond]), sort(x$id[c(min(ass_cond), sym_cond)])) - 1
+  ans <- append(x[sym_cond, "text"], "<-", after = max(1, after))
+  roll <- in_parenthesis(pd)
+  if (length(roll)) {
+    c(setdiff(ans, roll), roll)
+  } else {
+    ans
+  }
+
+  ### NOTE 2: What if there are 2 assignments: e.g. a <- b -> c.
+  ### NOTE 1: For cases like 'eval(expression(b <- b + 2))' removes 'eval(expression('.
 }
 
 #' Extract side effects
@@ -389,7 +389,7 @@ detect_libraries <- function(graph) {
   which(
     unlist(
       lapply(
-        graph, function(x){
+        graph, function(x) {
           any(grepl(pattern = paste(defaults, collapse = "|"), x = x))
         }
       )
@@ -478,4 +478,3 @@ split_code <- function(code) {
   #  semicolon is treated by R parser as a separate call.
   gsub("^([[:space:]])*;(.+)$", "\\1\\2", new_code, perl = TRUE)
 }
-

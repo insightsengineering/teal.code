@@ -92,47 +92,55 @@ testthat::test_that("an error when calling eval_code returns a qenv.error object
 })
 
 testthat::test_that(
-  "a warning when calling eval_code returns a qenv object which has warnings as attributes of code", {
-  q <- eval_code(qenv(), quote("iris_data <- iris"))
-  q <- eval_code(q, quote("p <- hist(iris_data[, 'Sepal.Length'], ff = '')"))
-  testthat::expect_s4_class(q, "qenv")
-  testthat::expect_equal(
-    lapply(q@code, attr, "warning"),
-    list(NULL, "> \"ff\" is not a graphical parameter\n")
-  )
-})
-
-testthat::test_that(
-  "eval_code associates warnings with call by adding attribute to code element", {
-  q <- eval_code(qenv(), c("x <- 1", "y <- 1", "warning('warn1')"))
-  testthat::expect_equal(
-    lapply(q@code, attr, "warning"),
-    list(NULL, NULL, "> warn1\n")
-  )
-})
-
-
-testthat::test_that(
-  "eval_code associates messages with call by adding attribute to code element", {
-  q <- eval_code(qenv(), quote("iris_data <- head(iris)"))
-  q <- eval_code(q, quote("message('This is a message')"))
-  testthat::expect_s4_class(q, "qenv")
-  testthat::expect_equal(
-    lapply(q@code, attr, "message"),
-    list(
-      NULL,
-      "> This is a message\n"
+  "a warning when calling eval_code returns a qenv object which has warnings as attributes of code",
+  {
+    q <- eval_code(qenv(), quote("iris_data <- iris"))
+    q <- eval_code(q, quote("p <- hist(iris_data[, 'Sepal.Length'], ff = '')"))
+    testthat::expect_s4_class(q, "qenv")
+    testthat::expect_equal(
+      lapply(q@code, attr, "warning"),
+      list(NULL, "> \"ff\" is not a graphical parameter\n")
     )
-  )
-})
+  }
+)
 
 testthat::test_that(
-  "eval_code returns a qenv object with empty messages and warnings as code attributes, when none are returned", {
-  q <- eval_code(qenv(), quote("iris_data <- head(iris)"))
-  testthat::expect_s4_class(q, "qenv")
-  testthat::expect_null(attr(q@code, "message"))
-  testthat::expect_null(attr(q@code, "warning"))
-})
+  "eval_code associates warnings with call by adding attribute to code element",
+  {
+    q <- eval_code(qenv(), c("x <- 1", "y <- 1", "warning('warn1')"))
+    testthat::expect_equal(
+      lapply(q@code, attr, "warning"),
+      list(NULL, NULL, "> warn1\n")
+    )
+  }
+)
+
+
+testthat::test_that(
+  "eval_code associates messages with call by adding attribute to code element",
+  {
+    q <- eval_code(qenv(), quote("iris_data <- head(iris)"))
+    q <- eval_code(q, quote("message('This is a message')"))
+    testthat::expect_s4_class(q, "qenv")
+    testthat::expect_equal(
+      lapply(q@code, attr, "message"),
+      list(
+        NULL,
+        "> This is a message\n"
+      )
+    )
+  }
+)
+
+testthat::test_that(
+  "eval_code returns a qenv object with empty messages and warnings as code attributes, when none are returned",
+  {
+    q <- eval_code(qenv(), quote("iris_data <- head(iris)"))
+    testthat::expect_s4_class(q, "qenv")
+    testthat::expect_null(attr(q@code, "message"))
+    testthat::expect_null(attr(q@code, "warning"))
+  }
+)
 
 testthat::test_that("eval_code returns a qenv object with dependency attribute", {
   q <- eval_code(qenv(), "iris_data <- head(iris)")
@@ -150,13 +158,15 @@ testthat::test_that("eval_code returns a qenv object with dependency attribute t
   )
 })
 testthat::test_that(
-  "eval_code returns a qenv object with dependency attribute that extracts functions after '<-' part", {
-  q3 <- eval_code(qenv(), c("library(survival)", "head(iris)"))
-  testthat::expect_identical(
-    lapply(q3@code, attr, "dependency"),
-    list(
-      c("<-", "library", "survival"),
-      c("<-", "head", "iris")
+  "eval_code returns a qenv object with dependency attribute that extracts functions after '<-' part",
+  {
+    q3 <- eval_code(qenv(), c("library(survival)", "head(iris)"))
+    testthat::expect_identical(
+      lapply(q3@code, attr, "dependency"),
+      list(
+        c("<-", "library", "survival"),
+        c("<-", "head", "iris")
+      )
     )
-  )
-})
+  }
+)

@@ -1,4 +1,4 @@
-get_code_g <- function(qenv, ...){
+get_code_g <- function(qenv, ...) {
   gsub("\n", "", get_code(qenv, ...), fixed = TRUE)
 }
 
@@ -393,7 +393,7 @@ testthat::test_that("get_code does not break if @linksto is put in the last line
 
 testthat::test_that("@linksto makes a line being returned for an affected binding", {
   code <-
-  "a <- 1 # @linksto b
+    "a <- 1 # @linksto b
   b <- 2"
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
@@ -475,7 +475,8 @@ testthat::test_that("comments fall into proper calls", {
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
     get_code(q),
-    c("\n    # initial comment\n    a <- 1\n",
+    c(
+      "\n    # initial comment\n    a <- 1\n",
       "    b <- 2 # inline comment\n",
       "    c <- 3\n",
       "    # inbetween comment\n    d <- 4\n    # finishing comment\n  "
@@ -500,7 +501,8 @@ testthat::test_that("comments get pasted when they fall into calls", {
   q <- qenv() |> eval_code(code)
   testthat::expect_identical(
     get_code(q),
-    c("\n    # initial comment\n    a <- 1 # A comment\n",
+    c(
+      "\n    # initial comment\n    a <- 1 # A comment\n",
       "    b <- 2 # inline comment\n",
       "    c <- 3 # C comment\n",
       "    # inbetween comment\n    d <- 4\n    # finishing comment\n  "
@@ -646,8 +648,10 @@ testthat::test_that("detects occurrence of a function definition with a @linksto
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
     get_code(q, names = "x"),
-    c("\n        foo <- function() {\n          env <- parent.frame()\n          env$x <- 0\n        }\n",
-      "foo() # @linksto x\n")
+    c(
+      "\n        foo <- function() {\n          env <- parent.frame()\n          env$x <- 0\n        }\n",
+      "foo() # @linksto x\n"
+    )
   )
 })
 # $ ---------------------------------------------------------------------------------------------------------------
@@ -892,6 +896,6 @@ testthat::describe("Backticked symbol", {
 
 testthat::test_that("get_code raises warning for missing names", {
   q <- eval_code(qenv(), code = c("a<-1;b<-2"))
-  testthat::expect_null(get_code(q, names = 'c'))
-  testthat::expect_warning(get_code(q, names = 'c'), " not found in code: c")
+  testthat::expect_null(get_code(q, names = "c"))
+  testthat::expect_warning(get_code(q, names = "c"), " not found in code: c")
 })
