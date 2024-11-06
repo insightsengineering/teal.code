@@ -463,6 +463,6 @@ split_code <- function(code) {
 #' @noRd
 extract_dependency <- function(parsed_code) {
   pd <- normalize_pd(utils::getParseData(parsed_code))
-  call_pd <- extract_calls(pd)[[1]]
-  c(extract_side_effects(call_pd), extract_occurrence(call_pd))
+  reordered_pd <- extract_calls(pd)[[1]] # because ...
+  c(extract_side_effects(reordered_pd), extract_occurrence(reordered_pd))
 }
