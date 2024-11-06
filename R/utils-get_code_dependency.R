@@ -462,3 +462,37 @@ split_code <- function(code) {
   #  semicolon is treated by R parser as a separate call.
   gsub("^([[:space:]])*;(.+)$", "\\1\\2", new_code, perl = TRUE)
 }
+
+
+#' Reshape code to the list
+#'
+#' List will be divided by the calls. Each element of the list contains `id` and `dependency` attributes.
+#'
+#' @param code `character` with the code.
+#'
+#' @return list of `character`s of the length equal to the number of calls in `code`.
+#'
+#' @keywords internal
+#' @noRd
+code2list <- function(code) {
+  checkmate::assert_character(code, null.ok = TRUE)
+  if (length(code)) {
+    lapply(split_code(code), function(current_code) {
+      attr(current_code, "id") <- sample.int(.Machine$integer.max, 1)
+      parsed_code <- parse(text = trimws(current_code), keep.source = TRUE)
+      attr(current_code, "dependency") <- extract_dependency(parsed_code)
+      current_code
+    })
+  } else {
+    list(character(0))
+  }
+}
+
+#' @param parsed_code results of `parse(text = code, keep.source = TRUE` (parsed text)
+#' @keywords internal
+#' @noRd
+extract_dependency <- function(parsed_code) {
+  pd <- normalize_pd(utils::getParseData(parsed_code))
+  call_pd <- extract_calls(pd)[[1]]
+  c(extract_side_effects(call_pd), extract_occurrence(call_pd))
+}

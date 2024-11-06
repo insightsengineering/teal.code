@@ -79,12 +79,7 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
     }
 
     attr(current_code, "id") <- sample.int(.Machine$integer.max, size = 1)
-
-    pd <- utils::getParseData(current_call)
-    pd <- normalize_pd(pd)
-    call_pd <- extract_calls(pd)[[1]]
-
-    attr(current_code, "dependency") <- c(extract_side_effects(call_pd), extract_occurrence(call_pd))
+    attr(current_code, "dependency") <- extract_dependency(current_call)
     object@code <- c(object@code, list(current_code))
   }
 
