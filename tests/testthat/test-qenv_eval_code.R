@@ -91,7 +91,8 @@ testthat::test_that("an error when calling eval_code returns a qenv.error object
   testthat::expect_equal(q$message, "object 'w' not found \n when evaluating qenv code:\nexpression(z <- w * x)")
 })
 
-testthat::test_that("a warning when calling eval_code returns a qenv object which has warnings", {
+testthat::test_that(
+  "a warning when calling eval_code returns a qenv object which has warnings as attributes of code", {
   q <- eval_code(qenv(), quote("iris_data <- iris"))
   q <- eval_code(q, quote("p <- hist(iris_data[, 'Sepal.Length'], ff = '')"))
   testthat::expect_s4_class(q, "qenv")
@@ -101,7 +102,8 @@ testthat::test_that("a warning when calling eval_code returns a qenv object whic
   )
 })
 
-testthat::test_that("eval_code with a vector of code produces one warning element per code element", {
+testthat::test_that(
+  "eval_code associates warnings with call by adding attribute to code element", {
   q <- eval_code(qenv(), c("x <- 1", "y <- 1", "warning('warn1')"))
   testthat::expect_equal(
     lapply(q@code, attr, "warning"),
@@ -110,7 +112,8 @@ testthat::test_that("eval_code with a vector of code produces one warning elemen
 })
 
 
-testthat::test_that("a message when calling eval_code returns a qenv object which has messages", {
+testthat::test_that(
+  "eval_code associates messages with call by adding attribute to code element", {
   q <- eval_code(qenv(), quote("iris_data <- head(iris)"))
   q <- eval_code(q, quote("message('This is a message')"))
   testthat::expect_s4_class(q, "qenv")
@@ -123,7 +126,8 @@ testthat::test_that("a message when calling eval_code returns a qenv object whic
   )
 })
 
-testthat::test_that("eval_code returns a qenv object with empty messages and warnings when none are returned", {
+testthat::test_that(
+  "eval_code returns a qenv object with empty messages and warnings as code attributes, when none are returned", {
   q <- eval_code(qenv(), quote("iris_data <- head(iris)"))
   testthat::expect_s4_class(q, "qenv")
   testthat::expect_null(attr(q@code, "message"))
