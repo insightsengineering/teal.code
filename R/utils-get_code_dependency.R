@@ -318,6 +318,19 @@ extract_side_effects <- function(pd) {
   unlist(strsplit(sub("\\s*#\\s*@linksto\\s+", "", linksto), "\\s+"))
 }
 
+#' @param parsed_code results of `parse(text = code, keep.source = TRUE` (parsed text)
+#' @keywords internal
+#' @noRd
+extract_dependency <- function(parsed_code) {
+  pd <- normalize_pd(utils::getParseData(parsed_code))
+  reordered_pd <- extract_calls(pd)[[1]]
+  # extract_calls is needed to reorder the pd so that assignment operator comes before symbol names
+  # extract_calls is needed also to substitute assignment operators into specific format with fix_arrows
+  # extract_calls is needed to omit empty calls that contain only one token `"';'"`
+  # This cleaning is needed as extract_occurrence assumes arrows are fixed, and order is different than in original pd.
+  c(extract_side_effects(reordered_pd), extract_occurrence(reordered_pd))
+}
+
 # graph_parser ----
 
 #' Return the indices of calls needed to reproduce an object
@@ -384,6 +397,10 @@ detect_libraries <- function(graph) {
   )
 }
 
+
+# utils -----------------------------------------------------------------------------------------------------------
+
+
 #' Normalize parsed data removing backticks from symbols
 #'
 #' @param pd `data.frame` resulting from `utils::getParseData()` call.
@@ -399,6 +416,10 @@ normalize_pd <- function(pd) {
 
   pd
 }
+
+
+# split_code ------------------------------------------------------------------------------------------------------
+
 
 #' Get line/column in the source where the calls end
 #'
@@ -458,11 +479,3 @@ split_code <- function(code) {
   gsub("^([[:space:]])*;(.+)$", "\\1\\2", new_code, perl = TRUE)
 }
 
-#' @param parsed_code results of `parse(text = code, keep.source = TRUE` (parsed text)
-#' @keywords internal
-#' @noRd
-extract_dependency <- function(parsed_code) {
-  pd <- normalize_pd(utils::getParseData(parsed_code))
-  reordered_pd <- extract_calls(pd)[[1]] # because ...
-  c(extract_side_effects(reordered_pd), extract_occurrence(reordered_pd))
-}
