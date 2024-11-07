@@ -25,6 +25,4 @@ q1 <- within(q, {
 })
 get_env(q1)
 
-names(q1) # list objects
-
 }
