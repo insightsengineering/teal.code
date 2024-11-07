@@ -635,7 +635,6 @@ testthat::test_that("detects cooccurrence properly even if all objects are on lh
 # @ ---------------------------------------------------------------------------------------------------------------
 
 testthat::test_that("understands @ usage and do not treat rhs of @ as objects (only lhs)", {
-
   code <- c(
     "setClass('aclass', slots = c(a = 'numeric', x = 'numeric', y = 'numeric')) # @linksto a x",
     "x <- new('aclass', a = 1:3, x = 1:3, y = 1:3)",
@@ -650,13 +649,13 @@ testthat::test_that("understands @ usage and do not treat rhs of @ as objects (o
   dependency <-
     lapply(
       code_split,
-      function(current_code){
+      function(current_code) {
         parsed_code <- parse(text = current_code, keep.source = TRUE)
         extract_dependency(parsed_code)
       }
     )
 
-  for(i in seq_along(code_split)){
+  for (i in seq_along(code_split)) {
     attr(code_split[[i]], "dependency") <- dependency[[i]]
   }
 
