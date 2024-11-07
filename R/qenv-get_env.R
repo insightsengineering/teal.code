@@ -14,7 +14,7 @@
 #' })
 #' get_env(q1)
 #'
-#' names(get_env(q1)) # list objects in the environment
+#' names(q1) # list objects
 #'
 #' @aliases get_env,qenv-method
 #' @aliases get_env,qenv.error-method
