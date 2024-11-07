@@ -31,6 +31,10 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
   parsed_code <- parse(text = code, keep.source = TRUE)
   object@env <- rlang::env_clone(object@env, parent = parent.env(.GlobalEnv))
   if (length(parsed_code) == 0) {
+    # empty code, or just comments
+    attr(code, "id") <- sample.int(.Machine$integer.max, size = 1)
+    attr(code, "dependency") <- extract_dependency(parsed_code) # in case comment contains @linksto tag
+    object@code <- c(object@code, list(code))
     return(object)
   }
   code_split <- split_code(paste(code, collapse = "\n"))

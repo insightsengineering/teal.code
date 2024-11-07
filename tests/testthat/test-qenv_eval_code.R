@@ -258,11 +258,28 @@ testthat::test_that("comments from the same line are associated with it's call",
   )
 })
 
-testthat::test_that("comments alone passed to eval_code are skipped", {
+testthat::test_that("comments passed alone to eval_code are separate calls", {
   code <- c("x <- 5", "# comment")
   q <- eval_code(eval_code(qenv(), code[1]), code[2])
   testthat::expect_identical(
     get_code(q),
-    code[1]
+    pasten(code)
+  )
+})
+
+testthat::test_that("comments passed alone to eval_code that contain @linksto tag have detected dependency", {
+  code <- c("x <- 5", "# comment @linksto x")
+  q <- eval_code(eval_code(qenv(), code[1]), code[2])
+  testthat::expect_identical(
+    get_code(q),
+    pasten(code)
+  )
+  testthat::expect_identical(
+    get_code(q, names = 'x'),
+    pasten(code)
+  )
+  testthat::expect_identical(
+    attr(q@code[[2]], "dependency"),
+    "x"
   )
 })
