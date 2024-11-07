@@ -219,7 +219,7 @@ testthat::test_that("comments get pasted when they fall into calls", {
   )
 })
 
-testthat::test_that("comments alone are pasted to the next/following call element",{
+testthat::test_that("comments alone are pasted to the next/following call element", {
   code <- c("x <- 5", "# comment", "y <- 6")
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
@@ -232,7 +232,7 @@ testthat::test_that("comments alone are pasted to the next/following call elemen
   )
 })
 
-testthat::test_that("comments at the end of src are added to the previous call element",{
+testthat::test_that("comments at the end of src are added to the previous call element", {
   code <- c("x <- 5", "# comment")
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
@@ -245,7 +245,7 @@ testthat::test_that("comments at the end of src are added to the previous call e
   )
 })
 
-testthat::test_that("comments from the same line are associated with it's call",{
+testthat::test_that("comments from the same line are associated with it's call", {
   code <- c("x <- 5", " y <- 4 # comment", "z <- 5")
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
@@ -258,7 +258,7 @@ testthat::test_that("comments from the same line are associated with it's call",
   )
 })
 
-testthat::test_that("comments alone passed to eval_code are skipped",{
+testthat::test_that("comments alone passed to eval_code are skipped", {
   code <- c("x <- 5", "# comment")
   q <- eval_code(eval_code(qenv(), code[1]), code[2])
   testthat::expect_identical(
@@ -270,4 +270,3 @@ testthat::test_that("comments alone passed to eval_code are skipped",{
     pasten(code)
   )
 })
-
