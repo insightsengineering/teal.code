@@ -64,7 +64,7 @@ my_qenv
 #> • x: <dbl> [L]
 as.environment(my_qenv)
 #> <environment: 0x00000225cc85c7a0>
-names(my_qenv))
+names(my_qenv)
 #> [1] "x"
 ```
 
