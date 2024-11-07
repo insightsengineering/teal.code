@@ -272,7 +272,7 @@ testthat::test_that("comments passed alone to eval_code that contain @linksto ta
     pasten(code)
   )
   testthat::expect_identical(
-    get_code(q, names = 'x'),
+    get_code(q, names = "x"),
     pasten(code)
   )
   testthat::expect_identical(
