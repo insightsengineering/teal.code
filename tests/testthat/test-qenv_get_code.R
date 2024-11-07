@@ -753,7 +753,6 @@ testthat::test_that("data() call is returned when data name is provided as a cha
 
 
 testthat::describe("Backticked symbol", {
-
   testthat::it("code can be retrieved with get_code", {
     td <- within(
       qenv(),
