@@ -635,7 +635,7 @@ testthat::test_that("detects cooccurrence properly even if all objects are on lh
 # @ ---------------------------------------------------------------------------------------------------------------
 
 testthat::test_that("understands @ usage and do not treat rhs of @ as objects (only lhs)", {
-  testthat::skip("This breaks on CI but not locally with: Error: cannot add bindings to a locked environment")
+
   code <- c(
     "setClass('aclass', slots = c(a = 'numeric', x = 'numeric', y = 'numeric')) # @linksto a x",
     "x <- new('aclass', a = 1:3, x = 1:3, y = 1:3)",
@@ -645,7 +645,22 @@ testthat::test_that("understands @ usage and do not treat rhs of @ as objects (o
     "a@x <- x@a"
   )
   q <- qenv()
-  q <- eval_code(q, code)
+  code_split <- as.list(split_code(paste(code, collapse = "\n")))
+
+  dependency <-
+    lapply(
+      code_split,
+      function(current_code){
+        parsed_code <- parse(text = current_code, keep.source = TRUE)
+        extract_dependency(parsed_code)
+      }
+    )
+
+  for(i in seq_along(code_split)){
+    attr(code_split[[i]], "dependency") <- dependency[[i]]
+  }
+
+  q@code <- code_split
   testthat::expect_identical(
     get_code(q, names = "x"),
     pasten(code[1:2])
