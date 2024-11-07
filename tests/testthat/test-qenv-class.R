@@ -22,6 +22,6 @@ testthat::describe("methods::new(qenv)", {
     expect_error(methods::new("qenv", code = 2), "`code` must be a character or language object\\.")
   })
   testthat::it("initialized qenv(s) have different environments", {
-    testthat::expect_false(identical(qenv()@.xData, qenv()@.xData)) 
+    testthat::expect_false(identical(qenv()@.xData, qenv()@.xData))
   })
 })
