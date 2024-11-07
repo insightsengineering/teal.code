@@ -89,8 +89,8 @@ Consider the following examples:
 
 \emph{Case 1: Usual assignments.}
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{q1 <- qenv() |>
-  within(\{
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{q1 <-
+  within(qenv(), \{
     foo <- function(x) \{
       x + 1
     \}
@@ -105,8 +105,8 @@ get_code(q1, names = "y")
 
 \emph{Case 2: Some objects are created by a function's side effects.}
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{q2 <- qenv() |>
-  within(\{
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{q2 <-
+  within(qenv()\{
     foo <- function() \{
       x <<- x + 1
     \}
@@ -124,8 +124,8 @@ Lines where side effects occur can be flagged by adding "\verb{# @linksto <objec
 Note that \code{within} evaluates code passed to \code{expr} as is and comments are ignored.
 In order to include comments in code one must use the \code{eval_code} function instead.
 
-\if{html}{\out{<div class="sourceCode r">}}\preformatted{q3 <- qenv() |>
-  eval_code("
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{q3 <-
+  eval_code(qenv(), "
     foo <- function() \{
       x <<- x + 1
     \}
