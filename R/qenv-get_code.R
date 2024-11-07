@@ -18,8 +18,8 @@
 #'
 #' _Case 1: Usual assignments._
 #' ```r
-#' q1 <- qenv() |>
-#'   within({
+#' q1 <-
+#'   within(qenv(), {
 #'     foo <- function(x) {
 #'       x + 1
 #'     }
@@ -33,8 +33,8 @@
 #'
 #' _Case 2: Some objects are created by a function's side effects._
 #' ```r
-#' q2 <- qenv() |>
-#'   within({
+#' q2 <-
+#'   within(qenv(){
 #'     foo <- function() {
 #'       x <<- x + 1
 #'     }
@@ -52,8 +52,8 @@
 #' In order to include comments in code one must use the `eval_code` function instead.
 #'
 #' ```r
-#' q3 <- qenv() |>
-#'   eval_code("
+#' q3 <-
+#'   eval_code(qenv(), "
 #'     foo <- function() {
 #'       x <<- x + 1
 #'     }

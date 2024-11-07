@@ -41,7 +41,7 @@ testthat::test_that("`[.` extracts the code only needed to recreate objects pass
   )
 })
 
-testthat::test_that("`[.` preservers comments in the code", {
+testthat::test_that("`[.` comments are preserved in the code and associated with the following call", {
   q <- qenv()
   code <- c("x<-1 #comment", "a<-1;b<-2")
   q <- eval_code(q, code)

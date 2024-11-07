@@ -170,3 +170,104 @@ testthat::test_that(
     )
   }
 )
+
+
+
+# comments --------------------------------------------------------------------------------------------------------
+
+
+# comments --------------------------------------------------------------------------------------------------------
+
+testthat::test_that("comments fall into proper calls", {
+  # If comment is on top, it gets moved to the first call.
+  # Any other comment gets moved to the call above.
+  code <- "
+    # initial comment
+    a <- 1
+    b <- 2 # inline comment
+    c <- 3
+    # inbetween comment
+    d <- 4
+    # finishing comment
+  "
+
+  q <- eval_code(qenv(), code)
+  testthat::expect_identical(
+    get_code(q),
+    code
+  )
+})
+
+testthat::test_that("comments get pasted when they fall into calls", {
+  # If comment is on top, it gets moved to the first call.
+  # Any other comment gets moved to the call above.
+  # Comments get pasted if there are two assigned to the same call.
+  code <- "
+    # initial comment
+    a <- 1 # A comment
+    b <- 2 # inline comment
+    c <- 3 # C comment
+    # inbetween comment
+    d <- 4
+    # finishing comment
+  "
+
+  q <- eval_code(qenv(), code)
+  testthat::expect_identical(
+    get_code(q),
+    code
+  )
+})
+
+testthat::test_that("comments alone are pasted to the next/following call element",{
+  code <- c("x <- 5", "# comment", "y <- 6")
+  q <- eval_code(qenv(), code)
+  testthat::expect_identical(
+    unlist(q@code)[2],
+    pasten(code[2:3])
+  )
+  testthat::expect_identical(
+    get_code(q),
+    pasten(code)
+  )
+})
+
+testthat::test_that("comments at the end of src are added to the previous call element",{
+  code <- c("x <- 5", "# comment")
+  q <- eval_code(qenv(), code)
+  testthat::expect_identical(
+    unlist(q@code),
+    pasten(code[1:2])
+  )
+  testthat::expect_identical(
+    get_code(q),
+    pasten(code)
+  )
+})
+
+testthat::test_that("comments from the same line are associated with it's call",{
+  code <- c("x <- 5", " y <- 4 # comment", "z <- 5")
+  q <- eval_code(qenv(), code)
+  testthat::expect_identical(
+    unlist(q@code)[2],
+    paste0(code[2], "\n")
+  )
+  testthat::expect_identical(
+    get_code(q),
+    pasten(code)
+  )
+})
+
+testthat::test_that("comments alone passed to eval_code are skipped",{
+  code <- c("x <- 5", "# comment")
+  q <- eval_code(eval_code(qenv(), code[1]), code[2])
+  testthat::expect_identical(
+    unlist(q@code),
+    pasten(code[1:2])
+  )
+  testthat::expect_identical(
+    get_code(q),
+    pasten(code)
+  )
+})
+

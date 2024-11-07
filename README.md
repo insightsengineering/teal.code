@@ -56,7 +56,7 @@ Below is the showcase of the example usage
 
 ```r
 library(teal.code)
-my_qenv <- qenv() |> eval_code("x <- 5")
+my_qenv <- eval_code(qenv(), "x <- 5")
 my_qenv
 #> <environment: 0x00000225cc85c7a0> [L]
 #> Parent: <environment: package:teal.code>
@@ -69,7 +69,8 @@ ls(get_env(my_qenv))
 ```
 
 ```r
-qenv_2 <- eval_code(my_qenv, "y <- x * 2") |> eval_code("z <- y * 2")
+qenv_2 <- eval_code(my_qenv, "y <- x * 2") 
+qenv_2 <- eval_code(qenv_2, "z <- y * 2")
 qenv_2
 #> <environment: 0x00000225ca866d68> [L]
 #> Parent: <environment: package:teal.code>

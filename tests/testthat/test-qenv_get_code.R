@@ -1,9 +1,9 @@
 pasten <- function(...) paste(..., collapse = "\n")
 
 testthat::test_that("get_code returns code (character by default) of qenv object", {
-  q <- qenv() |>
-    eval_code(quote(x <- 1)) |>
-    eval_code(quote(y <- x))
+  q <- qenv()
+  q <- eval_code(q, quote(x <- 1))
+  q <- eval_code(q, quote(y <- x))
   testthat::expect_equal(get_code(q), pasten(c("x <- 1", "y <- x")))
 })
 
@@ -455,50 +455,6 @@ testthat::test_that(
     )
   }
 )
-
-
-# comments --------------------------------------------------------------------------------------------------------
-
-testthat::test_that("comments fall into proper calls", {
-  # If comment is on top, it gets moved to the first call.
-  # Any other comment gets moved to the call above.
-  code <- "
-    # initial comment
-    a <- 1
-    b <- 2 # inline comment
-    c <- 3
-    # inbetween comment
-    d <- 4
-    # finishing comment
-  "
-
-  q <- eval_code(qenv(), code)
-  testthat::expect_identical(
-    get_code(q),
-    code
-  )
-})
-
-testthat::test_that("comments get pasted when they fall into calls", {
-  # If comment is on top, it gets moved to the first call.
-  # Any other comment gets moved to the call above.
-  # Comments get pasted if there are two assigned to the same call.
-  code <- "
-    # initial comment
-    a <- 1 # A comment
-    b <- 2 # inline comment
-    c <- 3 # C comment
-    # inbetween comment
-    d <- 4
-    # finishing comment
-  "
-
-  q <- qenv() |> eval_code(code)
-  testthat::expect_identical(
-    get_code(q),
-    code
-  )
-})
 
 # functions -------------------------------------------------------------------------------------------------------
 
