@@ -224,11 +224,11 @@ testthat::test_that("comments alone are pasted to the next/following call elemen
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
     unlist(q@code)[2],
-    pasten(code[2:3])
+    paste(code[2:3], collapse = "\n")
   )
   testthat::expect_identical(
     get_code(q),
-    pasten(code)
+    paste(code, collapse = "\n")
   )
 })
 
@@ -237,11 +237,11 @@ testthat::test_that("comments at the end of src are added to the previous call e
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
     unlist(q@code),
-    pasten(code[1:2])
+    paste(code[1:2], collapse = "\n")
   )
   testthat::expect_identical(
     get_code(q),
-    pasten(code)
+    paste(code, collapse = "\n")
   )
 })
 
@@ -254,7 +254,7 @@ testthat::test_that("comments from the same line are associated with it's call",
   )
   testthat::expect_identical(
     get_code(q),
-    pasten(code)
+    paste(code, collapse = "\n")
   )
 })
 
@@ -263,11 +263,11 @@ testthat::test_that("comments alone passed to eval_code are skipped",{
   q <- eval_code(eval_code(qenv(), code[1]), code[2])
   testthat::expect_identical(
     unlist(q@code),
-    pasten(code[1:2])
+    paste(code[1:2], collapse = "\n")
   )
   testthat::expect_identical(
     get_code(q),
-    pasten(code)
+    paste(code, collapse = "\n")
   )
 })
 
