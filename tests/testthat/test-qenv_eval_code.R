@@ -175,9 +175,6 @@ testthat::test_that(
 
 # comments --------------------------------------------------------------------------------------------------------
 
-
-# comments --------------------------------------------------------------------------------------------------------
-
 testthat::test_that("comments fall into proper calls", {
   # If comment is on top, it gets moved to the first call.
   # Any other comment gets moved to the call above.
