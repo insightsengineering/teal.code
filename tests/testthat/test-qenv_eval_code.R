@@ -160,11 +160,11 @@ testthat::test_that("eval_code returns a qenv object with dependency attribute t
 testthat::test_that(
   "eval_code returns a qenv object with dependency attribute that extracts functions after '<-' part",
   {
-    q3 <- eval_code(qenv(), c("library(survival)", "head(iris)"))
+    q3 <- eval_code(qenv(), c("nrow(iris)", "head(iris)"))
     testthat::expect_identical(
       lapply(q3@code, attr, "dependency"),
       list(
-        c("<-", "library", "survival"),
+        c("<-", "nrow", "iris"),
         c("<-", "head", "iris")
       )
     )
