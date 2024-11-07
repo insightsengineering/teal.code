@@ -37,7 +37,7 @@ setMethod("get_warnings", signature = c("qenv"), function(object) {
   idx_warn <- which(sapply(warnings, Negate(is.null)))
   warnings <- warnings[idx_warn]
   code <- object@code[idx_warn]
-  if (length(unlist(warnings)) == 0) {
+  if (length(warnings) == 0) {
     return(NULL)
   }
 
