@@ -57,7 +57,7 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
             message = sprintf(
               "%s \n when evaluating qenv code:\n%s",
               .ansi_strip(conditionMessage(e)),
-              deparse1(current_code)
+              current_code
             ),
             class = c("qenv.error", "try-error", "simpleError"),
             trace = unlist(c(object@code, list(current_code)))

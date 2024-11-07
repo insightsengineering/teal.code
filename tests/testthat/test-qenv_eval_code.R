@@ -88,7 +88,7 @@ testthat::test_that("an error when calling eval_code returns a qenv.error object
     unname(q$trace),
     c("x <- 1", "y <- 2", "z <- w * x")
   )
-  testthat::expect_equal(q$message, "object 'w' not found \n when evaluating qenv code:\n\"z <- w * x\"")
+  testthat::expect_equal(q$message, "object 'w' not found \n when evaluating qenv code:\nz <- w * x")
 })
 
 testthat::test_that(
