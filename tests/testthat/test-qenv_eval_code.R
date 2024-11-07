@@ -262,11 +262,7 @@ testthat::test_that("comments alone passed to eval_code are skipped", {
   code <- c("x <- 5", "# comment")
   q <- eval_code(eval_code(qenv(), code[1]), code[2])
   testthat::expect_identical(
-    unlist(q@code),
-    paste(code[1:2], collapse = "\n")
-  )
-  testthat::expect_identical(
     get_code(q),
-    paste(code, collapse = "\n")
+    code[1]
   )
 })
