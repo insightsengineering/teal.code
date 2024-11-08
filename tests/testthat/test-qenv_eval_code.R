@@ -260,7 +260,7 @@ testthat::test_that("comments passed alone to eval_code are separate calls", {
   q <- eval_code(eval_code(qenv(), code[1]), code[2])
   testthat::expect_identical(
     get_code(q),
-    pasten(code)
+    paste(code, collapse = "\n")
   )
 })
 
@@ -269,11 +269,11 @@ testthat::test_that("comments passed alone to eval_code that contain @linksto ta
   q <- eval_code(eval_code(qenv(), code[1]), code[2])
   testthat::expect_identical(
     get_code(q),
-    pasten(code)
+    paste(code, collapse = "\n")
   )
   testthat::expect_identical(
     get_code(q, names = "x"),
-    pasten(code)
+    paste(code, collapse = "\n")
   )
   testthat::expect_identical(
     attr(q@code[[2]], "dependency"),
