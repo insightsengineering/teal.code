@@ -19,7 +19,7 @@ qenv()
 
 eval_code(object, code)
 
-\method{[}{qenv}(x, names)
+\method{[}{qenv}(x, names, ...)
 
 get_code(object, deparse = TRUE, names = NULL, ...)
 
@@ -36,9 +36,9 @@ get_code(object, deparse = TRUE, names = NULL, ...)
 are skipped. For \code{get_code} \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} vector of object names to return the code for.
 For more details see the "Extracting dataset-specific code" section.}
 
-\item{deparse}{(\code{logical(1)}) flag specifying whether to return code as \code{character} or \code{expression}.}
-
 \item{...}{see \code{Details}}
+
+\item{deparse}{(\code{logical(1)}) flag specifying whether to return code as \code{character} or \code{expression}.}
 
 \item{data}{(\code{qenv})}
 
@@ -76,6 +76,7 @@ as \code{name:value} pairs are passed to \code{...}, \code{name} in \code{expr} 
 \section{Subsetting}{
 
 \code{x[names]} subsets objects in \code{qenv} environment and limit the code to the necessary needed to build limited objects.
+\code{...} passes parameters to further methods.
 }
 
 \section{Extracting dataset-specific code}{
