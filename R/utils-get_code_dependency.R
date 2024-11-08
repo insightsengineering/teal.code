@@ -229,7 +229,7 @@ extract_occurrence <- function(pd) {
       if (length(params > 1)) {
         remove <- integer(0)
         for (i in 2:length(params)) {
-          if (params[i - 1] == "=" & params[i] == ",") {
+          if (params[i - 1] == "=" && params[i] == ",") {
             remove <- c(remove, i - 1, i)
           }
         }
@@ -328,7 +328,7 @@ extract_dependency <- function(parsed_code) {
     # extract_calls is needed to reorder the pd so that assignment operator comes before symbol names
     # extract_calls is needed also to substitute assignment operators into specific format with fix_arrows
     # extract_calls is needed to omit empty calls that contain only one token `"';'"`
-    # This cleaning is needed as extract_occurrence assumes arrows are fixed, and order is different than in original pd.
+    # This cleaning is needed as extract_occurrence assumes arrows are fixed, and order is different than in original pd
     c(extract_side_effects(reordered_pd[[1]]), extract_occurrence(reordered_pd[[1]]))
   }
 }

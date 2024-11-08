@@ -119,6 +119,5 @@ setMethod("eval_code", signature = c("qenv.error", "ANY"), function(object, code
 }
 
 get_code_attr <- function(qenv, attr) {
-  # unlist(lapply(qenv@code, attr, attr)) # somehow doesn't work
   unlist(lapply(qenv@code, function(x) attr(x, attr)))
 }

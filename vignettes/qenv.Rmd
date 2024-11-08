@@ -126,7 +126,7 @@ In cases where warnings or messages arise while evaluating code within a `qenv` 
 
 ```{r}
 q_message <- eval_code(qenv(), quote(message("this is a message")))
-# get_messages(q_message) # TODO - this function does not exist
+# TODO: this function does not exist yet get_messages(q_message)
 
 q_warning <- eval_code(qenv(), quote(warning("and this is a warning")))
 get_warnings(q_warning)
