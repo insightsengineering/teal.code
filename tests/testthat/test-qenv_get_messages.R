@@ -3,7 +3,7 @@ testthat::test_that("get_messages accepts a qenv object and returns character", 
   testthat::expect_identical(
     get_messages(q),
     paste0(
-      "~~~ messages ~~~\n\n> This is a message!\nwhen running code:\nmessage(\"This is a message!\")\n\n",
+      "~~~ Messages ~~~\n\n> This is a message!\nwhen running code:\nmessage(\"This is a message!\")\n\n",
       "~~~ Trace ~~~\n\nmessage(\"This is a message!\")"
     )
   )
@@ -30,7 +30,7 @@ testthat::test_that("get_messages accepts a qenv object with 2 messages", {
   testthat::expect_identical(
     get_messages(q),
     paste0(
-      "~~~ messages ~~~\n\n> This is a message 1!\nwhen running code:\nmessage(\"This is a message 1!\")",
+      "~~~ Messages ~~~\n\n> This is a message 1!\nwhen running code:\nmessage(\"This is a message 1!\")",
       "\n\n> This is a message 2!\nwhen running code:\nmessage(\"This is a message 2!\")\n\n",
       "~~~ Trace ~~~\n\nmessage(\"This is a message 1!\")\nmessage(\"This is a message 2!\")"
     )
@@ -46,7 +46,7 @@ testthat::test_that("get_messages accepts a qenv object with a single eval_code 
     get_messages(q),
     paste(
       c(
-        "~~~ messages ~~~\n",
+        "~~~ Messages ~~~\n",
         "> This is a message 1!",
         "when running code:",
         "message(\"This is a message 1!\")\n\n",
@@ -69,7 +69,7 @@ testthat::test_that("get_messages accepts a qenv object with 1 message eval_code
   testthat::expect_identical(
     get_messages(q),
     paste0(
-      "~~~ messages ~~~\n\n> This is a message 2!\nwhen running code:\nmessage(\"This is a message 2!\")\n\n",
+      "~~~ Messages ~~~\n\n> This is a message 2!\nwhen running code:\nmessage(\"This is a message 2!\")\n\n",
       "~~~ Trace ~~~\n\nx <- 1\nmessage(\"This is a message 2!\")"
     )
   )

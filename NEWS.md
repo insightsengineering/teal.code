@@ -2,10 +2,11 @@
 
 ### Enhancements
 
+* Introduced `[.qenv` function to subset `qenv` object (code and environment) to specified object names. #211
 * `get_code()` was extended with `names` parameter and allows the code extraction to be limited to objects stored in
-`qenv` but limited to `names`.
-* `eval_code(qenv, code)` analyzes code by single calls and returns `@id`, `@code`, `@messages`, `@warnings` fields of
-the length of calls included in `code`.
+`qenv` but limited to `names`. #210
+* Introduced `get_messages()` to get messages produced during code evaluation. #217
+* `get_code()` returns original code formatting (white spaces and comments) passed to `eval_code()`. #212
 
 # teal.code 0.5.0
 

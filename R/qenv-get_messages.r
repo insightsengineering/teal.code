@@ -28,27 +28,7 @@ setGeneric("get_messages", function(object) {
 })
 
 setMethod("get_messages", signature = "qenv", function(object) {
-  messages <- lapply(object@code, "attr", "message")
-  idx_warn <- which(sapply(messages, function(x) !is.null(x) && !identical(x, "")))
-  if (!any(idx_warn)) {
-    return(NULL)
-  }
-  messages <- messages[idx_warn]
-  code <- object@code[idx_warn]
-
-  lines <- mapply(
-    function(warn, expr) {
-      sprintf("%swhen running code:\n%s", warn, expr)
-    },
-    warn = messages,
-    expr = code
-  )
-
-  sprintf(
-    "~~~ messages ~~~\n\n%s\n\n~~~ Trace ~~~\n\n%s",
-    paste(lines, collapse = "\n\n"),
-    paste(get_code(object), collapse = "\n")
-  )
+  get_warn_message_util(object, "message")
 })
 
 setMethod("get_messages", signature = "qenv.error", function(object) {

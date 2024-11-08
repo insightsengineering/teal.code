@@ -171,8 +171,6 @@ testthat::test_that(
   }
 )
 
-
-
 # comments --------------------------------------------------------------------------------------------------------
 
 testthat::test_that("comments fall into proper calls", {
