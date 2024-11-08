@@ -62,9 +62,9 @@ my_qenv
 #> Parent: <environment: package:teal.code>
 #> Bindings:
 #> • x: <dbl> [L]
-get_env(my_qenv)
+as.environment(my_qenv)
 #> <environment: 0x00000225cc85c7a0>
-ls(get_env(my_qenv))
+names(my_qenv)
 #> [1] "x"
 ```
 
@@ -78,9 +78,9 @@ qenv_2
 #> • x: <dbl> [L]
 #> • y: <dbl> [L]
 #> • z: <dbl> [L]
-get_env(qenv_2)
+environment(qenv_2)
 #> <environment: 0x00000225ca866d68>
-ls(get_env(qenv_2))
+names(qenv_2)
 #> [1] "x" "y" "z"
 ```
 

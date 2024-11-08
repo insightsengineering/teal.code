@@ -2,7 +2,7 @@ testthat::test_that("eval_code evaluates the code in the qenvs environment", {
   q <- qenv()
   q1 <- eval_code(q, quote(iris1 <- iris))
   q2 <- eval_code(q1, quote(b <- nrow(iris1)))
-  testthat::expect_identical(get_var(q2, "b"), 150L)
+  testthat::expect_identical(q2$b, 150L)
 })
 
 testthat::test_that("eval_code doesn't have access to environment where it's called", {
@@ -13,16 +13,6 @@ testthat::test_that("eval_code doesn't have access to environment where it's cal
     eval_code(q1, quote(d <- b)),
     c("qenv.error", "try-error", "error", "condition")
   )
-})
-
-testthat::test_that("@env in qenv is always a sibling of .GlobalEnv", {
-  q1 <- qenv()
-  testthat::expect_identical(parent.env(q1@env), parent.env(.GlobalEnv))
-
-  q2 <- eval_code(q1, quote(a <- 1L))
-  testthat::expect_identical(parent.env(q2@env), parent.env(.GlobalEnv))
-  q3 <- eval_code(q2, quote(b <- 2L))
-  testthat::expect_identical(parent.env(q3@env), parent.env(.GlobalEnv))
 })
 
 testthat::test_that("getting object from the package namespace works even if library in the same call", {
@@ -41,22 +31,22 @@ testthat::test_that("getting object from the package namespace works even if lib
 testthat::test_that("eval_code works with character", {
   q1 <- eval_code(qenv(), "a <- 1")
 
-  testthat::expect_identical(unlist(q1@code), "a <- 1")
-  testthat::expect_equal(q1@env, list2env(list(a = 1)))
+  testthat::expect_identical(q1@code, "a <- 1")
+  testthat::expect_equal(q1@.xData, list2env(list(a = 1)))
 })
 
 testthat::test_that("eval_code works with expression", {
   q1 <- eval_code(qenv(), as.expression(quote(a <- 1)))
 
-  testthat::expect_identical(unlist(q1@code), "a <- 1")
-  testthat::expect_equal(q1@env, list2env(list(a = 1)))
+  testthat::expect_identical(q1@code, "a <- 1")
+  testthat::expect_equal(q1@.xData, list2env(list(a = 1)))
 })
 
 testthat::test_that("eval_code works with quoted", {
   q1 <- eval_code(qenv(), quote(a <- 1))
 
-  testthat::expect_identical(unlist(q1@code), "a <- 1")
-  testthat::expect_equal(q1@env, list2env(list(a = 1)))
+  testthat::expect_identical(q1@code, "a <- 1")
+  testthat::expect_equal(q1@.xData, list2env(list(a = 1)))
 })
 
 testthat::test_that("eval_code works with quoted code block", {
@@ -72,11 +62,15 @@ testthat::test_that("eval_code works with quoted code block", {
     unlist(q1@code),
     c("a <- 1\n", "b <- 2")
   )
-  testthat::expect_equal(q1@env, list2env(list(a = 1, b = 2)))
+  testthat::expect_equal(q1@.xData, list2env(list(a = 1, b = 2)))
 })
 
 testthat::test_that("eval_code fails with unquoted expression", {
-  testthat::expect_error(eval_code(qenv(), a <- b), "object 'b' not found")
+  b <- 3
+  testthat::expect_error(
+    eval_code(qenv(), a <- b),
+    "unable to find an inherited method for function .eval_code. for signature"
+  )
 })
 
 testthat::test_that("an error when calling eval_code returns a qenv.error object which has message and trace", {

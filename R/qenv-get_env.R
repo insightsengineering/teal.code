@@ -13,7 +13,6 @@
 #'   b <- data.frame(x = 1:10)
 #' })
 #' get_env(q1)
-#' ls(get_env(q1))
 #'
 #' @aliases get_env,qenv-method
 #' @aliases get_env,qenv.error-method
@@ -23,10 +22,6 @@ setGeneric("get_env", function(object) {
   standardGeneric("get_env")
 })
 
-setMethod("get_env", "qenv", function(object) {
-  object@env
-})
+setMethod("get_env", "qenv", function(object) object@.xData)
 
-setMethod("get_env", "qenv.error", function(object) {
-  object
-})
+setMethod("get_env", "qenv.error", function(object) object)

@@ -1,4 +1,4 @@
-# teal.code 0.5.0.9012
+# teal.code 0.5.0.9013
 
 ### Enhancements
 
@@ -7,6 +7,9 @@
 `qenv` but limited to `names`. #210
 * Introduced `get_messages()` to get messages produced during code evaluation. #217
 * `get_code()` returns original code formatting (white spaces and comments) passed to `eval_code()`. #212
+* `qenv` inherits from the `environment` class, allowing to use `ls()`, `names()`, `as.environment()` and other functions on `qenv` objects.
+* `join()` method is deprecated, please use `c()` instead
+* `get_var()` method is deprecated, please use `get`, `[[` or `$` instead.
 
 # teal.code 0.5.0
 

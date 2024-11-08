@@ -1,7 +1,7 @@
 #' Evaluate Expression in `qenv`
 #'
 #' @details
-#' `within` is a convenience function for evaluating inline code inside the environment of a `qenv`.
+#' `within()` is a convenience function for evaluating inline code inside the environment of a `qenv`.
 #' It is a method for the `base` generic that wraps `eval_code` to provide a simplified way of passing code.
 #' `within` accepts only inline expressions (both simple and compound) and allows for injecting values into `expr`
 #' through the `...` argument:

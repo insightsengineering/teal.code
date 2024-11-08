@@ -1,7 +1,31 @@
+#' @name qenv-inheritted
+#' @rdname qenv
+#'
+#' @details
+#'
+#' `x[[name]]`, `x$name` and `get(name, x)` are generic \R operators to access the objects in the environment.
+#' See [`[[`] for more details.
+#' `names(x)` calls on the `qenv` object and will list all objects in the environment.
+#'
+#' @return `[[`, `$` and `get` return the value of the object named `name` in the `qenv` object.
+#' @return `names` return a character vector of all the names of the objects in the `qenv` object.
+#' @return `ls` return a character vector of the names of the objects in the `qenv` object.
+#' It will only show the objects that are not named with a dot prefix, unless
+#' the `all.names = TRUE`, which will show all objects.
+#'
+#' @examples
+#' # Extract objects from qenv
+#' q[["a"]]
+#' q$a
+#'
+#' # list objects in qenv
+#' names(q)
+NULL
+
 #' Get code from `qenv`
 #'
 #' @details
-#' `get_code` retrieves the code stored in the `qenv`. `...` passes arguments to methods.
+#' `get_code()` retrieves the code stored in the `qenv`. `...` passes arguments to methods.
 #'
 #' @param object (`qenv`)
 #' @param deparse (`logical(1)`) flag specifying whether to return code as `character` or `expression`.

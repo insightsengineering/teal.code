@@ -1,8 +1,8 @@
 Type: Package
 Package: teal.code
 Title: Code Storage and Execution Class for 'teal' Applications
-Version: 0.5.0.9012
-Date: 2024-10-29
+Version: 0.5.0.9013
+Date: 2024-11-08
 Authors@R: c(
     person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = c("aut", "cre")),
     person("Aleksander", "Chlebowski", , "aleksander.chlebowski@contractors.roche.com", role = "aut"),
@@ -53,6 +53,7 @@ Language: en-US
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 Collate:
+    'qenv-c.R'
     'qenv-class.R'
     'qenv-errors.R'
     'qenv-concat.R'
@@ -65,6 +66,7 @@ Collate:
     'qenv-get_var.R'
     'qenv-get_warnings.R'
     'qenv-join.R'
+    'qenv-length.R'
     'qenv-show.R'
     'qenv-within.R'
     'teal.code-package.R'

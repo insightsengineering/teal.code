@@ -5,7 +5,7 @@ testthat::test_that("Concatenate two identical qenvs outputs", {
 
   q12 <- concat(q1, q2)
 
-  testthat::expect_equal(q12@env, q1@env)
+  testthat::expect_equal(q12@.xData, q1@.xData)
   testthat::expect_identical(
     unlist(q12@code),
     c("iris1 <- iris", "iris1 <- iris")
@@ -21,7 +21,7 @@ testthat::test_that("Concatenate two independent qenvs results in object having 
 
   q12 <- concat(q1, q2)
 
-  testthat::expect_equal(q12@env, list2env(list(iris1 = iris, mtcars1 = mtcars)))
+  testthat::expect_equal(q12@.xData, list2env(list(iris1 = iris, mtcars1 = mtcars)))
   testthat::expect_identical(
     unlist(q12@code),
     c("iris1 <- iris", "mtcars1 <- mtcars")

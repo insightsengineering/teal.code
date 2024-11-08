@@ -16,7 +16,7 @@
 #'
 #' @name qenv
 #'
-#' @return Returns a `qenv` object.
+#' @return `qenv` returns a `qenv` object.
 #'
 #' @seealso [`base::within()`], [`get_var()`], [`get_env()`], [`get_warnings()`], [`join()`], [`concat()`]
 #' @examples
@@ -25,7 +25,5 @@
 #'
 #' @export
 qenv <- function() {
-  q_env <- new.env(parent = parent.env(.GlobalEnv))
-  lockEnvironment(q_env, bindings = TRUE)
-  methods::new("qenv", env = q_env)
+  methods::new("qenv")
 }
