@@ -44,7 +44,7 @@ VignetteBuilder:
 RdMacros:
     lifecycle
 Config/Needs/verdepcheck: mllg/checkmate, r-lib/lifecycle, r-lib/rlang,
-    r-lib/cli, yihui/knitr, tidyverse/magrittr, rstudio/rmarkdown,
+    r-lib/cli, yihui/knitr, rstudio/rmarkdown,
     rstudio/shiny, r-lib/testthat, r-lib/withr
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
