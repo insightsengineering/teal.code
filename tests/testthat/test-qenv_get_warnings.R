@@ -24,9 +24,9 @@ testthat::test_that("get_warnings accepts a qenv object with no warning and retu
 })
 
 testthat::test_that("get_warnings accepts a qenv object with 2 warnings", {
-  q <- qenv() %>%
-    eval_code(quote(warning("This is a warning 1!"))) %>%
-    eval_code(quote(warning("This is a warning 2!")))
+  q <- qenv()
+  q <- eval_code(q, quote(warning("This is a warning 1!")))
+  q <- eval_code(q, quote(warning("This is a warning 2!")))
   testthat::expect_identical(
     get_warnings(q),
     paste0(
@@ -38,7 +38,7 @@ testthat::test_that("get_warnings accepts a qenv object with 2 warnings", {
 })
 
 testthat::test_that("get_warnings accepts a qenv object with a single eval_code returning 2 warnings", {
-  q <- qenv() %>% eval_code(quote({
+  q <- eval_code(qenv(), quote({
     warning("This is a warning 1!")
     warning("This is a warning 2!")
   }))
@@ -63,9 +63,9 @@ testthat::test_that("get_warnings accepts a qenv object with a single eval_code 
 })
 
 testthat::test_that("get_warnings accepts a qenv object with 1 warning eval_code and 1 no warning eval_code", {
-  q <- qenv() %>%
-    eval_code(quote("x <- 1")) %>%
-    eval_code(quote(warning("This is a warning 2!")))
+  q <- qenv()
+  q <- eval_code(q, quote("x <- 1"))
+  q <- eval_code(q, quote(warning("This is a warning 2!")))
   testthat::expect_identical(
     get_warnings(q),
     paste0(
