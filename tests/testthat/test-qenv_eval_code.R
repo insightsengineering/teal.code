@@ -150,13 +150,13 @@ testthat::test_that("comments from the same line are associated with it's call",
   )
 })
 
-testthat::test_that("alone comments at the end of the source are considered as a separate call", {
+testthat::test_that("alone comments at the end of the source are considered as continuation of the last call", {
   # todo: should be associated to the last call or be separted?
-  code <- c("x <- 5", "y <- 10", "# comment")
+  code <- c("x <- 5\ny <- 10\n# comment")
   q <- eval_code(eval_code(qenv(), code[1]), code[2])
   testthat::expect_identical(
-    unlist(q@code)[3],
-    "# comment"
+    unlist(q@code)[2],
+    "y <- 10\n# comment"
   )
 })
 

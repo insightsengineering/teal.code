@@ -57,7 +57,9 @@ lang2calls <- function(x) {
 #' Obtain warnings or messages from code slot
 #'
 #' @param object (`qenv`)
-#' @param what (``
+#' @param what (`"warning"` or `"message"`)
+#' @return `character(1)` containing combined message or `NULL` when no warnings/messages
+#' @keywords internal
 get_warn_message_util <- function(object, what) {
   checkmate::matchArg(what, choices = c("warning", "message"))
   messages <- lapply(object@code, "attr", what)
