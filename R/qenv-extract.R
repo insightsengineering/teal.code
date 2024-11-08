@@ -25,7 +25,7 @@
     if (length(names_missing)) {
       warning(
         sprintf(
-          "Some elements of 'names' do not exist in the environment of the '%s'. Skipping those: %s.",
+          "Some 'names' do not exist in the environment of the '%s'. Skipping those: %s.",
           class(x)[1],
           paste(names_missing, collapse = ", ")
         )

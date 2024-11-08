@@ -33,7 +33,7 @@ testthat::test_that("`[.` warns and subsets to existing if some names not presen
   })
   testthat::expect_warning(
     testthat::expect_equal(data[c("b", "c", "d")], data["b"]),
-    "Some elements of 'names' do not exist in the environment of the 'qenv'. Skipping those: c, d."
+    "Some 'names' do not exist in the environment of the 'qenv'. Skipping those: c, d."
   )
   testthat::expect_warning(
     testthat::expect_equal(data[c("b", "c", "d")], data["b"]),
