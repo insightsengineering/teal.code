@@ -8,6 +8,7 @@
 \alias{eval_code,qenv,language-method}
 \alias{eval_code,qenv,expression-method}
 \alias{eval_code,qenv.error,ANY-method}
+\alias{[.qenv}
 \alias{qenv-inheritted}
 \alias{get_code}
 \alias{get_code,qenv-method}
@@ -57,7 +58,7 @@ For more details see the "Extracting dataset-specific code" section.}
 It will only show the objects that are not named with a dot prefix, unless
 the \code{all.names = TRUE}, which will show all objects.
 
-\code{get_code} returns the traced code (from \verb{@code} slot) in the form specified by \code{deparse}.
+\code{get_code} returns the traced code in the form specified by \code{deparse}.
 
 \code{within} returns a \code{qenv} object with \code{expr} evaluated or \code{qenv.error} if evaluation fails.
 }
@@ -177,6 +178,13 @@ q <- qenv()
 q <- eval_code(q, "a <- 1")
 q <- eval_code(q, quote(library(checkmate)))
 q <- eval_code(q, expression(assert_number(a)))
+
+
+# Subsetting
+q <- qenv()
+q <- eval_code(q, "a <- 1;b<-2")
+q["a"]
+q[c("a", "b")]
 
 # Extract objects from qenv
 q[["a"]]

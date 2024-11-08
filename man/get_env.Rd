@@ -12,7 +12,7 @@ get_env(object)
 \item{object}{(\code{qenv}).}
 }
 \value{
-An \code{environment} stored in \code{qenv} slot with all data objects.
+An \code{environment} stored in \code{qenv} with all data objects.
 }
 \description{
 The access of environment included in the \code{qenv} that contains all data objects.

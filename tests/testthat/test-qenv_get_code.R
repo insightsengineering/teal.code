@@ -1,6 +1,6 @@
 pasten <<- function(...) paste(..., collapse = "\n")
 
-testthat::test_that("get_code returns code (character by default) of qenv object", {
+testthat::test_that("get_code returns code (character(1) by default) of qenv object", {
   q <- qenv()
   q <- eval_code(q, quote(x <- 1))
   q <- eval_code(q, quote(y <- x))
@@ -874,4 +874,34 @@ testthat::test_that("get_code raises warning for missing names", {
     testthat::expect_equal(get_code(q, names = "c"), ""),
     " not found in code: c"
   )
+})
+
+# comments and white spaces --------------------------
+testthat::test_that("comments are preserved in the output code", {
+  # If comment is on top, it gets moved to the first call.
+  # Any other comment gets moved to the call above.
+  # Comments get pasted if there are two assigned to the same call.
+  code <- "
+    # initial comment
+    a <- 1 # A comment
+    b <- 2 # inline comment
+    c <- 3 # C comment
+    # inbetween comment
+    d <- 4
+    # finishing comment
+  "
+
+  q <- eval_code(qenv(), code)
+  testthat::expect_identical(get_code(q), code)
+})
+
+testthat::test_that("original formatting and comments are preserved when expression has a srcref", {
+  code <- "# comment
+    a <- 1\n
+
+    # comment
+    \n
+  "
+  expr <- parse(text = code, keep.source = TRUE)
+  testthat::expect_identical(get_code(eval_code(qenv(), expr)), code)
 })

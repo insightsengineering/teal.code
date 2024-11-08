@@ -139,20 +139,6 @@ setGeneric("join", function(x, y) standardGeneric("join"))
 setMethod("join", signature = c("qenv", "qenv"), function(x, y) {
   lifecycle::deprecate_soft("0.5.1", "join()", "c()")
   c(x, y)
-  join_validation <- .check_joinable(x, y)
-
-  # join expressions
-  if (!isTRUE(join_validation)) {
-    stop(join_validation)
-  }
-
-  id_unique <- !get_code_attr(y, "id") %in% get_code_attr(x, "id")
-  x@code <- c(x@code, y@code[id_unique])
-
-  # insert (and overwrite) objects from y to x
-  x@env <- rlang::env_clone(x@env, parent = parent.env(.GlobalEnv))
-  rlang::env_coalesce(env = x@env, from = y@env)
-  x
 })
 
 setMethod("join", signature = c("qenv", "qenv.error"), function(x, y) {
@@ -164,57 +150,3 @@ setMethod("join", signature = c("qenv.error", "ANY"), function(x, y) {
   lifecycle::deprecate_soft("0.5.1", "join()", "c()")
   x
 })
-
-#' If two `qenv` can be joined
-#'
-#' Checks if two `qenv` objects can be combined.
-#' For more information, please see [`join`]
-#' @param x (`qenv`)
-#' @param y (`qenv`)
-#' @return `TRUE` if able to join or `character` used to print error message.
-#' @keywords internal
-.check_joinable <- function(x, y) {
-  checkmate::assert_class(x, "qenv")
-  checkmate::assert_class(y, "qenv")
-
-  common_names <- intersect(rlang::env_names(x@env), rlang::env_names(y@env))
-  is_overwritten <- vapply(common_names, function(el) {
-    !identical(get(el, x@env), get(el, y@env))
-  }, logical(1))
-  if (any(is_overwritten)) {
-    return(
-      paste(
-        "Not possible to join qenv objects if anything in their environment has been modified.\n",
-        "Following object(s) have been modified:\n - ",
-        paste(common_names[is_overwritten], collapse = "\n - ")
-      )
-    )
-  }
-  x_id <- get_code_attr(x, "id")
-  y_id <- get_code_attr(y, "id")
-
-  shared_ids <- intersect(x_id, y_id)
-  if (length(shared_ids) == 0) {
-    return(TRUE)
-  }
-
-  shared_in_x <- match(shared_ids, x_id)
-  shared_in_y <- match(shared_ids, y_id)
-
-  # indices of shared ids should be 1:n in both slots
-  if (identical(shared_in_x, shared_in_y) && identical(shared_in_x, seq_along(shared_ids))) {
-    TRUE
-  } else if (!identical(shared_in_x, shared_in_y)) {
-    paste(
-      "The common shared code of the qenvs does not occur in the same position in both qenv objects",
-      "so they cannot be joined together as it's impossible to determine the evaluation's order.",
-      collapse = ""
-    )
-  } else {
-    paste(
-      "There is code in the qenv objects before their common shared code",
-      "which means these objects cannot be joined.",
-      collapse = ""
-    )
-  }
-}

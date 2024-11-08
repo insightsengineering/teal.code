@@ -21,12 +21,7 @@
 #' @exportClass qenv
 setClass(
   "qenv",
-  slots = c(
-    code = "character",
-    id = "integer",
-    warnings = "character",
-    messages = "character"
-  ),
+  slots = c(code = "list"),
   contains = "environment"
 )
 
@@ -37,25 +32,7 @@ setMethod(
   "qenv",
   function(.Object, # nolint: object_name.
            .xData, # nolint: object_name.
-           code = character(0L),
-           warnings = rep("", length(code)),
-           messages = rep("", length(code)),
-           id = integer(0L),
            ...) {
-    # # Pre-process parameters to ensure they are ready to be used by parent constructors
-    stopifnot("`code` must be a character or language object." = any(is.language(code), is.character(code)))
-
-    if (is.language(code)) {
-      code <- paste(lang2calls(code), collapse = "\n")
-    }
-    if (length(code)) {
-      code <- paste(code, collapse = "\n")
-    }
-
-    if (length(id) == 0L) {
-      id <- sample.int(.Machine$integer.max, size = length(code))
-    }
-
     new_xdata <- if (rlang::is_missing(.xData)) {
       new.env(parent = parent.env(.GlobalEnv))
     } else {
@@ -67,13 +44,10 @@ setMethod(
     # .xData needs to be unnamed as the `.environment` constructor allows at
     # most 1 unnamed formal argument of class `environment`.
     # See methods::findMethods("initialize")$.environment
-    .Object <- methods::callNextMethod( # nolint: object_name.
+    methods::callNextMethod(
       # Mandatory use of `xData` to build a correct .Object@.xData
-      .Object, new_xdata,
-      code = code, messages = messages, warnings = warnings, id = id, ...
+      .Object, new_xdata, ...
     )
-
-    .Object
   }
 )
 
@@ -81,14 +55,11 @@ setMethod(
 #' @name qenv-class
 #' @keywords internal
 setValidity("qenv", function(object) {
-  if (length(object@code) != length(object@id)) {
-    "@code and @id slots must have the same length."
-  } else if (length(object@code) != length(object@warnings)) {
-    "@code and @warnings slots must have the same length"
-  } else if (length(object@code) != length(object@messages)) {
-    "@code and @messages slots must have the same length"
-  } else if (any(duplicated(object@id))) {
-    "@id contains duplicated values."
+  ids <- lapply(object@code, "attr", "id")
+  if (any(sapply(ids, is.null))) {
+    "All @code slots must have an 'id' attribute"
+  } else if (any(duplicated(unlist(ids)))) {
+    "@code contains duplicated 'id' attributes."
   } else if (!environmentIsLocked(object@.xData)) {
     "@.xData must be locked."
   } else {

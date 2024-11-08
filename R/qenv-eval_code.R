@@ -29,7 +29,7 @@ setGeneric("eval_code", function(object, code) standardGeneric("eval_code"))
 
 setMethod("eval_code", signature = c("qenv", "character"), function(object, code) {
   parsed_code <- parse(text = code, keep.source = TRUE)
-  object@env <- rlang::env_clone(object@env, parent = parent.env(.GlobalEnv))
+  object@.xData <- rlang::env_clone(object@.xData, parent = parent.env(.GlobalEnv))
   if (length(parsed_code) == 0) {
     # empty code, or just comments
     attr(code, "id") <- sample.int(.Machine$integer.max, size = 1)
@@ -48,9 +48,9 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
     x <- withCallingHandlers(
       tryCatch(
         {
-          eval(current_call, envir = object@env)
-          if (!identical(parent.env(object@env), parent.env(.GlobalEnv))) {
-            # needed to make sure that @env is always a sibling of .GlobalEnv
+          eval(current_call, envir = object@.xData)
+          if (!identical(parent.env(object@.xData), parent.env(.GlobalEnv))) {
+            # needed to make sure that @.xData is always a sibling of .GlobalEnv
             # could be changed when any new package is added to search path (through library or require call)
             parent.env(object@.xData) <- parent.env(.GlobalEnv)
           }
@@ -87,7 +87,7 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
     object@code <- c(object@code, list(current_code))
   }
 
-  lockEnvironment(object@env, bindings = TRUE)
+  lockEnvironment(object@.xData, bindings = TRUE)
   object
 })
 
