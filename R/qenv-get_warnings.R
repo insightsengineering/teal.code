@@ -23,43 +23,35 @@
 #'
 #' @export
 setGeneric("get_warnings", function(object) {
-  # this line forces evaluation of object before passing to the generic
-  # needed for error handling to work properly
-  grDevices::pdf(nullfile())
-  on.exit(grDevices::dev.off())
-  object
-
+  dev_suppress(object)
   standardGeneric("get_warnings")
 })
 
-setMethod("get_warnings", signature = c("qenv"), function(object) {
+setMethod("get_warnings", signature = "qenv", function(object) {
   warnings <- lapply(object@code, "attr", "warning")
-  idx_warn <- which(sapply(warnings, Negate(is.null)))
-  warnings <- warnings[idx_warn]
-  code <- object@code[idx_warn]
-  if (length(warnings) == 0) {
+  idx_warn <- which(sapply(warnings, function(x) !is.null(x) && !identical(x, "")))
+  if (!any(idx_warn)) {
     return(NULL)
   }
+  warnings <- warnings[idx_warn]
+  code <- object@code[idx_warn]
 
   lines <- mapply(
     function(warn, expr) {
-      if (warn == "") {
-        return(NULL)
-      }
-      sprintf("%swhen running code:\n%s", warn, paste(lang2calls(expr), collapse = "\n"))
+      sprintf("%swhen running code:\n%s", warn, expr)
     },
     warn = warnings,
     expr = code
   )
-  lines <- Filter(Negate(is.null), lines)
 
-  paste0(
-    sprintf("~~~ Warnings ~~~\n\n%s\n\n", paste(lines, collapse = "\n\n")),
-    sprintf("~~~ Trace ~~~\n\n%s", paste(get_code(object), collapse = "\n"))
+  sprintf(
+    "~~~ Warnings ~~~\n\n%s\n\n~~~ Trace ~~~\n\n%s",
+    paste(lines, collapse = "\n\n"),
+    paste(get_code(object), collapse = "\n")
   )
 })
 
-setMethod("get_warnings", signature = c("qenv.error"), function(object) {
+setMethod("get_warnings", signature = "qenv.error", function(object) {
   NULL
 })
 

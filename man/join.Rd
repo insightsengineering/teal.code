@@ -40,8 +40,8 @@ z <- join(x, y)
 
 In this example, \code{mtcars1} object exists in both \code{x} and \code{y} objects but the content are not identical.
 \code{mtcars1} in the \verb{x qenv} object has more columns than \code{mtcars1} in the \verb{y qenv} object (only has one column).
-\item \code{join()} will look for identical \verb{@id} values in both \code{qenv} objects.
-The index position of these \verb{@id}s must be the same to determine the evaluation order.
+\item \code{join()} will look for identical code elements in both \code{qenv} objects.
+The index position of these code elements must be the same to determine the evaluation order.
 Otherwise, \code{join()} will throw an error message.
 
 Example:
@@ -64,12 +64,9 @@ join_q <- join(q, z)
 # Error message will occur
 
 # Check the order of evaluation based on the id slot
-shared_ids <- intersect(q@id, z@id)
-match(shared_ids, q@id) # Output: 1 3
-match(shared_ids, z@id) # Output: 1 2
 }\if{html}{\out{</div>}}
 
-The error occurs because the index position of identical \verb{@id} between the two objects is not the same.
+The error occurs because the index position of common code elements in the two objects is not the same.
 \item The usage of temporary variable in the code expression could cause \code{join()} to fail.
 
 Example:
@@ -91,10 +88,6 @@ y <- eval_code(
 )
 q <- join(x,y)
 # Error message will occur
-
-# Check the value of temporary variable i in both objects
-x@env$i # Output: 2
-y@env$i # Output: 3
 }\if{html}{\out{</div>}}
 
 \code{join()} fails to provide a proper result because of the temporary variable \code{i} exists

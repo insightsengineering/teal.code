@@ -94,12 +94,12 @@ testthat::test_that("an error when calling eval_code returns a qenv.error object
 testthat::test_that(
   "a warning when calling eval_code returns a qenv object which has warnings as attributes of code",
   {
-    q <- eval_code(qenv(), quote("iris_data <- iris"))
-    q <- eval_code(q, quote("p <- hist(iris_data[, 'Sepal.Length'], ff = '')"))
+    q <- eval_code(qenv(), quote(iris_data <- iris))
+    q <- eval_code(q, quote(warning("this is a warning")))
     testthat::expect_s4_class(q, "qenv")
     testthat::expect_equal(
       lapply(q@code, attr, "warning"),
-      list(NULL, "> \"ff\" is not a graphical parameter\n")
+      list(NULL, "> this is a warning\n")
     )
   }
 )

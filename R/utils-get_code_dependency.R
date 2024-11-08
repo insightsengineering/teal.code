@@ -29,10 +29,6 @@ get_code_dependency <- function(code, names, check_names = TRUE) {
   checkmate::assert_list(code, "character")
   checkmate::assert_character(names, any.missing = FALSE)
 
-  if (length(code) == 0) {
-    return(code)
-  }
-
   graph <- lapply(code, attr, "dependency")
 
   if (check_names) {
@@ -44,6 +40,10 @@ get_code_dependency <- function(code, names, check_names = TRUE) {
     if (!all(names %in% unique(symbols))) {
       warning("Object(s) not found in code: ", toString(setdiff(names, symbols)))
     }
+  }
+
+  if (length(code) == 0) {
+    return(code)
   }
 
   ind <- unlist(lapply(names, function(x) graph_parser(x, graph)))

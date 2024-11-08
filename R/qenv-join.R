@@ -21,8 +21,8 @@
 #'    In this example, `mtcars1` object exists in both `x` and `y` objects but the content are not identical.
 #'    `mtcars1` in the `x qenv` object has more columns than `mtcars1` in the `y qenv` object (only has one column).
 #'
-#' 2. `join()` will look for identical `@id` values in both `qenv` objects.
-#'    The index position of these `@id`s must be the same to determine the evaluation order.
+#' 2. `join()` will look for identical code elements in both `qenv` objects.
+#'    The index position of these code elements must be the same to determine the evaluation order.
 #'    Otherwise, `join()` will throw an error message.
 #'
 #'    Example:
@@ -45,11 +45,8 @@
 #'    # Error message will occur
 #'
 #'    # Check the order of evaluation based on the id slot
-#'    shared_ids <- intersect(q@id, z@id)
-#'    match(shared_ids, q@id) # Output: 1 3
-#'    match(shared_ids, z@id) # Output: 1 2
 #'    ```
-#'    The error occurs because the index position of identical `@id` between the two objects is not the same.
+#'    The error occurs because the index position of common code elements in the two objects is not the same.
 #'
 #' 3. The usage of temporary variable in the code expression could cause `join()` to fail.
 #'
@@ -72,10 +69,6 @@
 #'    )
 #'    q <- join(x,y)
 #'    # Error message will occur
-#'
-#'    # Check the value of temporary variable i in both objects
-#'    x@env$i # Output: 2
-#'    y@env$i # Output: 3
 #'    ```
 #'    `join()` fails to provide a proper result because of the temporary variable `i` exists
 #'    in both objects but has different value.

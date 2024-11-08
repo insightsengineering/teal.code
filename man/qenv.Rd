@@ -49,7 +49,7 @@ Returns a \code{qenv} object.
 
 \code{eval_code} returns a \code{qenv} object with \code{expr} evaluated or \code{qenv.error} if evaluation fails.
 
-\code{get_code} returns the traced code (from \verb{@code} slot) in the form specified by \code{deparse}.
+\code{get_code} returns the traced code in the form specified by \code{deparse}.
 
 \code{within} returns a \code{qenv} object with \code{expr} evaluated or \code{qenv.error} if evaluation fails.
 }
@@ -81,8 +81,8 @@ as \code{name:value} pairs are passed to \code{...}, \code{name} in \code{expr} 
 
 \section{Extracting dataset-specific code}{
 
-When \code{names} for \code{get_code} is specified, the code returned will be limited  to the lines needed to \emph{create}
-the requested objects. The code stored in the \verb{@code} slot is analyzed statically to determine
+When \code{names} for \code{get_code} is specified, the code returned will be limited to the lines needed to \emph{create}
+the requested objects. The code stored in the \code{qenv} is analyzed statically to determine
 which lines the objects of interest depend upon. The analysis works well when objects are created
 with standard infix assignment operators (see \code{?assignOps}) but it can fail in some situations.
 

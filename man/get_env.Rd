@@ -9,13 +9,13 @@
 get_env(object)
 }
 \arguments{
-\item{object}{(\code{qenv})}
+\item{object}{(\code{qenv}).}
 }
 \value{
-An \code{environment} stored in \code{qenv@env} slot.
+An \code{environment} stored in \code{qenv} with all data objects.
 }
 \description{
-The access of environment included in \code{qenv@env} allows to e.g. list object names included in \code{qenv@env} slot.
+The access of environment included in the \code{qenv} that contains all data objects.
 }
 \examples{
 q <- qenv()

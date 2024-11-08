@@ -9,8 +9,8 @@
 #'
 #'
 #' @section Extracting dataset-specific code:
-#' When `names` for `get_code` is specified, the code returned will be limited  to the lines needed to _create_
-#' the requested objects. The code stored in the `@code` slot is analyzed statically to determine
+#' When `names` for `get_code` is specified, the code returned will be limited to the lines needed to _create_
+#' the requested objects. The code stored in the `qenv` is analyzed statically to determine
 #' which lines the objects of interest depend upon. The analysis works well when objects are created
 #' with standard infix assignment operators (see `?assignOps`) but it can fail in some situations.
 #'
@@ -74,7 +74,7 @@
 #' - creating and evaluating language objects, _e.g._ `eval(<call>)`
 #'
 #' @return
-#' `get_code` returns the traced code (from `@code` slot) in the form specified by `deparse`.
+#' `get_code` returns the traced code in the form specified by `deparse`.
 #'
 #' @examples
 #' # retrieve code
@@ -97,12 +97,7 @@
 #'
 #' @export
 setGeneric("get_code", function(object, deparse = TRUE, names = NULL, ...) {
-  # this line forces evaluation of object before passing to the generic
-  # needed for error handling to work properly
-  grDevices::pdf(nullfile())
-  on.exit(grDevices::dev.off())
-  object
-
+  dev_suppress(object)
   standardGeneric("get_code")
 })
 
