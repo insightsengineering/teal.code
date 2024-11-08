@@ -8,6 +8,7 @@
 \alias{eval_code,qenv,language-method}
 \alias{eval_code,qenv,expression-method}
 \alias{eval_code,qenv.error,ANY-method}
+\alias{qenv-inheritted}
 \alias{get_code}
 \alias{get_code,qenv-method}
 \alias{get_code,qenv.error-method}
@@ -39,9 +40,17 @@ For more details see the "Extracting dataset-specific code" section.}
 \item{expr}{(\code{expression}) to evaluate. Must be inline code, see \verb{Using language objects...}}
 }
 \value{
-Returns a \code{qenv} object.
+\code{qenv} returns a \code{qenv} object.
 
 \code{eval_code} returns a \code{qenv} object with \code{expr} evaluated or \code{qenv.error} if evaluation fails.
+
+\code{[[}, \code{$} and \code{get} return the value of the object named \code{name} in the \code{qenv} object.
+
+\code{names} return a character vector of all the names of the objects in the \code{qenv} object.
+
+\code{ls} return a character vector of the names of the objects in the \code{qenv} object.
+It will only show the objects that are not named with a dot prefix, unless
+the \code{all.names = TRUE}, which will show all objects.
 
 \code{get_code} returns the traced code (from \verb{@code} slot) in the form specified by \code{deparse}.
 
@@ -56,12 +65,16 @@ Create a \code{qenv} object and evaluate code in it to track code history.
 \code{qenv()} instantiates a \code{qenv} with an empty environment.
 Any changes must be made by evaluating code in it with \code{eval_code} or \code{within}, thereby ensuring reproducibility.
 
-\code{eval_code} evaluates given code in the \code{qenv} environment and appends it to the \code{code} slot.
+\code{eval_code()} evaluates given code in the \code{qenv} environment and appends it to the \code{code} slot.
 Thus, if the \code{qenv} had been instantiated empty, contents of the environment are always a result of the stored code.
 
-\code{get_code} retrieves the code stored in the \code{qenv}. \code{...} passes arguments to methods.
+\code{x[[name]]}, \code{x$name} and \code{get(name, x)} are generic \R operators to access the objects in the environment.
+See [\code{[[}] for more details.
+\code{names(x)} calls on the \code{qenv} object and will list all objects in the environment.
 
-\code{within} is a convenience function for evaluating inline code inside the environment of a \code{qenv}.
+\code{get_code()} retrieves the code stored in the \code{qenv}. \code{...} passes arguments to methods.
+
+\code{within()} is a convenience function for evaluating inline code inside the environment of a \code{qenv}.
 It is a method for the \code{base} generic that wraps \code{eval_code} to provide a simplified way of passing code.
 \code{within} accepts only inline expressions (both simple and compound) and allows for injecting values into \code{expr}
 through the \code{...} argument:
@@ -154,6 +167,12 @@ q <- eval_code(q, "a <- 1")
 q <- eval_code(q, quote(library(checkmate)))
 q <- eval_code(q, expression(assert_number(a)))
 
+# Extract objects from qenv
+q[["a"]]
+q$a
+
+# list objects in qenv
+names(q)
 # retrieve code
 q <- within(qenv(), {
   a <- 1

@@ -1,5 +1,9 @@
 #' Get object from `qenv`
 #'
+#' @description
+#' `r lifecycle::badge("deprecated")` by native \R operators/functions:
+#' `x[[name]]`, `x$name` or [get()].
+#'
 #' Retrieve variables from the `qenv` environment.
 #'
 #' @param object,x (`qenv`)
@@ -12,7 +16,6 @@
 #' q1 <- eval_code(q, code = quote(a <- 1))
 #' q2 <- eval_code(q1, code = "b <- a")
 #' get_var(q2, "b")
-#' q2[["b"]]
 #'
 #' @name get_var
 #' @rdname get_var
@@ -27,8 +30,9 @@ setGeneric("get_var", function(object, var) {
 })
 
 setMethod("get_var", signature = c("qenv", "character"), function(object, var) {
+  lifecycle::deprecate_soft("0.5.1", "get_var()", "base::get()")
   tryCatch(
-    get(var, envir = object@env, inherits = FALSE),
+    get(var, envir = object@.xData, inherits = FALSE),
     error = function(e) {
       message(conditionMessage(e))
       NULL
@@ -44,12 +48,26 @@ setMethod("get_var", signature = c("qenv.error", "ANY"), function(object, var) {
 })
 
 #' @rdname get_var
-setMethod("[[", signature = c("qenv", "ANY"), function(x, i) {
-  get_var(x, i)
-})
-
 #' @export
 `[[.qenv.error` <- function(x, i) {
+  stop(errorCondition(
+    list(message = conditionMessage(x)),
+    class = c("validation", "try-error", "simpleError")
+  ))
+}
+
+#' @export
+names.qenv.error <- function(x) NULL
+
+#' @export
+`$.qenv.error` <- function(x, name) {
+  # Must allow access of elements in qenv.error object (message, call, trace, ...)
+  # Otherwise, it will enter an infinite recursion with the `conditionMessage(x)` call.
+  if (exists(name, x)) {
+    return(NextMethod("$", x))
+  }
+
+  class(x) <- setdiff(class(x), "qenv.error")
   stop(errorCondition(
     list(message = conditionMessage(x)),
     class = c("validation", "try-error", "simpleError")
