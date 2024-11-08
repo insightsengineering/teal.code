@@ -17,7 +17,7 @@
 #'
 #' @export
 `[.qenv` <- function(x, names, ...) {
-  checkmate::assert_class(names, "character")
+  checkmate::assert_character(names, any.missing = FALSE)
   possible_names <- ls(get_env(x), all.names = TRUE)
   names_corrected <- intersect(names, possible_names)
   env <- if (length(names_corrected)) {
