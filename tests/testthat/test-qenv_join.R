@@ -3,9 +3,9 @@ testthat::test_that("Joining two identical qenvs outputs the same object", {
   q2 <- q1
 
   testthat::expect_true(.check_joinable(q1, q2))
-  q <- join(q1, q2)
+  q <- c(q1, q2)
 
-  testthat::expect_equal(q@env, q1@env)
+  testthat::expect_equal(q@.xData, q1@.xData)
   testthat::expect_identical(q@code, "iris1 <- iris")
   testthat::expect_identical(q@id, q1@id)
 })
@@ -15,9 +15,9 @@ testthat::test_that("Joining two independent qenvs results in object having comb
   q2 <- eval_code(qenv(), quote(mtcars1 <- mtcars))
 
   testthat::expect_true(.check_joinable(q1, q2))
-  q <- join(q1, q2)
+  q <- c(q1, q2)
 
-  testthat::expect_equal(q@env, list2env(list(iris1 = iris, mtcars1 = mtcars)))
+  testthat::expect_equal(q@.xData, list2env(list(iris1 = iris, mtcars1 = mtcars)))
   testthat::expect_identical(
     q@code,
     c("iris1 <- iris", "mtcars1 <- mtcars")
@@ -36,7 +36,7 @@ testthat::test_that("Joined qenv does not duplicate common code", {
   q2 <- eval_code(q2, quote(mtcars2 <- mtcars))
 
   testthat::expect_true(.check_joinable(q1, q2))
-  q <- join(q1, q2)
+  q <- c(q1, q2)
 
   testthat::expect_identical(
     q@code,
@@ -50,7 +50,7 @@ testthat::test_that("Not able to join two qenvs if any of the shared objects cha
   q2 <- eval_code(qenv(), quote(iris1 <- head(iris)))
 
   testthat::expect_match(.check_joinable(q1, q2), "Not possible to join qenv objects")
-  testthat::expect_error(join(q1, q2), "Not possible to join qenv objects")
+  testthat::expect_error(c(q1, q2), "Not possible to join qenv objects")
 })
 
 testthat::test_that("join does not duplicate code but adds only extra code", {
@@ -60,7 +60,7 @@ testthat::test_that("join does not duplicate code but adds only extra code", {
   q2 <- eval_code(q2, quote(mtcars2 <- mtcars))
 
   testthat::expect_true(.check_joinable(q1, q2))
-  q <- join(q1, q2)
+  q <- c(q1, q2)
 
   testthat::expect_identical(
     q@code,
@@ -68,8 +68,8 @@ testthat::test_that("join does not duplicate code but adds only extra code", {
   )
 
   testthat::expect_equal(
-    as.list(q@env),
-    list(iris1 = iris, iris2 = iris, mtcars1 = mtcars, mtcars2 = mtcars)
+    q@.xData,
+    list2env(list(iris1 = iris, iris2 = iris, mtcars1 = mtcars, mtcars2 = mtcars))
   )
 
   testthat::expect_identical(q@id, c(q1@id, q2@id[2]))
@@ -85,7 +85,7 @@ testthat::test_that("Not possible to join qenvs which share some code when one o
   q1 <- eval_code(q1, quote(iris2 <- iris))
   q2 <- eval_code(q2, quote(mtcars1 <- head(mtcars)))
 
-  testthat::expect_error(join(q1, q2))
+  testthat::expect_error(c(q1, q2))
 })
 
 testthat::test_that("qenv objects are mergeable if they don't share any code (identified by id)", {
@@ -93,9 +93,9 @@ testthat::test_that("qenv objects are mergeable if they don't share any code (id
   q2 <- eval_code(qenv(), code = quote(a1 <- 1))
   testthat::expect_true(.check_joinable(q1, q2))
 
-  cq <- join(q1, q2)
+  cq <- c(q1, q2)
   testthat::expect_s4_class(cq, "qenv")
-  testthat::expect_equal(cq@env, list2env(list(a1 = 1)))
+  testthat::expect_equal(cq@.xData, list2env(list(a1 = 1)))
   testthat::expect_identical(cq@code, c("a1 <- 1", "a1 <- 1"))
   testthat::expect_identical(cq@id, c(q1@id, q2@id))
 })
@@ -108,7 +108,7 @@ testthat::test_that("qenv objects are mergeable if they share common initial qen
 
   cq <- join(q1, q2)
   testthat::expect_s4_class(cq, "qenv")
-  testthat::expect_equal(cq@env, list2env(list(a1 = 1, b1 = 2, a2 = 3)))
+  testthat::expect_equal(cq@.xData, list2env(list(a1 = 1, b1 = 2, a2 = 3)))
   testthat::expect_identical(
     cq@code,
     c("a1 <- 1", "a2 <- 3", "b1 <- 2")

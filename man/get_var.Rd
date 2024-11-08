@@ -4,12 +4,12 @@
 \alias{get_var}
 \alias{get_var,qenv,character-method}
 \alias{get_var,qenv.error,ANY-method}
-\alias{[[,qenv-method}
+\alias{[[.qenv.error}
 \title{Get object from \code{qenv}}
 \usage{
 get_var(object, var)
 
-\S4method{[[}{qenv}(x, i)
+\method{[[}{qenv.error}(x, i)
 }
 \arguments{
 \item{object, x}{(\code{qenv})}
@@ -20,6 +20,9 @@ get_var(object, var)
 The value of required variable (\code{var}) within \code{qenv} object.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} by native \R operators/functions:
+\code{x[[name]]}, \code{x$name} or \code{\link[=get]{get()}}.
+
 Retrieve variables from the \code{qenv} environment.
 }
 \examples{
@@ -27,6 +30,5 @@ q <- qenv()
 q1 <- eval_code(q, code = quote(a <- 1))
 q2 <- eval_code(q1, code = "b <- a")
 get_var(q2, "b")
-q2[["b"]]
 
 }
