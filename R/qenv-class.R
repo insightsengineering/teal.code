@@ -30,9 +30,7 @@ setClass(
 setMethod(
   "initialize",
   "qenv",
-  function(.Object, # nolint: object_name.
-           .xData, # nolint: object_name.
-           ...) {
+  function(.Object, .xData, code = list(), ...) { # nolint: object_name.
     new_xdata <- if (rlang::is_missing(.xData)) {
       new.env(parent = parent.env(.GlobalEnv))
     } else {
@@ -45,8 +43,9 @@ setMethod(
     # most 1 unnamed formal argument of class `environment`.
     # See methods::findMethods("initialize")$.environment
     methods::callNextMethod(
-      # Mandatory use of `xData` to build a correct .Object@.xData
-      .Object, new_xdata, ...
+      .Object,
+      new_xdata, # Mandatory use of unnamed environment arg
+      code = code, ...
     )
   }
 )
