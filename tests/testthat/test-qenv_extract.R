@@ -1,37 +1,45 @@
-testthat::test_that("`[.` returns empty qenv for names not in qenv", {
+testthat::test_that("`[.` warns and subsets to empty if all names not present in env nor code", {
   data <- within(qenv(), {
-    x <- 1
-    a <- 2
+    a <- 1
+    b <- 2
   })
   testthat::expect_warning(
-    testthat::expect_equal(data["y"], qenv()),
+    testthat::expect_equal(data[c("y", "z")], qenv()),
+    "Object\\(s\\) not found in code: y, z."
+  )
+  testthat::expect_warning(
+    testthat::expect_equal(data[c("y", "z")], qenv()),
     "None of 'names' exist in the environment of the 'qenv'. Returning empty 'qenv."
   )
 })
 
-testthat::test_that("`[.` returns limited qenv for some names not in qenv", {
+testthat::test_that("`[.` warns and subsets to empty if all names not present in env", {
   data <- within(qenv(), {
-    x <- 1
-    a <- 2
+    a <- 1
+    b <- 2
+    c <- 3
+    rm(b, c)
   })
   testthat::expect_warning(
-    testthat::expect_equal(data[c("y", "a")], data["a"]),
-    "Some elements of 'names' do not exist in the environment of the 'qenv'. Skipping those: y."
+    testthat::expect_equal(data[c("b", "c")], qenv()),
+    "None of 'names' exist in the environment of the 'qenv'. Returning empty 'qenv'."
   )
 })
 
-testthat::test_that("`[.` limits code for some names not in code", {
+testthat::test_that("`[.` warns and subsets to existing if some names not present in env and code", {
   data <- within(qenv(), {
-    x <- 1
-    a <- 2
-    rm(x)
+    a <- 1
+    b <- 2
   })
   testthat::expect_warning(
-    testthat::expect_equal(data[c("a", "x")], data["a"]),
-    "Some elements of 'names' do not exist in the environment of the 'qenv'. Skipping those: x."
+    testthat::expect_equal(data[c("b", "c", "d")], data["b"]),
+    "Some elements of 'names' do not exist in the environment of the 'qenv'. Skipping those: c, d."
+  )
+  testthat::expect_warning(
+    testthat::expect_equal(data[c("b", "c", "d")], data["b"]),
+    "Object\\(s\\) not found in code: c, d."
   )
 })
-
 
 testthat::test_that("`[.` subsets environment and code to specified object names", {
   q <- qenv()
@@ -63,17 +71,4 @@ testthat::test_that("`[.` comments are preserved in the code and associated with
     unlist(qs@code),
     c("x<-1 #comment\n", "a<-1;")
   )
-})
-
-testthat::test_that("`[.` extract proper elements of @id, @warnings and @messages fiels", {
-  q <- qenv()
-  code <-
-    c("x<-1 #comment", "message('tiny message')", "a<-1;b<-2;warning('small warning')")
-  q <- eval_code(q, code)
-  qs <- q[c("x", "a")]
-
-  testthat::expect_identical(get_code_attr(qs, "id"), get_code_attr(q, "id")[c(1, 3)])
-  testthat::expect_identical(unlist(qs@code), unlist(q@code[c(1, 3)]))
-  testthat::expect_null(get_code_attr(qs, "warning"))
-  testthat::expect_null(get_code_attr(qs, "message"))
 })

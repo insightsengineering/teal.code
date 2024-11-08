@@ -38,7 +38,7 @@ get_code_dependency <- function(code, names, check_names = TRUE) {
     }))
 
     if (!all(names %in% unique(symbols))) {
-      warning("Object(s) not found in code: ", toString(setdiff(names, symbols)), call. = FALSE)
+      warning("Object(s) not found in code: ", toString(setdiff(names, symbols)), ".", call. = FALSE)
     }
   }
 
