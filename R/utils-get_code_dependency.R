@@ -19,19 +19,19 @@
 #'
 #' @param code `character` with the code.
 #' @param names `character` vector of object names.
-#' @param check_names `logical(1)` flag specifying if a warning for non-existing names should be displayed.
+#' @param check_code_names `logical(1)` flag specifying if a warning for non-existing names should be displayed.
 #'
 #' @return Character vector, a subset of `code`.
 #' Note that subsetting is actually done on the calls `code`, not necessarily on the elements of the vector.
 #'
 #' @keywords internal
-get_code_dependency <- function(code, names, check_names = TRUE) {
+get_code_dependency <- function(code, names, check_code_names = TRUE) {
   checkmate::assert_list(code, "character")
   checkmate::assert_character(names, any.missing = FALSE)
 
   graph <- lapply(code, attr, "dependency")
 
-  if (check_names) {
+  if (check_code_names) {
     symbols <- unlist(lapply(graph, function(call) {
       ind <- match("<-", call, nomatch = length(call) + 1L)
       call[seq_len(ind - 1L)]
