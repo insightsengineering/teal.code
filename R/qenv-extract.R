@@ -42,7 +42,7 @@
     )
   }
 
-  x@.xData <- list2env(as.list(x)[names])
+  x@.xData <- list2env(as.list(x, all.names = TRUE)[names])
   names <- gsub("^`(.*)`$", "\\1", names)
   x@code <- get_code_dependency(x@code, names = names, ...)
 
