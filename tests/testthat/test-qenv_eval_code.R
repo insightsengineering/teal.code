@@ -280,3 +280,22 @@ testthat::test_that("comments passed alone to eval_code that contain @linksto ta
     "x"
   )
 })
+
+testthat::test_that("original formatting and comments are preserved when expression has a srcref", {
+  code <- "# comment
+    a <- 1\n
+
+    # comment
+    \n
+  "
+  expr <- parse(text = code, keep.source = TRUE)
+  testthat::expect_identical(get_code(eval_code(qenv(), expr)), code)
+})
+
+testthat::test_that("eval_code accepts calls containing only comments and empty spaces", {
+  code <- "# comment
+    \n\n# comment
+    \n
+  "
+  testthat::expect_identical(get_code(eval_code(qenv(), code)), code)
+})

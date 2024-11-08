@@ -96,8 +96,12 @@ setMethod("eval_code", signature = c("qenv", "language"), function(object, code)
 })
 
 setMethod("eval_code", signature = c("qenv", "expression"), function(object, code) {
-  # todo: if has srcfile then get original text!
-  eval_code(object, code = paste(lang2calls(code), collapse = "\n"))
+  srcref <- attr(code, "wholeSrcref")
+  if (length(srcref)) {
+    eval_code(object, code = paste(attr(code, "wholeSrcref"), collapse = "\n"))
+  } else {
+    eval_code(object, code = paste(lang2calls(code), collapse = "\n"))
+  }
 })
 
 setMethod("eval_code", signature = c("qenv.error", "ANY"), function(object, code) {
