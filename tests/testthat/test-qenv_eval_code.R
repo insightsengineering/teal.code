@@ -5,6 +5,11 @@ testthat::test_that("eval_code evaluates the code in the qenvs environment", {
   testthat::expect_identical(q2$b, 150L)
 })
 
+testthat::test_that("eval_code locks the environment", {
+  q <- eval_code(qenv(), quote(iris1 <- iris))
+  testthat::expect_true(environmentIsLocked(q@.xData))
+})
+
 testthat::test_that("eval_code doesn't have access to environment where it's called", {
   q <- qenv()
   q1 <- eval_code(q, quote(a <- 1))
@@ -30,22 +35,21 @@ testthat::test_that("getting object from the package namespace works even if lib
 
 testthat::test_that("eval_code works with character", {
   q1 <- eval_code(qenv(), "a <- 1")
-
-  testthat::expect_identical(q1@code, "a <- 1")
+  testthat::expect_identical(get_code(q1), "a <- 1")
   testthat::expect_equal(q1@.xData, list2env(list(a = 1)))
 })
 
 testthat::test_that("eval_code works with expression", {
   q1 <- eval_code(qenv(), as.expression(quote(a <- 1)))
 
-  testthat::expect_identical(q1@code, "a <- 1")
+  testthat::expect_identical(get_code(q1), "a <- 1")
   testthat::expect_equal(q1@.xData, list2env(list(a = 1)))
 })
 
 testthat::test_that("eval_code works with quoted", {
   q1 <- eval_code(qenv(), quote(a <- 1))
 
-  testthat::expect_identical(q1@code, "a <- 1")
+  testthat::expect_identical(get_code(q1), "a <- 1")
   testthat::expect_equal(q1@.xData, list2env(list(a = 1)))
 })
 
@@ -59,8 +63,8 @@ testthat::test_that("eval_code works with quoted code block", {
   )
 
   testthat::expect_equal(
-    q1@code,
-    "a <- 1\nb <- 2"
+    get_code(q1),
+    c("a <- 1\nb <- 2")
   )
   testthat::expect_equal(q1@.xData, list2env(list(a = 1, b = 2)))
 })
@@ -85,38 +89,86 @@ testthat::test_that("an error when calling eval_code returns a qenv.error object
   testthat::expect_equal(q$message, "object 'w' not found \n when evaluating qenv code:\nz <- w * x")
 })
 
-testthat::test_that("a warning when calling eval_code returns a qenv object which has warnings", {
-  q <- eval_code(qenv(), quote("iris_data <- iris"))
-  q <- eval_code(q, quote("p <- hist(iris_data[, 'Sepal.Length'], ff = '')"))
-  testthat::expect_s4_class(q, "qenv")
-  testthat::expect_equal(
-    q@warnings,
-    c("", paste(rep("> \"ff\" is not a graphical parameter\n", 4), collapse = ""))
+testthat::test_that("eval_code accepts calls containing only comments and empty spaces", {
+  code <- "# comment
+    \n\n# comment
+    \n
+  "
+  testthat::expect_identical(get_code(eval_code(qenv(), code)), code)
+})
+
+# comments ----------
+testthat::test_that("comments fall into proper calls", {
+  # If comment is on top, it gets moved to the first call.
+  # Any other comment gets moved to the call above.
+  code <- "
+    # initial comment
+    a <- 1
+    b <- 2 # inline comment
+    c <- 3
+    # inbetween comment
+    d <- 4
+    # finishing comment
+  "
+
+  q <- eval_code(qenv(), code)
+  testthat::expect_identical(get_code(q), code)
+})
+
+testthat::test_that("comments alone are pasted to the next/following call element", {
+  code <- c("x <- 5", "# comment", "y <- 6")
+  q <- eval_code(qenv(), code)
+  testthat::expect_identical(
+    unlist(q@code)[2],
+    paste(code[2:3], collapse = "\n")
+  )
+  testthat::expect_identical(
+    get_code(q),
+    paste(code, collapse = "\n")
   )
 })
 
-testthat::test_that("eval_code with a vector of code produces one warning element per code element", {
-  q <- eval_code(qenv(), c("x <- 1", "y <- 1", "warning('warn1')"))
-  testthat::expect_equal(c("> warn1\n"), q@warnings)
-})
-
-
-testthat::test_that("a message when calling eval_code returns a qenv object which has messages", {
-  q <- eval_code(qenv(), quote("iris_data <- head(iris)"))
-  q <- eval_code(q, quote("message('This is a message')"))
-  testthat::expect_s4_class(q, "qenv")
-  testthat::expect_equal(
-    q@messages,
-    c(
-      "",
-      "> This is a message\n"
-    )
+testthat::test_that("comments at the end of src are added to the previous call element", {
+  code <- c("x <- 5", "# comment")
+  q <- eval_code(qenv(), code)
+  testthat::expect_identical(
+    unlist(q@code),
+    paste(code[1:2], collapse = "\n")
+  )
+  testthat::expect_identical(
+    get_code(q),
+    paste(code, collapse = "\n")
   )
 })
 
-testthat::test_that("eval_code returns a qenv object with empty messages and warnings when none are returned", {
-  q <- eval_code(qenv(), quote("iris_data <- head(iris)"))
-  testthat::expect_s4_class(q, "qenv")
-  testthat::expect_equal(q@messages, "")
-  testthat::expect_equal(q@warnings, "")
+testthat::test_that("comments from the same line are associated with it's call", {
+  code <- c("x <- 5", " y <- 4 # comment", "z <- 5")
+  q <- eval_code(qenv(), code)
+  testthat::expect_identical(
+    unlist(q@code)[2],
+    paste0(code[2], "\n")
+  )
+})
+
+testthat::test_that("alone comments at the end of the source are considered as continuation of the last call", {
+  # todo: should be associated to the last call or be separted?
+  code <- c("x <- 5\ny <- 10\n# comment")
+  q <- eval_code(eval_code(qenv(), code[1]), code[2])
+  testthat::expect_identical(
+    unlist(q@code)[2],
+    "y <- 10\n# comment"
+  )
+})
+
+testthat::test_that("comments passed alone to eval_code that contain @linksto tag have detected dependency", {
+  code <- c("x <- 5", "# comment @linksto x")
+  q <- eval_code(eval_code(qenv(), code[1]), code[2])
+  testthat::expect_identical(
+    get_code(q, names = "x"),
+    paste(code, collapse = "\n")
+  )
+  testthat::expect_identical(
+    attr(q@code[[2]], "dependency"),
+    "x"
+  )
 })

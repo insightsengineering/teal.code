@@ -32,6 +32,7 @@ reference:
       - get_code
       - get_env
       - get_var
+      - get_messages
       - get_warnings
       - join
       - qenv

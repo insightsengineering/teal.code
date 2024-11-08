@@ -28,24 +28,27 @@
 setGeneric("eval_code", function(object, code) standardGeneric("eval_code"))
 
 setMethod("eval_code", signature = c("qenv", "character"), function(object, code) {
-  id <- sample.int(.Machine$integer.max, size = 1)
-
-  object@id <- c(object@id, id)
-  object@.xData <- rlang::env_clone(object@.xData, parent = parent.env(.GlobalEnv))
-  code <- paste(code, collapse = "\n")
-  object@code <- c(object@code, code)
-
-  current_warnings <- ""
-  current_messages <- ""
-
   parsed_code <- parse(text = code, keep.source = TRUE)
-  for (single_call in parsed_code) {
+  object@.xData <- rlang::env_clone(object@.xData, parent = parent.env(.GlobalEnv))
+  if (length(parsed_code) == 0) {
+    # empty code, or just comments
+    attr(code, "id") <- sample.int(.Machine$integer.max, size = 1)
+    attr(code, "dependency") <- extract_dependency(parsed_code) # in case comment contains @linksto tag
+    object@code <- c(object@code, list(code))
+    return(object)
+  }
+  code_split <- split_code(paste(code, collapse = "\n"))
+
+  for (i in seq_along(code_split)) {
+    current_code <- code_split[[i]]
+    current_call <- parse(text = current_code, keep.source = TRUE)
+
     # Using withCallingHandlers to capture warnings and messages.
     # Using tryCatch to capture the error and abort further evaluation.
     x <- withCallingHandlers(
       tryCatch(
         {
-          eval(single_call, envir = object@.xData)
+          eval(current_call, envir = object@.xData)
           if (!identical(parent.env(object@.xData), parent.env(.GlobalEnv))) {
             # needed to make sure that @.xData is always a sibling of .GlobalEnv
             # could be changed when any new package is added to search path (through library or require call)
@@ -58,19 +61,19 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
             message = sprintf(
               "%s \n when evaluating qenv code:\n%s",
               .ansi_strip(conditionMessage(e)),
-              deparse1(single_call)
+              current_code
             ),
             class = c("qenv.error", "try-error", "simpleError"),
-            trace = object@code
+            trace = unlist(c(object@code, list(current_code)))
           )
         }
       ),
       warning = function(w) {
-        current_warnings <<- paste0(current_warnings, .ansi_strip(sprintf("> %s\n", conditionMessage(w))))
+        attr(current_code, "warning") <<- .ansi_strip(sprintf("> %s\n", conditionMessage(w)))
         invokeRestart("muffleWarning")
       },
       message = function(m) {
-        current_messages <<- paste0(current_messages, .ansi_strip(sprintf("> %s", conditionMessage(m))))
+        attr(current_code, "message") <<- .ansi_strip(sprintf("> %s", conditionMessage(m)))
         invokeRestart("muffleMessage")
       }
     )
@@ -78,10 +81,11 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
     if (!is.null(x)) {
       return(x)
     }
-  }
 
-  object@warnings <- c(object@warnings, current_warnings)
-  object@messages <- c(object@messages, current_messages)
+    attr(current_code, "id") <- sample.int(.Machine$integer.max, size = 1)
+    attr(current_code, "dependency") <- extract_dependency(current_call)
+    object@code <- c(object@code, list(current_code))
+  }
 
   lockEnvironment(object@.xData, bindings = TRUE)
   object
@@ -92,7 +96,12 @@ setMethod("eval_code", signature = c("qenv", "language"), function(object, code)
 })
 
 setMethod("eval_code", signature = c("qenv", "expression"), function(object, code) {
-  eval_code(object, code = paste(vapply(lang2calls(code), deparse1, collapse = "\n", character(1L)), collapse = "\n"))
+  srcref <- attr(code, "wholeSrcref")
+  if (length(srcref)) {
+    eval_code(object, code = paste(attr(code, "wholeSrcref"), collapse = "\n"))
+  } else {
+    eval_code(object, code = paste(lang2calls(code), collapse = "\n"))
+  }
 })
 
 setMethod("eval_code", signature = c("qenv.error", "ANY"), function(object, code) {
@@ -107,4 +116,8 @@ setMethod("eval_code", signature = c("qenv.error", "ANY"), function(object, code
   } else {
     chr
   }
+}
+
+get_code_attr <- function(qenv, attr) {
+  unlist(lapply(qenv@code, function(x) attr(x, attr)))
 }

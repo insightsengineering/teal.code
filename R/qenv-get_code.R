@@ -29,14 +29,12 @@ NULL
 #'
 #' @param object (`qenv`)
 #' @param deparse (`logical(1)`) flag specifying whether to return code as `character` or `expression`.
-#' @param names `r lifecycle::badge("experimental")` (`character`) vector of object names to return the code for.
-#' For more details see the "Extracting dataset-specific code" section.
 #' @param ... see `Details`
 #'
 #'
 #' @section Extracting dataset-specific code:
-#' When `names` is specified, the code returned will be limited  to the lines needed to _create_
-#' the requested objects. The code stored in the `@code` slot is analyzed statically to determine
+#' When `names` for `get_code` is specified, the code returned will be limited to the lines needed to _create_
+#' the requested objects. The code stored in the `qenv` is analyzed statically to determine
 #' which lines the objects of interest depend upon. The analysis works well when objects are created
 #' with standard infix assignment operators (see `?assignOps`) but it can fail in some situations.
 #'
@@ -44,8 +42,8 @@ NULL
 #'
 #' _Case 1: Usual assignments._
 #' ```r
-#' q1 <- qenv() |>
-#'   within({
+#' q1 <-
+#'   within(qenv(), {
 #'     foo <- function(x) {
 #'       x + 1
 #'     }
@@ -59,8 +57,8 @@ NULL
 #'
 #' _Case 2: Some objects are created by a function's side effects._
 #' ```r
-#' q2 <- qenv() |>
-#'   within({
+#' q2 <-
+#'   within(qenv(){
 #'     foo <- function() {
 #'       x <<- x + 1
 #'     }
@@ -78,8 +76,8 @@ NULL
 #' In order to include comments in code one must use the `eval_code` function instead.
 #'
 #' ```r
-#' q3 <- qenv() |>
-#'   eval_code("
+#' q3 <-
+#'   eval_code(qenv(), "
 #'     foo <- function() {
 #'       x <<- x + 1
 #'     }
@@ -100,7 +98,7 @@ NULL
 #' - creating and evaluating language objects, _e.g._ `eval(<call>)`
 #'
 #' @return
-#' `get_code` returns the traced code (from `@code` slot) in the form specified by `deparse`.
+#' `get_code` returns the traced code in the form specified by `deparse`.
 #'
 #' @examples
 #' # retrieve code
@@ -123,12 +121,7 @@ NULL
 #'
 #' @export
 setGeneric("get_code", function(object, deparse = TRUE, names = NULL, ...) {
-  # this line forces evaluation of object before passing to the generic
-  # needed for error handling to work properly
-  grDevices::pdf(nullfile())
-  on.exit(grDevices::dev.off())
-  object
-
+  dev_suppress(object)
   standardGeneric("get_code")
 })
 
@@ -148,13 +141,9 @@ setMethod("get_code", signature = "qenv", function(object, deparse = TRUE, names
   }
 
   if (deparse) {
-    if (length(code) == 0) {
-      code
-    } else {
-      paste(code, collapse = "\n")
-    }
+    gsub(";\n", ";", paste(gsub("\n$", "", unlist(code)), collapse = "\n"))
   } else {
-    parse(text = paste(c("{", code, "}"), collapse = "\n"), keep.source = TRUE)
+    parse(text = paste(c("{", unlist(code), "}"), collapse = "\n"), keep.source = TRUE)
   }
 })
 

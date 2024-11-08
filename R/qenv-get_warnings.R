@@ -23,40 +23,15 @@
 #'
 #' @export
 setGeneric("get_warnings", function(object) {
-  # this line forces evaluation of object before passing to the generic
-  # needed for error handling to work properly
-  grDevices::pdf(nullfile())
-  on.exit(grDevices::dev.off())
-  object
-
+  dev_suppress(object)
   standardGeneric("get_warnings")
 })
 
-setMethod("get_warnings", signature = c("qenv"), function(object) {
-  if (all(object@warnings == "")) {
-    return(NULL)
-  }
-
-  lines <- mapply(
-    function(warn, expr) {
-      if (warn == "") {
-        return(NULL)
-      }
-      sprintf("%swhen running code:\n%s", warn, paste(lang2calls(expr), collapse = "\n"))
-    },
-    warn = as.list(object@warnings),
-    expr = as.list(as.character(object@code))
-  )
-  lines <- Filter(Negate(is.null), lines)
-
-  sprintf(
-    "~~~ Warnings ~~~\n\n%s\n\n~~~ Trace ~~~\n\n%s",
-    paste(lines, collapse = "\n\n"),
-    get_code(object)
-  )
+setMethod("get_warnings", signature = "qenv", function(object) {
+  get_warn_message_util(object, "warning")
 })
 
-setMethod("get_warnings", signature = c("qenv.error"), function(object) {
+setMethod("get_warnings", signature = "qenv.error", function(object) {
   NULL
 })
 

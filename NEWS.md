@@ -2,8 +2,11 @@
 
 ### Enhancements
 
+* Introduced `[.qenv` function to subset `qenv` object (code and environment) to specified object names. #211
 * `get_code()` was extended with `names` parameter and allows the code extraction to be limited to objects stored in
-`qenv` but limited to `names`.
+`qenv` but limited to `names`. #210
+* Introduced `get_messages()` to get messages produced during code evaluation. #217
+* `get_code()` returns original code formatting (white spaces and comments) passed to `eval_code()`. #212
 * `qenv` inherits from the `environment` class, allowing to use `ls()`, `names()`, `as.environment()` and other functions on `qenv` objects.
 * `join()` method is deprecated, please use `c()` instead
 * `get_var()` method is deprecated, please use `get`, `[[` or `$` instead.
