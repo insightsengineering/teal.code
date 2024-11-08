@@ -1,7 +1,7 @@
 #' Evaluate code in `qenv`
 #'
 #' @details
-#' `eval_code` evaluates given code in the `qenv` environment and appends it to the `code` slot.
+#' `eval_code()` evaluates given code in the `qenv` environment and appends it to the `code` slot.
 #' Thus, if the `qenv` had been instantiated empty, contents of the environment are always a result of the stored code.
 #'
 #' @param object (`qenv`)
@@ -31,7 +31,7 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
   id <- sample.int(.Machine$integer.max, size = 1)
 
   object@id <- c(object@id, id)
-  object@env <- rlang::env_clone(object@env, parent = parent.env(.GlobalEnv))
+  object@.xData <- rlang::env_clone(object@.xData, parent = parent.env(.GlobalEnv))
   code <- paste(code, collapse = "\n")
   object@code <- c(object@code, code)
 
@@ -45,11 +45,11 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
     x <- withCallingHandlers(
       tryCatch(
         {
-          eval(single_call, envir = object@env)
-          if (!identical(parent.env(object@env), parent.env(.GlobalEnv))) {
-            # needed to make sure that @env is always a sibling of .GlobalEnv
+          eval(single_call, envir = object@.xData)
+          if (!identical(parent.env(object@.xData), parent.env(.GlobalEnv))) {
+            # needed to make sure that @.xData is always a sibling of .GlobalEnv
             # could be changed when any new package is added to search path (through library or require call)
-            parent.env(object@env) <- parent.env(.GlobalEnv)
+            parent.env(object@.xData) <- parent.env(.GlobalEnv)
           }
           NULL
         },
@@ -80,20 +80,19 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
     }
   }
 
-
   object@warnings <- c(object@warnings, current_warnings)
   object@messages <- c(object@messages, current_messages)
 
-  lockEnvironment(object@env, bindings = TRUE)
+  lockEnvironment(object@.xData, bindings = TRUE)
   object
 })
 
 setMethod("eval_code", signature = c("qenv", "language"), function(object, code) {
-  eval_code(object, code = paste(lang2calls(code), collapse = "\n"))
+  eval_code(object, code = paste(vapply(lang2calls(code), deparse1, collapse = "\n", character(1L)), collapse = "\n"))
 })
 
 setMethod("eval_code", signature = c("qenv", "expression"), function(object, code) {
-  eval_code(object, code = paste(lang2calls(code), collapse = "\n"))
+  eval_code(object, code = paste(vapply(lang2calls(code), deparse1, collapse = "\n", character(1L)), collapse = "\n"))
 })
 
 setMethod("eval_code", signature = c("qenv.error", "ANY"), function(object, code) {

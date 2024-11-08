@@ -16,5 +16,5 @@
 #' @importFrom methods show
 #' @export
 setMethod("show", "qenv", function(object) {
-  rlang::env_print(object@env)
+  rlang::env_print(object@.xData)
 })
