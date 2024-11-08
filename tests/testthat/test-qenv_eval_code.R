@@ -7,7 +7,7 @@ testthat::test_that("eval_code evaluates the code in the qenvs environment", {
 
 testthat::test_that("eval_code locks the environment", {
   q <- eval_code(qenv(), quote(iris1 <- iris))
-  testthat::expect_identical(isEnvironmentLocked(q2@.xData))
+  testthat::expect_true(environmentIsLocked(q@.xData))
 })
 
 testthat::test_that("eval_code doesn't have access to environment where it's called", {
