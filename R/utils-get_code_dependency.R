@@ -19,52 +19,39 @@
 #'
 #' @param code `character` with the code.
 #' @param names `character` vector of object names.
-#' @param check_names `logical(1)` flag specifying if a warning for non-existing names should be displayed.
+#' @param check_code_names `logical(1)` flag specifying if a warning for non-existing names should be displayed.
 #'
 #' @return Character vector, a subset of `code`.
 #' Note that subsetting is actually done on the calls `code`, not necessarily on the elements of the vector.
 #'
 #' @keywords internal
-get_code_dependency <- function(code, names, check_names = TRUE) {
-  checkmate::assert_character(code)
+get_code_dependency <- function(code, names, check_code_names = TRUE) {
+  checkmate::assert_list(code, "character")
   checkmate::assert_character(names, any.missing = FALSE)
 
-  if (identical(code, character(0)) || identical(trimws(code), "")) {
+  graph <- lapply(code, attr, "dependency")
+
+  if (check_code_names) {
+    symbols <- unlist(lapply(graph, function(call) {
+      ind <- match("<-", call, nomatch = length(call) + 1L)
+      call[seq_len(ind - 1L)]
+    }))
+
+    if (!all(names %in% unique(symbols))) {
+      warning("Object(s) not found in code: ", toString(setdiff(names, symbols)), ".", call. = FALSE)
+    }
+  }
+
+  if (length(code) == 0) {
     return(code)
   }
 
-  # If code is bound in curly brackets, remove them.
-  tcode <- trimws(code)
-  if (any(grepl("^\\{.*\\}$", tcode))) {
-    code <- sub("^\\{(.*)\\}$", "\\1", tcode)
-  }
-
-
-  code <- parse(text = code, keep.source = TRUE)
-  pd <- utils::getParseData(code)
-  pd <- normalize_pd(pd)
-  calls_pd <- extract_calls(pd)
-
-  if (check_names) {
-    # Detect if names are actually in code.
-    symbols <- unlist(lapply(calls_pd, function(call) call[call$token == "SYMBOL", "text"]))
-    if (any(pd$text == "assign")) {
-      assign_calls <- Filter(function(call) find_call(call, "assign"), calls_pd)
-      ass_str <- unlist(lapply(assign_calls, function(call) call[call$token == "STR_CONST", "text"]))
-      ass_str <- gsub("^['\"]|['\"]$", "", ass_str)
-      symbols <- c(ass_str, symbols)
-    }
-    if (!all(names %in% unique(symbols))) {
-      warning("Object(s) not found in code: ", toString(setdiff(names, symbols)))
-    }
-  }
-
-  graph <- code_graph(calls_pd)
   ind <- unlist(lapply(names, function(x) graph_parser(x, graph)))
 
-  lib_ind <- detect_libraries(calls_pd)
+  lib_ind <- detect_libraries(graph)
 
-  as.character(code[sort(unique(c(lib_ind, ind)))])
+  code_ids <- sort(unique(c(lib_ind, ind)))
+  code[code_ids]
 }
 
 #' Locate function call token
@@ -108,10 +95,10 @@ find_call <- function(call_pd, text) {
 #' @noRd
 extract_calls <- function(pd) {
   calls <- lapply(
-    pd[pd$parent == 0, "id"],
+    pd[pd$parent == 0 & (pd$token != "COMMENT" | grepl("@linksto", pd$text, fixed = TRUE)), "id"],
     function(parent) {
       rbind(
-        pd[pd$id == parent, c("token", "text", "id", "parent")],
+        pd[pd$id == parent, ],
         get_children(pd = pd, parent = parent)
       )
     }
@@ -126,7 +113,7 @@ extract_calls <- function(pd) {
 #' @noRd
 get_children <- function(pd, parent) {
   idx_children <- abs(pd$parent) == parent
-  children <- pd[idx_children, c("token", "text", "id", "parent")]
+  children <- pd[idx_children, ]
   if (nrow(children) == 0) {
     return(NULL)
   }
@@ -148,9 +135,9 @@ fix_shifted_comments <- function(calls) {
       if (isTRUE(comment_idx[1] <= 2)) {
         calls[[i - 1]] <- rbind(
           calls[[i - 1]],
-          calls[[i]][seq_len(comment_idx[1]), ]
+          calls[[i]][comment_idx[1], ]
         )
-        calls[[i]] <- calls[[i]][-seq_len(comment_idx[1]), ]
+        calls[[i]] <- calls[[i]][-comment_idx[1], ]
       }
     }
   }
@@ -187,45 +174,17 @@ sub_arrows <- function(call) {
 
 # code_graph ----
 
-#' Create object dependencies graph within parsed code
-#'
-#' Builds dependency graph that identifies dependencies between objects in parsed code.
-#' Helps understand which objects depend on which.
-#'
-#' @param calls_pd `list` of `data.frame`s;
-#'  result of `utils::getParseData()` split into subsets representing individual calls;
-#'  created by `extract_calls()` function
-#'
-#' @return
-#' A list (of length of input `calls_pd`) where each element represents one call.
-#' Each element is a character vector listing names of objects that depend on this call
-#' and names of objects that this call depends on.
-#' Dependencies are listed after the `"<-"` string, e.g. `c("a", "<-", "b", "c")` means that in this call object `a`
-#' depends on objects `b` and `c`.
-#' If a call is tagged with `@linksto a`, then object `a` is understood to depend on that call.
-#'
-#' @keywords internal
-#' @noRd
-code_graph <- function(calls_pd) {
-  cooccurrence <- extract_occurrence(calls_pd)
-
-  side_effects <- extract_side_effects(calls_pd)
-
-  mapply(c, side_effects, cooccurrence, SIMPLIFY = FALSE)
-}
-
 #' Extract object occurrence
 #'
-#' Extracts objects occurrence within calls passed by `calls_pd`.
+#' Extracts objects occurrence within calls passed by `pd`.
 #' Also detects which objects depend on which within a call.
 #'
-#' @param calls_pd `list` of `data.frame`s;
-#'  result of `utils::getParseData()` split into subsets representing individual calls;
+#' @param pd `data.frame`;
+#'  one of the results of `utils::getParseData()` split into subsets representing individual calls;
 #'  created by `extract_calls()` function
 #'
 #' @return
-#' A list (of length of input `calls_pd`) where each element represents one call.
-#' Each element is a character vector listing names of objects that depend on this call
+#' A character vector listing names of objects that depend on this call
 #' and names of objects that this call depends on.
 #' Dependencies are listed after the `"<-"` string, e.g. `c("a", "<-", "b", "c")` means that in this call object `a`
 #' depends on objects `b` and `c`.
@@ -233,7 +192,7 @@ code_graph <- function(calls_pd) {
 #'
 #' @keywords internal
 #' @noRd
-extract_occurrence <- function(calls_pd) {
+extract_occurrence <- function(pd) {
   is_in_function <- function(x) {
     # If an object is a function parameter,
     # then in calls_pd there is a `SYMBOL_FORMALS` entry for that object.
@@ -251,91 +210,87 @@ extract_occurrence <- function(calls_pd) {
       x$text[x$token == "SYMBOL" & x$id > id_start & x$id < id_end]
     }
   }
-  lapply(
-    calls_pd,
-    function(call_pd) {
-      # Handle data(object)/data("object")/data(object, envir = ) independently.
-      data_call <- find_call(call_pd, "data")
-      if (data_call) {
-        sym <- call_pd[data_call + 1, "text"]
-        return(c(gsub("^['\"]|['\"]$", "", sym), "<-"))
-      }
-      # Handle assign(x = ).
-      assign_call <- find_call(call_pd, "assign")
-      if (assign_call) {
-        # Check if parameters were named.
-        # "','" is for unnamed parameters, where "SYMBOL_SUB" is for named.
-        # "EQ_SUB" is for `=` appearing after the name of the named parameter.
-        if (any(call_pd$token == "SYMBOL_SUB")) {
-          params <- call_pd[call_pd$token %in% c("SYMBOL_SUB", "','", "EQ_SUB"), "text"]
-          # Remove sequence of "=", ",".
-          if (length(params > 1)) {
-            remove <- integer(0)
-            for (i in 2:length(params)) {
-              if (params[i - 1] == "=" & params[i] == ",") {
-                remove <- c(remove, i - 1, i)
-              }
-            }
-            if (length(remove)) params <- params[-remove]
+
+  # Handle data(object)/data("object")/data(object, envir = ) independently.
+  data_call <- find_call(pd, "data")
+  if (data_call) {
+    sym <- pd[data_call + 1, "text"]
+    return(c(gsub("^['\"]|['\"]$", "", sym), "<-"))
+  }
+  # Handle assign(x = ).
+  assign_call <- find_call(pd, "assign")
+  if (assign_call) {
+    # Check if parameters were named.
+    # "','" is for unnamed parameters, where "SYMBOL_SUB" is for named.
+    # "EQ_SUB" is for `=` appearing after the name of the named parameter.
+    if (any(pd$token == "SYMBOL_SUB")) {
+      params <- pd[pd$token %in% c("SYMBOL_SUB", "','", "EQ_SUB"), "text"]
+      # Remove sequence of "=", ",".
+      if (length(params > 1)) {
+        remove <- integer(0)
+        for (i in 2:length(params)) {
+          if (params[i - 1] == "=" && params[i] == ",") {
+            remove <- c(remove, i - 1, i)
           }
-          pos <- match("x", setdiff(params, ","), nomatch = match(",", params, nomatch = 0))
-          if (!pos) {
-            return(character(0L))
-          }
-          # pos is indicator of the place of 'x'
-          # 1. All parameters are named, but none is 'x' - return(character(0L))
-          # 2. Some parameters are named, 'x' is in named parameters: match("x", setdiff(params, ","))
-          # - check "x" in params being just a vector of named parameters.
-          # 3. Some parameters are named, 'x' is not in named parameters
-          # - check first appearance of "," (unnamed parameter) in vector parameters.
-        } else {
-          # Object is the first entry after 'assign'.
-          pos <- 1
         }
-        sym <- call_pd[assign_call + pos, "text"]
-        return(c(gsub("^['\"]|['\"]$", "", sym), "<-"))
+        if (length(remove)) params <- params[-remove]
       }
-
-      # What occurs in a function body is not tracked.
-      x <- call_pd[!is_in_function(call_pd), ]
-      sym_cond <- which(x$token %in% c("SPECIAL", "SYMBOL", "SYMBOL_FUNCTION_CALL"))
-
-      if (length(sym_cond) == 0) {
+      pos <- match("x", setdiff(params, ","), nomatch = match(",", params, nomatch = 0))
+      if (!pos) {
         return(character(0L))
       }
-      # Watch out for SYMBOLS after $ and @. For x$a x@a: x is object, a is not.
-      # For x$a, a's ID is $'s ID-2 so we need to remove all IDs that have ID = $ID - 2.
-      dollar_ids <- x[x$token %in% c("'$'", "'@'"), "id"]
-      if (length(dollar_ids)) {
-        object_ids <- x[sym_cond, "id"]
-        after_dollar <- object_ids[(object_ids - 2) %in% dollar_ids]
-        sym_cond <- setdiff(sym_cond, which(x$id %in% after_dollar))
-      }
-
-      ass_cond <- grep("ASSIGN", x$token)
-      if (!length(ass_cond)) {
-        return(c("<-", unique(x[sym_cond, "text"])))
-      }
-
-      sym_cond <- sym_cond[sym_cond > ass_cond] # NOTE 1
-      # If there was an assignment operation detect direction of it.
-      if (unique(x$text[ass_cond]) == "->") { # NOTE 2
-        sym_cond <- rev(sym_cond)
-      }
-
-      after <- match(min(x$id[ass_cond]), sort(x$id[c(min(ass_cond), sym_cond)])) - 1
-      ans <- append(x[sym_cond, "text"], "<-", after = max(1, after))
-      roll <- in_parenthesis(call_pd)
-      if (length(roll)) {
-        c(setdiff(ans, roll), roll)
-      } else {
-        ans
-      }
-
-      ### NOTE 2: What if there are 2 assignments: e.g. a <- b -> c.
-      ### NOTE 1: For cases like 'eval(expression(b <- b + 2))' removes 'eval(expression('.
+      # pos is indicator of the place of 'x'
+      # 1. All parameters are named, but none is 'x' - return(character(0L))
+      # 2. Some parameters are named, 'x' is in named parameters: match("x", setdiff(params, ","))
+      # - check "x" in params being just a vector of named parameters.
+      # 3. Some parameters are named, 'x' is not in named parameters
+      # - check first appearance of "," (unnamed parameter) in vector parameters.
+    } else {
+      # Object is the first entry after 'assign'.
+      pos <- 1
     }
-  )
+    sym <- pd[assign_call + pos, "text"]
+    return(c(gsub("^['\"]|['\"]$", "", sym), "<-"))
+  }
+
+  # What occurs in a function body is not tracked.
+  x <- pd[!is_in_function(pd), ]
+  sym_cond <- which(x$token %in% c("SPECIAL", "SYMBOL", "SYMBOL_FUNCTION_CALL"))
+
+  if (length(sym_cond) == 0) {
+    return(character(0L))
+  }
+  # Watch out for SYMBOLS after $ and @. For x$a x@a: x is object, a is not.
+  # For x$a, a's ID is $'s ID-2 so we need to remove all IDs that have ID = $ID - 2.
+  dollar_ids <- x[x$token %in% c("'$'", "'@'"), "id"]
+  if (length(dollar_ids)) {
+    object_ids <- x[sym_cond, "id"]
+    after_dollar <- object_ids[(object_ids - 2) %in% dollar_ids]
+    sym_cond <- setdiff(sym_cond, which(x$id %in% after_dollar))
+  }
+
+  ass_cond <- grep("ASSIGN", x$token)
+  if (!length(ass_cond)) {
+    return(c("<-", unique(x[sym_cond, "text"])))
+  }
+
+  sym_cond <- sym_cond[sym_cond > ass_cond] # NOTE 1
+  # If there was an assignment operation detect direction of it.
+  if (unique(x$text[ass_cond]) == "->") { # NOTE 2
+    sym_cond <- rev(sym_cond)
+  }
+
+  after <- match(min(x$id[ass_cond]), sort(x$id[c(min(ass_cond), sym_cond)])) - 1
+  ans <- append(x[sym_cond, "text"], "<-", after = max(1, after))
+  roll <- in_parenthesis(pd)
+  if (length(roll)) {
+    c(setdiff(ans, roll), roll)
+  } else {
+    ans
+  }
+
+  ### NOTE 2: What if there are 2 assignments: e.g. a <- b -> c.
+  ### NOTE 1: For cases like 'eval(expression(b <- b + 2))' removes 'eval(expression('.
 }
 
 #' Extract side effects
@@ -348,24 +303,34 @@ extract_occurrence <- function(calls_pd) {
 #' With this tag a complete object dependency structure can be established.
 #' Read more about side effects and the usage of `@linksto` tag in [`get_code_dependencies()`] function.
 #'
-#' @param calls_pd `list` of `data.frame`s;
-#'  result of `utils::getParseData()` split into subsets representing individual calls;
+#' @param pd `data.frame`;
+#'  one of the results of `utils::getParseData()` split into subsets representing individual calls;
 #'  created by `extract_calls()` function
 #'
 #' @return
-#' A list of length equal to that of `calls_pd`, where each element is a character vector of names of objects
-#' depending a call tagged with `@linksto` in a corresponding element of `calls_pd`.
+#' A character vector of names of objects
+#' depending a call tagged with `@linksto` in a corresponding element of `pd`.
 #'
 #' @keywords internal
 #' @noRd
-extract_side_effects <- function(calls_pd) {
-  lapply(
-    calls_pd,
-    function(x) {
-      linksto <- grep("@linksto", x[x$token == "COMMENT", "text"], value = TRUE)
-      unlist(strsplit(sub("\\s*#\\s*@linksto\\s+", "", linksto), "\\s+"))
-    }
-  )
+extract_side_effects <- function(pd) {
+  linksto <- grep("@linksto", pd[pd$token == "COMMENT", "text"], value = TRUE)
+  unlist(strsplit(sub("\\s*#.*@linksto\\s+", "", linksto), "\\s+"))
+}
+
+#' @param parsed_code results of `parse(text = code, keep.source = TRUE` (parsed text)
+#' @keywords internal
+#' @noRd
+extract_dependency <- function(parsed_code) {
+  pd <- normalize_pd(utils::getParseData(parsed_code))
+  reordered_pd <- extract_calls(pd)
+  if (length(reordered_pd) > 0) {
+    # extract_calls is needed to reorder the pd so that assignment operator comes before symbol names
+    # extract_calls is needed also to substitute assignment operators into specific format with fix_arrows
+    # extract_calls is needed to omit empty calls that contain only one token `"';'"`
+    # This cleaning is needed as extract_occurrence assumes arrows are fixed, and order is different than in original pd
+    c(extract_side_effects(reordered_pd[[1]]), extract_occurrence(reordered_pd[[1]]))
+  }
 }
 
 # graph_parser ----
@@ -412,29 +377,31 @@ graph_parser <- function(x, graph) {
 #'
 #' Detects `library()` and `require()` function calls.
 #'
-#' @param calls_pd `list` of `data.frame`s;
-#'  result of `utils::getParseData()` split into subsets representing individual calls;
-#'  created by `extract_calls()` function
+#' @param `graph` the dependency graph, result of `lapply(code, attr, "dependency")`
 #'
 #' @return
-#' Integer vector of indices that can be applied to `graph` (result of `code_graph()`) to obtain all calls containing
+#' Integer vector of indices that can be applied to `graph` to obtain all calls containing
 #' `library()` or `require()` calls that are always returned for reproducibility.
 #'
 #' @keywords internal
 #' @noRd
-detect_libraries <- function(calls_pd) {
+detect_libraries <- function(graph) {
   defaults <- c("library", "require")
 
   which(
-    vapply(
-      calls_pd,
-      function(call) {
-        any(call$token == "SYMBOL_FUNCTION_CALL" & call$text %in% defaults)
-      },
-      logical(1)
+    unlist(
+      lapply(
+        graph, function(x) {
+          any(grepl(pattern = paste(defaults, collapse = "|"), x = x))
+        }
+      )
     )
   )
 }
+
+
+# utils -----------------------------------------------------------------------------------------------------------
+
 
 #' Normalize parsed data removing backticks from symbols
 #'
@@ -450,4 +417,66 @@ normalize_pd <- function(pd) {
   pd[symbol_index, "text"] <- gsub("^`(.*)`$", "\\1", pd[symbol_index, "text"])
 
   pd
+}
+
+
+# split_code ------------------------------------------------------------------------------------------------------
+
+
+#' Get line/column in the source where the calls end
+#'
+#'
+#' @param code `character(1)`
+#'
+#' @return `matrix` with `colnames = c("line", "col")`
+#'
+#' @keywords internal
+#' @noRd
+get_call_breaks <- function(code) {
+  parsed_code <- parse(text = code, keep.source = TRUE)
+  pd <- utils::getParseData(parsed_code)
+  pd <- normalize_pd(pd)
+  pd <- pd[pd$token != "';'", ]
+  call_breaks <- t(sapply(
+    extract_calls(pd),
+    function(x) {
+      matrix(c(max(x$line2), max(x$col2[x$line2 == max(x$line2)])))
+    }
+  ))
+  call_breaks <- call_breaks[-nrow(call_breaks), , drop = FALSE] # breaks in between needed only
+  colnames(call_breaks) <- c("line", "col")
+  call_breaks
+}
+
+#' Split code by calls
+#'
+#' @param code `character` with the code.
+#'
+#' @return list of `character`s of the length equal to the number of calls in `code`.
+#'
+#' @keywords internal
+#' @noRd
+split_code <- function(code) {
+  call_breaks <- get_call_breaks(code)
+  if (nrow(call_breaks) == 0) {
+    return(code)
+  }
+  call_breaks <- call_breaks[order(call_breaks[, "line"], call_breaks[, "col"]), , drop = FALSE]
+  code_split <- strsplit(code, split = "\n", fixed = TRUE)[[1]]
+  char_count_lines <- c(0, cumsum(sapply(code_split, nchar, USE.NAMES = FALSE) + 1), -1)[seq_along(code_split)]
+
+  idx_start <- c(
+    0, # first call starts in the beginning of src
+    char_count_lines[call_breaks[, "line"]] + call_breaks[, "col"] + 2
+  )
+  idx_end <- c(
+    char_count_lines[call_breaks[, "line"]] + call_breaks[, "col"] + 1,
+    nchar(code) # last call end in the end of src
+  )
+  new_code <- substring(code, idx_start, idx_end)
+
+  # we need to remove leading semicolons from the calls and move them to the previous call
+  #  this is a reasult of a wrong split, which ends on the end of call and not on the ;
+  #  semicolon is treated by R parser as a separate call.
+  gsub("^([[:space:]])*;(.+)$", "\\1\\2", new_code, perl = TRUE)
 }

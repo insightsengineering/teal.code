@@ -53,3 +53,35 @@ lang2calls <- function(x) {
     unlist(lapply(x, lang2calls), recursive = FALSE)
   }
 }
+
+#' Obtain warnings or messages from code slot
+#'
+#' @param object (`qenv`)
+#' @param what (`"warning"` or `"message"`)
+#' @return `character(1)` containing combined message or `NULL` when no warnings/messages
+#' @keywords internal
+get_warn_message_util <- function(object, what) {
+  checkmate::matchArg(what, choices = c("warning", "message"))
+  messages <- lapply(object@code, "attr", what)
+  idx_warn <- which(sapply(messages, function(x) !is.null(x) && !identical(x, "")))
+  if (!any(idx_warn)) {
+    return(NULL)
+  }
+  messages <- messages[idx_warn]
+  code <- object@code[idx_warn]
+
+  lines <- mapply(
+    warn = messages,
+    expr = code,
+    function(warn, expr) {
+      sprintf("%swhen running code:\n%s", warn, expr)
+    }
+  )
+
+  sprintf(
+    "~~~ %ss ~~~\n\n%s\n\n~~~ Trace ~~~\n\n%s",
+    tools::toTitleCase(what),
+    paste(lines, collapse = "\n\n"),
+    paste(get_code(object), collapse = "\n")
+  )
+}

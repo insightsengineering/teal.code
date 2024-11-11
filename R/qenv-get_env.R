@@ -4,7 +4,7 @@
 #'
 #' @param object (`qenv`).
 #'
-#' @return An `environment` stored in `qenv` slot with all data objects.
+#' @return An `environment` stored in `qenv` with all data objects.
 #'
 #' @examples
 #' q <- qenv()

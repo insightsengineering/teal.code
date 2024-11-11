@@ -24,8 +24,7 @@
 #'
 #' @export
 setGeneric("get_var", function(object, var) {
-  grDevices::pdf(nullfile())
-  on.exit(grDevices::dev.off())
+  dev_suppress(object)
   standardGeneric("get_var")
 })
 

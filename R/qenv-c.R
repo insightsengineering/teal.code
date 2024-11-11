@@ -24,13 +24,16 @@
     )
   }
 
-  shared_ids <- intersect(x@id, y@id)
+  x_id <- get_code_attr(x, "id")
+  y_id <- get_code_attr(y, "id")
+
+  shared_ids <- intersect(x_id, y_id)
   if (length(shared_ids) == 0) {
     return(TRUE)
   }
 
-  shared_in_x <- match(shared_ids, x@id)
-  shared_in_y <- match(shared_ids, y@id)
+  shared_in_x <- match(shared_ids, x_id)
+  shared_in_y <- match(shared_ids, y_id)
 
   # indices of shared ids should be 1:n in both slots
   if (identical(shared_in_x, shared_in_y) && identical(shared_in_x, seq_along(shared_ids))) {
@@ -86,11 +89,7 @@ c.qenv <- function(...) {
         stop(join_validation)
       }
 
-      id_unique <- !y@id %in% x@id
-      x@id <- c(x@id, y@id[id_unique])
-      x@code <- c(x@code, y@code[id_unique])
-      x@warnings <- c(x@warnings, y@warnings[id_unique])
-      x@messages <- c(x@messages, y@messages[id_unique])
+      x@code <- union(x@code, y@code)
 
       # insert (and overwrite) objects from y to x
       x@.xData <- rlang::env_clone(x@.xData, parent = parent.env(.GlobalEnv))

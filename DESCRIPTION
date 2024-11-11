@@ -1,7 +1,7 @@
 Type: Package
 Package: teal.code
 Title: Code Storage and Execution Class for 'teal' Applications
-Version: 0.5.0.9013
+Version: 0.5.0.9014
 Date: 2024-11-08
 Authors@R: c(
     person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = c("aut", "cre")),
@@ -58,8 +58,10 @@ Collate:
     'qenv-concat.R'
     'qenv-constructor.R'
     'qenv-eval_code.R'
+    'qenv-extract.R'
     'qenv-get_code.R'
     'qenv-get_env.R'
+    'qenv-get_messages.r'
     'qenv-get_var.R'
     'qenv-get_warnings.R'
     'qenv-join.R'
