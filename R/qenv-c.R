@@ -89,7 +89,9 @@ c.qenv <- function(...) {
         stop(join_validation)
       }
 
-      x@code <- union(x@code, y@code)
+      x_id <- vapply(x@code, attr, which = "id", integer(1))
+      y_id <- vapply(y@code, attr, which = "id", integer(1))
+      x@code <- c(x@code, y@code[!y_id %in% x_id])
 
       # insert (and overwrite) objects from y to x
       x@.xData <- rlang::env_clone(x@.xData, parent = parent.env(.GlobalEnv))
