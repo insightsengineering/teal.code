@@ -1,8 +1,8 @@
 testthat::test_that("eval_code evaluates the code in the qenvs environment", {
   q <- qenv()
-  q1 <- eval_code(q, quote(iris1 <- iris))
-  q2 <- eval_code(q1, quote(b <- nrow(iris1)))
-  testthat::expect_identical(q2$b, 150L)
+  q1 <- eval_code(q, quote(a <- 1L))
+  q2 <- eval_code(q1, quote(b <- 1))
+  testthat::expect_equal(q2@.xData, list2env(list(a = 1L, b = 1)))
 })
 
 testthat::test_that("eval_code locks the environment", {
@@ -40,10 +40,9 @@ testthat::test_that("eval_code works with character", {
 })
 
 testthat::test_that("eval_code works with expression", {
-  q1 <- eval_code(qenv(), as.expression(quote(a <- 1)))
-
-  testthat::expect_identical(get_code(q1), "a <- 1")
-  testthat::expect_equal(q1@.xData, list2env(list(a = 1)))
+  q1 <- eval_code(qenv(), expression(a <- 1, b <- 2))
+  testthat::expect_identical(get_code(q1), "a <- 1\nb <- 2")
+  testthat::expect_equal(q1@.xData, list2env(list(a = 1, b = 2)))
 })
 
 testthat::test_that("eval_code works with quoted", {
