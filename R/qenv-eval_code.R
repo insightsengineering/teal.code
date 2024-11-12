@@ -103,7 +103,7 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
   if (length(srcref)) {
     eval_code(object, code = paste(attr(code, "wholeSrcref"), collapse = "\n"))
   } else {
-    Reduce(function(x, code) eval_code(x, code), x = code, init = object)
+    Reduce(function(object, x) eval_code(object, x), init = object, x = code)
   }
 })
 
