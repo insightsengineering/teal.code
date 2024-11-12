@@ -38,7 +38,6 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
     return(object)
   }
   code_split <- split_code(paste(code, collapse = "\n"))
-
   for (i in seq_along(code_split)) {
     current_code <- code_split[[i]]
     current_call <- parse(text = current_code, keep.source = TRUE)

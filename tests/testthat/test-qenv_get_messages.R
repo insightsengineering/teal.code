@@ -49,7 +49,7 @@ testthat::test_that("get_messages accepts a qenv object with a single eval_code 
         "~~~ Messages ~~~\n",
         "> This is a message 1!",
         "when running code:",
-        "message(\"This is a message 1!\")\n\n",
+        "message(\"This is a message 1!\")\n",
         "> This is a message 2!",
         "when running code:",
         "message(\"This is a message 2!\")\n",
