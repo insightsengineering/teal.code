@@ -5,7 +5,9 @@
 #' Thus, if the `qenv` had been instantiated empty, contents of the environment are always a result of the stored code.
 #'
 #' @param object (`qenv`)
-#' @param code (`character` or `language`) code to evaluate. If `character`, comments are retained.
+#' @param code (`character`, `language` or `expression`) code to evaluate.
+#' It is possible to preserve original formatting of the `code` by providing a `character` or an
+#' `expression` being a result of `parse(keep.source = TRUE)`.
 #'
 #' @return
 #' `eval_code` returns a `qenv` object with `expr` evaluated or `qenv.error` if evaluation fails.
@@ -14,6 +16,7 @@
 #' # evaluate code in qenv
 #' q <- qenv()
 #' q <- eval_code(q, "a <- 1")
+#' q <- eval_code(q, "b <- 2L # with comment")
 #' q <- eval_code(q, quote(library(checkmate)))
 #' q <- eval_code(q, expression(assert_number(a)))
 #'
