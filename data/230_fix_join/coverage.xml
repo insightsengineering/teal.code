@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.963829787234042" branch-rate="0" lines-covered="453" lines-valid="470" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-11-13 08:47:28.730471">
+<coverage line-rate="0.963829787234042" branch-rate="0" lines-covered="453" lines-valid="470" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-11-13 12:19:55.797239">
   <sources>
     <source>/__w/teal.code/teal.code/teal.code</source>
   </sources>
@@ -396,7 +396,7 @@
             </method>
             <method name="get_code_attr" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="125" hits="30" branch="false"/>
+                <line number="125" hits="54" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -459,7 +459,7 @@
             <line number="117" hits="38" branch="false"/>
             <line number="118" hits="38" branch="false"/>
             <line number="120" hits="0" branch="false"/>
-            <line number="125" hits="30" branch="false"/>
+            <line number="125" hits="54" branch="false"/>
           </lines>
         </class>
         <class name="qenv-extract.R" filename="R/qenv-extract.R" line-rate="1" branch-rate="0" complexity="0">
