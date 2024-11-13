@@ -43,6 +43,13 @@ testthat::test_that("eval_code works with expression", {
   q1 <- eval_code(qenv(), expression(a <- 1, b <- 2))
   testthat::expect_identical(get_code(q1), "a <- 1\nb <- 2")
   testthat::expect_equal(q1@.xData, list2env(list(a = 1, b = 2)))
+testthat::test_that("eval_code preserves original formatting when `srcref` is present in the expression", {
+  code <- "# comment
+  a <- 1L"
+  expr <- parse(text = code, keep.source = TRUE)
+  q1 <- eval_code(qenv(), expr)
+  testthat::expect_identical(get_code(q1), code)
+  testthat::expect_equal(q1, list2env(list(a = 1L)))
 })
 
 testthat::test_that("eval_code works with quoted", {
