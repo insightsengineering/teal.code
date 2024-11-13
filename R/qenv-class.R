@@ -55,7 +55,7 @@ setMethod(
 #' @keywords internal
 setValidity("qenv", function(object) {
   if (any(duplicated(names(object@code)))) {
-    "@code contains duplicated 'id' attributes."
+    "@code must have unique names."
   } else if (!environmentIsLocked(object@.xData)) {
     "@.xData must be locked."
   } else {
