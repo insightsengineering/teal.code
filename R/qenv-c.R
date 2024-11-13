@@ -24,8 +24,8 @@
     )
   }
 
-  x_id <- get_code_attr(x, "id")
-  y_id <- get_code_attr(y, "id")
+  x_id <- names(x@code)
+  y_id <- names(y@code)
 
   shared_ids <- intersect(x_id, y_id)
   if (length(shared_ids) == 0) {
@@ -89,7 +89,7 @@ c.qenv <- function(...) {
         stop(join_validation)
       }
 
-      x@code <- union(x@code, y@code)
+      x@code <- modifyList(x@code, y@code)
 
       # insert (and overwrite) objects from y to x
       x@.xData <- rlang::env_clone(x@.xData, parent = parent.env(.GlobalEnv))
