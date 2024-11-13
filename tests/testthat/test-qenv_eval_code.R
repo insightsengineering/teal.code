@@ -2,12 +2,12 @@ testthat::test_that("eval_code evaluates the code in the qenvs environment", {
   q <- qenv()
   q1 <- eval_code(q, quote(a <- 1L))
   q2 <- eval_code(q1, quote(b <- 1))
-  testthat::expect_equal(q2@.xData, list2env(list(a = 1L, b = 1)))
+  testthat::expect_equal(q2, list2env(list(a = 1L, b = 1)))
 })
 
 testthat::test_that("eval_code locks the environment", {
   q <- eval_code(qenv(), quote(iris1 <- iris))
-  testthat::expect_true(environmentIsLocked(q@.xData))
+  testthat::expect_true(environmentIsLocked(q))
 })
 
 testthat::test_that("eval_code doesn't have access to environment where it's called", {
@@ -36,13 +36,13 @@ testthat::test_that("getting object from the package namespace works even if lib
 testthat::test_that("eval_code works with character", {
   q1 <- eval_code(qenv(), "a <- 1")
   testthat::expect_identical(get_code(q1), "a <- 1")
-  testthat::expect_equal(q1@.xData, list2env(list(a = 1)))
+  testthat::expect_equal(q1, list2env(list(a = 1)))
 })
 
 testthat::test_that("eval_code works with expression", {
   q1 <- eval_code(qenv(), expression(a <- 1, b <- 2))
   testthat::expect_identical(get_code(q1), "a <- 1\nb <- 2")
-  testthat::expect_equal(q1@.xData, list2env(list(a = 1, b = 2)))
+  testthat::expect_equal(q1, list2env(list(a = 1, b = 2)))
 testthat::test_that("eval_code preserves original formatting when `srcref` is present in the expression", {
   code <- "# comment
   a <- 1L"
@@ -56,7 +56,7 @@ testthat::test_that("eval_code works with quoted", {
   q1 <- eval_code(qenv(), quote(a <- 1))
 
   testthat::expect_identical(get_code(q1), "a <- 1")
-  testthat::expect_equal(q1@.xData, list2env(list(a = 1)))
+  testthat::expect_equal(q1, list2env(list(a = 1)))
 })
 
 testthat::test_that("eval_code works with quoted code block", {
@@ -72,7 +72,7 @@ testthat::test_that("eval_code works with quoted code block", {
     get_code(q1),
     c("a <- 1\nb <- 2")
   )
-  testthat::expect_equal(q1@.xData, list2env(list(a = 1, b = 2)))
+  testthat::expect_equal(q1, list2env(list(a = 1, b = 2)))
 })
 
 testthat::test_that("eval_code fails with unquoted expression", {
