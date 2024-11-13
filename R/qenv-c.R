@@ -89,8 +89,8 @@ c.qenv <- function(...) {
         stop(join_validation)
       }
 
-      x_id <- vapply(x@code, attr, which = "id", integer(1))
-      y_id <- vapply(y@code, attr, which = "id", integer(1))
+      x_id <- get_code_attr(x, "id")
+      y_id <- get_code_attr(y, "id")
       x@code <- c(x@code, y@code[!y_id %in% x_id])
 
       # insert (and overwrite) objects from y to x
