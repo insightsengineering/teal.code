@@ -89,7 +89,7 @@ c.qenv <- function(...) {
         stop(join_validation)
       }
 
-      x@code <- modifyList(x@code, y@code)
+      x@code <- utils::modifyList(x@code, y@code)
 
       # insert (and overwrite) objects from y to x
       x@.xData <- rlang::env_clone(x@.xData, parent = parent.env(.GlobalEnv))
