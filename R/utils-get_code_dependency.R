@@ -477,5 +477,5 @@ split_code <- function(code) {
 
   # line split happens before call terminator (it could be `;` or `\n`) and the terminator goes to the next line
   # we need to move remove leading and add \n instead when combining calls
-  c(new_code[1], gsub("^(\n|;)", "", new_code[-1]))
+  c(new_code[1], gsub("^[\t ]*(\n|;)", "", new_code[-1]))
 }
