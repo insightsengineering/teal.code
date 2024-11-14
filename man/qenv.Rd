@@ -29,7 +29,9 @@ get_code(object, deparse = TRUE, names = NULL, ...)
 \arguments{
 \item{object}{(\code{qenv})}
 
-\item{code}{(\code{character} or \code{language}) code to evaluate. If \code{character}, comments are retained.}
+\item{code}{(\code{character}, \code{language} or \code{expression}) code to evaluate.
+It is possible to preserve original formatting of the \code{code} by providing a \code{character} or an
+\code{expression} being a result of \code{parse(keep.source = TRUE)}.}
 
 \item{x}{(\code{qenv})}
 
@@ -176,6 +178,7 @@ qenv()
 # evaluate code in qenv
 q <- qenv()
 q <- eval_code(q, "a <- 1")
+q <- eval_code(q, "b <- 2L # with comment")
 q <- eval_code(q, quote(library(checkmate)))
 q <- eval_code(q, expression(assert_number(a)))
 
