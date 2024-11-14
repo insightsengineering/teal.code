@@ -131,7 +131,7 @@ testthat::test_that("Joining two independent qenvs with warnings results in obje
   q <- c(q1, q2)
 
   testthat::expect_equal(
-    get_code_attr(q, "warning"),
+    unname(get_code_attr(q, "warning")),
     c(
       "> This is warning 1\n",
       "> This is warning 2\n"
@@ -146,7 +146,7 @@ testthat::test_that("Joining two independent qenvs with messages results in obje
   q <- c(q1, q2)
 
   testthat::expect_equal(
-    get_code_attr(q, "message"),
+    unname(get_code_attr(q, "message")),
     c(
       "> This is message 1\n",
       "> This is message 2\n"

@@ -127,7 +127,7 @@ testthat::test_that("comments alone are pasted to the next/following call elemen
   code <- c("x <- 5", "# comment", "y <- 6")
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    unlist(q@code)[2],
+    as.character(q@code)[2],
     paste(code[2:3], collapse = "\n")
   )
   testthat::expect_identical(
@@ -140,7 +140,7 @@ testthat::test_that("comments at the end of src are added to the previous call e
   code <- c("x <- 5", "# comment")
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    unlist(q@code),
+    as.character(q@code),
     paste(code[1:2], collapse = "\n")
   )
   testthat::expect_identical(
@@ -153,7 +153,7 @@ testthat::test_that("comments from the same line are associated with it's call",
   code <- c("x <- 5", " y <- 4 # comment", "z <- 5")
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    unlist(q@code)[2],
+    as.character(q@code)[2],
     paste0(code[2], "\n")
   )
 })
@@ -163,7 +163,7 @@ testthat::test_that("alone comments at the end of the source are considered as c
   code <- c("x <- 5\ny <- 10\n# comment")
   q <- eval_code(eval_code(qenv(), code[1]), code[2])
   testthat::expect_identical(
-    unlist(q@code)[2],
+    as.character(q@code)[2],
     "y <- 10\n# comment"
   )
 })

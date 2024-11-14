@@ -35,9 +35,8 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
   object@.xData <- rlang::env_clone(object@.xData, parent = parent.env(.GlobalEnv))
   if (length(parsed_code) == 0) {
     # empty code, or just comments
-    attr(code, "id") <- sample.int(.Machine$integer.max, size = 1)
     attr(code, "dependency") <- extract_dependency(parsed_code) # in case comment contains @linksto tag
-    object@code <- c(object@code, list(code))
+    object@code <- c(object@code, stats::setNames(list(code), sample.int(.Machine$integer.max, size = 1)))
     return(object)
   }
   code_split <- split_code(paste(code, collapse = "\n"))
@@ -84,10 +83,8 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
     if (!is.null(x)) {
       return(x)
     }
-
-    attr(current_code, "id") <- sample.int(.Machine$integer.max, size = 1)
     attr(current_code, "dependency") <- extract_dependency(current_call)
-    object@code <- c(object@code, list(current_code))
+    object@code <- c(object@code, stats::setNames(list(current_code), sample.int(.Machine$integer.max, size = 1)))
   }
 
   lockEnvironment(object@.xData, bindings = TRUE)
