@@ -127,7 +127,7 @@ testthat::test_that("comments alone are pasted to the next/following call elemen
   code <- c("x <- 5", "# comment", "y <- 6")
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
-    as.character(q@code)[[2]],
+    as.character(q@code)[2],
     paste(code[2:3], collapse = "\n")
   )
   testthat::expect_identical(
