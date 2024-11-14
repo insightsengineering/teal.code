@@ -6,10 +6,7 @@ testthat::test_that("Concatenate two identical qenvs outputs", {
   q12 <- concat(q1, q2)
 
   testthat::expect_equal(q12@.xData, q1@.xData)
-  testthat::expect_identical(
-    unlist(q12@code),
-    c("iris1 <- iris", "iris1 <- iris")
-  )
+  testthat::expect_identical(get_code(q12), "iris1 <- iris\niris1 <- iris")
 })
 
 testthat::test_that("Concatenate two independent qenvs results in object having combined code and environments", {
@@ -22,13 +19,8 @@ testthat::test_that("Concatenate two independent qenvs results in object having 
   q12 <- concat(q1, q2)
 
   testthat::expect_equal(q12@.xData, list2env(list(iris1 = iris, mtcars1 = mtcars)))
-  testthat::expect_identical(
-    unlist(q12@code),
-    c("iris1 <- iris", "mtcars1 <- mtcars")
-  )
-  q12_ids <- unlist(lapply(q12@code, "attr", "id"))
-  q1_q2_ids <- c(attr(q1@code[[1]], "id"), attr(q2@code[[1]], "id"))
-  testthat::expect_identical(q12_ids, q1_q2_ids)
+  testthat::expect_identical(get_code(q12), "iris1 <- iris\nmtcars1 <- mtcars")
+  testthat::expect_identical(names(q12@code), c(names(q1@code), names(q2@code)))
 })
 
 testthat::test_that("Concatenate qenvs results with the same variable, the RHS has priority", {
@@ -59,7 +51,7 @@ testthat::test_that("Concatenate two independent qenvs with warnings results in 
   q12 <- concat(q1, q2)
 
   testthat::expect_equal(
-    unlist(lapply(q12@code, attr, "warning")),
+    unlist(lapply(q12@code, attr, "warning"), use.names = FALSE),
     c(
       "> This is warning 1\n",
       "> This is warning 2\n"
@@ -74,7 +66,7 @@ testthat::test_that("Concatenate two independent qenvs with messages results in 
   q12 <- concat(q1, q2)
 
   testthat::expect_equal(
-    unlist(lapply(q12@code, attr, "message")),
+    unlist(lapply(q12@code, attr, "message"), use.names = FALSE),
     c(
       "> This is message 1\n",
       "> This is message 2\n"
