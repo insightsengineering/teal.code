@@ -47,7 +47,7 @@ testthat::test_that("get_code called with qenv.error returns error with trace in
   )
 })
 
-testthat::test_that("get_code returns code with comments and empty spaces", {
+testthat::test_that("get_code formatted returns code asis but replaces `;` with `\n`", {
   code <- "
     # header comment after white space
 
@@ -58,7 +58,7 @@ testthat::test_that("get_code returns code with comments and empty spaces", {
     # closing comment
     "
   q <- eval_code(qenv(), code)
-  testthat::expect_equal(get_code(q), code)
+  testthat::expect_equal(get_code(q), gsub(";", "\n", code))
 })
 
 # names parameter -------------------------------------------------------------------------------------------------
@@ -240,14 +240,12 @@ testthat::describe("get_code for specific names", {
     testthat::expect_length(get_code(q1, deparse = FALSE), 1)
   })
 
-  testthat::it("does not break if code is separated by ;", {
-    code <- c(
-      "a <- 1;a <- a + 1"
-    )
+  testthat::it("detects calls associated with object if calls are separated by ;", {
+    code <- c("a <- 1;b <- 2;a <- a + 1")
     q <- eval_code(qenv(), code)
     testthat::expect_identical(
       get_code(q, names = "a"),
-      code
+      "a <- 1\na <- a + 1"
     )
   })
 

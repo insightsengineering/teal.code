@@ -467,16 +467,15 @@ split_code <- function(code) {
 
   idx_start <- c(
     0, # first call starts in the beginning of src
-    char_count_lines[call_breaks[, "line"]] + call_breaks[, "col"] + 2
+    char_count_lines[call_breaks[, "line"]] + call_breaks[, "col"] + 1
   )
   idx_end <- c(
-    char_count_lines[call_breaks[, "line"]] + call_breaks[, "col"] + 1,
+    char_count_lines[call_breaks[, "line"]] + call_breaks[, "col"],
     nchar(code) # last call end in the end of src
   )
   new_code <- substring(code, idx_start, idx_end)
 
-  # we need to remove leading semicolons from the calls and move them to the previous call
-  #  this is a reasult of a wrong split, which ends on the end of call and not on the ;
-  #  semicolon is treated by R parser as a separate call.
-  gsub("^([[:space:]])*;(.+)$", "\\1\\2", new_code, perl = TRUE)
+  # line split happens before call terminator (it could be `;` or `\n`) and the terminator goes to the next line
+  # we need to move remove leading and add \n instead when combining calls
+  c(new_code[1], gsub("^[\t ]*(\n|;)", "", new_code[-1]))
 }

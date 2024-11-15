@@ -81,7 +81,7 @@ testthat::test_that("`[.` extracts the code only needed to recreate objects pass
   q <- eval_code(q, code)
   object_names <- c("x", "a")
   qs <- q[object_names]
-  testthat::expect_identical(get_code(qs), c("x<-1\na<-1;"))
+  testthat::expect_identical(get_code(qs), c("x<-1\na<-1"))
 })
 
 testthat::test_that("`[.` comments are preserved in the code and associated with the following call", {
@@ -89,5 +89,5 @@ testthat::test_that("`[.` comments are preserved in the code and associated with
   code <- c("x<-1 #comment", "a<-1;b<-2")
   q <- eval_code(q, code)
   qs <- q[c("x", "a")]
-  testthat::expect_identical(get_code(qs), c("x<-1 #comment\na<-1;"))
+  testthat::expect_identical(get_code(qs), c("x<-1 #comment\na<-1"))
 })
