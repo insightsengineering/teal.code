@@ -270,6 +270,7 @@ extract_occurrence <- function(pd) {
   }
 
   ass_cond <- grep("ASSIGN", x$token)
+  ass_cond <- unlist(Filter(function(assignment_pos) x$text[assignment_pos] != ":=", ass_cond))
   if (!length(ass_cond)) {
     return(c("<-", unique(x[sym_cond, "text"])))
   }
