@@ -35,7 +35,6 @@ Imports:
     utils
 Suggests:
     cli (>= 3.4.0),
-    data.table (>= 1.16.2),
     knitr (>= 1.42),
     rmarkdown (>= 2.23),
     shiny (>= 1.6.0),
@@ -48,7 +47,7 @@ RdMacros:
     lifecycle
 Config/Needs/verdepcheck: mllg/checkmate, r-lib/lifecycle, r-lib/rlang,
     r-lib/cli, yihui/knitr, rstudio/rmarkdown, rstudio/shiny,
-    r-lib/testthat, r-lib/withr, Rdatatable/data.table
+    r-lib/testthat, r-lib/withr
 Config/Needs/website: insightsengineering/nesttemplate
 Encoding: UTF-8
 Language: en-US

@@ -106,10 +106,9 @@ testthat::test_that("eval_code accepts calls containing only comments and empty 
 })
 
 testthat::test_that("eval_code does not treat := as an assignment operator", {
-  testthat::skip_if_not_installed("data.table")
   code <- "
-  iris <- data.table::data.table(iris) %>%
-    .[, NewSpecies := factor(Species)]
+    x <- 'name'
+    rlang::list2(!!x := 1)
   "
   q <- eval_code(qenv(), code)
   testthat::expect_identical(get_code(q), code)
