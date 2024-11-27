@@ -162,20 +162,13 @@ testthat::test_that("comments at the end of src are added to the previous call e
 testthat::test_that("comments from the same line are associated with it's call", {
   code <- c("x <- 5", " y <- 4 # comment", "z <- 5")
   q <- eval_code(qenv(), code)
-  testthat::expect_identical(
-    as.character(q@code)[2],
-    paste0(code[2], "\n")
-  )
+  testthat::expect_identical(as.character(q@code)[2], code[2])
 })
 
 testthat::test_that("alone comments at the end of the source are considered as continuation of the last call", {
-  # todo: should be associated to the last call or be separted?
-  code <- c("x <- 5\ny <- 10\n# comment")
+  code <- c("x <- 5\n", "y <- 10\n# comment")
   q <- eval_code(eval_code(qenv(), code[1]), code[2])
-  testthat::expect_identical(
-    as.character(q@code)[2],
-    "y <- 10\n# comment"
-  )
+  testthat::expect_identical(as.character(q@code)[2], code[2])
 })
 
 testthat::test_that("comments passed alone to eval_code that contain @linksto tag have detected dependency", {

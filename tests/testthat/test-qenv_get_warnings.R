@@ -49,7 +49,7 @@ testthat::test_that("get_warnings accepts a qenv object with a single eval_code 
         "~~~ Warnings ~~~\n",
         "> This is a warning 1!",
         "when running code:",
-        "warning(\"This is a warning 1!\")\n\n",
+        "warning(\"This is a warning 1!\")\n",
         "> This is a warning 2!",
         "when running code:",
         "warning(\"This is a warning 2!\")\n",
