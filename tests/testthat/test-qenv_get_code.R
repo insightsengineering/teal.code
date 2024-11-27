@@ -601,7 +601,6 @@ testthat::test_that("detects occurrence of a function definition with a @linksto
 # for loop --------------------------------------------------------------------------------------------------------
 
 testthat::test_that("objects in for loop are extracted if passed as one character", {
-
   code <- "
     some_other_dataset <- mtcars
     original_dataset <- iris[, 1:4]
@@ -617,7 +616,6 @@ testthat::test_that("objects in for loop are extracted if passed as one characte
     get_code(q, names = "output"),
     gsub("\n    some_other_dataset <- mtcars\n", "", code, fixed = TRUE)
   )
-
 })
 
 testthat::test_that("objects in for loop are extracted if passed as separate calls", {
@@ -640,7 +638,7 @@ testthat::test_that("objects in for loop are extracted if passed as separate cal
       "for (x in c(1, 2)) {",
       "    b <- a",
       "    b <- b + a + 1",
-      "    b <- b + 3", #ORDER IS CHANGED IN HERE, but we can live with it
+      "    b <- b + 3", # ORDER IS CHANGED IN HERE, but we can live with it
       "}"
     )
   )
