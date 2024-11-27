@@ -151,13 +151,7 @@ fix_shifted_comments <- function(calls) {
 remove_dt_assign <- function(calls) {
   checkmate::assert_list(calls)
   lapply(calls, function(call) {
-    dt_assign <-
-      which(call$token == "LEFT_ASSIGN" & call$text == ":=")
-    if (length(dt_assign) > 0) {
-      call[-dt_assign, ]
-    } else {
-      call
-    }
+    call <- subset(call, !(token == "LEFT_ASSIGN" & text == ":="))
   })
 }
 
