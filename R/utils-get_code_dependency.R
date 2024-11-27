@@ -145,7 +145,7 @@ fix_shifted_comments <- function(calls) {
   Filter(nrow, calls)
 }
 
-#' Fixes edge case of `:=` assignment operator being treated as assignemnt.
+#' Fixes edge case of `:=` assignment operator being treated as assignment.
 #' @keywords internal
 #' @noRd
 remove_dt_assign <- function(calls) {
