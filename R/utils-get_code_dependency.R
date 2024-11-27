@@ -106,7 +106,7 @@ extract_calls <- function(pd) {
   calls <- Filter(function(call) !(nrow(call) == 1 && call$token == "';'"), calls)
   calls <- Filter(Negate(is.null), calls)
   calls <- fix_shifted_comments(calls)
-  calls <- remove_custom_assign(calls)
+  calls <- remove_custom_assign(calls, c(":="))
   fix_arrows(calls)
 }
 
