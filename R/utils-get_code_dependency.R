@@ -106,6 +106,7 @@ extract_calls <- function(pd) {
   calls <- Filter(function(call) !(nrow(call) == 1 && call$token == "';'"), calls)
   calls <- Filter(Negate(is.null), calls)
   calls <- fix_shifted_comments(calls)
+  calls <- remove_dt_assign(calls)
   fix_arrows(calls)
 }
 
@@ -146,6 +147,22 @@ fix_shifted_comments <- function(calls) {
 
 #' Fixes edge case of `<-` assignment operator being called as function,
 #' which is \code{`<-`(y,x)} instead of traditional `y <- x`.
+#' @keywords internal
+#' @noRd
+remove_dt_assign <- function(calls) {
+  checkmate::assert_list(calls)
+  lapply(calls, function(call) {
+    dt_assign <-
+      which(call$token == "LEFT_ASSIGN" & call$text == ":=")
+    if (length(dt_assign) > 0) {
+      call[-dt_assign, ]
+    } else {
+      call
+    }
+  })
+}
+
+#' Fixes edge case of `:=` assignment operator being treated as assignemnt.
 #' @keywords internal
 #' @noRd
 fix_arrows <- function(calls) {

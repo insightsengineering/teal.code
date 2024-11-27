@@ -105,6 +105,16 @@ testthat::test_that("eval_code accepts calls containing only comments and empty 
   testthat::expect_identical(get_code(eval_code(qenv(), code)), code)
 })
 
+testthat::test_that("eval_code does not treat := as an assignment operator", {
+  testthat::skip_if_not_installed("data.table")
+  code <- "
+  iris <- data.table::data.table(iris) %>%
+    .[, NewSpecies := factor(Species)]
+  "
+  q <- eval_code(qenv(), code)
+  testthat::expect_identical(get_code(q), code)
+})
+
 # comments ----------
 testthat::test_that("comments fall into proper calls", {
   # If comment is on top, it gets moved to the first call.
