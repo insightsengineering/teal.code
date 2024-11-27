@@ -145,8 +145,7 @@ fix_shifted_comments <- function(calls) {
   Filter(nrow, calls)
 }
 
-#' Fixes edge case of `<-` assignment operator being called as function,
-#' which is \code{`<-`(y,x)} instead of traditional `y <- x`.
+#' Fixes edge case of `:=` assignment operator being treated as assignemnt.
 #' @keywords internal
 #' @noRd
 remove_dt_assign <- function(calls) {
@@ -162,7 +161,8 @@ remove_dt_assign <- function(calls) {
   })
 }
 
-#' Fixes edge case of `:=` assignment operator being treated as assignemnt.
+#' Fixes edge case of `<-` assignment operator being called as function,
+#' which is \code{`<-`(y,x)} instead of traditional `y <- x`.
 #' @keywords internal
 #' @noRd
 fix_arrows <- function(calls) {
