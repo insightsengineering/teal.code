@@ -106,7 +106,7 @@ extract_calls <- function(pd) {
   calls <- Filter(function(call) !(nrow(call) == 1 && call$token == "';'"), calls)
   calls <- Filter(Negate(is.null), calls)
   calls <- fix_shifted_comments(calls)
-  calls <- remove_dt_assign(calls)
+  calls <- remove_custom_assign(calls)
   fix_arrows(calls)
 }
 
@@ -145,7 +145,9 @@ fix_shifted_comments <- function(calls) {
   Filter(nrow, calls)
 }
 
-#' Fixes edge case of `:=` assignment operator being treated as assignment.
+#' Fixes edge case of custom assignments operator being treated as assignment.
+#'
+#' @param exclude (`character`) custom assignment operators to be excluded
 #' @keywords internal
 #' @noRd
 remove_custom_assign <- function(calls, exclude = c(":=")) {
