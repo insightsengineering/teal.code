@@ -106,6 +106,7 @@ extract_calls <- function(pd) {
   calls <- Filter(function(call) !(nrow(call) == 1 && call$token == "';'"), calls)
   calls <- Filter(Negate(is.null), calls)
   calls <- fix_shifted_comments(calls)
+  calls <- remove_custom_assign(calls, c(":="))
   fix_arrows(calls)
 }
 
@@ -142,6 +143,23 @@ fix_shifted_comments <- function(calls) {
     }
   }
   Filter(nrow, calls)
+}
+
+#' Fixes edge case of custom assignments operator being treated as assignment.
+#'
+#' @param exclude (`character`) custom assignment operators to be excluded
+#' @keywords internal
+#' @noRd
+remove_custom_assign <- function(calls, exclude = NULL) {
+  checkmate::assert_list(calls)
+  checkmate::assert_character(exclude, null.ok = TRUE)
+  lapply(calls, function(call) {
+    if (!is.null(exclude)) {
+      call[!(call$token == "LEFT_ASSIGN" & call$text %in% exclude), ]
+    } else {
+      call
+    }
+  })
 }
 
 #' Fixes edge case of `<-` assignment operator being called as function,

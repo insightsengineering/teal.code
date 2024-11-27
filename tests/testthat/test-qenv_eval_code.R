@@ -105,6 +105,15 @@ testthat::test_that("eval_code accepts calls containing only comments and empty 
   testthat::expect_identical(get_code(eval_code(qenv(), code)), code)
 })
 
+testthat::test_that("eval_code does not treat := as an assignment operator", {
+  code <- "
+    x <- 'name'
+    rlang::list2(!!x := 1)
+  "
+  q <- eval_code(qenv(), code)
+  testthat::expect_identical(get_code(q), code)
+})
+
 # comments ----------
 testthat::test_that("comments fall into proper calls", {
   # If comment is on top, it gets moved to the first call.
