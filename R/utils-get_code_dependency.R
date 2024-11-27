@@ -148,10 +148,11 @@ fix_shifted_comments <- function(calls) {
 #' Fixes edge case of `:=` assignment operator being treated as assignment.
 #' @keywords internal
 #' @noRd
-remove_dt_assign <- function(calls) {
+remove_custom_assign <- function(calls, exclude = c(":=")) {
   checkmate::assert_list(calls)
+  checkmate::assert_character(exclude)
   lapply(calls, function(call) {
-    call <- subset(call, !(token == "LEFT_ASSIGN" & text == ":="))
+    call[!(call$token == "LEFT_ASSIGN" & call$text %in% exclude), ]
   })
 }
 
