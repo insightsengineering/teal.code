@@ -150,11 +150,15 @@ fix_shifted_comments <- function(calls) {
 #' @param exclude (`character`) custom assignment operators to be excluded
 #' @keywords internal
 #' @noRd
-remove_custom_assign <- function(calls, exclude = c(":=")) {
+remove_custom_assign <- function(calls, exclude = NULL) {
   checkmate::assert_list(calls)
-  checkmate::assert_character(exclude)
+  checkmate::assert_character(exclude, null.ok = TRUE)
   lapply(calls, function(call) {
-    call[!(call$token == "LEFT_ASSIGN" & call$text %in% exclude), ]
+    if (!is.null(exclude)) {
+      call[!(call$token == "LEFT_ASSIGN" & call$text %in% exclude), ]
+    } else {
+      call
+    }
   })
 }
 
