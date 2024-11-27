@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.964360587002096" branch-rate="0" lines-covered="460" lines-valid="477" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-11-27 12:17:35.737266">
+<coverage line-rate="0.964360587002096" branch-rate="0" lines-covered="460" lines-valid="477" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-11-27 12:32:24.098832">
   <sources>
     <source>/__w/teal.code/teal.code/teal.code</source>
   </sources>
@@ -1164,16 +1164,16 @@
             </method>
             <method name="remove_dt_assign" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
+                <line number="152" hits="530" branch="false"/>
                 <line number="153" hits="530" branch="false"/>
                 <line number="154" hits="530" branch="false"/>
                 <line number="155" hits="530" branch="false"/>
                 <line number="156" hits="530" branch="false"/>
-                <line number="157" hits="530" branch="false"/>
-                <line number="158" hits="2" branch="false"/>
+                <line number="157" hits="2" branch="false"/>
+                <line number="158" hits="530" branch="false"/>
                 <line number="159" hits="530" branch="false"/>
                 <line number="160" hits="530" branch="false"/>
                 <line number="161" hits="530" branch="false"/>
-                <line number="162" hits="530" branch="false"/>
               </lines>
             </method>
             <method name="fix_arrows" signature="" line-rate="1" branch-rate="0" complexity="0">
@@ -1408,16 +1408,16 @@
             <line number="140" hits="6" branch="false"/>
             <line number="141" hits="6" branch="false"/>
             <line number="145" hits="530" branch="false"/>
+            <line number="152" hits="530" branch="false"/>
             <line number="153" hits="530" branch="false"/>
             <line number="154" hits="530" branch="false"/>
             <line number="155" hits="530" branch="false"/>
             <line number="156" hits="530" branch="false"/>
-            <line number="157" hits="530" branch="false"/>
-            <line number="158" hits="2" branch="false"/>
+            <line number="157" hits="2" branch="false"/>
+            <line number="158" hits="530" branch="false"/>
             <line number="159" hits="530" branch="false"/>
             <line number="160" hits="530" branch="false"/>
             <line number="161" hits="530" branch="false"/>
-            <line number="162" hits="530" branch="false"/>
             <line number="169" hits="530" branch="false"/>
             <line number="170" hits="530" branch="false"/>
             <line number="171" hits="530" branch="false"/>
