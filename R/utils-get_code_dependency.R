@@ -274,6 +274,7 @@ extract_occurrence <- function(pd) {
   # What occurs in a function body is not tracked.
   x <- pd[!is_in_function(pd), ]
   sym_cond <- which(x$token %in% c("SPECIAL", "SYMBOL", "SYMBOL_FUNCTION_CALL"))
+  sym_fc_cond <- which(x$token == "SYMBOL_FUNCTION_CALL")
 
   if (length(sym_cond) == 0) {
     return(character(0L))
@@ -287,18 +288,20 @@ extract_occurrence <- function(pd) {
     sym_cond <- setdiff(sym_cond, which(x$id %in% after_dollar))
   }
 
-  ass_cond <- grep("ASSIGN", x$token)
-  if (!length(ass_cond)) {
+  assign_cond <- grep("ASSIGN", x$token)
+  if (!length(assign_cond)) {
     return(c("<-", unique(x[sym_cond, "text"])))
   }
 
-  sym_cond <- sym_cond[sym_cond > ass_cond] # NOTE 1
+  # For cases like 'eval(expression(c <- b + 2))' removes 'eval(expression('.
+  sym_cond <- sym_cond[!(sym_cond < min(assign_cond) & sym_cond %in% sym_fc_cond)]
+
   # If there was an assignment operation detect direction of it.
-  if (unique(x$text[ass_cond]) == "->") { # NOTE 2
+  if (unique(x$text[assign_cond]) == "->") { # What if there are 2 assignments: e.g. a <- b -> c.
     sym_cond <- rev(sym_cond)
   }
 
-  after <- match(min(x$id[ass_cond]), sort(x$id[c(min(ass_cond), sym_cond)])) - 1
+  after <- match(min(x$id[assign_cond]), sort(x$id[c(min(assign_cond), sym_cond)])) - 1
   ans <- append(x[sym_cond, "text"], "<-", after = max(1, after))
   roll <- in_parenthesis(pd)
   if (length(roll)) {
@@ -306,9 +309,6 @@ extract_occurrence <- function(pd) {
   } else {
     ans
   }
-
-  ### NOTE 2: What if there are 2 assignments: e.g. a <- b -> c.
-  ### NOTE 1: For cases like 'eval(expression(b <- b + 2))' removes 'eval(expression('.
 }
 
 #' Extract side effects

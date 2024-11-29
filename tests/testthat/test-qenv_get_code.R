@@ -596,6 +596,54 @@ testthat::test_that("detects occurrence of a function definition with a @linksto
     pasten(code[1:2])
   )
 })
+
+
+# for loop --------------------------------------------------------------------------------------------------------
+
+testthat::test_that("objects in for loop are extracted if passed as one character", {
+  code <- "
+    some_other_dataset <- mtcars
+    original_dataset <- iris[, 1:4]
+    count <- 1
+    for (x in colnames(original_dataset)) {
+      original_dataset[, x] <- original_dataset[, x] * 2
+      count <- count + 1
+    }
+    output <- rlang::list2(x = original_dataset)
+  "
+  q <- eval_code(qenv(), code)
+  testthat::expect_identical(
+    get_code(q, names = "output"),
+    gsub("\n    some_other_dataset <- mtcars\n", "", code, fixed = TRUE)
+  )
+})
+
+testthat::test_that("objects in for loop are extracted if passed as separate calls", {
+  q <- within(qenv(), {
+    a <- 1
+    b <- 2
+  }) |> within({
+    for (x in c(1, 2)) {
+      b <- a
+      b <- b + a + 1
+      b + 3 -> b # nolint: assignment.
+    }
+  })
+
+  testthat::expect_setequal(
+    strsplit(get_code(q, names = "b"), "\n")[[1]],
+    c(
+      "a <- 1",
+      "b <- 2",
+      "for (x in c(1, 2)) {",
+      "    b <- a",
+      "    b <- b + a + 1",
+      "    b <- b + 3", # ORDER IS CHANGED IN HERE, but we can live with it
+      "}"
+    )
+  )
+})
+
 # $ ---------------------------------------------------------------------------------------------------------------
 
 testthat::test_that("understands $ usage and do not treat rhs of $ as objects (only lhs)", {
