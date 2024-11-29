@@ -294,10 +294,7 @@ extract_occurrence <- function(pd) {
   }
 
   # For cases like 'eval(expression(c <- b + 2))' removes 'eval(expression('.
-  sym_cond <- setdiff(
-    sym_cond,
-    sym_cond[sym_cond < min(assign_cond) & sym_cond %in% sym_fc_cond]
-  )
+  sym_cond <- sym_cond[!(sym_cond < min(assign_cond) & sym_cond %in% sym_fc_cond)]
 
   # If there was an assignment operation detect direction of it.
   if (unique(x$text[assign_cond]) == "->") { # What if there are 2 assignments: e.g. a <- b -> c.
