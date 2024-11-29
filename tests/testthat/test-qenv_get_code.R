@@ -626,7 +626,7 @@ testthat::test_that("objects in for loop are extracted if passed as separate cal
     for (x in c(1, 2)) {
       b <- a
       b <- b + a + 1
-      b + 3 -> b
+      b + 3 -> b # nolint: assignment.
     }
   })
 
