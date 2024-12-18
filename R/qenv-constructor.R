@@ -19,10 +19,11 @@
 #' following characteristics:
 #'
 #' - `qenv` environment is locked, and data modification is only possible through the `eval_code()`
-#' and `within()` functions.
+#'   and `within()` functions.
 #' - It stores metadata about the code used to create the data.
 #' - Is immutable which means that each code evaluation does not modify the original `qenv`
-#' environment directly. See the following code:
+#'   environment directly. See the following code:
+#'
 #'   ```
 #'   q1 <- qenv()
 #'   q2 <- eval_code(q1, "a <- 1")
