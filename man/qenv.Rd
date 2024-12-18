@@ -70,8 +70,7 @@ the \code{all.names = TRUE}, which will show all objects.
 Create a \code{qenv} object and evaluate code in it to track code history.
 }
 \details{
-\code{qenv()} instantiates a \code{qenv} with an empty environment.
-Any changes must be made by evaluating code in it with \code{eval_code} or \code{within}, thereby ensuring reproducibility.
+\code{qenv()} instantiates a with an empty \code{qenv} environment.
 
 \code{eval_code()} evaluates given code in the \code{qenv} environment and appends it to the \code{code} slot.
 Thus, if the \code{qenv} had been instantiated empty, contents of the environment are always a result of the stored code.
@@ -92,6 +91,20 @@ It is a method for the \code{base} generic that wraps \code{eval_code} to provid
 through the \code{...} argument:
 as \code{name:value} pairs are passed to \code{...}, \code{name} in \code{expr} will be replaced with \code{value}.
 }
+\section{\code{qenv} characteristics}{
+
+
+A \code{qenv} inherits from the \code{environment} class, behaves like an environment, and has the
+following characteristics:
+\itemize{
+\item The environment is locked, and data modification is only possible through the \code{eval_code()}
+and \code{within()} functions.
+\item It stores metadata about the code used to create the data.
+\item Is immutable which means that each code evaluation does not modify the original \code{qenv} object
+directly.
+}
+}
+
 \section{Subsetting}{
 
 \code{x[names]} subsets objects in \code{qenv} environment and limit the code to the necessary needed to build limited objects.

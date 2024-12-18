@@ -10,7 +10,7 @@ vignette: >
 
 ## Introduction to `qenv`
 
-A `qenv` object inherits from the `environment` class, behaves like an environment, and has the following characteristics:
+A `qenv` inherits from the `environment` class, behaves like an environment, and has the following characteristics:
 
 -	The environment is locked, and data modification is only possible through the `eval_code()` and `within()` functions.
 - It stores metadata about the code used to create the data.

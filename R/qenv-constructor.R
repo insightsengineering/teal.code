@@ -11,8 +11,18 @@
 #'
 #' @details
 #'
-#' `qenv()` instantiates a `qenv` with an empty environment.
-#' Any changes must be made by evaluating code in it with `eval_code` or `within`, thereby ensuring reproducibility.
+#' `qenv()` instantiates a with an empty `qenv` environment.
+#'
+#' @section `qenv` characteristics:
+#'
+#' A `qenv` inherits from the `environment` class, behaves like an environment, and has the
+#' following characteristics:
+#'
+#' -	The environment is locked, and data modification is only possible through the `eval_code()`
+#' and `within()` functions.
+#' - It stores metadata about the code used to create the data.
+#' - Is immutable which means that each code evaluation does not modify the original `qenv` object
+#' directly.
 #'
 #' @name qenv
 #'
