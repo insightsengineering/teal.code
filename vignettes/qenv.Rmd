@@ -10,7 +10,11 @@ vignette: >
 
 ## Introduction to `qenv`
 
-A `qenv` is an `environment` which contains data and a code used to create data.
+A `qenv` object inherits from the `environment` class, behaves like an environment, and has the following characteristics:
+
+-	The environment is locked, and data modification is only possible through the `eval_code()` and `within()` functions.
+- It stores metadata about the code used to create the data.
+- Is immutable which means that each code evaluation does not modify the original `qenv` object directly. 
 
 ### Initialization
 
@@ -26,8 +30,7 @@ print(empty_qenv)
 
 ### `qenv` basic usage
 
-`qenv` object is a locked `environment`. To modify the data use `eval_code` to execute R code 
-within the environment, yielding a new `qenv` object as the output.
+To modify the data use `eval_code` to execute R code within the environment, yielding a new `qenv` object as the output.
 
 ```{r}
 # evaluate code in qenv
