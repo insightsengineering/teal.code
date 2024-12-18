@@ -1,26 +1,18 @@
-#' Code tracking with `qenv` object
+#' Instantiates a `qenv` environment
 #'
 #' @description
 #' `r badge("stable")`
 #'
-#' Create a `qenv` object and evaluate code in it to track code history.
-#'
-#' @param names (`character`) for `x[names]`, names of objects included in `qenv` to subset. Names not present in `qenv`
-#' are skipped. For `get_code` `r lifecycle::badge("experimental")` vector of object names to return the code for.
-#' For more details see the "Extracting dataset-specific code" section.
+#' Instantiates a `qenv` environment.
 #'
 #' @details
+#' `qenv` class has following characteristics:
 #'
-#' `qenv()` instantiates a with an empty `qenv` environment.
-#'
-#' @section `qenv` characteristics:
-#'
-#' A `qenv` inherits from the `environment` class, behaves like an environment, and has the
-#' following characteristics:
-#'
-#' - `qenv` environment is locked, and data modification is only possible through the `eval_code()`
-#'   and `within()` functions.
-#' - It stores metadata about the code used to create the data.
+#' - It inherits from the environment and methods such as [`$`], [get()], [ls()], [as.list()],
+#' [parent.env()] work out of the box.
+#' - `qenv` is a locked environment, and data modification is only possible through the [eval_code()]
+#'   and [within.qenv()] functions.
+#' - It stores metadata about the code used to create the data (see [get_code()]).
 #' - Is immutable which means that each code evaluation does not modify the original `qenv`
 #'   environment directly. See the following code:
 #'
@@ -32,13 +24,14 @@
 #'
 #' @name qenv
 #'
-#' @return `qenv` returns a `qenv` object.
+#' @return `qenv` environment.
 #'
-#' @seealso [`base::within()`], [`get_var()`], [`get_env()`], [`get_warnings()`], [`join()`], [`concat()`]
+#' @seealso [eval_code()], [get_var()], [get_env()],[get_warnings()], [join()], [concat()]
 #' @examples
-#' # create empty qenv
-#' qenv()
-#'
+#' q <- qenv()
+#' q2 <- within(q, a <- 1)
+#' ls(q2)
+#' q2$a
 #' @export
 qenv <- function() {
   methods::new("qenv")

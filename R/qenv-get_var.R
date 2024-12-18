@@ -1,8 +1,9 @@
 #' Get object from `qenv`
 #'
 #' @description
-#' `r lifecycle::badge("deprecated")` by native \R operators/functions:
-#' `x[[name]]`, `x$name` or [get()].
+#' `r lifecycle::badge("deprecated")`
+#' Instead of [get_var()] use native \R operators/functions:
+#' `x[[name]]`, `x$name` or [get()]:
 #'
 #' Retrieve variables from the `qenv` environment.
 #'
@@ -17,8 +18,6 @@
 #' q2 <- eval_code(q1, code = "b <- a")
 #' get_var(q2, "b")
 #'
-#' @name get_var
-#' @rdname get_var
 #' @aliases get_var,qenv,character-method
 #' @aliases get_var,qenv.error,ANY-method
 #'

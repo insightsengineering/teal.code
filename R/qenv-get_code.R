@@ -1,40 +1,17 @@
-#' @name qenv-inheritted
-#' @rdname qenv
-#'
-#' @details
-#'
-#' `x[[name]]`, `x$name` and `get(name, x)` are generic \R operators to access the objects in the environment.
-#' See [`[[`] for more details.
-#' `names(x)` calls on the `qenv` object and will list all objects in the environment.
-#'
-#' @return `[[`, `$` and `get` return the value of the object named `name` in the `qenv` object.
-#' @return `names` return a character vector of all the names of the objects in the `qenv` object.
-#' @return `ls` return a character vector of the names of the objects in the `qenv` object.
-#' It will only show the objects that are not named with a dot prefix, unless
-#' the `all.names = TRUE`, which will show all objects.
-#'
-#' @examples
-#' # Extract objects from qenv
-#' q[["a"]]
-#' q$a
-#'
-#' # list objects in qenv
-#' names(q)
-NULL
-
 #' Get code from `qenv`
 #'
-#' @details
-#' `get_code()` retrieves the code stored in the `qenv`. `...` passes arguments to methods.
+#' @description
+#' Retrieves the code stored in the `qenv`.
 #'
 #' @param object (`qenv`)
 #' @param deparse (`logical(1)`) flag specifying whether to return code as `character` or `expression`.
-#' @param ... see `Details`
+#' @param ... internal usage, please ignore.
+#' @param names (`character`) `r lifecycle::badge("experimental")` vector of object names to return the code for.
+#' For more details see the "Extracting dataset-specific code" section.
 #'
+#' @section Extracting dataset-specific code:
 #'
-#' @section Subsetting by the `names`:
-#'
-#' `get_code(x, names)` limits the returned code to contain only those lines needed to _create_
+#' `get_code(object, names)` limits the returned code to contain only those lines needed to _create_
 #' the requested objects. The code stored in the `qenv` is analyzed statically to determine
 #' which lines the objects of interest depend upon. The analysis works well when objects are created
 #' with standard infix assignment operators (see `?assignOps`) but it can fail in some situations.
@@ -99,7 +76,7 @@ NULL
 #' - creating and evaluating language objects, _e.g._ `eval(<call>)`
 #'
 #' @return
-#' `get_code` returns the traced code in the form specified by `deparse`.
+#' Returns the traced code in the form specified by `deparse`.
 #'
 #' @examples
 #' # retrieve code
@@ -115,8 +92,6 @@ NULL
 #' q <- eval_code(q, code = c("a <- 1", "b <- 2"))
 #' get_code(q, names = "a")
 #'
-#' @name get_code
-#' @rdname qenv
 #' @aliases get_code,qenv-method
 #' @aliases get_code,qenv.error-method
 #'

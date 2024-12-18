@@ -1,20 +1,18 @@
+#' Subset `qenv`
 #'
-#' @section Subsetting by the `names`:
-#'
-#' `x[names]` subsets `qenv` environment and limits the code to the necessary needed to build limited objects.
-#' `...` passes parameters to further methods.
+#' @description
+#' Subsets [`qenv`] environment and limits the code to the necessary needed to build limited objects.
 #'
 #' @param x (`qenv`)
+#' @param names (`character`) names of objects included in [`qenv`] to subset. Names not present in [`qenv`]
+#' are skipped.
+#' @param ... internal usage, please ignore.
 #'
 #' @examples
-#'
-#' # Subsetting
 #' q <- qenv()
 #' q <- eval_code(q, "a <- 1;b<-2")
 #' q["a"]
 #' q[c("a", "b")]
-#'
-#' @rdname qenv
 #'
 #' @export
 `[.qenv` <- function(x, names, ...) {

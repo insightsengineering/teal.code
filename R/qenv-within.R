@@ -1,11 +1,7 @@
-#' Evaluate Expression in `qenv`
-#'
 #' @details
-#' `within()` is a convenience function for evaluating inline code inside the environment of a `qenv`.
-#' It is a method for the `base` generic that wraps `eval_code` to provide a simplified way of passing code.
-#' `within` accepts only inline expressions (both simple and compound) and allows for injecting values into `expr`
-#' through the `...` argument:
-#' as `name:value` pairs are passed to `...`, `name` in `expr` will be replaced with `value`.
+#' `within()` is a convenience method that wraps `eval_code` to provide a simplified way of passing expression.
+#' `within` accepts only inline expressions (both simple and compound) and allows to substitute `expr`
+#' with the `...` argument values.
 #'
 #' @section Using language objects with `within`:
 #' Passing language objects to `expr` is generally not intended but can be achieved with `do.call`.
@@ -13,10 +9,9 @@
 #'
 #' @param data (`qenv`)
 #' @param expr (`expression`) to evaluate. Must be inline code, see `Using language objects...`
-#' @param ... see `Details`
+#' @param ... (`named`) argument value will substitute a symbol in the `expr` matched by the name.
+#' For practical examples see the #usage.
 #'
-#' @return
-#' `within` returns a `qenv` object with `expr` evaluated or `qenv.error` if evaluation fails.
 #'
 #' @examples
 #' # evaluate code using within
@@ -49,7 +44,7 @@
 #' within(q, exprlist) # fails
 #' do.call(within, list(q, do.call(c, exprlist)))
 #'
-#' @rdname qenv
+#' @rdname eval_code
 #'
 #' @export
 #'
