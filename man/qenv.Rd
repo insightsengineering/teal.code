@@ -50,7 +50,7 @@ For more details see the "Extracting dataset-specific code" section.}
 \value{
 \code{qenv} returns a \code{qenv} object.
 
-\code{eval_code} returns a \code{qenv} object with \code{expr} evaluated or \code{qenv.error} if evaluation fails.
+\code{eval_code} and \code{within} returns a \code{qenv} object with \code{expr} evaluated or \code{qenv.error} if evaluation fails.
 
 \code{[[}, \code{$} and \code{get} return the value of the object named \code{name} in the \code{qenv} object.
 
@@ -97,23 +97,28 @@ as \code{name:value} pairs are passed to \code{...}, \code{name} in \code{expr} 
 A \code{qenv} inherits from the \code{environment} class, behaves like an environment, and has the
 following characteristics:
 \itemize{
-\item The environment is locked, and data modification is only possible through the \code{eval_code()}
+\item \code{qenv} environment is locked, and data modification is only possible through the \code{eval_code()}
 and \code{within()} functions.
 \item It stores metadata about the code used to create the data.
-\item Is immutable which means that each code evaluation does not modify the original \code{qenv} object
-directly.
+\item Is immutable which means that each code evaluation does not modify the original \code{qenv}
+environment directly. See the following code:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{q1 <- qenv()
+q2 <- eval_code(q1, "a <- 1")
+identical(q1, q2) # FALSE
+}\if{html}{\out{</div>}}
 }
 }
 
-\section{Subsetting}{
+\section{Subsetting by the \code{names}}{
 
-\code{x[names]} subsets objects in \code{qenv} environment and limit the code to the necessary needed to build limited objects.
+
+\code{x[names]} subsets \code{qenv} environment and limits the code to the necessary needed to build limited objects.
 \code{...} passes parameters to further methods.
-}
 
-\section{Extracting dataset-specific code}{
 
-When \code{names} for \code{get_code} is specified, the code returned will be limited to the lines needed to \emph{create}
+
+\code{get_code(x, names)} limits the returned code to contain only those lines needed to \emph{create}
 the requested objects. The code stored in the \code{qenv} is analyzed statically to determine
 which lines the objects of interest depend upon. The analysis works well when objects are created
 with standard infix assignment operators (see \code{?assignOps}) but it can fail in some situations.

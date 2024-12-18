@@ -32,8 +32,9 @@ NULL
 #' @param ... see `Details`
 #'
 #'
-#' @section Extracting dataset-specific code:
-#' When `names` for `get_code` is specified, the code returned will be limited to the lines needed to _create_
+#' @section Subsetting by the `names`:
+#'
+#' `get_code(x, names)` limits the returned code to contain only those lines needed to _create_
 #' the requested objects. The code stored in the `qenv` is analyzed statically to determine
 #' which lines the objects of interest depend upon. The analysis works well when objects are created
 #' with standard infix assignment operators (see `?assignOps`) but it can fail in some situations.

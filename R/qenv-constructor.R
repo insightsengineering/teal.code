@@ -18,11 +18,16 @@
 #' A `qenv` inherits from the `environment` class, behaves like an environment, and has the
 #' following characteristics:
 #'
-#' -	The environment is locked, and data modification is only possible through the `eval_code()`
+#' - `qenv` environment is locked, and data modification is only possible through the `eval_code()`
 #' and `within()` functions.
 #' - It stores metadata about the code used to create the data.
-#' - Is immutable which means that each code evaluation does not modify the original `qenv` object
-#' directly.
+#' - Is immutable which means that each code evaluation does not modify the original `qenv`
+#' environment directly. See the following code:
+#'   ```
+#'   q1 <- qenv()
+#'   q2 <- eval_code(q1, "a <- 1")
+#'   identical(q1, q2) # FALSE
+#'   ```
 #'
 #' @name qenv
 #'

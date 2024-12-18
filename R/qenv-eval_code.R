@@ -1,6 +1,7 @@
 #' Evaluate code in `qenv`
 #'
 #' @details
+#'
 #' `eval_code()` evaluates given code in the `qenv` environment and appends it to the `code` slot.
 #' Thus, if the `qenv` had been instantiated empty, contents of the environment are always a result of the stored code.
 #' The `qenv` object is immutable, even though it inherits from the environment class, which is typically mutable by
@@ -14,7 +15,7 @@
 #' `expression` being a result of `parse(keep.source = TRUE)`.
 #'
 #' @return
-#' `eval_code` returns a `qenv` object with `expr` evaluated or `qenv.error` if evaluation fails.
+#' `eval_code` and `within` returns a `qenv` object with `expr` evaluated or `qenv.error` if evaluation fails.
 #'
 #' @examples
 #' # evaluate code in qenv
