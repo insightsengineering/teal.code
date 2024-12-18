@@ -10,7 +10,7 @@ vignette: >
 
 ## Introduction to `qenv`
 
-A `qenv` is an R object which contains code and an environment and can be used to create reproducible outputs.
+A `qenv` is an `environment` which contains data and a code used to create data.
 
 ### Initialization
 
@@ -26,14 +26,13 @@ print(empty_qenv)
 
 ### `qenv` basic usage
 
-The `eval_code()` function executes code within a `qenv` environment, yielding a new `qenv` object as the output.
+`qenv` object is a locked `environment`. To modify the data use `eval_code` to execute R code 
+within the environment, yielding a new `qenv` object as the output.
 
 ```{r}
 # evaluate code in qenv
 my_qenv <- eval_code(empty_qenv, "x <- 2")
 print(my_qenv)
-as.environment(my_qenv)
-
 
 q1 <- eval_code(my_qenv, "y <- x * 2")
 q1 <- eval_code(q1, "z <- y * 2")
@@ -47,15 +46,13 @@ print(q1)
 names(q1)
 ```
 
-The same result can be achieved with the `within` method for the `qenv` class.
+The same result can be achieved with the `within` method.
+
 ```{r}
 q2 <- within(my_qenv, y <- x * 2)
 q2 <- within(q2, z <- y * 2)
 print(q2)
 ```
-
-
-
 
 To extract objects from a `qenv`, use `[[`; this is particularly useful for displaying them in a `shiny` app. You can retrieve the code used to generate the `qenv` using the `get_code()` function.
 
@@ -66,8 +63,10 @@ cat(get_code(q2))
 ```
 
 ### Substitutions
+
 In some cases, one may want to substitute some elements of the code before evaluation.
 Consider a case when a subset of `iris` is defined by an input value.
+
 ```{r}
 q <- qenv()
 q <- eval_code(q, quote(i <- subset(iris, Species == "setosa")))
@@ -87,6 +86,7 @@ summary(q[["iii"]]$Species)
 ```
 
 A more convenient way to pass code with substitution is to use the `within` method.
+
 ```{r}
 qq <- qenv()
 qq <- within(qq, i <- subset(iris, Species == "setosa"))
@@ -100,7 +100,6 @@ summary(qq[["iii"]]$Species)
 ```
 
 See `?qenv` for more details.
-
 
 ### Combining `qenv` objects
 

@@ -3,6 +3,10 @@
 #' @details
 #' `eval_code()` evaluates given code in the `qenv` environment and appends it to the `code` slot.
 #' Thus, if the `qenv` had been instantiated empty, contents of the environment are always a result of the stored code.
+#' The `qenv` object is immutable, even though it inherits from the environment class, which is typically mutable by
+#' design. This means that each code evaluation does not modify the original `qenv` object directly. Instead, every
+#' code evaluation creates a new `qenv` object that reflects the result of the changes, leaving the original object
+#' unchanged.
 #'
 #' @param object (`qenv`)
 #' @param code (`character`, `language` or `expression`) code to evaluate.
