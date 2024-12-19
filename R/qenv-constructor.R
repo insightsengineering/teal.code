@@ -26,7 +26,7 @@
 #'
 #' @return `qenv` environment.
 #'
-#' @seealso [eval_code()], [get_var()], [get_env()],[get_warnings()], [join()], [concat()]
+#' @seealso [eval_code()], [get_var()], [`extract-qenv`], [get_env()],[get_warnings()], [join()], [concat()]
 #' @examples
 #' q <- qenv()
 #' q2 <- within(q, a <- 1)

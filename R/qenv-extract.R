@@ -8,6 +8,8 @@
 #' are skipped.
 #' @param ... internal usage, please ignore.
 #'
+#' @name extract-qenv
+#'
 #' @examples
 #' q <- qenv()
 #' q <- eval_code(q, "a <- 1;b<-2")

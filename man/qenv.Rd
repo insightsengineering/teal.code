@@ -38,5 +38,5 @@ ls(q2)
 q2$a
 }
 \seealso{
-\code{\link[=eval_code]{eval_code()}}, \code{\link[=get_var]{get_var()}}, \code{\link[=get_env]{get_env()}},\code{\link[=get_warnings]{get_warnings()}}, \code{\link[=join]{join()}}, \code{\link[=concat]{concat()}}
+\code{\link[=eval_code]{eval_code()}}, \code{\link[=get_var]{get_var()}}, \code{\link{extract-qenv}}, \code{\link[=get_env]{get_env()}},\code{\link[=get_warnings]{get_warnings()}}, \code{\link[=join]{join()}}, \code{\link[=concat]{concat()}}
 }
