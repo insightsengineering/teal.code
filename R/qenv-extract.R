@@ -1,4 +1,4 @@
-#' Subset `qenv`
+#' Subsets `qenv`
 #'
 #' @description
 #' Subsets [`qenv`] environment and limits the code to the necessary needed to build limited objects.
@@ -8,7 +8,7 @@
 #' are skipped.
 #' @param ... internal usage, please ignore.
 #'
-#' @name extract-qenv
+#' @name subset-qenv
 #'
 #' @examples
 #' q <- qenv()

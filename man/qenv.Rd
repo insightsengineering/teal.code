@@ -22,6 +22,7 @@ Instantiates a \code{qenv} environment.
 \item \code{qenv} is a locked environment, and data modification is only possible through the \code{\link[=eval_code]{eval_code()}}
 and \code{\link[=within.qenv]{within.qenv()}} functions.
 \item It stores metadata about the code used to create the data (see \code{\link[=get_code]{get_code()}}).
+\item It supports slicing (see \code{\link{subset-qenv}})
 \item Is immutable which means that each code evaluation does not modify the original \code{qenv}
 environment directly. See the following code:
 

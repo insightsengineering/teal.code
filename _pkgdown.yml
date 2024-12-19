@@ -26,7 +26,6 @@ reference:
   - title: "Reproducible qenv objects"
     desc: "methods to get and modify values of qenv objects"
     contents:
-      - extract-qenv
       - concat
       - dev_suppress
       - eval_code
@@ -38,4 +37,5 @@ reference:
       - join
       - qenv
       - show,qenv-method
+      - subset-qenv
       - within.qenv

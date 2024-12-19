@@ -13,6 +13,7 @@
 #' - `qenv` is a locked environment, and data modification is only possible through the [eval_code()]
 #'   and [within.qenv()] functions.
 #' - It stores metadata about the code used to create the data (see [get_code()]).
+#' - It supports slicing (see [`subset-qenv`])
 #' - Is immutable which means that each code evaluation does not modify the original `qenv`
 #'   environment directly. See the following code:
 #'
