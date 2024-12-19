@@ -24,11 +24,11 @@ It is possible to preserve original formatting of the \code{code} by providing a
 
 \item{expr}{(\code{expression}) to evaluate. Must be inline code, see \verb{Using language objects...}}
 
-\item{...}{(\code{named}) argument value will substitute a symbol in the \code{expr} matched by the name.
-For practical examples see the #usage.}
+\item{...}{named argument value will substitute a symbol in the \code{expr} matched by the name.
+For practical usage see Examples section below.}
 }
 \value{
-Returns a \code{qenv} object with \code{code/expr} evaluated or \code{qenv.error} if evaluation fails.
+\code{qenv} environment with \code{code/expr} evaluated or \code{qenv.error} if evaluation fails.
 }
 \description{
 Evaluate code in \code{qenv}
@@ -39,7 +39,7 @@ Thus, if the \code{qenv} had been instantiated empty, contents of the environmen
 
 \code{within()} is a convenience method that wraps \code{eval_code} to provide a simplified way of passing expression.
 \code{within} accepts only inline expressions (both simple and compound) and allows to substitute \code{expr}
-with the \code{...} argument values.
+with \code{...} named argument values.
 }
 \section{Using language objects with \code{within}}{
 

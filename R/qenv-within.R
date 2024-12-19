@@ -10,8 +10,7 @@
 #' @param data (`qenv`)
 #' @param expr (`expression`) to evaluate. Must be inline code, see `Using language objects...`
 #' @param ... named argument value will substitute a symbol in the `expr` matched by the name.
-#' For practical examples see the [usage](#ref-usage) above.
-#'
+#' For practical usage see Examples section below.
 #'
 #' @examples
 #' # evaluate code using within

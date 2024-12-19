@@ -23,7 +23,7 @@ Instantiates a \code{qenv} environment.
 and \code{\link[=within.qenv]{within.qenv()}} functions.
 \item It stores metadata about the code used to create the data (see \code{\link[=get_code]{get_code()}}).
 \item It supports slicing (see \code{\link{subset-qenv}})
-\item Is immutable which means that each code evaluation does not modify the original \code{qenv}
+\item It is immutable which means that each code evaluation does not modify the original \code{qenv}
 environment directly. See the following code:
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{q1 <- qenv()
