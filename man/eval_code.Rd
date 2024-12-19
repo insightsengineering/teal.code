@@ -25,11 +25,7 @@ It is possible to preserve original formatting of the \code{code} by providing a
 \item{expr}{(\code{expression}) to evaluate. Must be inline code, see \verb{Using language objects...}}
 
 \item{...}{named argument value will substitute a symbol in the \code{expr} matched by the name.
-<<<<<<< HEAD
 For practical usage see Examples section below.}
-=======
-For practical examples see the \href{#ref-usage}{usage} above.}
->>>>>>> origin/338_datanames_in_vignettes
 }
 \value{
 \code{qenv} environment with \code{code/expr} evaluated or \code{qenv.error} if evaluation fails.
