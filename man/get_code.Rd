@@ -19,7 +19,7 @@ For more details see the "Extracting dataset-specific code" section.}
 \item{...}{internal usage, please ignore.}
 }
 \value{
-Returns the traced code in the form specified by \code{deparse}.
+The code used in the \code{qenv} in the form specified by \code{deparse}.
 }
 \description{
 Retrieves the code stored in the \code{qenv}.
