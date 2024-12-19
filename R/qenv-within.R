@@ -1,7 +1,7 @@
 #' @details
 #' `within()` is a convenience method that wraps `eval_code` to provide a simplified way of passing expression.
 #' `within` accepts only inline expressions (both simple and compound) and allows to substitute `expr`
-#' with the `...` argument values.
+#' with `...` named argument values.
 #'
 #' @section Using language objects with `within`:
 #' Passing language objects to `expr` is generally not intended but can be achieved with `do.call`.
@@ -9,8 +9,8 @@
 #'
 #' @param data (`qenv`)
 #' @param expr (`expression`) to evaluate. Must be inline code, see `Using language objects...`
-#' @param ... (`named`) argument value will substitute a symbol in the `expr` matched by the name.
-#' For practical examples see the #usage.
+#' @param ... named argument value will substitute a symbol in the `expr` matched by the name.
+#' For practical examples see the [usage](#ref-usage) above.
 #'
 #'
 #' @examples

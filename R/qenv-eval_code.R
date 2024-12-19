@@ -11,7 +11,7 @@
 #' `expression` being a result of `parse(keep.source = TRUE)`.
 #'
 #' @return
-#' Returns a `qenv` object with `code/expr` evaluated or `qenv.error` if evaluation fails.
+#' `qenv` environment with `code/expr` evaluated or `qenv.error` if evaluation fails.
 #'
 #' @examples
 #' # evaluate code in qenv

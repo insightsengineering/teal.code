@@ -76,7 +76,7 @@
 #' - creating and evaluating language objects, _e.g._ `eval(<call>)`
 #'
 #' @return
-#' Returns the traced code in the form specified by `deparse`.
+#' The code used in the `qenv` in the form specified by `deparse`.
 #'
 #' @examples
 #' # retrieve code
