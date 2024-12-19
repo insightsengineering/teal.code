@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.962264150943396" branch-rate="0" lines-covered="459" lines-valid="477" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-12-19 07:23:39.169708">
+<coverage line-rate="0.962264150943396" branch-rate="0" lines-covered="459" lines-valid="477" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-12-19 09:09:23.532038">
   <sources>
     <source>/__w/teal.code/teal.code/teal.code</source>
   </sources>
@@ -151,7 +151,7 @@
                 <line number="47" hits="168" branch="false"/>
                 <line number="48" hits="168" branch="false"/>
                 <line number="49" hits="168" branch="false"/>
-                <line number="37" hits="166" branch="false"/>
+                <line number="38" hits="166" branch="false"/>
                 <line number="105" hits="102" branch="false"/>
                 <line number="106" hits="102" branch="false"/>
                 <line number="109" hits="102" branch="false"/>
@@ -249,7 +249,7 @@
                 <line number="47" hits="168" branch="false"/>
                 <line number="48" hits="168" branch="false"/>
                 <line number="49" hits="168" branch="false"/>
-                <line number="37" hits="166" branch="false"/>
+                <line number="38" hits="166" branch="false"/>
                 <line number="105" hits="102" branch="false"/>
                 <line number="106" hits="102" branch="false"/>
                 <line number="109" hits="102" branch="false"/>
@@ -270,7 +270,7 @@
             </method>
           </methods>
           <lines>
-            <line number="37" hits="166" branch="false"/>
+            <line number="38" hits="166" branch="false"/>
           </lines>
         </class>
         <class name="qenv-errors.R" filename="R/qenv-errors.R" line-rate="0" branch-rate="0" complexity="0">
@@ -546,7 +546,7 @@
                 <line number="47" hits="168" branch="false"/>
                 <line number="48" hits="168" branch="false"/>
                 <line number="49" hits="168" branch="false"/>
-                <line number="37" hits="166" branch="false"/>
+                <line number="38" hits="166" branch="false"/>
                 <line number="105" hits="102" branch="false"/>
                 <line number="106" hits="102" branch="false"/>
                 <line number="109" hits="102" branch="false"/>
@@ -631,7 +631,7 @@
                 <line number="47" hits="168" branch="false"/>
                 <line number="48" hits="168" branch="false"/>
                 <line number="49" hits="168" branch="false"/>
-                <line number="37" hits="166" branch="false"/>
+                <line number="38" hits="166" branch="false"/>
                 <line number="105" hits="102" branch="false"/>
                 <line number="106" hits="102" branch="false"/>
                 <line number="109" hits="102" branch="false"/>
@@ -696,7 +696,7 @@
                 <line number="47" hits="168" branch="false"/>
                 <line number="48" hits="168" branch="false"/>
                 <line number="49" hits="168" branch="false"/>
-                <line number="37" hits="166" branch="false"/>
+                <line number="38" hits="166" branch="false"/>
                 <line number="105" hits="102" branch="false"/>
                 <line number="106" hits="102" branch="false"/>
                 <line number="109" hits="102" branch="false"/>
@@ -901,7 +901,7 @@
                 <line number="47" hits="168" branch="false"/>
                 <line number="48" hits="168" branch="false"/>
                 <line number="49" hits="168" branch="false"/>
-                <line number="37" hits="166" branch="false"/>
+                <line number="38" hits="166" branch="false"/>
                 <line number="105" hits="102" branch="false"/>
                 <line number="106" hits="102" branch="false"/>
                 <line number="109" hits="102" branch="false"/>
@@ -1033,7 +1033,7 @@
                 <line number="47" hits="168" branch="false"/>
                 <line number="48" hits="168" branch="false"/>
                 <line number="49" hits="168" branch="false"/>
-                <line number="37" hits="166" branch="false"/>
+                <line number="38" hits="166" branch="false"/>
                 <line number="105" hits="102" branch="false"/>
                 <line number="106" hits="102" branch="false"/>
                 <line number="109" hits="102" branch="false"/>
