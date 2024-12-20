@@ -36,7 +36,15 @@ setMethod("show", "qenv", function(object) {
 
   hidden <- setdiff(ls(object, all.names = TRUE), shown)
   lapply(hidden, function(x) {
-    cat(cli::style_blurred(sprintf("- %s: [%s]\n", x, class(object[[x]])[1])))
+    cat(
+      cli::style_blurred(
+        sprintf(
+          "- %s: [%s]\n",
+          deparse(rlang::sym(x), backtick = TRUE),
+          class(object[[x]])[1]
+        )
+      )
+    )
   })
 
   invisible(object)
