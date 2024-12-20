@@ -45,7 +45,7 @@ VignetteBuilder:
     rmarkdown
 RdMacros:
     lifecycle
-Config/Needs/verdepcheck: mllg/checkmate, r-lib/lifecycle, r-lib/rlang,
+Config/Needs/verdepcheck: mllg/checkmate, r-lib/cli, r-lib/lifecycle, r-lib/rlang,
     r-lib/cli, yihui/knitr, rstudio/rmarkdown, rstudio/shiny,
     r-lib/testthat, r-lib/withr
 Config/Needs/website: insightsengineering/nesttemplate
