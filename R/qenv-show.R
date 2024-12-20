@@ -27,7 +27,7 @@ setMethod("show", "qenv", function(object) {
   cat(cli::style_bold(paste0(header, locked)), sep = "\n")
   cat(parent, "\n")
 
-  shown <- ls(object)
+  shown <- vapply(rlang::syms(ls(object)), deparse, character(1L), backtick = TRUE)
   lapply(shown, function(x) {
     cat(sprintf("- %s: [%s]\n", x, class(object[[x]])[1]))
   })
