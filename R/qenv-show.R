@@ -23,7 +23,7 @@ setMethod("show", "qenv", function(object) {
   } else {
     ""
   }
-  parent <- sprintf("<environment: %s>", rlang::env_label(rlang::env_parent(env)))
+  parent <- sprintf("Parent: <environment: %s>", rlang::env_label(rlang::env_parent(env)))
   cat(cli::style_bold(paste0(header, locked)), sep = "\n")
   cat(parent, "\n")
 
