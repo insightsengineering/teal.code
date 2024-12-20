@@ -28,13 +28,13 @@ Depends:
     R (>= 4.0)
 Imports:
     checkmate (>= 2.1.0),
+    cli (>= 3.4.0),
     grDevices,
     lifecycle (>= 0.2.0),
     rlang (>= 1.1.0),
     stats,
     utils
 Suggests:
-    cli (>= 3.4.0),
     knitr (>= 1.42),
     rmarkdown (>= 2.23),
     shiny (>= 1.6.0),
