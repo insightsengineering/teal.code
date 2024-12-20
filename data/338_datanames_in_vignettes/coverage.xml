@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.92354124748491" branch-rate="0" lines-covered="459" lines-valid="497" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-12-20 10:58:08.463284">
+<coverage line-rate="0.908910891089109" branch-rate="0" lines-covered="459" lines-valid="505" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2024-12-20 20:26:19.177892">
   <sources>
     <source>/__w/teal.code/teal.code/teal.code</source>
   </sources>
   <packages>
-    <package name="teal.code" line-rate="0.92354124748491" branch-rate="0" complexity="0">
+    <package name="teal.code" line-rate="0.908910891089109" branch-rate="0" complexity="0">
       <classes>
         <class name="qenv-c.R" filename="R/qenv-c.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
@@ -137,7 +137,7 @@
         </class>
         <class name="qenv-class.R" filename="R/qenv-class.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="qenv" signature="" line-rate="0.571428571428571" branch-rate="0" complexity="0">
+            <method name="qenv" signature="" line-rate="0.491228070175439" branch-rate="0" complexity="0">
               <lines>
                 <line number="34" hits="169" branch="false"/>
                 <line number="35" hits="167" branch="false"/>
@@ -187,7 +187,15 @@
                 <line number="38" hits="0" branch="false"/>
                 <line number="39" hits="0" branch="false"/>
                 <line number="40" hits="0" branch="false"/>
+                <line number="41" hits="0" branch="false"/>
                 <line number="42" hits="0" branch="false"/>
+                <line number="43" hits="0" branch="false"/>
+                <line number="44" hits="0" branch="false"/>
+                <line number="45" hits="0" branch="false"/>
+                <line number="46" hits="0" branch="false"/>
+                <line number="47" hits="0" branch="false"/>
+                <line number="48" hits="0" branch="false"/>
+                <line number="50" hits="0" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -255,7 +263,7 @@
         </class>
         <class name="qenv-constructor.R" filename="R/qenv-constructor.R" line-rate="1" branch-rate="0" complexity="0">
           <methods>
-            <method name="qenv" signature="" line-rate="0.571428571428571" branch-rate="0" complexity="0">
+            <method name="qenv" signature="" line-rate="0.491228070175439" branch-rate="0" complexity="0">
               <lines>
                 <line number="34" hits="169" branch="false"/>
                 <line number="35" hits="167" branch="false"/>
@@ -305,7 +313,15 @@
                 <line number="38" hits="0" branch="false"/>
                 <line number="39" hits="0" branch="false"/>
                 <line number="40" hits="0" branch="false"/>
+                <line number="41" hits="0" branch="false"/>
                 <line number="42" hits="0" branch="false"/>
+                <line number="43" hits="0" branch="false"/>
+                <line number="44" hits="0" branch="false"/>
+                <line number="45" hits="0" branch="false"/>
+                <line number="46" hits="0" branch="false"/>
+                <line number="47" hits="0" branch="false"/>
+                <line number="48" hits="0" branch="false"/>
+                <line number="50" hits="0" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -572,7 +588,7 @@
                 <line number="101" hits="104" branch="false"/>
               </lines>
             </method>
-            <method name="qenv" signature="" line-rate="0.571428571428571" branch-rate="0" complexity="0">
+            <method name="qenv" signature="" line-rate="0.491228070175439" branch-rate="0" complexity="0">
               <lines>
                 <line number="34" hits="169" branch="false"/>
                 <line number="35" hits="167" branch="false"/>
@@ -622,7 +638,15 @@
                 <line number="38" hits="0" branch="false"/>
                 <line number="39" hits="0" branch="false"/>
                 <line number="40" hits="0" branch="false"/>
+                <line number="41" hits="0" branch="false"/>
                 <line number="42" hits="0" branch="false"/>
+                <line number="43" hits="0" branch="false"/>
+                <line number="44" hits="0" branch="false"/>
+                <line number="45" hits="0" branch="false"/>
+                <line number="46" hits="0" branch="false"/>
+                <line number="47" hits="0" branch="false"/>
+                <line number="48" hits="0" branch="false"/>
+                <line number="50" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="qenv.error" signature="" line-rate="0.923076923076923" branch-rate="0" complexity="0">
@@ -677,7 +701,7 @@
                 <line number="22" hits="14" branch="false"/>
               </lines>
             </method>
-            <method name="qenv" signature="" line-rate="0.571428571428571" branch-rate="0" complexity="0">
+            <method name="qenv" signature="" line-rate="0.491228070175439" branch-rate="0" complexity="0">
               <lines>
                 <line number="34" hits="169" branch="false"/>
                 <line number="35" hits="167" branch="false"/>
@@ -727,7 +751,15 @@
                 <line number="38" hits="0" branch="false"/>
                 <line number="39" hits="0" branch="false"/>
                 <line number="40" hits="0" branch="false"/>
+                <line number="41" hits="0" branch="false"/>
                 <line number="42" hits="0" branch="false"/>
+                <line number="43" hits="0" branch="false"/>
+                <line number="44" hits="0" branch="false"/>
+                <line number="45" hits="0" branch="false"/>
+                <line number="46" hits="0" branch="false"/>
+                <line number="47" hits="0" branch="false"/>
+                <line number="48" hits="0" branch="false"/>
+                <line number="50" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="qenv.error" signature="" line-rate="0.923076923076923" branch-rate="0" complexity="0">
@@ -762,7 +794,7 @@
                 <line number="27" hits="7" branch="false"/>
               </lines>
             </method>
-            <method name="qenv" signature="" line-rate="0.571428571428571" branch-rate="0" complexity="0">
+            <method name="qenv" signature="" line-rate="0.491228070175439" branch-rate="0" complexity="0">
               <lines>
                 <line number="34" hits="169" branch="false"/>
                 <line number="35" hits="167" branch="false"/>
@@ -812,7 +844,15 @@
                 <line number="38" hits="0" branch="false"/>
                 <line number="39" hits="0" branch="false"/>
                 <line number="40" hits="0" branch="false"/>
+                <line number="41" hits="0" branch="false"/>
                 <line number="42" hits="0" branch="false"/>
+                <line number="43" hits="0" branch="false"/>
+                <line number="44" hits="0" branch="false"/>
+                <line number="45" hits="0" branch="false"/>
+                <line number="46" hits="0" branch="false"/>
+                <line number="47" hits="0" branch="false"/>
+                <line number="48" hits="0" branch="false"/>
+                <line number="50" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="qenv.error" signature="" line-rate="0.923076923076923" branch-rate="0" complexity="0">
@@ -987,7 +1027,7 @@
                 <line number="27" hits="7" branch="false"/>
               </lines>
             </method>
-            <method name="qenv" signature="" line-rate="0.571428571428571" branch-rate="0" complexity="0">
+            <method name="qenv" signature="" line-rate="0.491228070175439" branch-rate="0" complexity="0">
               <lines>
                 <line number="34" hits="169" branch="false"/>
                 <line number="35" hits="167" branch="false"/>
@@ -1037,7 +1077,15 @@
                 <line number="38" hits="0" branch="false"/>
                 <line number="39" hits="0" branch="false"/>
                 <line number="40" hits="0" branch="false"/>
+                <line number="41" hits="0" branch="false"/>
                 <line number="42" hits="0" branch="false"/>
+                <line number="43" hits="0" branch="false"/>
+                <line number="44" hits="0" branch="false"/>
+                <line number="45" hits="0" branch="false"/>
+                <line number="46" hits="0" branch="false"/>
+                <line number="47" hits="0" branch="false"/>
+                <line number="48" hits="0" branch="false"/>
+                <line number="50" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="qenv.error" signature="" line-rate="0.923076923076923" branch-rate="0" complexity="0">
@@ -1139,7 +1187,7 @@
         </class>
         <class name="qenv-show.R" filename="R/qenv-show.R" line-rate="0" branch-rate="0" complexity="0">
           <methods>
-            <method name="qenv" signature="" line-rate="0.571428571428571" branch-rate="0" complexity="0">
+            <method name="qenv" signature="" line-rate="0.491228070175439" branch-rate="0" complexity="0">
               <lines>
                 <line number="34" hits="169" branch="false"/>
                 <line number="35" hits="167" branch="false"/>
@@ -1189,7 +1237,15 @@
                 <line number="38" hits="0" branch="false"/>
                 <line number="39" hits="0" branch="false"/>
                 <line number="40" hits="0" branch="false"/>
+                <line number="41" hits="0" branch="false"/>
                 <line number="42" hits="0" branch="false"/>
+                <line number="43" hits="0" branch="false"/>
+                <line number="44" hits="0" branch="false"/>
+                <line number="45" hits="0" branch="false"/>
+                <line number="46" hits="0" branch="false"/>
+                <line number="47" hits="0" branch="false"/>
+                <line number="48" hits="0" branch="false"/>
+                <line number="50" hits="0" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -1214,7 +1270,15 @@
             <line number="38" hits="0" branch="false"/>
             <line number="39" hits="0" branch="false"/>
             <line number="40" hits="0" branch="false"/>
+            <line number="41" hits="0" branch="false"/>
             <line number="42" hits="0" branch="false"/>
+            <line number="43" hits="0" branch="false"/>
+            <line number="44" hits="0" branch="false"/>
+            <line number="45" hits="0" branch="false"/>
+            <line number="46" hits="0" branch="false"/>
+            <line number="47" hits="0" branch="false"/>
+            <line number="48" hits="0" branch="false"/>
+            <line number="50" hits="0" branch="false"/>
           </lines>
         </class>
         <class name="qenv-within.R" filename="R/qenv-within.R" line-rate="1" branch-rate="0" complexity="0">
