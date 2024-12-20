@@ -27,9 +27,15 @@ setMethod("show", "qenv", function(object) {
   cat(cli::style_bold(paste0(header, locked)), sep = "\n")
   cat(parent, "\n")
 
-  shown <- vapply(rlang::syms(ls(object)), deparse, character(1L), backtick = TRUE)
+  shown <- ls(object)
   lapply(shown, function(x) {
-    cat(sprintf("- %s: [%s]\n", x, class(object[[x]])[1]))
+    cat(
+      sprintf(
+        "- %s: [%s]\n",
+        deparse(rlang::sym(x), backtick = TRUE),
+        class(object[[x]])[1]
+      )
+    )
   })
 
   hidden <- setdiff(ls(object, all.names = TRUE), shown)
