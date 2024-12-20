@@ -18,16 +18,12 @@
 setMethod("show", "qenv", function(object) {
   env <- get_env(object)
   header <- cli::col_blue(sprintf("<environment: %s>", rlang::env_label(env)))
-  locked <- if (environmentIsLocked(env)) {
-    " [L]"
-  } else {
-    ""
-  }
   parent <- sprintf("Parent: <environment: %s>", rlang::env_label(rlang::env_parent(env)))
-  cat(cli::style_bold(paste0(header, locked)), sep = "\n")
+  cat(cli::style_bold(header), "\U1F512", "\n")
   cat(parent, "\n")
 
   shown <- ls(object)
+  if (length(shown > 0L)) cat(cli::style_bold("Bindings:\n"))
   lapply(shown, function(x) {
     cat(
       sprintf(
