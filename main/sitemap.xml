@@ -13,6 +13,8 @@
 <url><loc>https://insightsengineering.github.io/teal.code/reference/concat.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.code/reference/dev_suppress.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.code/reference/dot-check_joinable.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/reference/eval_code.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/reference/get_code.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.code/reference/get_code_dependency.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.code/reference/get_env.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.code/reference/get_messages.html</loc></url>
@@ -25,6 +27,7 @@
 <url><loc>https://insightsengineering.github.io/teal.code/reference/qenv-class.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.code/reference/qenv.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.code/reference/show-qenv-method.html</loc></url>
+<url><loc>https://insightsengineering.github.io/teal.code/reference/subset-qenv.html</loc></url>
 <url><loc>https://insightsengineering.github.io/teal.code/reference/teal.code-package.html</loc></url>
 </urlset>
 
