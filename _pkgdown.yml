@@ -37,4 +37,5 @@ reference:
       - join
       - qenv
       - show,qenv-method
+      - subset-qenv
       - within.qenv

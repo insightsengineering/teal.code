@@ -28,13 +28,13 @@ Depends:
     R (>= 4.0)
 Imports:
     checkmate (>= 2.1.0),
+    cli (>= 3.4.0),
     grDevices,
     lifecycle (>= 0.2.0),
     rlang (>= 1.1.0),
     stats,
     utils
 Suggests:
-    cli (>= 3.4.0),
     knitr (>= 1.42),
     rmarkdown (>= 2.23),
     shiny (>= 1.6.0),
@@ -45,7 +45,7 @@ VignetteBuilder:
     rmarkdown
 RdMacros:
     lifecycle
-Config/Needs/verdepcheck: mllg/checkmate, r-lib/lifecycle, r-lib/rlang,
+Config/Needs/verdepcheck: mllg/checkmate, r-lib/cli, r-lib/lifecycle, r-lib/rlang,
     r-lib/cli, yihui/knitr, rstudio/rmarkdown, rstudio/shiny,
     r-lib/testthat, r-lib/withr
 Config/Needs/website: insightsengineering/nesttemplate
