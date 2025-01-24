@@ -28,7 +28,7 @@ setGeneric("get_var", function(object, var) {
 })
 
 setMethod("get_var", signature = c("qenv", "character"), function(object, var) {
-  lifecycle::deprecate_soft("0.5.1", "get_var()", "base::get()")
+  lifecycle::deprecate_soft("0.6.0", "get_var()", "base::get()")
   tryCatch(
     get(var, envir = object@.xData, inherits = FALSE),
     error = function(e) {
