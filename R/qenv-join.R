@@ -137,16 +137,16 @@
 setGeneric("join", function(x, y) standardGeneric("join"))
 
 setMethod("join", signature = c("qenv", "qenv"), function(x, y) {
-  lifecycle::deprecate_soft("0.5.1", "join()", "c()")
+  lifecycle::deprecate_soft("0.6.0", "join()", "c()")
   c(x, y)
 })
 
 setMethod("join", signature = c("qenv", "qenv.error"), function(x, y) {
-  lifecycle::deprecate_soft("0.5.1", "join()", "c()")
+  lifecycle::deprecate_soft("0.6.0", "join()", "c()")
   y
 })
 
 setMethod("join", signature = c("qenv.error", "ANY"), function(x, y) {
-  lifecycle::deprecate_soft("0.5.1", "join()", "c()")
+  lifecycle::deprecate_soft("0.6.0", "join()", "c()")
   x
 })
