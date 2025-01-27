@@ -1,21 +1,26 @@
-# teal.code 0.5.0.9022
+# teal.code 0.6.0
 
 ### Enhancements
 
-* Introduced `[.qenv` function to subset `qenv` object (code and environment) to specified object names. #211
+* Introduced `[.qenv` function to subset `qenv` object (code and environment) to specified object names.
 * `get_code()` was extended with `names` parameter and allows the code extraction to be limited to objects stored in
-`qenv` but limited to `names`. #210
-* Introduced `get_messages()` to get messages produced during code evaluation. #217
-* `get_code()` returns original code formatting (white spaces and comments) passed to `eval_code()`. #212
+`qenv` but limited to `names`.
+* Introduced `get_messages()` to get messages produced during code evaluation.
+* `get_code()` returns original code formatting (white spaces and comments) passed to `eval_code()`.
 * `qenv` inherits from the `environment` class, allowing to use `ls()`, `names()`, `as.environment()` and other functions on `qenv` objects.
+
+### Miscellaneous
+
 * `join()` method is deprecated, please use `c()` instead
 * `get_var()` method is deprecated, please use `get`, `[[` or `$` instead.
+* Remove deprecated function `new_qenv`.
+* Numerous bug fixes
 
 # teal.code 0.5.0
 
 ### Breaking Change
 
-* `qenv` objects should now be created with `qenv()` rather than `new_qenv()` (which has been removed). The new constructor always creates an empty object.
+* `qenv` objects should now be created with `qenv()` rather than `new_qenv()`. The new constructor always creates an empty object. `new_qenv` is now deprecated.
 
 ### Miscellaneous
 
