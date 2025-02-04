@@ -952,7 +952,7 @@ testthat::test_that("original formatting and comments are preserved when express
   testthat::expect_identical(get_code(eval_code(qenv(), expr)), code)
 })
 
-testthat::test_that("extracting code doesn't fail when lhs contains two or more symbols occurring in lhs", {
+testthat::test_that("extracting code doesn't fail when lhs contains two or more symbols occurring in rhs", {
   code <- "l <- list(a = 1, b = 2)
     class(l) <- c('new class', class(l))" # l depends on class and class depends on l
   q <- eval_code(qenv(), code)
