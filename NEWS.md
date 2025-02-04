@@ -1,5 +1,9 @@
 # teal.code 0.6.0.9001
 
+### Bug fixes
+
+* Fix an infinite recursion happening when lhs contains two or more symbols occurring in the rhs of the same call. 
+
 # teal.code 0.6.0
 
 ### Enhancements
