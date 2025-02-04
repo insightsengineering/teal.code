@@ -364,6 +364,7 @@ extract_dependency <- function(parsed_code) {
 #' @keywords internal
 #' @noRd
 graph_parser <- function(x, graph) {
+  # x occurrences (lhs)
   occurrence <- vapply(
     graph, function(call) {
       ind <- match("<-", call, nomatch = length(call) + 1L)
@@ -372,20 +373,21 @@ graph_parser <- function(x, graph) {
     logical(1)
   )
 
+  # x-dependent objects (rhs)
   dependencies <- lapply(graph[occurrence], function(call) {
     ind <- match("<-", call, nomatch = 0L)
     call[(ind + 1L):length(call)]
   })
   dependencies <- setdiff(unlist(dependencies), x)
 
-  if (length(dependencies) && any(occurrence)) {
-    dependency_ids <- lapply(dependencies, function(dependency) {
-      graph_parser(dependency, graph[1:max(which(occurrence))])
-    })
-    sort(unique(c(which(occurrence), unlist(dependency_ids))))
-  } else {
-    which(occurrence)
-  }
+  dependency_occurrences <- lapply(dependencies, function(dependency) {
+    # track down dependencies and where they occur on the lhs in previous calls
+    last_x_occurrence <- max(which(occurrence))
+    reduced_graph <- utils::head(graph[seq_len(last_x_occurrence)], -1)
+    c(graph_parser(dependency, reduced_graph), last_x_occurrence)
+  })
+
+  sort(unique(c(which(occurrence), unlist(dependency_occurrences))))
 }
 
 
