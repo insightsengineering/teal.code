@@ -383,7 +383,7 @@ graph_parser <- function(x, graph) {
   dependency_occurrences <- lapply(dependencies, function(dependency) {
     # track down dependencies and where they occur on the lhs in previous calls
     last_x_occurrence <- max(which(occurrence))
-    reduced_graph <- head(graph[seq_len(last_x_occurrence)], -1)
+    reduced_graph <- utils::head(graph[seq_len(last_x_occurrence)], -1)
     c(graph_parser(dependency, reduced_graph), last_x_occurrence)
   })
 
