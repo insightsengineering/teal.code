@@ -973,7 +973,7 @@ testthat::test_that("when labels are passed only code related to those labels is
 
 testthat::test_that("names are ignored when labels are provided", {
   q <- eval_code(qenv(), "a <- 1L", label = "code for a")
-  testthat::expect_identical(get_code(q, names = 'X', labels = "code for a"), "a <- 1L")
+  testthat::expect_identical(get_code(q, names = "X", labels = "code for a"), "a <- 1L")
 })
 
 testthat::test_that("it is possible to pass labels of length greater than 1", {
