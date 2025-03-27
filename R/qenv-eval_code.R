@@ -36,7 +36,6 @@ setGeneric("eval_code", function(object, code, label) {
 })
 
 setMethod("eval_code", signature = c("qenv", "character", "character"), function(object, code, label = "") {
-
   parsed_code <- parse(text = code, keep.source = TRUE)
   object@.xData <- rlang::env_clone(object@.xData, parent = parent.env(.GlobalEnv))
   if (length(parsed_code) == 0) {
