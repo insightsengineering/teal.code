@@ -9,6 +9,8 @@
 #' @param code (`character`, `language` or `expression`) code to evaluate.
 #' It is possible to preserve original formatting of the `code` by providing a `character` or an
 #' `expression` being a result of `parse(keep.source = TRUE)`.
+#' @param label (`character` or `NULL`) when provided, a name of the `code` that can be used to pull
+#' specific code elements with `get_code()`.
 #'
 #' @return
 #' `qenv` environment with `code/expr` evaluated or `qenv.error` if evaluation fails.
@@ -21,15 +23,19 @@
 #' q <- eval_code(q, quote(library(checkmate)))
 #' q <- eval_code(q, expression(assert_number(a)))
 #'
-#' @aliases eval_code,qenv,character-method
-#' @aliases eval_code,qenv,language-method
-#' @aliases eval_code,qenv,expression-method
-#' @aliases eval_code,qenv.error,ANY-method
+#' @aliases eval_code,qenv,character,character-method
+#' @aliases eval_code,qenv,language,character-method
+#' @aliases eval_code,qenv,expression,character-method
+#' @aliases eval_code,qenv.error,ANY,character-method
 #'
 #' @export
-setGeneric("eval_code", function(object, code) standardGeneric("eval_code"))
+setGeneric("eval_code", function(object, code, label) {
+  if (missing(label)) label <- ""
+  stopifnot("Label needs to have length 1." = length(label) == 1)
+  standardGeneric("eval_code")
+})
 
-setMethod("eval_code", signature = c("qenv", "character"), function(object, code) {
+setMethod("eval_code", signature = c("qenv", "character", "character"), function(object, code, label = "") {
   parsed_code <- parse(text = code, keep.source = TRUE)
   object@.xData <- rlang::env_clone(object@.xData, parent = parent.env(.GlobalEnv))
   if (length(parsed_code) == 0) {
@@ -82,6 +88,7 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
       return(x)
     }
     attr(current_code, "dependency") <- extract_dependency(current_call)
+    attr(current_code, "label") <- label
     object@code <- c(object@code, stats::setNames(list(current_code), sample.int(.Machine$integer.max, size = 1)))
   }
 
@@ -89,20 +96,20 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
   object
 })
 
-setMethod("eval_code", signature = c("qenv", "language"), function(object, code) {
-  eval_code(object, code = paste(vapply(lang2calls(code), deparse1, collapse = "\n", character(1L)), collapse = "\n"))
+setMethod("eval_code", signature = c("qenv", "language", "character"), function(object, code, label = "") {
+  eval_code(object, code = paste(vapply(lang2calls(code), deparse1, collapse = "\n", character(1L)), collapse = "\n"), label)
 })
 
-setMethod("eval_code", signature = c("qenv", "expression"), function(object, code) {
+setMethod("eval_code", signature = c("qenv", "expression", "character"), function(object, code, label = "") {
   srcref <- attr(code, "wholeSrcref")
   if (length(srcref)) {
-    eval_code(object, code = paste(attr(code, "wholeSrcref"), collapse = "\n"))
+    eval_code(object, code = paste(attr(code, "wholeSrcref"), collapse = "\n"), label = label)
   } else {
-    Reduce(eval_code, init = object, x = code)
+    Reduce(function(obj, expr) eval_code(obj, expr, label), x = code, init = object)
   }
 })
 
-setMethod("eval_code", signature = c("qenv.error", "ANY"), function(object, code) {
+setMethod("eval_code", signature = c("qenv.error", "ANY", "character"), function(object, code, label = "") {
   object
 })
 
@@ -118,4 +125,10 @@ setMethod("eval_code", signature = c("qenv.error", "ANY"), function(object, code
 
 get_code_attr <- function(qenv, attr) {
   unlist(lapply(qenv@code, function(x) attr(x, attr)))
+}
+
+get_code_label <- function(qenv, attr) {
+  label_list <- lapply(qenv@code, function(x) attr(x, attr))
+  label_list <- lapply(label_list, function(x) if (is.null(x)) "" else x)
+  unlist(label_list)
 }

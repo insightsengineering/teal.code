@@ -9,6 +9,7 @@
 #'
 #' @param data (`qenv`)
 #' @param expr (`expression`) to evaluate. Must be inline code, see `Using language objects...`
+#' @param label (`character`) to be assigned to the `expr`, so it can be extracted using `get_code(labels)`.
 #' @param ... named argument value will substitute a symbol in the `expr` matched by the name.
 #' For practical usage see Examples section below.
 #'
@@ -47,7 +48,7 @@
 #'
 #' @export
 #'
-within.qenv <- function(data, expr, ...) {
+within.qenv <- function(data, expr, label = "", ...) {
   expr <- substitute(expr)
   extras <- list(...)
 
@@ -61,7 +62,7 @@ within.qenv <- function(data, expr, ...) {
   # Inject extra values into expressions.
   calls <- lapply(calls, function(x) do.call(substitute, list(x, env = extras)))
 
-  eval_code(object = data, code = as.expression(calls))
+  eval_code(object = data, code = as.expression(calls), label = label)
 }
 
 

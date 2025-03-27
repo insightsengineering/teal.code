@@ -2,16 +2,16 @@
 % Please edit documentation in R/qenv-eval_code.R, R/qenv-within.R
 \name{eval_code}
 \alias{eval_code}
-\alias{eval_code,qenv,character-method}
-\alias{eval_code,qenv,language-method}
-\alias{eval_code,qenv,expression-method}
-\alias{eval_code,qenv.error,ANY-method}
+\alias{eval_code,qenv,character,character-method}
+\alias{eval_code,qenv,language,character-method}
+\alias{eval_code,qenv,expression,character-method}
+\alias{eval_code,qenv.error,ANY,character-method}
 \alias{within.qenv}
 \title{Evaluate code in \code{qenv}}
 \usage{
-eval_code(object, code)
+eval_code(object, code, label)
 
-\method{within}{qenv}(data, expr, ...)
+\method{within}{qenv}(data, expr, label = "", ...)
 }
 \arguments{
 \item{object}{(\code{qenv})}
@@ -19,6 +19,8 @@ eval_code(object, code)
 \item{code}{(\code{character}, \code{language} or \code{expression}) code to evaluate.
 It is possible to preserve original formatting of the \code{code} by providing a \code{character} or an
 \code{expression} being a result of \code{parse(keep.source = TRUE)}.}
+
+\item{label}{(\code{character}) to be assigned to the \code{expr}, so it can be extracted using \code{get_code(labels)}.}
 
 \item{data}{(\code{qenv})}
 

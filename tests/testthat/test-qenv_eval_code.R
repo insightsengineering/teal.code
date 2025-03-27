@@ -187,3 +187,15 @@ testthat::test_that("Code executed with integer shorthand (1L) is the same as or
   q <- within(qenv(), a <- 1L)
   testthat::expect_identical(get_code(q), "a <- 1L")
 })
+
+
+# labels -------------------------------------------------------------------------------------------------------------
+
+testthat::test_that("it is possible to pass label to eval_code", {
+  testthat::expect_no_error(eval_code(qenv(), "a <- 1L", label = "code for a"))
+})
+
+testthat::test_that("it is possible to pass label to eval_code if such label already exists", {
+  q <- eval_code(qenv(), "a <- 1L", label = "code for a")
+  testthat::expect_no_error(eval_code(q, "b <- 2L", label = "code for a"))
+})

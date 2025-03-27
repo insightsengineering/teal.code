@@ -6,7 +6,7 @@
 \alias{get_code,qenv.error-method}
 \title{Get code from \code{qenv}}
 \usage{
-get_code(object, deparse = TRUE, names = NULL, ...)
+get_code(object, deparse = TRUE, names = NULL, labels = NULL, ...)
 }
 \arguments{
 \item{object}{(\code{qenv})}
@@ -14,7 +14,10 @@ get_code(object, deparse = TRUE, names = NULL, ...)
 \item{deparse}{(\code{logical(1)}) flag specifying whether to return code as \code{character} or \code{expression}.}
 
 \item{names}{(\code{character}) \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}} vector of object names to return the code for.
-For more details see the "Extracting dataset-specific code" section.}
+For more details see the "Extracting dataset-specific code" section. Ignored when \code{labels} are provided.}
+
+\item{labels}{(\code{character}) vector of \code{labels}, attributes of code, specyfing which code elements to extract.
+Superior to \code{names} argument.}
 
 \item{...}{internal usage, please ignore.}
 }
