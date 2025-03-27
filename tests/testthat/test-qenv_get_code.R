@@ -958,3 +958,26 @@ testthat::test_that("extracting code doesn't fail when lhs contains two or more 
   q <- eval_code(qenv(), code)
   testthat::expect_silent(get_code(q, names = "l"))
 })
+
+
+# labels -------------------------------------------------------------------------------------------------------------
+
+testthat::test_that("when labels are passed only code related to those labels is extracted", {
+  q <- eval_code(qenv(), "a <- 1L", label = "code for a")
+  q <- eval_code(q, "b <- 1L")
+  q <- eval_code(q, "c <- 1L", label = "code for c")
+
+  testthat::expect_identical(get_code(q, labels = "code for a"), "a <- 1L")
+  testthat::expect_identical(get_code(q, labels = "code for c"), "c <- 1L")
+})
+
+testthat::test_that("names are ignored when labels are provided", {
+  q <- eval_code(qenv(), "a <- 1L", label = "code for a")
+  testthat::expect_identical(get_code(q, names = 'X', labels = "code for a"), "a <- 1L")
+})
+
+testthat::test_that("it is possible to pass labels of length greater than 1", {
+  q <- eval_code(qenv(), "a <- 1L", label = "code for a")
+  q <- eval_code(q, "b <- 2L", label = "code for b")
+  testthat::expect_identical(get_code(q, labels = c("code for a", "code for b")), c("a <- 1L\nb <- 2L"))
+})

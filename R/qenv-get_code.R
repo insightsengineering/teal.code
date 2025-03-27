@@ -7,7 +7,9 @@
 #' @param deparse (`logical(1)`) flag specifying whether to return code as `character` or `expression`.
 #' @param ... internal usage, please ignore.
 #' @param names (`character`) `r lifecycle::badge("experimental")` vector of object names to return the code for.
-#' For more details see the "Extracting dataset-specific code" section.
+#' For more details see the "Extracting dataset-specific code" section. Ignored when `labels` are provided.
+#' @param labels (`character`) vector of `labels`, attributes of code, specyfing which code elements to extract.
+#' Superior to `names` argument.
 #'
 #' @section Extracting dataset-specific code:
 #'
@@ -96,25 +98,31 @@
 #' @aliases get_code,qenv.error-method
 #'
 #' @export
-setGeneric("get_code", function(object, deparse = TRUE, names = NULL, ...) {
+setGeneric("get_code", function(object, deparse = TRUE, names = NULL, labels = NULL, ...) {
   dev_suppress(object)
   standardGeneric("get_code")
 })
 
-setMethod("get_code", signature = "qenv", function(object, deparse = TRUE, names = NULL, ...) {
+setMethod("get_code", signature = "qenv", function(object, deparse = TRUE, names = NULL, labels = NULL, ...) {
   checkmate::assert_flag(deparse)
   checkmate::assert_character(names, min.len = 1L, null.ok = TRUE)
+  checkmate::assert_character(labels, min.len = 1L, null.ok = TRUE)
 
-  # Normalize in case special it is backticked
-  if (!is.null(names)) {
-    names <- gsub("^`(.*)`$", "\\1", names)
-  }
-
-  code <- if (!is.null(names)) {
-    get_code_dependency(object@code, names, ...)
+  if (!is.null(labels)) {
+    code <- object@code[get_code_attr(object, "label") %in% labels]
   } else {
-    object@code
+    # Normalize in case special it is backticked
+    if (!is.null(names)) {
+      names <- gsub("^`(.*)`$", "\\1", names)
+    }
+
+    code <- if (!is.null(names)) {
+      get_code_dependency(object@code, names, ...)
+    } else {
+      object@code
+    }
   }
+
 
   if (deparse) {
     paste(unlist(code), collapse = "\n")
