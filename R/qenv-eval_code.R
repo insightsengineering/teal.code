@@ -132,5 +132,3 @@ get_code_label <- function(qenv, attr) {
   label_list <- lapply(label_list, function(x) if (is.null(x)) "" else x)
   unlist(label_list)
 }
-
-
