@@ -127,3 +127,11 @@ setMethod("eval_code", signature = c("qenv.error", "ANY", "character"), function
 get_code_attr <- function(qenv, attr) {
   unlist(lapply(qenv@code, function(x) attr(x, attr)))
 }
+
+get_code_label <- function(qenv, attr) {
+  label_list <- lapply(qenv@code, function(x) attr(x, attr))
+  label_list <- lapply(label_list, function(x) if (is.null(x)) "" else x)
+  unlist(label_list)
+}
+
+

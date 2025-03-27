@@ -109,7 +109,7 @@ setMethod("get_code", signature = "qenv", function(object, deparse = TRUE, names
   checkmate::assert_character(labels, min.len = 1L, null.ok = TRUE)
 
   if (!is.null(labels)) {
-    code <- object@code[get_code_attr(object, "label") %in% labels]
+    code <- object@code[get_code_label(object, "label") %in% labels]
   } else {
     # Normalize in case special it is backticked
     if (!is.null(names)) {
