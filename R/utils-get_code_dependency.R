@@ -211,6 +211,8 @@ sub_arrows <- function(call) {
 #' @keywords internal
 #' @noRd
 extract_occurrence <- function(pd) {
+  occurences <- list()
+
   is_in_function <- function(x) {
     # If an object is a function parameter,
     # then in calls_pd there is a `SYMBOL_FORMALS` entry for that object.
@@ -237,38 +239,8 @@ extract_occurrence <- function(pd) {
   }
   # Handle assign(x = ).
   assign_call <- find_call(pd, "assign")
-  if (assign_call) {
-    # Check if parameters were named.
-    # "','" is for unnamed parameters, where "SYMBOL_SUB" is for named.
-    # "EQ_SUB" is for `=` appearing after the name of the named parameter.
-    if (any(pd$token == "SYMBOL_SUB")) {
-      params <- pd[pd$token %in% c("SYMBOL_SUB", "','", "EQ_SUB"), "text"]
-      # Remove sequence of "=", ",".
-      if (length(params > 1)) {
-        remove <- integer(0)
-        for (i in 2:length(params)) {
-          if (params[i - 1] == "=" && params[i] == ",") {
-            remove <- c(remove, i - 1, i)
-          }
-        }
-        if (length(remove)) params <- params[-remove]
-      }
-      pos <- match("x", setdiff(params, ","), nomatch = match(",", params, nomatch = 0))
-      if (!pos) {
-        return(character(0L))
-      }
-      # pos is indicator of the place of 'x'
-      # 1. All parameters are named, but none is 'x' - return(character(0L))
-      # 2. Some parameters are named, 'x' is in named parameters: match("x", setdiff(params, ","))
-      # - check "x" in params being just a vector of named parameters.
-      # 3. Some parameters are named, 'x' is not in named parameters
-      # - check first appearance of "," (unnamed parameter) in vector parameters.
-    } else {
-      # Object is the first entry after 'assign'.
-      pos <- 1
-    }
-    sym <- pd[assign_call + pos, "text"]
-    return(c(gsub("^['\"]|['\"]$", "", sym), "<-"))
+  if (!identical(assign_call, 0L)) {
+    return(extract_assign(pd, assign_call))
   }
 
   # What occurs in a function body is not tracked.
@@ -349,6 +321,44 @@ extract_dependency <- function(parsed_code) {
     # This cleaning is needed as extract_occurrence assumes arrows are fixed, and order is different than in original pd
     c(extract_side_effects(reordered_pd[[1]]), extract_occurrence(reordered_pd[[1]]))
   }
+}
+
+#' @keywords internal
+#' @noRd
+extract_assign <- function(pd, assign_call) {
+  # return(extract_assign(pd, assign_call))
+  # Check if parameters were named.
+  # "','" is for unnamed parameters, where "SYMBOL_SUB" is for named.
+  # "EQ_SUB" is for `=` appearing after the name of the named parameter.
+  if (any(pd$token == "SYMBOL_SUB")) {
+    params <- pd[pd$token %in% c("SYMBOL_SUB", "','", "EQ_SUB"), "text"]
+    # Remove sequence of "=", ",".
+    if (length(params > 1)) {
+      remove <- integer(0)
+      for (i in 2:length(params)) {
+        if (params[i - 1] == "=" && params[i] == ",") {
+          remove <- c(remove, i - 1, i)
+        }
+      }
+      if (length(remove)) params <- params[-remove]
+    }
+    pos <- match("x", setdiff(params, ","), nomatch = match(",", params, nomatch = 0))
+    if (!pos) {
+      return(character(0L))
+    }
+    # pos is indicator of the place of 'x'
+    # 1. All parameters are named, but none is 'x' - return(character(0L))
+    # 2. Some parameters are named, 'x' is in named parameters: match("x", setdiff(params, ","))
+    # - check "x" in params being just a vector of named parameters.
+    # 3. Some parameters are named, 'x' is not in named parameters
+    # - check first appearance of "," (unnamed parameter) in vector parameters.
+  } else {
+    # Object is the first entry after 'assign'.
+    pos <- 1
+  }
+  sym <- pd[assign_call + pos, "text"]
+
+  c(gsub("^['\"]|['\"]$", "", sym), "<-")
 }
 
 # graph_parser ----
