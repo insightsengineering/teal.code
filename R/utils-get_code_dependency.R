@@ -343,33 +343,43 @@ extract_dependency <- function(parsed_code) {
   full_pd <- normalize_pd(utils::getParseData(parsed_code))
   reordered_full_pd <- extract_calls(full_pd)
 
+  # Early return on empty code
   if (length(parsed_code) == 0L) {
     return(character(0L))
   }
+
+  # Check for expressions
   expr_ix <- lapply(parsed_code[[1]], class) == "{"
 
   queue <- list()
-  parsed_code_list <- if (length(expr_ix) == 1L) {
-    list(parsed_code[[1]])
+  parsed_code_list <- if (all(!expr_ix)) {
+    list(parsed_code)
   } else {
-    queue <- as.list(parsed_code[[1]][expr_ix])
-    list(parsed_code[[1]][!expr_ix])
+    queue <- as.list(parsed_code[[1]])
+    queue[!expr_ix] <- NULL
+    as.list(parsed_code[[1]][!expr_ix])
   }
+
 
   while (length(queue) > 0) {
     current <- queue[[1]]
     queue <- queue[-1]
     if (identical(current[[1L]], as.name("{"))) {
-      queue <- append(queue, as.list(current)[-1L])
+      queue <- append(
+        queue,
+        lapply(as.list(current)[-1L], function(x) {
+          parse(text = as.expression(x), keep.source = TRUE)
+        })
+      )
     } else {
       parsed_code_list <- c(parsed_code_list, current)
     }
   }
 
+
   parsed_occurences <- lapply(
     parsed_code_list,
-    function(x) {
-      parsed_code <- parse(text = as.expression(x), keep.source = TRUE)
+    function(parsed_code) {
       pd <- normalize_pd(utils::getParseData(parsed_code))
       reordered_pd <- extract_calls(pd)
       if (length(reordered_pd) > 0) {
@@ -396,6 +406,7 @@ extract_dependency <- function(parsed_code) {
     x = parsed_occurences
   )
 
+  # browser()
   c(extract_side_effects(reordered_full_pd[[1]]), result$left_side, "<-", result$right_side)
 }
 
