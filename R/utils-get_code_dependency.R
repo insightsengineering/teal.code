@@ -348,34 +348,29 @@ extract_dependency <- function(parsed_code) {
     return(character(0L))
   }
 
-  # Check for expressions
+  # Check for expressions and process those separetly
   expr_ix <- lapply(parsed_code[[1]], class) == "{"
 
+  # Build queue of expressions to parse individually
   queue <- list()
   parsed_code_list <- if (all(!expr_ix)) {
     list(parsed_code)
   } else {
-    queue <- as.list(parsed_code[[1]])
-    queue[!expr_ix] <- NULL
-    as.list(parsed_code[[1]][!expr_ix])
+    queue <- as.list(parsed_code[[1]][expr_ix])
+    new_list <- parsed_code[[1]]
+    new_list[expr_ix] <- NULL
+    list(parse(text = as.expression(new_list), keep.source = TRUE))
   }
-
 
   while (length(queue) > 0) {
     current <- queue[[1]]
     queue <- queue[-1]
     if (identical(current[[1L]], as.name("{"))) {
-      queue <- append(
-        queue,
-        lapply(as.list(current)[-1L], function(x) {
-          parse(text = as.expression(x), keep.source = TRUE)
-        })
-      )
+      queue <- append(queue, as.list(current)[-1L])
     } else {
-      parsed_code_list <- c(parsed_code_list, current)
+      parsed_code_list[[length(parsed_code_list) + 1]] <- parse(text = as.expression(current), keep.source = TRUE)
     }
   }
-
 
   parsed_occurences <- lapply(
     parsed_code_list,
@@ -392,6 +387,7 @@ extract_dependency <- function(parsed_code) {
     }
   )
 
+  # Merge results together
   result <- Reduce(
     function(u, v) {
       ix <- if ("<-" %in% v) min(which(v == "<-")) else 0
@@ -406,46 +402,7 @@ extract_dependency <- function(parsed_code) {
     x = parsed_occurences
   )
 
-  # browser()
   c(extract_side_effects(reordered_full_pd[[1]]), result$left_side, "<-", result$right_side)
-}
-
-#' @keywords internal
-#' @noRd
-extract_assign <- function(pd, assign_call) {
-  # return(extract_assign(pd, assign_call))
-  # Check if parameters were named.
-  # "','" is for unnamed parameters, where "SYMBOL_SUB" is for named.
-  # "EQ_SUB" is for `=` appearing after the name of the named parameter.
-  if (any(pd$token == "SYMBOL_SUB")) {
-    params <- pd[pd$token %in% c("SYMBOL_SUB", "','", "EQ_SUB"), "text"]
-    # Remove sequence of "=", ",".
-    if (length(params > 1)) {
-      remove <- integer(0)
-      for (i in 2:length(params)) {
-        if (params[i - 1] == "=" && params[i] == ",") {
-          remove <- c(remove, i - 1, i)
-        }
-      }
-      if (length(remove)) params <- params[-remove]
-    }
-    pos <- match("x", setdiff(params, ","), nomatch = match(",", params, nomatch = 0))
-    if (!pos) {
-      return(character(0L))
-    }
-    # pos is indicator of the place of 'x'
-    # 1. All parameters are named, but none is 'x' - return(character(0L))
-    # 2. Some parameters are named, 'x' is in named parameters: match("x", setdiff(params, ","))
-    # - check "x" in params being just a vector of named parameters.
-    # 3. Some parameters are named, 'x' is not in named parameters
-    # - check first appearance of "," (unnamed parameter) in vector parameters.
-  } else {
-    # Object is the first entry after 'assign'.
-    pos <- 1
-  }
-  sym <- pd[assign_call + pos, "text"]
-
-  gsub("^['\"]|['\"]$", "", sym)
 }
 
 # graph_parser ----
