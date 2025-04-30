@@ -349,11 +349,11 @@ extract_dependency <- function(parsed_code) {
   expr_ix <- lapply(parsed_code[[1]], class) == "{"
 
   queue <- list()
-  if (length(expr_ix) > 1L) {
-    as.list(parsed_code[[1]][expr_ix])
-    parsed_code_list <- list(parsed_code[[1]][!expr_ix])
+  parsed_code_list <- if (length(expr_ix) == 1L) {
+    list(parsed_code[[1]])
   } else {
-    parsed_code_list <- list(parsed_code[[1]])
+    queue <- as.list(parsed_code[[1]][expr_ix])
+    list(parsed_code[[1]][!expr_ix])
   }
 
   while (length(queue) > 0) {
