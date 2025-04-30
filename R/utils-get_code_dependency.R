@@ -211,9 +211,6 @@ sub_arrows <- function(call) {
 #' @keywords internal
 #' @noRd
 extract_occurrence <- function(pd) {
-  output_l <- character(0L)
-  output_r <- "<-"
-
   is_in_function <- function(x) {
     # If an object is a function parameter,
     # then in calls_pd there is a `SYMBOL_FORMALS` entry for that object.
@@ -236,12 +233,42 @@ extract_occurrence <- function(pd) {
   data_call <- find_call(pd, "data")
   if (data_call) {
     sym <- pd[data_call + 1, "text"]
-    output_l <- c(output_l, gsub("^['\"]|['\"]$", "", sym))
+    return(c(gsub("^['\"]|['\"]$", "", sym), "<-"))
   }
   # Handle assign(x = ).
   assign_call <- find_call(pd, "assign")
-  if (!identical(assign_call, 0L)) {
-    output_l <- c(output_l, extract_assign(pd, assign_call))
+  if (assign_call) {
+    # Check if parameters were named.
+    # "','" is for unnamed parameters, where "SYMBOL_SUB" is for named.
+    # "EQ_SUB" is for `=` appearing after the name of the named parameter.
+    if (any(pd$token == "SYMBOL_SUB")) {
+      params <- pd[pd$token %in% c("SYMBOL_SUB", "','", "EQ_SUB"), "text"]
+      # Remove sequence of "=", ",".
+      if (length(params > 1)) {
+        remove <- integer(0)
+        for (i in 2:length(params)) {
+          if (params[i - 1] == "=" && params[i] == ",") {
+            remove <- c(remove, i - 1, i)
+          }
+        }
+        if (length(remove)) params <- params[-remove]
+      }
+      pos <- match("x", setdiff(params, ","), nomatch = match(",", params, nomatch = 0))
+      if (!pos) {
+        return(character(0L))
+      }
+      # pos is indicator of the place of 'x'
+      # 1. All parameters are named, but none is 'x' - return(character(0L))
+      # 2. Some parameters are named, 'x' is in named parameters: match("x", setdiff(params, ","))
+      # - check "x" in params being just a vector of named parameters.
+      # 3. Some parameters are named, 'x' is not in named parameters
+      # - check first appearance of "," (unnamed parameter) in vector parameters.
+    } else {
+      # Object is the first entry after 'assign'.
+      pos <- 1
+    }
+    sym <- pd[assign_call + pos, "text"]
+    return(c(gsub("^['\"]|['\"]$", "", sym), "<-"))
   }
 
   # What occurs in a function body is not tracked.
@@ -250,10 +277,7 @@ extract_occurrence <- function(pd) {
   sym_fc_cond <- which(x$token == "SYMBOL_FUNCTION_CALL")
 
   if (length(sym_cond) == 0) {
-    if (length(output)) {
-      return(character(0L))
-    }
-    return(c(output_l, output_r))
+    return(character(0L))
   }
   # Watch out for SYMBOLS after $ and @. For x$a x@a: x is object, a is not.
   # For x$a, a's ID is $'s ID-2 so we need to remove all IDs that have ID = $ID - 2.
@@ -266,23 +290,20 @@ extract_occurrence <- function(pd) {
 
   assign_cond <- grep("ASSIGN", x$token)
   if (!length(assign_cond)) {
-    output_r <- append(output_r, unique(x[sym_cond, "text"]))
-  }
-
-  # If there was an assignment operation detect direction of it.
-  if (getRversion() < "4.3" && any(x$text[assign_cond] == "->")) { # What if there are 2 assignments: e.g. a <- b -> c.
-    # RIGHT_ASSIGNMENT never visible in parsed code since at least 4.3 (maybe since earlier)
-    sym_cond <- rev(sym_cond)
+    return(c("<-", unique(x[sym_cond, "text"])))
   }
 
   # For cases like 'eval(expression(c <- b + 2))' removes 'eval(expression('.
   sym_cond <- sym_cond[!(sym_cond < min(assign_cond) & sym_cond %in% sym_fc_cond)]
 
+  # If there was an assignment operation detect direction of it.
+  if (unique(x$text[assign_cond]) == "->") { # What if there are 2 assignments: e.g. a <- b -> c.
+    sym_cond <- rev(sym_cond)
+  }
+
   after <- match(min(x$id[assign_cond]), sort(x$id[c(min(assign_cond), sym_cond)])) - 1
   ans <- append(x[sym_cond, "text"], "<-", after = max(1, after))
   roll <- in_parenthesis(pd)
-
-  browser()
   if (length(roll)) {
     c(setdiff(ans, roll), roll)
   } else {
@@ -319,10 +340,21 @@ extract_side_effects <- function(pd) {
 #' @keywords internal
 #' @noRd
 extract_dependency <- function(parsed_code) {
+  full_pd <- normalize_pd(utils::getParseData(parsed_code))
+  reordered_full_pd <- extract_calls(full_pd)
+
+  if (length(parsed_code) == 0L) {
+    return(character(0L))
+  }
   expr_ix <- lapply(parsed_code[[1]], class) == "{"
 
-  queue <- as.list(parsed_code[[1]][expr_ix])
-  parsed_code_list <- list(parsed_code[[1]][!expr_ix])
+  queue <- list()
+  if (length(expr_ix) > 1L) {
+    as.list(parsed_code[[1]][expr_ix])
+    parsed_code_list <- list(parsed_code[[1]][!expr_ix])
+  } else {
+    parsed_code_list <- list(parsed_code[[1]])
+  }
 
   while (length(queue) > 0) {
     current <- queue[[1]]
@@ -340,20 +372,31 @@ extract_dependency <- function(parsed_code) {
       parsed_code <- parse(text = as.expression(x), keep.source = TRUE)
       pd <- normalize_pd(utils::getParseData(parsed_code))
       reordered_pd <- extract_calls(pd)
-      result <- if (length(reordered_pd) > 0) {
+      if (length(reordered_pd) > 0) {
         # extract_calls is needed to reorder the pd so that assignment operator comes before symbol names
         # extract_calls is needed also to substitute assignment operators into specific format with fix_arrows
         # extract_calls is needed to omit empty calls that contain only one token `"';'"`
         # This cleaning is needed as extract_occurrence assumes arrows are fixed, and order is different than in original pd
-        browser()
-        c(extract_side_effects(reordered_pd[[1]]), extract_occurrence(reordered_pd[[1]]))
+        extract_occurrence(reordered_pd[[1]])
       }
-      result
     }
   )
 
-  browser()
+  result <- Reduce(
+    function(u, v) {
+      ix <- if ("<-" %in% v) min(which(v == "<-")) else 0
+      u$left_side <- c(u$left_side, v[seq_len(max(0, ix - 1))])
+      u$right_side <- c(
+        u$right_side,
+        if (ix == length(v)) character(0L) else v[seq(ix + 1, max(ix + 1, length(v)))]
+      )
+      u
+    },
+    init = list(left_side = character(0L), right_side = character(0L)),
+    x = parsed_occurences
+  )
 
+  c(extract_side_effects(reordered_full_pd[[1]]), result$left_side, "<-", result$right_side)
 }
 
 #' @keywords internal
