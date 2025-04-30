@@ -211,7 +211,8 @@ sub_arrows <- function(call) {
 #' @keywords internal
 #' @noRd
 extract_occurrence <- function(pd) {
-  occurences <- list()
+  output_l <- character(0L)
+  output_r <- "<-"
 
   is_in_function <- function(x) {
     # If an object is a function parameter,
@@ -235,12 +236,12 @@ extract_occurrence <- function(pd) {
   data_call <- find_call(pd, "data")
   if (data_call) {
     sym <- pd[data_call + 1, "text"]
-    return(c(gsub("^['\"]|['\"]$", "", sym), "<-"))
+    output_l <- c(output_l, gsub("^['\"]|['\"]$", "", sym))
   }
   # Handle assign(x = ).
   assign_call <- find_call(pd, "assign")
   if (!identical(assign_call, 0L)) {
-    return(extract_assign(pd, assign_call))
+    output_l <- c(output_l, extract_assign(pd, assign_call))
   }
 
   # What occurs in a function body is not tracked.
@@ -249,7 +250,10 @@ extract_occurrence <- function(pd) {
   sym_fc_cond <- which(x$token == "SYMBOL_FUNCTION_CALL")
 
   if (length(sym_cond) == 0) {
-    return(character(0L))
+    if (length(output)) {
+      return(character(0L))
+    }
+    return(c(output_l, output_r))
   }
   # Watch out for SYMBOLS after $ and @. For x$a x@a: x is object, a is not.
   # For x$a, a's ID is $'s ID-2 so we need to remove all IDs that have ID = $ID - 2.
@@ -262,20 +266,23 @@ extract_occurrence <- function(pd) {
 
   assign_cond <- grep("ASSIGN", x$token)
   if (!length(assign_cond)) {
-    return(c("<-", unique(x[sym_cond, "text"])))
+    output_r <- append(output_r, unique(x[sym_cond, "text"]))
+  }
+
+  # If there was an assignment operation detect direction of it.
+  if (getRversion() < "4.3" && any(x$text[assign_cond] == "->")) { # What if there are 2 assignments: e.g. a <- b -> c.
+    # RIGHT_ASSIGNMENT never visible in parsed code since at least 4.3 (maybe since earlier)
+    sym_cond <- rev(sym_cond)
   }
 
   # For cases like 'eval(expression(c <- b + 2))' removes 'eval(expression('.
   sym_cond <- sym_cond[!(sym_cond < min(assign_cond) & sym_cond %in% sym_fc_cond)]
 
-  # If there was an assignment operation detect direction of it.
-  if (unique(x$text[assign_cond]) == "->") { # What if there are 2 assignments: e.g. a <- b -> c.
-    sym_cond <- rev(sym_cond)
-  }
-
   after <- match(min(x$id[assign_cond]), sort(x$id[c(min(assign_cond), sym_cond)])) - 1
   ans <- append(x[sym_cond, "text"], "<-", after = max(1, after))
   roll <- in_parenthesis(pd)
+
+  browser()
   if (length(roll)) {
     c(setdiff(ans, roll), roll)
   } else {
@@ -312,15 +319,41 @@ extract_side_effects <- function(pd) {
 #' @keywords internal
 #' @noRd
 extract_dependency <- function(parsed_code) {
-  pd <- normalize_pd(utils::getParseData(parsed_code))
-  reordered_pd <- extract_calls(pd)
-  if (length(reordered_pd) > 0) {
-    # extract_calls is needed to reorder the pd so that assignment operator comes before symbol names
-    # extract_calls is needed also to substitute assignment operators into specific format with fix_arrows
-    # extract_calls is needed to omit empty calls that contain only one token `"';'"`
-    # This cleaning is needed as extract_occurrence assumes arrows are fixed, and order is different than in original pd
-    c(extract_side_effects(reordered_pd[[1]]), extract_occurrence(reordered_pd[[1]]))
+  expr_ix <- lapply(parsed_code[[1]], class) == "{"
+
+  queue <- as.list(parsed_code[[1]][expr_ix])
+  parsed_code_list <- list(parsed_code[[1]][!expr_ix])
+
+  while (length(queue) > 0) {
+    current <- queue[[1]]
+    queue <- queue[-1]
+    if (identical(current[[1L]], as.name("{"))) {
+      queue <- append(queue, as.list(current)[-1L])
+    } else {
+      parsed_code_list <- c(parsed_code_list, current)
+    }
   }
+
+  parsed_occurences <- lapply(
+    parsed_code_list,
+    function(x) {
+      parsed_code <- parse(text = as.expression(x), keep.source = TRUE)
+      pd <- normalize_pd(utils::getParseData(parsed_code))
+      reordered_pd <- extract_calls(pd)
+      result <- if (length(reordered_pd) > 0) {
+        # extract_calls is needed to reorder the pd so that assignment operator comes before symbol names
+        # extract_calls is needed also to substitute assignment operators into specific format with fix_arrows
+        # extract_calls is needed to omit empty calls that contain only one token `"';'"`
+        # This cleaning is needed as extract_occurrence assumes arrows are fixed, and order is different than in original pd
+        browser()
+        c(extract_side_effects(reordered_pd[[1]]), extract_occurrence(reordered_pd[[1]]))
+      }
+      result
+    }
+  )
+
+  browser()
+
 }
 
 #' @keywords internal
@@ -358,7 +391,7 @@ extract_assign <- function(pd, assign_call) {
   }
   sym <- pd[assign_call + pos, "text"]
 
-  c(gsub("^['\"]|['\"]$", "", sym), "<-")
+  gsub("^['\"]|['\"]$", "", sym)
 }
 
 # graph_parser ----
