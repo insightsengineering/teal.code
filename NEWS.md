@@ -2,7 +2,7 @@
 
 ### Bug fixes
 
-* Fix a problem detecting co-occurences when expression has multiple lines.
+* Fix a problem detecting co-occurrences when expression has multiple lines.
 
 # teal.code 0.6.1
 
