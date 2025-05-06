@@ -99,13 +99,10 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
     eval_code(object, code = paste(attr(code, "wholeSrcref"), collapse = "\n"))
   } else {
     Reduce(function(u, v) {
-      f <- if (inherits(v, "=")) {
-        # Force method to be called
-        getMethod("eval_code", signature = c("qenv", "language"))@.Data
-      } else {
-        eval_code
+      if (inherits(v, "=") && identical(typeof(v), "language")) {
+        class(v) <- unique(c("language", class(v)))
       }
-      f(u, v)
+      eval_code(u, v)
     }, init = object, x = code)
   }
 })
