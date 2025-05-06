@@ -136,7 +136,7 @@ testthat::describe("within run with `=`", {
   testthat::it("single expression", {
     q <- qenv()
     q <- within(q, {
-      i = 1
+      i <- 1
     })
   })
 
@@ -144,7 +144,7 @@ testthat::describe("within run with `=`", {
     q <- qenv()
     q <- within(q, {
       j <- 2
-      i = 1
+      i <- 1
     })
     testthat::expect_equal(q$i, 1)
   })
