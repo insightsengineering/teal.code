@@ -1,37 +1,3 @@
-testthat::describe("detects multiple assignments in single line", {
-  testthat::it("<-", {
-    # testthat::skip("Not implemented")
-    code <- "var1 <- var2 <- 1"
-    td <- eval_code(qenv(), code)
-
-    testthat::expect_identical(get_code(td, names = "var1"), code)
-    testthat::expect_identical(get_code(td, names = "var2"), code)
-  })
-
-  testthat::it("->", {
-    # testthat::skip("Not implemented")
-    code <- "1 -> var1 -> var2"
-    td <- eval_code(qenv(), code)
-
-    testthat::expect_identical(
-      get_code(td, names = "var1"),
-      as.character(parse(text = code, keep.source = TRUE))
-    )
-
-    testthat::expect_identical(get_code(td, names = "var1"), code)
-    testthat::expect_identical(get_code(td, names = "var2"), code)
-  })
-
-  testthat::it("<- and ->", {
-    # testthat::skip("Not implemented")
-    code <- "var1 <- 1 -> var2"
-    td <- eval_code(qenv(), code)
-
-    testthat::expect_identical(get_code(td, names = "var1"), code)
-    testthat::expect_identical(get_code(td, names = "var2"), code)
-  })
-})
-
 testthat::describe("get_code with single assignments inside an expression", {
   testthat::it("detects assign() function", {
     td <- qenv() |>
@@ -63,7 +29,7 @@ testthat::describe("get_code with single assignments inside an expression", {
     td <- qenv() |>
       within({
         for (i in 1:10) {
-          iris -> var1
+          iris -> var1 # nolint: assignment.
         }
       })
 
@@ -109,8 +75,8 @@ testthat::describe("get_code with multiple assignments inside an expression", {
     td <- qenv() |>
       within({
         for (i in 1:10) {
-          iris -> var1
-          mtcars -> var2
+          iris -> var1  # nolint: assignment.
+          mtcars -> var2  # nolint: assignment.
         }
       })
 

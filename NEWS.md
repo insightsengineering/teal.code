@@ -1,5 +1,9 @@
 # teal.code 0.6.1.9000
 
+### Bug fixes
+
+* Fix a problem detecting co-occurences when expression has multiple lines.
+
 # teal.code 0.6.1
 
 ### Bug fixes

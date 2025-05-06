@@ -344,11 +344,13 @@ extract_dependency <- function(parsed_code) {
   reordered_full_pd <- extract_calls(full_pd)
 
   # Early return on empty code
-  if (length(parsed_code) == 0L) {
-    return(character(0L))
+  if (length(reordered_full_pd) == 0L) {
+    return(NULL)
   }
 
-  # Check for expressions and process those separetly
+  if (length(parsed_code) == 0L) {
+    return(extract_side_effects(reordered_full_pd[[1]]))
+  }
   expr_ix <- lapply(parsed_code[[1]], class) == "{"
 
   # Build queue of expressions to parse individually
@@ -381,7 +383,8 @@ extract_dependency <- function(parsed_code) {
         # extract_calls is needed to reorder the pd so that assignment operator comes before symbol names
         # extract_calls is needed also to substitute assignment operators into specific format with fix_arrows
         # extract_calls is needed to omit empty calls that contain only one token `"';'"`
-        # This cleaning is needed as extract_occurrence assumes arrows are fixed, and order is different than in original pd
+        # This cleaning is needed as extract_occurrence assumes arrows are fixed, and order is different
+        # than in original pd
         extract_occurrence(reordered_pd[[1]])
       }
     }
