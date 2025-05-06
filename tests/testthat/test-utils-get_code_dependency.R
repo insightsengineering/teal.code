@@ -75,8 +75,8 @@ testthat::describe("get_code with multiple assignments inside an expression", {
     td <- qenv() |>
       within({
         for (i in 1:10) {
-          iris -> var1  # nolint: assignment.
-          mtcars -> var2  # nolint: assignment.
+          iris -> var1 # nolint: assignment.
+          mtcars -> var2 # nolint: assignment.
         }
       })
 
