@@ -9,6 +9,7 @@
 #' @param code (`character`, `language` or `expression`) code to evaluate.
 #' It is possible to preserve original formatting of the `code` by providing a `character` or an
 #' `expression` being a result of `parse(keep.source = TRUE)`.
+#' @param ... ([`dots`]) additional arguments passed to future methods.
 #'
 #' @return
 #' `qenv` environment with `code/expr` evaluated or `qenv.error` if evaluation fails.
@@ -27,9 +28,9 @@
 #' @aliases eval_code,qenv.error,ANY-method
 #'
 #' @export
-setGeneric("eval_code", function(object, code) standardGeneric("eval_code"))
+setGeneric("eval_code", function(object, code, ...) standardGeneric("eval_code"))
 
-setMethod("eval_code", signature = c("qenv", "character"), function(object, code) {
+setMethod("eval_code", signature = c("qenv", "character"), function(object, code, ...) {
   parsed_code <- parse(text = code, keep.source = TRUE)
   object@.xData <- rlang::env_clone(object@.xData, parent = parent.env(.GlobalEnv))
   if (length(parsed_code) == 0) {
@@ -89,11 +90,11 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
   object
 })
 
-setMethod("eval_code", signature = c("qenv", "language"), function(object, code) {
+setMethod("eval_code", signature = c("qenv", "language"), function(object, code, ...) {
   eval_code(object, code = paste(vapply(lang2calls(code), deparse1, collapse = "\n", character(1L)), collapse = "\n"))
 })
 
-setMethod("eval_code", signature = c("qenv", "expression"), function(object, code) {
+setMethod("eval_code", signature = c("qenv", "expression"), function(object, code, ...) {
   srcref <- attr(code, "wholeSrcref")
   if (length(srcref)) {
     eval_code(object, code = paste(attr(code, "wholeSrcref"), collapse = "\n"))
@@ -102,7 +103,7 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
   }
 })
 
-setMethod("eval_code", signature = c("qenv.error", "ANY"), function(object, code) {
+setMethod("eval_code", signature = c("qenv.error", "ANY"), function(object, code, ...) {
   object
 })
 

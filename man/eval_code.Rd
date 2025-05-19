@@ -9,7 +9,7 @@
 \alias{within.qenv}
 \title{Evaluate code in \code{qenv}}
 \usage{
-eval_code(object, code)
+eval_code(object, code, ...)
 
 \method{within}{qenv}(data, expr, ...)
 }
@@ -20,12 +20,12 @@ eval_code(object, code)
 It is possible to preserve original formatting of the \code{code} by providing a \code{character} or an
 \code{expression} being a result of \code{parse(keep.source = TRUE)}.}
 
+\item{...}{named argument value will substitute a symbol in the \code{expr} matched by the name.
+For practical usage see Examples section below.}
+
 \item{data}{(\code{qenv})}
 
 \item{expr}{(\code{expression}) to evaluate. Must be inline code, see \verb{Using language objects...}}
-
-\item{...}{named argument value will substitute a symbol in the \code{expr} matched by the name.
-For practical usage see Examples section below.}
 }
 \value{
 \code{qenv} environment with \code{code/expr} evaluated or \code{qenv.error} if evaluation fails.
