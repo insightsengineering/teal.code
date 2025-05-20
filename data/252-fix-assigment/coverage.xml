@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.907843137254902" branch-rate="0" lines-covered="463" lines-valid="510" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2025-05-06 16:41:25.07806">
+<coverage line-rate="0.907843137254902" branch-rate="0" lines-covered="463" lines-valid="510" branches-covered="0" branches-valid="0" complexity="0" version="3.6.4" timestamp="2025-05-20 07:23:19.870829">
   <sources>
     <source>/__w/teal.code/teal.code/teal.code</source>
   </sources>
@@ -234,7 +234,7 @@
             <method name="qenv.error#ANY" signature="" line-rate="0.625" branch-rate="0" complexity="0">
               <lines>
                 <line number="44" hits="3" branch="false"/>
-                <line number="111" hits="0" branch="false"/>
+                <line number="113" hits="0" branch="false"/>
                 <line number="42" hits="1" branch="false"/>
                 <line number="43" hits="1" branch="false"/>
                 <line number="44" hits="1" branch="false"/>
@@ -424,16 +424,16 @@
                 <line number="99" hits="2" branch="false"/>
                 <line number="101" hits="51" branch="false"/>
                 <line number="102" hits="51" branch="false"/>
-                <line number="103" hits="0" branch="false"/>
-                <line number="104" hits="51" branch="false"/>
-                <line number="105" hits="51" branch="false"/>
+                <line number="105" hits="0" branch="false"/>
                 <line number="106" hits="51" branch="false"/>
+                <line number="107" hits="51" branch="false"/>
+                <line number="108" hits="51" branch="false"/>
               </lines>
             </method>
             <method name="qenv.error#ANY" signature="" line-rate="0.625" branch-rate="0" complexity="0">
               <lines>
                 <line number="44" hits="3" branch="false"/>
-                <line number="111" hits="0" branch="false"/>
+                <line number="113" hits="0" branch="false"/>
                 <line number="42" hits="1" branch="false"/>
                 <line number="43" hits="1" branch="false"/>
                 <line number="44" hits="1" branch="false"/>
@@ -444,14 +444,14 @@
             </method>
             <method name=".ansi_strip" signature="" line-rate="0.666666666666667" branch-rate="0" complexity="0">
               <lines>
-                <line number="117" hits="38" branch="false"/>
-                <line number="118" hits="38" branch="false"/>
-                <line number="120" hits="0" branch="false"/>
+                <line number="119" hits="38" branch="false"/>
+                <line number="120" hits="38" branch="false"/>
+                <line number="122" hits="0" branch="false"/>
               </lines>
             </method>
             <method name="get_code_attr" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="125" hits="2" branch="false"/>
+                <line number="127" hits="2" branch="false"/>
               </lines>
             </method>
           </methods>
@@ -509,15 +509,15 @@
             <line number="99" hits="2" branch="false"/>
             <line number="101" hits="51" branch="false"/>
             <line number="102" hits="51" branch="false"/>
-            <line number="103" hits="0" branch="false"/>
-            <line number="104" hits="51" branch="false"/>
-            <line number="105" hits="51" branch="false"/>
+            <line number="105" hits="0" branch="false"/>
             <line number="106" hits="51" branch="false"/>
-            <line number="111" hits="0" branch="false"/>
-            <line number="117" hits="38" branch="false"/>
-            <line number="118" hits="38" branch="false"/>
-            <line number="120" hits="0" branch="false"/>
-            <line number="125" hits="2" branch="false"/>
+            <line number="107" hits="51" branch="false"/>
+            <line number="108" hits="51" branch="false"/>
+            <line number="113" hits="0" branch="false"/>
+            <line number="119" hits="38" branch="false"/>
+            <line number="120" hits="38" branch="false"/>
+            <line number="122" hits="0" branch="false"/>
+            <line number="127" hits="2" branch="false"/>
           </lines>
         </class>
         <class name="qenv-extract.R" filename="R/qenv-extract.R" line-rate="1" branch-rate="0" complexity="0">
@@ -966,7 +966,7 @@
             <method name="qenv.error#ANY" signature="" line-rate="0.625" branch-rate="0" complexity="0">
               <lines>
                 <line number="44" hits="3" branch="false"/>
-                <line number="111" hits="0" branch="false"/>
+                <line number="113" hits="0" branch="false"/>
                 <line number="42" hits="1" branch="false"/>
                 <line number="43" hits="1" branch="false"/>
                 <line number="44" hits="1" branch="false"/>
@@ -1157,7 +1157,7 @@
             <method name="qenv.error#ANY" signature="" line-rate="0.625" branch-rate="0" complexity="0">
               <lines>
                 <line number="44" hits="3" branch="false"/>
-                <line number="111" hits="0" branch="false"/>
+                <line number="113" hits="0" branch="false"/>
                 <line number="42" hits="1" branch="false"/>
                 <line number="43" hits="1" branch="false"/>
                 <line number="44" hits="1" branch="false"/>
