@@ -100,6 +100,8 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
   } else {
     Reduce(function(u, v) {
       if (inherits(v, "=") && identical(typeof(v), "language")) {
+        # typeof(`=`) is language, but it doesn't dispatch on it, so we need to
+        # explicitly pass it as first class of the object
         class(v) <- unique(c("language", class(v)))
       }
       eval_code(u, v)
