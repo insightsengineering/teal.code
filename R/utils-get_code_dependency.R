@@ -340,15 +340,72 @@ extract_side_effects <- function(pd) {
 #' @keywords internal
 #' @noRd
 extract_dependency <- function(parsed_code) {
-  pd <- normalize_pd(utils::getParseData(parsed_code))
-  reordered_pd <- extract_calls(pd)
-  if (length(reordered_pd) > 0) {
-    # extract_calls is needed to reorder the pd so that assignment operator comes before symbol names
-    # extract_calls is needed also to substitute assignment operators into specific format with fix_arrows
-    # extract_calls is needed to omit empty calls that contain only one token `"';'"`
-    # This cleaning is needed as extract_occurrence assumes arrows are fixed, and order is different than in original pd
-    c(extract_side_effects(reordered_pd[[1]]), extract_occurrence(reordered_pd[[1]]))
+  full_pd <- normalize_pd(utils::getParseData(parsed_code))
+  reordered_full_pd <- extract_calls(full_pd)
+
+  # Early return on empty code
+  if (length(reordered_full_pd) == 0L) {
+    return(NULL)
   }
+
+  if (length(parsed_code) == 0L) {
+    return(extract_side_effects(reordered_full_pd[[1]]))
+  }
+  expr_ix <- lapply(parsed_code[[1]], class) == "{"
+
+  # Build queue of expressions to parse individually
+  queue <- list()
+  parsed_code_list <- if (all(!expr_ix)) {
+    list(parsed_code)
+  } else {
+    queue <- as.list(parsed_code[[1]][expr_ix])
+    new_list <- parsed_code[[1]]
+    new_list[expr_ix] <- NULL
+    list(parse(text = as.expression(new_list), keep.source = TRUE))
+  }
+
+  while (length(queue) > 0) {
+    current <- queue[[1]]
+    queue <- queue[-1]
+    if (identical(current[[1L]], as.name("{"))) {
+      queue <- append(queue, as.list(current)[-1L])
+    } else {
+      parsed_code_list[[length(parsed_code_list) + 1]] <- parse(text = as.expression(current), keep.source = TRUE)
+    }
+  }
+
+  parsed_occurences <- lapply(
+    parsed_code_list,
+    function(parsed_code) {
+      pd <- normalize_pd(utils::getParseData(parsed_code))
+      reordered_pd <- extract_calls(pd)
+      if (length(reordered_pd) > 0) {
+        # extract_calls is needed to reorder the pd so that assignment operator comes before symbol names
+        # extract_calls is needed also to substitute assignment operators into specific format with fix_arrows
+        # extract_calls is needed to omit empty calls that contain only one token `"';'"`
+        # This cleaning is needed as extract_occurrence assumes arrows are fixed, and order is different
+        # than in original pd
+        extract_occurrence(reordered_pd[[1]])
+      }
+    }
+  )
+
+  # Merge results together
+  result <- Reduce(
+    function(u, v) {
+      ix <- if ("<-" %in% v) min(which(v == "<-")) else 0
+      u$left_side <- c(u$left_side, v[seq_len(max(0, ix - 1))])
+      u$right_side <- c(
+        u$right_side,
+        if (ix == length(v)) character(0L) else v[seq(ix + 1, max(ix + 1, length(v)))]
+      )
+      u
+    },
+    init = list(left_side = character(0L), right_side = character(0L)),
+    x = parsed_occurences
+  )
+
+  c(extract_side_effects(reordered_full_pd[[1]]), result$left_side, "<-", result$right_side)
 }
 
 # graph_parser ----
