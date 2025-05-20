@@ -136,15 +136,15 @@ testthat::describe("within run with `=`", {
   testthat::it("single expression", {
     q <- qenv()
     q <- within(q, {
-      i = 1
+      i <- 1
     })
   })
 
   testthat::it("multiple '=' expressions", {
     q <- qenv()
     q <- within(q, {
-      j = 2
-      i = 1
+      j <- 2
+      i <- 1
     })
     testthat::expect_equal(q$i, 1)
   })
