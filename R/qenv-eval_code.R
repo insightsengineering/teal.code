@@ -98,7 +98,14 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
   if (length(srcref)) {
     eval_code(object, code = paste(attr(code, "wholeSrcref"), collapse = "\n"))
   } else {
-    Reduce(eval_code, init = object, x = code)
+    Reduce(function(u, v) {
+      if (inherits(v, "=") && identical(typeof(v), "language")) {
+        # typeof(`=`) is language, but it doesn't dispatch on it, so we need to
+        # explicitly pass it as first class of the object
+        class(v) <- unique(c("language", class(v)))
+      }
+      eval_code(u, v)
+    }, init = object, x = code)
   }
 })
 
