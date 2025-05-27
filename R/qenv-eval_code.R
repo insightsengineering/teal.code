@@ -9,6 +9,9 @@
 #' @param code (`character`, `language` or `expression`) code to evaluate.
 #' It is possible to preserve original formatting of the `code` by providing a `character` or an
 #' `expression` being a result of `parse(keep.source = TRUE)`.
+#' @param cache (`logical(1)`) whether to cache returned value of the code evaluation.
+#'
+#' @param ... ([`dots`]) additional arguments passed to future methods.
 #'
 #' @return
 #' `qenv` environment with `code/expr` evaluated or `qenv.error` if evaluation fails.
@@ -27,9 +30,9 @@
 #' @aliases eval_code,qenv.error,ANY-method
 #'
 #' @export
-setGeneric("eval_code", function(object, code) standardGeneric("eval_code"))
+setGeneric("eval_code", function(object, code, cache = FALSE, ...) standardGeneric("eval_code"))
 
-setMethod("eval_code", signature = c("qenv", "character"), function(object, code) {
+setMethod("eval_code", signature = c("qenv", "character"), function(object, code, cache = FALSE, ...) {
   parsed_code <- parse(text = code, keep.source = TRUE)
   object@.xData <- rlang::env_clone(object@.xData, parent = parent.env(.GlobalEnv))
   if (length(parsed_code) == 0) {
@@ -42,13 +45,15 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
   for (i in seq_along(code_split)) {
     current_code <- code_split[[i]]
     current_call <- parse(text = current_code, keep.source = TRUE)
-
     # Using withCallingHandlers to capture warnings and messages.
     # Using tryCatch to capture the error and abort further evaluation.
     x <- withCallingHandlers(
       tryCatch(
         {
-          eval(current_call, envir = object@.xData)
+          out <- eval(current_call, envir = object@.xData)
+          if (cache && i == seq_along(code_split)) {
+            attr(current_code, "cache") <- out
+          }
           if (!identical(parent.env(object@.xData), parent.env(.GlobalEnv))) {
             # needed to make sure that @.xData is always a sibling of .GlobalEnv
             # could be changed when any new package is added to search path (through library or require call)
@@ -89,11 +94,11 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
   object
 })
 
-setMethod("eval_code", signature = c("qenv", "language"), function(object, code) {
+setMethod("eval_code", signature = c("qenv", "language"), function(object, code, cache = FALSE, ...) {
   eval_code(object, code = paste(vapply(lang2calls(code), deparse1, collapse = "\n", character(1L)), collapse = "\n"))
 })
 
-setMethod("eval_code", signature = c("qenv", "expression"), function(object, code) {
+setMethod("eval_code", signature = c("qenv", "expression"), function(object, code, cache = FALSE, ...) {
   srcref <- attr(code, "wholeSrcref")
   if (length(srcref)) {
     eval_code(object, code = paste(attr(code, "wholeSrcref"), collapse = "\n"))
@@ -109,7 +114,7 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
   }
 })
 
-setMethod("eval_code", signature = c("qenv.error", "ANY"), function(object, code) {
+setMethod("eval_code", signature = c("qenv.error", "ANY"), function(object, code, cache = FALSE, ...) {
   object
 })
 
