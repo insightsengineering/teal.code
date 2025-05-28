@@ -32,7 +32,9 @@
 #' @export
 setGeneric("eval_code", function(object, code, cache = FALSE, ...) standardGeneric("eval_code"))
 
-setMethod("eval_code", signature = c("qenv", "character"), function(object, code, cache = FALSE, ...) {
+setMethod("eval_code", signature = c("qenv"), function(object, code, cache = FALSE, ...) {
+  logger::log_fatal("eval_code with ANY")
+  code <- .preprocess_code(code) # preprocess code to ensure it is a character vector
   parsed_code <- parse(text = code, keep.source = TRUE)
   object@.xData <- rlang::env_clone(object@.xData, parent = parent.env(.GlobalEnv))
   if (length(parsed_code) == 0) {
@@ -51,7 +53,7 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
       tryCatch(
         {
           out <- eval(current_call, envir = object@.xData)
-          if (cache && i == seq_along(code_split)) {
+          if (cache && i == length(code_split)) {
             attr(current_code, "cache") <- out
           }
           if (!identical(parent.env(object@.xData), parent.env(.GlobalEnv))) {
@@ -94,11 +96,9 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
   object
 })
 
-setMethod("eval_code", signature = c("qenv", "language"), function(object, code, cache = FALSE, ...) {
-  eval_code(object, code = paste(vapply(lang2calls(code), deparse1, collapse = "\n", character(1L)), collapse = "\n"))
-})
 
 setMethod("eval_code", signature = c("qenv", "expression"), function(object, code, cache = FALSE, ...) {
+  logger::log_fatal("eval_code with expression")
   srcref <- attr(code, "wholeSrcref")
   if (length(srcref)) {
     eval_code(object, code = paste(attr(code, "wholeSrcref"), collapse = "\n"))
@@ -112,6 +112,18 @@ setMethod("eval_code", signature = c("qenv", "expression"), function(object, cod
       eval_code(u, v)
     }, init = object, x = code)
   }
+})
+
+setGeneric(".preprocess_code", function(code) standardGeneric(".preprocess_code"))
+
+setMethod(".preprocess_code", signature = c("ANY"), function(code) {
+  logger::log_warn("process character")
+  as.character(code)
+})
+
+setMethod(".preprocess_code", signature = c("language"), function(code) {
+  logger::log_warn("process language")
+  paste(vapply(lang2calls(code), deparse1, collapse = "\n", character(1L)))
 })
 
 setMethod("eval_code", signature = c("qenv.error", "ANY"), function(object, code, cache = FALSE, ...) {
