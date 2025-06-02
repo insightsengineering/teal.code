@@ -32,7 +32,7 @@
 #' @export
 setGeneric("eval_code", function(object, code, cache = FALSE, ...) standardGeneric("eval_code"))
 
-setMethod("eval_code", signature = c(object = "qenv", code = "ANY"), function(object, code, cache = FALSE, ...) {
+setMethod("eval_code", signature = c(object = "qenv"), function(object, code, cache = FALSE, ...) {
   code <- .preprocess_code(code) # preprocess code to ensure it is a character vector
   srcref <- attr(code, "wholeSrcref")
   if (is.expression(code) && length(srcref) == 0L) {
@@ -51,7 +51,7 @@ setMethod("eval_code", signature = c(object = "qenv", code = "ANY"), function(ob
   .eval_code(object = object, code = code, cache = cache, ...)
 })
 
-setMethod("eval_code", signature = c("qenv.error", "ANY"), function(object, code, cache = FALSE, ...) object)
+setMethod("eval_code", signature = c(object = "qenv.error"), function(object, code, cache = FALSE, ...) object)
 
 #' @keywords internal
 .eval_code <- function(object, code, cache = FALSE, ...) {
