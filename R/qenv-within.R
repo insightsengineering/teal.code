@@ -53,8 +53,10 @@ within.qenv <- function(data, expr, ...) {
 
   # Inject extra values into expressions.
   calls <- lapply(expr, function(x) do.call(substitute, list(x, env = extras)))
-
-  eval_code(object = data, code = as.expression(calls), ...)
+  do.call(
+    eval_code,
+    modifyList(list(...), list(object = data, code = as.expression(calls)))
+  )
 }
 
 
