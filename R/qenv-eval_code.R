@@ -28,7 +28,7 @@
 #' @aliases eval_code,qenv.error-method
 #'
 #' @export
-setGeneric("eval_code", function(object, code, cache = FALSE, callback, ...) standardGeneric("eval_code"))
+setGeneric("eval_code", function(object, code, cache = FALSE, ...) standardGeneric("eval_code"))
 
 setMethod("eval_code", signature = c(object = "qenv"), function(object, code, cache = FALSE, ...) {
   if (!is.language(code) && !is.character(code)) {
