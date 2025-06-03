@@ -55,7 +55,7 @@ within.qenv <- function(data, expr, ...) {
   calls <- lapply(expr, function(x) do.call(substitute, list(x, env = extras)))
   do.call(
     eval_code,
-    modifyList(list(...), list(object = data, code = as.expression(calls)))
+    modifyList(extras, list(object = data, code = as.expression(calls)))
   )
 }
 
