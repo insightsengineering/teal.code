@@ -2,10 +2,7 @@
 % Please edit documentation in R/qenv-eval_code.R, R/qenv-within.R
 \name{eval_code}
 \alias{eval_code}
-\alias{eval_code,qenv,character-method}
-\alias{eval_code,qenv,language-method}
-\alias{eval_code,qenv,expression-method}
-\alias{eval_code,qenv.error,ANY-method}
+\alias{eval_code,qenv-method}
 \alias{within.qenv}
 \title{Evaluate code in \code{qenv}}
 \usage{

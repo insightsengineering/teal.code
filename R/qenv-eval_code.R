@@ -24,30 +24,13 @@
 #' q <- eval_code(q, quote(library(checkmate)))
 #' q <- eval_code(q, expression(assert_number(a)))
 #'
-#' @aliases eval_code,qenv,character-method
-#' @aliases eval_code,qenv,language-method
-#' @aliases eval_code,qenv,expression-method
-#' @aliases eval_code,qenv.error,ANY-method
+#' @aliases eval_code,qenv-method
 #'
 #' @export
 setGeneric("eval_code", function(object, code, cache = FALSE, ...) standardGeneric("eval_code"))
 
 setMethod("eval_code", signature = c(object = "qenv"), function(object, code, cache = FALSE, ...) {
   code <- .preprocess_code(code) # preprocess code to ensure it is a character vector
-  srcref <- attr(code, "wholeSrcref")
-  if (is.expression(code) && length(srcref) == 0L) {
-    result <- Reduce(function(u, v) {
-      if (inherits(v, "=") && identical(typeof(v), "language")) {
-        # typeof(`=`) is language, but it doesn't dispatch on it, so we need to
-        # explicitly pass it as first class of the object
-        class(v) <- unique(c("language", class(v)))
-      }
-      .eval_code(u, v, cache = FALSE, ...)
-    }, init = object, x = code)
-    return(result)
-  } else if (is.expression(code)) {
-    code <- paste(attr(code, "wholeSrcref"), collapse = "\n")
-  }
   .eval_code(object = object, code = code, cache = cache, ...)
 })
 
@@ -117,7 +100,17 @@ setMethod("eval_code", signature = c(object = "qenv.error"), function(object, co
 }
 
 setGeneric(".preprocess_code", function(code) standardGeneric(".preprocess_code"))
-setMethod(".preprocess_code", signature = c("ANY"), function(code) as.character(code))
+setMethod(".preprocess_code", signature = c("ANY"), function(code) paste(code, collapse = "\n"))
 setMethod(".preprocess_code", signature = c("language"), function(code) {
-  paste(vapply(lang2calls(code), deparse1, collapse = "\n", character(1L)))
+  paste(
+    vapply(lang2calls(code), deparse1, collapse = "\n", character(1L)),
+    collapse = "\n"
+  )
+})
+setMethod(".preprocess_code", signature = c("expression"), function(code) {
+  if (length(attr(code, "wholeSrcref")) == 0L) {
+    paste(lang2calls(code), collapse = "\n")
+  } else {
+    paste(attr(code, "wholeSrcref"), collapse = "\n")
+  }
 })
