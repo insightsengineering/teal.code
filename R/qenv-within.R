@@ -48,20 +48,13 @@
 #' @export
 #'
 within.qenv <- function(data, expr, ...) {
-  expr <- substitute(expr)
+  expr <- as.expression(substitute(expr))
   extras <- list(...)
 
-  # Add braces for consistency.
-  if (!identical(as.list(expr)[[1L]], as.symbol("{"))) {
-    expr <- call("{", expr)
-  }
-
-  calls <- as.list(expr)[-1]
-
   # Inject extra values into expressions.
-  calls <- lapply(calls, function(x) do.call(substitute, list(x, env = extras)))
+  calls <- lapply(expr, function(x) do.call(substitute, list(x, env = extras)))
 
-  eval_code(object = data, code = as.expression(calls))
+  eval_code(object = data, code = as.expression(calls), ...)
 }
 
 

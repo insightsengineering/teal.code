@@ -3,6 +3,7 @@
 \name{eval_code}
 \alias{eval_code}
 \alias{eval_code,qenv-method}
+\alias{eval_code,qenv.error-method}
 \alias{within.qenv}
 \title{Evaluate code in \code{qenv}}
 \usage{
