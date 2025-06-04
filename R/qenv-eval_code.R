@@ -25,12 +25,17 @@
 #' q <- eval_code(q, expression(assert_number(a)))
 #'
 #' @aliases eval_code,qenv-method
+#' @aliases eval_code,qenv.error-method
 #'
 #' @export
 setGeneric("eval_code", function(object, code, cache = FALSE, ...) standardGeneric("eval_code"))
 
 setMethod("eval_code", signature = c(object = "qenv"), function(object, code, cache = FALSE, ...) {
-  code <- .preprocess_code(code) # preprocess code to ensure it is a character vector
+  if (!is.language(code) && !is.character(code)) {
+    stop("eval_code accepts code being language or character")
+  }
+  code <- .preprocess_code(code)
+  # preprocess code to ensure it is a character vector
   .eval_code(object = object, code = code, cache = cache, ...)
 })
 
@@ -38,6 +43,9 @@ setMethod("eval_code", signature = c(object = "qenv.error"), function(object, co
 
 #' @keywords internal
 .eval_code <- function(object, code, cache = FALSE, ...) {
+  if (identical(code, "")) {
+    return(object)
+  }
   parsed_code <- parse(text = code, keep.source = TRUE)
   object@.xData <- rlang::env_clone(object@.xData, parent = parent.env(.GlobalEnv))
   if (length(parsed_code) == 0) {
@@ -100,17 +108,14 @@ setMethod("eval_code", signature = c(object = "qenv.error"), function(object, co
 }
 
 setGeneric(".preprocess_code", function(code) standardGeneric(".preprocess_code"))
-setMethod(".preprocess_code", signature = c("ANY"), function(code) paste(code, collapse = "\n"))
-setMethod(".preprocess_code", signature = c("language"), function(code) {
-  paste(
-    vapply(lang2calls(code), deparse1, collapse = "\n", character(1L)),
-    collapse = "\n"
-  )
-})
-setMethod(".preprocess_code", signature = c("expression"), function(code) {
-  if (length(attr(code, "wholeSrcref")) == 0L) {
-    paste(lang2calls(code), collapse = "\n")
-  } else {
+setMethod(".preprocess_code", signature = c("character"), function(code) paste(code, collapse = "\n"))
+setMethod(".preprocess_code", signature = c("ANY"), function(code) {
+  if (is.expression(code) && length(attr(code, "wholeSrcref"))) {
     paste(attr(code, "wholeSrcref"), collapse = "\n")
+  } else {
+    paste(
+      vapply(lang2calls(code), deparse1, collapse = "\n", character(1L)),
+      collapse = "\n"
+    )
   }
 })
