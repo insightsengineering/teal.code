@@ -149,3 +149,8 @@ testthat::describe("within run with `=`", {
     testthat::expect_equal(q$i, 1)
   })
 })
+
+testthat::test_that("Code executed with integer shorthand (1L) is the same as original", {
+  q <- within(qenv(), a <- 1L)
+  testthat::expect_identical(get_code(q), "a <- 1L")
+})

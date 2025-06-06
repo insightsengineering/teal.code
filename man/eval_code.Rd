@@ -2,16 +2,14 @@
 % Please edit documentation in R/qenv-eval_code.R, R/qenv-within.R
 \name{eval_code}
 \alias{eval_code}
-\alias{eval_code,qenv,character-method}
-\alias{eval_code,qenv,language-method}
-\alias{eval_code,qenv,expression-method}
-\alias{eval_code,qenv.error,ANY-method}
+\alias{eval_code,qenv-method}
+\alias{eval_code,qenv.error-method}
 \alias{within.qenv}
 \title{Evaluate code in \code{qenv}}
 \usage{
-eval_code(object, code)
+eval_code(object, code, keep_output = FALSE, ...)
 
-\method{within}{qenv}(data, expr, ...)
+\method{within}{qenv}(data, expr, keep_output = FALSE, ...)
 }
 \arguments{
 \item{object}{(\code{qenv})}
@@ -20,12 +18,14 @@ eval_code(object, code)
 It is possible to preserve original formatting of the \code{code} by providing a \code{character} or an
 \code{expression} being a result of \code{parse(keep.source = TRUE)}.}
 
-\item{data}{(\code{qenv})}
-
-\item{expr}{(\code{expression}) to evaluate. Must be inline code, see \verb{Using language objects...}}
+\item{keep_output}{(\code{logical(1)}) whether to keep the output of the code evaluation.}
 
 \item{...}{named argument value will substitute a symbol in the \code{expr} matched by the name.
 For practical usage see Examples section below.}
+
+\item{data}{(\code{qenv})}
+
+\item{expr}{(\code{expression}) to evaluate. Must be inline code, see \verb{Using language objects...}}
 }
 \value{
 \code{qenv} environment with \code{code/expr} evaluated or \code{qenv.error} if evaluation fails.

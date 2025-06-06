@@ -45,6 +45,11 @@ testthat::test_that("eval_code works with expression", {
   testthat::expect_equal(q1, list2env(list(a = 1, b = 2)))
 })
 
+testthat::test_that("eval_code ignores empty code", {
+  q <- qenv()
+  testthat::expect_identical(q, eval_code(q, ""))
+})
+
 testthat::test_that("eval_code preserves original formatting when `srcref` is present in the expression", {
   code <- "# comment
   a <- 1L"
@@ -77,12 +82,11 @@ testthat::test_that("eval_code works with quoted code block", {
   testthat::expect_equal(q1, list2env(list(a = 1, b = 2)))
 })
 
-testthat::test_that("eval_code fails with unquoted expression", {
-  b <- 3
-  testthat::expect_error(
-    eval_code(qenv(), a <- b),
-    "unable to find an inherited method for function .eval_code. for signature"
-  )
+testthat::test_that("eval_code fails with code not being language nor character", {
+  msg <- "eval_code accepts code being language or character"
+  testthat::expect_error(eval_code(qenv(), NULL), msg)
+  testthat::expect_error(eval_code(qenv(), 1), msg)
+  testthat::expect_error(eval_code(qenv(), list()), msg)
 })
 
 testthat::test_that("an error when calling eval_code returns a qenv.error object which has message and trace", {
@@ -181,9 +185,4 @@ testthat::test_that("comments passed alone to eval_code that contain @linksto ta
     attr(q@code[[2]], "dependency"),
     "x"
   )
-})
-
-testthat::test_that("Code executed with integer shorthand (1L) is the same as original", {
-  q <- within(qenv(), a <- 1L)
-  testthat::expect_identical(get_code(q), "a <- 1L")
 })
