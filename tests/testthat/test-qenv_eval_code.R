@@ -186,10 +186,3 @@ testthat::test_that("comments passed alone to eval_code that contain @linksto ta
     "x"
   )
 })
-
-testthat::test_that("keep_output stores the last output of the `code` evaluation in its 'output' attribute", {
-  q <- eval_code(qenv(), "a <- 1L;b <-2L;c<- 3L", keep_output = TRUE)
-  testthat::expect_identical(attr(q@code[[1]], "output"), NULL)
-  testthat::expect_identical(attr(q@code[[2]], "output"), NULL)
-  testthat::expect_identical(attr(q@code[[3]], "output"), 3L)
-})

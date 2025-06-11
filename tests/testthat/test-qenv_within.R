@@ -154,17 +154,3 @@ testthat::test_that("Code executed with integer shorthand (1L) is the same as or
   q <- within(qenv(), a <- 1L)
   testthat::expect_identical(get_code(q), "a <- 1L")
 })
-
-testthat::test_that("keep_output stores the last output of the `code` evaluation in its 'output' attribute", {
-  q <- within(qenv(),
-    {
-      a <- 1L
-      b <- 2L
-      c <- 3L
-    },
-    keep_output = TRUE
-  )
-  testthat::expect_identical(attr(q@code[[1]], "output"), NULL)
-  testthat::expect_identical(attr(q@code[[2]], "output"), NULL)
-  testthat::expect_identical(attr(q@code[[3]], "output"), 3L)
-})

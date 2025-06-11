@@ -9,8 +9,6 @@
 #' @param code (`character`, `language` or `expression`) code to evaluate.
 #' It is possible to preserve original formatting of the `code` by providing a `character` or an
 #' `expression` being a result of `parse(keep.source = TRUE)`.
-#' @param keep_output (`logical(1)`) whether to keep the output of the code evaluation.
-#'
 #' @param ... ([`dots`]) additional arguments passed to future methods.
 #'
 #' @return
@@ -28,21 +26,21 @@
 #' @aliases eval_code,qenv.error-method
 #'
 #' @export
-setGeneric("eval_code", function(object, code, keep_output = FALSE, ...) standardGeneric("eval_code"))
+setGeneric("eval_code", function(object, code, ...) standardGeneric("eval_code"))
 
-setMethod("eval_code", signature = c(object = "qenv"), function(object, code, keep_output = FALSE, ...) {
+setMethod("eval_code", signature = c(object = "qenv"), function(object, code, ...) {
   if (!is.language(code) && !is.character(code)) {
     stop("eval_code accepts code being language or character")
   }
   code <- .preprocess_code(code)
   # preprocess code to ensure it is a character vector
-  .eval_code(object = object, code = code, keep_output = keep_output, ...)
+  .eval_code(object = object, code = code, ...)
 })
 
-setMethod("eval_code", signature = c(object = "qenv.error"), function(object, code, keep_output = FALSE, ...) object)
+setMethod("eval_code", signature = c(object = "qenv.error"), function(object, code, ...) object)
 
 #' @keywords internal
-.eval_code <- function(object, code, keep_output = FALSE, ...) {
+.eval_code <- function(object, code, ...) {
   if (identical(code, "")) {
     return(object)
   }
@@ -63,10 +61,7 @@ setMethod("eval_code", signature = c(object = "qenv.error"), function(object, co
     x <- withCallingHandlers(
       tryCatch(
         {
-          out <- eval(current_call, envir = object@.xData)
-          if (keep_output && i == length(code_split)) {
-            attr(current_code, "output") <- out
-          }
+          eval(current_call, envir = object@.xData)
           if (!identical(parent.env(object@.xData), parent.env(.GlobalEnv))) {
             # needed to make sure that @.xData is always a sibling of .GlobalEnv
             # could be changed when any new package is added to search path (through library or require call)

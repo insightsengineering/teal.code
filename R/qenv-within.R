@@ -9,7 +9,6 @@
 #'
 #' @param data (`qenv`)
 #' @param expr (`expression`) to evaluate. Must be inline code, see `Using language objects...`
-#' @param keep_output (`logical(1)`) whether to keep the output of the code evaluation.
 #' @param ... named argument value will substitute a symbol in the `expr` matched by the name.
 #' For practical usage see Examples section below.
 #'
@@ -48,7 +47,7 @@
 #'
 #' @export
 #'
-within.qenv <- function(data, expr, keep_output = FALSE, ...) {
+within.qenv <- function(data, expr, ...) {
   expr <- as.expression(substitute(expr))
   extras <- list(...)
 
@@ -56,7 +55,7 @@ within.qenv <- function(data, expr, keep_output = FALSE, ...) {
   calls <- lapply(expr, function(x) do.call(substitute, list(x, env = extras)))
   do.call(
     eval_code,
-    utils::modifyList(extras, list(object = data, code = as.expression(calls), keep_output = keep_output))
+    utils::modifyList(extras, list(object = data, code = as.expression(calls)))
   )
 }
 
@@ -64,6 +63,6 @@ within.qenv <- function(data, expr, keep_output = FALSE, ...) {
 #' @keywords internal
 #'
 #' @export
-within.qenv.error <- function(data, expr, keep_output = FALSE, ...) {
+within.qenv.error <- function(data, expr, ...) {
   data
 }
