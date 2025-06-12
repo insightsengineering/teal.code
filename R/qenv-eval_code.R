@@ -13,6 +13,8 @@
 #'
 #' @return
 #' `qenv` environment with `code/expr` evaluated or `qenv.error` if evaluation fails.
+#' The environment contains an attribute called `".Last.value"` which is the last evaluated value,
+#' similarly to [base::.Last.value].
 #'
 #' @examples
 #' # evaluate code in qenv
@@ -61,12 +63,11 @@ setMethod("eval_code", signature = c(object = "qenv.error"), function(object, co
     x <- withCallingHandlers(
       tryCatch(
         {
-          eval(current_call, envir = object@.xData)
-          if (!identical(parent.env(object@.xData), parent.env(.GlobalEnv))) {
-            # needed to make sure that @.xData is always a sibling of .GlobalEnv
-            # could be changed when any new package is added to search path (through library or require call)
-            parent.env(object@.xData) <- parent.env(.GlobalEnv)
-          }
+          # needed to make sure that @.xData inherits from .GlobalEnv
+          # could be changed when any new package is added to search path (through library or require call)
+          new_parent <- new.env(parent = parent.env(.GlobalEnv))
+          new_parent[[".Last.value"]] <- eval(current_call, envir = object@.xData)
+          parent.env(object@.xData) <- new_parent
           NULL
         },
         error = function(e) {

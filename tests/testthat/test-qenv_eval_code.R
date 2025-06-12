@@ -186,3 +186,10 @@ testthat::test_that("comments passed alone to eval_code that contain @linksto ta
     "x"
   )
 })
+
+testthat::test_that("eval_code keeps .Last.value as an attribute of the environment", {
+  q <- eval_code(qenv(), quote(x <- 1))
+  env <- parent.env(q)
+  testthat::expect_true(".Last.value" %in% names(env))
+  testthat::expect_equal(env$.Last.value, 1)
+})
