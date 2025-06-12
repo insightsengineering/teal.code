@@ -24,7 +24,7 @@
 #'
 #' @aliases eval_code,qenv-method
 #' @aliases eval_code,qenv.error-method
-#'
+#' @seealso [within.qenv]
 #' @export
 setGeneric("eval_code", function(object, code, ...) standardGeneric("eval_code"))
 

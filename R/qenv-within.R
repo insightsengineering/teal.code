@@ -1,3 +1,4 @@
+#' Evaluate code in `qenv`
 #' @details
 #' `within()` is a convenience method that wraps `eval_code` to provide a simplified way of passing expression.
 #' `within` accepts only inline expressions (both simple and compound) and allows to substitute `expr`
@@ -42,8 +43,6 @@
 #' exprlist <- list(expression(i <- iris), expression(m <- mtcars))
 #' within(q, exprlist) # fails
 #' do.call(within, list(q, do.call(c, exprlist)))
-#'
-#' @rdname eval_code
 #'
 #' @export
 #'
