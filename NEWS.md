@@ -1,5 +1,9 @@
 # teal.code 0.6.1.9002
 
+### Enhancements
+
+* Code evaluation keeps the last evaluated expression in the `.Last.value` attribute of the environment.
+
 ### Bug fixes
 
 * Fix a problem detecting co-occurrences when expression has multiple lines.
