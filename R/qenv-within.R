@@ -4,7 +4,7 @@
 #' `within` accepts only inline expressions (both simple and compound) and allows to substitute `expr`
 #' with `...` named argument values.
 #'
-#' # Using language objects with `within`:
+#' @section Using language objects with `within`:
 #' Passing language objects to `expr` is generally not intended but can be achieved with `do.call`.
 #' Only single `expression`s will work and substitution is not available. See examples.
 #'
