@@ -43,7 +43,7 @@ setMethod("eval_code", signature = c(object = "qenv.error"), function(object, co
 
 #' @keywords internal
 .eval_code <- function(object, code, ...) {
-  if (identical(code, "")) {
+  if (identical(trimws(code), "") || length(code) == 0) {
     return(object)
   }
   parsed_code <- parse(text = code, keep.source = TRUE)

@@ -1,4 +1,4 @@
-# teal.code 0.6.1.9002
+# teal.code 0.6.1.9003
 
 ### Enhancements
 
@@ -7,6 +7,10 @@
 ### Bug fixes
 
 * Fix a problem detecting co-occurrences when expression has multiple lines.
+
+### Miscellaneous
+
+* Refactor `eval_code` method signature to allow for more flexibility when extending the `eval_code`/`within` functions.
 
 # teal.code 0.6.1
 

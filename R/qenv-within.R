@@ -1,7 +1,6 @@
 #' Evaluate code in `qenv`
-#'
-#' @description Convenience method that wraps [eval_code()] to provide a simplified way of passing expression.
-#'
+#' @details
+#' `within()` is a convenience method that wraps `eval_code` to provide a simplified way of passing expression.
 #' `within` accepts only inline expressions (both simple and compound) and allows to substitute `expr`
 #' with `...` named argument values.
 #'
