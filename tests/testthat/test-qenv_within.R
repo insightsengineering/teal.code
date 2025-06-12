@@ -157,7 +157,7 @@ testthat::test_that("Code executed with integer shorthand (1L) is the same as or
 
 testthat::test_that("within keeps .Last.value as an attribute of the environment", {
   q <- within(qenv(), x <- 1)
-  env <- as.environment(q)
-  testthat::expect_true(".Last.value" %in% names(attributes(env)))
-  testthat::expect_equal(attr(env, ".Last.value"), 1)
+  env <- parent.env(q)
+  testthat::expect_true(".Last.value" %in% names(env))
+  testthat::expect_equal(env$.Last.value, 1)
 })
