@@ -15,15 +15,12 @@
 For practical usage see Examples section below.}
 }
 \description{
-Evaluate code in \code{qenv}
-}
-\details{
-\code{within()} is a convenience method that wraps \code{eval_code} to provide a simplified way of passing expression.
+Convenience method that wraps \code{\link[=eval_code]{eval_code()}} to provide a simplified way of passing expression.
+
 \code{within} accepts only inline expressions (both simple and compound) and allows to substitute \code{expr}
 with \code{...} named argument values.
 }
-\section{Using language objects with \code{within}}{
-
+\section{Using language objects with \code{within}:}{
 Passing language objects to \code{expr} is generally not intended but can be achieved with \code{do.call}.
 Only single \code{expression}s will work and substitution is not available. See examples.
 }

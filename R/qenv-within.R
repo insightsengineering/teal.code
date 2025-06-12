@@ -1,10 +1,11 @@
 #' Evaluate code in `qenv`
-#' @details
-#' `within()` is a convenience method that wraps `eval_code` to provide a simplified way of passing expression.
+#'
+#' @description Convenience method that wraps [eval_code()] to provide a simplified way of passing expression.
+#'
 #' `within` accepts only inline expressions (both simple and compound) and allows to substitute `expr`
 #' with `...` named argument values.
 #'
-#' @section Using language objects with `within`:
+#' # Using language objects with `within`:
 #' Passing language objects to `expr` is generally not intended but can be achieved with `do.call`.
 #' Only single `expression`s will work and substitution is not available. See examples.
 #'

@@ -19,6 +19,8 @@ It is possible to preserve original formatting of the \code{code} by providing a
 }
 \value{
 \code{qenv} environment with \code{code/expr} evaluated or \code{qenv.error} if evaluation fails.
+The environment contains an attribute called \code{".Last.value"} which is the last evaluated value,
+similarly to \link[base:Last.value]{base::.Last.value}.
 }
 \description{
 Evaluate code in \code{qenv}
