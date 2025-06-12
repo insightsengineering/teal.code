@@ -1,3 +1,4 @@
+#' Evaluate code in `qenv`
 #' @details
 #' `within()` is a convenience method that wraps `eval_code` to provide a simplified way of passing expression.
 #' `within` accepts only inline expressions (both simple and compound) and allows to substitute `expr`
@@ -43,25 +44,18 @@
 #' within(q, exprlist) # fails
 #' do.call(within, list(q, do.call(c, exprlist)))
 #'
-#' @rdname eval_code
-#'
 #' @export
 #'
 within.qenv <- function(data, expr, ...) {
-  expr <- substitute(expr)
+  expr <- as.expression(substitute(expr))
   extras <- list(...)
 
-  # Add braces for consistency.
-  if (!identical(as.list(expr)[[1L]], as.symbol("{"))) {
-    expr <- call("{", expr)
-  }
-
-  calls <- as.list(expr)[-1]
-
   # Inject extra values into expressions.
-  calls <- lapply(calls, function(x) do.call(substitute, list(x, env = extras)))
-
-  eval_code(object = data, code = as.expression(calls))
+  calls <- lapply(expr, function(x) do.call(substitute, list(x, env = extras)))
+  do.call(
+    eval_code,
+    utils::modifyList(extras, list(object = data, code = as.expression(calls)))
+  )
 }
 
 

@@ -9,6 +9,7 @@
 #' @param code (`character`, `language` or `expression`) code to evaluate.
 #' It is possible to preserve original formatting of the `code` by providing a `character` or an
 #' `expression` being a result of `parse(keep.source = TRUE)`.
+#' @param ... ([`dots`]) additional arguments passed to future methods.
 #'
 #' @return
 #' `qenv` environment with `code/expr` evaluated or `qenv.error` if evaluation fails.
@@ -21,15 +22,28 @@
 #' q <- eval_code(q, quote(library(checkmate)))
 #' q <- eval_code(q, expression(assert_number(a)))
 #'
-#' @aliases eval_code,qenv,character-method
-#' @aliases eval_code,qenv,language-method
-#' @aliases eval_code,qenv,expression-method
-#' @aliases eval_code,qenv.error,ANY-method
-#'
+#' @aliases eval_code,qenv-method
+#' @aliases eval_code,qenv.error-method
+#' @seealso [within.qenv]
 #' @export
-setGeneric("eval_code", function(object, code) standardGeneric("eval_code"))
+setGeneric("eval_code", function(object, code, ...) standardGeneric("eval_code"))
 
-setMethod("eval_code", signature = c("qenv", "character"), function(object, code) {
+setMethod("eval_code", signature = c(object = "qenv"), function(object, code, ...) {
+  if (!is.language(code) && !is.character(code)) {
+    stop("eval_code accepts code being language or character")
+  }
+  code <- .preprocess_code(code)
+  # preprocess code to ensure it is a character vector
+  .eval_code(object = object, code = code, ...)
+})
+
+setMethod("eval_code", signature = c(object = "qenv.error"), function(object, code, ...) object)
+
+#' @keywords internal
+.eval_code <- function(object, code, ...) {
+  if (identical(trimws(code), "") || length(code) == 0) {
+    return(object)
+  }
   parsed_code <- parse(text = code, keep.source = TRUE)
   object@.xData <- rlang::env_clone(object@.xData, parent = parent.env(.GlobalEnv))
   if (length(parsed_code) == 0) {
@@ -42,7 +56,6 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
   for (i in seq_along(code_split)) {
     current_code <- code_split[[i]]
     current_call <- parse(text = current_code, keep.source = TRUE)
-
     # Using withCallingHandlers to capture warnings and messages.
     # Using tryCatch to capture the error and abort further evaluation.
     x <- withCallingHandlers(
@@ -60,7 +73,7 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
           errorCondition(
             message = sprintf(
               "%s \n when evaluating qenv code:\n%s",
-              .ansi_strip(conditionMessage(e)),
+              cli::ansi_strip(conditionMessage(e)),
               current_code
             ),
             class = c("qenv.error", "try-error", "simpleError"),
@@ -69,11 +82,11 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
         }
       ),
       warning = function(w) {
-        attr(current_code, "warning") <<- .ansi_strip(sprintf("> %s\n", conditionMessage(w)))
+        attr(current_code, "warning") <<- cli::ansi_strip(sprintf("> %s\n", conditionMessage(w)))
         invokeRestart("muffleWarning")
       },
       message = function(m) {
-        attr(current_code, "message") <<- .ansi_strip(sprintf("> %s", conditionMessage(m)))
+        attr(current_code, "message") <<- cli::ansi_strip(sprintf("> %s", conditionMessage(m)))
         invokeRestart("muffleMessage")
       }
     )
@@ -87,42 +100,17 @@ setMethod("eval_code", signature = c("qenv", "character"), function(object, code
 
   lockEnvironment(object@.xData, bindings = TRUE)
   object
-})
-
-setMethod("eval_code", signature = c("qenv", "language"), function(object, code) {
-  eval_code(object, code = paste(vapply(lang2calls(code), deparse1, collapse = "\n", character(1L)), collapse = "\n"))
-})
-
-setMethod("eval_code", signature = c("qenv", "expression"), function(object, code) {
-  srcref <- attr(code, "wholeSrcref")
-  if (length(srcref)) {
-    eval_code(object, code = paste(attr(code, "wholeSrcref"), collapse = "\n"))
-  } else {
-    Reduce(function(u, v) {
-      if (inherits(v, "=") && identical(typeof(v), "language")) {
-        # typeof(`=`) is language, but it doesn't dispatch on it, so we need to
-        # explicitly pass it as first class of the object
-        class(v) <- unique(c("language", class(v)))
-      }
-      eval_code(u, v)
-    }, init = object, x = code)
-  }
-})
-
-setMethod("eval_code", signature = c("qenv.error", "ANY"), function(object, code) {
-  object
-})
-
-# if cli is installed rlang adds terminal printing characters
-# which need to be removed
-.ansi_strip <- function(chr) {
-  if (requireNamespace("cli", quietly = TRUE)) {
-    cli::ansi_strip(chr)
-  } else {
-    chr
-  }
 }
 
-get_code_attr <- function(qenv, attr) {
-  unlist(lapply(qenv@code, function(x) attr(x, attr)))
-}
+setGeneric(".preprocess_code", function(code) standardGeneric(".preprocess_code"))
+setMethod(".preprocess_code", signature = c("character"), function(code) paste(code, collapse = "\n"))
+setMethod(".preprocess_code", signature = c("ANY"), function(code) {
+  if (is.expression(code) && length(attr(code, "wholeSrcref"))) {
+    paste(attr(code, "wholeSrcref"), collapse = "\n")
+  } else {
+    paste(
+      vapply(lang2calls(code), deparse1, collapse = "\n", character(1L)),
+      collapse = "\n"
+    )
+  }
+})
