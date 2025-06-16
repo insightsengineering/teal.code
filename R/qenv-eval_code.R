@@ -65,8 +65,9 @@ setMethod("eval_code", signature = c(object = "qenv.error"), function(object, co
         {
           # needed to make sure that @.xData inherits from .GlobalEnv
           # could be changed when any new package is added to search path (through library or require call)
+          qenv_last_value <- eval(current_call, envir = object@.xData)
           new_parent <- new.env(parent = parent.env(.GlobalEnv))
-          new_parent[[".Last.value"]] <- eval(current_call, envir = object@.xData)
+          new_parent[[".Last.value"]] <- qenv_last_value
           parent.env(object@.xData) <- new_parent
           NULL
         },
