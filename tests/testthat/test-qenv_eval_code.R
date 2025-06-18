@@ -186,3 +186,18 @@ testthat::test_that("comments passed alone to eval_code that contain @linksto ta
     "x"
   )
 })
+
+testthat::test_that("object printed (explicitly) is stored as string in the 'outputs' attribute of a code element", {
+  q <- eval_code(qenv(), "print('whatever')")
+  testthat::expect_identical(attr(q@code[[1]], "outputs")[[1]], '[1] "whatever"\n')
+})
+
+testthat::test_that("object printed (implicitly) is stored asis in the 'outputs' attribute of a code element", {
+  q <- eval_code(qenv(), "head(letters)")
+  testthat::expect_identical(attr(q@code[[1]], "outputs")[[1]], head(letters))
+})
+
+testthat::test_that("plot output is stored as recordedplot in the 'outputs' attribute of a code element", {
+  q <- eval_code(qenv(), "plot(1)")
+  testthat::expect_s3_class(attr(q@code[[1]], "outputs")[[1]], "recordedplot")
+})

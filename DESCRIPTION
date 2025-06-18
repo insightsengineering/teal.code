@@ -29,6 +29,7 @@ Depends:
 Imports:
     checkmate (>= 2.1.0),
     cli (>= 3.4.0),
+    evaluate (>= 1.0.0),
     grDevices,
     lifecycle (>= 0.2.0),
     rlang (>= 1.1.0),

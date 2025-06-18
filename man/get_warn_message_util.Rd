@@ -9,7 +9,7 @@ get_warn_message_util(object, what)
 \arguments{
 \item{object}{(\code{qenv})}
 
-\item{what}{(\code{"warning"} or \code{"message"})}
+\item{what}{(\code{warning} or \code{message})}
 }
 \value{
 \code{character(1)} containing combined message or \code{NULL} when no warnings/messages

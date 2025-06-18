@@ -50,11 +50,20 @@ testthat::test_that("Concatenate two independent qenvs with warnings results in 
 
   q12 <- concat(q1, q2)
 
-  testthat::expect_equal(
-    unlist(lapply(q12@code, attr, "warning"), use.names = FALSE),
-    c(
-      "> This is warning 1\n",
-      "> This is warning 2\n"
+  testthat::expect_identical(
+    get_warnings(q12),
+    paste(
+      "~~~ Warnings ~~~",
+      "\n> This is warning 1",
+      "when running code:",
+      "warning('This is warning 1')",
+      "\n> This is warning 2",
+      "when running code:",
+      "warning('This is warning 2')",
+      "\n~~~ Trace ~~~\n",
+      "warning('This is warning 1')",
+      "warning('This is warning 2')",
+      sep = "\n"
     )
   )
 })
@@ -65,11 +74,20 @@ testthat::test_that("Concatenate two independent qenvs with messages results in 
 
   q12 <- concat(q1, q2)
 
-  testthat::expect_equal(
-    unlist(lapply(q12@code, attr, "message"), use.names = FALSE),
-    c(
-      "> This is message 1\n",
-      "> This is message 2\n"
+  testthat::expect_identical(
+    get_messages(q12),
+    paste(
+      "~~~ Messages ~~~",
+      "\n> This is message 1",
+      "when running code:",
+      "message('This is message 1')",
+      "\n> This is message 2",
+      "when running code:",
+      "message('This is message 2')",
+      "\n~~~ Trace ~~~\n",
+      "message('This is message 1')",
+      "message('This is message 2')",
+      sep = "\n"
     )
   )
 })

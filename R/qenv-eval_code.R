@@ -53,48 +53,44 @@ setMethod("eval_code", signature = c(object = "qenv.error"), function(object, co
     return(object)
   }
   code_split <- split_code(paste(code, collapse = "\n"))
+
   for (i in seq_along(code_split)) {
     current_code <- code_split[[i]]
     current_call <- parse(text = current_code, keep.source = TRUE)
-    # Using withCallingHandlers to capture warnings and messages.
-    # Using tryCatch to capture the error and abort further evaluation.
-    x <- withCallingHandlers(
-      tryCatch(
-        {
-          eval(current_call, envir = object@.xData)
-          if (!identical(parent.env(object@.xData), parent.env(.GlobalEnv))) {
-            # needed to make sure that @.xData is always a sibling of .GlobalEnv
-            # could be changed when any new package is added to search path (through library or require call)
-            parent.env(object@.xData) <- parent.env(.GlobalEnv)
-          }
-          NULL
-        },
-        error = function(e) {
-          errorCondition(
-            message = sprintf(
-              "%s \n when evaluating qenv code:\n%s",
-              cli::ansi_strip(conditionMessage(e)),
-              current_code
-            ),
-            class = c("qenv.error", "try-error", "simpleError"),
-            trace = unlist(c(object@code, list(current_code)))
-          )
-        }
-      ),
-      warning = function(w) {
-        attr(current_code, "warning") <<- cli::ansi_strip(sprintf("> %s\n", conditionMessage(w)))
-        invokeRestart("muffleWarning")
-      },
-      message = function(m) {
-        attr(current_code, "message") <<- cli::ansi_strip(sprintf("> %s", conditionMessage(m)))
-        invokeRestart("muffleMessage")
-      }
+    x <- evaluate::evaluate(
+      current_code,
+      envir = object@.xData,
+      stop_on_error = 1,
+      output_handler = evaluate::new_output_handler(value = identity)
     )
 
-    if (!is.null(x)) {
-      return(x)
+    e <- Filter(function(e) inherits(e, "error"), x)
+    if (length(e)) {
+      return(
+        errorCondition(
+          message = sprintf(
+            "%s \n when evaluating qenv code:\n%s",
+            cli::ansi_strip(conditionMessage(e[[1]])),
+            current_code
+          ),
+          class = c("qenv.error", "try-error", "simpleError"),
+          trace = unlist(c(object@code, list(current_code)))
+        )
+      )
     }
-    attr(current_code, "dependency") <- extract_dependency(current_call)
+    if (!identical(parent.env(object@.xData), parent.env(.GlobalEnv))) {
+      # needed to make sure that @.xData is always a sibling of .GlobalEnv
+      # could be changed when any new package is added to search path (through library or require call)
+      parent.env(object@.xData) <- parent.env(.GlobalEnv)
+    }
+
+    attributes(current_code) <- Filter(
+      length,
+      list(
+        dependency = extract_dependency(current_call),
+        outputs = x[-1]
+      )
+    )
     object@code <- c(object@code, stats::setNames(list(current_code), sample.int(.Machine$integer.max, size = 1)))
   }
 

@@ -6,6 +6,7 @@
 
 ### Miscellaneous
 
+* `eval_code` uses `evaluate::evaluate` and stores returned outputs in the code's attribute.
 * Refactor `eval_code` method signature to allow for more flexibility when extending the `eval_code`/`within` functions.
 
 # teal.code 0.6.1
