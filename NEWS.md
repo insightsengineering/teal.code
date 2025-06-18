@@ -1,5 +1,9 @@
 # teal.code 0.6.1.9003
 
+### Enhancements
+
+* Introduced `get_outputs` function to fetch objects which have been printed or plotted in the `qenv` code. 
+
 ### Bug fixes
 
 * Fix a problem detecting co-occurrences when expression has multiple lines.

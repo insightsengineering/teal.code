@@ -65,6 +65,7 @@ Collate:
     'qenv-get_code.R'
     'qenv-get_env.R'
     'qenv-get_messages.r'
+    'qenv-get_outputs.R'
     'qenv-get_var.R'
     'qenv-get_warnings.R'
     'qenv-join.R'
