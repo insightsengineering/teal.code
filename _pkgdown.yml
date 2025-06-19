@@ -31,6 +31,7 @@ reference:
       - eval_code
       - get_code
       - get_env
+      - get_outputs
       - get_var
       - get_messages
       - get_warnings

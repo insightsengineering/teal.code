@@ -2,6 +2,7 @@
 % Please edit documentation in R/qenv-get_outputs.R
 \name{get_outputs}
 \alias{get_outputs}
+\alias{get_outputs,qenv-method}
 \title{Get outputs}
 \usage{
 get_outputs(object)
@@ -10,11 +11,11 @@ get_outputs(object)
 \item{object}{(\code{qenv})}
 }
 \value{
-list of outputs generated in a qenv
+list of outputs generated in a `qenv``
 }
 \description{
 \code{eval_code} evaluates code silently so plots and prints don't show up in the console or graphic devices.
-If one wants to use an output outside of the qenv (e.g. use a graph in \code{renderPlot}) then use \code{get_outputs}.
+If one wants to use an output outside of the \code{qenv} (e.g. use a graph in \code{renderPlot}) then use \code{get_outputs}.
 }
 \examples{
 q <- eval_code(
@@ -26,4 +27,5 @@ q <- eval_code(
   })
 )
 get_outputs(q)
+
 }
