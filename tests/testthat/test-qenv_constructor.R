@@ -54,14 +54,14 @@ testthat::test_that("constructor returns qenv", {
   testthat::expect_identical(q@code, list())
 })
 
-testthat::describe("parent of qenv environment is the parent of .GlobalEnv", {
+testthat::describe("grand parent of qenv environment is the parent of .GlobalEnv", {
   testthat::it("via slot", {
     q <- qenv()
-    testthat::expect_identical(parent.env(q@.xData), parent.env(.GlobalEnv))
+    testthat::expect_identical(parent.env(parent.env(q@.xData)), parent.env(.GlobalEnv))
   })
 
   testthat::it("via qenv directly", {
     q <- qenv()
-    testthat::expect_identical(parent.env(q), parent.env(.GlobalEnv))
+    testthat::expect_identical(parent.env(parent.env(q)), parent.env(.GlobalEnv))
   })
 })
