@@ -5,16 +5,56 @@ testthat::describe("get_output", {
     testthat::expect_identical(get_outputs(q1), list())
   })
 
-  testthat::it("implicitly printed objects are returned asis in a list", {
+  testthat::it("implicitly printed objects are returned asis in a list and are identical to ones in the environment", {
     q <- qenv()
-    q1 <- eval_code(q, expression(a <- 1L, a, b <- 2L, b))
-    testthat::expect_identical(get_outputs(q1), list(1L, 2L))
+    q1 <- eval_code(
+      q,
+      expression(
+        a <- 1L, a,
+        b <- structure(list(aa = list(aaa = "aaa")), class = "class_to_break"), b
+      )
+    )
+    testthat::expect_identical(get_outputs(q1), unname(as.list(q1)))
+    testthat::expect_reference(get_outputs(q1)[[1]], q1$a)
+    testthat::expect_reference(get_outputs(q1)[[2]], q1$b)
+  })
+
+  testthat::it("implicitly printed list is returned asis even if its print is overridden", {
+    q <- qenv()
+    q1 <- eval_code(
+      q,
+      expression(
+        print.test_class <- function(x, ...) {
+          print("test_print")
+          invisible(NULL)
+        },
+        b <- structure(list("test"), class = "test_class"),
+        b
+      )
+    )
+    testthat::expect_identical(get_outputs(q1), list(q1$b))
   })
 
   testthat::it("explicitly printed objects are returned as console-output-string in a list", {
     q <- qenv()
     q1 <- eval_code(q, expression(a <- 1L, print(a), b <- 2L, print(b)))
     testthat::expect_identical(get_outputs(q1), list("[1] 1\n", "[1] 2\n"))
+  })
+
+  testthat::it("explicitly printed object uses newly registered print method and returned as console-output-string", {
+    q <- qenv()
+    q1 <- eval_code(
+      q,
+      expression(
+        print.test_class <- function(x, ...) {
+          print("test_print")
+          invisible(NULL)
+        },
+        b <- structure(list("test"), class = "test_class"),
+        print(b)
+      )
+    )
+    testthat::expect_identical(get_outputs(q1), list("[1] \"test_print\"\n"))
   })
 
   testthat::it("printed plots are returned as recordedplot in a list", {
