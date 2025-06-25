@@ -521,6 +521,9 @@ get_call_breaks <- function(code) {
     }
   ))
   call_breaks <- call_breaks[-nrow(call_breaks), , drop = FALSE] # breaks in between needed only
+  if (nrow(call_breaks) == 0L) {
+    call_breaks <- matrix(numeric(0), ncol = 2)
+  }
   colnames(call_breaks) <- c("line", "col")
   call_breaks
 }
