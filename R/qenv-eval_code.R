@@ -60,7 +60,7 @@ setMethod("eval_code", signature = c(object = "qenv.error"), function(object, co
   for (this in out) {
     if (inherits(this, "source")) {
       this_code <- gsub("\n$", "", this$src)
-      attr(this_code, "dependency") <- extract_dependency(parse(text = this_code))
+      attr(this_code, "dependency") <- extract_dependency(parse(text = this_code, keep.source = TRUE))
       new_code <- c(new_code, stats::setNames(list(this_code), sample.int(.Machine$integer.max, size = 1)))
     } else {
       last_code <- new_code[[length(new_code)]]
