@@ -64,6 +64,8 @@ setMethod("eval_code", signature = c(object = "qenv.error"), function(object, co
     stop_on_error = 1,
     output_handler = evaluate::new_output_handler(value = identity)
   )
+  out <- evaluate::trim_intermediate_plots(out)
+
   evaluate::inject_funs(old) # remove library() override
 
   new_code <- list()
