@@ -21,13 +21,9 @@
 #' @export
 setGeneric("get_outputs", function(object) standardGeneric("get_outputs"))
 
-
-
 setMethod("get_outputs", signature = "qenv", function(object) {
   Reduce(
-    function(x, y) {
-      c(x, attr(y, "outputs"))
-    },
+    function(x, y) c(x, attr(y, "outputs")),
     init = list(),
     x = object@code
   )

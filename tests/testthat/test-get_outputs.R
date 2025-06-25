@@ -37,4 +37,8 @@ testthat::describe("get_output", {
     expected <- simpleMessage("test\n", call = quote(message("test")))
     testthat::expect_identical(get_outputs(q1), list(expected))
   })
+  testthat::it("prints inside for are bundled together", {
+    q <- within(qenv(), for (i in 1:3) print(i))
+    testthat::expect_identical(get_outputs(q)[[1]], "[1] 1\n[1] 2\n[1] 3\n")
+  })
 })
