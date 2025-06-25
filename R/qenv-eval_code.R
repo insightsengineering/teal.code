@@ -49,12 +49,22 @@ setMethod("eval_code", signature = c(object = "qenv.error"), function(object, co
   object@.xData <- rlang::env_clone(object@.xData, parent = parent.env(object@.xData))
   parsed_code <- parse(text = code, keep.source = TRUE)
 
+  old <- evaluate::inject_funs(
+    library = function(...) {
+      x <- library(...)
+      if (!identical(parent.env(object@.xData), parent.env(.GlobalEnv))) {
+        parent.env(object@.xData) <- parent.env(.GlobalEnv)
+      }
+      invisible(x)
+    }
+  )
   out <- evaluate::evaluate(
     code,
     envir = object@.xData,
     stop_on_error = 1,
     output_handler = evaluate::new_output_handler(value = identity)
   )
+  evaluate::inject_funs(old) # remove library() override
 
   new_code <- list()
   for (this in out) {

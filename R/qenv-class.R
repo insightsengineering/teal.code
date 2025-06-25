@@ -31,19 +31,12 @@ setMethod(
   "initialize",
   "qenv",
   function(.Object, .xData, code = list(), ...) { # nolint: object_name.
-    mask_env <- new.env(parent = parent.env(.GlobalEnv))
-    mask_env$library <- function(...) {
-      x <- library(...)
-      if (!identical(parent.env(mask_env), parent.env(.GlobalEnv))) {
-        parent.env(mask_env) <- parent.env(.GlobalEnv)
-      }
-      invisible(x)
-    }
+    parent <- parent.env(.GlobalEnv)
     new_xdata <- if (rlang::is_missing(.xData)) {
-      new.env(parent = mask_env)
+      new.env(parent = parent)
     } else {
       checkmate::assert_environment(.xData)
-      rlang::env_clone(.xData, parent = mask_env)
+      rlang::env_clone(.xData, parent = parent)
     }
     lockEnvironment(new_xdata, bindings = TRUE)
 
