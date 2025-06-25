@@ -169,4 +169,3 @@ testthat::test_that("plot output is stored as recordedplot in the 'outputs' attr
   q <- eval_code(qenv(), "plot(1)")
   testthat::expect_s3_class(attr(q@code[[1]], "outputs")[[1]], "recordedplot")
 })
-
