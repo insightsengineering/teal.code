@@ -19,17 +19,18 @@ testthat::describe("get_output", {
     testthat::expect_true(rlang::is_reference(get_outputs(q1)[[2]], q1$b))
   })
 
-  testthat::it("implicitly printed S4 object is returned asis in a list and identical to the one in the environment", {
+  # it cannot have a package prefix here until upstream bug in testthat is solved
+  it("implicitly printed S4 object is returned asis in a list and identical to the one in the environment", {
+    methods::setClass("NewS4Class", slots = list(value = "numeric"))
+    withr::defer(removeClass("NewS4Class"))
     q <- qenv()
     q1 <- eval_code(
       q,
       expression(
-        methods::setClass("NewS4Class", slots = list(value = "numeric")),
         new_obj <- methods::new("NewS4Class", value = 42),
         new_obj
       )
     )
-    withr::defer(removeClass("NewS4Class"))
     testthat::expect_identical(get_outputs(q1), unname(as.list(q1)))
     testthat::expect_true(rlang::is_reference(get_outputs(q1)[[1]], q1$new_obj))
     testthat::expect_s4_class(get_outputs(q1)[[1]], "NewS4Class")
