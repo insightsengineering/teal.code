@@ -15,8 +15,24 @@ testthat::describe("get_output", {
       )
     )
     testthat::expect_identical(get_outputs(q1), unname(as.list(q1)))
-    testthat::expect_reference(get_outputs(q1)[[1]], q1$a)
-    testthat::expect_reference(get_outputs(q1)[[2]], q1$b)
+    testthat::expect_true(rlang::is_reference(get_outputs(q1)[[1]], q1$a))
+    testthat::expect_true(rlang::is_reference(get_outputs(q1)[[2]], q1$b))
+  })
+
+  testthat::it("implicitly printed S4 object is returned asis in a list and identical to the one in the environment", {
+    q <- qenv()
+    q1 <- eval_code(
+      q,
+      expression(
+        methods::setClass("NewS4Class", slots = list(value = "numeric")),
+        new_obj <- methods::new("NewS4Class", value = 42),
+        new_obj
+      )
+    )
+    withr::defer(removeClass("NewS4Class"))
+    testthat::expect_identical(get_outputs(q1), unname(as.list(q1)))
+    testthat::expect_true(rlang::is_reference(get_outputs(q1)[[1]], q1$new_obj))
+    testthat::expect_s4_class(get_outputs(q1)[[1]], "NewS4Class")
   })
 
   testthat::it("implicitly printed list is returned asis even if its print is overridden", {
@@ -57,9 +73,15 @@ testthat::describe("get_output", {
     testthat::expect_identical(get_outputs(q1), list("[1] \"test_print\"\n"))
   })
 
-  testthat::it("printed plots are returned as recordedplot in a list", {
+  testthat::it("printed plots are returned as recordedplot in a list (1)", {
     q <- qenv()
     q1 <- eval_code(q, expression(a <- 1L, plot(a)))
+    testthat::expect_true(inherits(get_outputs(q1)[[1]], "recordedplot"))
+  })
+
+  testthat::it("printed plots are returned as recordedplot in a list (2)", {
+    q <- qenv()
+    q1 <- eval_code(q, expression(a <- seq_len(10L), hist(a)))
     testthat::expect_true(inherits(get_outputs(q1)[[1]], "recordedplot"))
   })
 
@@ -77,8 +99,15 @@ testthat::describe("get_output", {
     expected <- simpleMessage("test\n", call = quote(message("test")))
     testthat::expect_identical(get_outputs(q1), list(expected))
   })
+
   testthat::it("prints inside for are bundled together", {
     q <- within(qenv(), for (i in 1:3) print(i))
     testthat::expect_identical(get_outputs(q)[[1]], "[1] 1\n[1] 2\n[1] 3\n")
+  })
+
+  testthat::it("intermediate plots are not kept", {
+    q <- qenv()
+    q1 <- eval_code(q, expression(plot(1:10), title("A title")))
+    testthat::expect_length(get_outputs(q1), 1)
   })
 })

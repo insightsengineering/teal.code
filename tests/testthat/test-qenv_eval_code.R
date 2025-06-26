@@ -169,3 +169,11 @@ testthat::test_that("plot output is stored as recordedplot in the 'outputs' attr
   q <- eval_code(qenv(), "plot(1)")
   testthat::expect_s3_class(attr(q@code[[1]], "outputs")[[1]], "recordedplot")
 })
+
+testthat::test_that("plot cannot modified previous plots when calls are seperate", {
+  q <- qenv()
+  q1 <- eval_code(q, expression(plot(1:10)))
+
+  q2 <- eval_code(q1, expression(title("A title")))
+  testthat::expect_s3_class(q2, "qenv.error")
+})
