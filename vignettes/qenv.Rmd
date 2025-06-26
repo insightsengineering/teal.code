@@ -14,6 +14,7 @@ A `qenv` inherits from the `environment` class, behaves like an environment, and
 
 - It inherits from the environment and methods such as `$`, `get`, `ls`, `as.list()` work out of the box.
 - `qenv` is a locked environment, and data modification is only possible through the `eval_code` and `within` functions.
+- It stores printed and plotted outputs (see `get_outputs`).
 - It stores metadata about the code used to create the data (see `get_code`).
 - It supports slicing by `[`.
 - It is immutable which means that each code evaluation does not modify the original `qenv` environment directly.
@@ -56,13 +57,16 @@ The same result can be achieved with the `within` method.
 ```{r}
 q2 <- within(my_qenv, y <- x * 2)
 q2 <- within(q2, z <- y * 2)
+q2 <- within(q2, plot(z))
 print(q2)
 ```
 
-To extract objects from a `qenv`, use `[[`; this is particularly useful for displaying them in a `shiny` app. You can retrieve the code used to generate the `qenv` using the `get_code()` function.
+To extract specific object from a `qenv`'s environment, use `[[`. To extract an output of a `print` or `plot` functions, use `get_outputs()` to get a `list()` of outputs captured by `qenv`. These functions are particularly useful for displaying them in a `shiny` app. You can retrieve the code used to generate the `qenv` using the `get_code()` function.
 
 ```{r}
 print(q2[["y"]])
+
+print(get_outputs(q2)[[1]])
 
 cat(get_code(q2))
 ```
@@ -126,7 +130,8 @@ The feasibility of joining `qenv` objects hinges on the contents of the environm
 
 ### Warnings and messages in `qenv` objects
 
-In cases where warnings or messages arise while evaluating code within a `qenv` environment, these are captured and stored within the `qenv` object. Access these messages and warnings using below
+In cases where warnings or messages arise while evaluating code within a `qenv` environment, these are captured and stored within the `qenv` object. Access these messages and warnings using `get_messages()` and `get_warnings()` functions as shown below.
+ 
 
 ```{r}
 q_message <- eval_code(qenv(), quote(message("this is a message")))
@@ -163,13 +168,13 @@ server <- function(input, output, session) {
   # create a qenv containing the reproducible output
   output_q <- reactive({
     req(input$option)
-    eval_code(
+    within(
       data_q,
-      bquote(p <- hist(iris_data[, .(input$option)]))
+      p <- hist(iris_data[, .(input$option)])
     )
   })
 
-  # display output
+  # display plot output
   output$plot <- renderPlot(output_q()[["p"]])
   # display code
   output$rcode <- renderText(get_code(output_q()))
