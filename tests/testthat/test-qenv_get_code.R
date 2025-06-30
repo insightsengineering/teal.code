@@ -581,7 +581,7 @@ testthat::test_that("detects occurrence of a function definition when a formal i
 })
 
 testthat::test_that("detects occurrence of a function definition with a @linksto usage", {
-  code <- c(
+  code <- trimws(c(
     "
         foo <- function() {
           env <- parent.frame()
@@ -589,7 +589,7 @@ testthat::test_that("detects occurrence of a function definition with a @linksto
         }",
     "foo() # @linksto x",
     "y <- x"
-  )
+  ))
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
     get_code(q, names = "x"),
@@ -601,7 +601,7 @@ testthat::test_that("detects occurrence of a function definition with a @linksto
 # for loop --------------------------------------------------------------------------------------------------------
 
 testthat::test_that("objects in for loop are extracted if passed as one character", {
-  code <- "
+  code <- trimws("
     some_other_dataset <- mtcars
     original_dataset <- iris[, 1:4]
     count <- 1
@@ -610,11 +610,11 @@ testthat::test_that("objects in for loop are extracted if passed as one characte
       count <- count + 1
     }
     output <- rlang::list2(x = original_dataset)
-  "
+  ")
   q <- eval_code(qenv(), code)
   testthat::expect_identical(
     get_code(q, names = "output"),
-    gsub("\n    some_other_dataset <- mtcars\n", "", code, fixed = TRUE)
+    gsub("some_other_dataset <- mtcars\n", "", code, fixed = TRUE)
   )
 })
 

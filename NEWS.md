@@ -1,11 +1,16 @@
 # teal.code 0.6.1.9003
 
+### Enhancements
+
+* Introduced `get_outputs` function to fetch objects which have been printed or plotted in the `qenv` code. 
+
 ### Bug fixes
 
 * Fix a problem detecting co-occurrences when expression has multiple lines.
 
 ### Miscellaneous
 
+* `eval_code` uses `evaluate::evaluate` and stores returned outputs in the code's attribute.
 * Refactor `eval_code` method signature to allow for more flexibility when extending the `eval_code`/`within` functions.
 
 # teal.code 0.6.1

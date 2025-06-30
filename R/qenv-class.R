@@ -31,11 +31,12 @@ setMethod(
   "initialize",
   "qenv",
   function(.Object, .xData, code = list(), ...) { # nolint: object_name.
+    parent <- parent.env(.GlobalEnv)
     new_xdata <- if (rlang::is_missing(.xData)) {
-      new.env(parent = parent.env(.GlobalEnv))
+      new.env(parent = parent)
     } else {
       checkmate::assert_environment(.xData)
-      rlang::env_clone(.xData, parent = parent.env(.GlobalEnv))
+      rlang::env_clone(.xData, parent = parent)
     }
     lockEnvironment(new_xdata, bindings = TRUE)
 

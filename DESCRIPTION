@@ -29,6 +29,7 @@ Depends:
 Imports:
     checkmate (>= 2.1.0),
     cli (>= 3.4.0),
+    evaluate (>= 1.0.0),
     grDevices,
     lifecycle (>= 0.2.0),
     rlang (>= 1.1.0),
@@ -64,6 +65,7 @@ Collate:
     'qenv-get_code.R'
     'qenv-get_env.R'
     'qenv-get_messages.r'
+    'qenv-get_outputs.R'
     'qenv-get_var.R'
     'qenv-get_warnings.R'
     'qenv-join.R'

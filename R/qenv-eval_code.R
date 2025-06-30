@@ -44,60 +44,57 @@ setMethod("eval_code", signature = c(object = "qenv.error"), function(object, co
   if (identical(trimws(code), "") || length(code) == 0) {
     return(object)
   }
+  code <- paste(split_code(code), collapse = "\n")
+
+  object@.xData <- rlang::env_clone(object@.xData, parent = parent.env(object@.xData))
   parsed_code <- parse(text = code, keep.source = TRUE)
-  object@.xData <- rlang::env_clone(object@.xData, parent = parent.env(.GlobalEnv))
-  if (length(parsed_code) == 0) {
-    # empty code, or just comments
-    attr(code, "dependency") <- extract_dependency(parsed_code) # in case comment contains @linksto tag
-    object@code <- c(object@code, stats::setNames(list(code), sample.int(.Machine$integer.max, size = 1)))
-    return(object)
-  }
-  code_split <- split_code(paste(code, collapse = "\n"))
-  for (i in seq_along(code_split)) {
-    current_code <- code_split[[i]]
-    current_call <- parse(text = current_code, keep.source = TRUE)
-    # Using withCallingHandlers to capture warnings and messages.
-    # Using tryCatch to capture the error and abort further evaluation.
-    x <- withCallingHandlers(
-      tryCatch(
-        {
-          eval(current_call, envir = object@.xData)
-          if (!identical(parent.env(object@.xData), parent.env(.GlobalEnv))) {
-            # needed to make sure that @.xData is always a sibling of .GlobalEnv
-            # could be changed when any new package is added to search path (through library or require call)
-            parent.env(object@.xData) <- parent.env(.GlobalEnv)
-          }
-          NULL
-        },
-        error = function(e) {
+
+  old <- evaluate::inject_funs(
+    library = function(...) {
+      x <- library(...)
+      if (!identical(parent.env(object@.xData), parent.env(.GlobalEnv))) {
+        parent.env(object@.xData) <- parent.env(.GlobalEnv)
+      }
+      invisible(x)
+    }
+  )
+  out <- evaluate::evaluate(
+    code,
+    envir = object@.xData,
+    stop_on_error = 1,
+    output_handler = evaluate::new_output_handler(value = identity)
+  )
+  out <- evaluate::trim_intermediate_plots(out)
+
+  evaluate::inject_funs(old) # remove library() override
+
+  new_code <- list()
+  for (this in out) {
+    if (inherits(this, "source")) {
+      this_code <- gsub("\n$", "", this$src)
+      attr(this_code, "dependency") <- extract_dependency(parse(text = this_code, keep.source = TRUE))
+      new_code <- c(new_code, stats::setNames(list(this_code), sample.int(.Machine$integer.max, size = 1)))
+    } else {
+      last_code <- new_code[[length(new_code)]]
+      if (inherits(this, "error")) {
+        return(
           errorCondition(
             message = sprintf(
               "%s \n when evaluating qenv code:\n%s",
-              cli::ansi_strip(conditionMessage(e)),
-              current_code
+              cli::ansi_strip(conditionMessage(this)),
+              last_code
             ),
             class = c("qenv.error", "try-error", "simpleError"),
-            trace = unlist(c(object@code, list(current_code)))
+            trace = unlist(c(object@code, list(new_code)))
           )
-        }
-      ),
-      warning = function(w) {
-        attr(current_code, "warning") <<- cli::ansi_strip(sprintf("> %s\n", conditionMessage(w)))
-        invokeRestart("muffleWarning")
-      },
-      message = function(m) {
-        attr(current_code, "message") <<- cli::ansi_strip(sprintf("> %s", conditionMessage(m)))
-        invokeRestart("muffleMessage")
+        )
       }
-    )
-
-    if (!is.null(x)) {
-      return(x)
+      attr(last_code, "outputs") <- c(attr(last_code, "outputs"), list(this))
+      new_code[[length(new_code)]] <- last_code
     }
-    attr(current_code, "dependency") <- extract_dependency(current_call)
-    object@code <- c(object@code, stats::setNames(list(current_code), sample.int(.Machine$integer.max, size = 1)))
   }
 
+  object@code <- c(object@code, new_code)
   lockEnvironment(object@.xData, bindings = TRUE)
   object
 }

@@ -130,11 +130,20 @@ testthat::test_that("Joining two independent qenvs with warnings results in obje
 
   q <- c(q1, q2)
 
-  testthat::expect_equal(
-    vapply(q@code, attr, which = "warning", character(1L), USE.NAMES = FALSE),
-    c(
-      "> This is warning 1\n",
-      "> This is warning 2\n"
+  testthat::expect_identical(
+    get_warnings(q),
+    paste(
+      "~~~ Warnings ~~~",
+      "\n> This is warning 1",
+      "when running code:",
+      "warning('This is warning 1')",
+      "\n> This is warning 2",
+      "when running code:",
+      "warning('This is warning 2')",
+      "\n~~~ Trace ~~~\n",
+      "warning('This is warning 1')",
+      "warning('This is warning 2')",
+      sep = "\n"
     )
   )
 })
@@ -145,11 +154,20 @@ testthat::test_that("Joining two independent qenvs with messages results in obje
 
   q <- c(q1, q2)
 
-  testthat::expect_equal(
-    vapply(q@code, attr, which = "message", character(1L), USE.NAMES = FALSE),
-    c(
-      "> This is message 1\n",
-      "> This is message 2\n"
+  testthat::expect_identical(
+    get_messages(q),
+    paste(
+      "~~~ Messages ~~~",
+      "\n> This is message 1",
+      "when running code:",
+      "message('This is message 1')",
+      "\n> This is message 2",
+      "when running code:",
+      "message('This is message 2')",
+      "\n~~~ Trace ~~~\n",
+      "message('This is message 1')",
+      "message('This is message 2')",
+      sep = "\n"
     )
   )
 })
