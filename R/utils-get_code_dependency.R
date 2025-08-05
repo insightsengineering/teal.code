@@ -302,7 +302,28 @@ extract_occurrence <- function(pd) {
   }
 
   after <- match(min(x$id[assign_cond]), sort(x$id[c(min(assign_cond), sym_cond)])) - 1
-  ans <- append(x[sym_cond, "text"], "<-", after = max(1, after))
+  
+  # Separate symbols before and after assignment
+  symbols_before_assign <- sym_cond[x$id[sym_cond] < min(x$id[assign_cond])]
+  symbols_after_assign <- sym_cond[x$id[sym_cond] > min(x$id[assign_cond])]
+  
+  # Filter out function calls from left side of assignment (before assignment operator)
+  # Function calls should only appear as dependencies (right side), not as assignment targets
+  if (length(symbols_before_assign) > 0) {
+    is_function_call_before <- x[symbols_before_assign, "token"] == "SYMBOL_FUNCTION_CALL"
+    symbols_before_assign <- symbols_before_assign[!is_function_call_before]
+  }
+  
+  # Combine all symbols (filtered left side + all right side)
+  filtered_sym_cond <- c(symbols_before_assign, symbols_after_assign)
+  
+  # Update the after position based on filtered symbols
+  if (length(filtered_sym_cond) > 0) {
+    after <- match(min(x$id[assign_cond]), sort(x$id[c(min(assign_cond), filtered_sym_cond)])) - 1
+    ans <- append(x[filtered_sym_cond, "text"], "<-", after = max(1, after))
+  } else {
+    ans <- "<-"
+  }
   roll <- in_parenthesis(pd)
   if (length(roll)) {
     c(setdiff(ans, roll), roll)
