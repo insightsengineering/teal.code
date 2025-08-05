@@ -1,0 +1,2 @@
+# This file ensures the r-packages directory is preserved in git
+# R packages will be installed here and persisted via dev container mount

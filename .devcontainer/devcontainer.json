@@ -1,0 +1,41 @@
+{
+  "name": "R Development Environment for teal.code",
+  "image": "rocker/verse:4.3.3",
+  
+  "features": {
+    "ghcr.io/rocker-org/devcontainer-features/r-packages:1": {
+      "packages": "devtools,testthat,roxygen2,pkgdown,remotes,renv,usethis"
+    },
+    "ghcr.io/devcontainers/features/git:1": {
+      "ppa": true,
+      "version": "latest"
+    }
+  },
+  
+  "postCreateCommand": "bash .devcontainer/setup.sh",
+  
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "REditorSupport.r",
+        "ms-vscode.vscode-json",
+        "ms-vscode.vscode-typescript-next",
+        "github.copilot"
+      ],
+      "settings": {
+        "r.rterm.linux": "/usr/local/bin/R",
+        "r.rpath.linux": "/usr/local/bin/R",
+        "r.bracketedPaste": true,
+        "r.plot.useHttpgd": true,
+        "r.sessionWatcher": true,
+        "r.rtermSendDelay": 8
+      }
+    }
+  },
+  
+  "mounts": [
+    "source=${localWorkspaceFolder}/.devcontainer/r-packages,target=/usr/local/lib/R/site-library,type=bind,consistency=cached"
+  ],
+  
+  "remoteUser": "rstudio"
+}

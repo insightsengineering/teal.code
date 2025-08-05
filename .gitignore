@@ -30,3 +30,7 @@ vignettes/*.md
 tests/testthat/Rplots.pdf
 tests/testthat/_snaps/**/*.new.md
 tests/testthat/_snaps/**/*.new.svg
+
+# Dev container R packages (will be persistent via mount)
+.devcontainer/r-packages/*
+!.devcontainer/r-packages/.gitkeep
