@@ -1,89 +1,117 @@
-testthat::test_that("function calls should not appear on left side of assignment in dependencies", {
-  # Test for the specific issue reported in GitHub issue #262
+testthat::test_that("get_code correctly handles function calls in assignments without false dependencies", {
+  # Test reproducing the issue from GitHub #262 using iris dataset
+  # Function calls on left side of assignments should not create false dependencies
   
-  # Create a minimal example that reproduces the problem
-  code1 <- 'ADMH[c("test")] <- c("value")'
-  
-  # Parse and extract dependencies
-  parsed1 <- parse(text = code1, keep.source = TRUE)
-  
-  # Extract dependencies using the internal function
-  deps1 <- teal.code:::extract_dependency(parsed1)
-  
-  # The issue: function 'c' should not appear on left side of assignment
-  # In deps1, 'c' appears before '<-', which is incorrect
-  assign_pos1 <- which(deps1 == "<-")
-  left_side1 <- if(length(assign_pos1) > 0) deps1[seq_len(assign_pos1[1] - 1)] else character(0)
-  
-  # Function calls should NOT appear on the left side of assignment
-  testthat::expect_false("c" %in% left_side1, 
-    info = "Function 'c' should not appear on left side of assignment in dependencies")
-  
-  # Only actual variables/objects should appear on left side
-  # In this case, only 'ADMH' should be on the left side
-  testthat::expect_true("ADMH" %in% left_side1,
-    info = "Variable 'ADMH' should appear on left side as it's being assigned to")
-  
-  # Function calls should still appear as dependencies on the right side
-  right_side1 <- if(length(assign_pos1) > 0) deps1[seq(assign_pos1[1] + 1, length(deps1))] else character(0)
-  testthat::expect_true("c" %in% right_side1,
-    info = "Function 'c' should appear on right side as a dependency")
-})
-
-testthat::test_that("complex assignment with function calls handles dependencies correctly", {
-  # This test reproduces the exact scenario from the GitHub issue
-  
-  code_admh <- 'teal.data::col_labels(ADMH[c("MHDISTAT")]) <- c("Status of Disease")'
-  
-  parsed_admh <- parse(text = code_admh, keep.source = TRUE)
-  
-  deps_admh <- teal.code:::extract_dependency(parsed_admh)
-  
-  # Check ADMH dependencies
-  assign_pos_admh <- which(deps_admh == "<-")
-  left_side_admh <- if(length(assign_pos_admh) > 0) deps_admh[seq_len(assign_pos_admh[1] - 1)] else character(0)
-  right_side_admh <- if(length(assign_pos_admh) > 0) deps_admh[seq(assign_pos_admh[1] + 1, length(deps_admh))] else character(0)
-  
-  # Function calls should not be on left side of assignment
-  testthat::expect_false("c" %in% left_side_admh,
-    info = "Function 'c' should not be on left side in ADMH dependencies")
-  testthat::expect_false("col_labels" %in% left_side_admh,
-    info = "Function 'col_labels' should not be on left side in ADMH dependencies")
-  
-  # Functions can be on right side as dependencies
-  testthat::expect_true("c" %in% right_side_admh,
-    info = "Function 'c' can appear on right side as a dependency")
-  testthat::expect_true("col_labels" %in% right_side_admh,
-    info = "Function 'col_labels' should be moved to right side as a dependency")
-    
-  # Variables being modified should be on left side
-  testthat::expect_true("ADMH" %in% left_side_admh,
-    info = "Variable 'ADMH' should be on left side as it's being modified")
-})
-
-testthat::test_that("function calls in complex expressions are handled correctly", {
-  # Test various complex expressions to ensure function calls don't appear on left side
-  
-  test_cases <- list(
-    'result <- fun(a, b)',
-    'data[filter(x)] <- transform(y)', 
-    'obj$method(params) <- compute(values)'
-  )
-  
-  for (test_code in test_cases) {
-    parsed_code <- parse(text = test_code, keep.source = TRUE)
-    deps <- teal.code:::extract_dependency(parsed_code)
-    
-    assign_pos <- which(deps == "<-")
-    if (length(assign_pos) > 0) {
-      left_side <- deps[seq_len(assign_pos[1] - 1)]
+  data_env <- qenv() |>
+    within({
+      # Create initial datasets
+      ADSL <- iris
+      ADMH <- mtcars
+      ADVS <- iris
       
-      # No function calls should appear on left side 
-      function_names <- c("fun", "filter", "transform", "method", "compute")
-      for (func_name in function_names) {
-        testthat::expect_false(func_name %in% left_side,
-          info = paste("Function", func_name, "should not appear on left side in:", test_code))
-      }
-    }
-  }
+      # This assignment uses function calls on the left side
+      # colnames(ADMH[c("mpg", "cyl")]) should not create dependency for ADVS
+      colnames(ADMH[c("mpg", "cyl")]) <- c("Miles_Per_Gallon", "Cylinders")
+      
+      # ADVS should be independent of ADMH modifications
+      ADVS <- cbind(ADVS, Species_Number = as.numeric(ADVS$Species))
+    })
+  
+  # Get code for ADVS - should NOT include the ADMH colnames modification
+  advs_code <- get_code(data_env, names = "ADVS")
+  
+  # ADVS code should not include the ADMH modification line
+  testthat::expect_false(grepl("colnames\\\\(ADMH", advs_code)))
+  
+  # ADVS code should include its own definition and dependency on initial ADVS
+  testthat::expect_true(grepl("ADVS <- iris", advs_code))
+  
+  testthat::expect_true(grepl("ADVS <- cbind", advs_code))
+})
+
+testthat::test_that("get_code correctly excludes unrelated function call assignments", {
+  # Test that function calls like names(), class(), attr() don't create false dependencies
+  
+  data_env <- qenv() |>
+    within({
+      dataset_a <- iris[1:10, ]
+      dataset_b <- mtcars[1:5, ]
+      
+      # Modify dataset_a attributes using function calls on left side
+      names(dataset_a[c("Sepal.Length", "Sepal.Width")]) <- c("SL", "SW")
+      class(dataset_a) <- c("custom_iris", class(dataset_a))
+      
+      # dataset_b should be independent of dataset_a modifications
+      dataset_b$new_column <- dataset_b$mpg * 2
+    })
+  
+  # Get code for dataset_b - should NOT include dataset_a modifications
+  dataset_b_code <- get_code(data_env, names = "dataset_b")
+  
+  # Check that dataset_b code doesn't include dataset_a function call modifications
+  testthat::expect_false(grepl("names\\\\(dataset_a", dataset_b_code)))
+  testthat::expect_false(grepl("class\\\\(dataset_a", dataset_b_code)))
+  
+  # But should include its own definition and modifications
+  testthat::expect_true(grepl("dataset_b <- mtcars", dataset_b_code))
+  testthat::expect_true(grepl("dataset_b\\$new_column", dataset_b_code))
+})
+
+testthat::test_that("get_code handles complex function calls without creating circular dependencies", {
+  # Test complex scenarios with nested function calls similar to the original issue
+  
+  data_env <- qenv() |>
+    within({
+      base_data <- iris
+      processed_data <- mtcars
+      final_data <- iris[1:5, ]
+      
+      # Complex assignment with nested function calls - should not affect final_data
+      attr(processed_data[c("mpg", "hp")], "custom_attr") <- list(source = "mtcars", type = "numeric")
+      
+      # Another complex assignment with function calls
+      levels(base_data$Species)[c(1, 2)] <- c("Type1", "Type2")
+      
+      # final_data should be independent of the above modifications
+      final_data <- transform(final_data, Sepal.Sum = Sepal.Length + Sepal.Width)
+    })
+  
+  # Get code for final_data
+  final_data_code <- get_code(data_env, names = "final_data")
+  
+  # final_data should not include the complex function call assignments from other datasets
+  testthat::expect_false(grepl("attr\\\\(processed_data", final_data_code)))
+  testthat::expect_false(grepl("levels\\\\(base_data", final_data_code)))
+  
+  # But should include its own operations
+  testthat::expect_true(grepl("final_data <- iris", final_data_code))
+  testthat::expect_true(grepl("transform\\\\(final_data", final_data_code)))
+})
+
+testthat::test_that("get_code preserves function dependencies while avoiding false assignment targets", {
+  # Test that functions are still tracked as dependencies but not as assignment targets
+  
+  data_env <- qenv() |>
+    within({
+      my_data <- iris
+      helper_func <- function(x, cols) names(x)[cols]
+      
+      # Assignment that should depend on helper_func but not treat it as assignment target
+      names(my_data[c(1, 2)]) <- helper_func(my_data, c(1, 2))
+      
+      # Create another object that uses my_data
+      summary_data <- summary(my_data)
+    })
+  
+  # Get code for summary_data - should include helper_func definition due to dependency
+  summary_code <- get_code(data_env, names = "summary_data")
+  
+  # Should include helper_func since it's used in modifying my_data
+  testthat::expect_true(grepl("helper_func <- function", summary_code))
+  
+  # Should include the names assignment that uses helper_func
+  testthat::expect_true(grepl("names\\\\(my_data", summary_code)))
+  
+  # Should include my_data initial definition
+  testthat::expect_true(grepl("my_data <- iris", summary_code))
 })
