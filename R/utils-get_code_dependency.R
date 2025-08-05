@@ -303,12 +303,23 @@ extract_occurrence <- function(pd) {
 
   after <- match(min(x$id[assign_cond]), sort(x$id[c(min(assign_cond), sym_cond)])) - 1
   ans <- append(x[sym_cond, "text"], "<-", after = max(1, after))
+  ans <- move_functions_after_arrow(ans, unique(x[sym_fc_cond, "text"]))
   roll <- in_parenthesis(pd)
   if (length(roll)) {
     c(setdiff(ans, roll), roll)
   } else {
     ans
   }
+}
+
+move_functions_after_arrow <- function(ans, functions) {
+  arrow_pos <- which(ans == "<-")
+  if (length(arrow_pos) == 0) {
+    return(ans)
+  }
+  before_arrow <- setdiff(ans[1:arrow_pos], functions)
+  after_arrow <- ans[(arrow_pos + 1):length(ans)]
+  c(before_arrow, unique(c(intersect(ans[1:arrow_pos], functions), after_arrow)))
 }
 
 #' Extract side effects
