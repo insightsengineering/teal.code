@@ -301,25 +301,30 @@ extract_occurrence <- function(pd) {
     sym_cond <- rev(sym_cond)
   }
 
-  after <- match(min(x$id[assign_cond]), sort(x$id[c(min(assign_cond), sym_cond)])) - 1
-  
   # Separate symbols before and after assignment
   symbols_before_assign <- sym_cond[x$id[sym_cond] < min(x$id[assign_cond])]
   symbols_after_assign <- sym_cond[x$id[sym_cond] > min(x$id[assign_cond])]
   
-  # Filter out function calls from left side of assignment (before assignment operator)
+  # Move function calls from left side to right side of assignment
   # Function calls should only appear as dependencies (right side), not as assignment targets
+  function_calls_on_left <- c()
   if (length(symbols_before_assign) > 0) {
     is_function_call_before <- x[symbols_before_assign, "token"] == "SYMBOL_FUNCTION_CALL"
+    function_calls_on_left <- symbols_before_assign[is_function_call_before]
     symbols_before_assign <- symbols_before_assign[!is_function_call_before]
   }
   
-  # Combine all symbols (filtered left side + all right side)
-  filtered_sym_cond <- c(symbols_before_assign, symbols_after_assign)
+  # Combine symbols: filtered left side + all right side + moved function calls
+  filtered_sym_cond <- c(symbols_before_assign, symbols_after_assign, function_calls_on_left)
   
-  # Update the after position based on filtered symbols
+  # Update the after position based on filtered symbols (only non-function symbols on left)
+  if (length(symbols_before_assign) > 0) {
+    after <- match(min(x$id[assign_cond]), sort(x$id[c(min(assign_cond), symbols_before_assign)])) - 1
+  } else {
+    after <- 0
+  }
+  
   if (length(filtered_sym_cond) > 0) {
-    after <- match(min(x$id[assign_cond]), sort(x$id[c(min(assign_cond), filtered_sym_cond)])) - 1
     ans <- append(x[filtered_sym_cond, "text"], "<-", after = max(1, after))
   } else {
     ans <- "<-"

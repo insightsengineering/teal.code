@@ -23,6 +23,11 @@ testthat::test_that("function calls should not appear on left side of assignment
   # In this case, only 'ADMH' should be on the left side
   testthat::expect_true("ADMH" %in% left_side1,
     info = "Variable 'ADMH' should appear on left side as it's being assigned to")
+  
+  # Function calls should still appear as dependencies on the right side
+  right_side1 <- if(length(assign_pos1) > 0) deps1[seq(assign_pos1[1] + 1, length(deps1))] else character(0)
+  testthat::expect_true("c" %in% right_side1,
+    info = "Function 'c' should appear on right side as a dependency")
 })
 
 testthat::test_that("complex assignment with function calls handles dependencies correctly", {
@@ -48,6 +53,8 @@ testthat::test_that("complex assignment with function calls handles dependencies
   # Functions can be on right side as dependencies
   testthat::expect_true("c" %in% right_side_admh,
     info = "Function 'c' can appear on right side as a dependency")
+  testthat::expect_true("col_labels" %in% right_side_admh,
+    info = "Function 'col_labels' should be moved to right side as a dependency")
     
   # Variables being modified should be on left side
   testthat::expect_true("ADMH" %in% left_side_admh,
