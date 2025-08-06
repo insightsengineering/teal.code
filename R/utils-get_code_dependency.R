@@ -315,7 +315,6 @@ extract_occurrence <- function(pd) {
 #' Moves function names to the right side of dependency graph
 #'
 #' Move function names after the dependencya oprator (arrow) to the right side of the dependency graph.
-#' Convenience utility needed to correctly detect dependencies between objects.
 #' For cases when a function call is on the left side of the assignment operator,
 #' it is moved to the right side of the arrow.
 #' For example, for `attributes(a) <- b` the dependey graph should look like `c()"a", "<-", "b", "attributes")`.
