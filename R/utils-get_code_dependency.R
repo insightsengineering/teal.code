@@ -317,7 +317,7 @@ extract_occurrence <- function(pd) {
 #' Move function names after the dependencya oprator (arrow) to the right side of the dependency graph.
 #' For cases when a function call is on the left side of the assignment operator,
 #' it is moved to the right side of the arrow.
-#' For example, for `attributes(a) <- b` the dependey graph should look like `c()"a", "<-", "b", "attributes")`.
+#' For example, for `attributes(a) <- b` the dependency graph should look like `c("a", "<-", "b", "attributes")`.
 #'
 #' @param ans `character` vector of object names in dependency graph.
 #' @param functions `character` vector of function names.
