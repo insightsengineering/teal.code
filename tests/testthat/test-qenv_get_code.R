@@ -301,7 +301,6 @@ testthat::describe("get_code for specific names", {
     result <- get_code(q, names = "object_list")
     testthat::expect_identical(result, paste(code[c(1, 4)], collapse = "\n"))
   })
-
 })
 
 
