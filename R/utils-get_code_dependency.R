@@ -303,12 +303,36 @@ extract_occurrence <- function(pd) {
 
   after <- match(min(x$id[assign_cond]), sort(x$id[c(min(assign_cond), sym_cond)])) - 1
   ans <- append(x[sym_cond, "text"], "<-", after = max(1, after))
+  ans <- move_functions_after_arrow(ans, unique(x[sym_fc_cond, "text"]))
   roll <- in_parenthesis(pd)
   if (length(roll)) {
     c(setdiff(ans, roll), roll)
   } else {
     ans
   }
+}
+
+#' Moves function names to the right side of dependency graph
+#'
+#' Changes status of the function call from dependent to dependency if occurs in the lhs.
+#' Technically, it means to move function names after the dependency operator.
+#' For example, for `attributes(a) <- b` the dependency graph should look like `c("a", "<-", "b", "attributes")`.
+#'
+#' @param ans `character` vector of object names in dependency graph.
+#' @param functions `character` vector of function names.
+#'
+#' @return
+#' A character vector.
+#' @keywords internal
+#' @noRd
+move_functions_after_arrow <- function(ans, functions) {
+  arrow_pos <- which(ans == "<-")
+  if (length(arrow_pos) == 0) {
+    return(ans)
+  }
+  before_arrow <- setdiff(ans[1:arrow_pos], functions)
+  after_arrow <- ans[(arrow_pos + 1):length(ans)]
+  c(before_arrow, unique(c(intersect(ans[1:arrow_pos], functions), after_arrow)))
 }
 
 #' Extract side effects
