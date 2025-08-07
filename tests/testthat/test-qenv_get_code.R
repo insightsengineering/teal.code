@@ -290,8 +290,7 @@ testthat::describe("get_code for specific names", {
       )
     }
   )
-  testthat::it("doesn't consider function called on the lhs as a dependent in this call (dependency in further calls)", 
-  {
+  testthat::it("doesn't consider function called on the lhs as a dependent in this call (dependency in further calls)", {
     code <- c(
       "object_list <- list(x = iris, y = iris)",
       "object_list_2 <- list(x = mtcars, y = mtcars)",
