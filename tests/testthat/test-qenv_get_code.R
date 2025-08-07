@@ -298,11 +298,12 @@ testthat::describe("get_code for specific names", {
         "object_list_2 <- list(x = mtcars, y = mtcars)",
         "object_list_2[c('x')] <- c('string')",
         "object_list[c('x')] <- c('string')"
-    )
-    q <- eval_code(qenv(), code = code)
-    result <- get_code(q, names = "object_list")
-    testthat::expect_identical(result, paste(code[c(1, 4)], collapse = "\n"))
-  })
+      )
+      q <- eval_code(qenv(), code = code)
+      result <- get_code(q, names = "object_list")
+      testthat::expect_identical(result, paste(code[c(1, 4)], collapse = "\n"))
+    }
+  )
 })
 
 
