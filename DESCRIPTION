@@ -1,8 +1,8 @@
 Type: Package
 Package: teal.code
 Title: Code Storage and Execution Class for 'teal' Applications
-Version: 0.6.1.9004
-Date: 2025-06-30
+Version: 0.6.1.9005
+Date: 2025-08-07
 Authors@R: c(
     person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = c("aut", "cre")),
     person("Aleksander", "Chlebowski", , "aleksander.chlebowski@contractors.roche.com", role = "aut"),
