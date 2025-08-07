@@ -315,7 +315,7 @@ extract_occurrence <- function(pd) {
 #' Moves function names to the right side of dependency graph
 #'
 #' Changes status of the function call from dependent to dependency if occurs in the lhs.
-#' Technically, it means it to move function names after the dependency operator.
+#' Technically, it means to move function names after the dependency operator.
 #' For example, for `attributes(a) <- b` the dependency graph should look like `c("a", "<-", "b", "attributes")`.
 #'
 #' @param ans `character` vector of object names in dependency graph.
