@@ -216,12 +216,12 @@ extract_occurrence <- function(pd) {
   if (!is.null(data_dependency)) {
     return(data_dependency)
   }
-  
+
   assign_dependency <- handle_assign_call(pd)
   if (!is.null(assign_dependency)) {
     return(assign_dependency)
   }
-  
+
   # Process general assignment expressions
   extract_general_assignment(pd)
 }
@@ -239,7 +239,7 @@ handle_data_call <- function(pd) {
   if (data_call_pos == 0) {
     return(NULL)
   }
-  
+
   # Extract the object name from data(object)
   object_name <- pd[data_call_pos + 1, "text"]
   # Remove quotes if present: data("object") -> object
@@ -260,12 +260,12 @@ handle_assign_call <- function(pd) {
   if (assign_call_pos == 0) {
     return(NULL)
   }
-  
+
   param_position <- get_assign_param_position(pd)
   if (param_position == 0) {
     return(character(0L))
   }
-  
+
   # Extract the assigned object name
   object_name <- pd[assign_call_pos + param_position, "text"]
   # Remove quotes if present: assign("object", value) -> object
@@ -285,14 +285,14 @@ handle_assign_call <- function(pd) {
 get_assign_param_position <- function(pd) {
   # Check if any parameters are named
   has_named_params <- any(pd$token == "SYMBOL_SUB")
-  
+
   if (has_named_params) {
     # Extract parameter tokens: named parameters (SYMBOL_SUB), commas, equals
     param_tokens <- pd[pd$token %in% c("SYMBOL_SUB", "','", "EQ_SUB"), "text"]
-    
+
     # Clean up sequences of "=" followed by ","
     cleaned_params <- remove_consecutive_equals_comma(param_tokens)
-    
+
     # Find position of 'x' parameter among named parameters
     pos <- match("x", setdiff(cleaned_params, ","), nomatch = 0)
     if (pos == 0) {
@@ -316,14 +316,14 @@ remove_consecutive_equals_comma <- function(params) {
   if (length(params) <= 1) {
     return(params)
   }
-  
+
   indices_to_remove <- integer(0)
   for (i in 2:length(params)) {
     if (params[i - 1] == "=" && params[i] == ",") {
       indices_to_remove <- c(indices_to_remove, i - 1, i)
     }
   }
-  
+
   if (length(indices_to_remove) > 0) {
     params[-indices_to_remove]
   } else {
@@ -343,25 +343,25 @@ remove_consecutive_equals_comma <- function(params) {
 extract_general_assignment <- function(pd) {
   # Filter out symbols that are function parameters
   filtered_pd <- pd[!is_symbol_in_function_body(pd), ]
-  
+
   # Find all symbol positions
   symbol_indices <- which(filtered_pd$token %in% c("SPECIAL", "SYMBOL", "SYMBOL_FUNCTION_CALL"))
   function_call_indices <- which(filtered_pd$token == "SYMBOL_FUNCTION_CALL")
-  
+
   if (length(symbol_indices) == 0) {
     return(character(0L))
   }
-  
+
   # Remove symbols that come after $ or @ operators (e.g., in x$a, remove 'a')
   symbol_indices <- exclude_symbols_after_operators(filtered_pd, symbol_indices)
-  
+
   # Look for assignment operators
   assignment_indices <- grep("ASSIGN", filtered_pd$token)
   if (length(assignment_indices) == 0) {
     # No assignment found, return all symbols as dependencies
     return(c("<-", unique(filtered_pd[symbol_indices, "text"])))
   }
-  
+
   # Process assignment expression
   process_assignment_expression(filtered_pd, symbol_indices, function_call_indices, assignment_indices, pd)
 }
@@ -377,7 +377,7 @@ is_symbol_in_function_body <- function(pd) {
   if (length(function_ids) == 0) {
     return(rep(FALSE, nrow(pd)))
   }
-  
+
   # Get all children of function definitions
   function_children <- get_children(pd, function_ids[1])$id
   pd$id %in% function_children
@@ -396,11 +396,11 @@ exclude_symbols_after_operators <- function(pd, symbol_indices) {
   if (length(operator_ids) == 0) {
     return(symbol_indices)
   }
-  
+
   # For x$a, a's ID is $'s ID-2, so we exclude symbols with ID = operator_ID - 2
   symbol_ids <- pd[symbol_indices, "id"]
   symbols_after_operators <- symbol_ids[(symbol_ids - 2) %in% operator_ids]
-  
+
   # Remove these symbols from our indices
   setdiff(symbol_indices, which(pd$id %in% symbols_after_operators))
 }
@@ -409,7 +409,7 @@ exclude_symbols_after_operators <- function(pd, symbol_indices) {
 #'
 #' @param pd `data.frame` filtered parse data
 #' @param symbol_indices Integer vector of symbol positions
-#' @param function_call_indices Integer vector of function call positions  
+#' @param function_call_indices Integer vector of function call positions
 #' @param assignment_indices Integer vector of assignment operator positions
 #' @param original_pd `data.frame` original parse data for bracket processing
 #' @return Character vector with dependency information
@@ -418,19 +418,19 @@ exclude_symbols_after_operators <- function(pd, symbol_indices) {
 process_assignment_expression <- function(pd, symbol_indices, function_call_indices, assignment_indices, original_pd) {
   # Remove function calls that appear before assignment (e.g., in eval(expression(c <- b)))
   symbol_indices <- symbol_indices[!(symbol_indices < min(assignment_indices) & symbol_indices %in% function_call_indices)]
-  
+
   # Handle right-to-left assignment (->) by reversing symbol order
   if (unique(pd$text[assignment_indices]) == "->") {
     symbol_indices <- rev(symbol_indices)
   }
-  
+
   # Build dependency vector with assignment operator in correct position
   assignment_pos <- match(min(pd$id[assignment_indices]), sort(pd$id[c(min(assignment_indices), symbol_indices)])) - 1
   dependency_vector <- append(pd[symbol_indices, "text"], "<-", after = max(1, assignment_pos))
-  
+
   # Move function names to right side of dependency arrow
   dependency_vector <- move_functions_after_arrow(dependency_vector, unique(pd[function_call_indices, "text"]))
-  
+
   # Handle symbols in brackets/parentheses
   bracket_symbols <- extract_symbols_in_brackets(original_pd)
   if (length(bracket_symbols) > 0) {
@@ -452,10 +452,10 @@ extract_symbols_in_brackets <- function(pd) {
   if (!has_brackets) {
     return(NULL)
   }
-  
+
   start_id <- min(pd$id[pd$token %in% c("LBB", "'['")])
   end_id <- min(pd$id[pd$token == "']'"])
-  
+
   # Extract symbols between brackets
   pd$text[pd$token == "SYMBOL" & pd$id > start_id & pd$id < end_id]
 }
