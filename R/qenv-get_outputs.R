@@ -1,7 +1,7 @@
 #' Get outputs
 #'
 #' @description `r lifecycle::badge("experimental")`
-#' 
+#'
 #' `eval_code` evaluates code silently so plots and prints don't show up in the console or graphic devices.
 #' If one wants to use an output outside of the `qenv` (e.g. use a graph in `renderPlot`) then use `get_outputs`.
 #' @param object (`qenv`)
