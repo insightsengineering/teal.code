@@ -4,8 +4,10 @@
 #' `r lifecycle::badge("deprecated")`
 #' Instead of [get_var()] use native \R operators/functions:
 #' `x[[name]]`, `x$name` or [get()]:
-#' 
+#'
 #' @param ... function is deprecated.
+#' @param x (`qenv`)
+#' @param i (`character(1)`) variable name.
 #'
 #' @aliases get_var,qenv-method
 #' @aliases get_var,qenv.error-method

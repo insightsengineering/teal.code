@@ -13,6 +13,10 @@ get_var(...)
 }
 \arguments{
 \item{...}{function is deprecated.}
+
+\item{x}{(\code{qenv})}
+
+\item{i}{(\code{character(1)}) variable name.}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
