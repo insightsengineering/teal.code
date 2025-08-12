@@ -2,34 +2,20 @@
 % Please edit documentation in R/qenv-get_var.R
 \name{get_var}
 \alias{get_var}
-\alias{get_var,qenv,character-method}
-\alias{get_var,qenv.error,ANY-method}
+\alias{get_var,qenv-method}
+\alias{get_var,qenv.error-method}
 \alias{[[.qenv.error}
 \title{Get object from \code{qenv}}
 \usage{
-get_var(object, var)
+get_var(...)
 
 \method{[[}{qenv.error}(x, i)
 }
 \arguments{
-\item{object, x}{(\code{qenv})}
-
-\item{var, i}{(\code{character(1)}) variable name.}
-}
-\value{
-The value of required variable (\code{var}) within \code{qenv} object.
+\item{...}{function is deprecated.}
 }
 \description{
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 Instead of \code{\link[=get_var]{get_var()}} use native \R operators/functions:
 \code{x[[name]]}, \code{x$name} or \code{\link[=get]{get()}}:
-
-Retrieve variables from the \code{qenv} environment.
-}
-\examples{
-q <- qenv()
-q1 <- eval_code(q, code = quote(a <- 1))
-q2 <- eval_code(q1, code = "b <- a")
-get_var(q2, "b")
-
 }
