@@ -4,8 +4,6 @@
 \alias{c.qenv}
 \alias{c.qenv.error}
 \alias{join}
-\alias{join,qenv-method}
-\alias{join,qenv.error-method}
 \title{Join \code{qenv} objects}
 \usage{
 \method{c}{qenv}(...)

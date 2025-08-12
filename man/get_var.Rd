@@ -2,8 +2,6 @@
 % Please edit documentation in R/qenv-get_var.R
 \name{get_var}
 \alias{get_var}
-\alias{get_var,qenv-method}
-\alias{get_var,qenv.error-method}
 \alias{[[.qenv.error}
 \title{Get object from \code{qenv}}
 \usage{

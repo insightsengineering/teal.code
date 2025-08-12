@@ -9,21 +9,8 @@
 #' @param x (`qenv`)
 #' @param i (`character(1)`) variable name.
 #'
-#' @aliases get_var,qenv-method
-#' @aliases get_var,qenv.error-method
-#'
 #' @export
-setGeneric("get_var", function(...) {
-  standardGeneric("get_var")
-})
-
-setMethod("get_var", signature = c("qenv"), function(...) {
-  lifecycle::deprecate_stop("0.6.0", "get_var()", "base::get()")
-})
-
-setMethod("get_var", signature = c("qenv.error"), function(...) {
-  lifecycle::deprecate_stop("0.6.0", "get_var()", "base::get()")
-})
+get_var <- function(...) lifecycle::deprecate_stop("0.6.0", "get_var()", "base::get()")
 
 #' @rdname get_var
 #' @export
