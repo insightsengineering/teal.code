@@ -14,6 +14,8 @@ get_outputs(object)
 list of outputs generated in a `qenv``
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 \code{eval_code} evaluates code silently so plots and prints don't show up in the console or graphic devices.
 If one wants to use an output outside of the \code{qenv} (e.g. use a graph in \code{renderPlot}) then use \code{get_outputs}.
 }

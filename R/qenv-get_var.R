@@ -5,45 +5,12 @@
 #' Instead of [get_var()] use native \R operators/functions:
 #' `x[[name]]`, `x$name` or [get()]:
 #'
-#' Retrieve variables from the `qenv` environment.
-#'
-#' @param object,x (`qenv`)
-#' @param var,i (`character(1)`) variable name.
-#'
-#' @return The value of required variable (`var`) within `qenv` object.
-#'
-#' @examples
-#' q <- qenv()
-#' q1 <- eval_code(q, code = quote(a <- 1))
-#' q2 <- eval_code(q1, code = "b <- a")
-#' get_var(q2, "b")
-#'
-#' @aliases get_var,qenv,character-method
-#' @aliases get_var,qenv.error,ANY-method
+#' @param ... function is deprecated.
+#' @param x (`qenv`)
+#' @param i (`character(1)`) variable name.
 #'
 #' @export
-setGeneric("get_var", function(object, var) {
-  dev_suppress(object)
-  standardGeneric("get_var")
-})
-
-setMethod("get_var", signature = c("qenv", "character"), function(object, var) {
-  lifecycle::deprecate_soft("0.6.0", "get_var()", "base::get()")
-  tryCatch(
-    get(var, envir = object@.xData, inherits = FALSE),
-    error = function(e) {
-      message(conditionMessage(e))
-      NULL
-    }
-  )
-})
-
-setMethod("get_var", signature = c("qenv.error", "ANY"), function(object, var) {
-  stop(errorCondition(
-    list(message = conditionMessage(object)),
-    class = c("validation", "try-error", "simpleError")
-  ))
-})
+get_var <- function(...) lifecycle::deprecate_stop("0.6.0", "get_var()", "base::get()")
 
 #' @rdname get_var
 #' @export
