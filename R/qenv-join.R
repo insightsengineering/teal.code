@@ -10,4 +10,4 @@
 #' @rdname join
 #'
 #' @export
-join <- function(...) lifecycle::deprecate_stop("0.6.0", "join()", "c()")
+join <- function(...) lifecycle::deprecate_stop("0.7.0", "join()", "c()")

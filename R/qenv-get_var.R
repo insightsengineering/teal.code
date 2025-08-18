@@ -10,7 +10,7 @@
 #' @param i (`character(1)`) variable name.
 #'
 #' @export
-get_var <- function(...) lifecycle::deprecate_stop("0.6.0", "get_var()", "base::get()")
+get_var <- function(...) lifecycle::deprecate_stop("0.7.0", "get_var()", "base::get()")
 
 #' @rdname get_var
 #' @export
