@@ -38,6 +38,8 @@ jobs:
       strategy: ${{ matrix.test-strategy }}
       additional-env-vars: |
         PKG_SYSREQS_DRY_RUN=true
+      extra-deps: |
+        digest (>= 0.6.37)
   branch-cleanup:
     if: >
       github.event_name == 'schedule' || (
