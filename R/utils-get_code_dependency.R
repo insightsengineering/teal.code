@@ -211,108 +211,254 @@ sub_arrows <- function(call) {
 #' @keywords internal
 #' @noRd
 extract_occurrence <- function(pd) {
-  is_in_function <- function(x) {
-    # If an object is a function parameter,
-    # then in calls_pd there is a `SYMBOL_FORMALS` entry for that object.
-    function_id <- x[x$token == "FUNCTION", "parent"]
-    if (length(function_id)) {
-      x$id %in% get_children(x, function_id[1])$id
-    } else {
-      rep(FALSE, nrow(x))
-    }
-  }
-  in_parenthesis <- function(x) {
-    if (any(x$token %in% c("LBB", "'['"))) {
-      id_start <- min(x$id[x$token %in% c("LBB", "'['")])
-      id_end <- min(x$id[x$token == "']'"])
-      x$text[x$token == "SYMBOL" & x$id > id_start & x$id < id_end]
-    }
+  # Handle special function calls first
+  data_dependency <- handle_data_call(pd)
+  if (!is.null(data_dependency)) {
+    return(data_dependency)
   }
 
-  # Handle data(object)/data("object")/data(object, envir = ) independently.
-  data_call <- find_call(pd, "data")
-  if (data_call) {
-    sym <- pd[data_call + 1, "text"]
-    return(c(gsub("^['\"]|['\"]$", "", sym), "<-"))
-  }
-  # Handle assign(x = ).
-  assign_call <- find_call(pd, "assign")
-  if (assign_call) {
-    # Check if parameters were named.
-    # "','" is for unnamed parameters, where "SYMBOL_SUB" is for named.
-    # "EQ_SUB" is for `=` appearing after the name of the named parameter.
-    if (any(pd$token == "SYMBOL_SUB")) {
-      params <- pd[pd$token %in% c("SYMBOL_SUB", "','", "EQ_SUB"), "text"]
-      # Remove sequence of "=", ",".
-      if (length(params > 1)) {
-        remove <- integer(0)
-        for (i in 2:length(params)) {
-          if (params[i - 1] == "=" && params[i] == ",") {
-            remove <- c(remove, i - 1, i)
-          }
-        }
-        if (length(remove)) params <- params[-remove]
-      }
-      pos <- match("x", setdiff(params, ","), nomatch = match(",", params, nomatch = 0))
-      if (!pos) {
-        return(character(0L))
-      }
-      # pos is indicator of the place of 'x'
-      # 1. All parameters are named, but none is 'x' - return(character(0L))
-      # 2. Some parameters are named, 'x' is in named parameters: match("x", setdiff(params, ","))
-      # - check "x" in params being just a vector of named parameters.
-      # 3. Some parameters are named, 'x' is not in named parameters
-      # - check first appearance of "," (unnamed parameter) in vector parameters.
-    } else {
-      # Object is the first entry after 'assign'.
-      pos <- 1
-    }
-    sym <- pd[assign_call + pos, "text"]
-    return(c(gsub("^['\"]|['\"]$", "", sym), "<-"))
+  assign_dependency <- handle_assign_call(pd)
+  if (!is.null(assign_dependency)) {
+    return(assign_dependency)
   }
 
-  # What occurs in a function body is not tracked.
-  x <- pd[!is_in_function(pd), ]
-  sym_cond <- which(x$token %in% c("SPECIAL", "SYMBOL", "SYMBOL_FUNCTION_CALL"))
-  sym_fc_cond <- which(x$token == "SYMBOL_FUNCTION_CALL")
+  # Process general assignment expressions
+  extract_general_assignment(pd)
+}
 
-  if (length(sym_cond) == 0) {
+#' Handle data() function calls
+#'
+#' Extracts dependencies for data() function calls like data(object) or data("object").
+#'
+#' @param pd `data.frame` parse data for a single call
+#' @return Character vector with dependency info or NULL if not a data call
+#' @keywords internal
+#' @noRd
+handle_data_call <- function(pd) {
+  data_call_pos <- find_call(pd, "data")
+  if (data_call_pos == 0) {
+    return(NULL)
+  }
+
+  # Extract the object name from data(object)
+  object_name <- pd[data_call_pos + 1, "text"]
+  # Remove quotes if present: data("object") -> object
+  clean_name <- gsub("^['\"]|['\"]$", "", object_name)
+  c(clean_name, "<-")
+}
+
+#' Handle assign() function calls
+#'
+#' Extracts dependencies for assign() function calls with named or unnamed parameters.
+#'
+#' @param pd `data.frame` parse data for a single call
+#' @return Character vector with dependency info or NULL if not an assign call
+#' @keywords internal
+#' @noRd
+handle_assign_call <- function(pd) {
+  assign_call_pos <- find_call(pd, "assign")
+  if (assign_call_pos == 0) {
+    return(NULL)
+  }
+
+  param_position <- get_assign_param_position(pd)
+  if (param_position == 0) {
     return(character(0L))
   }
-  # Watch out for SYMBOLS after $ and @. For x$a x@a: x is object, a is not.
-  # For x$a, a's ID is $'s ID-2 so we need to remove all IDs that have ID = $ID - 2.
-  dollar_ids <- x[x$token %in% c("'$'", "'@'"), "id"]
-  if (length(dollar_ids)) {
-    object_ids <- x[sym_cond, "id"]
-    after_dollar <- object_ids[(object_ids - 2) %in% dollar_ids]
-    sym_cond <- setdiff(sym_cond, which(x$id %in% after_dollar))
-  }
 
-  assign_cond <- grep("ASSIGN", x$token)
-  if (!length(assign_cond)) {
-    return(c("<-", unique(x[sym_cond, "text"])))
-  }
+  # Extract the assigned object name
+  object_name <- pd[assign_call_pos + param_position, "text"]
+  # Remove quotes if present: assign("object", value) -> object
+  clean_name <- gsub("^['\"]|['\"]$", "", object_name)
+  c(clean_name, "<-")
+}
 
-  # For cases like 'eval(expression(c <- b + 2))' removes 'eval(expression('.
-  sym_cond <- sym_cond[!(sym_cond < min(assign_cond) & sym_cond %in% sym_fc_cond)]
+#' Get parameter position for assign() function
+#'
+#' Determines the position of the 'x' parameter in assign() calls,
+#' handling both named and unnamed parameter cases.
+#'
+#' @param pd `data.frame` parse data for a single call
+#' @return Integer position offset from assign call, or 0 if 'x' parameter not found
+#' @keywords internal
+#' @noRd
+get_assign_param_position <- function(pd) {
+  # Check if any parameters are named
+  has_named_params <- any(pd$token == "SYMBOL_SUB")
 
-  # If there was an assignment operation detect direction of it.
-  if (unique(x$text[assign_cond]) == "->") { # What if there are 2 assignments: e.g. a <- b -> c.
-    sym_cond <- rev(sym_cond)
-  }
+  if (has_named_params) {
+    # Extract parameter tokens: named parameters (SYMBOL_SUB), commas, equals
+    param_tokens <- pd[pd$token %in% c("SYMBOL_SUB", "','", "EQ_SUB"), "text"]
 
-  after <- match(min(x$id[assign_cond]), sort(x$id[c(min(assign_cond), sym_cond)])) - 1
-  ans <- append(x[sym_cond, "text"], "<-", after = max(1, after))
-  ans <- move_functions_after_arrow(ans, unique(x[sym_fc_cond, "text"]))
-  roll <- in_parenthesis(pd)
-  if (length(roll)) {
-    c(setdiff(ans, roll), roll)
+    # Clean up sequences of "=" followed by ","
+    cleaned_params <- remove_consecutive_equals_comma(param_tokens)
+
+    # Find position of 'x' parameter among named parameters
+    pos <- match("x", setdiff(cleaned_params, ","), nomatch = 0)
+    if (pos == 0) {
+      # If 'x' not found in named params, check for first unnamed parameter
+      pos <- match(",", cleaned_params, nomatch = 0)
+    }
+    return(pos)
   } else {
-    ans
+    # All parameters are unnamed, 'x' is the first parameter
+    return(1)
   }
 }
 
-#' Moves function names to the right side of dependency graph
+#' Remove consecutive "=" and "," sequences from parameter tokens
+#'
+#' @param params Character vector of parameter tokens
+#' @return Character vector with "=", "," sequences removed
+#' @keywords internal
+#' @noRd
+remove_consecutive_equals_comma <- function(params) {
+  if (length(params) <= 1) {
+    return(params)
+  }
+
+  indices_to_remove <- integer(0)
+  for (i in 2:length(params)) {
+    if (params[i - 1] == "=" && params[i] == ",") {
+      indices_to_remove <- c(indices_to_remove, i - 1, i)
+    }
+  }
+
+  if (length(indices_to_remove) > 0) {
+    params[-indices_to_remove]
+  } else {
+    params
+  }
+}
+
+#' Extract dependencies from general assignment expressions
+#'
+#' Processes standard assignment operations (<-, =, ->) and extracts
+#' object dependencies while handling special cases.
+#'
+#' @param pd `data.frame` parse data for a single call
+#' @return Character vector with dependency information
+#' @keywords internal
+#' @noRd
+extract_general_assignment <- function(pd) {
+  # Filter out symbols that are function parameters
+  filtered_pd <- pd[!is_symbol_in_function_body(pd), ]
+
+  # Find all symbol positions
+  symbol_indices <- which(filtered_pd$token %in% c("SPECIAL", "SYMBOL", "SYMBOL_FUNCTION_CALL"))
+  function_call_indices <- which(filtered_pd$token == "SYMBOL_FUNCTION_CALL")
+
+  if (length(symbol_indices) == 0) {
+    return(character(0L))
+  }
+
+  # Remove symbols that come after $ or @ operators (e.g., in x$a, remove 'a')
+  symbol_indices <- exclude_symbols_after_operators(filtered_pd, symbol_indices)
+
+  # Look for assignment operators
+  assignment_indices <- grep("ASSIGN", filtered_pd$token)
+  if (length(assignment_indices) == 0) {
+    # No assignment found, return all symbols as dependencies
+    return(c("<-", unique(filtered_pd[symbol_indices, "text"])))
+  }
+
+  # Process assignment expression
+  process_assignment_expression(filtered_pd, symbol_indices, function_call_indices, assignment_indices, pd)
+}
+
+#' Check if symbols are in function body
+#'
+#' @param pd `data.frame` parse data
+#' @return Logical vector indicating which rows are function parameters
+#' @keywords internal
+#' @noRd
+is_symbol_in_function_body <- function(pd) {
+  function_ids <- pd[pd$token == "FUNCTION", "parent"]
+  if (length(function_ids) == 0) {
+    return(rep(FALSE, nrow(pd)))
+  }
+
+  # Get all children of function definitions
+  function_children <- get_children(pd, function_ids[1])$id
+  pd$id %in% function_children
+}
+
+#' Exclude symbols that appear after $ or @ operators
+#'
+#' @param pd `data.frame` parse data
+#' @param symbol_indices Integer vector of symbol positions
+#' @return Integer vector of filtered symbol positions
+#' @keywords internal
+#' @noRd
+exclude_symbols_after_operators <- function(pd, symbol_indices) {
+  # Find $ and @ operator positions
+  operator_ids <- pd[pd$token %in% c("'$'", "'@'"), "id"]
+  if (length(operator_ids) == 0) {
+    return(symbol_indices)
+  }
+
+  # For x$a, a's ID is $'s ID-2, so we exclude symbols with ID = operator_ID - 2
+  symbol_ids <- pd[symbol_indices, "id"]
+  symbols_after_operators <- symbol_ids[(symbol_ids - 2) %in% operator_ids]
+
+  # Remove these symbols from our indices
+  setdiff(symbol_indices, which(pd$id %in% symbols_after_operators))
+}
+
+#' Process assignment expression and build dependency vector
+#'
+#' @param pd `data.frame` filtered parse data
+#' @param symbol_indices Integer vector of symbol positions
+#' @param function_call_indices Integer vector of function call positions
+#' @param assignment_indices Integer vector of assignment operator positions
+#' @param original_pd `data.frame` original parse data for bracket processing
+#' @return Character vector with dependency information
+#' @keywords internal
+#' @noRd
+process_assignment_expression <- function(pd, symbol_indices, function_call_indices, assignment_indices, original_pd) {
+  # Remove function calls that appear before assignment (e.g., in eval(expression(c <- b)))
+  symbol_indices <- symbol_indices[!(symbol_indices < min(assignment_indices) & symbol_indices %in% function_call_indices)]
+
+  # Handle right-to-left assignment (->) by reversing symbol order
+  if (unique(pd$text[assignment_indices]) == "->") {
+    symbol_indices <- rev(symbol_indices)
+  }
+
+  # Build dependency vector with assignment operator in correct position
+  assignment_pos <- match(min(pd$id[assignment_indices]), sort(pd$id[c(min(assignment_indices), symbol_indices)])) - 1
+  dependency_vector <- append(pd[symbol_indices, "text"], "<-", after = max(1, assignment_pos))
+
+  # Move function names to right side of dependency arrow
+  dependency_vector <- move_functions_after_arrow(dependency_vector, unique(pd[function_call_indices, "text"]))
+
+  # Handle symbols in brackets/parentheses
+  bracket_symbols <- extract_symbols_in_brackets(original_pd)
+  if (length(bracket_symbols) > 0) {
+    c(setdiff(dependency_vector, bracket_symbols), bracket_symbols)
+  } else {
+    dependency_vector
+  }
+}
+
+#' Extract symbols that appear within brackets or parentheses
+#'
+#' @param pd `data.frame` parse data
+#' @return Character vector of symbols in brackets, or NULL
+#' @keywords internal
+#' @noRd
+extract_symbols_in_brackets <- function(pd) {
+  # Look for bracket/parenthesis tokens
+  has_brackets <- any(pd$token %in% c("LBB", "'['"))
+  if (!has_brackets) {
+    return(NULL)
+  }
+
+  start_id <- min(pd$id[pd$token %in% c("LBB", "'['")])
+  end_id <- min(pd$id[pd$token == "']'"])
+
+  # Extract symbols between brackets
+  pd$text[pd$token == "SYMBOL" & pd$id > start_id & pd$id < end_id]
+}
 #'
 #' Changes status of the function call from dependent to dependency if occurs in the lhs.
 #' Technically, it means to move function names after the dependency operator.
