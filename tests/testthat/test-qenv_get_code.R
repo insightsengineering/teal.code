@@ -1,6 +1,6 @@
 pasten <<- function(...) paste(..., collapse = "\n")
 
-testthat::test_that("get_code returns empty character if no code", {
+testthat::test_that("get_code returns character of length 0 if no code", {
   expect_identical(get_code(qenv()), "")
 })
 
