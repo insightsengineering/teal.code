@@ -736,7 +736,6 @@ testthat::test_that("understands @ usage and do not treat rhs of @ as objects (o
 })
 
 
-
 # libraries -------------------------------------------------------------------------------------------------------
 
 testthat::test_that("library() and require() are always returned", {
