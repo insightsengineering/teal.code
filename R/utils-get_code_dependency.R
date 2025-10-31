@@ -344,6 +344,10 @@ move_functions_after_arrow <- function(ans, functions) {
     return(ans)
   }
   ans_pre <- ans[1:arrow_pos]
+  # it's setdiff but without the removal of duplicates
+  # do not use setdiff(ans_pre, functions)
+  # as it removes duplicates from ans_pre even if they do not appear in functions
+  # check setdiff(c("A", "A"), "B") - gives "A", where we want to keep c("A", "A")
   for (fun in functions) {
     if (any(ans_pre == fun)) ans_pre <- ans_pre[-match(fun, ans_pre)]
   }
