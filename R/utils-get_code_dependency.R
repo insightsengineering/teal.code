@@ -317,7 +317,6 @@ extract_occurrence <- function(pd) {
       }
     }
     c(result, roll)
-
   } else {
     ans
   }
