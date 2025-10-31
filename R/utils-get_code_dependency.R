@@ -306,7 +306,7 @@ extract_occurrence <- function(pd) {
   ans <- move_functions_after_arrow(ans, unique(x[sym_fc_cond, "text"]))
   roll <- in_parenthesis(pd)
   if (length(roll)) {
-    # detect elements appread in parenthesis and move them on RHS
+    # detect elements appeared in parenthesis and move them on RHS
     # but only their first appearance
     # as the same object can appear as regular object and the one used in parenthesis
     result <- ans
