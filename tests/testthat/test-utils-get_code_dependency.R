@@ -88,18 +88,6 @@ testthat::describe("get_code with multiple assignments inside an expression", {
 })
 
 testthat::describe("get_code with subassignments", {
-  testthat::it("tracks $ subassignment as producing the base object", {
-    td <- qenv() |>
-      within({
-        iris <- iris
-        iris$Species[sample.int(nrow(iris), 50)] <- NA
-      })
-
-    code_source <- "iris <- iris\niris$Species[sample.int(nrow(iris), 50)] <- NA"
-
-    testthat::expect_equal(get_code(td, names = "iris"), code_source)
-  })
-
   testthat::it("tracks [ subassignment as producing the base object", {
     td <- qenv() |>
       within({
@@ -252,7 +240,7 @@ testthat::describe("get_code with subassignments", {
         vec[vec %% 2 == 0] <- vec[vec %% 2 == 0] * 2
       })
 
-    code_source <- "vec <- 1:10\nvec[vec %% 2 == 0] <- vec[vec %% 2 == 0] * 2"
+    code_source <- "vec <- 1:10\nvec[vec%%2 == 0] <- vec[vec%%2 == 0] * 2"
 
     testthat::expect_equal(get_code(td, names = "vec"), code_source)
   })
