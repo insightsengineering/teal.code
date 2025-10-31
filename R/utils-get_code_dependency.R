@@ -352,7 +352,7 @@ move_functions_after_arrow <- function(ans, functions) {
     if (any(ans_pre == fun)) ans_pre <- ans_pre[-match(fun, ans_pre)]
   }
   after_arrow <- if (arrow_pos < length(ans)) {
-    ans[arrow_pos + 1:length(ans)]
+    ans[(arrow_pos + 1):length(ans)]
   }
   c(ans_pre, after_arrow)
 }
