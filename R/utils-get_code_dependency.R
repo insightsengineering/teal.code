@@ -306,7 +306,7 @@ extract_occurrence <- function(pd) {
   ans <- move_functions_after_arrow(ans, unique(x[sym_fc_cond, "text"]))
   roll <- in_parenthesis(pd)
   if (length(roll)) {
-    # detect elements appread in parenthesis and move them on RHS
+    # detect elements appeared in parenthesis and move them on RHS
     # but only their first appearance
     # as the same object can appear as regular object and the one used in parenthesis
     result <- ans
@@ -317,7 +317,6 @@ extract_occurrence <- function(pd) {
       }
     }
     c(result, roll)
-
   } else {
     ans
   }
@@ -339,9 +338,6 @@ extract_occurrence <- function(pd) {
 move_functions_after_arrow <- function(ans, functions) {
   arrow_pos <- which(ans == "<-")
   if (length(arrow_pos) == 0) {
-    return(ans)
-  }
-  if (length(functions) == 0) {
     return(ans)
   }
   before_arrow <- setdiff(ans[1:arrow_pos], functions)
