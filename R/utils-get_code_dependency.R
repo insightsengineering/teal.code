@@ -306,7 +306,17 @@ extract_occurrence <- function(pd) {
   ans <- move_functions_after_arrow(ans, unique(x[sym_fc_cond, "text"]))
   roll <- in_parenthesis(pd)
   if (length(roll)) {
-    c(setdiff(ans, roll), roll)
+    # detect elements appeared in parenthesis and move them on RHS
+    # but only their first appearance
+    # as the same object can appear as regular object and the one used in parenthesis
+    result <- ans
+    for (elem in roll) {
+      idx <- which(result == elem)[1]
+      if (!is.na(idx)) {
+        result <- result[-idx]
+      }
+    }
+    c(result, roll)
   } else {
     ans
   }
@@ -330,9 +340,21 @@ move_functions_after_arrow <- function(ans, functions) {
   if (length(arrow_pos) == 0) {
     return(ans)
   }
-  before_arrow <- setdiff(ans[1:arrow_pos], functions)
-  after_arrow <- ans[(arrow_pos + 1):length(ans)]
-  c(before_arrow, unique(c(intersect(ans[1:arrow_pos], functions), after_arrow)))
+  if (length(functions) == 0) {
+    return(ans)
+  }
+  ans_pre <- ans[1:arrow_pos]
+  # it's setdiff but without the removal of duplicates
+  # do not use setdiff(ans_pre, functions)
+  # as it removes duplicates from ans_pre even if they do not appear in functions
+  # check setdiff(c("A", "A"), "B") - gives "A", where we want to keep c("A", "A")
+  for (fun in functions) {
+    if (any(ans_pre == fun)) ans_pre <- ans_pre[-match(fun, ans_pre)]
+  }
+  after_arrow <- if (arrow_pos < length(ans)) {
+    ans[(arrow_pos + 1):length(ans)]
+  }
+  c(ans_pre, after_arrow)
 }
 
 #' Extract side effects
