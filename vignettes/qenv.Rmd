@@ -204,7 +204,7 @@ As shown, we can get the code for specific objects by referencing the name of th
 in `get_code`.
 In the scenarios where we have specific objects that are affected by side effects of previous calls, it can be
 passed to the qenv by adding # @linksto + the name of the object that is linked. This is important for setting options
-or controling random number generation.
+or controlling random number generation.
 
 ```{r, get_code_linked}
 q_linked <- qenv()

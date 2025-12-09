@@ -4,7 +4,7 @@
 #' `within` accepts only inline expressions (both simple and compound) and allows to substitute `expr`
 #' with `...` named argument values.
 #' Functions that trigger side effects like `options` or `set.seed` cannot be linked to specific objects with
-#' tag "# @linksto" as expressions ignore comments. This is relevant when we want to reproduce the code with
+#' tag "`# @linksto`" as expressions ignore comments. This is relevant when we want to reproduce the code with
 #' function `get_code`. For such scenarios, we recommend to use `eval_code` instead.
 #'
 #' @section Using language objects with `within`:
