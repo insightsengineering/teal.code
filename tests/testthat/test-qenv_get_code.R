@@ -1,5 +1,9 @@
 pasten <<- function(...) paste(..., collapse = "\n")
 
+testthat::test_that("get_code returns character of length 0 if no code", {
+  expect_identical(get_code(qenv()), "")
+})
+
 testthat::test_that("get_code returns code (character(1) by default) of qenv object", {
   q <- qenv()
   q <- eval_code(q, quote(x <- 1))
@@ -730,7 +734,6 @@ testthat::test_that("understands @ usage and do not treat rhs of @ as objects (o
     pasten(code)
   )
 })
-
 
 
 # libraries -------------------------------------------------------------------------------------------------------
