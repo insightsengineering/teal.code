@@ -212,8 +212,7 @@ q_linked <- eval_code(q_reproducible, "
 cat(get_code(q_linked))
 cat(get_code(q_linked, names = "a"))
 ```
-Linking of objects for reproducibility is currently only supported by `eval_code`. As `within` uses expression as input
-and ignores comments, it is not recommended in the cases where side effects functions are required for reproducibility.
+Currently, object linking for reproducibility is only supported by the `eval_code` function. Since `within` uses an expression as input and ignores comments, its use is **not recommended** when side-effect functions are required for full reproducibility.
 
 ## `qenv` and `teal` applications
 
