@@ -201,9 +201,7 @@ cat(get_code(q_reproducible, names = "c"))
 ```
 
 As demonstrated, you can retrieve the code responsible for creating specific objects by passing the object's name to the `names` argument in `get_code`.
-In the scenarios where we have specific objects that are affected by side effects of previous calls, it can be
-passed to the qenv by adding # @linksto + the name of the object that is linked. This is important for setting options
-or controlling random number generation.
+In scenarios where certain objects are **affected by side effects** (such as setting options or controlling random number generation) from previous calls, this dependency can be specified in the `qenv`. You achieve this by adding the comment `# @linksto` followed by the name of the linked object.
 
 ```{r, get_code_linked}
 q_linked <- qenv()
