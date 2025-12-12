@@ -3,10 +3,7 @@
 #' `within()` is a convenience method that wraps `eval_code` to provide a simplified way of passing expression.
 #' `within` accepts only inline expressions (both simple and compound) and allows to substitute `expr`
 #' with `...` named argument values.
-#' Functions that trigger side effects like `options` or `set.seed` cannot be linked to specific objects with
-#' tag "`# @linksto <object name>`" as expressions ignore comments. This is relevant when we want
-#' to reproduce the code with
-#' function `get_code`. For such scenarios, we recommend to use `eval_code` instead.
+#' Functions that trigger side effects like `options` or `set.seed` can be linked to specific objects for further code retrieval (with `get_code`), but only through `eval_code` where code input as `character`. `within` works on `expressions` that do not preserve comments, hence you can not use `# @linksto` tag explained in `get_code`.
 #'
 #' @section Using language objects with `within`:
 #' Passing language objects to `expr` is generally not intended but can be achieved with `do.call`.
