@@ -187,7 +187,7 @@ if (interactive()) {
 
 ### Reproducibility
 
-Code inside a `qenv` can be reproduced by calling function `get_code`
+The code inside a `qenv` object can be retrieved using `get_code` function.
 ```{r, get_code}
 q_reproducible <- qenv()
 q_reproducible <- within(q_reproducible, {
