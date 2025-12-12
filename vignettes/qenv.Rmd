@@ -200,8 +200,7 @@ cat(get_code(q_reproducible, names = "a"))
 cat(get_code(q_reproducible, names = "c"))
 ```
 
-As shown, we can get the code for specific objects by referencing the name of the object with the `names` argument
-in `get_code`.
+As demonstrated, you can retrieve the code responsible for creating specific objects by passing the object's name to the `names` argument in `get_code`.
 In the scenarios where we have specific objects that are affected by side effects of previous calls, it can be
 passed to the qenv by adding # @linksto + the name of the object that is linked. This is important for setting options
 or controlling random number generation.
