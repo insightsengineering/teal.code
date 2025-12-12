@@ -185,6 +185,34 @@ if (interactive()) {
 }
 ```
 
+### Reproducibility
+
+The code inside a `qenv` object can be retrieved using `get_code` function.
+```{r, get_code}
+q_reproducible <- qenv()
+q_reproducible <- within(q_reproducible, {
+  a <- 2
+  b <- 5
+  c <- a + b
+})
+cat(get_code(q_reproducible))
+cat(get_code(q_reproducible, names = "a"))
+cat(get_code(q_reproducible, names = "c"))
+```
+
+As demonstrated, you can retrieve the code responsible for creating specific objects by passing the object's name to the `names` argument in `get_code`.
+In scenarios where certain objects are **affected by side effects** (such as setting options or controlling random number generation) from previous calls, this dependency can be specified in the `qenv`. You achieve this by adding the comment `# @linksto` followed by the name of the linked object.
+
+```{r, get_code_linked}
+q_linked <- qenv()
+q_linked <- eval_code(q_reproducible, "
+  set.seed(2) # @linksto a
+  a <- runif(1)
+")
+cat(get_code(q_linked))
+cat(get_code(q_linked, names = "a"))
+```
+Currently, object linking for reproducibility is only supported by the `eval_code` function. Since `within` uses an expression as input and ignores comments, its use is **not recommended** when side-effect functions are required for full reproducibility.
 
 ## `qenv` and `teal` applications
 
