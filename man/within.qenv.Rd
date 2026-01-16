@@ -22,7 +22,10 @@ Evaluate code in \code{qenv}
 \code{within()} is a convenience method that wraps \code{eval_code} to provide a simplified way of passing expression.
 \code{within} accepts only inline expressions (both simple and compound) and allows to substitute \code{expr}
 with \code{...} named argument values.
-Functions that trigger side effects like \code{options} or \code{set.seed} can be linked to specific objects for further code retrieval (with \code{get_code}), but only through \code{eval_code} where code input as \code{character}. \code{within} works on \code{expressions} that do not preserve comments, hence you can not use \verb{# @linksto} tag explained in \code{get_code}.
+Functions that trigger side effects like \code{options} or \code{set.seed} can be
+linked to specific objects for further code retrieval (with \code{get_code}), but
+only through \code{eval_code} where code input as \code{character}. \code{within} works on
+\code{expressions} that do not preserve comments, hence you can not use \verb{# @linksto} tag explained in \code{get_code}.
 }
 \section{Using language objects with \code{within}}{
 
