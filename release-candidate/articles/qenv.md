@@ -31,7 +31,7 @@ empty_qenv <- qenv()
 print(empty_qenv)
 ```
 
-    ## <environment: 0x55fb11fe0d48> 🔒 
+    ## <environment: 0x55d9c6a8cd48> 🔒 
     ## Parent: <environment: package:teal.code>
 
 ### `qenv` basic usage
@@ -46,7 +46,7 @@ my_qenv <- eval_code(empty_qenv, "x <- 2")
 print(my_qenv)
 ```
 
-    ## <environment: 0x55fb130c1b58> 🔒 
+    ## <environment: 0x55d9c7b6db58> 🔒 
     ## Parent: <environment: package:teal.code> 
     ## Bindings:
     ## - x: [numeric]
@@ -60,7 +60,7 @@ q1 <- eval_code(q1, "z <- y * 2")
 print(my_qenv)
 ```
 
-    ## <environment: 0x55fb130c1b58> 🔒 
+    ## <environment: 0x55d9c7b6db58> 🔒 
     ## Parent: <environment: package:teal.code> 
     ## Bindings:
     ## - x: [numeric]
@@ -78,7 +78,7 @@ names(my_qenv)
 print(q1)
 ```
 
-    ## <environment: 0x55fb13ebdb00> 🔒 
+    ## <environment: 0x55d9c8969b00> 🔒 
     ## Parent: <environment: package:teal.code> 
     ## Bindings:
     ## - x: [numeric]
@@ -102,7 +102,7 @@ q2 <- within(q2, plot(z))
 print(q2)
 ```
 
-    ## <environment: 0x55fb132facb0> 🔒 
+    ## <environment: 0x55d9c7da6cb0> 🔒 
     ## Parent: <environment: package:teal.code> 
     ## Bindings:
     ## - x: [numeric]
@@ -240,7 +240,7 @@ join_q <- c(x_q, y_q)
 print(join_q)
 ```
 
-    ## <environment: 0x55fb12aa13f0> 🔒 
+    ## <environment: 0x55d9c754d3f0> 🔒 
     ## Parent: <environment: package:teal.code> 
     ## Bindings:
     ## - x: [numeric]

@@ -29,7 +29,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/insightsengineering/teal.code/blob/v0.7.1-rc1/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/insightsengineering/teal.code/blob/v0.7.1-rc2/DESCRIPTION)
 
 Kaledkowski D, Chlebowski A, Kosinski M, Rucki P, Burkoff N, Hallal M,
 Nasinski M, Pagacz K, Zhao J (2026). *teal.code: Code Storage and

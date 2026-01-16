@@ -36,12 +36,12 @@ x[names, ...]
 q <- qenv()
 q <- eval_code(q, "a <- 1;b<-2")
 q["a"]
-#> <environment: 0x55ed5886c978> 🔒 
+#> <environment: 0x56257df45ad0> 🔒 
 #> Parent: <environment: package:checkmate> 
 #> Bindings:
 #> - a: [numeric]
 q[c("a", "b")]
-#> <environment: 0x55ed5ce61ee8> 🔒 
+#> <environment: 0x562583cf5420> 🔒 
 #> Parent: <environment: package:checkmate> 
 #> Bindings:
 #> - a: [numeric]

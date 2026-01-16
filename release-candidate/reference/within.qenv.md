@@ -56,7 +56,7 @@ q <- within(q, {
   f <- faithful
 })
 q
-#> <environment: 0x55ed5cb7a1f8> 🔒 
+#> <environment: 0x56258210acb8> 🔒 
 #> Parent: <environment: package:checkmate> 
 #> Bindings:
 #> - f: [data.frame]
@@ -69,7 +69,7 @@ get_code(q)
 q <- qenv()
 q <- within(q, i <- iris)
 within(q, print(dim(subset(i, Species == "virginica"))))
-#> <environment: 0x55ed5e160468> 🔒 
+#> <environment: 0x56258343dbe0> 🔒 
 #> Parent: <environment: package:checkmate> 
 #> Bindings:
 #> - i: [data.frame]
@@ -78,13 +78,13 @@ within(q, print(dim(subset(i, Species == species)))) # fails
 #>  when evaluating qenv code:
 #> print(dim(subset(i, Species == species)))>
 within(q, print(dim(subset(i, Species == species))), species = "versicolor")
-#> <environment: 0x55ed59663018> 🔒 
+#> <environment: 0x56257ecbbe10> 🔒 
 #> Parent: <environment: package:checkmate> 
 #> Bindings:
 #> - i: [data.frame]
 species_external <- "versicolor"
 within(q, print(dim(subset(i, Species == species))), species = species_external)
-#> <environment: 0x55ed5d0d8be8> 🔒 
+#> <environment: 0x562581d73d50> 🔒 
 #> Parent: <environment: package:checkmate> 
 #> Bindings:
 #> - i: [data.frame]
@@ -96,7 +96,7 @@ within(q, expr) # fails
 #>  when evaluating qenv code:
 #> expr>
 do.call(within, list(q, expr))
-#> <environment: 0x55ed5ecd7a08> 🔒 
+#> <environment: 0x562581c37a60> 🔒 
 #> Parent: <environment: package:checkmate> 
 #> Bindings:
 #> - i: [data.frame]
@@ -108,7 +108,7 @@ within(q, exprlist) # fails
 #>  when evaluating qenv code:
 #> exprlist>
 do.call(within, list(q, do.call(c, exprlist)))
-#> <environment: 0x55ed5c2af6e0> 🔒 
+#> <environment: 0x562581a54fa0> 🔒 
 #> Parent: <environment: package:checkmate> 
 #> Bindings:
 #> - i: [data.frame]
