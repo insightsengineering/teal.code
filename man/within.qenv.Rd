@@ -2,6 +2,7 @@
 % Please edit documentation in R/qenv-within.R
 \name{within.qenv}
 \alias{within.qenv}
+\alias{within}
 \title{Evaluate code in \code{qenv}}
 \usage{
 \method{within}{qenv}(data, expr, ...)
