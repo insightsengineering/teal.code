@@ -1,0 +1,162 @@
+# Changelog
+
+## teal.code 0.7.1
+
+#### Bug fixes
+
+- Fix a problem detecting dependencies when using subassignemnts reusing
+  the same object
+  ([\#276](https://github.com/insightsengineering/teal.code/issues/276)).
+
+## teal.code 0.7.0
+
+CRAN release: 2025-08-18
+
+#### Enhancements
+
+- Introduced `get_outputs` function to fetch objects which have been
+  printed or plotted in the `qenv` code.
+
+#### Bug fixes
+
+- Fix a problem detecting co-occurrences when expression has multiple
+  lines
+  ([\#249](https://github.com/insightsengineering/teal.code/issues/249)).
+- Fix a assignment bug `within` curly expression
+  ([\#252](https://github.com/insightsengineering/teal.code/issues/252)).
+
+#### Miscellaneous
+
+- `eval_code` uses
+  [`evaluate::evaluate`](https://insightsengineering.github.io/teal.code/news/evaluate.r-lib.org/reference/evaluate.md)
+  and stores returned outputs in the code’s attribute.
+- Refactor `eval_code` method signature to allow for more flexibility
+  when extending the `eval_code`/`within` functions.
+- `get_var(qenv, ...)` and `join(qenv, ...)` are hard deprecated.
+
+## teal.code 0.6.1
+
+CRAN release: 2025-02-14
+
+#### Bug fixes
+
+- Fix an infinite recursion happening when lhs contains two or more
+  symbols occurring in the rhs of the same call.
+
+## teal.code 0.6.0
+
+CRAN release: 2025-01-27
+
+#### Enhancements
+
+- Introduced `[.qenv` function to subset `qenv` object (code and
+  environment) to specified object names.
+- [`get_code()`](https://insightsengineering.github.io/teal.code/reference/get_code.md)
+  was extended with `names` parameter and allows the code extraction to
+  be limited to objects stored in `qenv` but limited to `names`.
+- Introduced
+  [`get_messages()`](https://insightsengineering.github.io/teal.code/reference/get_messages.md)
+  to get messages produced during code evaluation.
+- [`get_code()`](https://insightsengineering.github.io/teal.code/reference/get_code.md)
+  returns original code formatting (white spaces and comments) passed to
+  [`eval_code()`](https://insightsengineering.github.io/teal.code/reference/eval_code.md).
+- `qenv` inherits from the `environment` class, allowing to use
+  [`ls()`](https://rdrr.io/r/base/ls.html),
+  [`names()`](https://rdrr.io/r/base/names.html),
+  [`as.environment()`](https://rdrr.io/r/base/as.environment.html) and
+  other functions on `qenv` objects.
+
+#### Miscellaneous
+
+- [`join()`](https://insightsengineering.github.io/teal.code/reference/join.md)
+  method is deprecated, please use
+  [`c()`](https://rdrr.io/r/base/c.html) instead
+- [`get_var()`](https://insightsengineering.github.io/teal.code/reference/get_var.md)
+  method is deprecated, please use `get`, `[[` or `$` instead.
+- Remove deprecated function `new_qenv`.
+- Numerous bug fixes
+
+## teal.code 0.5.0
+
+CRAN release: 2024-01-11
+
+#### Breaking Change
+
+- `qenv` objects should now be created with
+  [`qenv()`](https://insightsengineering.github.io/teal.code/reference/qenv.md)
+  rather than `new_qenv()`. The new constructor always creates an empty
+  object. `new_qenv` is now deprecated.
+
+#### Miscellaneous
+
+- Exported the `qenv` class from the package.
+- The `@code` field in the `qenv` class now holds `character`, not
+  `expression`.
+- The `get_code` method returns a single concatenated string of the
+  code.
+- Added `within` support for `qenv.error` class.
+- Added `get_env` method that allows to extract environment stored in
+  `qenv@env` slot.
+
+## teal.code 0.4.1
+
+CRAN release: 2023-09-12
+
+#### Miscellaneous
+
+- Fix NEWS
+- Updated usage and installation instructions in `README`.
+- Updated phrasing of the `qenv` vignette.
+- Specified minimal version of package dependencies.
+- Added `within` method for `qenv` for convenient passing of inline code
+  to `eval_code`.
+
+## teal.code 0.4.0
+
+#### Breaking Change
+
+- `chunks` have been removed. The new `qenv` object should be used
+  instead. See the new `qenv` vignette in the package for further
+  details.
+
+#### Miscellaneous
+
+- `dev_suppress` has been added to suppress rendering of plots on IDE.
+
+## teal.code 0.3.0
+
+#### Major breaking change
+
+- `chunks` have now been deprecated and will be removed from the package
+  in a future release. The new `qenv` object should be used instead. See
+  the new `qenv` vignette in the package for further details.
+
+#### New features
+
+- Added `concat` method to the `qenv` to offer the concatenate
+  functionality.
+
+## teal.code 0.2.0
+
+#### Miscellaneous
+
+- Removed the `%<chunk%` operator. Please use `chunks_push` instead.
+
+## teal.code 0.1.1
+
+#### Enhancements
+
+- New wrapper function `chunks_deep_clone` to make a deep
+  (i.e. completely independent) copy of a `chunks` objects.
+- Added a new wrapper `chunks_new` for `chunks` initialization.
+
+#### Miscellaneous
+
+- Added a template to the `pkgdown` site.
+- Added a vignette to explain the advanced features of the `chunks`
+  object.
+
+## teal.code 0.1.0
+
+- Initial release of `teal.code`, a package for code storage and
+  execution class for teal applications.
