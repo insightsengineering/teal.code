@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE coverage SYSTEM "https://raw.githubusercontent.com/cobertura/cobertura/master/cobertura/src/site/htdocs/xml/coverage-04.dtd">
-<coverage line-rate="0.928446771378709" branch-rate="0" lines-covered="532" lines-valid="573" branches-covered="0" branches-valid="0" complexity="0" version="3.6.5" timestamp="2026-01-16 09:42:00.499239">
+<coverage line-rate="0.928446771378709" branch-rate="0" lines-covered="532" lines-valid="573" branches-covered="0" branches-valid="0" complexity="0" version="3.6.5" timestamp="2026-01-16 09:54:03.66209">
   <sources>
     <source>/__w/teal.code/teal.code/teal.code</source>
   </sources>
@@ -1385,30 +1385,30 @@
           <methods>
             <method name="within.qenv" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="51" hits="64" branch="false"/>
-                <line number="52" hits="64" branch="false"/>
+                <line number="54" hits="64" branch="false"/>
                 <line number="55" hits="64" branch="false"/>
-                <line number="56" hits="64" branch="false"/>
-                <line number="57" hits="64" branch="false"/>
                 <line number="58" hits="64" branch="false"/>
                 <line number="59" hits="64" branch="false"/>
+                <line number="60" hits="64" branch="false"/>
+                <line number="61" hits="64" branch="false"/>
+                <line number="62" hits="64" branch="false"/>
               </lines>
             </method>
             <method name="within.qenv.error" signature="" line-rate="1" branch-rate="0" complexity="0">
               <lines>
-                <line number="67" hits="1" branch="false"/>
+                <line number="70" hits="1" branch="false"/>
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="51" hits="64" branch="false"/>
-            <line number="52" hits="64" branch="false"/>
+            <line number="54" hits="64" branch="false"/>
             <line number="55" hits="64" branch="false"/>
-            <line number="56" hits="64" branch="false"/>
-            <line number="57" hits="64" branch="false"/>
             <line number="58" hits="64" branch="false"/>
             <line number="59" hits="64" branch="false"/>
-            <line number="67" hits="1" branch="false"/>
+            <line number="60" hits="64" branch="false"/>
+            <line number="61" hits="64" branch="false"/>
+            <line number="62" hits="64" branch="false"/>
+            <line number="70" hits="1" branch="false"/>
           </lines>
         </class>
         <class name="utils-get_code_dependency.R" filename="R/utils-get_code_dependency.R" line-rate="0.988679245283019" branch-rate="0" complexity="0">
