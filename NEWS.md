@@ -1,4 +1,8 @@
-# teal.code 0.7.0.9006
+# teal.code 0.7.1
+
+### Bug fixes
+
+* Fix a problem detecting dependencies when using subassignemnts reusing the same object (#276).
 
 # teal.code 0.7.0
 

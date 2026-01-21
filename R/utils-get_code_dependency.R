@@ -365,7 +365,7 @@ move_functions_after_arrow <- function(ans, functions) {
 #' Static code analysis may be insufficient to determine which objects are created or modified by such a function call.
 #' The `@linksto` comment tag is introduced to mark a call as having a (side) effect on one or more objects.
 #' With this tag a complete object dependency structure can be established.
-#' Read more about side effects and the usage of `@linksto` tag in [`get_code_dependencies()`] function.
+#' Read more about side effects and the usage of `@linksto` tag in [`get_code()`] function.
 #'
 #' @param pd `data.frame`;
 #'  one of the results of `utils::getParseData()` split into subsets representing individual calls;
