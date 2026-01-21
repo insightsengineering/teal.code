@@ -1,6 +1,14 @@
 # Changelog
 
-## teal.code 0.7.0.9005
+## teal.code 0.7.1
+
+CRAN release: 2026-01-20
+
+#### Bug fixes
+
+- Fix a problem detecting dependencies when using subassignemnts reusing
+  the same object
+  ([\#276](https://github.com/insightsengineering/teal.code/issues/276)).
 
 ## teal.code 0.7.0
 

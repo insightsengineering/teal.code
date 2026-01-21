@@ -23,6 +23,7 @@ The
 function serves as the gateway to create an initial `qenv` object:
 
 ``` r
+
 library(teal.code)
 
 # create a new qenv object
@@ -30,7 +31,7 @@ empty_qenv <- qenv()
 print(empty_qenv)
 ```
 
-    ## <environment: 0x5616ca82f0c0> 🔒 
+    ## <environment: 0x55861187af40> 🔒 
     ## Parent: <environment: package:teal.code>
 
 ### `qenv` basic usage
@@ -39,17 +40,19 @@ To modify the data use `eval_code` to execute R code within the
 environment, yielding a new `qenv` object as the output.
 
 ``` r
+
 # evaluate code in qenv
 my_qenv <- eval_code(empty_qenv, "x <- 2")
 print(my_qenv)
 ```
 
-    ## <environment: 0x5616cb97cc70> 🔒 
+    ## <environment: 0x55861294ac08> 🔒 
     ## Parent: <environment: package:teal.code> 
     ## Bindings:
     ## - x: [numeric]
 
 ``` r
+
 q1 <- eval_code(my_qenv, "y <- x * 2")
 q1 <- eval_code(q1, "z <- y * 2")
 
@@ -57,23 +60,25 @@ q1 <- eval_code(q1, "z <- y * 2")
 print(my_qenv)
 ```
 
-    ## <environment: 0x5616cb97cc70> 🔒 
+    ## <environment: 0x55861294ac08> 🔒 
     ## Parent: <environment: package:teal.code> 
     ## Bindings:
     ## - x: [numeric]
 
 ``` r
+
 names(my_qenv)
 ```
 
     ## [1] "x"
 
 ``` r
+
 # q1 contains x, y and z
 print(q1)
 ```
 
-    ## <environment: 0x5616cc7d21a8> 🔒 
+    ## <environment: 0x558613746bb0> 🔒 
     ## Parent: <environment: package:teal.code> 
     ## Bindings:
     ## - x: [numeric]
@@ -81,6 +86,7 @@ print(q1)
     ## - z: [numeric]
 
 ``` r
+
 names(q1)
 ```
 
@@ -89,13 +95,14 @@ names(q1)
 The same result can be achieved with the `within` method.
 
 ``` r
+
 q2 <- within(my_qenv, y <- x * 2)
 q2 <- within(q2, z <- y * 2)
 q2 <- within(q2, plot(z))
 print(q2)
 ```
 
-    ## <environment: 0x5616cbc93528> 🔒 
+    ## <environment: 0x558612b839e0> 🔒 
     ## Parent: <environment: package:teal.code> 
     ## Bindings:
     ## - x: [numeric]
@@ -113,18 +120,21 @@ generate the `qenv` using the
 function.
 
 ``` r
+
 print(q2[["y"]])
 ```
 
     ## [1] 4
 
 ``` r
+
 print(get_outputs(q2)[[1]])
 ```
 
 ![](qenv_files/figure-html/unnamed-chunk-4-1.png)
 
 ``` r
+
 cat(get_code(q2))
 ```
 
@@ -140,6 +150,7 @@ before evaluation. Consider a case when a subset of `iris` is defined by
 an input value.
 
 ``` r
+
 q <- qenv()
 q <- eval_code(q, quote(i <- subset(iris, Species == "setosa")))
 q <- eval_code(q, substitute(
@@ -159,6 +170,7 @@ summary(q[["i"]]$Species)
     ##         50          0          0
 
 ``` r
+
 summary(q[["ii"]]$Species)
 ```
 
@@ -166,6 +178,7 @@ summary(q[["ii"]]$Species)
     ##          0         50          0
 
 ``` r
+
 summary(q[["iii"]]$Species)
 ```
 
@@ -176,6 +189,7 @@ A more convenient way to pass code with substitution is to use the
 `within` method.
 
 ``` r
+
 qq <- qenv()
 qq <- within(qq, i <- subset(iris, Species == "setosa"))
 qq <- within(qq, ii <- subset(iris, Species == species), species = "versicolor")
@@ -189,6 +203,7 @@ summary(qq[["i"]]$Species)
     ##         50          0          0
 
 ``` r
+
 summary(qq[["ii"]]$Species)
 ```
 
@@ -196,6 +211,7 @@ summary(qq[["ii"]]$Species)
     ##          0         50          0
 
 ``` r
+
 summary(qq[["iii"]]$Species)
 ```
 
@@ -213,6 +229,7 @@ a new `qenv` object encompassing the union of both environments, along
 with the requisite code for reproduction:
 
 ``` r
+
 common_q <- eval_code(qenv(), quote(x <- 1))
 
 x_q <- eval_code(common_q, quote(y <- 5))
@@ -223,7 +240,7 @@ join_q <- c(x_q, y_q)
 print(join_q)
 ```
 
-    ## <environment: 0x5616cb7959d8> 🔒 
+    ## <environment: 0x558612004850> 🔒 
     ## Parent: <environment: package:teal.code> 
     ## Bindings:
     ## - x: [numeric]
@@ -231,6 +248,7 @@ print(join_q)
     ## - z: [numeric]
 
 ``` r
+
 names(join_q)
 ```
 
@@ -251,6 +269,7 @@ and
 functions as shown below.
 
 ``` r
+
 q_message <- eval_code(qenv(), quote(message("this is a message")))
 get_messages(q_message)
 ```
@@ -258,6 +277,7 @@ get_messages(q_message)
     ## [1] "~~~ Messages ~~~\n\n> this is a message\nwhen running code:\nmessage(\"this is a message\")\n\n~~~ Trace ~~~\n\nmessage(\"this is a message\")"
 
 ``` r
+
 q_warning <- eval_code(qenv(), quote(warning("and this is a warning")))
 get_warnings(q_warning)
 ```
@@ -280,6 +300,7 @@ alterations to handle these errors. Select the `error_option` in the
 example below to witness `qenv` error handling in action.
 
 ``` r
+
 library(shiny)
 # create an initial qenv with the data in
 data_q <- qenv()
@@ -321,6 +342,7 @@ The code inside a `qenv` object can be retrieved using `get_code`
 function.
 
 ``` r
+
 q_reproducible <- qenv()
 q_reproducible <- within(q_reproducible, {
   a <- 2
@@ -335,12 +357,14 @@ cat(get_code(q_reproducible))
     ## c <- a + b
 
 ``` r
+
 cat(get_code(q_reproducible, names = "a"))
 ```
 
     ## a <- 2
 
 ``` r
+
 cat(get_code(q_reproducible, names = "c"))
 ```
 
@@ -357,6 +381,7 @@ generation) from previous calls, this dependency can be specified in the
 the name of the linked object.
 
 ``` r
+
 q_linked <- qenv()
 q_linked <- eval_code(q_reproducible, "
   set.seed(2) # @linksto a
@@ -373,6 +398,7 @@ cat(get_code(q_linked))
     ##   a <- runif(1)
 
 ``` r
+
 cat(get_code(q_linked, names = "a"))
 ```
 

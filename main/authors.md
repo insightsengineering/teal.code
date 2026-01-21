@@ -32,14 +32,14 @@ Source:
 [`DESCRIPTION`](https://github.com/insightsengineering/teal.code/blob/main/DESCRIPTION)
 
 Kaledkowski D, Chlebowski A, Kosinski M, Rucki P, Burkoff N, Hallal M,
-Nasinski M, Pagacz K, Zhao J (2025). *teal.code: Code Storage and
-Execution Class for 'teal' Applications*. R package version 0.7.0.9005,
+Nasinski M, Pagacz K, Zhao J (2026). *teal.code: Code Storage and
+Execution Class for 'teal' Applications*. R package version 0.7.1,
 <https://insightsengineering.github.io/teal.code/>.
 
     @Manual{,
       title = {teal.code: Code Storage and Execution Class for 'teal' Applications},
       author = {Dawid Kaledkowski and Aleksander Chlebowski and Marcin Kosinski and Pawel Rucki and Nikolas Burkoff and Mahmoud Hallal and Maciej Nasinski and Konrad Pagacz and Junlue Zhao},
-      year = {2025},
-      note = {R package version 0.7.0.9005},
+      year = {2026},
+      note = {R package version 0.7.1},
       url = {https://insightsengineering.github.io/teal.code/},
     }

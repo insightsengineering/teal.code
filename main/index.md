@@ -57,6 +57,7 @@ execution environment associated with it. The features include:
 ## Installation
 
 ``` r
+
 # stable versions
 install.packages('teal.code')
 ```
@@ -64,6 +65,7 @@ install.packages('teal.code')
 Alternatively, you might want to use the development version.
 
 ``` r
+
 # install.packages("pak")
 pak::pak("insightsengineering/teal.code")
 ```
@@ -77,6 +79,7 @@ article, which provides multiple examples of code implementation.
 Below is the showcase of the example usage
 
 ``` r
+
 library(teal.code)
 my_qenv <- eval_code(qenv(), "x <- 5")
 my_qenv
@@ -91,6 +94,7 @@ names(my_qenv)
 ```
 
 ``` r
+
 qenv_2 <- eval_code(my_qenv, "y <- x * 2") 
 qenv_2 <- eval_code(qenv_2, "z <- y * 2")
 qenv_2
@@ -107,11 +111,13 @@ names(qenv_2)
 ```
 
 ``` r
+
 qenv_2[["y"]]
 #> [1] 10
 ```
 
 ``` r
+
 cat(get_code(qenv_2))
 #> x <- 5
 #> y <- x * 2

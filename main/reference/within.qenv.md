@@ -27,16 +27,15 @@ within(data, expr, ...)
 
 ## Details
 
-[`within()`](https://rdrr.io/r/base/with.html) is a convenience method
-that wraps `eval_code` to provide a simplified way of passing
-expression. `within` accepts only inline expressions (both simple and
-compound) and allows to substitute `expr` with `...` named argument
-values. Functions that trigger side effects like `options` or `set.seed`
-can be linked to specific objects for further code retrieval (with
-`get_code`), but only through `eval_code` where code input as
-`character`. `within` works on `expressions` that do not preserve
-comments, hence you can not use `# @linksto` tag explained in
-`get_code`.
+`within()` is a convenience method that wraps `eval_code` to provide a
+simplified way of passing expression. `within` accepts only inline
+expressions (both simple and compound) and allows to substitute `expr`
+with `...` named argument values. Functions that trigger side effects
+like `options` or `set.seed` can be linked to specific objects for
+further code retrieval (with `get_code`), but only through `eval_code`
+where code input as `character`. `within` works on `expressions` that do
+not preserve comments, hence you can not use `# @linksto` tag explained
+in `get_code`.
 
 ## Using language objects with `within`
 
@@ -57,7 +56,7 @@ q <- within(q, {
   f <- faithful
 })
 q
-#> <environment: 0x558f11f16a08> 🔒 
+#> <environment: 0x557149182750> 🔒 
 #> Parent: <environment: package:checkmate> 
 #> Bindings:
 #> - f: [data.frame]
@@ -70,7 +69,7 @@ get_code(q)
 q <- qenv()
 q <- within(q, i <- iris)
 within(q, print(dim(subset(i, Species == "virginica"))))
-#> <environment: 0x558f13678438> 🔒 
+#> <environment: 0x557146ca1730> 🔒 
 #> Parent: <environment: package:checkmate> 
 #> Bindings:
 #> - i: [data.frame]
@@ -79,13 +78,13 @@ within(q, print(dim(subset(i, Species == species)))) # fails
 #>  when evaluating qenv code:
 #> print(dim(subset(i, Species == species)))>
 within(q, print(dim(subset(i, Species == species))), species = "versicolor")
-#> <environment: 0x558f15e02f68> 🔒 
+#> <environment: 0x557144f68a48> 🔒 
 #> Parent: <environment: package:checkmate> 
 #> Bindings:
 #> - i: [data.frame]
 species_external <- "versicolor"
 within(q, print(dim(subset(i, Species == species))), species = species_external)
-#> <environment: 0x558f1272c468> 🔒 
+#> <environment: 0x5571411aa530> 🔒 
 #> Parent: <environment: package:checkmate> 
 #> Bindings:
 #> - i: [data.frame]
@@ -97,7 +96,7 @@ within(q, expr) # fails
 #>  when evaluating qenv code:
 #> expr>
 do.call(within, list(q, expr))
-#> <environment: 0x558f14e07a50> 🔒 
+#> <environment: 0x55714895bf30> 🔒 
 #> Parent: <environment: package:checkmate> 
 #> Bindings:
 #> - i: [data.frame]
@@ -109,7 +108,7 @@ within(q, exprlist) # fails
 #>  when evaluating qenv code:
 #> exprlist>
 do.call(within, list(q, do.call(c, exprlist)))
-#> <environment: 0x558f1683b560> 🔒 
+#> <environment: 0x55714946c8f0> 🔒 
 #> Parent: <environment: package:checkmate> 
 #> Bindings:
 #> - i: [data.frame]
