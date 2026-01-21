@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">teal.code</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.1</small>
 
     <div style="width: 140px; margin-left: 0.5rem;"> <small class="nav-text text-muted me-auto">part of</small> <img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/nest.png?raw=true" alt="NEST" style="height: 30px;"><a href="https://pharmaverse.org/" class="external-link"><img src="https://github.com/insightsengineering/hex-stickers/blob/main/PNG/pharmaverse.png?raw=true" alt="pharmaverse" style="height: 28px;"></a> </div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,6 +57,7 @@
     <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/release-candidate">release-candidate</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/main">main</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/latest-tag">latest-tag</a>
+<a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/v0.7.1">v0.7.1</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/v0.7.1-rc2">v0.7.1-rc2</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/v0.7.1-rc1">v0.7.1-rc1</a>
 <a class="dropdown-item" data-toggle="tooltip" title="" href="https://insightsengineering.github.io/teal.code/v0.7.0">v0.7.0</a>
@@ -91,7 +92,7 @@
 
       <h1>Access environment included in <code>qenv</code>
 </h1>
-      <small class="dont-index">Source: <a href="https://github.com/insightsengineering/teal.code/blob/v0.7.0/R/qenv-get_env.R" class="external-link"><code>R/qenv-get_env.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/insightsengineering/teal.code/blob/v0.7.1/R/qenv-get_env.R" class="external-link"><code>R/qenv-get_env.R</code></a></small>
       <div class="d-none name"><code>get_env.Rd</code></div>
     </div>
 
@@ -127,12 +128,12 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a>
 </h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fu"><a href="qenv.html">qenv</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">q1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/with.html" class="external-link">within</a></span><span class="op">(</span><span class="va">q</span>, <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="va">q1</span> <span class="op">&lt;-</span> <span class="fu"><a href="within.qenv.html">within</a></span><span class="op">(</span><span class="va">q</span>, <span class="op">{</span></span></span>
 <span class="r-in"><span>  <span class="va">a</span> <span class="op">&lt;-</span> <span class="fl">5</span></span></span>
 <span class="r-in"><span>  <span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">get_env</span><span class="op">(</span><span class="va">q1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x55848e2454c0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x563ff703fb40&gt;</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
