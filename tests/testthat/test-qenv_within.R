@@ -154,3 +154,15 @@ testthat::test_that("Code executed with integer shorthand (1L) is the same as or
   q <- within(qenv(), a <- 1L)
   testthat::expect_identical(get_code(q), "a <- 1L")
 })
+
+
+testthat::test_that("Chinese characters are handled properly (issue 284)", {
+  q <- within(qenv(), {
+    "无进展生存期 (月)"
+    "总生存期 (月)"
+    "缓解持续时间 (月)"
+    "确认的缓解持续时间 (月)"
+  })
+
+  expect_equal(lengths(strsplit(get_code(q), split = "\n", fixed = TRUE)), 4L)
+})
