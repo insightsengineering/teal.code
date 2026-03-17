@@ -416,7 +416,8 @@ extract_dependency <- function(parsed_code) {
     if (identical(current[[1L]], as.name("{"))) {
       queue <- append(queue, as.list(current)[-1L])
     } else {
-      parsed_code_list[[length(parsed_code_list) + 1]] <- parse(text = as.expression(current), keep.source = TRUE, encoding = "UTF-8")
+      parsed_code <- parse(text = as.expression(current), keep.source = TRUE, encoding = "UTF-8")
+      parsed_code_list[[length(parsed_code_list) + 1]] <- parsed_code
     }
   }
 
