@@ -407,7 +407,7 @@ extract_dependency <- function(parsed_code) {
     queue <- as.list(parsed_code[[1]][expr_ix])
     new_list <- parsed_code[[1]]
     new_list[expr_ix] <- NULL
-    list(parse(text = as.expression(new_list), keep.source = TRUE))
+    list(parse(text = as.expression(new_list), keep.source = TRUE, encoding = "UTF-8"))
   }
 
   while (length(queue) > 0) {
@@ -416,7 +416,8 @@ extract_dependency <- function(parsed_code) {
     if (identical(current[[1L]], as.name("{"))) {
       queue <- append(queue, as.list(current)[-1L])
     } else {
-      parsed_code_list[[length(parsed_code_list) + 1]] <- parse(text = as.expression(current), keep.source = TRUE)
+      parsed_code <- parse(text = as.expression(current), keep.source = TRUE, encoding = "UTF-8")
+      parsed_code_list[[length(parsed_code_list) + 1]] <- parsed_code
     }
   }
 
@@ -556,7 +557,7 @@ normalize_pd <- function(pd) {
 #' @keywords internal
 #' @noRd
 get_call_breaks <- function(code) {
-  parsed_code <- parse(text = code, keep.source = TRUE)
+  parsed_code <- parse(text = code, keep.source = TRUE, encoding = "UTF-8")
   pd <- utils::getParseData(parsed_code)
   pd <- normalize_pd(pd)
   pd <- pd[pd$token != "';'", ]
