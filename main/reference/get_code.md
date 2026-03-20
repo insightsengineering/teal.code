@@ -58,7 +58,7 @@ Consider the following examples:
     get_code(q1, names = "y")
 
 `x` has no dependencies, so `get_code(data, names = "x")` will return
-only the second call.  
+only the second call.\
 `y` depends on `x` and `foo`, so `get_code(data, names = "y")` will
 contain all three calls.
 
@@ -77,10 +77,10 @@ contain all three calls.
 
 Here, `y` depends on `x` but `x` is modified by `foo` as a side effect
 (not by reassignment) and so `get_code(data, names = "y")` will not
-return the `foo()` call.  
+return the `foo()` call.\
 To overcome this limitation, code dependencies can be specified
 manually. Lines where side effects occur can be flagged by adding
-"`# @linksto <object name>`" at the end.  
+"`# @linksto <object name>`" at the end.\
 Note that `within` evaluates code passed to `expr` as is and comments
 are ignored. In order to include comments in code one must use the
 `eval_code` function instead.
