@@ -53,7 +53,7 @@ get_code(q1, names = "y")
 \emph{Case 2: Some objects are created by a function's side effects.}
 
 \if{html}{\out{<div class="sourceCode r">}}\preformatted{q2 <-
-  within(qenv()\{
+  within(qenv(), \{
     foo <- function() \{
       x <<- x + 1
     \}
