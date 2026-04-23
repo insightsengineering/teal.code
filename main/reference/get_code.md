@@ -65,7 +65,7 @@ contain all three calls.
 *Case 2: Some objects are created by a function's side effects.*
 
     q2 <-
-      within(qenv(){
+      within(qenv(), {
         foo <- function() {
           x <<- x + 1
         }
