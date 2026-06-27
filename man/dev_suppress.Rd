@@ -19,7 +19,7 @@ directly in the IDE.
 }
 \details{
 The function uses \code{\link[base:on.exit]{base::on.exit}} to ensure that the PDF graphics
-device is closed (using \code{\link[grDevices:dev]{grDevices::dev.off}}) when the function exits,
+device is closed (using \code{\link[grDevices:dev.off]{grDevices::dev.off}}) when the function exits,
 regardless of whether it exits normally or due to an error. This is necessary to
 clean up the graphics device properly and avoid any potential issues.
 }
