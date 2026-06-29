@@ -1,0 +1,22 @@
+# Reproducibility
+
+Reproducibility stands as a pivotal feature within the realm of data
+analysis for several compelling reasons:
+
+- It empowers users to recreate outputs effortlessly within a standard R
+  console, independent of a reactive shiny app.
+- It fosters transparency, elucidating the analytical process for both
+  users and stakeholders.
+
+In this context, the `qenv` object within the `teal.code` package
+emerges as a pivotal tool, facilitating the development of reproducible
+`shiny/teal` modules.
+
+It’s worth noting that there exists a public
+[`shinymeta`](https://github.com/rstudio/shinymeta) R package by
+`RStudio`, offering similar functionality. However, integrating
+`shinymeta` into `teal` modules poses challenges. Consequently, we
+recommend the use of `qenv` for teal-based applications.
+
+For comprehensive insights, please refer to the [`qenv`
+vignette](https://insightsengineering.github.io/teal.code/latest-tag/articles/qenv.html).
