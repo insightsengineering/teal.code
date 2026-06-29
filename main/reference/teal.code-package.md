@@ -17,9 +17,11 @@ Useful links:
 
 ## Author
 
-**Maintainer**: Dawid Kaledkowski <dawid.kaledkowski@roche.com>
+**Maintainer**: Dony Unardi <unardid@gene.com> \[reviewer\]
 
 Authors:
+
+- Dawid Kaledkowski <dawid.kaledkowski@roche.com>
 
 - Aleksander Chlebowski <aleksander.chlebowski@contractors.roche.com>
 
@@ -40,7 +42,5 @@ Authors:
 Other contributors:
 
 - Chendi Liao <chendi.liao@roche.com> \[reviewer\]
-
-- Dony Unardi <unardid@gene.com> \[reviewer\]
 
 - F. Hoffmann-La Roche AG \[copyright holder, funder\]

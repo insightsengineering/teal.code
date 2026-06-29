@@ -1,13 +1,18 @@
 # Changelog
 
-## teal.code 0.7.1.9003
+## teal.code 0.7.2.9000
+
+## teal.code 0.7.2
+
+CRAN release: 2026-06-29
 
 #### Bug fixes
 
 - Fixed a problem parsing Chinese characters due to the encoding
-  ([\#284](https://github.com/insightsengineering/teal.code/issues/284))
+  ([\#284](https://github.com/insightsengineering/teal.code/issues/284)).
 - Fixed get_code documentation
-  ([\#247](https://github.com/insightsengineering/teal.code/issues/247))
+  ([\#247](https://github.com/insightsengineering/teal.code/issues/247)).
+- Update maintainer.
 
 ## teal.code 0.7.1
 
