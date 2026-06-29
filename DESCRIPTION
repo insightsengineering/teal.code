@@ -1,8 +1,8 @@
 Type: Package
 Package: teal.code
 Title: Code Storage and Execution Class for 'teal' Applications
-Version: 0.7.2
-Date: 2026-06-26
+Version: 0.7.2.9000
+Date: 2026-06-29
 Authors@R: c(
     person("Dawid", "Kaledkowski", , "dawid.kaledkowski@roche.com", role = "aut"),
     person("Aleksander", "Chlebowski", , "aleksander.chlebowski@contractors.roche.com", role = "aut"),
@@ -50,6 +50,7 @@ Config/Needs/verdepcheck: mllg/checkmate, r-lib/cli, r-lib/lifecycle,
     r-lib/rlang, r-lib/cli, yihui/knitr, rstudio/rmarkdown, rstudio/shiny,
     r-lib/testthat, r-lib/withr
 Config/Needs/website: insightsengineering/nesttemplate
+Config/roxygen2/version: 8.0.0
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
@@ -74,4 +75,3 @@ Collate:
     'teal.code-package.R'
     'utils-get_code_dependency.R'
     'utils.R'
-Config/roxygen2/version: 8.0.0
