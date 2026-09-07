@@ -264,5 +264,4 @@ describe("get_code with subsetting", {
     code_source <- "x <- c(TRUE, FALSE, TRUE)\nx <- x[x]"
     testthat::expect_equal(get_code(data, names = "x"), code_source)
   })
-
 })
