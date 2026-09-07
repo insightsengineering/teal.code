@@ -1,5 +1,9 @@
 # teal.code 0.7.2.9000
 
+### Bug fixes
+
+* Fixed a problem parsing expression referring to the same object (#293)
+
 # teal.code 0.7.2
 
 ### Bug fixes

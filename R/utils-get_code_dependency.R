@@ -307,11 +307,13 @@ extract_occurrence <- function(pd) {
   roll <- in_parenthesis(pd)
   if (length(roll)) {
     # detect elements appeared in parenthesis and move them on RHS
-    # but only their first appearance
+    # but only their first appearance after assignment
     # as the same object can appear as regular object and the one used in parenthesis
     result <- ans
+    arrow_idx <- which(result == "<-")
     for (elem in roll) {
-      idx <- which(result == elem)[1]
+      idx <- which(result == elem)
+      idx <- idx[idx > arrow_idx][1]
       if (!is.na(idx)) {
         result <- result[-idx]
       }

@@ -245,3 +245,24 @@ testthat::describe("get_code with subassignments", {
     testthat::expect_equal(get_code(td, names = "vec"), code_source)
   })
 })
+
+
+describe("get_code with subsetting", {
+  it("same object", {
+    data <- within(qenv(), {
+      mtcars <- mtcars
+      mtcars <- mtcars[mtcars$cyl == 4, ]
+    })
+    code_source <- "mtcars <- mtcars\nmtcars <- mtcars[mtcars$cyl == 4, ]"
+    testthat::expect_equal(get_code(data, names = "mtcars"), code_source)
+  })
+  it("same object", {
+    data <- within(qenv(), {
+      x <- c(TRUE, FALSE, TRUE)
+      x <- x[x]
+    })
+    code_source <- "x <- c(TRUE, FALSE, TRUE)\nx <- x[x]"
+    testthat::expect_equal(get_code(data, names = "x"), code_source)
+  })
+
+})
