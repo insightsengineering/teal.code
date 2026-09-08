@@ -256,6 +256,20 @@ describe("get_code with subsetting", {
     code_source <- "mtcars <- mtcars\nmtcars <- mtcars[mtcars$cyl == 4, ]"
     testthat::expect_equal(get_code(data, names = "mtcars"), code_source)
   })
+
+  it("same object with composed logic", {
+    data <- within(qenv(), {
+      mtcars <- datasets::mtcars
+      aa <- seq_len(nrow(mtcars))
+      mtcars <- mtcars$mpg > 15 & aa[mtcars$mpg & mtcars$cyl]
+    })
+    code_source <- paste0(
+      "mtcars <- datasets::mtcars\naa <- seq_len(nrow(mtcars))\n",
+      "mtcars <- mtcars$mpg > 15 & aa[mtcars$mpg & mtcars$cyl]"
+    )
+    expect_equal(get_code(data, names = "mtcars"), code_source)
+  })
+
   it("same object", {
     data <- within(qenv(), {
       x <- c(TRUE, FALSE, TRUE)
