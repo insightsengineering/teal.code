@@ -628,7 +628,7 @@ normalize_pd <- function(pd) {
 #' @keywords internal
 #' @noRd
 get_call_breaks <- function(code) {
-  parsed_code <- parse(text = code, keep.source = TRUE, encoding = "UTF-8")
+  parsed_code <- reparse_expr(code)
   pd <- utils::getParseData(parsed_code)
   pd <- normalize_pd(pd)
   pd <- pd[pd$token != "';'", ]
