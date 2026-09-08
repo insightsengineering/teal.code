@@ -1,6 +1,3 @@
-# styler: off
-# nolint start
-
 # code acceptance ----
 test_that("simple and compound expressions are evaluated", {
   q <- qenv()
@@ -28,7 +25,7 @@ test_that("multiline expressions are evaluated", {
 test_that("styling of input code does not impact evaluation results", {
   q <- qenv()
   q <- within(q, 1 + 1)
-  q <- within(q, {1 + 1})
+  q <- within(q, {1 + 1}) # nolint: brace_linter. # styler: off
   q <- within(q, {
     1 + 1
   })
@@ -43,16 +40,16 @@ test_that("styling of input code does not impact evaluation results", {
   )
 
   q <- qenv()
-  q <- within(q, {1 + 1; 2 + 2})
+  q <- within(q, {1 + 1; 2 + 2}) # nolint: brace_linter, semicolon_linter. # styler: off
   q <- within(q, {
-    1 + 1; 2 + 2
+    1 + 1; 2 + 2 # nolint: semicolon_linter. # styler: off
   })
   q <- within(q, {
     1 + 1
     2 + 2
   })
   q <- within(q, {
-    1 + 1;
+    1 + 1; # nolint: semicolon_linter. # styler: off
     2 + 2
   })
   all_code <- get_code(q)
@@ -95,10 +92,12 @@ test_that("external values can be injected into expressions through `...`", {
   q <- qenv()
 
   external_value <- "virginica"
+  # styler: off
   q <- within(q, {
     i <- subset(iris, Species == species)
   },
   species = external_value)
+  # styler: on
 
   expect_identical(get_code(q), "i <- subset(iris, Species == \"virginica\")")
 })
@@ -112,16 +111,16 @@ test_that("external values are not taken from calling frame", {
   expect_s3_class(qq, "qenv.error")
   expect_error(get_code(qq), "object 'species' not found")
 
+  # styler: off
   qq <- within(q, {
     i <- subset(iris, Species == species)
   },
   species = species)
+  # styler: on
+
   expect_s4_class(qq, "qenv")
   expect_identical(get_code(qq), "i <- subset(iris, Species == \"setosa\")")
 })
-
-# nolint end
-# styler: on
 
 test_that("within run on qenv.error returns the qenv.error as is", {
   q <- qenv()
@@ -136,15 +135,15 @@ describe("within run with `=`", {
   it("single expression", {
     q <- qenv()
     q <- within(q, {
-      i = 1 # nolintr: assigment. styler: off.
+      i = 1 # nolintr: assigment. # styler: off.
     })
   })
 
   it("multiple '=' expressions", {
     q <- qenv()
     q <- within(q, {
-      j = 2 # nolintr: assigment. styler: off.
-      i = 1 # nolintr: assigment. styler: off.
+      j = 2 # nolintr: assigment. # styler: off.
+      i = 1 # nolintr: assigment. # styler: off.
     })
     expect_equal(q$i, 1)
   })
