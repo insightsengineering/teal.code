@@ -210,25 +210,75 @@ sub_arrows <- function(call) {
 #'
 #' @keywords internal
 #' @noRd
-extract_occurrence <- function(pd) {
-  is_in_function <- function(x) {
-    # If an object is a function parameter,
-    # then in calls_pd there is a `SYMBOL_FORMALS` entry for that object.
-    function_id <- x[x$token == "FUNCTION", "parent"]
-    if (length(function_id)) {
-      x$id %in% get_children(x, function_id[1])$id
-    } else {
-      rep(FALSE, nrow(x))
-    }
+#' @keywords internal
+#' @noRd
+is_in_function <- function(x) {
+  # If an object is a function parameter,
+  # then in calls_pd there is a `SYMBOL_FORMALS` entry for that object.
+  function_id <- x[x$token == "FUNCTION", "parent"]
+  if (length(function_id)) {
+    x$id %in% get_children(x, function_id[1])$id
+  } else {
+    rep(FALSE, nrow(x))
   }
-  in_parenthesis <- function(x) {
-    if (any(x$token %in% c("LBB", "'['"))) {
-      id_start <- min(x$id[x$token %in% c("LBB", "'['")])
-      id_end <- min(x$id[x$token == "']'"])
-      x$text[x$token == "SYMBOL" & x$id > id_start & x$id < id_end]
-    }
-  }
+}
 
+#' @keywords internal
+#' @noRd
+in_parenthesis <- function(x) {
+  if (any(x$token %in% c("LBB", "'['"))) {
+    id_start <- min(x$id[x$token %in% c("LBB", "'['")])
+    id_end <- min(x$id[x$token == "']'"])
+    x$text[x$token == "SYMBOL" & x$id > id_start & x$id < id_end]
+  }
+}
+
+#' Handle `assign(x = )` calls independently.
+#'
+#' @param pd `data.frame` parsed code.
+#' @param assign_call position of the `assign` call in `pd`, as returned by [find_call()].
+#'
+#' @return A character vector with the dependency graph, or `NULL` if `assign_call` is not found.
+#' @keywords internal
+#' @noRd
+extract_assign_call <- function(pd, assign_call) {
+  if (!assign_call) {
+    return(NULL)
+  }
+  # Check if parameters were named.
+  # "','" is for unnamed parameters, where "SYMBOL_SUB" is for named.
+  # "EQ_SUB" is for `=` appearing after the name of the named parameter.
+  if (any(pd$token == "SYMBOL_SUB")) {
+    params <- pd[pd$token %in% c("SYMBOL_SUB", "','", "EQ_SUB"), "text"]
+    # Remove sequence of "=", ",".
+    if (length(params > 1)) {
+      remove <- integer(0)
+      for (i in 2:length(params)) {
+        if (params[i - 1] == "=" && params[i] == ",") {
+          remove <- c(remove, i - 1, i)
+        }
+      }
+      if (length(remove)) params <- params[-remove]
+    }
+    pos <- match("x", setdiff(params, ","), nomatch = match(",", params, nomatch = 0))
+    if (!pos) {
+      return(character(0L))
+    }
+    # pos is indicator of the place of 'x'
+    # 1. All parameters are named, but none is 'x' - return(character(0L))
+    # 2. Some parameters are named, 'x' is in named parameters: match("x", setdiff(params, ","))
+    # - check "x" in params being just a vector of named parameters.
+    # 3. Some parameters are named, 'x' is not in named parameters
+    # - check first appearance of "," (unnamed parameter) in vector parameters.
+  } else {
+    # Object is the first entry after 'assign'.
+    pos <- 1
+  }
+  sym <- pd[assign_call + pos, "text"]
+  c(gsub("^['\"]|['\"]$", "", sym), "<-")
+}
+
+extract_occurrence <- function(pd) {
   # Handle data(object)/data("object")/data(object, envir = ) independently.
   data_call <- find_call(pd, "data")
   if (data_call) {
@@ -237,38 +287,9 @@ extract_occurrence <- function(pd) {
   }
   # Handle assign(x = ).
   assign_call <- find_call(pd, "assign")
-  if (assign_call) {
-    # Check if parameters were named.
-    # "','" is for unnamed parameters, where "SYMBOL_SUB" is for named.
-    # "EQ_SUB" is for `=` appearing after the name of the named parameter.
-    if (any(pd$token == "SYMBOL_SUB")) {
-      params <- pd[pd$token %in% c("SYMBOL_SUB", "','", "EQ_SUB"), "text"]
-      # Remove sequence of "=", ",".
-      if (length(params > 1)) {
-        remove <- integer(0)
-        for (i in 2:length(params)) {
-          if (params[i - 1] == "=" && params[i] == ",") {
-            remove <- c(remove, i - 1, i)
-          }
-        }
-        if (length(remove)) params <- params[-remove]
-      }
-      pos <- match("x", setdiff(params, ","), nomatch = match(",", params, nomatch = 0))
-      if (!pos) {
-        return(character(0L))
-      }
-      # pos is indicator of the place of 'x'
-      # 1. All parameters are named, but none is 'x' - return(character(0L))
-      # 2. Some parameters are named, 'x' is in named parameters: match("x", setdiff(params, ","))
-      # - check "x" in params being just a vector of named parameters.
-      # 3. Some parameters are named, 'x' is not in named parameters
-      # - check first appearance of "," (unnamed parameter) in vector parameters.
-    } else {
-      # Object is the first entry after 'assign'.
-      pos <- 1
-    }
-    sym <- pd[assign_call + pos, "text"]
-    return(c(gsub("^['\"]|['\"]$", "", sym), "<-"))
+  assign_ans <- extract_assign_call(pd, assign_call)
+  if (!is.null(assign_ans)) {
+    return(assign_ans)
   }
 
   # What occurs in a function body is not tracked.
@@ -337,10 +358,7 @@ extract_occurrence <- function(pd) {
 #' @noRd
 move_functions_after_arrow <- function(ans, functions) {
   arrow_pos <- which(ans == "<-")
-  if (length(arrow_pos) == 0) {
-    return(ans)
-  }
-  if (length(functions) == 0) {
+  if (length(arrow_pos) == 0 || length(functions) == 0) {
     return(ans)
   }
   ans_pre <- ans[1:arrow_pos]
@@ -382,12 +400,111 @@ extract_side_effects <- function(pd) {
   unlist(strsplit(sub("\\s*#.*@linksto\\s+", "", linksto), "\\s+"))
 }
 
+#' Re-parse an expression (or list of expressions) as a new parsed object.
+#'
+#' @param expr An expression, or `call` to `{`, to (re-)parse.
+#'
+#' @return Result of `parse()`, with source references kept.
+#' @keywords internal
+#' @noRd
+reparse_expr <- function(expr) {
+  parse(text = as.expression(expr), keep.source = TRUE, encoding = "UTF-8")
+}
+
+#' Reorder the parse data of a parsed expression.
+#'
+#' @param parsed_code results of `parse(text = code, keep.source = TRUE)`.
+#'
+#' @return Result of [extract_calls()] on the normalized parse data.
+#' @keywords internal
+#' @noRd
+get_reordered_pd <- function(parsed_code) {
+  extract_calls(normalize_pd(utils::getParseData(parsed_code)))
+}
+
+#' Split a parsed expression into a list of individually parsed expressions.
+#'
+#' Any `{ ... }` blocks nested in the top-level expression are flattened out
+#' so that every element of the returned list is a single, non-block expression.
+#'
+#' @param parsed_code results of `parse(text = code, keep.source = TRUE)`.
+#'
+#' @return A `list` of parsed expressions.
+#' @keywords internal
+#' @noRd
+split_into_expressions <- function(parsed_code) {
+  expr_ix <- lapply(parsed_code[[1]], class) == "{"
+
+  queue <- list()
+  parsed_code_list <- if (all(!expr_ix)) {
+    list(parsed_code)
+  } else {
+    queue <- as.list(parsed_code[[1]][expr_ix])
+    new_list <- parsed_code[[1]]
+    new_list[expr_ix] <- NULL
+    list(reparse_expr(new_list))
+  }
+
+  while (length(queue) > 0) {
+    current <- queue[[1]]
+    queue <- queue[-1]
+    if (identical(current[[1L]], as.name("{"))) {
+      queue <- append(queue, as.list(current)[-1L])
+    } else {
+      parsed_code_list[[length(parsed_code_list) + 1]] <- reparse_expr(current)
+    }
+  }
+
+  parsed_code_list
+}
+
+#' Extract the dependency graph occurrence of a single parsed expression.
+#'
+#' @param parsed_code results of `parse(text = code, keep.source = TRUE)`.
+#'
+#' @return A character vector, as returned by [extract_occurrence()], or `NULL`.
+#' @keywords internal
+#' @noRd
+extract_expression_occurrence <- function(parsed_code) {
+  # extract_calls is needed to reorder the pd so that assignment operator comes before symbol names
+  # extract_calls is needed also to substitute assignment operators into specific format with fix_arrows
+  # extract_calls is needed to omit empty calls that contain only one token `"';'"`
+  # This cleaning is needed as extract_occurrence assumes arrows are fixed, and order is different
+  # than in original pd
+  reordered_pd <- get_reordered_pd(parsed_code)
+  if (length(reordered_pd) > 0) {
+    extract_occurrence(reordered_pd[[1]])
+  }
+}
+
+#' Accumulate one expression occurrence into the `left_side`/`right_side` dependency graph.
+#'
+#' Splits `v` on its first `"<-"` (if any): everything before it is appended to
+#' `u$left_side`, everything after it to `u$right_side`. Meant to be used as the
+#' combining function of a `Reduce()` call that folds a list of occurrences
+#' (as returned by [extract_expression_occurrence()]) into a single accumulator.
+#'
+#' @param u `list` accumulator with `left_side` and `right_side` character vectors.
+#' @param v `character` occurrence of a single expression, as returned by [extract_expression_occurrence()].
+#'
+#' @return The updated `u` accumulator.
+#' @keywords internal
+#' @noRd
+accumulate_occurrence <- function(u, v) {
+  ix <- if ("<-" %in% v) min(which(v == "<-")) else 0
+  u$left_side <- c(u$left_side, v[seq_len(max(0, ix - 1))])
+  u$right_side <- c(
+    u$right_side,
+    if (ix == length(v)) character(0L) else v[seq(ix + 1, max(ix + 1, length(v)))]
+  )
+  u
+}
+
 #' @param parsed_code results of `parse(text = code, keep.source = TRUE` (parsed text)
 #' @keywords internal
 #' @noRd
 extract_dependency <- function(parsed_code) {
-  full_pd <- normalize_pd(utils::getParseData(parsed_code))
-  reordered_full_pd <- extract_calls(full_pd)
+  reordered_full_pd <- get_reordered_pd(parsed_code)
 
   # Early return on empty code
   if (length(reordered_full_pd) == 0L) {
@@ -397,57 +514,11 @@ extract_dependency <- function(parsed_code) {
   if (length(parsed_code) == 0L) {
     return(extract_side_effects(reordered_full_pd[[1]]))
   }
-  expr_ix <- lapply(parsed_code[[1]], class) == "{"
 
-  # Build queue of expressions to parse individually
-  queue <- list()
-  parsed_code_list <- if (all(!expr_ix)) {
-    list(parsed_code)
-  } else {
-    queue <- as.list(parsed_code[[1]][expr_ix])
-    new_list <- parsed_code[[1]]
-    new_list[expr_ix] <- NULL
-    list(parse(text = as.expression(new_list), keep.source = TRUE, encoding = "UTF-8"))
-  }
-
-  while (length(queue) > 0) {
-    current <- queue[[1]]
-    queue <- queue[-1]
-    if (identical(current[[1L]], as.name("{"))) {
-      queue <- append(queue, as.list(current)[-1L])
-    } else {
-      parsed_code <- parse(text = as.expression(current), keep.source = TRUE, encoding = "UTF-8")
-      parsed_code_list[[length(parsed_code_list) + 1]] <- parsed_code
-    }
-  }
-
-  parsed_occurences <- lapply(
-    parsed_code_list,
-    function(parsed_code) {
-      pd <- normalize_pd(utils::getParseData(parsed_code))
-      reordered_pd <- extract_calls(pd)
-      if (length(reordered_pd) > 0) {
-        # extract_calls is needed to reorder the pd so that assignment operator comes before symbol names
-        # extract_calls is needed also to substitute assignment operators into specific format with fix_arrows
-        # extract_calls is needed to omit empty calls that contain only one token `"';'"`
-        # This cleaning is needed as extract_occurrence assumes arrows are fixed, and order is different
-        # than in original pd
-        extract_occurrence(reordered_pd[[1]])
-      }
-    }
-  )
-
-  # Merge results together
+  parsed_code_list <- split_into_expressions(parsed_code)
+  parsed_occurences <- lapply(parsed_code_list, extract_expression_occurrence)
   result <- Reduce(
-    function(u, v) {
-      ix <- if ("<-" %in% v) min(which(v == "<-")) else 0
-      u$left_side <- c(u$left_side, v[seq_len(max(0, ix - 1))])
-      u$right_side <- c(
-        u$right_side,
-        if (ix == length(v)) character(0L) else v[seq(ix + 1, max(ix + 1, length(v)))]
-      )
-      u
-    },
+    accumulate_occurrence,
     init = list(left_side = character(0L), right_side = character(0L)),
     x = parsed_occurences
   )
@@ -557,7 +628,7 @@ normalize_pd <- function(pd) {
 #' @keywords internal
 #' @noRd
 get_call_breaks <- function(code) {
-  parsed_code <- parse(text = code, keep.source = TRUE, encoding = "UTF-8")
+  parsed_code <- reparse_expr(code)
   pd <- utils::getParseData(parsed_code)
   pd <- normalize_pd(pd)
   pd <- pd[pd$token != "';'", ]
