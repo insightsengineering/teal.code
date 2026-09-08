@@ -15,6 +15,6 @@ opts_partial_match_new <- list(
 if (isFALSE(getFromNamespace("on_cran", "testthat")()) && requireNamespace("withr", quietly = TRUE)) {
   withr::local_options(
     opts_partial_match_new,
-    .local_envir = testthat::teardown_env()
+    .local_envir = teardown_env()
   )
 }
