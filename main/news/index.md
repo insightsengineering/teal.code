@@ -1,6 +1,11 @@
 # Changelog
 
-## teal.code 0.7.2.9000
+## teal.code 0.7.2.9001
+
+#### Bug fixes
+
+- Fixed a problem parsing expression referring to the same object
+  ([\#293](https://github.com/insightsengineering/teal.code/issues/293))
 
 ## teal.code 0.7.2
 

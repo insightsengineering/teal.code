@@ -56,19 +56,11 @@ execution environment associated with it. The features include:
 
 ## Installation
 
-``` r
-
-# stable versions
-install.packages('teal.code')
-```
+`# stable versions`` `[`install.packages`](https://rdrr.io/r/utils/install.packages.html)`(``'teal.code'``)`
 
 Alternatively, you might want to use the development version.
 
-``` r
-
-# install.packages("pak")
-pak::pak("insightsengineering/teal.code")
-```
+`# install.packages("pak")`` ``pak``::`[`pak`](https://pak.r-lib.org/reference/pak.html)`(``"insightsengineering/teal.code"``)`
 
 ## Usage
 
@@ -78,51 +70,13 @@ article, which provides multiple examples of code implementation.
 
 Below is the showcase of the example usage
 
-``` r
+[`library`](https://rdrr.io/r/base/library.html)`(`[`teal.code`](https://insightsengineering.github.io/teal.code/)`)`` ``my_qenv`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(`[`qenv`](https://insightsengineering.github.io/teal.code/reference/qenv.md)`(``)``, ``"x <- 5"``)`` ``my_qenv`` ``#> <environment: 0x00000225cc85c7a0> [L]`` ``#> Parent: <environment: package:teal.code>`` ``#> Bindings:`` ``#> • x: <dbl> [L]`` `[`as.environment`](https://rdrr.io/r/base/as.environment.html)`(``my_qenv``)`` ``#> <environment: 0x00000225cc85c7a0>`` `[`names`](https://rdrr.io/r/base/names.html)`(``my_qenv``)`` ``#> [1] "x"`
 
-library(teal.code)
-my_qenv <- eval_code(qenv(), "x <- 5")
-my_qenv
-#> <environment: 0x00000225cc85c7a0> [L]
-#> Parent: <environment: package:teal.code>
-#> Bindings:
-#> • x: <dbl> [L]
-as.environment(my_qenv)
-#> <environment: 0x00000225cc85c7a0>
-names(my_qenv)
-#> [1] "x"
-```
+`qenv_2`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(``my_qenv``, ``"y <- x * 2"``)`` ``qenv_2`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(``qenv_2``, ``"z <- y * 2"``)`` ``qenv_2`` ``#> <environment: 0x00000225ca866d68> [L]`` ``#> Parent: <environment: package:teal.code>`` ``#> Bindings:`` ``#> • x: <dbl> [L]`` ``#> • y: <dbl> [L]`` ``#> • z: <dbl> [L]`` `[`environment`](https://rdrr.io/r/base/environment.html)`(``qenv_2``)`` ``#> <environment: 0x00000225ca866d68>`` `[`names`](https://rdrr.io/r/base/names.html)`(``qenv_2``)`` ``#> [1] "x" "y" "z"`
 
-``` r
+`qenv_2``[[``"y"``]``]`` ``#> [1] 10`
 
-qenv_2 <- eval_code(my_qenv, "y <- x * 2")
-qenv_2 <- eval_code(qenv_2, "z <- y * 2")
-qenv_2
-#> <environment: 0x00000225ca866d68> [L]
-#> Parent: <environment: package:teal.code>
-#> Bindings:
-#> • x: <dbl> [L]
-#> • y: <dbl> [L]
-#> • z: <dbl> [L]
-environment(qenv_2)
-#> <environment: 0x00000225ca866d68>
-names(qenv_2)
-#> [1] "x" "y" "z"
-```
-
-``` r
-
-qenv_2[["y"]]
-#> [1] 10
-```
-
-``` r
-
-cat(get_code(qenv_2))
-#> x <- 5
-#> y <- x * 2
-#> z <- y * 2
-```
+[`cat`](https://rdrr.io/r/base/cat.html)`(`[`get_code`](https://insightsengineering.github.io/teal.code/reference/get_code.md)`(``qenv_2``)``)`` ``#> x <- 5`` ``#> y <- x * 2`` ``#> z <- y * 2`
 
 ## Getting help
 
