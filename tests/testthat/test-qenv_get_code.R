@@ -1,4 +1,4 @@
-pasten <<- function(...) paste(..., collapse = "\n")
+pasten <- function(...) paste(..., collapse = "\n")
 
 test_that("get_code returns character of length 0 if no code", {
   expect_identical(get_code(qenv()), "")
