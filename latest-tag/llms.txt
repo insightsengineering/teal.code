@@ -95,7 +95,7 @@ names(my_qenv)
 
 ``` r
 
-qenv_2 <- eval_code(my_qenv, "y <- x * 2") 
+qenv_2 <- eval_code(my_qenv, "y <- x * 2")
 qenv_2 <- eval_code(qenv_2, "z <- y * 2")
 qenv_2
 #> <environment: 0x00000225ca866d68> [L]
@@ -129,23 +129,6 @@ cat(get_code(qenv_2))
 If you encounter a bug or have a feature request, please file an issue.
 For questions, discussions, and updates, use the `teal` channel in the
 [`pharmaverse` slack workspace](https://pharmaverse.slack.com).
-
-## Stargazers and Forkers
-
-### Stargazers over time
-
-[![Stargazers over
-time](https://starchart.cc/insightsengineering/teal.code.svg)](https://starchart.cc/insightsengineering/teal.code)
-
-### Stargazers
-
-[![Stargazers repo roster for
-@insightsengineering/teal.code](http://reporoster.com/stars/insightsengineering/teal.code)](https://github.com/insightsengineering/teal.code/stargazers)
-
-### Forkers
-
-[![Forkers repo roster for
-@insightsengineering/teal.code](http://reporoster.com/forks/insightsengineering/teal.code)](https://github.com/insightsengineering/teal.code/network/members)
 
 # Package index
 
