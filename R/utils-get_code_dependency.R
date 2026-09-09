@@ -304,22 +304,7 @@ extract_occurrence <- function(pd) {
   after <- match(min(x$id[assign_cond]), sort(x$id[c(min(assign_cond), sym_cond)])) - 1
   ans <- append(x[sym_cond, "text"], "<-", after = max(1, after))
   ans <- move_functions_after_arrow(ans, unique(x[sym_fc_cond, "text"]))
-  roll <- in_parenthesis(pd)
-  if (length(roll)) {
-    # detect elements appeared in parenthesis and move them on RHS
-    # but only their first appearance
-    # as the same object can appear as regular object and the one used in parenthesis
-    result <- ans
-    for (elem in roll) {
-      idx <- which(result == elem)[1]
-      if (!is.na(idx)) {
-        result <- result[-idx]
-      }
-    }
-    c(result, roll)
-  } else {
-    ans
-  }
+  c(ans, unique(in_parenthesis(pd)))
 }
 
 #' Moves function names to the right side of dependency graph
