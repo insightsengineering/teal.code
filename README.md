@@ -7,22 +7,22 @@
 [![Last Month Downloads](http://cranlogs.r-pkg.org/badges/last-month/teal.code?color=green)](https://cran.r-project.org/package=teal.code)
 [![Last Week Downloads](http://cranlogs.r-pkg.org/badges/last-week/teal.code?color=green)](https://cran.r-project.org/package=teal.code)
 
-[![Check 🛠](https://github.com/insightsengineering/teal.code/actions/workflows/check.yaml/badge.svg)](https://insightsengineering.github.io/teal.code/main/unit-test-report/)
-[![Docs 📚](https://github.com/insightsengineering/teal.code/actions/workflows/docs.yaml/badge.svg)](https://insightsengineering.github.io/teal.code/)
-[![Code Coverage 📔](https://raw.githubusercontent.com/insightsengineering/teal.code/_xml_coverage_reports/data/main/badge.svg)](https://insightsengineering.github.io/teal.code/main/coverage-report/)
+[![Check 🛠](https://github.com/pharmaverse/teal.code/actions/workflows/check.yaml/badge.svg)](https://pharmaverse.github.io/teal.code/main/unit-test-report/)
+[![Docs 📚](https://github.com/pharmaverse/teal.code/actions/workflows/docs.yaml/badge.svg)](https://pharmaverse.github.io/teal.code/)
+[![Code Coverage 📔](https://raw.githubusercontent.com/pharmaverse/teal.code/_xml_coverage_reports/data/main/badge.svg)](https://pharmaverse.github.io/teal.code/main/coverage-report/)
 
-![GitHub forks](https://img.shields.io/github/forks/insightsengineering/teal.code?style=social)
-![GitHub repo stars](https://img.shields.io/github/stars/insightsengineering/teal.code?style=social)
+![GitHub forks](https://img.shields.io/github/forks/pharmaverse/teal.code?style=social)
+![GitHub repo stars](https://img.shields.io/github/stars/pharmaverse/teal.code?style=social)
 
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/insightsengineering/teal.code)
-![GitHub contributors](https://img.shields.io/github/contributors/insightsengineering/teal.code)
-![GitHub last commit](https://img.shields.io/github/last-commit/insightsengineering/teal.code)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/insightsengineering/teal.code)
-![GitHub repo size](https://img.shields.io/github/repo-size/insightsengineering/teal.code)
-![GitHub language count](https://img.shields.io/github/languages/count/insightsengineering/teal.code)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/pharmaverse/teal.code)
+![GitHub contributors](https://img.shields.io/github/contributors/pharmaverse/teal.code)
+![GitHub last commit](https://img.shields.io/github/last-commit/pharmaverse/teal.code)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/pharmaverse/teal.code)
+![GitHub repo size](https://img.shields.io/github/repo-size/pharmaverse/teal.code)
+![GitHub language count](https://img.shields.io/github/languages/count/pharmaverse/teal.code)
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![Current Version](https://img.shields.io/github/r-package/v/insightsengineering/teal.code/main?color=purple\&label=package%20version)](https://github.com/insightsengineering/teal.code/tree/main)
-[![Open Issues](https://img.shields.io/github/issues-raw/insightsengineering/teal.code?color=red\&label=open%20issues)](https://github.com/insightsengineering/teal.code/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)
+[![Current Version](https://img.shields.io/github/r-package/v/pharmaverse/teal.code/main?color=purple\&label=package%20version)](https://github.com/pharmaverse/teal.code/tree/main)
+[![Open Issues](https://img.shields.io/github/issues-raw/pharmaverse/teal.code?color=red\&label=open%20issues)](https://github.com/pharmaverse/teal.code/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)
 <!-- end badges -->
 
 ## Overview
@@ -45,12 +45,12 @@ Alternatively, you might want to use the development version.
 
 ```r
 # install.packages("pak")
-pak::pak("insightsengineering/teal.code")
+pak::pak("pharmaverse/teal.code")
 ```
 
 ## Usage
 
-To understand how to use this package, please refer to the [Getting Started](https://insightsengineering.github.io/teal.code/latest-tag/articles/teal-code.html) article, which provides multiple examples of code implementation.
+To understand how to use this package, please refer to the [Getting Started](https://pharmaverse.github.io/teal.code/latest-tag/articles/teal-code.html) article, which provides multiple examples of code implementation.
 
 Below is the showcase of the example usage
 

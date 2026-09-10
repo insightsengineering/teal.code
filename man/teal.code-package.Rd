@@ -13,9 +13,9 @@ module which returns code to reproduce application outputs.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://insightsengineering.github.io/teal.code/}
-  \item \url{https://github.com/insightsengineering/teal.code}
-  \item Report bugs at \url{https://github.com/insightsengineering/teal.code/issues}
+  \item \url{https://pharmaverse.github.io/teal.code/}
+  \item \url{https://github.com/pharmaverse/teal.code}
+  \item Report bugs at \url{https://github.com/pharmaverse/teal.code/issues}
 }
 
 }
