@@ -1,0 +1,18 @@
+---
+title: "teal.code R Package Development Guide"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<!-- The following chunk will append the shared information for teal framework -->
+
+```{r teal_content, echo=FALSE, results='asis'}
+common_claude_url <- "https://raw.githubusercontent.com/insightsengineering/teal/main/AGENTS.md"
+common_claude_path <- tempfile()
+download.file(url = common_claude_url, destfile = common_claude_path, quiet = TRUE)
+common_claude_shared <- readLines(common_claude_path)
+cat(common_claude_shared, sep = "\n")
+```
