@@ -47,9 +47,9 @@ common_claude_shared <- readLines(common_claude_path)
 # remove CI gitlab content and github section comments
 gitlab_starts <- grep("gitlab starts here", common_claude_shared)
 gitlab_ends <- grep("gitlab ends here", common_claude_shared)
-common_claude_shared <- common_claude_shared[-1*seq(gitlab_starts, gitlab_ends)]
+common_claude_shared <- common_claude_shared[-1 * seq(gitlab_starts, gitlab_ends)]
 github_starts <- grep("github starts here", common_claude_shared)
 github_ends <- grep("github ends here", common_claude_shared)
-common_claude_shared <- common_claude_shared[-1*c(github_starts, github_ends)]
+common_claude_shared <- common_claude_shared[-1 * c(github_starts, github_ends)]
 cat(common_claude_shared, sep = "\n")
 ```
