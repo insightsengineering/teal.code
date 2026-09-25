@@ -1,7 +1,7 @@
 ---
-title: "teal.code R Package Development Guide"
 output: github_document
 ---
+# teal.code R Package Development Guide
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)

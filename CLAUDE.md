@@ -1,5 +1,5 @@
-teal.code R Package Development Guide
-================
+
+# teal.code R Package Development Guide
 
 ## Package Overview
 
