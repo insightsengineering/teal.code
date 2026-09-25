@@ -38,6 +38,8 @@ For an introduction to `qenv` and its related functions and methods, see @vignet
     exists. If the expected behavior is unclear, request that an issue be created before making changes that could have
     unexpected consequences.
 
+This package is part of the teal framework. The following configuration applies to all packages within the teal framework:
+
 ```{r teal_content, echo=FALSE, results='asis'}
 # Append common shared instructions from teal framework
 common_claude_url <- "https://raw.githubusercontent.com/insightsengineering/teal/refs/heads/add_common_claude%40main/SHARED_CLAUDE.md" # nolint: line_length_linter.
