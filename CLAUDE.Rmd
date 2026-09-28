@@ -29,7 +29,7 @@ For an introduction to `qenv` and its related functions and methods, see @vignet
 
 - When creating a `qenv`, favor readability over concise code.
 - For simple `qenv` objects, favor `within()`, as it supports more readable code.
-- When creating a `qenv` that uses functions with side effects, such as `runif()`, always use `eval_code()`.
+- When creating a `qenv` that uses functions with side effects, such as `runif()`, `library` or `options` always use `eval_code()`. Use the appropriate comment to link side effects to objects
 - For a complex `qenv`, consider dividing the work into smaller `qenv` objects that encapsulate distinct logical steps.
 - For a long or complex `qenv`, choose between `eval_code()` and `within()` based on:
         - the number of external variables added to the `qenv`; a larger number favors `eval_code()`;
