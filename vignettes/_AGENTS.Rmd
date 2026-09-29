@@ -7,6 +7,20 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r render, eval=FALSE, include=FALSE}
+rmd_path <- "vignettes/_AGENTS.Rmd"
+
+rmarkdown::render(
+  input = rmd_path,
+  output_format = "github_document",
+  output_file = "AGENTS.md",
+  output_dir = ".",
+  quiet = TRUE
+)
+
+file.remove("AGENTS.html")
+```
+
 ## Package Overview
 
 `teal.code` is an R package for storing code and its execution environment in objects called `qenv`.
@@ -32,26 +46,23 @@ For an introduction to `qenv` and its related functions and methods, see @vignet
 - When creating a `qenv` that uses functions with side effects, such as `runif()`, `library` or `options` always use `eval_code()`. Use the appropriate comment to link side effects to objects
 - For a complex `qenv`, consider dividing the work into smaller `qenv` objects that encapsulate distinct logical steps.
 - For a long or complex `qenv`, choose between `eval_code()` and `within()` based on:
-        - the number of external variables added to the `qenv`; a larger number favors `eval_code()`;
-        - how often the same external variable is used; greater repetition favors `within()`.
-- When fixing bugs or adding features, avoid changing the core principles of `qenv`. Check whether an issue already
-    exists. If the expected behavior is unclear, request that an issue be created before making changes that could have
-    unexpected consequences.
+    - the number of external variables added to the `qenv`; a larger number favors `eval_code()`;
+    - how often the same external variable is used; greater repetition favors `within()`.
+- When creating custom functions within a teal app server, it is better to do define them inside a qenv. If defined outside
+the function might fail.
+- When fixing bugs or adding features, avoid changing the core principles of `qenv`. Check whether an issue already exists. If the expected behavior is unclear, request that an issue be created before making changes that could have
+unexpected consequences.
 
 This package is part of the teal framework. The following configuration applies to all packages within the teal framework:
 
 ```{r teal_content, echo=FALSE, results='asis'}
 # Append common shared instructions from teal framework
-common_claude_url <- "https://raw.githubusercontent.com/insightsengineering/teal/refs/heads/add_common_claude%40main/SHARED_CLAUDE.md" # nolint: line_length_linter.
-common_claude_path <- tempfile()
-download.file(url = common_claude_url, destfile = common_claude_path, quiet = TRUE)
-common_claude_shared <- readLines(common_claude_path)
-# remove CI gitlab content and github section comments
-gitlab_starts <- grep("gitlab starts here", common_claude_shared)
-gitlab_ends <- grep("gitlab ends here", common_claude_shared)
-common_claude_shared <- common_claude_shared[-1 * seq(gitlab_starts, gitlab_ends)]
-github_starts <- grep("github starts here", common_claude_shared)
-github_ends <- grep("github ends here", common_claude_shared)
-common_claude_shared <- common_claude_shared[-1 * c(github_starts, github_ends)]
-cat(common_claude_shared, sep = "\n")
+common_agents_url <- "https://raw.githubusercontent.com/insightsengineering/teal/refs/heads/main/AGENTS.md" # nolint: line_length_linter.
+common_agents_path <- tempfile()
+download.file(url = common_agents_url, destfile = common_agents_path, quiet = TRUE)
+common_agents_shared <- readLines(common_agents_path)
+# remove a heading line only intented to aovid a markdown lint error
+line_to_avoid_lintr <- grep("^# ", common_agents_shared)
+common_agents_shared <- common_agents_shared[-1 * line_to_avoid_lintr]
+cat(common_agents_shared, sep = "\n")
 ```
