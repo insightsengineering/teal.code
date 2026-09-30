@@ -41,6 +41,8 @@ For an introduction to `qenv` and its related functions and methods, see @vignet
 - For simple `qenv` objects, favor `within()`, as it supports more readable code.
 - When creating a `qenv` that uses functions with side effects, such as `runif()`, `library` or `options` always use `eval_code()`. Use the appropriate comment to link side effects to objects
 - For a complex `qenv`, consider dividing the work into smaller `qenv` objects that encapsulate distinct logical steps.
+- In the line of the previous comment, `qenv` can be combined with method `c.qenv`. Be careful that they cannot have elements with
+the same name and about the combined order of code execution.
 - For a long or complex `qenv`, choose between `eval_code()` and `within()` based on:
     - the number of external variables added to the `qenv`; a larger number favors `eval_code()`;
     - how often the same external variable is used; greater repetition favors `within()`.
@@ -49,7 +51,17 @@ the function might fail.
 - When fixing bugs or adding features, avoid changing the core principles of `qenv`. Check whether an issue already exists. If the expected behavior is unclear, request that an issue be created before making changes that could have
 unexpected consequences.
 
-### Debugging and advanced operations
+### Debugging `qenv`
+
+When debugging teal apps, it is very common that the error happens within the execution of a `qenv`. It is important
+to know how to debug `qenv`.
+Firstly, by default when there is an error within a qenv its automatically handled, and a
+`qenv.error` class object will be returned. That will prevent the teal app to immediately crash and will display
+an useful error message to the user.
+Once identified a problematic `qenv`, the guidelines to debug it are:
+- As the `qenv` does not print messages and warnings to the R console, so explore them with functions `get_messages` and `get_warnings`.
+- Access individual elements of the `qenv` with `get_var[[qenv, "my_var"]]` to inspect internal values.
+- Use function `get_code` to extract specifically how an element is created. That will help in identifying errors.
 
 ```{r teal_content, echo=FALSE, results='asis'}
 # Append common shared instructions from teal framework

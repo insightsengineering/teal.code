@@ -39,6 +39,9 @@ For an introduction to `qenv` and its related functions and methods, see
   appropriate comment to link side effects to objects
 - For a complex `qenv`, consider dividing the work into smaller `qenv`
   objects that encapsulate distinct logical steps.
+- In the line of the previous comment, `qenv` can be combined with
+  method `c.qenv`. Be careful that they cannot have elements with the
+  same name and about the combined order of code execution.
 - For a long or complex `qenv`, choose between `eval_code()` and
   `within()` based on:
   - the number of external variables added to the `qenv`; a larger
@@ -53,7 +56,20 @@ For an introduction to `qenv` and its related functions and methods, see
   expected behavior is unclear, request that an issue be created before
   making changes that could have unexpected consequences.
 
-### 
+### Debugging `qenv`
+
+When debugging teal apps, it is very common that the error happens
+within the execution of a `qenv`. It is important to know how to debug
+`qenv`. Firstly, by default when there is an error within a qenv its
+automatically handled, and a `qenv.error` class object will be returned.
+That will prevent the teal app to immediately crash and will display an
+useful error message to the user. Once identified a problematic `qenv`,
+the guidelines to debug it are: - As the `qenv` does not print messages
+and warnings to the R console, so explore them with functions
+`get_messages` and `get_warnings`. - Access individual elements of the
+`qenv` with `get_var[[qenv, "my_var"]]` to inspect internal values. -
+Use function `get_code` to extract specifically how an element is
+created. That will help in identifying errors.
 
 This package is part of the teal framework. The following configuration
 applies to all packages within the teal framework.
