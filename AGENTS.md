@@ -19,7 +19,7 @@ execution environment. Related packages include:
 - `teal.data`: Stores all data objects, data relations and
   transformations of data used in teal applications, in an object called
   `teal_data`. The `teal_data` object inherits from the `qenv` and
-  therefore shares all properties about rcode reproducibility.
+  therefore shares all properties about code reproducibility.
 - `teal`: Provides the core architecture for teal Shiny applications.
   Teal modules should use `teal_data` objects to ensure that code
   changes are recorded and reproducible.
