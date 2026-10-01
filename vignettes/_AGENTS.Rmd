@@ -26,12 +26,16 @@ providing full control over the stored code and environment. These objects also 
 The teal framework uses Shiny to create reproducible environments for data analysis. Within this framework, `teal.code`
 manages code and its execution environment. Related packages include:
 
-- `teal.reporter`: Integrates reports with reproducible code in teal applications. Its reporter functions accept `qenv`
-objects as inputs.
-- `teal`: Provides the core architecture for teal Shiny applications. Teal modules should use `qenv` objects to ensure
-that code changes are recorded and reproducible.
-- `teal.data`: Stores all data objects, data relations and transformations of data used in teal applications. The `teal.data`
-object is based on the `qenv` and therefore used for code reproducibility.
+- `teal.data`: Stores all data objects, data relations and
+  transformations of data used in teal applications, in an object called
+  `teal_data`. The `teal_data` object inherits from the `qenv` and therefore 
+  shares all properties about rcode reproducibility.
+- `teal`: Provides the core architecture for teal Shiny applications.
+  Teal modules should use `teal_data` objects to ensure that code changes are
+  recorded and reproducible.
+- `teal.reporter`: Integrates reports with reproducible code in teal
+  applications. Its reporter functions accept `teal_data` objects as inputs and
+  extend this class.
 
 For an introduction to `qenv` and its related functions and methods, see @vignettes/qenv.Rmd.
 
@@ -53,15 +57,20 @@ unexpected consequences.
 
 ### Debugging `qenv`
 
-When debugging teal apps, it is very common that the error happens within the execution of a `qenv`. It is important
-to know how to debug `qenv`.
-Firstly, by default when there is an error within a qenv its automatically handled, and a
-`qenv.error` class object will be returned. That will prevent the teal app to immediately crash and will display
-an useful error message to the user.
-Once identified a problematic `qenv`, the guidelines to debug it are:
-- As the `qenv` does not print messages and warnings to the R console, so explore them with functions `get_messages` and `get_warnings`.
-- Access individual elements of the `qenv` with `get_var[[qenv, "my_var"]]` to inspect internal values.
-- Use function `get_code` to extract specifically how an element is created. That will help in identifying errors.
+Errors in teal applications commonly occur while a `qenv` is being evaluated. By default, `qenv` handles these errors
+and returns an object of class `qenv.error`. This prevents the teal application from crashing immediately and provides
+the user with a helpful error message.
+
+After identifying the problematic `qenv`, use the following steps to investigate it:
+
+- Use the `qenv.error` message to identify the line of code that triggered the error.
+- If that line alone does not explain the error, inspect the preceding code. If necessary, create a temporary version
+  of the `qenv` containing only the preceding calls, or modify the line that triggered the error.
+- Inspect values stored in the `qenv` using `qenv[["my_value"]]` to help identify the source of the error.
+- Because messages and warnings produced by a `qenv` are not printed to the R console, inspect them using
+  `get_messages()` and `get_warnings()`.
+- The same techniques for inspecting values, messages, and warnings can be used when a `qenv` produces incorrect
+  results without raising an error.
 
 ```{r teal_content, echo=FALSE, results='asis'}
 # Append common shared instructions from teal framework
