@@ -1,0 +1,1 @@
+The content is at @AGENTS.md
