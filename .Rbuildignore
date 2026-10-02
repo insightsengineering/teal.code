@@ -8,6 +8,8 @@ SECURITY.md
 ^Makefile$
 ^Meta$
 ^TODO\.md$
+AGENTS.md
+^vignettes/_AGENTS\.Rmd$
 ^[^/]+\.R$
 ^[^/]+\.Rmd$
 ^[^/]+\.html$
