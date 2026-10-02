@@ -21,7 +21,7 @@ knitr::opts_chunk$set(echo = TRUE)
 It supports reproducible code execution in teal Shiny applications. Developers can inspect and modify `qenv` objects,
 providing full control over the stored code and environment. These objects also capture warnings and errors automatically.
 
-## Development Context
+## Development Context  
 
 The teal framework uses Shiny to create reproducible environments for data analysis. Within this framework, `teal.code`
 manages code and its execution environment. Related packages include:
@@ -78,8 +78,20 @@ common_agents_url <- params$url
 common_agents_path <- tempfile()
 download.file(url = common_agents_url, destfile = common_agents_path, quiet = TRUE)
 common_agents_shared <- readLines(common_agents_path)
-# remove a heading line only intented to aovid a markdown lint error
-line_to_avoid_lintr <- grep("^# ", common_agents_shared)
-common_agents_shared <- common_agents_shared[-1 * line_to_avoid_lintr]
-cat(common_agents_shared, sep = "\n")
+# remove optional sections
+remove_sections <- c("<!-- (Begins|Ends) Module Section")
+Reduce(
+  function(x, y) {
+    delim <- grep(y, x)
+    if (length(delim) == 0) {
+      return(x)
+    } else if (length(delim) != 2) {
+      stop("Section delimiters are not balanced")
+    }
+    x[-1 * seq(from = delim[1], to = delim[2])]
+  },
+  remove_sections,
+  init = common_agents_shared
+) |> 
+  cat(sep = "\n")
 ```
