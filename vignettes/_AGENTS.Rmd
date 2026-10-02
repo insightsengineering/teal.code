@@ -92,6 +92,6 @@ Reduce(
   },
   remove_sections,
   init = common_agents_shared
-) |> 
+) |>
   cat(sep = "\n")
 ```
