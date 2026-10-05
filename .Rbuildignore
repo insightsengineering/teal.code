@@ -9,6 +9,7 @@ SECURITY.md
 ^Meta$
 ^TODO\.md$
 AGENTS.md
+CLAUDE.md
 ^vignettes/_AGENTS\.Rmd$
 ^[^/]+\.R$
 ^[^/]+\.Rmd$
