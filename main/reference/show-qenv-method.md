@@ -25,7 +25,7 @@ show(object)
 q <- qenv()
 q1 <- eval_code(q, expression(a <- 5, b <- data.frame(x = 1:10)))
 q1
-#> <environment: 0x564f3f747f98> 🔒 
+#> <environment: 0x55c826fa6d90> 🔒 
 #> Parent: <environment: package:checkmate> 
 #> Bindings:
 #> - a: [numeric]

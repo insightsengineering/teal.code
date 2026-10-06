@@ -22,9 +22,14 @@ The
 [`qenv()`](https://insightsengineering.github.io/teal.code/reference/qenv.md)
 function serves as the gateway to create an initial `qenv` object:
 
-[`library`](https://rdrr.io/r/base/library.html)`(`[`teal.code`](https://insightsengineering.github.io/teal.code/)`)`` `` ``# create a new qenv object`` ``empty_qenv`` ``<-`` `[`qenv`](https://insightsengineering.github.io/teal.code/reference/qenv.md)`(``)`` `[`print`](https://rdrr.io/r/base/print.html)`(``empty_qenv``)`
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`teal.code`](https://insightsengineering.github.io/teal.code/)`)`\
+\
+`# create a new qenv object`\
+`empty_qenv`` ``<-`` `[`qenv`](https://insightsengineering.github.io/teal.code/reference/qenv.md)`(``)`\
+[`print`](https://rdrr.io/r/base/print.html)`(``empty_qenv``)`
 
-    ## <environment: 0x55f5ef41f348> 🔒 
+    ## <environment: 0x55d55925a0d8> 🔒 
     ## Parent: <environment: package:teal.code>
 
 ### `qenv` basic usage
@@ -32,42 +37,58 @@ function serves as the gateway to create an initial `qenv` object:
 To modify the data use `eval_code` to execute R code within the
 environment, yielding a new `qenv` object as the output.
 
-`# evaluate code in qenv`` ``my_qenv`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(``empty_qenv``, ``"x <- 2"``)`` `[`print`](https://rdrr.io/r/base/print.html)`(``my_qenv``)`
+\
+`# evaluate code in qenv`\
+`my_qenv`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(``empty_qenv``, ``"x <- 2"``)`\
+[`print`](https://rdrr.io/r/base/print.html)`(``my_qenv``)`
 
-    ## <environment: 0x55f5f06a5328> 🔒 
+    ## <environment: 0x55d55a4e1e58> 🔒 
     ## Parent: <environment: package:teal.code> 
     ## Bindings:
     ## - x: [numeric]
 
-`q1`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(``my_qenv``, ``"y <- x * 2"``)`` ``q1`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(``q1``, ``"z <- y * 2"``)`` `` ``# my_qenv still contains only x`` `[`print`](https://rdrr.io/r/base/print.html)`(``my_qenv``)`
+\
+`q1`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(``my_qenv``, ``"y <- x * 2"``)`\
+`q1`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(``q1``, ``"z <- y * 2"``)`\
+\
+`# my_qenv still contains only x`\
+[`print`](https://rdrr.io/r/base/print.html)`(``my_qenv``)`
 
-    ## <environment: 0x55f5f06a5328> 🔒 
+    ## <environment: 0x55d55a4e1e58> 🔒 
     ## Parent: <environment: package:teal.code> 
     ## Bindings:
     ## - x: [numeric]
 
+\
 [`names`](https://rdrr.io/r/base/names.html)`(``my_qenv``)`
 
     ## [1] "x"
 
-`# q1 contains x, y and z`` `[`print`](https://rdrr.io/r/base/print.html)`(``q1``)`
+\
+`# q1 contains x, y and z`\
+[`print`](https://rdrr.io/r/base/print.html)`(``q1``)`
 
-    ## <environment: 0x55f5f14ef468> 🔒 
+    ## <environment: 0x55d55b32ad98> 🔒 
     ## Parent: <environment: package:teal.code> 
     ## Bindings:
     ## - x: [numeric]
     ## - y: [numeric]
     ## - z: [numeric]
 
+\
 [`names`](https://rdrr.io/r/base/names.html)`(``q1``)`
 
     ## [1] "x" "y" "z"
 
 The same result can be achieved with the `within` method.
 
-`q2`` ``<-`` `[`within`](https://insightsengineering.github.io/teal.code/reference/within.qenv.md)`(``my_qenv``, ``y`` ``<-`` ``x`` ``*`` ``2``)`` ``q2`` ``<-`` `[`within`](https://insightsengineering.github.io/teal.code/reference/within.qenv.md)`(``q2``, ``z`` ``<-`` ``y`` ``*`` ``2``)`` ``q2`` ``<-`` `[`within`](https://insightsengineering.github.io/teal.code/reference/within.qenv.md)`(``q2``, `[`plot`](https://rdrr.io/r/graphics/plot.default.html)`(``z``)``)`` `[`print`](https://rdrr.io/r/base/print.html)`(``q2``)`
+\
+`q2`` ``<-`` `[`within`](https://insightsengineering.github.io/teal.code/reference/within.qenv.md)`(``my_qenv``, ``y`` ``<-`` ``x`` ``*`` ``2``)`\
+`q2`` ``<-`` `[`within`](https://insightsengineering.github.io/teal.code/reference/within.qenv.md)`(``q2``, ``z`` ``<-`` ``y`` ``*`` ``2``)`\
+`q2`` ``<-`` `[`within`](https://insightsengineering.github.io/teal.code/reference/within.qenv.md)`(``q2``, `[`plot`](https://rdrr.io/r/graphics/plot.default.html)`(``z``)``)`\
+[`print`](https://rdrr.io/r/base/print.html)`(``q2``)`
 
-    ## <environment: 0x55f5f0831cb8> 🔒 
+    ## <environment: 0x55d55a6699b0> 🔒 
     ## Parent: <environment: package:teal.code> 
     ## Bindings:
     ## - x: [numeric]
@@ -84,14 +105,17 @@ generate the `qenv` using the
 [`get_code()`](https://insightsengineering.github.io/teal.code/reference/get_code.md)
 function.
 
+\
 [`print`](https://rdrr.io/r/base/print.html)`(``q2``[[``"y"``]``]``)`
 
     ## [1] 4
 
+\
 [`print`](https://rdrr.io/r/base/print.html)`(`[`get_outputs`](https://insightsengineering.github.io/teal.code/reference/get_outputs.md)`(``q2``)``[[``1``]``]``)`
 
 ![](qenv_files/figure-html/unnamed-chunk-4-1.png)
 
+\
 [`cat`](https://rdrr.io/r/base/cat.html)`(`[`get_code`](https://insightsengineering.github.io/teal.code/reference/get_code.md)`(``q2``)``)`
 
     ## x <- 2
@@ -105,16 +129,31 @@ In some cases, one may want to substitute some elements of the code
 before evaluation. Consider a case when a subset of `iris` is defined by
 an input value.
 
-`q`` ``<-`` `[`qenv`](https://insightsengineering.github.io/teal.code/reference/qenv.md)`(``)`` ``q`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(``q``, `[`quote`](https://rdrr.io/r/base/substitute.html)`(``i`` ``<-`` `[`subset`](https://rdrr.io/r/base/subset.html)`(``iris``, ``Species`` ``==`` ``"setosa"``)``)``)`` ``q`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(``q``, `[`substitute`](https://rdrr.io/r/base/substitute.html)`(`` `` ``ii`` ``<-`` `[`subset`](https://rdrr.io/r/base/subset.html)`(``iris``, ``Species`` ``==`` ``species``)``,`` `` env ``=`` `[`list`](https://rdrr.io/r/base/list.html)`(``species ``=`` ``"versicolor"``)`` ``)``)`` ``input_value`` ``<-`` ``"virginica"`` ``q`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(``q``, `[`substitute`](https://rdrr.io/r/base/substitute.html)`(`` `` ``iii`` ``<-`` `[`subset`](https://rdrr.io/r/base/subset.html)`(``iris``, ``Species`` ``==`` ``species``)``,`` `` env ``=`` `[`list`](https://rdrr.io/r/base/list.html)`(``species ``=`` ``input_value``)`` ``)``)`` `` `[`summary`](https://rdrr.io/r/base/summary.html)`(``q``[[``"i"``]``]``$``Species``)`
+\
+`q`` ``<-`` `[`qenv`](https://insightsengineering.github.io/teal.code/reference/qenv.md)`(``)`\
+`q`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(``q``, `[`quote`](https://rdrr.io/r/base/substitute.html)`(``i`` ``<-`` `[`subset`](https://rdrr.io/r/base/subset.html)`(``iris``, ``Species`` ``==`` ``"setosa"``)``)``)`\
+`q`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(``q``, `[`substitute`](https://rdrr.io/r/base/substitute.html)`(`\
+`  ``ii`` ``<-`` `[`subset`](https://rdrr.io/r/base/subset.html)`(``iris``, ``Species`` ``==`` ``species``)``,`\
+`  env ``=`` `[`list`](https://rdrr.io/r/base/list.html)`(``species ``=`` ``"versicolor"``)`\
+`)``)`\
+`input_value`` ``<-`` ``"virginica"`\
+`q`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(``q``, `[`substitute`](https://rdrr.io/r/base/substitute.html)`(`\
+`  ``iii`` ``<-`` `[`subset`](https://rdrr.io/r/base/subset.html)`(``iris``, ``Species`` ``==`` ``species``)``,`\
+`  env ``=`` `[`list`](https://rdrr.io/r/base/list.html)`(``species ``=`` ``input_value``)`\
+`)``)`\
+\
+[`summary`](https://rdrr.io/r/base/summary.html)`(``q``[[``"i"``]``]``$``Species``)`
 
     ##     setosa versicolor  virginica 
     ##         50          0          0
 
+\
 [`summary`](https://rdrr.io/r/base/summary.html)`(``q``[[``"ii"``]``]``$``Species``)`
 
     ##     setosa versicolor  virginica 
     ##          0         50          0
 
+\
 [`summary`](https://rdrr.io/r/base/summary.html)`(``q``[[``"iii"``]``]``$``Species``)`
 
     ##     setosa versicolor  virginica 
@@ -123,16 +162,25 @@ an input value.
 A more convenient way to pass code with substitution is to use the
 `within` method.
 
-`qq`` ``<-`` `[`qenv`](https://insightsengineering.github.io/teal.code/reference/qenv.md)`(``)`` ``qq`` ``<-`` `[`within`](https://insightsengineering.github.io/teal.code/reference/within.qenv.md)`(``qq``, ``i`` ``<-`` `[`subset`](https://rdrr.io/r/base/subset.html)`(``iris``, ``Species`` ``==`` ``"setosa"``)``)`` ``qq`` ``<-`` `[`within`](https://insightsengineering.github.io/teal.code/reference/within.qenv.md)`(``qq``, ``ii`` ``<-`` `[`subset`](https://rdrr.io/r/base/subset.html)`(``iris``, ``Species`` ``==`` ``species``)``, species ``=`` ``"versicolor"``)`` ``input_value`` ``<-`` ``"virginica"`` ``qq`` ``<-`` `[`within`](https://insightsengineering.github.io/teal.code/reference/within.qenv.md)`(``qq``, ``iii`` ``<-`` `[`subset`](https://rdrr.io/r/base/subset.html)`(``iris``, ``Species`` ``==`` ``species``)``, species ``=`` ``input_value``)`` `` `[`summary`](https://rdrr.io/r/base/summary.html)`(``qq``[[``"i"``]``]``$``Species``)`
+\
+`qq`` ``<-`` `[`qenv`](https://insightsengineering.github.io/teal.code/reference/qenv.md)`(``)`\
+`qq`` ``<-`` `[`within`](https://insightsengineering.github.io/teal.code/reference/within.qenv.md)`(``qq``, ``i`` ``<-`` `[`subset`](https://rdrr.io/r/base/subset.html)`(``iris``, ``Species`` ``==`` ``"setosa"``)``)`\
+`qq`` ``<-`` `[`within`](https://insightsengineering.github.io/teal.code/reference/within.qenv.md)`(``qq``, ``ii`` ``<-`` `[`subset`](https://rdrr.io/r/base/subset.html)`(``iris``, ``Species`` ``==`` ``species``)``, species ``=`` ``"versicolor"``)`\
+`input_value`` ``<-`` ``"virginica"`\
+`qq`` ``<-`` `[`within`](https://insightsengineering.github.io/teal.code/reference/within.qenv.md)`(``qq``, ``iii`` ``<-`` `[`subset`](https://rdrr.io/r/base/subset.html)`(``iris``, ``Species`` ``==`` ``species``)``, species ``=`` ``input_value``)`\
+\
+[`summary`](https://rdrr.io/r/base/summary.html)`(``qq``[[``"i"``]``]``$``Species``)`
 
     ##     setosa versicolor  virginica 
     ##         50          0          0
 
+\
 [`summary`](https://rdrr.io/r/base/summary.html)`(``qq``[[``"ii"``]``]``$``Species``)`
 
     ##     setosa versicolor  virginica 
     ##          0         50          0
 
+\
 [`summary`](https://rdrr.io/r/base/summary.html)`(``qq``[[``"iii"``]``]``$``Species``)`
 
     ##     setosa versicolor  virginica 
@@ -148,15 +196,24 @@ Given a pair of `qenv` objects, you may be able to “join” them, creating
 a new `qenv` object encompassing the union of both environments, along
 with the requisite code for reproduction:
 
-`common_q`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(`[`qenv`](https://insightsengineering.github.io/teal.code/reference/qenv.md)`(``)``, `[`quote`](https://rdrr.io/r/base/substitute.html)`(``x`` ``<-`` ``1``)``)`` `` ``x_q`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(``common_q``, `[`quote`](https://rdrr.io/r/base/substitute.html)`(``y`` ``<-`` ``5``)``)`` ``y_q`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(``common_q``, `[`quote`](https://rdrr.io/r/base/substitute.html)`(``z`` ``<-`` ``5``)``)`` `` ``join_q`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``x_q``, ``y_q``)`` `` `[`print`](https://rdrr.io/r/base/print.html)`(``join_q``)`
+\
+`common_q`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(`[`qenv`](https://insightsengineering.github.io/teal.code/reference/qenv.md)`(``)``, `[`quote`](https://rdrr.io/r/base/substitute.html)`(``x`` ``<-`` ``1``)``)`\
+\
+`x_q`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(``common_q``, `[`quote`](https://rdrr.io/r/base/substitute.html)`(``y`` ``<-`` ``5``)``)`\
+`y_q`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(``common_q``, `[`quote`](https://rdrr.io/r/base/substitute.html)`(``z`` ``<-`` ``5``)``)`\
+\
+`join_q`` ``<-`` `[`c`](https://rdrr.io/r/base/c.html)`(``x_q``, ``y_q``)`\
+\
+[`print`](https://rdrr.io/r/base/print.html)`(``join_q``)`
 
-    ## <environment: 0x55f5ef2cc8c8> 🔒 
+    ## <environment: 0x55d559108b68> 🔒 
     ## Parent: <environment: package:teal.code> 
     ## Bindings:
     ## - x: [numeric]
     ## - y: [numeric]
     ## - z: [numeric]
 
+\
 [`names`](https://rdrr.io/r/base/names.html)`(``join_q``)`
 
     ## [1] "x" "y" "z"
@@ -175,11 +232,15 @@ and
 [`get_warnings()`](https://insightsengineering.github.io/teal.code/reference/get_warnings.md)
 functions as shown below.
 
-`q_message`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(`[`qenv`](https://insightsengineering.github.io/teal.code/reference/qenv.md)`(``)``, `[`quote`](https://rdrr.io/r/base/substitute.html)`(`[`message`](https://rdrr.io/r/base/message.html)`(``"this is a message"``)``)``)`` `[`get_messages`](https://insightsengineering.github.io/teal.code/reference/get_messages.md)`(``q_message``)`
+\
+`q_message`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(`[`qenv`](https://insightsengineering.github.io/teal.code/reference/qenv.md)`(``)``, `[`quote`](https://rdrr.io/r/base/substitute.html)`(`[`message`](https://rdrr.io/r/base/message.html)`(``"this is a message"``)``)``)`\
+[`get_messages`](https://insightsengineering.github.io/teal.code/reference/get_messages.md)`(``q_message``)`
 
     ## [1] "~~~ Messages ~~~\n\n> this is a message\nwhen running code:\nmessage(\"this is a message\")\n\n~~~ Trace ~~~\n\nmessage(\"this is a message\")"
 
-`q_warning`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(`[`qenv`](https://insightsengineering.github.io/teal.code/reference/qenv.md)`(``)``, `[`quote`](https://rdrr.io/r/base/substitute.html)`(`[`warning`](https://rdrr.io/r/base/warning.html)`(``"and this is a warning"``)``)``)`` `[`get_warnings`](https://insightsengineering.github.io/teal.code/reference/get_warnings.md)`(``q_warning``)`
+\
+`q_warning`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(`[`qenv`](https://insightsengineering.github.io/teal.code/reference/qenv.md)`(``)``, `[`quote`](https://rdrr.io/r/base/substitute.html)`(`[`warning`](https://rdrr.io/r/base/warning.html)`(``"and this is a warning"``)``)``)`\
+[`get_warnings`](https://insightsengineering.github.io/teal.code/reference/get_warnings.md)`(``q_warning``)`
 
     ## [1] "~~~ Warnings ~~~\n\n> and this is a warning\nwhen running code:\nwarning(\"and this is a warning\")\n\n~~~ Trace ~~~\n\nwarning(\"and this is a warning\")"
 
@@ -198,24 +259,66 @@ wherever a `qenv` object is used, alleviating the need for code
 alterations to handle these errors. Select the `error_option` in the
 example below to witness `qenv` error handling in action.
 
-[`library`](https://rdrr.io/r/base/library.html)`(`[`shiny`](https://shiny.posit.co/)`)`` ``# create an initial qenv with the data in`` ``data_q`` ``<-`` `[`qenv`](https://insightsengineering.github.io/teal.code/reference/qenv.md)`(``)`` ``data_q`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(``data_q``, ``"iris_data <- iris"``)`` `` ``ui`` ``<-`` `[`fluidPage`](https://rdrr.io/pkg/shiny/man/fluidPage.html)`(`` `` `[`radioButtons`](https://rdrr.io/pkg/shiny/man/radioButtons.html)`(`` `` ``"option"``, ``"Choose a column to plot:"``,`` `` `[`c`](https://rdrr.io/r/base/c.html)`(``"Sepal.Length"``, ``"Sepal.Width"``, ``"Petal.Length"``, ``"Petal.Width"``, ``"error_option"``)`` `` ``)``,`` `` `[`verbatimTextOutput`](https://rdrr.io/pkg/shiny/man/textOutput.html)`(``"rcode"``)``,`` `` `[`plotOutput`](https://rdrr.io/pkg/shiny/man/plotOutput.html)`(``"plot"``)`` ``)`` `` ``server`` ``<-`` ``function``(``input``, ``output``, ``session``)`` ``{`` `` ``# create a qenv containing the reproducible output`` `` ``output_q`` ``<-`` `[`reactive`](https://rdrr.io/pkg/shiny/man/reactive.html)`(``{`` `` `[`req`](https://rdrr.io/pkg/shiny/man/req.html)`(``input``$``option``)`` `` `[`within`](https://insightsengineering.github.io/teal.code/reference/within.qenv.md)`(`` `` ``data_q``,`` `` ``p`` ``<-`` `[`hist`](https://rdrr.io/r/graphics/hist.html)`(``iris_data``[``, ``.``(``input``$``option``)``]``)`` `` ``)`` `` ``}``)`` `` `` ``# display plot output`` `` ``output``$``plot`` ``<-`` `[`renderPlot`](https://rdrr.io/pkg/shiny/man/renderPlot.html)`(``output_q``(``)``[[``"p"``]``]``)`` `` ``# display code`` `` ``output``$``rcode`` ``<-`` `[`renderText`](https://rdrr.io/pkg/shiny/man/renderPrint.html)`(`[`get_code`](https://insightsengineering.github.io/teal.code/reference/get_code.md)`(``output_q``(``)``)``)`` ``}`` `` ``if`` ``(`[`interactive`](https://rdrr.io/r/base/interactive.html)`(``)``)`` ``{`` `` `[`shinyApp`](https://rdrr.io/pkg/shiny/man/shinyApp.html)`(``ui``, ``server``)`` ``}`
+\
+[`library`](https://rdrr.io/r/base/library.html)`(`[`shiny`](https://shiny.posit.co/)`)`\
+`# create an initial qenv with the data in`\
+`data_q`` ``<-`` `[`qenv`](https://insightsengineering.github.io/teal.code/reference/qenv.md)`(``)`\
+`data_q`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(``data_q``, ``"iris_data <- iris"``)`\
+\
+`ui`` ``<-`` `[`fluidPage`](https://rdrr.io/pkg/shiny/man/fluidPage.html)`(`\
+`  `[`radioButtons`](https://rdrr.io/pkg/shiny/man/radioButtons.html)`(`\
+`    ``"option"``, ``"Choose a column to plot:"``,`\
+`    `[`c`](https://rdrr.io/r/base/c.html)`(``"Sepal.Length"``, ``"Sepal.Width"``, ``"Petal.Length"``, ``"Petal.Width"``, ``"error_option"``)`\
+`  ``)``,`\
+`  `[`verbatimTextOutput`](https://rdrr.io/pkg/shiny/man/textOutput.html)`(``"rcode"``)``,`\
+`  `[`plotOutput`](https://rdrr.io/pkg/shiny/man/plotOutput.html)`(``"plot"``)`\
+`)`\
+\
+`server`` ``<-`` ``function``(``input``, ``output``, ``session``)`` ``{`\
+`  ``# create a qenv containing the reproducible output`\
+`  ``output_q`` ``<-`` `[`reactive`](https://rdrr.io/pkg/shiny/man/reactive.html)`(``{`\
+`    `[`req`](https://rdrr.io/pkg/shiny/man/req.html)`(``input``$``option``)`\
+`    `[`within`](https://insightsengineering.github.io/teal.code/reference/within.qenv.md)`(`\
+`      ``data_q``,`\
+`      ``p`` ``<-`` `[`hist`](https://rdrr.io/r/graphics/hist.html)`(``iris_data``[``, ``.``(``input``$``option``)``]``)`\
+`    ``)`\
+`  ``}``)`\
+\
+`  ``# display plot output`\
+`  ``output``$``plot`` ``<-`` `[`renderPlot`](https://rdrr.io/pkg/shiny/man/renderPlot.html)`(``output_q``(``)``[[``"p"``]``]``)`\
+`  ``# display code`\
+`  ``output``$``rcode`` ``<-`` `[`renderText`](https://rdrr.io/pkg/shiny/man/renderPrint.html)`(`[`get_code`](https://insightsengineering.github.io/teal.code/reference/get_code.md)`(``output_q``(``)``)``)`\
+`}`\
+\
+`if`` ``(`[`interactive`](https://rdrr.io/r/base/interactive.html)`(``)``)`` ``{`\
+`  `[`shinyApp`](https://rdrr.io/pkg/shiny/man/shinyApp.html)`(``ui``, ``server``)`\
+`}`
 
 ### Reproducibility
 
 The code inside a `qenv` object can be retrieved using `get_code`
 function.
 
-`q_reproducible`` ``<-`` `[`qenv`](https://insightsengineering.github.io/teal.code/reference/qenv.md)`(``)`` ``q_reproducible`` ``<-`` `[`within`](https://insightsengineering.github.io/teal.code/reference/within.qenv.md)`(``q_reproducible``, ``{`` `` ``a`` ``<-`` ``2`` `` ``b`` ``<-`` ``5`` `` ``c`` ``<-`` ``a`` ``+`` ``b`` ``}``)`` `[`cat`](https://rdrr.io/r/base/cat.html)`(`[`get_code`](https://insightsengineering.github.io/teal.code/reference/get_code.md)`(``q_reproducible``)``)`
+\
+`q_reproducible`` ``<-`` `[`qenv`](https://insightsengineering.github.io/teal.code/reference/qenv.md)`(``)`\
+`q_reproducible`` ``<-`` `[`within`](https://insightsengineering.github.io/teal.code/reference/within.qenv.md)`(``q_reproducible``, ``{`\
+`  ``a`` ``<-`` ``2`\
+`  ``b`` ``<-`` ``5`\
+`  ``c`` ``<-`` ``a`` ``+`` ``b`\
+`}``)`\
+[`cat`](https://rdrr.io/r/base/cat.html)`(`[`get_code`](https://insightsengineering.github.io/teal.code/reference/get_code.md)`(``q_reproducible``)``)`
 
     ## a <- 2
     ## b <- 5
     ## c <- a + b
 
-[`cat`](https://rdrr.io/r/base/cat.html)`(`[`get_code`](https://insightsengineering.github.io/teal.code/reference/get_code.md)`(``q_reproducible``, names ``=`` ``"a"``)``)`
+\
+[`cat`](https://rdrr.io/r/base/cat.html)`(`[`get_code`](https://insightsengineering.github.io/teal.code/reference/get_code.md)`(``q_reproducible``, names ``=`` ``"a"``)``)`
 
     ## a <- 2
 
-[`cat`](https://rdrr.io/r/base/cat.html)`(`[`get_code`](https://insightsengineering.github.io/teal.code/reference/get_code.md)`(``q_reproducible``, names ``=`` ``"c"``)``)`
+\
+[`cat`](https://rdrr.io/r/base/cat.html)`(`[`get_code`](https://insightsengineering.github.io/teal.code/reference/get_code.md)`(``q_reproducible``, names ``=`` ``"c"``)``)`
 
     ## a <- 2
     ## b <- 5
@@ -229,7 +332,13 @@ generation) from previous calls, this dependency can be specified in the
 `qenv`. You achieve this by adding the comment `# @linksto` followed by
 the name of the linked object.
 
-`q_linked`` ``<-`` `[`qenv`](https://insightsengineering.github.io/teal.code/reference/qenv.md)`(``)`` ``q_linked`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(``q_reproducible``, ``"`` `` set.seed(2) # @linksto a`` `` a <- runif(1)`` ``"``)`` `[`cat`](https://rdrr.io/r/base/cat.html)`(`[`get_code`](https://insightsengineering.github.io/teal.code/reference/get_code.md)`(``q_linked``)``)`
+\
+`q_linked`` ``<-`` `[`qenv`](https://insightsengineering.github.io/teal.code/reference/qenv.md)`(``)`\
+`q_linked`` ``<-`` `[`eval_code`](https://insightsengineering.github.io/teal.code/reference/eval_code.md)`(``q_reproducible``, ``"`\
+`  set.seed(2) # @linksto a`\
+`  a <- runif(1)`\
+`"``)`\
+[`cat`](https://rdrr.io/r/base/cat.html)`(`[`get_code`](https://insightsengineering.github.io/teal.code/reference/get_code.md)`(``q_linked``)``)`
 
     ## a <- 2
     ## b <- 5
@@ -238,7 +347,8 @@ the name of the linked object.
     ##   set.seed(2) # @linksto a
     ##   a <- runif(1)
 
-[`cat`](https://rdrr.io/r/base/cat.html)`(`[`get_code`](https://insightsengineering.github.io/teal.code/reference/get_code.md)`(``q_linked``, names ``=`` ``"a"``)``)`
+\
+[`cat`](https://rdrr.io/r/base/cat.html)`(`[`get_code`](https://insightsengineering.github.io/teal.code/reference/get_code.md)`(``q_linked``, names ``=`` ``"a"``)``)`
 
     ## a <- 2
     ##   set.seed(2) # @linksto a
