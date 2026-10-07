@@ -1,21 +1,21 @@
 ---
 current_repo:
-  repo: insightsengineering/teal.code
+  repo: pharmaverse/teal.code
   host: https://github.com
 upstream_repos:
 downstream_repos:
-  insightsengineering/teal:
-    repo: insightsengineering/teal
+  pharmaverse/teal:
+    repo: pharmaverse/teal
     host: https://github.com
-  insightsengineering/teal.modules.general:
-    repo: insightsengineering/teal.modules.general
+  pharmaverse/teal.modules.general:
+    repo: pharmaverse/teal.modules.general
     host: https://github.com
-  insightsengineering/teal.modules.clinical:
-    repo: insightsengineering/teal.modules.clinical
+  pharmaverse/teal.modules.clinical:
+    repo: pharmaverse/teal.modules.clinical
     host: https://github.com
-  insightsengineering/teal.goshawk:
-    repo: insightsengineering/teal.goshawk
+  pharmaverse/teal.goshawk:
+    repo: pharmaverse/teal.goshawk
     host: https://github.com
-  insightsengineering/teal.osprey:
-    repo: insightsengineering/teal.osprey
+  pharmaverse/teal.osprey:
+    repo: pharmaverse/teal.osprey
     host: https://github.com

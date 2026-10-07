@@ -216,4 +216,4 @@ Currently, object linking for reproducibility is only supported by the `eval_cod
 
 ## `qenv` and `teal` applications
 
-The versatile `qenv` object can seamlessly integrate into teal modules. Explore the teal vignette [Creating Custom Modules](https://insightsengineering.github.io/teal/latest-tag/articles/creating-custom-modules.html) for detailed guidance.
+The versatile `qenv` object can seamlessly integrate into teal modules. Explore the teal vignette [Creating Custom Modules](https://pharmaverse.github.io/teal/latest-tag/articles/creating-custom-modules.html) for detailed guidance.
