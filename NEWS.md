@@ -2,7 +2,8 @@
 
 ### Bug fixes
 
-* Fixed a problem parsing expression referring to the same object (#293)
+* Fixed a problem parsing expression referring to the same object (#293).
+* Fixed a problem when a symbol appears alone inside an expression (#299).
 
 # teal.code 0.7.2
 
