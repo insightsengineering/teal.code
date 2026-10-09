@@ -171,10 +171,10 @@ test_that("handles name expression inside if clause", {
   expect_no_error(
     within(qenv(), {
       if (TRUE) {
-          table <- iris
+        table <- iris
       }
       if (TRUE) {
-          table
+        table
       }
     })
   )
