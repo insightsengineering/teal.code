@@ -166,3 +166,16 @@ test_that("Chinese characters are handled properly (issue 284)", {
 
   expect_equal(lengths(strsplit(get_code(q), split = "\n", fixed = TRUE)), 4L)
 })
+
+test_that("handles name expression inside if clause", {
+  expect_no_error(
+    within(qenv(), {
+      if (TRUE) {
+          table <- iris
+      }
+      if (TRUE) {
+          table
+      }
+    })
+  )
+})
