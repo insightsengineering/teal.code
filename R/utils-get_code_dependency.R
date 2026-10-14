@@ -398,7 +398,7 @@ extract_dependency <- function(parsed_code) {
   while (length(queue) > 0) {
     current <- queue[[1]]
     queue <- queue[-1]
-    if (identical(current[[1L]], as.name("{"))) {
+    if (typeof(current) == "language" && inherits(current, "{")) {
       queue <- append(queue, as.list(current)[-1L])
     } else {
       parsed_code <- parse(text = as.expression(current), keep.source = TRUE, encoding = "UTF-8")
