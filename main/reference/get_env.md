@@ -28,5 +28,5 @@ q1 <- within(q, {
   b <- data.frame(x = 1:10)
 })
 get_env(q1)
-#> <environment: 0x55c8258a0d20>
+#> <environment: 0x563f64cd0820>
 ```

@@ -1,11 +1,13 @@
 # Changelog
 
-## teal.code 0.7.2.9002
+## teal.code 0.7.2.9003
 
 #### Bug fixes
 
 - Fixed a problem parsing expression referring to the same object
-  ([\#293](https://github.com/insightsengineering/teal.code/issues/293))
+  ([\#293](https://github.com/insightsengineering/teal.code/issues/293)).
+- Fixed a problem when a symbol appears alone inside an expression
+  ([\#299](https://github.com/insightsengineering/teal.code/issues/299)).
 
 ## teal.code 0.7.2
 
